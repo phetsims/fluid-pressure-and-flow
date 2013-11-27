@@ -11,9 +11,14 @@ define( function( require ) {
   var Screen = require( 'JOIST/Screen' );
   var Sim = require( 'JOIST/Sim' );
   var SimLauncher = require( 'JOIST/SimLauncher' );
+  var ScreenView = require( 'JOIST/ScreenView' );
+  var SquarePoolModel = require('square-pool/model/SquarePoolModel');
+  var SquarePoolView = require('square-pool/view/SquarePoolView');
 
   // Strings
   var simTitle = require( 'string!UNDER_PRESSURE/under-pressure.name' );
+
+
 
   var simOptions = {
     credits: {
@@ -28,6 +33,11 @@ define( function( require ) {
 
     // Create and start the sim
     new Sim( simTitle, [
+      new Screen( simTitle, null,
+        function() {return new SquarePoolModel( ScreenView.LAYOUT_BOUNDS.width, ScreenView.LAYOUT_BOUNDS.height );},
+        function( model ) {return new SquarePoolView( model );},
+        { backgroundColor: '#fff' }
+      )
     ], simOptions ).start();
   } );
 } );

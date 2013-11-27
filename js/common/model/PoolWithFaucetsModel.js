@@ -1,0 +1,54 @@
+// Copyright 2002-2013, University of Colorado Boulder
+
+/**
+ * main Model container.
+ *
+ * @author Andrey Zelenkov (Mlearner)
+ */
+define( function( require ) {
+  'use strict';
+
+  var PropertySet = require( 'AXON/PropertySet' );
+  var inherit = require( 'PHET_CORE/inherit' );
+  var Node = require( 'SCENERY/nodes/Node' );
+  var Vector2 = require( 'DOT/Vector2' );
+  var SimpleDragHandler = require( 'SCENERY/input/SimpleDragHandler' );
+  var UnderPressureModel = require( 'common/model/UnderPressureModel' );
+  var FaucetModel = require( 'common/model/FaucetModel' );
+
+
+  function PoolWithFaucetsModel( width, height ) {
+    var self = this;
+
+    this.inputFaucet = new FaucetModel( new Vector2( 225, 180 ), 1 );
+    this.outputFaucet = new FaucetModel( new Vector2( 575, 485 ), 1 );
+
+    UnderPressureModel.call( this, width, height );
+
+    // Enable faucets and dropper based on amount of solution in the beaker.
+    this.volumeProperty.link( function( volume ) {
+      self.inputFaucet.enabled = ( volume < self.MAX_VOLUME );
+      self.outputFaucet.enabled = ( volume > 0 );
+    } );
+
+  }
+
+  return inherit( UnderPressureModel, PoolWithFaucetsModel, {
+    step: function( dt ) {
+      this.addLiquid( dt );
+      this.removeLiquid( dt );
+    },
+    addLiquid: function( dt ) {
+      var deltaVolume = this.inputFaucet.flowRate * dt;
+      if ( deltaVolume > 0 ) {
+        this.volume =  Math.min( this.MAX_VOLUME, this.volume + deltaVolume );
+      }
+    },
+    removeLiquid: function( dt ) {
+      var deltaVolume = this.outputFaucet.flowRate * dt;
+      if ( deltaVolume > 0 ) {
+        this.volume =  Math.max( 0, this.volume - deltaVolume );
+      }
+    }
+  } );
+} );
