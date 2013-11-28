@@ -25,7 +25,10 @@ define( function( require ) {
 
     PropertySet.call( this, {
       volume: 0, // volume of liquid in the pool, L
-      isAtmosphere: true
+      isAtmosphere: true,
+      isRulerVisible : false,
+      isGridVisible : false,
+      measureUnits : "m"
     } );
 
   }
