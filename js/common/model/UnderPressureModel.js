@@ -10,11 +10,9 @@ define( function( require ) {
 
   var PropertySet = require( 'AXON/PropertySet' );
   var inherit = require( 'PHET_CORE/inherit' );
-  var Node = require( 'SCENERY/nodes/Node' );
-  var Vector2 = require( 'DOT/Vector2' );
-  var SimpleDragHandler = require( 'SCENERY/input/SimpleDragHandler' );
+  var Range = require( 'DOT/Range' );
 
-  function UnderPressureModel(width, height) {
+  function UnderPressureModel( width, height ) {
 
     // dimensions of the model's space
     this.width = width;
@@ -22,13 +20,17 @@ define( function( require ) {
 
     this.skyGroundBoundY = this.height * 0.42;
 
+    this.gravityRange = new Range( 3.71, 24.92 );
+    this.fluidDensityRange = new Range( 700, 1420 );
 
     PropertySet.call( this, {
       volume: 0, // volume of liquid in the pool, L
       isAtmosphere: true,
-      isRulerVisible : false,
-      isGridVisible : false,
-      measureUnits : "m"
+      isRulerVisible: false,
+      isGridVisible: false,
+      measureUnits: "metric",
+      gravity: 9.8,
+      fluidDencity: 1000
     } );
 
   }

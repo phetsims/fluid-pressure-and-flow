@@ -27,9 +27,9 @@ define( function( require ) {
     PoolWithFaucetsModel.call( this, width, height );
 
     this.poolDimensions = {
-      x1: 180,
+      x1: 100,
       y1: self.skyGroundBoundY,
-      x2: 500,
+      x2: 420,
       y2: self.skyGroundBoundY + 220
     };
 

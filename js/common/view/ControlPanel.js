@@ -77,11 +77,11 @@ define( function( require ) {
     var content = new VBox( {
       spacing: 10,
       children: [checkBoxes, atmosphere, metrics],
-      align:"left",
+      align:"left"
     } );
 
 
-    Panel.call( this, content, { xMargin: 10, yMargin: 10, fill: '#f1f869', stroke: 'gray', lineWidth: 1, resize: false, x: x, y: y } );
+    Panel.call( this, content, { xMargin: 10, yMargin: 10, fill: '#f2fa6a ', stroke: 'gray', lineWidth: 1, resize: false, x: x, y: y } );
   }
 
   return inherit( Node, ControlPanel, {

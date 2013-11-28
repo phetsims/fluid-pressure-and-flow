@@ -13,6 +13,10 @@ define( function( require ) {
   var Rectangle = require( 'SCENERY/nodes/Rectangle' );
   var ResetAllButton = require( 'SCENERY_PHET/ResetAllButton' );
   var ControlPanel = require( "common/view/ControlPanel" );
+  var ControlSlider = require( "common/view/ControlSlider" );
+
+  var fluidDencityString  = require( 'string!UNDER_PRESSURE/fluidDensity' );
+  var gravityString  = require( 'string!UNDER_PRESSURE/gravity' );
 
   function CommonNode( model ) {
     Node.call( this );
@@ -40,11 +44,25 @@ define( function( require ) {
       fill: "#93774c"
     } ) );
 
-    // add reset button
-    this.addChild( new ResetAllButton( function() { model.reset(); }, { scale: 0.5, x: model.width * 0.94, y: model.height * 0.9} ) );
+
 
     //control panel
     this.addChild( new ControlPanel( model, 625, 25 ) );
+
+    //control sliders
+    this.addChild( new ControlSlider( model.gravityProperty, model.gravityRange, {
+      x:575,
+      y:215,
+      title: gravityString
+    }) );
+    this.addChild( new ControlSlider( model.fluidDencityProperty, model.fluidDensityRange, {
+      x:575,
+      y:340,
+      title: fluidDencityString
+    }) );
+
+    // add reset button
+    this.addChild( new ResetAllButton( function() { model.reset(); }, { scale: 0.5, x: model.width * 0.94, y: model.height -25} ) );
 
   }
 
