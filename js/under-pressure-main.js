@@ -12,12 +12,16 @@ define( function( require ) {
   var Sim = require( 'JOIST/Sim' );
   var SimLauncher = require( 'JOIST/SimLauncher' );
   var ScreenView = require( 'JOIST/ScreenView' );
-  var SquarePoolModel = require('square-pool/model/SquarePoolModel');
-  var SquarePoolView = require('square-pool/view/SquarePoolView');
+  var SquarePoolModel = require( 'square-pool/model/SquarePoolModel' );
+  var SquarePoolView = require( 'square-pool/view/SquarePoolView' );
+  var TrapezoidPoolModel = require( 'trapezoid-pool/model/TrapezoidPoolModel' );
+  var TrapezoidPoolView = require( 'trapezoid-pool/view/TrapezoidPoolView' );
+
+  var squarePoolIcon = require( "image!UNDER_PRESSURE/square-pool-icon.png" );
+  var trapezoidPoolIcon = require( "image!UNDER_PRESSURE/trapezoid-pool-icon.png" );
 
   // Strings
   var simTitle = require( 'string!UNDER_PRESSURE/under-pressure.name' );
-
 
 
   var simOptions = {
@@ -30,14 +34,18 @@ define( function( require ) {
   };
 
   SimLauncher.launch( function() {
-
     // Create and start the sim
     new Sim( simTitle, [
-      new Screen( simTitle, null,
+      new Screen( "", new Image( squarePoolIcon ),
         function() {return new SquarePoolModel( ScreenView.LAYOUT_BOUNDS.width, ScreenView.LAYOUT_BOUNDS.height );},
         function( model ) {return new SquarePoolView( model );},
         { backgroundColor: '#fff' }
-      )
+      )/*,
+       new Screen( "", new Image(trapezoidPoolIcon),
+       function() {return new SquarePoolModel( ScreenView.LAYOUT_BOUNDS.width, ScreenView.LAYOUT_BOUNDS.height );},
+       function( model ) {return new SquarePoolView( model );},
+       { backgroundColor: '#fff' }
+       )*/
     ], simOptions ).start();
   } );
 } );

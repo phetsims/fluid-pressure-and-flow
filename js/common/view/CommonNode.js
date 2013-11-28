@@ -21,7 +21,6 @@ define( function( require ) {
   function CommonNode( model ) {
     Node.call( this );
 
-
     //sky
     var sky = new Rectangle( -1000, 0, 3000, model.skyGroundBoundY );
 
@@ -40,7 +39,7 @@ define( function( require ) {
 
 
     //earth
-    this.addChild( new Rectangle( 0, model.skyGroundBoundY, model.width, model.height, {
+    this.addChild( new Rectangle( 0, model.skyGroundBoundY, model.width, model.height-model.skyGroundBoundY, {
       fill: "#93774c"
     } ) );
 
@@ -62,7 +61,7 @@ define( function( require ) {
     }) );
 
     // add reset button
-    this.addChild( new ResetAllButton( function() { model.reset(); }, { scale: 0.5, x: model.width * 0.94, y: model.height -25} ) );
+    this.addChild( new ResetAllButton( function() { model.reset(); }, { scale: 0.5, x: 730, y: model.height -25} ) );
 
   }
 

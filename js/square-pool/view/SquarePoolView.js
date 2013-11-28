@@ -18,6 +18,8 @@ define( function( require ) {
   function SquarePoolView( model ) {
     ScreenView.call( this, { renderer: "svg" } );
 
+    console.log(this)
+
     //sky, earth and controls
     this.addChild( new CommonNode( model ) );
 
