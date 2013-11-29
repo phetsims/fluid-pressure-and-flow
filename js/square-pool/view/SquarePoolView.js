@@ -18,8 +18,6 @@ define( function( require ) {
   function SquarePoolView( model ) {
     ScreenView.call( this, { renderer: "svg" } );
 
-    console.log(this)
-
     //sky, earth and controls
     this.addChild( new CommonNode( model ) );
 
@@ -27,7 +25,7 @@ define( function( require ) {
     this.addChild( new SquarePoolBack( model ) );
 
     //fluids
-    this.addChild( new FaucetFluidNode( model.inputFaucet, model, model.poolDimensions.y2 - model.inputFaucet.location.y ) );
+    this.addChild( new FaucetFluidNode( model.inputFaucet, model, (model.poolDimensions.y2 - model.inputFaucet.location.y)*model.pxToMetersRatio ) );
     this.addChild( new FaucetFluidNode( model.outputFaucet, model, 1000 ) );
 
     //water

@@ -20,8 +20,8 @@ define( function( require ) {
   function PoolWithFaucetsModel( width, height ) {
     var self = this;
 
-    this.inputFaucet = new FaucetModel( new Vector2( 215, 190 ), 1 );
-    this.outputFaucet = new FaucetModel( new Vector2( 545, 475 ), 1 );
+    this.inputFaucet = new FaucetModel( new Vector2( 3, 2.7 ), 1 );
+    this.outputFaucet = new FaucetModel( new Vector2( 7.4, 6.79 ), 1 );
 
     UnderPressureModel.call( this, width, height );
 

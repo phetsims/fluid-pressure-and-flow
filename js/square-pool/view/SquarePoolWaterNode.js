@@ -16,12 +16,12 @@ define( function( require ) {
 
     self.fill = "blue";
 
-    var viewWidth = model.poolDimensions.x2 - model.poolDimensions.x1;
-    var maxHeight = model.poolDimensions.y2 - model.poolDimensions.y1;
+    var viewWidth = (model.poolDimensions.x2 - model.poolDimensions.x1) * model.pxToMetersRatio;
+    var maxHeight = (model.poolDimensions.y2 - model.poolDimensions.y1) * model.pxToMetersRatio;
 
     model.volumeProperty.link( function( volume ) {
-      var viewHeight = maxHeight * model.volume/model.MAX_VOLUME;
-      self.setRect( model.poolDimensions.x1, model.poolDimensions.y2 - viewHeight, viewWidth, viewHeight );
+      var viewHeight = maxHeight * model.volume / model.MAX_VOLUME;
+      self.setRect( model.poolDimensions.x1 * model.pxToMetersRatio, model.poolDimensions.y2 * model.pxToMetersRatio - viewHeight, viewWidth, viewHeight );
     } );
 
 

@@ -25,8 +25,8 @@ define( function( require ) {
         thisNode.setRect( 0, 0, 0, 0 );
       }
       else {
-        var viewWidth = faucet.spoutWidth * flowRate / faucet.maxFlowRate;
-        thisNode.setRect( faucet.location.x - (viewWidth / 2),  faucet.location.y, viewWidth, height );
+        var viewWidth = faucet.spoutWidth*model.pxToMetersRatio * flowRate / faucet.maxFlowRate;
+        thisNode.setRect( faucet.location.x*model.pxToMetersRatio - (viewWidth / 2),  faucet.location.y*model.pxToMetersRatio, viewWidth, height );
       }
     } );
   }

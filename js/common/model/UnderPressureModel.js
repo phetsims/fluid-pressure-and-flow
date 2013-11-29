@@ -17,7 +17,9 @@ define( function( require ) {
     // dimensions of the model's space
     this.width = width;
     this.height = height;
-    this.skyGroundBoundY = 220;
+    this.skyGroundBoundY = 3.14; // M
+
+    this.pxToMetersRatio = 70; // 70px = 1 M
 
     this.gravityRange = new Range( 3.71, 24.92 );
     this.fluidDensityRange = new Range( 700, 1420 );

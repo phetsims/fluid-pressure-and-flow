@@ -22,13 +22,13 @@ define( function( require ) {
     Node.call( this );
 
     //sky
-    var sky = new Rectangle( -1000, 0, 3000, model.skyGroundBoundY );
+    var sky = new Rectangle( -1000, 0, 3000, model.skyGroundBoundY*model.pxToMetersRatio );
 
     this.addChild( sky );
 
     model.isAtmosphereProperty.link( function( isAtmosphere ) {
       if ( isAtmosphere ) {
-        sky.fill = new LinearGradient( 0, 0, 0, model.skyGroundBoundY )
+        sky.fill = new LinearGradient( 0, 0, 0, model.skyGroundBoundY*model.pxToMetersRatio )
           .addColorStop( 0, "#c4e6f5" )
           .addColorStop( 1, "#daedfa" )
       }
@@ -39,7 +39,7 @@ define( function( require ) {
 
 
     //earth
-    this.addChild( new Rectangle( 0, model.skyGroundBoundY, model.width, model.height-model.skyGroundBoundY, {
+    this.addChild( new Rectangle( 0, model.skyGroundBoundY*model.pxToMetersRatio, model.width, model.height-model.skyGroundBoundY*model.pxToMetersRatio, {
       fill: "#93774c"
     } ) );
 

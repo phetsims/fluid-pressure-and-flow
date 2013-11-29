@@ -22,7 +22,9 @@ define( function( require ) {
 
     thisFaucet.location = location;
     thisFaucet.maxFlowRate = maxFlowRate;
-    thisFaucet.spoutWidth = 40;
+    thisFaucet.spoutWidth = 0.57;
+
+
 
     PropertySet.call( this, {
       flowRate: 0,
