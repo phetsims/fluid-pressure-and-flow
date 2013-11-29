@@ -17,12 +17,13 @@ define( function( require ) {
    * @param {Number} maxFlowRate L/sec
    * @constructor
    */
-  function Faucet( location, maxFlowRate ) {
+  function Faucet( location, maxFlowRate, scale ) {
     var thisFaucet = this;
 
     thisFaucet.location = location;
     thisFaucet.maxFlowRate = maxFlowRate;
-    thisFaucet.spoutWidth = 0.57;
+    thisFaucet.scale = scale
+    thisFaucet.spoutWidth = 1.35*scale;
 
 
 
