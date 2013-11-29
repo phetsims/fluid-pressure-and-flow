@@ -36,14 +36,14 @@ define( function( require ) {
   SimLauncher.launch( function() {
     // Create and start the sim
     new Sim( simTitle, [
-      /*new Screen( "", new Image( squarePoolIcon ),
+      new Screen( "", new Image( squarePoolIcon ),
         function() {return new SquarePoolModel( ScreenView.LAYOUT_BOUNDS.width, ScreenView.LAYOUT_BOUNDS.height );},
         function( model ) {return new SquarePoolView( model );},
         { backgroundColor: '#fff' }
-      ),*/
+      ),
        new Screen( "", new Image(trapezoidPoolIcon),
-       function() {return new SquarePoolModel( ScreenView.LAYOUT_BOUNDS.width, ScreenView.LAYOUT_BOUNDS.height );},
-       function( model ) {return new SquarePoolView( model );},
+       function() {return new TrapezoidPoolModel( ScreenView.LAYOUT_BOUNDS.width, ScreenView.LAYOUT_BOUNDS.height );},
+       function( model ) {return new TrapezoidPoolView( model );},
        { backgroundColor: '#fff' }
        )
     ], simOptions ).start();

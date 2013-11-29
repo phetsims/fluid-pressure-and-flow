@@ -24,6 +24,9 @@ define( function( require ) {
     var HEIGHT = 3; // Meters
     this.MAX_VOLUME = HEIGHT; // Liters
 
+    this.inputFaucet = new FaucetModel( new Vector2( 3, 2.7 ), 1 );
+    this.outputFaucet = new FaucetModel( new Vector2( 7.4, 6.79 ), 1 );
+
     PoolWithFaucetsModel.call( this, width, height );
 
     this.poolDimensions = {

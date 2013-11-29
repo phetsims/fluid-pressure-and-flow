@@ -49,14 +49,14 @@ define( function( require ) {
     } ) );
 
 
-    this.addChild(new UPFaucetNode(model,model.outputFaucet, 0));
+    this.addChild(new UPFaucetNode(model,model.outputFaucet, 0, 0.42));
 
     //white background for pool
     this.addChild( new Rectangle( model.poolDimensions.x1*model.pxToMetersRatio, model.poolDimensions.y1*model.pxToMetersRatio-1, model.poolDimensions.x2*model.pxToMetersRatio - model.poolDimensions.x1*model.pxToMetersRatio, model.poolDimensions.y2*model.pxToMetersRatio - model.poolDimensions.y1*model.pxToMetersRatio+1, {
       fill: "#f3f0e9"
     } ) );
 
-    this.addChild(new UPFaucetNode(model,model.inputFaucet, 505));
+    this.addChild(new UPFaucetNode(model,model.inputFaucet, 505, 0.42));
 
 
 
