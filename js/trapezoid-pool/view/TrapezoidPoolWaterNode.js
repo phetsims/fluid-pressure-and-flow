@@ -12,48 +12,67 @@ define( function( require ) {
   var Node = require( 'SCENERY/nodes/Node' );
   var Shape = require( 'KITE/Shape' );
   var Path = require( 'SCENERY/nodes/Path' );
+  var LinearGradient = require( 'SCENERY/util/LinearGradient' );
+  var Color = require( "SCENERY/util/Color" );
 
   function TrapezoidPoolWaterNode( model ) {
     var self = this;
-    Node.call( this);
+    Node.call( this );
 
     var leftShape = new Shape();
     var rightShape = new Shape();
     var bottomShape = new Shape();
     bottomShape = new Shape();
 
-    var leftPath = new Path(leftShape, {fill:"blue"});
-    var rightPath = new Path(rightShape, {fill:"blue"});
-    var bottomPath = new Path(bottomShape, {fill:"blue"});
+    var leftPath = new Path( leftShape);
+    var rightPath = new Path( rightShape);
+    var bottomPath = new Path( bottomShape);
+
+    var viewHeight;
+    var maxHeight = model.MAX_HEIGHT * model.pxToMetersRatio;
+
+    var yMax = (model.poolDimensions.leftChamber.y + model.poolDimensions.leftChamber.height);
+
+    model.waterColorModel.waterColorProperty.link( function( color ) {
+      viewHeight = maxHeight * model.volume / model.MAX_VOLUME;
+      var newGradient = new LinearGradient( 0, yMax, 0, yMax - maxHeight )
+        .addColorStop( 0, model.waterColorModel.bottomColor )
+        .addColorStop( 1, model.waterColorModel.topColor );
+
+      //self.fill = newGradient; TODO ask why not working
+      leftPath.fill = newGradient;
+      rightPath.fill = newGradient;
+      bottomPath.fill = newGradient;
+    } );
 
     model.volumeProperty.link( function( volume ) {
-      var viewHeight = model.HEIGHT * model.volume/model.MAX_VOLUME;
+      viewHeight = model.MAX_HEIGHT * model.volume / model.MAX_VOLUME;
 
       //bottomChamber
-      var h = Math.min(viewHeight,model.poolDimensions.bottomChamber.y2-model.poolDimensions.bottomChamber.y1);
+      var h = Math.min( viewHeight, model.poolDimensions.bottomChamber.y2 - model.poolDimensions.bottomChamber.y1 );
       bottomShape = new Shape()
-        .moveTo( model.verticles.x1middle * model.pxToMetersRatio - 6, (model.poolDimensions.bottomChamber.y2-h) * model.pxToMetersRatio )
-        .lineTo( model.verticles.x1middle * model.pxToMetersRatio - 6, model.poolDimensions.bottomChamber.y2 * model.pxToMetersRatio  )
-        .lineTo( model.verticles.x2middle * model.pxToMetersRatio + 6, model.poolDimensions.bottomChamber.y2 * model.pxToMetersRatio  )
-        .lineTo( model.verticles.x2middle * model.pxToMetersRatio + 6, (model.poolDimensions.bottomChamber.y2-h) * model.pxToMetersRatio  );
+        .moveTo( model.verticles.x1middle * model.pxToMetersRatio - 6, (yMax - h) * model.pxToMetersRatio )
+        .lineTo( model.verticles.x1middle * model.pxToMetersRatio - 6, yMax * model.pxToMetersRatio )
+        .lineTo( model.verticles.x2middle * model.pxToMetersRatio + 6, yMax * model.pxToMetersRatio )
+        .lineTo( model.verticles.x2middle * model.pxToMetersRatio + 6, (yMax - h) * model.pxToMetersRatio );
       bottomPath.shape = bottomShape;
 
-      var topY = model.poolDimensions.leftChamber.y+model.poolDimensions.leftChamber.height-viewHeight;
+      var topY = model.poolDimensions.leftChamber.y + model.poolDimensions.leftChamber.height - viewHeight;
 
       //leftChamber
       leftShape = new Shape()
-        .moveTo( model.poolDimensions.leftChamber.leftBorderFunction(viewHeight) * model.pxToMetersRatio, topY * model.pxToMetersRatio )
-        .lineTo( model.verticles.x1bottom * model.pxToMetersRatio, (model.poolDimensions.leftChamber.y + model.poolDimensions.leftChamber.height) * model.pxToMetersRatio  )
-        .lineTo( model.verticles.x2bottom * model.pxToMetersRatio, (model.poolDimensions.leftChamber.y + model.poolDimensions.leftChamber.height) * model.pxToMetersRatio )
-        .lineTo( model.poolDimensions.leftChamber.rightBorderFunction(viewHeight) * model.pxToMetersRatio, topY * model.pxToMetersRatio );
+        .moveTo( model.poolDimensions.leftChamber.leftBorderFunction( viewHeight ) * model.pxToMetersRatio, topY * model.pxToMetersRatio )
+        .lineTo( model.verticles.x1bottom * model.pxToMetersRatio, yMax * model.pxToMetersRatio )
+        .lineTo( model.verticles.x2bottom * model.pxToMetersRatio, yMax * model.pxToMetersRatio )
+        .lineTo( model.poolDimensions.leftChamber.rightBorderFunction( viewHeight ) * model.pxToMetersRatio, topY * model.pxToMetersRatio );
       leftPath.shape = leftShape;
 
       //leftChamber
       rightShape = new Shape()
-        .moveTo( model.poolDimensions.rightChamber.leftBorderFunction(viewHeight) * model.pxToMetersRatio, topY * model.pxToMetersRatio )
-        .lineTo( model.verticles.x3bottom * model.pxToMetersRatio, (model.poolDimensions.rightChamber.y + model.poolDimensions.rightChamber.height) * model.pxToMetersRatio  )
-        .lineTo( model.verticles.x4bottom * model.pxToMetersRatio, (model.poolDimensions.rightChamber.y + model.poolDimensions.rightChamber.height) * model.pxToMetersRatio )
-        .lineTo( model.poolDimensions.rightChamber.rightBorderFunction(viewHeight) * model.pxToMetersRatio, topY * model.pxToMetersRatio );
+        .moveTo( model.poolDimensions.rightChamber.leftBorderFunction( viewHeight ) * model.pxToMetersRatio, topY * model.pxToMetersRatio )
+        .lineTo( model.verticles.x3bottom * model.pxToMetersRatio, yMax * model.pxToMetersRatio )
+        .lineTo( model.verticles.x4bottom * model.pxToMetersRatio, yMax * model.pxToMetersRatio )
+        .lineTo( model.poolDimensions.rightChamber.rightBorderFunction( viewHeight ) * model.pxToMetersRatio, topY * model.pxToMetersRatio );
       rightPath.shape = rightShape;
     } );
 

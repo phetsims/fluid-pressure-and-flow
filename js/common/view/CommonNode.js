@@ -15,7 +15,7 @@ define( function( require ) {
   var ControlPanel = require( "common/view/ControlPanel" );
   var ControlSlider = require( "common/view/ControlSlider" );
 
-  var fluidDencityString  = require( 'string!UNDER_PRESSURE/fluidDensity' );
+  var fluidDensityString  = require( 'string!UNDER_PRESSURE/fluidDensity' );
   var gravityString  = require( 'string!UNDER_PRESSURE/gravity' );
 
   function CommonNode( model ) {
@@ -52,10 +52,10 @@ define( function( require ) {
       y:215,
       title: gravityString
     }) );
-    this.addChild( new ControlSlider( model.fluidDencityProperty, model.fluidDensityRange, {
+    this.addChild( new ControlSlider( model.fluidDensityProperty, model.fluidDensityRange, {
       x:575,
       y:340,
-      title: fluidDencityString
+      title: fluidDensityString
     }) );
 
     // add reset button
