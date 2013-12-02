@@ -1,9 +1,9 @@
 // Copyright 2002-2013, University of Colorado Boulder
 
 /**
- * main ScreenView container.
- *
- * @author Andrey Zelenkov (Mlearner)
+ * top background Node
+ * contains atmosphere, earth and  controls
+ * @author Vasily Shakhov (Mlearner)
  */
 define( function( require ) {
   'use strict';
@@ -42,8 +42,6 @@ define( function( require ) {
     this.addChild( new Rectangle( 0, model.skyGroundBoundY*model.pxToMetersRatio, model.width, model.height-model.skyGroundBoundY*model.pxToMetersRatio, {
       fill: "#93774c"
     } ) );
-
-
 
     //control panel
     this.addChild( new ControlPanel( model, 625, 25 ) );

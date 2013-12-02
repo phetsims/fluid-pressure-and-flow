@@ -1,9 +1,9 @@
 // Copyright 2002-2013, University of Colorado Boulder
 
 /**
- * main Model container.
- *
- * @author Andrey Zelenkov (Mlearner)
+ * top model for all screens,
+ * all common properties and methods are placed here
+ * @author Vasily Shakhov (Mlearner)
  */
 define( function( require ) {
   'use strict';

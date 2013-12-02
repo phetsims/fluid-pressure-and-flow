@@ -1,9 +1,9 @@
 // Copyright 2002-2013, University of Colorado Boulder
 
 /**
- * main ScreenView container.
+ * main ScreenView container for square pool.
  *
- * @author Andrey Zelenkov (Mlearner)
+ * @author Vasily Shakhov (Mlearner)
  */
 define( function( require ) {
   "use strict";

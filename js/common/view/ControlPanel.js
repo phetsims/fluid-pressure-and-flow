@@ -3,7 +3,7 @@
 /**
  * Scenery node for the control panel, with view settings and controls.
  *
- * @author Sam Reid
+ * @author Vasily Shakhov (Mlearner)
  */
 define( function( require ) {
   'use strict';

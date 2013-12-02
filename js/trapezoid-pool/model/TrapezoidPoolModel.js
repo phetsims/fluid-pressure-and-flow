@@ -1,9 +1,9 @@
 // Copyright 2002-2013, University of Colorado Boulder
 
 /**
- * main Model container.
+ * main Model container for trapezoid pool screen.
  *
- * @author Andrey Zelenkov (Mlearner)
+ * @author Vasily Shakhov (Mlearner)
  */
 define( function( require ) {
   'use strict';
@@ -22,11 +22,11 @@ define( function( require ) {
     var model = this;
 
     //constants, from java model
-    this.HEIGHT = 3; // Meters
+    this.HEIGHT = 3; // meters
     this.MAX_VOLUME = model.HEIGHT; // Liters
-    var WIDTHATTOP = 0.785;
-    var WIDTHATBOTTOM = 3.57;
-    var LEFTCHAMBERTOPCENTER = 3;
+    var WIDTHATTOP = 0.785; //meters,
+    var WIDTHATBOTTOM = 3.57; //meters,
+    var LEFTCHAMBERTOPCENTER = 3; //meters,
     var SEPARATION = 3.5;//Between centers
 
     this.inputFaucet = new FaucetModel( new Vector2( 3, 2.7 ), 1, 0.42 );
@@ -71,12 +71,13 @@ define( function( require ) {
 
       x1middle: model.poolDimensions.leftChamber.rightBorderFunction( model.poolDimensions.bottomChamber.y2 - model.poolDimensions.bottomChamber.y1 ),
       x2middle: model.poolDimensions.rightChamber.leftBorderFunction( model.poolDimensions.bottomChamber.y2 - model.poolDimensions.bottomChamber.y1 ),
-      ymiddle: model.poolDimensions.bottomChamber.y1,
 
       x1bottom: model.poolDimensions.leftChamber.centerTop - model.poolDimensions.leftChamber.widthBottom / 2,
       x2bottom: model.poolDimensions.leftChamber.centerTop + model.poolDimensions.leftChamber.widthBottom / 2,
       x3bottom: model.poolDimensions.rightChamber.centerTop - model.poolDimensions.rightChamber.widthBottom / 2,
-      x4bottom: model.poolDimensions.rightChamber.centerTop + model.poolDimensions.rightChamber.widthBottom / 2
+      x4bottom: model.poolDimensions.rightChamber.centerTop + model.poolDimensions.rightChamber.widthBottom / 2,
+
+      ymiddle: model.poolDimensions.bottomChamber.y1
     }
 
   }

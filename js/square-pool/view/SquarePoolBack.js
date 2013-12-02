@@ -1,9 +1,9 @@
 // Copyright 2002-2013, University of Colorado Boulder
 
 /**
- * main ScreenView container.
- *
- * @author Andrey Zelenkov (Mlearner)
+ * specific view for square pool
+ * grass, cement container and faucets
+ * @author Vasily Shakhov (Mlearner)
  */
 define( function( require ) {
   'use strict';

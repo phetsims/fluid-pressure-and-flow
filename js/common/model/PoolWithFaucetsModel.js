@@ -1,9 +1,9 @@
 // Copyright 2002-2013, University of Colorado Boulder
 
 /**
- * main Model container.
- *
- * @author Andrey Zelenkov (Mlearner)
+ * Parent class for Pools with Faucets models
+ * handles liquid changes(add,remove, faucets states)
+ * @author Vasily Shakhov (Mlearner)
  */
 define( function( require ) {
   'use strict';
