@@ -69,7 +69,7 @@ define( function( require ) {
 
     var checkBoxChildren = [
       new CheckBox( new HBox( {children: ( ruler )} ), model.isRulerVisibleProperty, options ),
-      new CheckBox( new HBox( {children: ( grid )} ), model.isGridVisibleProperty, options ),
+      new CheckBox( new HBox( {children: ( grid )} ), model.isGridVisibleProperty, options )
     ];
 
     var checkBoxes = new VBox( {align: 'left', spacing: 10, children: checkBoxChildren} );
