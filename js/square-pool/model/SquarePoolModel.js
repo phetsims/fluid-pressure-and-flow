@@ -21,8 +21,8 @@ define( function( require ) {
     var self = this;
 
     //constants, from java model
-    var HEIGHT = 3; // Meters
-    this.MAX_VOLUME = HEIGHT; // Liters
+    this.MAX_HEIGHT = 3; // Meters
+    this.MAX_VOLUME = this.MAX_HEIGHT; // Liters
 
     this.inputFaucet = new FaucetModel( new Vector2( 3, 2.7 ), 1, 0.42 );
     this.outputFaucet = new FaucetModel( new Vector2( 7.2, 6.6 ),1, 0.3 );

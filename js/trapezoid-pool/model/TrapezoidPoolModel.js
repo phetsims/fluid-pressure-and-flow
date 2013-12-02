@@ -22,8 +22,8 @@ define( function( require ) {
     var model = this;
 
     //constants, from java model
-    this.HEIGHT = 3; // meters
-    this.MAX_VOLUME = model.HEIGHT; // Liters
+    this.MAX_HEIGHT = 3; // meters
+    this.MAX_VOLUME = model.MAX_HEIGHT; // Liters
     var WIDTHATTOP = 0.785; //meters,
     var WIDTHATBOTTOM = 3.57; //meters,
     var LEFTCHAMBERTOPCENTER = 3; //meters,
@@ -40,24 +40,24 @@ define( function( require ) {
         widthTop: WIDTHATTOP,
         widthBottom: WIDTHATBOTTOM,
         y: model.skyGroundBoundY,
-        height: model.HEIGHT,
-        leftBorderFunction: new LinearFunction( 0, model.HEIGHT, LEFTCHAMBERTOPCENTER - WIDTHATBOTTOM / 2, LEFTCHAMBERTOPCENTER - WIDTHATTOP / 2 ),
-        rightBorderFunction: new LinearFunction( 0, model.HEIGHT, LEFTCHAMBERTOPCENTER + WIDTHATBOTTOM / 2, LEFTCHAMBERTOPCENTER + WIDTHATTOP / 2 )
+        height: model.MAX_HEIGHT,
+        leftBorderFunction: new LinearFunction( 0, model.MAX_HEIGHT, LEFTCHAMBERTOPCENTER - WIDTHATBOTTOM / 2, LEFTCHAMBERTOPCENTER - WIDTHATTOP / 2 ),
+        rightBorderFunction: new LinearFunction( 0, model.MAX_HEIGHT, LEFTCHAMBERTOPCENTER + WIDTHATBOTTOM / 2, LEFTCHAMBERTOPCENTER + WIDTHATTOP / 2 )
       },
       rightChamber: {
         centerTop: LEFTCHAMBERTOPCENTER + SEPARATION,
         widthTop: WIDTHATBOTTOM,
         widthBottom: WIDTHATTOP,
         y: model.skyGroundBoundY,
-        height: model.HEIGHT,
-        leftBorderFunction: new LinearFunction( 0, model.HEIGHT, LEFTCHAMBERTOPCENTER + SEPARATION - WIDTHATTOP / 2, LEFTCHAMBERTOPCENTER + SEPARATION - WIDTHATBOTTOM / 2 ),
-        rightBorderFunction: new LinearFunction( 0, model.HEIGHT, LEFTCHAMBERTOPCENTER + SEPARATION + WIDTHATTOP / 2, LEFTCHAMBERTOPCENTER + SEPARATION + WIDTHATBOTTOM / 2 )
+        height: model.MAX_HEIGHT,
+        leftBorderFunction: new LinearFunction( 0, model.MAX_HEIGHT, LEFTCHAMBERTOPCENTER + SEPARATION - WIDTHATTOP / 2, LEFTCHAMBERTOPCENTER + SEPARATION - WIDTHATBOTTOM / 2 ),
+        rightBorderFunction: new LinearFunction( 0, model.MAX_HEIGHT, LEFTCHAMBERTOPCENTER + SEPARATION + WIDTHATTOP / 2, LEFTCHAMBERTOPCENTER + SEPARATION + WIDTHATBOTTOM / 2 )
       },
       bottomChamber: {
         x1: LEFTCHAMBERTOPCENTER + WIDTHATBOTTOM / 2,
-        y1: model.skyGroundBoundY + model.HEIGHT - 0.21,
+        y1: model.skyGroundBoundY + model.MAX_HEIGHT - 0.21,
         x2: LEFTCHAMBERTOPCENTER + SEPARATION - WIDTHATTOP / 2,
-        y2: model.skyGroundBoundY + model.HEIGHT
+        y2: model.skyGroundBoundY + model.MAX_HEIGHT
       }
     };
 

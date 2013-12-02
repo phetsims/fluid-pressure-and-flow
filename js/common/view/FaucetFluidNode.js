@@ -13,22 +13,41 @@ define( function( require ) {
   var inherit = require( 'PHET_CORE/inherit' );
   var Rectangle = require( 'SCENERY/nodes/Rectangle' );
 
-  function FaucetFluidNode( faucet, model, height ) {
+  function FaucetFluidNode( faucet, model, maxHeight ) {
     var thisNode = this;
     Rectangle.call( thisNode, 0, 0, 0, 0, { lineWidth: 1 } );
 
-    //TODO
-    thisNode.fill = "blue";
+    this.currentHeight = 0;
+    this.viewWidth = 0;
+
+    var redrawRect = function() {
+      thisNode.setRect( faucet.location.x*model.pxToMetersRatio - (thisNode.viewWidth / 2),  faucet.location.y*model.pxToMetersRatio, thisNode.viewWidth, thisNode.currentHeight );
+    };
+
+
+    model.waterColorModel.waterColorProperty.link( function( color ) {
+      thisNode.fill = color;
+    } );
 
     faucet.flowRateProperty.link( function( flowRate ) {
       if ( flowRate === 0 ) {
         thisNode.setRect( 0, 0, 0, 0 );
       }
       else {
-        var viewWidth = faucet.spoutWidth*model.pxToMetersRatio * flowRate / faucet.maxFlowRate;
-        thisNode.setRect( faucet.location.x*model.pxToMetersRatio - (viewWidth / 2),  faucet.location.y*model.pxToMetersRatio, viewWidth, height );
+        thisNode.viewWidth = faucet.spoutWidth*model.pxToMetersRatio * flowRate / faucet.maxFlowRate;
+        redrawRect();
       }
     } );
+
+    model.volumeProperty.link(function(volume){
+      thisNode.currentHeight = maxHeight - model.pxToMetersRatio*volume*model.MAX_HEIGHT/model.MAX_VOLUME;
+      if(faucet.flowRate!==0) {
+        redrawRect();
+      }
+    })
+
+
+
   }
 
   inherit( Rectangle, FaucetFluidNode );

@@ -1,7 +1,7 @@
 // Copyright 2002-2013, University of Colorado Boulder
 
 /**
- * Faucet model, used for input and output faucets.
+ * Color gra
  *
  * @author Chris Malley (PixelZoom, Inc.), Vasily Shakhov (Mlearner)
  */
