@@ -16,9 +16,12 @@ define( function( require ) {
   var SquarePoolView = require( 'square-pool/view/SquarePoolView' );
   var TrapezoidPoolModel = require( 'trapezoid-pool/model/TrapezoidPoolModel' );
   var TrapezoidPoolView = require( 'trapezoid-pool/view/TrapezoidPoolView' );
+  var ChamberPoolModel = require( 'chamber-pool/model/ChamberPoolModel' );
+  var ChamberPoolView = require( 'chamber-pool/view/ChamberPoolView' );
 
   var squarePoolIcon = require( "image!UNDER_PRESSURE/square-pool-icon.png" );
   var trapezoidPoolIcon = require( "image!UNDER_PRESSURE/trapezoid-pool-icon.png" );
+  var chamberPoolIcon = require( "image!UNDER_PRESSURE/chamber-pool-icon.png" );
 
   // Strings
   var simTitle = require( 'string!UNDER_PRESSURE/under-pressure.name' );
@@ -45,7 +48,11 @@ define( function( require ) {
        function() {return new TrapezoidPoolModel( ScreenView.LAYOUT_BOUNDS.width, ScreenView.LAYOUT_BOUNDS.height );},
        function( model ) {return new TrapezoidPoolView( model );},
        { backgroundColor: '#fff' }
-       )
+       ),
+      new Screen( "", new Image(chamberPoolIcon),
+        function() {return new ChamberPoolModel( ScreenView.LAYOUT_BOUNDS.width, ScreenView.LAYOUT_BOUNDS.height );},
+        function( model ) {return new ChamberPoolView( model );},
+        { backgroundColor: '#fff' })
     ], simOptions ).start();
   } );
 } );
