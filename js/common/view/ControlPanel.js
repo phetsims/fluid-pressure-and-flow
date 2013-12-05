@@ -45,18 +45,18 @@ define( function( require ) {
         new AquaRadioButton( model.isAtmosphereProperty, false, new Text( offString, textOptions ), {radius: 8} )
       ],
       spacing: 10,
-      align:"left"
+      align: "left"
     } );
 
-    var metrics = new VBox({
+    var metrics = new VBox( {
       children: [
         new AquaRadioButton( model.measureUnitsProperty, "metric", new Text( metricString, textOptions ), {radius: 8} ),
         new AquaRadioButton( model.measureUnitsProperty, "atmosphere", new Text( atmosphereString, textOptions ), {radius: 8} ),
         new AquaRadioButton( model.measureUnitsProperty, "english", new Text( englishString, textOptions ), {radius: 8} )
       ],
       spacing: 10,
-      align:"left"
-    });
+      align: "left"
+    } );
 
     //In the absence of any sun (or other) layout packages, just manually space them out so they will have the icons aligned
     var pad = function( itemSet ) {
@@ -65,11 +65,11 @@ define( function( require ) {
     };
 
 
-    var options = {boxScale: 0.5};
+    var options = {boxWidth: 18};
 
     var checkBoxChildren = [
       new CheckBox( new HBox( {children: ( ruler )} ), model.isRulerVisibleProperty, options ),
-      new CheckBox( new HBox( {children: ( grid )} ), model.isGridVisibleProperty, options ),
+      new CheckBox( new HBox( {children: ( grid )} ), model.isGridVisibleProperty, options )
     ];
 
     var checkBoxes = new VBox( {align: 'left', spacing: 10, children: checkBoxChildren} );
@@ -77,7 +77,7 @@ define( function( require ) {
     var content = new VBox( {
       spacing: 10,
       children: [checkBoxes, atmosphere, metrics],
-      align:"left"
+      align: "left"
     } );
 
 
