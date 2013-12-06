@@ -8,12 +8,9 @@
 define( function( require ) {
   'use strict';
 
-  var PropertySet = require( 'AXON/PropertySet' );
+  var Property = require( 'AXON/Property' );
   var inherit = require( 'PHET_CORE/inherit' );
-  var Vector2 = require( 'DOT/Vector2' );
-  var SimpleDragHandler = require( 'SCENERY/input/SimpleDragHandler' );
   var UnderPressureModel = require( 'common/model/UnderPressureModel' );
-  var LinearFunction = require( 'DOT/LinearFunction' );
   var MassModel = require( 'chamber-pool/model/MassModel' );
 
 
@@ -36,7 +33,7 @@ define( function( require ) {
     var LEFT_OPENING_WIDTH = 0.5;
 
     //Use the length ratio instead of area ratio because the quadratic factor makes it too hard to see the water move on the right, and decreases the pressure effect too much to see it
-    var LENGTH_RATIO = RIGHT_OPENING_WIDTH / LEFT_OPENING_WIDTH;
+    this.LENGTH_RATIO = RIGHT_OPENING_WIDTH / LEFT_OPENING_WIDTH;
 
     //Height of each chamber, physics not working properly to vary these independently
     var CHAMBER_HEIGHT = 1.25;
@@ -50,8 +47,15 @@ define( function( require ) {
     var RIGHT_CHAMBER_X = 5.5;
     var RIGHT_CHAMBER_WIDTH = 1.25;
 
-
     UnderPressureModel.call( this, width, height );
+
+    //displacement from default height
+    this.leftDisplacement = new Property(0);
+    //default left opening water height
+    this.LEFT_WATER_HEIGHT = 1.0;
+
+    //used for move back toward zero displacement.
+    this.leftDisplacementСhange = 0;
 
     //masses can't have y-coord more that this, sky height - grass height
     this.MAX_Y = self.skyGroundBoundY - 0.05;
@@ -98,7 +102,6 @@ define( function( require ) {
       new MassModel( self, 250, massOffset + 2 * PASSAGE_SIZE + 2 * separation, self.MAX_Y - PASSAGE_SIZE / 2, PASSAGE_SIZE, PASSAGE_SIZE / 2 )
     ];
 
-
     //stack of masses
     this.stack = [];
 
@@ -108,10 +111,10 @@ define( function( require ) {
     reset: function() {
 
     },
-    step : function (dt) {
-      this.masses.forEach(function(mass) {
-        mass.step(dt);
-      })
+    step: function( dt ) {
+      this.masses.forEach( function( mass ) {
+        mass.step( dt );
+      } )
     }
   } );
 } );

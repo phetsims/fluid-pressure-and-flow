@@ -82,6 +82,20 @@ define( function( require ) {
     } ) );
 
 
+    //chambers
+    this.addChild( new Rectangle( model.poolDimensions.leftChamber.x1 * model.pxToMetersRatio, model.poolDimensions.leftChamber.y1 * model.pxToMetersRatio, (model.poolDimensions.leftChamber.x2 - model.poolDimensions.leftChamber.x1) * model.pxToMetersRatio, (model.poolDimensions.leftChamber.y2 - model.poolDimensions.leftChamber.y1) * model.pxToMetersRatio, {
+      fill: "#f3f0e9"
+    } ) );
+
+    this.addChild( new Rectangle( model.poolDimensions.rightChamber.x1 * model.pxToMetersRatio, model.poolDimensions.rightChamber.y1 * model.pxToMetersRatio, (model.poolDimensions.rightChamber.x2 - model.poolDimensions.rightChamber.x1) * model.pxToMetersRatio, (model.poolDimensions.rightChamber.y2 - model.poolDimensions.rightChamber.y1) * model.pxToMetersRatio, {
+      fill: "#f3f0e9"
+    } ) );
+
+    this.addChild( new Rectangle( model.poolDimensions.horizontalPassage.x1 * model.pxToMetersRatio-1, model.poolDimensions.horizontalPassage.y1 * model.pxToMetersRatio, (model.poolDimensions.horizontalPassage.x2 - model.poolDimensions.horizontalPassage.x1) * model.pxToMetersRatio+2, (model.poolDimensions.horizontalPassage.y2 - model.poolDimensions.horizontalPassage.y1) * model.pxToMetersRatio, {
+      fill: "#f3f0e9"
+    } ) );
+
+
 
 
   }

@@ -27,7 +27,7 @@ define( function( require ) {
 
     var viewHeight;
     var maxHeight = model.MAX_HEIGHT * model.pxToMetersRatio;
-    var yMax = (model.skyGroundBoundY+model.MAX_HEIGHT)* model.pxToMetersRatio;
+    var yMax = (model.skyGroundBoundY + model.MAX_HEIGHT) * model.pxToMetersRatio;
 
     model.waterColorModel.waterColorProperty.link( function( color ) {
       var newGradient = new LinearGradient( 0, yMax, 0, yMax - maxHeight )
@@ -50,8 +50,25 @@ define( function( require ) {
     horizontalPassage.setRect( model.poolDimensions.horizontalPassage.x1 * model.pxToMetersRatio, model.poolDimensions.horizontalPassage.y1 * model.pxToMetersRatio, (model.poolDimensions.horizontalPassage.x2 - model.poolDimensions.horizontalPassage.x1) * model.pxToMetersRatio, (model.poolDimensions.horizontalPassage.y2 - model.poolDimensions.horizontalPassage.y1) * model.pxToMetersRatio );
 
 
-    //this.addChild( leftOpening );
-    //this.addChild( rightOpening );
+    //left and right openings
+    var leftX = model.poolDimensions.leftOpening.x1 * model.pxToMetersRatio,
+      leftWidth = (model.poolDimensions.leftOpening.x2 - model.poolDimensions.leftOpening.x1) * model.pxToMetersRatio,
+      leftY = (model.poolDimensions.leftOpening.y2 - model.LEFT_WATER_HEIGHT) * model.pxToMetersRatio,
+      leftHeight = model.LEFT_WATER_HEIGHT * model.pxToMetersRatio;
+
+    var rightX = model.poolDimensions.rightOpening.x1 * model.pxToMetersRatio,
+      rightWidth = (model.poolDimensions.rightOpening.x2 - model.poolDimensions.rightOpening.x1) * model.pxToMetersRatio,
+      rightY = (model.poolDimensions.rightOpening.y2 - model.LEFT_WATER_HEIGHT) * model.pxToMetersRatio,
+      rightHeight = model.LEFT_WATER_HEIGHT * model.pxToMetersRatio;
+
+    model.leftDisplacement.link( function( displacement ) {
+      leftOpening.setRect( leftX, leftY + displacement * model.pxToMetersRatio, leftWidth, leftHeight - displacement * model.pxToMetersRatio );
+      rightOpening.setRect( rightX, rightY - model.pxToMetersRatio * displacement/model.LENGTH_RATIO, rightWidth, rightHeight + model.pxToMetersRatio * displacement/model.LENGTH_RATIO  );
+    } );
+
+
+    this.addChild( leftOpening );
+    this.addChild( rightOpening );
     this.addChild( leftChamber );
     this.addChild( rightChamber );
     this.addChild( horizontalPassage );
