@@ -12,9 +12,12 @@ define( function( require ) {
   var ScreenView = require( "JOIST/ScreenView" );
   var ChamberPoolBack = require( "chamber-pool/view/ChamberPoolBack" );
   var ChamberPoolWaterNode = require( "chamber-pool/view/ChamberPoolWaterNode" );
+  var MassViewNode = require( "chamber-pool/view/MassViewNode" );
 
 
-  function TrapezoidPoolView( model ) {
+  function ChamberPoolView( model ) {
+    var self = this;
+
     ScreenView.call( this, { renderer: "svg" } );
 
     //sky, earth and controls
@@ -26,7 +29,11 @@ define( function( require ) {
     //water
     this.addChild( new ChamberPoolWaterNode( model ) );
 
+    model.masses.forEach(function(massModel){
+      self.addChild(new MassViewNode(massModel, model));
+    });
+
   }
 
-  return inherit( ScreenView, TrapezoidPoolView );
+  return inherit( ScreenView, ChamberPoolView );
 } );

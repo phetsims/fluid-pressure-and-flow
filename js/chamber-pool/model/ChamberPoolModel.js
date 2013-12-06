@@ -14,6 +14,7 @@ define( function( require ) {
   var SimpleDragHandler = require( 'SCENERY/input/SimpleDragHandler' );
   var UnderPressureModel = require( 'common/model/UnderPressureModel' );
   var LinearFunction = require( 'DOT/LinearFunction' );
+  var MassModel = require( 'chamber-pool/model/MassModel' );
 
 
   function ChamberPoolModel( width, height ) {
@@ -52,7 +53,11 @@ define( function( require ) {
 
     UnderPressureModel.call( this, width, height );
 
+    //masses can't have y-coord more that this, sky height - grass height
+    this.MAX_Y = self.skyGroundBoundY - 0.05;
 
+    var massOffset = 0.05; // start x-coordinate of first mass
+    var separation = 0.03; //separation between masses
 
     this.poolDimensions = {
       leftChamber: {
@@ -87,7 +92,26 @@ define( function( require ) {
       }
     };
 
+    this.masses = [
+      new MassModel( self, 500, massOffset, self.MAX_Y - PASSAGE_SIZE, PASSAGE_SIZE, PASSAGE_SIZE ),
+      new MassModel( self, 250, massOffset + PASSAGE_SIZE + separation, self.MAX_Y - PASSAGE_SIZE / 2, PASSAGE_SIZE, PASSAGE_SIZE / 2 ),
+      new MassModel( self, 250, massOffset + 2 * PASSAGE_SIZE + 2 * separation, self.MAX_Y - PASSAGE_SIZE / 2, PASSAGE_SIZE, PASSAGE_SIZE / 2 )
+    ];
+
+
+    //stack of masses
+    this.stack = [];
+
   }
 
-  return inherit( UnderPressureModel, ChamberPoolModel );
+  return inherit( UnderPressureModel, ChamberPoolModel, {
+    reset: function() {
+
+    },
+    step : function (dt) {
+      this.masses.forEach(function(mass) {
+        mass.step(dt);
+      })
+    }
+  } );
 } );

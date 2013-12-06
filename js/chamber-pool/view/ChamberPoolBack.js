@@ -21,7 +21,7 @@ define( function( require ) {
   var grassImg = require( 'image!UNDER_PRESSURE/images/grass-texture.png' );
   var cementImg = require( 'image!UNDER_PRESSURE/images/cement-texture-dark.jpg' );
 
-  function TrapezoidPoolBack( model ) {
+  function ChamberPoolBack( model ) {
     Node.call( this );
 
     //grass
@@ -86,5 +86,5 @@ define( function( require ) {
 
   }
 
-  return inherit( Node, TrapezoidPoolBack );
+  return inherit( Node, ChamberPoolBack );
 } );
