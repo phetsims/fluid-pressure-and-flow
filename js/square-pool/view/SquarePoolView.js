@@ -13,6 +13,7 @@ define( function( require ) {
   var SquarePoolBack = require( "square-pool/view/SquarePoolBack" );
   var FaucetFluidNode = require( "common/view/FaucetFluidNode" );
   var SquarePoolWaterNode = require("square-pool/view/SquarePoolWaterNode");
+  var BarometerNode = require( "common/view/BarometerNode" );
 
 
   function SquarePoolView( model ) {
@@ -30,6 +31,11 @@ define( function( require ) {
 
     //water
     this.addChild(new SquarePoolWaterNode(model));
+
+    //barometers
+    model.barometersStatement.forEach( function( positionProperty ) {
+      self.addChild( new BarometerNode( model, positionProperty ) );
+    } );
 
   }
 

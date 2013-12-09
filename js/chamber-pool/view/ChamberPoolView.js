@@ -13,6 +13,7 @@ define( function( require ) {
   var ChamberPoolBack = require( "chamber-pool/view/ChamberPoolBack" );
   var ChamberPoolWaterNode = require( "chamber-pool/view/ChamberPoolWaterNode" );
   var MassViewNode = require( "chamber-pool/view/MassViewNode" );
+  var BarometerNode = require( "common/view/BarometerNode" );
 
 
   function ChamberPoolView( model ) {
@@ -32,6 +33,11 @@ define( function( require ) {
     model.masses.forEach(function(massModel){
       self.addChild(new MassViewNode(massModel, model));
     });
+
+    //barometers
+    model.barometersStatement.forEach( function( positionProperty ) {
+      self.addChild( new BarometerNode( model, positionProperty ) );
+    } );
 
   }
 

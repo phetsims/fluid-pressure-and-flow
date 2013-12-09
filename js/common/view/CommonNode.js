@@ -15,8 +15,6 @@ define( function( require ) {
   var ControlPanel = require( "common/view/ControlPanel" );
   var ControlSlider = require( "common/view/ControlSlider" );
   var BarometersContainer = require( "common/view/BarometersContainer" );
-  var BarometerNode = require( "common/view/BarometerNode" );
-
 
   var fluidDensityString = require( 'string!UNDER_PRESSURE/fluidDensity' );
   var gravityString = require( 'string!UNDER_PRESSURE/gravity' );
@@ -67,12 +65,6 @@ define( function( require ) {
     this.addChild( new ResetAllButton( function() { model.reset(); }, { scale: 0.5, x: 730, y: model.height - 25} ) );
 
     this.addChild( new BarometersContainer( model, 520, 5 ) );
-
-    //barometers
-    model.barometersStatement.forEach( function( positionProperty ) {
-      self.addChild( new BarometerNode( model, positionProperty ) );
-    } );
-
 
   }
 
