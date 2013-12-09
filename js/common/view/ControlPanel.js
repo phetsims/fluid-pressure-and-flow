@@ -39,7 +39,7 @@ define( function( require ) {
   function ControlPanel( model, x, y ) {
     var textOptions = {font: new PhetFont( 14 )};
 
-    var ruler = [new Text( rulerString, textOptions ), new Text( rulerString, textOptions )]; //, this.createSpeedometerIcon()
+    var ruler = [new Text( rulerString, textOptions )]; //, this.createSpeedometerIcon()
     var grid = [new Text( gridString, textOptions )];
 
     var atmosphere = new NodeWithBorderAndTitle( new HBox( {
