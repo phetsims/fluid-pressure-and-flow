@@ -14,21 +14,26 @@ define( function( require ) {
   var ResetAllButton = require( 'SCENERY_PHET/ResetAllButton' );
   var ControlPanel = require( "common/view/ControlPanel" );
   var ControlSlider = require( "common/view/ControlSlider" );
+  var BarometersContainer = require( "common/view/BarometersContainer" );
+  var BarometerNode = require( "common/view/BarometerNode" );
 
-  var fluidDensityString  = require( 'string!UNDER_PRESSURE/fluidDensity' );
-  var gravityString  = require( 'string!UNDER_PRESSURE/gravity' );
+
+  var fluidDensityString = require( 'string!UNDER_PRESSURE/fluidDensity' );
+  var gravityString = require( 'string!UNDER_PRESSURE/gravity' );
 
   function CommonNode( model ) {
+    var self = this;
+
     Node.call( this );
 
     //sky
-    var sky = new Rectangle( -1000, 0, 3000, model.skyGroundBoundY*model.pxToMetersRatio );
+    var sky = new Rectangle( -1000, 0, 3000, model.skyGroundBoundY * model.pxToMetersRatio );
 
     this.addChild( sky );
 
     model.isAtmosphereProperty.link( function( isAtmosphere ) {
       if ( isAtmosphere ) {
-        sky.fill = new LinearGradient( 0, 0, 0, model.skyGroundBoundY*model.pxToMetersRatio )
+        sky.fill = new LinearGradient( 0, 0, 0, model.skyGroundBoundY * model.pxToMetersRatio )
           .addColorStop( 0, "#c4e6f5" )
           .addColorStop( 1, "#daedfa" )
       }
@@ -39,7 +44,7 @@ define( function( require ) {
 
 
     //earth
-    this.addChild( new Rectangle( 0, model.skyGroundBoundY*model.pxToMetersRatio, model.width, model.height-model.skyGroundBoundY*model.pxToMetersRatio, {
+    this.addChild( new Rectangle( 0, model.skyGroundBoundY * model.pxToMetersRatio, model.width, model.height - model.skyGroundBoundY * model.pxToMetersRatio, {
       fill: "#93774c"
     } ) );
 
@@ -48,18 +53,26 @@ define( function( require ) {
 
     //control sliders
     this.addChild( new ControlSlider( model.gravityProperty, model.gravityRange, {
-      x:575,
-      y:215,
+      x: 575,
+      y: 215,
       title: gravityString
-    }) );
+    } ) );
     this.addChild( new ControlSlider( model.fluidDensityProperty, model.fluidDensityRange, {
-      x:575,
-      y:340,
+      x: 575,
+      y: 340,
       title: fluidDensityString
-    }) );
+    } ) );
 
     // add reset button
-    this.addChild( new ResetAllButton( function() { model.reset(); }, { scale: 0.5, x: 730, y: model.height -25} ) );
+    this.addChild( new ResetAllButton( function() { model.reset(); }, { scale: 0.5, x: 730, y: model.height - 25} ) );
+
+    this.addChild( new BarometersContainer( model, 530, 5 ) );
+
+    //barometers
+    model.barometersStatement.forEach( function( positionProperty ) {
+      self.addChild( new BarometerNode( model, positionProperty ) );
+    } );
+
 
   }
 

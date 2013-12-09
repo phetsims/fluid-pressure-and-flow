@@ -12,6 +12,7 @@ define( function( require ) {
   var inherit = require( 'PHET_CORE/inherit' );
   var Range = require( 'DOT/Range' );
   var WaterColorModel = require( "common/model/WaterColorModel" );
+  var Property = require( 'AXON/Property' );
 
   function UnderPressureModel( width, height ) {
     var self = this;
@@ -22,6 +23,9 @@ define( function( require ) {
     this.HONEY_DENSITY = 1420;
     this.WATER_DENSITY = 1000;
 
+    this.MIN_PRESSURE = 0;
+    this.MAX_PRESSURE = 300;//kPa
+
     // dimensions of the model's space
     this.width = width;
     this.height = height;
@@ -31,7 +35,6 @@ define( function( require ) {
 
     this.gravityRange = new Range( this.MARS_GRAVITY, this.JUPITER_GRAVITY );
     this.fluidDensityRange = new Range( this.GAZOLINE_DENSITY, this.HONEY_DENSITY );
-
 
     PropertySet.call( this, {
       volume: 0, // volume of liquid in the pool, L
@@ -44,6 +47,11 @@ define( function( require ) {
     } );
 
     this.waterColorModel = new WaterColorModel( this );
+
+    this.barometersStatement = [];
+    for ( var i = 0; i < 4; i++ ) {
+      this.barometersStatement.push( new Property( 0 ) );
+    }
   }
 
   return inherit( PropertySet, UnderPressureModel, {
@@ -52,6 +60,9 @@ define( function( require ) {
     reset: function() {
       this.volumeProperty.reset();
       this.isAtmosphereProperty.reset();
+    },
+    getPressureAtCoords: function(coords){
+      return 100;
     }
   } );
 } );
