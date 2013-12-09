@@ -44,7 +44,7 @@ define( function( require ) {
     } ) );
 
     //control panel
-    this.addChild( new ControlPanel( model, 625, 25 ) );
+    this.addChild( new ControlPanel( model, 625, 5 ) );
 
     //control sliders
     this.addChild( new ControlSlider( model.gravityProperty, model.gravityRange, {

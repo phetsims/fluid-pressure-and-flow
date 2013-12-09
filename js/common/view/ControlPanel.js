@@ -23,6 +23,7 @@ define( function( require ) {
   var Text = require( 'SCENERY/nodes/Text' );
   var Property = require( 'AXON/Property' );
   var PhetFont = require( 'SCENERY_PHET/PhetFont' );
+  var NodeWithBorderAndTitle = require( 'common/view/NodeWithBorderAndTitle' );
 
   var gridString = require( 'string!UNDER_PRESSURE/grid' );
   var rulerString = require( 'string!UNDER_PRESSURE/ruler' );
@@ -30,8 +31,10 @@ define( function( require ) {
   var offString = require( 'string!UNDER_PRESSURE/off' );
 
   var metricString = require( 'string!UNDER_PRESSURE/metric' );
+  var atmospheresString = require( 'string!UNDER_PRESSURE/atmospheres' );
   var atmosphereString = require( 'string!UNDER_PRESSURE/atmospheres' );
   var englishString = require( 'string!UNDER_PRESSURE/english' );
+  var unitsString = require( 'string!UNDER_PRESSURE/units' );
 
   function ControlPanel( model, x, y ) {
     var textOptions = {font: new PhetFont( 14 )};
@@ -39,24 +42,24 @@ define( function( require ) {
     var ruler = [new Text( rulerString, textOptions ), new Text( rulerString, textOptions )]; //, this.createSpeedometerIcon()
     var grid = [new Text( gridString, textOptions )];
 
-    var atmosphere = new HBox( {
+    var atmosphere = new NodeWithBorderAndTitle( new HBox( {
       children: [
         new AquaRadioButton( model.isAtmosphereProperty, true, new Text( onString, textOptions ), {radius: 8} ),
         new AquaRadioButton( model.isAtmosphereProperty, false, new Text( offString, textOptions ), {radius: 8} )
       ],
       spacing: 10,
       align: "left"
-    } );
+    } ), atmosphereString );
 
-    var metrics = new VBox( {
+    var metrics =new NodeWithBorderAndTitle( new VBox( {
       children: [
         new AquaRadioButton( model.measureUnitsProperty, "metric", new Text( metricString, textOptions ), {radius: 8} ),
-        new AquaRadioButton( model.measureUnitsProperty, "atmosphere", new Text( atmosphereString, textOptions ), {radius: 8} ),
+        new AquaRadioButton( model.measureUnitsProperty, "atmosphere", new Text( atmospheresString, textOptions ), {radius: 8} ),
         new AquaRadioButton( model.measureUnitsProperty, "english", new Text( englishString, textOptions ), {radius: 8} )
       ],
-      spacing: 10,
+      spacing: 5,
       align: "left"
-    } );
+    } ),unitsString);
 
     //In the absence of any sun (or other) layout packages, just manually space them out so they will have the icons aligned
     var pad = function( itemSet ) {
@@ -72,16 +75,16 @@ define( function( require ) {
       new CheckBox( new HBox( {children: ( grid )} ), model.isGridVisibleProperty, options )
     ];
 
-    var checkBoxes = new VBox( {align: 'left', spacing: 10, children: checkBoxChildren} );
+    var checkBoxes = new VBox( {align: 'left', spacing: 5, children: checkBoxChildren} );
 
     var content = new VBox( {
-      spacing: 10,
+      spacing: 5,
       children: [checkBoxes, atmosphere, metrics],
       align: "left"
     } );
 
 
-    Panel.call( this, content, { xMargin: 10, yMargin: 10, fill: '#f2fa6a ', stroke: 'gray', lineWidth: 1, resize: false, x: x, y: y } );
+    Panel.call( this, content, { xMargin: 10, yMargin: 10, fill: '#f2fa6a ', stroke: 'gray', lineWidth: 1, resize: false, x: x, y: y, scale:0.8 } );
   }
 
   return inherit( Node, ControlPanel, {
