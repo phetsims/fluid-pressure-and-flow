@@ -66,7 +66,7 @@ define( function( require ) {
     // add reset button
     this.addChild( new ResetAllButton( function() { model.reset(); }, { scale: 0.5, x: 730, y: model.height - 25} ) );
 
-    this.addChild( new BarometersContainer( model, 530, 5 ) );
+    this.addChild( new BarometersContainer( model, 520, 5 ) );
 
     //barometers
     model.barometersStatement.forEach( function( positionProperty ) {

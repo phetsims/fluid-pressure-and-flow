@@ -15,7 +15,7 @@ define( function( require ) {
 
   function BarometersContainer(model, x, y ) {
     Node.call( this, {x:x,y:y} );
-    this.addChild(new Rectangle( 0, 0, 80, 115, 10, 10, {stroke: "black", lineWidth: 1, fill: "#f2fa6a"} ));
+    this.addChild(new Rectangle( 0, 0, 100, 130, 10, 10, {stroke: "black", lineWidth: 1, fill: "#f2fa6a"} ));
   }
 
   inherit( Node, BarometersContainer );

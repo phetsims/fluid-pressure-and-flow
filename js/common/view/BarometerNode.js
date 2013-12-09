@@ -17,15 +17,19 @@ define( function( require ) {
   var Path = require( 'SCENERY/nodes/Path' );
   var Shape = require( 'KITE/Shape' );
   var SimpleDragHandler = require( 'SCENERY/input/SimpleDragHandler' );
+  var Text = require( 'SCENERY/nodes/Text' );
+  var PhetFont = require( 'SCENERY_PHET/PhetFont' );
 
   var pressureString = require( 'string!UNDER_PRESSURE/pressure' );
 
   function BarometerNode( model, thisBarometerStatement ) {
     var self = this;
 
-    Node.call( this, {cursor: "pointer", pickable: true, x: 570, y: 45 } );
+    Node.call( this, {cursor: "pointer", pickable: true, x: 570, y: 50 } );
 
-    var gaugeNode = new GaugeNode( thisBarometerStatement, pressureString, {min: model.MIN_PRESSURE, max: model.MAX_PRESSURE}, {scale: 0.5} );
+
+    //visual
+    var gaugeNode = new GaugeNode( thisBarometerStatement, pressureString, {min: model.MIN_PRESSURE, max: model.MAX_PRESSURE}, {scale: 0.6} );
     this.addChild( gaugeNode );
 
     var underGaugeRectangleWidth = 25,
@@ -59,6 +63,14 @@ define( function( require ) {
     } ) );
 
 
+    //pressure text
+    var text = new Text( "", {font: new PhetFont( 14 ), y: 25, fontWeight: "bold"} );
+    var textBackground = new Rectangle( 0, 0, 1, 1, {stroke: "black", fill: "white"} );
+    this.addChild( textBackground );
+    this.addChild( text );
+
+
+    //handlers
     var barometerDragHandler = new SimpleDragHandler( {
       //When dragging across it in a mobile device, pick it up
       allowTouchSnag: true,
@@ -75,6 +87,17 @@ define( function( require ) {
 
     thisBarometerStatement.set( model.getPressureAtCoords( self.translation ) );
 
+    var setText = function() {
+      text.text = model.units.getPressureString[model.measureUnits]( thisBarometerStatement.get() );
+      text.centerX = gaugeNode.centerX;
+      textBackground.setRect( text.x - 2, text.y - text.height + 2, text.width + 4, text.height + 2 );
+    };
+    thisBarometerStatement.link( function() {
+      setText();
+    } );
+    model.measureUnitsProperty.link( function() {
+      setText();
+    } );
 
   }
 

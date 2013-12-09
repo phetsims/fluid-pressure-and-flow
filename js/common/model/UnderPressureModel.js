@@ -8,11 +8,12 @@
 define( function( require ) {
   'use strict';
 
+  var Property = require( 'AXON/Property' );
   var PropertySet = require( 'AXON/PropertySet' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Range = require( 'DOT/Range' );
   var WaterColorModel = require( "common/model/WaterColorModel" );
-  var Property = require( 'AXON/Property' );
+  var Units = require( "common/model/Units" );
 
   function UnderPressureModel( width, height ) {
     var self = this;
@@ -47,6 +48,7 @@ define( function( require ) {
     } );
 
     this.waterColorModel = new WaterColorModel( this );
+    this.units = new Units();
 
     this.barometersStatement = [];
     for ( var i = 0; i < 4; i++ ) {
