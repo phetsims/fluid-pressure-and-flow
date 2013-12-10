@@ -49,8 +49,6 @@ define( function( require ) {
 
     UnderPressureModel.call( this, width, height );
 
-    //displacement from default height
-    this.leftDisplacement = new Property(0);
     //default left opening water height
     this.LEFT_WATER_HEIGHT = 1.0;
 
@@ -115,6 +113,41 @@ define( function( require ) {
       this.masses.forEach( function( mass ) {
         mass.step( dt );
       } )
+    },
+    getPressureAtCoords: function( x, y ) {
+      var pressure = "";
+
+      x = x / this.pxToMetersRatio;
+      y = y / this.pxToMetersRatio;
+
+      if ( y < this.skyGroundBoundY ) {
+        pressure = this.getAirPressure( y );
+      }
+      else if ( this.isPointInsidePool( x, y ) ) {
+        //inside pool
+        //TODO check for leftDisplacement
+        var waterHeight = y - (this.poolDimensions.leftChamber.y2 - this.DEFAULT_HEIGHT);// water height above barometer
+        if ( waterHeight <= 0 ) {
+          pressure = this.getAirPressure( y );
+        }
+        else {
+          pressure = this.getAirPressure( y - waterHeight ) + this.getWaterPressure( waterHeight );
+        }
+      }
+
+      return pressure;
+    },
+    isPointInsidePool: function( x, y ) {
+      var self = this;
+      var isInside = false;
+
+      ["leftChamber", "rightChamber", "horizontalPassage", "leftOpening", "rightOpening"].forEach( function( name ) {
+        if ( x > self.poolDimensions[name].x1 && x < self.poolDimensions[name].x2 && y > self.poolDimensions[name].y1 && y < self.poolDimensions[name].y2 ) {
+          //inside bottom chamber
+          isInside = true;
+        }
+      } );
+      return isInside;
     }
   } );
 } );

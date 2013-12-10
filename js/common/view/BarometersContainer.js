@@ -12,10 +12,14 @@ define( function( require ) {
   var inherit = require( 'PHET_CORE/inherit' );
   var Node = require( 'SCENERY/nodes/Node' );
   var Rectangle = require( 'SCENERY/nodes/Rectangle' );
+  var BarometerNode = require( "UNDER_PRESSURE/common/view/BarometerNode" );
 
-  function BarometersContainer(model, x, y ) {
-    Node.call( this, {x:x,y:y} );
-    this.addChild(new Rectangle( 0, 0, 100, 130, 10, 10, {stroke: "black", lineWidth: 1, fill: "#f2fa6a"} ));
+  function BarometersContainer(model ) {
+    var self = this;
+    Node.call( this );
+    model.barometersStatement.forEach( function( positionProperty ) {
+      self.addChild( new BarometerNode( model, positionProperty ) );
+    } );
   }
 
   inherit( Node, BarometersContainer );

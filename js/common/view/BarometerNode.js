@@ -80,24 +80,41 @@ define( function( require ) {
       //Translate on drag events
       translate: function( args ) {
         self.translation = args.position;
-        thisBarometerStatement.set( model.getPressureAtCoords( args.position ) );
+        thisBarometerStatement.set( model.getPressureAtCoords( self.centerX, self.bottom ) );
       }
     } );
     this.addInputListener( barometerDragHandler );
 
-    thisBarometerStatement.set( model.getPressureAtCoords( self.translation ) );
+    thisBarometerStatement.set( model.getPressureAtCoords( self.centerX, self.bottom ) );
 
     var setText = function() {
       text.text = model.units.getPressureString[model.measureUnits]( thisBarometerStatement.get() );
       text.centerX = gaugeNode.centerX;
       textBackground.setRect( text.x - 2, text.y - text.height + 2, text.width + 4, text.height + 2 );
     };
+
+    model.gravityProperty.link( function() {
+      thisBarometerStatement.set( model.getPressureAtCoords( self.centerX, self.bottom ) );
+    } );
+    model.fluidDensityProperty.link( function() {
+      thisBarometerStatement.set( model.getPressureAtCoords( self.centerX, self.bottom ) );
+    } );
+    model.isAtmosphereProperty.link( function() {
+      thisBarometerStatement.set( model.getPressureAtCoords( self.centerX, self.bottom ) );
+    } );
+    model.volumeProperty.link( function() {
+      thisBarometerStatement.set( model.getPressureAtCoords( self.centerX, self.bottom ) );
+    } );
+    model.leftDisplacementProperty.link( function() {
+      thisBarometerStatement.set( model.getPressureAtCoords( self.centerX, self.bottom ) );
+    } );
     thisBarometerStatement.link( function() {
       setText();
     } );
     model.measureUnitsProperty.link( function() {
       setText();
     } );
+
 
   }
 

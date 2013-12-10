@@ -24,14 +24,34 @@ define( function( require ) {
 
     this.getPressureString = {
       metric: function( pressure ) {
-        return pressure.toFixed(3) + " " + kPaString;
+        if ( pressure === "" ) {
+          return "-"
+        }
+        else {
+          return (pressure / 1000).toFixed( 3 ) + " " + kPaString;
+        }
       },
       atmosphere: function( pressure ) {
-        return (pressure * self.ATMOSPHERE_PER_PASCAL).toFixed(4) + " " + atmString;
+        if ( pressure === "" ) {
+          return "-"
+        }
+        else {
+          return (pressure * self.ATMOSPHERE_PER_PASCAL).toFixed( 4 ) + " " + atmString;
+        }
       },
       english: function( pressure ) {
-        return (pressure * self.PSI_PER_PASCAL).toFixed(4) + " " + psiString;
+        if ( pressure === "" ) {
+          return "-"
+        }
+        else {
+          return (pressure * self.PSI_PER_PASCAL).toFixed( 4 ) + " " + psiString;
+        }
       }
+    };
+
+
+    this.feetToMeters = function( feets ) {
+      return feets / this.FEET_PER_METER;
     };
   }
 

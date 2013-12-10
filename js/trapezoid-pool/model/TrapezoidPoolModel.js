@@ -82,5 +82,54 @@ define( function( require ) {
 
   }
 
-  return inherit( PoolWithFaucetsModel, TrapezoidPoolModel );
+  return inherit( PoolWithFaucetsModel, TrapezoidPoolModel, {
+    getPressureAtCoords: function( x, y ) {
+      var pressure = "";
+
+      x = x / this.pxToMetersRatio;
+      y = y / this.pxToMetersRatio;
+
+      if ( y < this.skyGroundBoundY ) {
+        pressure = this.getAirPressure( y );
+      }
+      else if ( this.isPointInsidePool( x, y ) ) {
+        //inside pool
+        var waterHeight = y - (this.poolDimensions.bottomChamber.y2 - this.MAX_HEIGHT * this.volume / this.MAX_VOLUME);// water height above barometer
+        if ( waterHeight <= 0 ) {
+          pressure = this.getAirPressure( y );
+        }
+        else {
+          pressure = this.getAirPressure( y - waterHeight ) + this.getWaterPressure( waterHeight );
+        }
+      }
+
+      return pressure;
+    },
+    isPointInsidePool: function( x, y ) {
+      var isInside = false;
+      if ( x > this.poolDimensions.bottomChamber.x1 && x < this.poolDimensions.bottomChamber.x2 && y > this.poolDimensions.bottomChamber.y1 && y < this.poolDimensions.bottomChamber.y2 ) {
+        //inside bottom chamber
+        isInside = true;
+      }
+      else {
+        var y_above_pool = this.poolDimensions.bottomChamber.y2 - y;
+        if ( y_above_pool > 0 ) {
+          var x1 = this.poolDimensions.leftChamber.leftBorderFunction( y_above_pool ),
+            x2 = this.poolDimensions.leftChamber.rightBorderFunction( y_above_pool ),
+            x3 = this.poolDimensions.rightChamber.leftBorderFunction( y_above_pool ),
+            x4 = this.poolDimensions.rightChamber.rightBorderFunction( y_above_pool );
+          console.log( x1, x2, x3, x4 );
+          if ( x1 < x && x < x2 ) {
+            //inside left chamber
+            isInside = true;
+          }
+          else if ( x3 < x && x < x4 ) {
+            //inside right chamber
+            isInside = true;
+          }
+        }
+      }
+      return isInside;
+    }
+  } );
 } );

@@ -61,7 +61,7 @@ define( function( require ) {
       rightY = (model.poolDimensions.rightOpening.y2 - model.LEFT_WATER_HEIGHT) * model.pxToMetersRatio,
       rightHeight = model.LEFT_WATER_HEIGHT * model.pxToMetersRatio;
 
-    model.leftDisplacement.link( function( displacement ) {
+    model.leftDisplacementProperty.link( function( displacement ) {
       leftOpening.setRect( leftX, leftY + displacement * model.pxToMetersRatio, leftWidth, leftHeight - displacement * model.pxToMetersRatio );
       rightOpening.setRect( rightX, rightY - model.pxToMetersRatio * displacement/model.LENGTH_RATIO, rightWidth, rightHeight + model.pxToMetersRatio * displacement/model.LENGTH_RATIO  );
     } );

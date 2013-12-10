@@ -13,10 +13,11 @@ define( function( require ) {
   var SquarePoolBack = require( "square-pool/view/SquarePoolBack" );
   var FaucetFluidNode = require( "UNDER_PRESSURE/common/view/FaucetFluidNode" );
   var SquarePoolWaterNode = require("square-pool/view/SquarePoolWaterNode");
-  var BarometerNode = require( "UNDER_PRESSURE/common/view/BarometerNode" );
+  var BarometersContainer = require( "UNDER_PRESSURE/common/view/BarometersContainer" );
 
 
   function SquarePoolView( model ) {
+    var self = this;
     ScreenView.call( this, { renderer: "svg" } );
 
     //sky, earth and controls
@@ -33,9 +34,7 @@ define( function( require ) {
     this.addChild(new SquarePoolWaterNode(model));
 
     //barometers
-    model.barometersStatement.forEach( function( positionProperty ) {
-      self.addChild( new BarometerNode( model, positionProperty ) );
-    } );
+    this.addChild(new BarometersContainer(model));
 
   }
 
