@@ -9,6 +9,7 @@ define( function( require ) {
   'use strict';
 
   var Property = require( 'AXON/Property' );
+  var ObservableArray = require( 'AXON/ObservableArray' );
   var inherit = require( 'PHET_CORE/inherit' );
   var UnderPressureModel = require( 'UNDER_PRESSURE/common/model/UnderPressureModel' );
   var MassModel = require( 'chamber-pool/model/MassModel' );
@@ -94,14 +95,21 @@ define( function( require ) {
       }
     };
 
+    //stack of masses
+    this.stack = new ObservableArray();
+    this.stackMass = new Property( 0 );
+
     this.masses = [
       new MassModel( self, 500, massOffset, self.MAX_Y - PASSAGE_SIZE, PASSAGE_SIZE, PASSAGE_SIZE ),
       new MassModel( self, 250, massOffset + PASSAGE_SIZE + separation, self.MAX_Y - PASSAGE_SIZE / 2, PASSAGE_SIZE, PASSAGE_SIZE / 2 ),
       new MassModel( self, 250, massOffset + 2 * PASSAGE_SIZE + 2 * separation, self.MAX_Y - PASSAGE_SIZE / 2, PASSAGE_SIZE, PASSAGE_SIZE / 2 )
     ];
 
-    //stack of masses
-    this.stack = [];
+    this.stack.addListeners( function( massModel ) {
+      self.stackMass.set( self.stackMass.get() + massModel.mass );
+    }, function( massModel ) {
+      self.stackMass.set( self.stackMass.get() - massModel.mass );
+    } );
 
   }
 
@@ -110,9 +118,19 @@ define( function( require ) {
 
     },
     step: function( dt ) {
+      var steps = 10;
       this.masses.forEach( function( mass ) {
-        mass.step( dt );
-      } )
+        for ( var i = 0; i < steps; i++ ) {
+          mass.step( dt / steps );
+        }
+      } );
+      if ( this.stackMass.get() ) {
+        var maxY = 0;
+        this.stack.forEach( function( massModel ) {
+          maxY = Math.max( massModel.position.y + massModel.height, maxY );
+        } );
+        this.leftDisplacement = maxY - (this.poolDimensions.leftOpening.y2 - this.LEFT_WATER_HEIGHT);
+      }
     },
     getPressureAtCoords: function( x, y ) {
       var pressure = "";

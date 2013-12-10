@@ -14,6 +14,7 @@ define( function( require ) {
   var ChamberPoolWaterNode = require( "chamber-pool/view/ChamberPoolWaterNode" );
   var MassViewNode = require( "chamber-pool/view/MassViewNode" );
   var BarometersContainer = require( "UNDER_PRESSURE/common/view/BarometersContainer" );
+  var MassStackNode = require( "chamber-pool/view/MassStackNode" );
 
 
   function ChamberPoolView( model ) {
@@ -36,6 +37,8 @@ define( function( require ) {
 
     //barometers
     this.addChild( new BarometersContainer( model ) );
+
+    this.addChild(new MassStackNode(model));
 
   }
 
