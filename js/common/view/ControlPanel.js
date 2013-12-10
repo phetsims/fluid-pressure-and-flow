@@ -23,7 +23,7 @@ define( function( require ) {
   var Text = require( 'SCENERY/nodes/Text' );
   var Property = require( 'AXON/Property' );
   var PhetFont = require( 'SCENERY_PHET/PhetFont' );
-  var NodeWithBorderAndTitle = require( 'common/view/NodeWithBorderAndTitle' );
+  var NodeWithBorderAndTitle = require( 'UNDER_PRESSURE/common/view/NodeWithBorderAndTitle' );
 
   var gridString = require( 'string!UNDER_PRESSURE/grid' );
   var rulerString = require( 'string!UNDER_PRESSURE/ruler' );

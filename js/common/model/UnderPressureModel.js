@@ -12,8 +12,8 @@ define( function( require ) {
   var PropertySet = require( 'AXON/PropertySet' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Range = require( 'DOT/Range' );
-  var WaterColorModel = require( "common/model/WaterColorModel" );
-  var Units = require( "common/model/Units" );
+  var WaterColorModel = require( "UNDER_PRESSURE/common/model/WaterColorModel" );
+  var Units = require( "UNDER_PRESSURE/common/model/Units" );
 
   function UnderPressureModel( width, height ) {
     var self = this;

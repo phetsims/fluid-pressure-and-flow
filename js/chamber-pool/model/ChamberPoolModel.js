@@ -10,7 +10,7 @@ define( function( require ) {
 
   var Property = require( 'AXON/Property' );
   var inherit = require( 'PHET_CORE/inherit' );
-  var UnderPressureModel = require( 'common/model/UnderPressureModel' );
+  var UnderPressureModel = require( 'UNDER_PRESSURE/common/model/UnderPressureModel' );
   var MassModel = require( 'chamber-pool/model/MassModel' );
 
 

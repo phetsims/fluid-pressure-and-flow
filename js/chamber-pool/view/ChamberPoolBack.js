@@ -16,7 +16,7 @@ define( function( require ) {
   var Shape = require( 'KITE/Shape' );
   var Path = require( 'SCENERY/nodes/Path' );
 
-  var UPFaucetNode = require( 'common/view/UPFaucetNode' );
+  var UPFaucetNode = require( 'UNDER_PRESSURE/common/view/UPFaucetNode' );
 
   var grassImg = require( 'image!UNDER_PRESSURE/images/grass-texture.png' );
   var cementImg = require( 'image!UNDER_PRESSURE/images/cement-texture-dark.jpg' );

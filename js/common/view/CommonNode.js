@@ -12,9 +12,9 @@ define( function( require ) {
   var LinearGradient = require( 'SCENERY/util/LinearGradient' );
   var Rectangle = require( 'SCENERY/nodes/Rectangle' );
   var ResetAllButton = require( 'SCENERY_PHET/ResetAllButton' );
-  var ControlPanel = require( "common/view/ControlPanel" );
-  var ControlSlider = require( "common/view/ControlSlider" );
-  var BarometersContainer = require( "common/view/BarometersContainer" );
+  var ControlPanel = require( "UNDER_PRESSURE/common/view/ControlPanel" );
+  var ControlSlider = require( "UNDER_PRESSURE/common/view/ControlSlider" );
+  var BarometersContainer = require( "UNDER_PRESSURE/common/view/BarometersContainer" );
 
   var fluidDensityString = require( 'string!UNDER_PRESSURE/fluidDensity' );
   var gravityString = require( 'string!UNDER_PRESSURE/gravity' );

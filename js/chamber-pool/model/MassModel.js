@@ -11,7 +11,7 @@ define( function( require ) {
   var PropertySet = require( 'AXON/PropertySet' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Vector2 = require( 'DOT/Vector2' );
-  var UnderPressureModel = require( 'common/model/UnderPressureModel' );
+  var UnderPressureModel = require( 'UNDER_PRESSURE/common/model/UnderPressureModel' );
   var LinearFunction = require( 'DOT/LinearFunction' );
 
 

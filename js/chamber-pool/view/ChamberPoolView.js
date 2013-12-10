@@ -8,12 +8,12 @@
 define( function( require ) {
   "use strict";
   var inherit = require( "PHET_CORE/inherit" );
-  var CommonNode = require( "common/view/CommonNode" );
+  var CommonNode = require( "UNDER_PRESSURE/common/view/CommonNode" );
   var ScreenView = require( "JOIST/ScreenView" );
   var ChamberPoolBack = require( "chamber-pool/view/ChamberPoolBack" );
   var ChamberPoolWaterNode = require( "chamber-pool/view/ChamberPoolWaterNode" );
   var MassViewNode = require( "chamber-pool/view/MassViewNode" );
-  var BarometerNode = require( "common/view/BarometerNode" );
+  var BarometerNode = require( "UNDER_PRESSURE/common/view/BarometerNode" );
 
 
   function ChamberPoolView( model ) {

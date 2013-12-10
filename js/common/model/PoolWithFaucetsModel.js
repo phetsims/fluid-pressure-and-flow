@@ -13,8 +13,8 @@ define( function( require ) {
   var Node = require( 'SCENERY/nodes/Node' );
   var Vector2 = require( 'DOT/Vector2' );
   var SimpleDragHandler = require( 'SCENERY/input/SimpleDragHandler' );
-  var UnderPressureModel = require( 'common/model/UnderPressureModel' );
-  var FaucetModel = require( 'common/model/FaucetModel' );
+  var UnderPressureModel = require( 'UNDER_PRESSURE/common/model/UnderPressureModel' );
+  var FaucetModel = require( 'UNDER_PRESSURE/common/model/FaucetModel' );
 
 
   function PoolWithFaucetsModel( width, height ) {
