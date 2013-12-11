@@ -13,6 +13,7 @@ define( function( require ) {
   var Vector2 = require( 'DOT/Vector2' );
   var UnderPressureModel = require( 'UNDER_PRESSURE/common/model/UnderPressureModel' );
   var LinearFunction = require( 'DOT/LinearFunction' );
+  var Bounds = require( "DOT/bounds2" );
 
 
   function MassModel( model, mass, x, y, width, height ) {
@@ -64,7 +65,7 @@ define( function( require ) {
           this.velocityProperty.reset();
         }
       }
-      else if(this.model.stack.contains(this)){
+      else if ( this.model.stack.contains( this ) ) {
         //use newton’s laws to equalize pressure/force at interface
         var m = this.model.stackMass.get();
         var rho = this.model.fluidDensity;
@@ -86,7 +87,10 @@ define( function( require ) {
       this.velocityProperty.reset();
     },
     isInTargetDroppedArea: function() {
-      return true;
+      var waterLine = this.model.poolDimensions.leftOpening.y2 - this.model.LEFT_WATER_HEIGHT + this.model.leftDisplacement;
+      var bottomLine = waterLine - this.model.stack.reduce( 0, function( a, b ) {return a + b.height} );
+      return new Bounds( this.position.x, this.position.y, this.position.x + this.width, this.position.y + this.height ).intersectsBounds( new Bounds(
+        this.model.poolDimensions.leftOpening.x1, bottomLine - this.height, this.model.poolDimensions.leftOpening.x2, bottomLine ) );
     },
     cannotFall: function() {
       //mass dropped under earth or over opening

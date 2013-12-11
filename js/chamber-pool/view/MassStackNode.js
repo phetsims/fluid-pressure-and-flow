@@ -25,14 +25,14 @@ define( function( require ) {
     var totalHeight = 0; //height of all masses
 
     var placementRectWidth = (model.poolDimensions.leftOpening.x2 - model.poolDimensions.leftOpening.x1) * model.pxToMetersRatio;
-    var placementRect = new Rectangle( 0, 0, placementRectWidth, 0, {
-      fill: "#ffdcf0"
-    } );
+
+    var placementRect = new Rectangle( 0, 0, placementRectWidth, 0);
     var placementRectBorder = new Path( new Shape(),
       {
         stroke: '#000',
         lineWidth: 2,
-        lineDash: [ 10, 5 ]
+        lineDash: [ 10, 5 ],
+        fill: "#ffdcf0"
       } );
 
 
@@ -73,13 +73,10 @@ define( function( require ) {
             .lineTo( placementRectWidth, placementrectY1 )
             .lineTo( 0, placementrectY1 );
           placementRectBorder.shape = newBorder;
-          placementRect.setRect( 0, placementrectY1, placementRectWidth, placementrectHeight );
           placementRectBorder.visible = true;
-          placementRect.visible = true;
         }
         else {
           placementRectBorder.visible = false;
-          placementRect.visible = false;
         }
       } );
     } );

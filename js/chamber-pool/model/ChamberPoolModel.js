@@ -53,9 +53,6 @@ define( function( require ) {
     //default left opening water height
     this.LEFT_WATER_HEIGHT = 1.0;
 
-    //used for move back toward zero displacement.
-    this.leftDisplacementСhange = 0;
-
     //masses can't have y-coord more that this, sky height - grass height
     this.MAX_Y = self.skyGroundBoundY - 0.05;
 
@@ -131,6 +128,16 @@ define( function( require ) {
         } );
         this.leftDisplacement = maxY - (this.poolDimensions.leftOpening.y2 - this.LEFT_WATER_HEIGHT);
       }
+      else {
+        //no masses, water must get to equilubrium
+        //move back toward zero displacement.  Note, this does not use correct newtonian dynamics, just a simple heuristic
+        if ( this.leftDisplacement >= 0 ) {
+          this.leftDisplacement -= this.leftDisplacement / 10;
+        }
+        else {
+          this.leftDisplacement = 0;
+        }
+      }
     },
     getPressureAtCoords: function( x, y ) {
       var pressure = "";
@@ -143,13 +150,19 @@ define( function( require ) {
       }
       else if ( this.isPointInsidePool( x, y ) ) {
         //inside pool
-        //TODO check for leftDisplacement
-        var waterHeight = y - (this.poolDimensions.leftChamber.y2 - this.DEFAULT_HEIGHT);// water height above barometer
-        if ( waterHeight <= 0 ) {
+        //if in left opening over masses, than air pressure
+        if ( this.poolDimensions.leftOpening.x1 < x && x < this.poolDimensions.leftOpening.x2 && y < this.poolDimensions.leftChamber.y2 - this.DEFAULT_HEIGHT + this.leftDisplacement) {
           pressure = this.getAirPressure( y );
         }
         else {
-          pressure = this.getAirPressure( y - waterHeight ) + this.getWaterPressure( waterHeight );
+          //other case
+          var waterHeight = y - (this.poolDimensions.leftChamber.y2 - this.DEFAULT_HEIGHT - this.leftDisplacement / this.LENGTH_RATIO);// water height above barometer
+          if ( waterHeight <= 0 ) {
+            pressure = this.getAirPressure( y );
+          }
+          else {
+            pressure = this.getAirPressure( y - waterHeight ) + this.getWaterPressure( waterHeight );
+          }
         }
       }
 
