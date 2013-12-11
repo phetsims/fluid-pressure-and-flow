@@ -52,19 +52,18 @@ define( function( require ) {
 
     //control sliders
     this.addChild( new ControlSlider( model.gravityProperty, model.gravityRange, {
-      x: 575,
-      y: 215,
+      x: 599,
+      y: 230,
       title: gravityString
     } ) );
     this.addChild( new ControlSlider( model.fluidDensityProperty, model.fluidDensityRange, {
-      x: 575,
-      y: 340,
+      x: 599,
+      y: 350,
       title: fluidDensityString
     } ) );
 
     // add reset button
     this.addChild( new ResetAllButton( function() { model.reset(); }, { scale: 0.5, x: 730, y: model.height - 25} ) );
-
 
     this.addChild( new Rectangle( 0, 0, 100, 130, 10, 10, {stroke: "black", lineWidth: 1, fill: "#f2fa6a", x: 520, y: 5} ) );
 

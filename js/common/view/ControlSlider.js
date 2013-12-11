@@ -198,7 +198,7 @@ define( function( require ) {
         contentPosition: 'center',
         titlePosition: 'left',
         buttonPosition: 'left',
-        scale:0.8
+        scale:0.7
       } );
     this.addChild( chargeMeterBox );
 

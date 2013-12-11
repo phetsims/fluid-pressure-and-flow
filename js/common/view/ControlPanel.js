@@ -32,7 +32,7 @@ define( function( require ) {
 
   var metricString = require( 'string!UNDER_PRESSURE/metric' );
   var atmospheresString = require( 'string!UNDER_PRESSURE/atmospheres' );
-  var atmosphereString = require( 'string!UNDER_PRESSURE/atmospheres' );
+  var atmosphereString = require( 'string!UNDER_PRESSURE/atmosphere' );
   var englishString = require( 'string!UNDER_PRESSURE/english' );
   var unitsString = require( 'string!UNDER_PRESSURE/units' );
 
@@ -51,7 +51,7 @@ define( function( require ) {
       align: "left"
     } ), atmosphereString );
 
-    var metrics =new NodeWithBorderAndTitle( new VBox( {
+    var metrics = new NodeWithBorderAndTitle( new VBox( {
       children: [
         new AquaRadioButton( model.measureUnitsProperty, "metric", new Text( metricString, textOptions ), {radius: 8} ),
         new AquaRadioButton( model.measureUnitsProperty, "atmosphere", new Text( atmospheresString, textOptions ), {radius: 8} ),
@@ -59,7 +59,7 @@ define( function( require ) {
       ],
       spacing: 5,
       align: "left"
-    } ),unitsString);
+    } ), unitsString );
 
     //In the absence of any sun (or other) layout packages, just manually space them out so they will have the icons aligned
     var pad = function( itemSet ) {
@@ -84,7 +84,7 @@ define( function( require ) {
     } );
 
 
-    Panel.call( this, content, { xMargin: 10, yMargin: 10, fill: '#f2fa6a ', stroke: 'gray', lineWidth: 1, resize: false, x: x, y: y, scale:0.8 } );
+    Panel.call( this, content, { xMargin: 10, yMargin: 10, fill: '#f2fa6a ', stroke: 'gray', lineWidth: 1, resize: false, x: x, y: y, scale: 0.8 } );
   }
 
   return inherit( Node, ControlPanel, {
