@@ -24,20 +24,20 @@ define( function( require ) {
     var bottomShape = new Shape();
     bottomShape = new Shape();
 
-    var leftPath = new Path( leftShape);
-    var rightPath = new Path( rightShape);
-    var bottomPath = new Path( bottomShape);
+    var leftPath = new Path( leftShape );
+    var rightPath = new Path( rightShape );
+    var bottomPath = new Path( bottomShape );
 
     var viewHeight;
     var maxHeight = model.MAX_HEIGHT * model.pxToMetersRatio;
 
     var yMax = (model.poolDimensions.leftChamber.y + model.poolDimensions.leftChamber.height);
 
-    model.waterColorModel.waterColorProperty.link( function( color ) {
+    model.globalModel.waterColorModel.waterColorProperty.link( function( color ) {
       viewHeight = maxHeight * model.volume / model.MAX_VOLUME;
       var newGradient = new LinearGradient( 0, yMax, 0, yMax - maxHeight )
-        .addColorStop( 0, model.waterColorModel.bottomColor )
-        .addColorStop( 1, model.waterColorModel.topColor );
+        .addColorStop( 0, model.globalModel.waterColorModel.bottomColor )
+        .addColorStop( 1, model.globalModel.waterColorModel.topColor );
 
       //self.fill = newGradient; TODO ask why not working
       leftPath.fill = newGradient;

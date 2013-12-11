@@ -25,8 +25,6 @@ define( function( require ) {
     thisFaucet.scale = scale
     thisFaucet.spoutWidth = 1.35*scale;
 
-
-
     PropertySet.call( this, {
       flowRate: 0,
       enabled: true

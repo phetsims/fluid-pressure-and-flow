@@ -11,7 +11,6 @@ define( function( require ) {
   var PropertySet = require( 'AXON/PropertySet' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Vector2 = require( 'DOT/Vector2' );
-  var UnderPressureModel = require( 'UNDER_PRESSURE/common/model/UnderPressureModel' );
   var LinearFunction = require( 'DOT/LinearFunction' );
   var Bounds = require( "DOT/bounds2" );
 
@@ -56,7 +55,7 @@ define( function( require ) {
   return inherit( PropertySet, MassModel, {
     step: function( dt ) {
       if ( this.isDropping ) {
-        var acceleration = this.model.gravity;
+        var acceleration = this.model.globalModel.gravity;
         this.velocity = this.velocity + acceleration * dt;
         this.position = new Vector2( this.position.x, this.velocity * dt + this.position.y );
         if ( this.position.y > this.model.MAX_Y - this.height ) {
@@ -67,11 +66,11 @@ define( function( require ) {
       }
       else if ( this.model.stack.contains( this ) ) {
         //use newton’s laws to equalize pressure/force at interface
-        var m = this.model.stackMass.get();
-        var rho = this.model.fluidDensity;
-        var g = this.model.gravity;
+        var m = this.model.stackMass;
+        var rho = this.model.globalModel.fluidDensity;
+        var g = this.model.globalModel.gravity;
         //difference between water levels in left and right opening
-        var h = this.model.leftDisplacement + this.model.leftDisplacement / this.model.LENGTH_RATIO;
+        var h = this.model.globalModel.leftDisplacement + this.model.globalModel.leftDisplacement / this.model.LENGTH_RATIO;
         var gravityForce = +m * g;
         var pressureForce = -rho * h * g;
         var force = gravityForce + pressureForce;
@@ -87,7 +86,7 @@ define( function( require ) {
       this.velocityProperty.reset();
     },
     isInTargetDroppedArea: function() {
-      var waterLine = this.model.poolDimensions.leftOpening.y2 - this.model.LEFT_WATER_HEIGHT + this.model.leftDisplacement;
+      var waterLine = this.model.poolDimensions.leftOpening.y2 - this.model.LEFT_WATER_HEIGHT + this.model.globalModel.leftDisplacement;
       var bottomLine = waterLine - this.model.stack.reduce( 0, function( a, b ) {return a + b.height} );
       return new Bounds( this.position.x, this.position.y, this.position.x + this.width, this.position.y + this.height ).intersectsBounds( new Bounds(
         this.model.poolDimensions.leftOpening.x1, bottomLine - this.height, this.model.poolDimensions.leftOpening.x2, bottomLine ) );

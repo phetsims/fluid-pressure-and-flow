@@ -9,7 +9,7 @@ define( function( require ) {
   "use strict";
   var inherit = require( "PHET_CORE/inherit" );
   var CommonNode = require( "UNDER_PRESSURE/common/view/CommonNode" );
-  var ScreenView = require( "JOIST/ScreenView" );
+  var Node = require( 'SCENERY/nodes/Node' );
   var ChamberPoolBack = require( "chamber-pool/view/ChamberPoolBack" );
   var ChamberPoolWaterNode = require( "chamber-pool/view/ChamberPoolWaterNode" );
   var MassViewNode = require( "chamber-pool/view/MassViewNode" );
@@ -20,10 +20,7 @@ define( function( require ) {
   function ChamberPoolView( model ) {
     var self = this;
 
-    ScreenView.call( this, { renderer: "svg" } );
-
-    //sky, earth and controls
-    this.addChild( new CommonNode( model ) );
+    Node.call( this, { renderer: "svg" } );
 
     //pool
     this.addChild( new ChamberPoolBack( model ) );
@@ -35,12 +32,9 @@ define( function( require ) {
       self.addChild( new MassViewNode( massModel, model ) );
     } );
 
-    //barometers
-    this.addChild( new BarometersContainer( model ) );
-
     this.addChild(new MassStackNode(model));
 
   }
 
-  return inherit( ScreenView, ChamberPoolView );
+  return inherit( Node, ChamberPoolView );
 } );

@@ -27,12 +27,12 @@ define( function( require ) {
 
     var viewHeight;
     var maxHeight = model.MAX_HEIGHT * model.pxToMetersRatio;
-    var yMax = (model.skyGroundBoundY + model.MAX_HEIGHT) * model.pxToMetersRatio;
+    var yMax = (model.globalModel.skyGroundBoundY + model.MAX_HEIGHT) * model.pxToMetersRatio;
 
-    model.waterColorModel.waterColorProperty.link( function( color ) {
+    model.globalModel.waterColorModel.waterColorProperty.link( function( color ) {
       var newGradient = new LinearGradient( 0, yMax, 0, yMax - maxHeight )
-        .addColorStop( 0, model.waterColorModel.bottomColor )
-        .addColorStop( 1, model.waterColorModel.topColor );
+        .addColorStop( 0, model.globalModel.waterColorModel.bottomColor )
+        .addColorStop( 1, model.globalModel.waterColorModel.topColor );
 
       //self.fill = newGradient; TODO ask why not working
       leftOpening.fill = newGradient;
@@ -61,7 +61,7 @@ define( function( require ) {
       rightY = (model.poolDimensions.rightOpening.y2 - model.LEFT_WATER_HEIGHT) * model.pxToMetersRatio,
       rightHeight = model.LEFT_WATER_HEIGHT * model.pxToMetersRatio;
 
-    model.leftDisplacementProperty.link( function( displacement ) {
+    model.globalModel.leftDisplacementProperty.link( function( displacement ) {
       leftOpening.setRect( leftX, leftY + displacement * model.pxToMetersRatio, leftWidth, leftHeight - displacement * model.pxToMetersRatio );
       rightOpening.setRect( rightX, rightY - model.pxToMetersRatio * displacement/model.LENGTH_RATIO, rightWidth, rightHeight + model.pxToMetersRatio * displacement/model.LENGTH_RATIO  );
     } );

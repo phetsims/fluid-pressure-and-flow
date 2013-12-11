@@ -27,17 +27,17 @@ define( function( require ) {
     //grass
     this.addChild( new Rectangle( -1000, 0, 1000 + model.poolDimensions.leftOpening.x1 * model.pxToMetersRatio, 10, {
       fill: new Pattern( grassImg ).setTransformMatrix( Matrix3.scale( 0.25 ) ),
-      y: model.skyGroundBoundY * model.pxToMetersRatio - 10
+      y: model.globalModel.skyGroundBoundY * model.pxToMetersRatio - 10
     } ) );
 
     this.addChild( new Rectangle( model.poolDimensions.leftOpening.x2 * model.pxToMetersRatio, 0, (model.poolDimensions.rightOpening.x1 - model.poolDimensions.leftOpening.x2) * model.pxToMetersRatio, 10, {
       fill: new Pattern( grassImg ).setTransformMatrix( Matrix3.scale( 0.25 ) ),
-      y: model.skyGroundBoundY * model.pxToMetersRatio - 10
+      y: model.globalModel.skyGroundBoundY * model.pxToMetersRatio - 10
     } ) );
 
     this.addChild( new Rectangle( model.poolDimensions.rightOpening.x2 * model.pxToMetersRatio, 0, 1000, 10, {
       fill: new Pattern( grassImg ).setTransformMatrix( Matrix3.scale( 0.25 ) ),
-      y: model.skyGroundBoundY * model.pxToMetersRatio - 10
+      y: model.globalModel.skyGroundBoundY * model.pxToMetersRatio - 10
     } ) );
 
     //cement border

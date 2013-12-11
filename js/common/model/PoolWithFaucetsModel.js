@@ -13,14 +13,16 @@ define( function( require ) {
   var Node = require( 'SCENERY/nodes/Node' );
   var Vector2 = require( 'DOT/Vector2' );
   var SimpleDragHandler = require( 'SCENERY/input/SimpleDragHandler' );
-  var UnderPressureModel = require( 'UNDER_PRESSURE/common/model/UnderPressureModel' );
   var FaucetModel = require( 'UNDER_PRESSURE/common/model/FaucetModel' );
 
 
-  function PoolWithFaucetsModel( width, height ) {
+  function PoolWithFaucetsModel(globalModel) {
     var self = this;
 
-    UnderPressureModel.call( this, width, height );
+
+    PropertySet.call(this, {
+      volume : 0
+    });
 
     // Enable faucets and dropper based on amount of solution in the beaker.
     this.volumeProperty.link( function( volume ) {
@@ -30,7 +32,7 @@ define( function( require ) {
 
   }
 
-  return inherit( UnderPressureModel, PoolWithFaucetsModel, {
+  return inherit( PropertySet, PoolWithFaucetsModel, {
     step: function( dt ) {
       this.addLiquid( dt );
       this.removeLiquid( dt );

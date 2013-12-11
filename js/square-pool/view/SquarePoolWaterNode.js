@@ -24,11 +24,11 @@ define( function( require ) {
     var xMin = model.poolDimensions.x1 * model.pxToMetersRatio,
       yMax = model.poolDimensions.y2 * model.pxToMetersRatio;
 
-    model.waterColorModel.waterColorProperty.link( function( color ) {
+    model.globalModel.waterColorModel.waterColorProperty.link( function( color ) {
       viewHeight = maxHeight * model.volume / model.MAX_VOLUME;
       self.fill = new LinearGradient( 0, yMax, 0, yMax - maxHeight )
-        .addColorStop( 0, model.waterColorModel.bottomColor)
-        .addColorStop( 1, model.waterColorModel.topColor  );
+        .addColorStop( 0, model.globalModel.waterColorModel.bottomColor)
+        .addColorStop( 1, model.globalModel.waterColorModel.topColor  );
     } );
 
     model.volumeProperty.link( function( volume ) {

@@ -15,6 +15,7 @@ define( function( require ) {
   var ControlPanel = require( "UNDER_PRESSURE/common/view/ControlPanel" );
   var ControlSlider = require( "UNDER_PRESSURE/common/view/ControlSlider" );
   var BarometersContainer = require( "UNDER_PRESSURE/common/view/BarometersContainer" );
+  var SceneChoiceNode = require( "UNDER_PRESSURE/common/view/SceneChoiceNode" );
 
   var fluidDensityString = require( 'string!UNDER_PRESSURE/fluidDensity' );
   var gravityString = require( 'string!UNDER_PRESSURE/gravity' );
@@ -65,7 +66,9 @@ define( function( require ) {
     this.addChild( new ResetAllButton( function() { model.reset(); }, { scale: 0.5, x: 730, y: model.height - 25} ) );
 
 
-    this.addChild(new Rectangle( 0, 0, 100, 130, 10, 10, {stroke: "black", lineWidth: 1, fill: "#f2fa6a",x:520,y:5} ));
+    this.addChild( new Rectangle( 0, 0, 100, 130, 10, 10, {stroke: "black", lineWidth: 1, fill: "#f2fa6a", x: 520, y: 5} ) );
+
+    this.addChild( new SceneChoiceNode( model, 20, 235 ) );
 
 
   }

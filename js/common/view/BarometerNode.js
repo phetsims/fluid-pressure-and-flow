@@ -102,7 +102,7 @@ define( function( require ) {
     model.isAtmosphereProperty.link( function() {
       thisBarometerStatement.set( model.getPressureAtCoords( self.centerX, self.bottom ) );
     } );
-    model.volumeProperty.link( function() {
+    model.currentVolumeProperty.link( function() {
       thisBarometerStatement.set( model.getPressureAtCoords( self.centerX, self.bottom ) );
     } );
     model.leftDisplacementProperty.link( function() {

@@ -7,21 +7,12 @@ define( function( require ) {
   'use strict';
 
   // Imports
-  var Image = require( 'SCENERY/nodes/Image' );
   var Screen = require( 'JOIST/Screen' );
   var Sim = require( 'JOIST/Sim' );
   var SimLauncher = require( 'JOIST/SimLauncher' );
   var ScreenView = require( 'JOIST/ScreenView' );
-  var SquarePoolModel = require( 'square-pool/model/SquarePoolModel' );
-  var SquarePoolView = require( 'square-pool/view/SquarePoolView' );
-  var TrapezoidPoolModel = require( 'trapezoid-pool/model/TrapezoidPoolModel' );
-  var TrapezoidPoolView = require( 'trapezoid-pool/view/TrapezoidPoolView' );
-  var ChamberPoolModel = require( 'chamber-pool/model/ChamberPoolModel' );
-  var ChamberPoolView = require( 'chamber-pool/view/ChamberPoolView' );
-
-  var squarePoolIcon = require( "image!UNDER_PRESSURE/square-pool-icon.png" );
-  var trapezoidPoolIcon = require( "image!UNDER_PRESSURE/trapezoid-pool-icon.png" );
-  var chamberPoolIcon = require( "image!UNDER_PRESSURE/chamber-pool-icon.png" );
+  var UnderPressureModel = require( 'UNDER_PRESSURE/common/model/UnderPressureModel' );
+  var UnderPressureView = require( 'UNDER_PRESSURE/common/view/UnderPressureView' );
 
   // Strings
   var simTitle = require( 'string!UNDER_PRESSURE/under-pressure.name' );
@@ -38,21 +29,13 @@ define( function( require ) {
 
   SimLauncher.launch( function() {
     // Create and start the sim
+    //Create and start the sim
     new Sim( simTitle, [
-      new Screen( "", new Image( squarePoolIcon ),
-        function() {return new SquarePoolModel( ScreenView.LAYOUT_BOUNDS.width, ScreenView.LAYOUT_BOUNDS.height );},
-        function( model ) {return new SquarePoolView( model );},
+      new Screen( simTitle, null,
+        function() {return new UnderPressureModel( ScreenView.LAYOUT_BOUNDS.width, ScreenView.LAYOUT_BOUNDS.height );},
+        function( model ) {return new UnderPressureView( model );},
         { backgroundColor: '#fff' }
-      ),
-       new Screen( "", new Image(trapezoidPoolIcon),
-       function() {return new TrapezoidPoolModel( ScreenView.LAYOUT_BOUNDS.width, ScreenView.LAYOUT_BOUNDS.height );},
-       function( model ) {return new TrapezoidPoolView( model );},
-       { backgroundColor: '#fff' }
-       ),
-      new Screen( "", new Image(chamberPoolIcon),
-        function() {return new ChamberPoolModel( ScreenView.LAYOUT_BOUNDS.width, ScreenView.LAYOUT_BOUNDS.height );},
-        function( model ) {return new ChamberPoolView( model );},
-        { backgroundColor: '#fff' })
+      )
     ], simOptions ).start();
   } );
 } );

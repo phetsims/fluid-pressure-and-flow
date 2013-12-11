@@ -18,7 +18,7 @@ define( function( require ) {
   var LinearFunction = require( 'DOT/LinearFunction' );
 
 
-  function TrapezoidPoolModel( width, height ) {
+  function TrapezoidPoolModel( globalModel ) {
     var model = this;
 
     //constants, from java model
@@ -32,14 +32,15 @@ define( function( require ) {
     this.inputFaucet = new FaucetModel( new Vector2( 3, 2.7 ), 1, 0.42 );
     this.outputFaucet = new FaucetModel( new Vector2( 7.75, 6.60 ), 1, 0.3 );
 
-    PoolWithFaucetsModel.call( this, width, height );
+    this.globalModel = globalModel;
+    this.pxToMetersRatio = globalModel.pxToMetersRatio;
 
     this.poolDimensions = {
       leftChamber: {
         centerTop: LEFTCHAMBERTOPCENTER,
         widthTop: WIDTHATTOP,
         widthBottom: WIDTHATBOTTOM,
-        y: model.skyGroundBoundY,
+        y: model.globalModel.skyGroundBoundY,
         height: model.MAX_HEIGHT,
         leftBorderFunction: new LinearFunction( 0, model.MAX_HEIGHT, LEFTCHAMBERTOPCENTER - WIDTHATBOTTOM / 2, LEFTCHAMBERTOPCENTER - WIDTHATTOP / 2 ),
         rightBorderFunction: new LinearFunction( 0, model.MAX_HEIGHT, LEFTCHAMBERTOPCENTER + WIDTHATBOTTOM / 2, LEFTCHAMBERTOPCENTER + WIDTHATTOP / 2 )
@@ -48,16 +49,16 @@ define( function( require ) {
         centerTop: LEFTCHAMBERTOPCENTER + SEPARATION,
         widthTop: WIDTHATBOTTOM,
         widthBottom: WIDTHATTOP,
-        y: model.skyGroundBoundY,
+        y: model.globalModel.skyGroundBoundY,
         height: model.MAX_HEIGHT,
         leftBorderFunction: new LinearFunction( 0, model.MAX_HEIGHT, LEFTCHAMBERTOPCENTER + SEPARATION - WIDTHATTOP / 2, LEFTCHAMBERTOPCENTER + SEPARATION - WIDTHATBOTTOM / 2 ),
         rightBorderFunction: new LinearFunction( 0, model.MAX_HEIGHT, LEFTCHAMBERTOPCENTER + SEPARATION + WIDTHATTOP / 2, LEFTCHAMBERTOPCENTER + SEPARATION + WIDTHATBOTTOM / 2 )
       },
       bottomChamber: {
         x1: LEFTCHAMBERTOPCENTER + WIDTHATBOTTOM / 2,
-        y1: model.skyGroundBoundY + model.MAX_HEIGHT - 0.21,
+        y1: model.globalModel.skyGroundBoundY + model.MAX_HEIGHT - 0.21,
         x2: LEFTCHAMBERTOPCENTER + SEPARATION - WIDTHATTOP / 2,
-        y2: model.skyGroundBoundY + model.MAX_HEIGHT
+        y2: model.globalModel.skyGroundBoundY + model.MAX_HEIGHT
       }
     };
 
@@ -73,12 +74,14 @@ define( function( require ) {
       x2middle: model.poolDimensions.rightChamber.leftBorderFunction( model.poolDimensions.bottomChamber.y2 - model.poolDimensions.bottomChamber.y1 ),
 
       x1bottom: model.poolDimensions.leftChamber.centerTop - model.poolDimensions.leftChamber.widthBottom / 2,
-      x2bottom: model.poolDimensions.leftChamber.centerTop + model.poolDimensions.leftChamber.widthBottom / 2,
+      x2bottom: model.poolDimensions.leftChamber.centerTop + model.poolDimensions.leftChamber.widthBottom / 2 - 0.06,
       x3bottom: model.poolDimensions.rightChamber.centerTop - model.poolDimensions.rightChamber.widthBottom / 2,
       x4bottom: model.poolDimensions.rightChamber.centerTop + model.poolDimensions.rightChamber.widthBottom / 2,
 
       ymiddle: model.poolDimensions.bottomChamber.y1
-    }
+    };
+
+    PoolWithFaucetsModel.call( this, globalModel );
 
   }
 
@@ -89,17 +92,17 @@ define( function( require ) {
       x = x / this.pxToMetersRatio;
       y = y / this.pxToMetersRatio;
 
-      if ( y < this.skyGroundBoundY ) {
-        pressure = this.getAirPressure( y );
+      if ( y < this.globalModel.skyGroundBoundY ) {
+        pressure = this.globalModel.getAirPressure( y );
       }
       else if ( this.isPointInsidePool( x, y ) ) {
         //inside pool
         var waterHeight = y - (this.poolDimensions.bottomChamber.y2 - this.MAX_HEIGHT * this.volume / this.MAX_VOLUME);// water height above barometer
         if ( waterHeight <= 0 ) {
-          pressure = this.getAirPressure( y );
+          pressure = this.globalModel.getAirPressure( y );
         }
         else {
-          pressure = this.getAirPressure( y - waterHeight ) + this.getWaterPressure( waterHeight );
+          pressure = this.globalModel.getAirPressure( y - waterHeight ) + this.globalModel.getWaterPressure( waterHeight );
         }
       }
 
@@ -118,7 +121,6 @@ define( function( require ) {
             x2 = this.poolDimensions.leftChamber.rightBorderFunction( y_above_pool ),
             x3 = this.poolDimensions.rightChamber.leftBorderFunction( y_above_pool ),
             x4 = this.poolDimensions.rightChamber.rightBorderFunction( y_above_pool );
-          console.log( x1, x2, x3, x4 );
           if ( x1 < x && x < x2 ) {
             //inside left chamber
             isInside = true;

@@ -16,8 +16,20 @@ define( function( require ) {
   var Units = require( "UNDER_PRESSURE/common/model/Units" );
   var LinearFunction = require( 'DOT/LinearFunction' );
 
+  var SceneModels = {
+    SquarePoolModel: require( "square-pool/model/SquarePoolModel" ),
+    TrapezoidPoolModel: require( "trapezoid-pool/model/TrapezoidPoolModel" ),
+    ChamberPoolModel: require( "chamber-pool/model/ChamberPoolModel" )
+  };
+
+  //var ChamberPoolModel = require("chamber-pool/model/ChamberPoolModel");
+
+
   function UnderPressureModel( width, height ) {
     var self = this;
+
+    this.scenes = ["Square", "Trapezoid","Chamber"];
+
 
     this.MARS_GRAVITY = 3.71;
     this.JUPITER_GRAVITY = 24.92;
@@ -43,35 +55,46 @@ define( function( require ) {
     this.fluidDensityRange = new Range( this.GAZOLINE_DENSITY, this.HONEY_DENSITY );
 
     PropertySet.call( this, {
-        volume: 0, // volume of liquid in the pool, L
         isAtmosphere: true,
         isRulerVisible: false,
         isGridVisible: false,
         measureUnits: "metric",
         gravity: 9.8,
         fluidDensity: self.WATER_DENSITY,
-        leftDisplacement: 0 //displacement from default height, for chamber-pool
+        leftDisplacement: 0, //displacement from default height, for chamber-pool
+        currentScene: self.scenes[2],
+        currentVolume: 0 //L, volume of liquid in currentScene
       }
 
-    )
-    ;
+    );
+
+    this.sceneModels = {};
+    this.scenes.forEach( function( name ) {
+      self.sceneModels[name] = (new SceneModels[name + "PoolModel"]( self ));
+    } );
+
 
     this.waterColorModel = new WaterColorModel( this );
     this.units = new Units();
 
-    this.getStandardAirPressure = new LinearFunction( 0, this.units.feetToMeters( 500 ), this.EARTH_AIR_PRESSURE, this.EARTH_AIR_PRESSURE_AT_500_FT ),
+    this.getStandardAirPressure = new LinearFunction( 0, this.units.feetToMeters( 500 ), this.EARTH_AIR_PRESSURE, this.EARTH_AIR_PRESSURE_AT_500_FT );
 
-      this.barometersStatement = [];
+    this.barometersStatement = [];
     for ( var i = 0; i < 4; i++ ) {
       this.barometersStatement.push( new Property( 0 ) );
     }
+
+    this.currentSceneProperty.link(function() {
+      self.currentVolume = self.sceneModels[self.currentScene].volume;
+    });
   }
 
   return inherit( PropertySet, UnderPressureModel, {
     step: function( dt ) {
+      this.sceneModels[this.currentScene].step( dt );
     },
     reset: function() {
-      this.volumeProperty.reset();
+      this.currentVolumeProperty.reset();
       this.isAtmosphereProperty.reset();
     },
     getAirPressure: function( height ) {
@@ -84,6 +107,9 @@ define( function( require ) {
     },
     getWaterPressure: function( height ) {
       return height * this.gravity * this.fluidDensity;
+    },
+    getPressureAtCoords: function( x, y ) {
+      return this.sceneModels[this.currentScene].getPressureAtCoords( x, y );
     }
   } );
 } )

@@ -9,7 +9,7 @@ define( function( require ) {
   "use strict";
   var inherit = require( "PHET_CORE/inherit" );
   var CommonNode = require( "UNDER_PRESSURE/common/view/CommonNode" );
-  var ScreenView = require( "JOIST/ScreenView" );
+  var Node = require( 'SCENERY/nodes/Node' );
   var TrapezoidPoolBack = require( "trapezoid-pool/view/TrapezoidPoolBack" );
   var FaucetFluidNode = require( "UNDER_PRESSURE/common/view/FaucetFluidNode" );
   var TrapezoidPoolWaterNode = require( "trapezoid-pool/view/TrapezoidPoolWaterNode" );
@@ -17,10 +17,7 @@ define( function( require ) {
 
 
   function TrapezoidPoolView( model ) {
-    ScreenView.call( this, { renderer: "svg" } );
-
-    //sky, earth and controls
-    this.addChild( new CommonNode( model ) );
+    Node.call( this, { renderer: "svg" } );
 
     //pool
     this.addChild( new TrapezoidPoolBack( model ) );
@@ -32,10 +29,8 @@ define( function( require ) {
     //water
     this.addChild( new TrapezoidPoolWaterNode( model ) );
 
-    //barometers
-    this.addChild(new BarometersContainer(model));
 
   }
 
-  return inherit( ScreenView, TrapezoidPoolView );
+  return inherit( Node, TrapezoidPoolView );
 } );

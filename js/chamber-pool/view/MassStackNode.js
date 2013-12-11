@@ -42,7 +42,7 @@ define( function( require ) {
     var controlMassStackPosition = function() {
       var dy = 0;
       model.stack.forEach( function( massModel ) {
-        massModel.position = new Vector2( model.poolDimensions.leftOpening.x1, (model.poolDimensions.leftOpening.y2 - model.LEFT_WATER_HEIGHT + model.leftDisplacement) - dy - massModel.height );
+        massModel.position = new Vector2( model.poolDimensions.leftOpening.x1, (model.poolDimensions.leftOpening.y2 - model.LEFT_WATER_HEIGHT + model.globalModel.leftDisplacement) - dy - massModel.height );
         dy += massModel.height;
       } );
     };
@@ -58,7 +58,7 @@ define( function( require ) {
       controlMassStackPosition();
     };
 
-    model.leftDisplacementProperty.link( function( displacement ) {
+    model.globalModel.leftDisplacementProperty.link( function( displacement ) {
       self.bottom = (model.poolDimensions.leftOpening.y2 - model.LEFT_WATER_HEIGHT + displacement) * model.pxToMetersRatio;
     } );
 

@@ -17,7 +17,7 @@ define( function( require ) {
   var FaucetModel = require( 'UNDER_PRESSURE/common/model/FaucetModel' );
 
 
-  function SquarePoolModel( width, height ) {
+  function SquarePoolModel( globalModel ) {
     var self = this;
 
     //constants, from java model
@@ -27,13 +27,16 @@ define( function( require ) {
     this.inputFaucet = new FaucetModel( new Vector2( 3, 2.7 ), 1, 0.42 );
     this.outputFaucet = new FaucetModel( new Vector2( 7.2, 6.6 ), 1, 0.3 );
 
-    PoolWithFaucetsModel.call( this, width, height );
+    this.globalModel = globalModel;
+    this.pxToMetersRatio = globalModel.pxToMetersRatio;
+
+    PoolWithFaucetsModel.call( this, this.globalModel );
 
     this.poolDimensions = {
       x1: 2.57,
-      y1: self.skyGroundBoundY,
+      y1: self.globalModel.skyGroundBoundY,
       x2: 6.57,
-      y2: self.skyGroundBoundY + 3
+      y2: self.globalModel.skyGroundBoundY + 3
     };
 
   }
@@ -45,17 +48,17 @@ define( function( require ) {
       x = x / this.pxToMetersRatio;
       y = y / this.pxToMetersRatio;
 
-      if ( y < this.skyGroundBoundY ) {
-        pressure = this.getAirPressure( y );
+      if ( y < this.globalModel.skyGroundBoundY ) {
+        pressure = this.globalModel.getAirPressure( y );
       }
       else if ( x > this.poolDimensions.x1 && x < this.poolDimensions.x2 && y < this.poolDimensions.y2 ) {
         //inside pool
         var waterHeight = y - (this.poolDimensions.y2 - this.MAX_HEIGHT * this.volume / this.MAX_VOLUME);// water height above barometer
         if ( waterHeight <= 0 ) {
-          pressure = this.getAirPressure( y );
+          pressure = this.globalModel.getAirPressure( y );
         }
         else {
-          pressure = this.getAirPressure( y - waterHeight ) + this.getWaterPressure( waterHeight );
+          pressure = this.globalModel.getAirPressure( y - waterHeight ) + this.globalModel.getWaterPressure( waterHeight );
         }
       }
 

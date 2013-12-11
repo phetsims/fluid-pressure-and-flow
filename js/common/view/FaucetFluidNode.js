@@ -24,8 +24,7 @@ define( function( require ) {
       thisNode.setRect( faucet.location.x*model.pxToMetersRatio - (thisNode.viewWidth / 2),  faucet.location.y*model.pxToMetersRatio, thisNode.viewWidth, thisNode.currentHeight );
     };
 
-
-    model.waterColorModel.waterColorProperty.link( function( color ) {
+    model.globalModel.waterColorModel.waterColorProperty.link( function( color ) {
       thisNode.fill = color;
     } );
 

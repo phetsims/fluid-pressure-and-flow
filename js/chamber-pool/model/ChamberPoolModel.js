@@ -8,15 +8,17 @@
 define( function( require ) {
   'use strict';
 
-  var Property = require( 'AXON/Property' );
+  var PropertySet = require( 'AXON/PropertySet' );
   var ObservableArray = require( 'AXON/ObservableArray' );
   var inherit = require( 'PHET_CORE/inherit' );
-  var UnderPressureModel = require( 'UNDER_PRESSURE/common/model/UnderPressureModel' );
   var MassModel = require( 'chamber-pool/model/MassModel' );
 
 
-  function ChamberPoolModel( width, height ) {
+  function ChamberPoolModel( globalModel ) {
     var self = this;
+
+    this.globalModel = globalModel;
+    this.pxToMetersRatio = globalModel.pxToMetersRatio;
 
     //constants, from java model
     //The entire apparatus is this tall
@@ -48,13 +50,11 @@ define( function( require ) {
     var RIGHT_CHAMBER_X = 5.5;
     var RIGHT_CHAMBER_WIDTH = 1.25;
 
-    UnderPressureModel.call( this, width, height );
-
     //default left opening water height
     this.LEFT_WATER_HEIGHT = 1.0;
 
     //masses can't have y-coord more that this, sky height - grass height
-    this.MAX_Y = self.skyGroundBoundY - 0.05;
+    this.MAX_Y = self.globalModel.skyGroundBoundY - 0.05;
 
     var massOffset = 0.05; // start x-coordinate of first mass
     var separation = 0.03; //separation between masses
@@ -62,39 +62,40 @@ define( function( require ) {
     this.poolDimensions = {
       leftChamber: {
         x1: LEFT_CHAMBER_X,
-        y1: self.skyGroundBoundY + self.MAX_HEIGHT - CHAMBER_HEIGHT,
+        y1: self.globalModel.skyGroundBoundY + self.MAX_HEIGHT - CHAMBER_HEIGHT,
         x2: LEFT_CHAMBER_X + LEFT_CHAMBER_WIDTH,
-        y2: self.skyGroundBoundY + self.MAX_HEIGHT
+        y2: self.globalModel.skyGroundBoundY + self.MAX_HEIGHT
       },
       rightChamber: {
         x1: RIGHT_CHAMBER_X,
-        y1: self.skyGroundBoundY + self.MAX_HEIGHT - CHAMBER_HEIGHT,
+        y1: self.globalModel.skyGroundBoundY + self.MAX_HEIGHT - CHAMBER_HEIGHT,
         x2: RIGHT_CHAMBER_X + RIGHT_CHAMBER_WIDTH,
-        y2: self.skyGroundBoundY + self.MAX_HEIGHT
+        y2: self.globalModel.skyGroundBoundY + self.MAX_HEIGHT
       },
       horizontalPassage: {
         x1: LEFT_CHAMBER_X + LEFT_CHAMBER_WIDTH,
-        y1: self.skyGroundBoundY + self.MAX_HEIGHT - PASSAGE_SIZE * 3 / 2,
+        y1: self.globalModel.skyGroundBoundY + self.MAX_HEIGHT - PASSAGE_SIZE * 3 / 2,
         x2: RIGHT_CHAMBER_X,
-        y2: self.skyGroundBoundY + self.MAX_HEIGHT - PASSAGE_SIZE / 2
+        y2: self.globalModel.skyGroundBoundY + self.MAX_HEIGHT - PASSAGE_SIZE / 2
       },
       leftOpening: {
         x1: LEFT_CHAMBER_X + LEFT_CHAMBER_WIDTH / 2 - LEFT_OPENING_WIDTH / 2,
-        y1: self.skyGroundBoundY,
+        y1: self.globalModel.skyGroundBoundY,
         x2: LEFT_CHAMBER_X + LEFT_CHAMBER_WIDTH / 2 + LEFT_OPENING_WIDTH / 2,
-        y2: self.skyGroundBoundY + self.MAX_HEIGHT - CHAMBER_HEIGHT
+        y2: self.globalModel.skyGroundBoundY + self.MAX_HEIGHT - CHAMBER_HEIGHT
       },
       rightOpening: {
         x1: RIGHT_CHAMBER_X + RIGHT_CHAMBER_WIDTH / 2 - RIGHT_OPENING_WIDTH / 2,
-        y1: self.skyGroundBoundY,
+        y1: self.globalModel.skyGroundBoundY,
         x2: RIGHT_CHAMBER_X + RIGHT_CHAMBER_WIDTH / 2 + RIGHT_OPENING_WIDTH / 2,
-        y2: self.skyGroundBoundY + self.MAX_HEIGHT - CHAMBER_HEIGHT
+        y2: self.globalModel.skyGroundBoundY + self.MAX_HEIGHT - CHAMBER_HEIGHT
       }
     };
 
     //stack of masses
     this.stack = new ObservableArray();
-    this.stackMass = new Property( 0 );
+
+    PropertySet.call( this, {stackMass: 0} );
 
     this.masses = [
       new MassModel( self, 500, massOffset, self.MAX_Y - PASSAGE_SIZE, PASSAGE_SIZE, PASSAGE_SIZE ),
@@ -103,14 +104,14 @@ define( function( require ) {
     ];
 
     this.stack.addListeners( function( massModel ) {
-      self.stackMass.set( self.stackMass.get() + massModel.mass );
+      self.stackMass = self.stackMass + massModel.mass;
     }, function( massModel ) {
-      self.stackMass.set( self.stackMass.get() - massModel.mass );
+      self.stackMass = self.stackMass - massModel.mass;
     } );
 
   }
 
-  return inherit( UnderPressureModel, ChamberPoolModel, {
+  return inherit( PropertySet, ChamberPoolModel, {
     reset: function() {
 
     },
@@ -121,21 +122,21 @@ define( function( require ) {
           mass.step( dt / steps );
         }
       } );
-      if ( this.stackMass.get() ) {
+      if ( this.stackMass ) {
         var maxY = 0;
         this.stack.forEach( function( massModel ) {
           maxY = Math.max( massModel.position.y + massModel.height, maxY );
         } );
-        this.leftDisplacement = maxY - (this.poolDimensions.leftOpening.y2 - this.LEFT_WATER_HEIGHT);
+        this.globalModel.leftDisplacement = maxY - (this.poolDimensions.leftOpening.y2 - this.LEFT_WATER_HEIGHT);
       }
       else {
         //no masses, water must get to equilubrium
         //move back toward zero displacement.  Note, this does not use correct newtonian dynamics, just a simple heuristic
-        if ( this.leftDisplacement >= 0 ) {
-          this.leftDisplacement -= this.leftDisplacement / 10;
+        if ( this.globalModel.leftDisplacement >= 0 ) {
+          this.globalModel.leftDisplacement -= this.globalModel.leftDisplacement / 10;
         }
         else {
-          this.leftDisplacement = 0;
+          this.globalModel.leftDisplacement = 0;
         }
       }
     },
@@ -145,23 +146,23 @@ define( function( require ) {
       x = x / this.pxToMetersRatio;
       y = y / this.pxToMetersRatio;
 
-      if ( y < this.skyGroundBoundY ) {
-        pressure = this.getAirPressure( y );
+      if ( y < this.globalModel.skyGroundBoundY ) {
+        pressure = this.globalModel.getAirPressure( y );
       }
       else if ( this.isPointInsidePool( x, y ) ) {
         //inside pool
         //if in left opening over masses, than air pressure
-        if ( this.poolDimensions.leftOpening.x1 < x && x < this.poolDimensions.leftOpening.x2 && y < this.poolDimensions.leftChamber.y2 - this.DEFAULT_HEIGHT + this.leftDisplacement) {
-          pressure = this.getAirPressure( y );
+        if ( this.poolDimensions.leftOpening.x1 < x && x < this.poolDimensions.leftOpening.x2 && y < this.poolDimensions.leftChamber.y2 - this.DEFAULT_HEIGHT + this.globalModel.leftDisplacement ) {
+          pressure = this.globalModel.getAirPressure( y );
         }
         else {
           //other case
-          var waterHeight = y - (this.poolDimensions.leftChamber.y2 - this.DEFAULT_HEIGHT - this.leftDisplacement / this.LENGTH_RATIO);// water height above barometer
+          var waterHeight = y - (this.poolDimensions.leftChamber.y2 - this.DEFAULT_HEIGHT - this.globalModel.leftDisplacement / this.LENGTH_RATIO);// water height above barometer
           if ( waterHeight <= 0 ) {
-            pressure = this.getAirPressure( y );
+            pressure = this.globalModel.getAirPressure( y );
           }
           else {
-            pressure = this.getAirPressure( y - waterHeight ) + this.getWaterPressure( waterHeight );
+            pressure = this.globalModel.getAirPressure( y - waterHeight ) + this.globalModel.getWaterPressure( waterHeight );
           }
         }
       }
