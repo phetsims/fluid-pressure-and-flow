@@ -31,7 +31,8 @@ define( function( require ) {
     this.gravitySlider = new ControlSlider( model.gravityProperty, model.gravityRange, {
       x: 599,
       y: 230,
-      title: gravityString
+      title: gravityString,
+      decimals:1
     } );
     this.addChild( this.gravitySlider );
 

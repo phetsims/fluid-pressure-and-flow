@@ -37,12 +37,12 @@ define( function( require ) {
   var THUMB_FILL_HIGHLIGHTED = 'rgb(71,207,255)';
   var THUMB_RADIUS = 0.25 * THUMB_SIZE.width;
 
-  function Track( trackProperty, trackRange ) {
+  function Track( trackProperty, trackRange, decimals ) {
     Rectangle.call( this, 0, 0, TRACK_SIZE.width, TRACK_SIZE.height, { cursor: 'pointer', fill: "black" } );
     var thisNode = this,
       positionToConcentration = new LinearFunction( 0, TRACK_SIZE.width, trackRange.min, trackRange.max, true ),
       handleEvent = function( event ) {
-        trackProperty.set( Math.round( positionToConcentration( thisNode.globalToLocalPoint( event.pointer.point ).x ) ) );
+        trackProperty.set( (Math.round( Math.pow( 10, decimals ) * positionToConcentration( thisNode.globalToLocalPoint( event.pointer.point ).x ) ) / Math.pow( 10, decimals )).toFixed( decimals ) );
       };
     this.addInputListener( new SimpleDragHandler(
       {
@@ -74,7 +74,7 @@ define( function( require ) {
 
   inherit( Text, TickLabel );
 
-  function Thumb( trackProperty, trackRange ) {
+  function Thumb( trackProperty, trackRange, decimals ) {
     Node.call( this, { cursor: 'pointer' } );
 
     var thisNode = this;
@@ -107,7 +107,7 @@ define( function( require ) {
         drag: function( event ) {
           var x = thisNode.globalToParentPoint( event.pointer.point ).x - clickXOffset;
           x = Math.max( Math.min( x, TRACK_SIZE.width ), 0 );
-          trackProperty.set( Math.round( massToPosition.inverse( x ) ) );
+          trackProperty.set( (Math.round( Math.pow( 10, decimals ) *( massToPosition.inverse( x ) ) )/ Math.pow( 10, decimals )).toFixed( decimals ));
         }
       } ) );
     trackProperty.link( function( concentration ) {
@@ -123,7 +123,8 @@ define( function( require ) {
       scale: 0.6,
       fill: '#f2fa6a',
       xMargin: 15,
-      yMargin: 5
+      yMargin: 5,
+      decimals: 0
     }, options );
 
     Node.call( this, {
@@ -133,13 +134,13 @@ define( function( require ) {
 
     // nodes
     this.content = new Node();
-    var track = new Track( trackProperty, trackRange );
-    var thumb = new Thumb( trackProperty, trackRange );
+    var track = new Track( trackProperty, trackRange, options.decimals );
+    var thumb = new Thumb( trackProperty, trackRange, options.decimals );
     var plusButton = new ArrowButton( 'right', function propertyPlus() {
-      trackProperty.set( Math.min( trackProperty.get() + 1, trackRange.max ) );
+      trackProperty.set( (parseFloat( Math.min( trackProperty.get() ) + 1 / Math.pow( 10, options.decimals ), trackRange.max )).toFixed( options.decimals ) );
     } );
     var minusButton = new ArrowButton( 'left', function propertyMinus() {
-      trackProperty.set( Math.max( trackProperty.get() - 1, trackRange.min ) );
+      trackProperty.set( (Math.max( trackProperty.get() - 1 / Math.pow( 10, options.decimals ), trackRange.min )).toFixed( options.decimals ) );
     } );
     var valueLabel = new Text( "", { font: new PhetFont( 18 ), pickable: false } );
     var valueField = new Rectangle( 0, 0, 100, 30, 3, 3, { fill: "#FFF", stroke: 'black', lineWidth: 1, pickable: false } );
@@ -202,11 +203,11 @@ define( function( require ) {
     this.addChild( chargeMeterBox );
 
 
-    this.questionMark = new Node({visible:false});
+    this.questionMark = new Node( {visible: false} );
     this.questionMark.addChild( new Text( "?", { font: new PhetFont( 40 )} ) );
     this.questionMark.centerX = track.centerX;
     this.questionMark.top = this.content.top;
-    this.addChild(this.questionMark);
+    this.addChild( this.questionMark );
 
 
     trackProperty.link( function updateProperty( value ) {
