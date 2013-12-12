@@ -97,8 +97,14 @@ define( function( require ) {
       this.sceneModels[this.currentScene].step( dt );
     },
     reset: function() {
-      this.currentVolumeProperty.reset();
-      this.isAtmosphereProperty.reset();
+      var self = this;
+      this.keys.forEach( function( key ) {
+        self[key + 'Property'].reset();
+      } );
+      for (var model in self.sceneModels){
+        self.sceneModels[model].reset();
+      }
+
     },
     getAirPressure: function( height ) {
       if ( !this.isAtmosphere ) {
