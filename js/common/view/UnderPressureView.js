@@ -20,7 +20,8 @@ define( function( require ) {
   var SceneView = {
     SquarePoolView: require( "square-pool/view/SquarePoolView" ),
     TrapezoidPoolView: require( "trapezoid-pool/view/TrapezoidPoolView" ),
-    ChamberPoolView: require( "chamber-pool/view/ChamberPoolView" )
+    ChamberPoolView: require( "chamber-pool/view/ChamberPoolView" ),
+    MysteryPoolView: require( "mystery-pool/view/MysteryPoolView" )
   };
 
 

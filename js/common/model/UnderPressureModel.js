@@ -20,7 +20,8 @@ define( function( require ) {
   var SceneModels = {
     SquarePoolModel: require( "square-pool/model/SquarePoolModel" ),
     TrapezoidPoolModel: require( "trapezoid-pool/model/TrapezoidPoolModel" ),
-    ChamberPoolModel: require( "chamber-pool/model/ChamberPoolModel" )
+    ChamberPoolModel: require( "chamber-pool/model/ChamberPoolModel" ),
+    MysteryPoolModel: require( "mystery-pool/model/MysteryPoolModel" )
   };
 
   //var ChamberPoolModel = require("chamber-pool/model/ChamberPoolModel");
@@ -29,7 +30,7 @@ define( function( require ) {
   function UnderPressureModel( width, height ) {
     var self = this;
 
-    this.scenes = ["Square", "Trapezoid", "Chamber"];
+    this.scenes = ["Square", "Trapezoid", "Chamber", "Mystery"];
 
 
     this.MARS_GRAVITY = 3.71;
@@ -58,14 +59,15 @@ define( function( require ) {
     PropertySet.call( this, {
         isAtmosphere: true,
         isRulerVisible: false,
-        isGridVisible: true,
+        isGridVisible: false,
         measureUnits: "metric",
         gravity: 9.8,
         fluidDensity: self.WATER_DENSITY,
         leftDisplacement: 0, //displacement from default height, for chamber-pool
-        currentScene: self.scenes[2],
+        currentScene: self.scenes[0],
         currentVolume: 0, //L, volume of liquid in currentScene
-        rulerPosition: new Vector2( 2 * self.pxToMetersRatio, this.skyGroundBoundY * self.pxToMetersRatio ) // px
+        rulerPosition: new Vector2( 2 * self.pxToMetersRatio, this.skyGroundBoundY * self.pxToMetersRatio ), // px
+        mysteryChoice: "gravity" //for mystery-pool, planet of fluid
       }
     );
 

@@ -127,12 +127,12 @@ define( function( require ) {
     }, options );
 
     Node.call( this, {
-      x:options.x,
-      y:options.y
+      x: options.x,
+      y: options.y
     } );
 
     // nodes
-    var content = new Node();
+    this.content = new Node();
     var track = new Track( trackProperty, trackRange );
     var thumb = new Thumb( trackProperty, trackRange );
     var plusButton = new ArrowButton( 'right', function propertyPlus() {
@@ -150,16 +150,16 @@ define( function( require ) {
     var maxTickLine = new TickLine();
 
     // rendering order
-    content.addChild( valueField );
-    content.addChild( valueLabel );
-    content.addChild( minTickLine );
-    content.addChild( maxTickLine );
-    content.addChild( minLabel );
-    content.addChild( maxLabel );
-    content.addChild( track );
-    content.addChild( thumb );
-    content.addChild( plusButton );
-    content.addChild( minusButton );
+    this.content.addChild( valueField );
+    this.content.addChild( valueLabel );
+    this.content.addChild( minTickLine );
+    this.content.addChild( maxTickLine );
+    this.content.addChild( minLabel );
+    this.content.addChild( maxLabel );
+    this.content.addChild( track );
+    this.content.addChild( thumb );
+    this.content.addChild( plusButton );
+    this.content.addChild( minusButton );
 
     // relative layout, everything relative to the track
     {
@@ -188,8 +188,7 @@ define( function( require ) {
       minusButton.centerY = valueField.centerY;
     }
 
-
-    var chargeMeterBox = new AccordionBox( content,
+    var chargeMeterBox = new AccordionBox( this.content,
       {
         title: options.title,
         fill: options.fill,
@@ -198,9 +197,17 @@ define( function( require ) {
         contentPosition: 'center',
         titlePosition: 'left',
         buttonPosition: 'left',
-        scale:0.7
+        scale: 0.7
       } );
     this.addChild( chargeMeterBox );
+
+
+    this.questionMark = new Node({visible:false});
+    this.questionMark.addChild( new Text( "?", { font: new PhetFont( 40 )} ) );
+    this.questionMark.centerX = track.centerX;
+    this.questionMark.top = this.content.top;
+    this.addChild(this.questionMark);
+
 
     trackProperty.link( function updateProperty( value ) {
       valueLabel.text = StringUtils.format( valueWithUnitsPattern, value, "unit" );
@@ -210,7 +217,16 @@ define( function( require ) {
     } );
   }
 
-  inherit( Node, ControlSlider );
+  inherit( Node, ControlSlider, {
+    disable: function() {
+      this.content.visible = false;
+      this.questionMark.visible = true;
+    },
+    enable: function() {
+      this.content.visible = true;
+      this.questionMark.visible = false;
+    }
+  } );
 
   return ControlSlider;
 } )
