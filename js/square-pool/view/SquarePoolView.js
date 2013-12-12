@@ -14,6 +14,7 @@ define( function( require ) {
   var FaucetFluidNode = require( "UNDER_PRESSURE/common/view/FaucetFluidNode" );
   var SquarePoolWaterNode = require("square-pool/view/SquarePoolWaterNode");
   var BarometersContainer = require( "UNDER_PRESSURE/common/view/BarometersContainer" );
+  var SquarePoolGrid = require("square-pool/view/SquarePoolGrid");
 
 
   function SquarePoolView( model ) {
@@ -30,6 +31,8 @@ define( function( require ) {
     //water
     this.addChild(new SquarePoolWaterNode(model));
 
+    //grid
+    this.addChild(new SquarePoolGrid(model));
   }
 
   return inherit( Node, SquarePoolView );

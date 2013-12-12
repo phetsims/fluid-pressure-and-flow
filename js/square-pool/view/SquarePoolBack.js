@@ -15,7 +15,6 @@ define( function( require ) {
   var Matrix3 = require( 'DOT/Matrix3' );
   var Shape = require( 'KITE/Shape' );
   var Path = require( 'SCENERY/nodes/Path' );
-
   var UPFaucetNode = require( 'UNDER_PRESSURE/common/view/UPFaucetNode' );
 
   var grassImg = require( 'image!UNDER_PRESSURE/images/grass-texture.png' );
@@ -57,7 +56,6 @@ define( function( require ) {
     } ) );
 
     this.addChild( new UPFaucetNode( model.globalModel, model.inputFaucet, 505 ) );
-
 
   }
 

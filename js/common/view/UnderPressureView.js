@@ -14,6 +14,8 @@ define( function( require ) {
   var FaucetFluidNode = require( "UNDER_PRESSURE/common/view/FaucetFluidNode" );
   var SquarePoolWaterNode = require( "square-pool/view/SquarePoolWaterNode" );
   var BarometersContainer = require( "UNDER_PRESSURE/common/view/BarometersContainer" );
+  var UnderPressureRuler = require( "UNDER_PRESSURE/common/view/UnderPressureRuler" );
+  var ControlsNode = require( "UNDER_PRESSURE/common/view/ControlsNode" );
 
   var SceneView = {
     SquarePoolView: require( "square-pool/view/SquarePoolView" ),
@@ -29,13 +31,14 @@ define( function( require ) {
     //sky, earth and controls
     this.addChild( new CommonNode( model ) );
 
-
     var scenes = {};
     model.scenes.forEach( function( name ) {
       scenes[name] = new SceneView[name + "PoolView"]( model.sceneModels[name] );
       scenes[name].visible = false;
       self.addChild( scenes[name] );
     } );
+
+    this.addChild(new ControlsNode(model));
 
     model.currentSceneProperty.link( function( value, oldValue ) {
       scenes[value].visible = true;
@@ -44,6 +47,8 @@ define( function( require ) {
       }
     } );
 
+
+    this.addChild( new UnderPressureRuler( model ) );
 
     //barometers
     this.addChild( new BarometersContainer( model ) );

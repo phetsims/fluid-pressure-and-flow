@@ -15,6 +15,7 @@ define( function( require ) {
   var WaterColorModel = require( "UNDER_PRESSURE/common/model/WaterColorModel" );
   var Units = require( "UNDER_PRESSURE/common/model/Units" );
   var LinearFunction = require( 'DOT/LinearFunction' );
+  var Vector2 = require( 'DOT/Vector2' );
 
   var SceneModels = {
     SquarePoolModel: require( "square-pool/model/SquarePoolModel" ),
@@ -28,7 +29,7 @@ define( function( require ) {
   function UnderPressureModel( width, height ) {
     var self = this;
 
-    this.scenes = ["Square", "Trapezoid","Chamber"];
+    this.scenes = ["Square", "Trapezoid", "Chamber"];
 
 
     this.MARS_GRAVITY = 3.71;
@@ -57,15 +58,15 @@ define( function( require ) {
     PropertySet.call( this, {
         isAtmosphere: true,
         isRulerVisible: false,
-        isGridVisible: false,
+        isGridVisible: true,
         measureUnits: "metric",
         gravity: 9.8,
         fluidDensity: self.WATER_DENSITY,
         leftDisplacement: 0, //displacement from default height, for chamber-pool
         currentScene: self.scenes[2],
-        currentVolume: 0 //L, volume of liquid in currentScene
+        currentVolume: 0, //L, volume of liquid in currentScene
+        rulerPosition: new Vector2( 2 * self.pxToMetersRatio, this.skyGroundBoundY * self.pxToMetersRatio ) // px
       }
-
     );
 
     this.sceneModels = {};
@@ -84,9 +85,9 @@ define( function( require ) {
       this.barometersStatement.push( new Property( 0 ) );
     }
 
-    this.currentSceneProperty.link(function() {
+    this.currentSceneProperty.link( function() {
       self.currentVolume = self.sceneModels[self.currentScene].volume;
-    });
+    } );
   }
 
   return inherit( PropertySet, UnderPressureModel, {
