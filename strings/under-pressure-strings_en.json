@@ -58,5 +58,7 @@
   "flux": "Flux:",
   "fluxMeter": "Flux meter",
   "ftPerS": "ft/s",
-  "areaUnitsEnglish": "ft<sup>2</sup>"
+  "areaUnitsEnglish": "ft<sup>2</sup>",
+  "mars":"Mars",
+  "jupiter":"Jupiter"
 }

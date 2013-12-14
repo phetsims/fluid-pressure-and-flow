@@ -17,6 +17,12 @@ define( function( require ) {
 
   var fluidDensityString = require( 'string!UNDER_PRESSURE/fluidDensity' );
   var gravityString = require( 'string!UNDER_PRESSURE/gravity' );
+  var EarthString = require( "string!UNDER_PRESSURE/earth" );
+  var MarsString = require( "string!UNDER_PRESSURE/mars" );
+  var JupiterString = require( "string!UNDER_PRESSURE/jupiter" );
+  var GasolineString = require( "string!UNDER_PRESSURE/gasoline" );
+  var WaterString = require( "string!UNDER_PRESSURE/water" );
+  var HoneyString = require( "string!UNDER_PRESSURE/honey" );
 
   function ControlsNode( model ) {
     var self = this;
@@ -28,18 +34,46 @@ define( function( require ) {
 
     //control sliders
 
-    this.gravitySlider = new ControlSlider( model.gravityProperty, model.gravityRange, {
+    this.gravitySlider = new ControlSlider( model, model.gravityProperty, model.units.getGravityString, model.gravityRange, {
       x: 599,
       y: 230,
       title: gravityString,
-      decimals:1
+      decimals: 1,
+      ticks: [
+        {
+          title: EarthString,
+          value: 9.8
+        },
+        {
+          title: MarsString,
+          value: model.gravityRange.min
+        },
+        {
+          title: JupiterString,
+          value: model.gravityRange.max
+        }
+      ]
     } );
     this.addChild( this.gravitySlider );
 
-    this.fluidDensitySlider = new ControlSlider( model.fluidDensityProperty, model.fluidDensityRange, {
+    this.fluidDensitySlider = new ControlSlider( model, model.fluidDensityProperty, model.units.getFluidDensityString, model.fluidDensityRange, {
       x: 599,
       y: 350,
-      title: fluidDensityString
+      title: fluidDensityString,
+      ticks: [
+        {
+          title: WaterString,
+          value: 1000
+        },
+        {
+          title: GasolineString,
+          value: model.fluidDensityRange.min
+        },
+        {
+          title: HoneyString,
+          value: model.fluidDensityRange.max
+        }
+      ]
     } );
     this.addChild( this.fluidDensitySlider );
 

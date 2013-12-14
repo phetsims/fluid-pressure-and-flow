@@ -60,7 +60,7 @@ define( function( require ) {
         isAtmosphere: true,
         isRulerVisible: false,
         isGridVisible: false,
-        measureUnits: "metric",
+        measureUnits: "metric", //metric, english or atmosphere
         gravity: 9.8,
         fluidDensity: self.WATER_DENSITY,
         leftDisplacement: 0, //displacement from default height, for chamber-pool
@@ -78,7 +78,7 @@ define( function( require ) {
 
 
     this.waterColorModel = new WaterColorModel( this );
-    this.units = new Units();
+    this.units = new Units(self);
 
     this.getStandardAirPressure = new LinearFunction( 0, this.units.feetToMeters( 500 ), this.EARTH_AIR_PRESSURE, this.EARTH_AIR_PRESSURE_AT_500_FT );
 
