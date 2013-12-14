@@ -27,10 +27,10 @@ define( function( require ) {
   function UnderPressureRuler( model ) {
     var self = this;
     Node.call( this, { cursor: "pointer", renderer: 'svg', cssTransform: true } );
-    var MetersRuler = new RulerNode( 5 * model.pxToMetersRatio, 50, model.pxToMetersRatio, ["0", "1", "2", "3", "4", "5"], units_metersString, {minorTicksPerMajorTick: 4, unitsFont: '12px Arial' } );
+    var MetersRuler = new RulerNode( 5 * model.pxToMetersRatio, 50, model.pxToMetersRatio, ["0", "1", "2", "3", "4", "5"], units_metersString, {minorTicksPerMajorTick: 4, unitsFont: '12px Arial',rotation:Math.PI/2 } );
     this.addChild( MetersRuler );
 
-    var FeetsRuler = new RulerNode( model.units.feetToMeters( 10 ) * model.pxToMetersRatio, 50, model.units.feetToMeters( 1 ) * model.pxToMetersRatio, ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10"], units_feetsString, {minorTicksPerMajorTick: 4, unitsFont: '12px Arial' } );
+    var FeetsRuler = new RulerNode( model.units.feetToMeters( 10 ) * model.pxToMetersRatio, 50, model.units.feetToMeters( 1 ) * model.pxToMetersRatio, ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10"], units_feetsString, {minorTicksPerMajorTick: 4, unitsFont: '12px Arial',rotation:Math.PI/2 } );
     this.addChild( FeetsRuler );
 
     model.isRulerVisibleProperty.link( function( isVisible ) {
