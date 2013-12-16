@@ -16,13 +16,13 @@ define( function( require ) {
   var FaucetModel = require( 'UNDER_PRESSURE/common/model/FaucetModel' );
 
 
-  function PoolWithFaucetsModel(globalModel) {
+  function PoolWithFaucetsModel( globalModel ) {
     var self = this;
 
 
-    PropertySet.call(this, {
-      volume : 0
-    });
+    PropertySet.call( this, {
+      volume: 0
+    } );
 
     // Enable faucets and dropper based on amount of solution in the beaker.
     this.volumeProperty.link( function( volume ) {
@@ -40,13 +40,13 @@ define( function( require ) {
     addLiquid: function( dt ) {
       var deltaVolume = this.inputFaucet.flowRate * dt;
       if ( deltaVolume > 0 ) {
-        this.volume =  Math.min( this.MAX_VOLUME, this.volume + deltaVolume );
+        this.volume = Math.min( this.MAX_VOLUME, this.volume + deltaVolume );
       }
     },
     removeLiquid: function( dt ) {
       var deltaVolume = this.outputFaucet.flowRate * dt;
       if ( deltaVolume > 0 ) {
-        this.volume =  Math.max( 0, this.volume - deltaVolume );
+        this.volume = Math.max( 0, this.volume - deltaVolume );
       }
     }
   } );

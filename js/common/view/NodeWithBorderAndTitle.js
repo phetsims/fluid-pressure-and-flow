@@ -27,17 +27,17 @@ define( function( require ) {
       cornerRadius: 5 // radius of the rounded corners on the background
     }, options );
 
-    Node.call( this , {align:"left"});
+    Node.call( this, {align: "left"} );
 
-    var background = new Rectangle( -options.xMargin, - options.yMargin, contentNode.width + 2 * options.xMargin, contentNode.height + 2*options.yMargin, options.cornerRadius, options.cornerRadius, {stroke: options.stroke, lineWidth: options.lineWidth, fill: options.fill} );
+    var background = new Rectangle( -options.xMargin, -options.yMargin, contentNode.width + 2 * options.xMargin, contentNode.height + 2 * options.yMargin, options.cornerRadius, options.cornerRadius, {stroke: options.stroke, lineWidth: options.lineWidth, fill: options.fill} );
     this.addChild( background );
     this.addChild( contentNode, {y: 50} );
     contentNode.centerX = background.centerX;
-    contentNode.centerY = background.centerY+options.yMargin/2;
+    contentNode.centerY = background.centerY + options.yMargin / 2;
 
-    var title = new Text( title, {font: new PhetFont( 14 ), x: 3 , fontWeight:"bold"} );
-    title.y = -options.yMargin+title.height/2-4;
-    var titleBackground = new Rectangle( 0, title.y-title.height, title.width + 6,title.height, {fill: options.fill});
+    var title = new Text( title, {font: new PhetFont( 14 ), x: 3, fontWeight: "bold"} );
+    title.y = -options.yMargin + title.height / 2 - 4;
+    var titleBackground = new Rectangle( 0, title.y - title.height, title.width + 6, title.height, {fill: options.fill} );
 
     this.addChild( titleBackground );
     this.addChild( title );

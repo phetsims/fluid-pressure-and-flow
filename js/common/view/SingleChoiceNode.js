@@ -21,8 +21,8 @@ define( function( require ) {
     options = _.extend( {
       cursor: "pointer",
       shadowOffset: 4,
-      x:0,
-      y:0
+      x: 0,
+      y: 0
     }, options );
 
     Node.call( this, options );
@@ -37,11 +37,11 @@ define( function( require ) {
 
     property.link( function( newValue ) {
       if ( newValue !== value ) {
-        self.translation = new Vector2(options.x,options.y);
+        self.translation = new Vector2( options.x, options.y );
         shadow.visible = true;
       }
       else {
-        self.translation = new Vector2(options.x+options.shadowOffset/2,options.y+options.shadowOffset/2);
+        self.translation = new Vector2( options.x + options.shadowOffset / 2, options.y + options.shadowOffset / 2 );
         shadow.visible = false;
       }
     } );

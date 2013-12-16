@@ -39,7 +39,7 @@ define( function( require ) {
       self.addChild( scenes[name] );
     } );
 
-    this.addChild(new ControlsNode(model));
+    this.addChild( new ControlsNode( model ) );
 
     model.currentSceneProperty.link( function( value, oldValue ) {
       scenes[value].visible = true;

@@ -27,7 +27,7 @@ define( function( require ) {
     var dy = 60;
 
     model.scenes.forEach( function( name, index ) {
-      self.addChild( new SingleChoiceNode( model.currentSceneProperty, name, new Image( iconImages[name+"PoolIcon"] ), {y: dy * index} ) );
+      self.addChild( new SingleChoiceNode( model.currentSceneProperty, name, new Image( iconImages[name + "PoolIcon"] ), {y: dy * index} ) );
     } );
 
 

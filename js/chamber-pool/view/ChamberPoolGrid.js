@@ -26,11 +26,11 @@ define( function( require ) {
       font: new PhetFont( 12 )
     };
 
-    this.addChild( new GridLinesNode( model.globalModel, 0, model.poolDimensions.leftOpening.y1, model.globalModel.width / model.globalModel.pxToMetersRatio, model.poolDimensions.leftChamber.y2+0.3, {metersStep: 0.5} ) );
+    this.addChild( new GridLinesNode( model.globalModel, 0, model.poolDimensions.leftOpening.y1, model.globalModel.width / model.globalModel.pxToMetersRatio, model.poolDimensions.leftChamber.y2 + 0.3, {metersStep: 0.5} ) );
 
     var metersLabels = new Node();
     var metersText = new Text( StringUtils.format( metersStringPattern, 3 ), _.extend( {
-      x: model.globalModel.pxToMetersRatio * (model.poolDimensions.rightChamber.x2)+5,
+      x: model.globalModel.pxToMetersRatio * (model.poolDimensions.rightChamber.x2) + 5,
       centerY: (model.globalModel.skyGroundBoundY + 3) * model.globalModel.pxToMetersRatio
     }, fontOptions ) );
     var backgroundRect = new Rectangle( 0, 0, metersText.width + 5, metersText.height + 5, 10, 10, {fill: "#67a257"} );
@@ -41,7 +41,7 @@ define( function( require ) {
 
     var feetsLabels = new Node();
     var feetsText = new Text( StringUtils.format( feetsStringPattern, 10 ), _.extend( {
-      x: model.globalModel.pxToMetersRatio * (model.poolDimensions.rightChamber.x2)+5,
+      x: model.globalModel.pxToMetersRatio * (model.poolDimensions.rightChamber.x2) + 5,
       centerY: (model.globalModel.skyGroundBoundY + model.globalModel.units.feetToMeters( 10 )) * model.globalModel.pxToMetersRatio
     }, fontOptions ) );
     backgroundRect = new Rectangle( 0, 0, feetsText.width + 10, feetsText.height + 5, 10, 10, {fill: "#67a257"} );

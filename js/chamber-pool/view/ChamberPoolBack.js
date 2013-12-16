@@ -43,25 +43,25 @@ define( function( require ) {
     //cement border
     var shape = new Shape()
       .moveTo( model.poolDimensions.leftOpening.x1 * model.pxToMetersRatio - 2, model.poolDimensions.leftOpening.y1 * model.pxToMetersRatio ) //outer part
-      .lineTo( model.poolDimensions.leftOpening.x1 * model.pxToMetersRatio - 2, model.poolDimensions.leftOpening.y2 * model.pxToMetersRatio -2)
-      .lineTo( model.poolDimensions.leftChamber.x1 * model.pxToMetersRatio - 2, model.poolDimensions.leftOpening.y2 * model.pxToMetersRatio -2)
-      .lineTo( model.poolDimensions.leftChamber.x1 * model.pxToMetersRatio - 2, model.poolDimensions.leftChamber.y2 * model.pxToMetersRatio +2)
-      .lineTo( model.poolDimensions.leftChamber.x2 * model.pxToMetersRatio + 2, model.poolDimensions.leftChamber.y2 * model.pxToMetersRatio +2)
-      .lineTo( model.poolDimensions.leftChamber.x2 * model.pxToMetersRatio + 2, model.poolDimensions.horizontalPassage.y2 * model.pxToMetersRatio +2)
-      .lineTo( model.poolDimensions.rightChamber.x1 * model.pxToMetersRatio - 2, model.poolDimensions.horizontalPassage.y2 * model.pxToMetersRatio +2)
-      .lineTo( model.poolDimensions.rightChamber.x1 * model.pxToMetersRatio - 2, model.poolDimensions.rightChamber.y2 * model.pxToMetersRatio +2)
-      .lineTo( model.poolDimensions.rightChamber.x2 * model.pxToMetersRatio + 2, model.poolDimensions.rightChamber.y2 * model.pxToMetersRatio +2)
-      .lineTo( model.poolDimensions.rightChamber.x2 * model.pxToMetersRatio + 2, model.poolDimensions.rightChamber.y1 * model.pxToMetersRatio +2)
-      .lineTo( model.poolDimensions.rightOpening.x2 * model.pxToMetersRatio + 2, model.poolDimensions.rightChamber.y1 * model.pxToMetersRatio +2)
-      .lineTo( model.poolDimensions.rightOpening.x2 * model.pxToMetersRatio + 2, model.poolDimensions.rightOpening.y1 * model.pxToMetersRatio)
-      .moveTo( model.poolDimensions.leftOpening.x2* model.pxToMetersRatio + 2, model.poolDimensions.leftOpening.y1 * model.pxToMetersRatio ) //inner part
-      .lineTo( model.poolDimensions.leftOpening.x2 * model.pxToMetersRatio + 2, model.poolDimensions.leftOpening.y2 * model.pxToMetersRatio -2)
-      .lineTo( model.poolDimensions.leftChamber.x2 * model.pxToMetersRatio + 2, model.poolDimensions.leftOpening.y2 * model.pxToMetersRatio -2)
-      .lineTo( model.poolDimensions.leftChamber.x2 * model.pxToMetersRatio + 2, model.poolDimensions.horizontalPassage.y1 * model.pxToMetersRatio -2)
-      .lineTo( model.poolDimensions.rightChamber.x1 * model.pxToMetersRatio - 2, model.poolDimensions.horizontalPassage.y1 * model.pxToMetersRatio -2)
-      .lineTo( model.poolDimensions.rightChamber.x1 * model.pxToMetersRatio - 2, model.poolDimensions.rightChamber.y1 * model.pxToMetersRatio +2)
-      .lineTo( model.poolDimensions.rightOpening.x1 * model.pxToMetersRatio - 2, model.poolDimensions.rightChamber.y1 * model.pxToMetersRatio +2)
-      .lineTo( model.poolDimensions.rightOpening.x1 * model.pxToMetersRatio - 2, model.poolDimensions.rightOpening.y1 * model.pxToMetersRatio);
+      .lineTo( model.poolDimensions.leftOpening.x1 * model.pxToMetersRatio - 2, model.poolDimensions.leftOpening.y2 * model.pxToMetersRatio - 2 )
+      .lineTo( model.poolDimensions.leftChamber.x1 * model.pxToMetersRatio - 2, model.poolDimensions.leftOpening.y2 * model.pxToMetersRatio - 2 )
+      .lineTo( model.poolDimensions.leftChamber.x1 * model.pxToMetersRatio - 2, model.poolDimensions.leftChamber.y2 * model.pxToMetersRatio + 2 )
+      .lineTo( model.poolDimensions.leftChamber.x2 * model.pxToMetersRatio + 2, model.poolDimensions.leftChamber.y2 * model.pxToMetersRatio + 2 )
+      .lineTo( model.poolDimensions.leftChamber.x2 * model.pxToMetersRatio + 2, model.poolDimensions.horizontalPassage.y2 * model.pxToMetersRatio + 2 )
+      .lineTo( model.poolDimensions.rightChamber.x1 * model.pxToMetersRatio - 2, model.poolDimensions.horizontalPassage.y2 * model.pxToMetersRatio + 2 )
+      .lineTo( model.poolDimensions.rightChamber.x1 * model.pxToMetersRatio - 2, model.poolDimensions.rightChamber.y2 * model.pxToMetersRatio + 2 )
+      .lineTo( model.poolDimensions.rightChamber.x2 * model.pxToMetersRatio + 2, model.poolDimensions.rightChamber.y2 * model.pxToMetersRatio + 2 )
+      .lineTo( model.poolDimensions.rightChamber.x2 * model.pxToMetersRatio + 2, model.poolDimensions.rightChamber.y1 * model.pxToMetersRatio + 2 )
+      .lineTo( model.poolDimensions.rightOpening.x2 * model.pxToMetersRatio + 2, model.poolDimensions.rightChamber.y1 * model.pxToMetersRatio + 2 )
+      .lineTo( model.poolDimensions.rightOpening.x2 * model.pxToMetersRatio + 2, model.poolDimensions.rightOpening.y1 * model.pxToMetersRatio )
+      .moveTo( model.poolDimensions.leftOpening.x2 * model.pxToMetersRatio + 2, model.poolDimensions.leftOpening.y1 * model.pxToMetersRatio ) //inner part
+      .lineTo( model.poolDimensions.leftOpening.x2 * model.pxToMetersRatio + 2, model.poolDimensions.leftOpening.y2 * model.pxToMetersRatio - 2 )
+      .lineTo( model.poolDimensions.leftChamber.x2 * model.pxToMetersRatio + 2, model.poolDimensions.leftOpening.y2 * model.pxToMetersRatio - 2 )
+      .lineTo( model.poolDimensions.leftChamber.x2 * model.pxToMetersRatio + 2, model.poolDimensions.horizontalPassage.y1 * model.pxToMetersRatio - 2 )
+      .lineTo( model.poolDimensions.rightChamber.x1 * model.pxToMetersRatio - 2, model.poolDimensions.horizontalPassage.y1 * model.pxToMetersRatio - 2 )
+      .lineTo( model.poolDimensions.rightChamber.x1 * model.pxToMetersRatio - 2, model.poolDimensions.rightChamber.y1 * model.pxToMetersRatio + 2 )
+      .lineTo( model.poolDimensions.rightOpening.x1 * model.pxToMetersRatio - 2, model.poolDimensions.rightChamber.y1 * model.pxToMetersRatio + 2 )
+      .lineTo( model.poolDimensions.rightOpening.x1 * model.pxToMetersRatio - 2, model.poolDimensions.rightOpening.y1 * model.pxToMetersRatio );
 
     this.addChild( new Path( shape, {
       stroke: new Pattern( cementImg ),
@@ -72,12 +72,12 @@ define( function( require ) {
     //white background for pool
 
     //left opening
-    this.addChild( new Rectangle( model.poolDimensions.leftOpening.x1 * model.pxToMetersRatio, (model.poolDimensions.leftOpening.y1) * model.pxToMetersRatio-1, (model.poolDimensions.leftOpening.x2 - model.poolDimensions.leftOpening.x1) * model.pxToMetersRatio, (model.poolDimensions.leftOpening.y2 - model.poolDimensions.leftOpening.y1) * model.pxToMetersRatio+1, {
+    this.addChild( new Rectangle( model.poolDimensions.leftOpening.x1 * model.pxToMetersRatio, (model.poolDimensions.leftOpening.y1) * model.pxToMetersRatio - 1, (model.poolDimensions.leftOpening.x2 - model.poolDimensions.leftOpening.x1) * model.pxToMetersRatio, (model.poolDimensions.leftOpening.y2 - model.poolDimensions.leftOpening.y1) * model.pxToMetersRatio + 1, {
       fill: "#f3f0e9"
     } ) );
 
     //right opening
-    this.addChild( new Rectangle( model.poolDimensions.rightOpening.x1 * model.pxToMetersRatio, (model.poolDimensions.rightOpening.y1) * model.pxToMetersRatio-1, (model.poolDimensions.rightOpening.x2 - model.poolDimensions.rightOpening.x1) * model.pxToMetersRatio, (model.poolDimensions.rightOpening.y2 - model.poolDimensions.rightOpening.y1) * model.pxToMetersRatio+1, {
+    this.addChild( new Rectangle( model.poolDimensions.rightOpening.x1 * model.pxToMetersRatio, (model.poolDimensions.rightOpening.y1) * model.pxToMetersRatio - 1, (model.poolDimensions.rightOpening.x2 - model.poolDimensions.rightOpening.x1) * model.pxToMetersRatio, (model.poolDimensions.rightOpening.y2 - model.poolDimensions.rightOpening.y1) * model.pxToMetersRatio + 1, {
       fill: "#f3f0e9"
     } ) );
 
@@ -91,11 +91,9 @@ define( function( require ) {
       fill: "#f3f0e9"
     } ) );
 
-    this.addChild( new Rectangle( model.poolDimensions.horizontalPassage.x1 * model.pxToMetersRatio-1, model.poolDimensions.horizontalPassage.y1 * model.pxToMetersRatio, (model.poolDimensions.horizontalPassage.x2 - model.poolDimensions.horizontalPassage.x1) * model.pxToMetersRatio+2, (model.poolDimensions.horizontalPassage.y2 - model.poolDimensions.horizontalPassage.y1) * model.pxToMetersRatio, {
+    this.addChild( new Rectangle( model.poolDimensions.horizontalPassage.x1 * model.pxToMetersRatio - 1, model.poolDimensions.horizontalPassage.y1 * model.pxToMetersRatio, (model.poolDimensions.horizontalPassage.x2 - model.poolDimensions.horizontalPassage.x1) * model.pxToMetersRatio + 2, (model.poolDimensions.horizontalPassage.y2 - model.poolDimensions.horizontalPassage.y1) * model.pxToMetersRatio, {
       fill: "#f3f0e9"
     } ) );
-
-
 
 
   }

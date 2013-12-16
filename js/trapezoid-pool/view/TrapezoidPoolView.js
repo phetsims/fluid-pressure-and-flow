@@ -14,7 +14,7 @@ define( function( require ) {
   var FaucetFluidNode = require( "UNDER_PRESSURE/common/view/FaucetFluidNode" );
   var TrapezoidPoolWaterNode = require( "trapezoid-pool/view/TrapezoidPoolWaterNode" );
   var BarometersContainer = require( "UNDER_PRESSURE/common/view/BarometersContainer" );
-  var TrapezoidPoolGrid = require("trapezoid-pool/view/TrapezoidPoolGrid");
+  var TrapezoidPoolGrid = require( "trapezoid-pool/view/TrapezoidPoolGrid" );
 
 
   function TrapezoidPoolView( model ) {
@@ -31,7 +31,7 @@ define( function( require ) {
     this.addChild( new TrapezoidPoolWaterNode( model ) );
 
     //grid
-    this.addChild(new TrapezoidPoolGrid(model));
+    this.addChild( new TrapezoidPoolGrid( model ) );
 
   }
 

@@ -24,9 +24,6 @@ define( function( require ) {
     MysteryPoolModel: require( "mystery-pool/model/MysteryPoolModel" )
   };
 
-  //var ChamberPoolModel = require("chamber-pool/model/ChamberPoolModel");
-
-
   function UnderPressureModel( width, height ) {
     var self = this;
 
@@ -78,7 +75,7 @@ define( function( require ) {
 
 
     this.waterColorModel = new WaterColorModel( this );
-    this.units = new Units(self);
+    this.units = new Units( self );
 
     this.getStandardAirPressure = new LinearFunction( 0, this.units.feetToMeters( 500 ), this.EARTH_AIR_PRESSURE, this.EARTH_AIR_PRESSURE_AT_500_FT );
 
@@ -101,7 +98,7 @@ define( function( require ) {
       this.keys.forEach( function( key ) {
         self[key + 'Property'].reset();
       } );
-      for (var model in self.sceneModels){
+      for ( var model in self.sceneModels ) {
         self.sceneModels[model].reset();
       }
 

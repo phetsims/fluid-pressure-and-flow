@@ -26,7 +26,7 @@ define( function( require ) {
 
     var placementRectWidth = (model.poolDimensions.leftOpening.x2 - model.poolDimensions.leftOpening.x1) * model.pxToMetersRatio;
 
-    var placementRect = new Rectangle( 0, 0, placementRectWidth, 0);
+    var placementRect = new Rectangle( 0, 0, placementRectWidth, 0 );
     var placementRectBorder = new Path( new Shape(),
       {
         stroke: '#000',

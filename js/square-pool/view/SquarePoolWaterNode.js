@@ -27,8 +27,8 @@ define( function( require ) {
     model.globalModel.waterColorModel.waterColorProperty.link( function( color ) {
       viewHeight = maxHeight * model.volume / model.MAX_VOLUME;
       self.fill = new LinearGradient( 0, yMax, 0, yMax - maxHeight )
-        .addColorStop( 0, model.globalModel.waterColorModel.bottomColor)
-        .addColorStop( 1, model.globalModel.waterColorModel.topColor  );
+        .addColorStop( 0, model.globalModel.waterColorModel.bottomColor )
+        .addColorStop( 1, model.globalModel.waterColorModel.topColor );
     } );
 
     model.volumeProperty.link( function( volume ) {

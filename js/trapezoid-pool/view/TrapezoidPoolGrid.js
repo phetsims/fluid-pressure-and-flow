@@ -30,10 +30,10 @@ define( function( require ) {
 
     var metersLabels = new Node();
     var metersText = new Text( StringUtils.format( metersStringPattern, 3 ), _.extend( {
-      x: model.globalModel.pxToMetersRatio * (model.poolDimensions.rightChamber.centerTop + model.poolDimensions.rightChamber.widthBottom / 2)+10,
+      x: model.globalModel.pxToMetersRatio * (model.poolDimensions.rightChamber.centerTop + model.poolDimensions.rightChamber.widthBottom / 2) + 10,
       centerY: (model.globalModel.skyGroundBoundY + 3) * model.globalModel.pxToMetersRatio
     }, fontOptions ) );
-    var backgroundRect = new Rectangle( 0, 0, metersText.width+5, metersText.height+5, 10, 10, {fill: "#67a257"} );
+    var backgroundRect = new Rectangle( 0, 0, metersText.width + 5, metersText.height + 5, 10, 10, {fill: "#67a257"} );
     backgroundRect.centerX = metersText.centerX;
     backgroundRect.centerY = metersText.centerY;
     metersLabels.addChild( backgroundRect );
@@ -41,10 +41,10 @@ define( function( require ) {
 
     var feetsLabels = new Node();
     var feetsText = new Text( StringUtils.format( feetsStringPattern, 10 ), _.extend( {
-      x: model.globalModel.pxToMetersRatio * (model.poolDimensions.rightChamber.centerTop + model.poolDimensions.rightChamber.widthBottom / 2)+10,
-      centerY: (model.globalModel.skyGroundBoundY + model.globalModel.units.feetToMeters(10)) * model.globalModel.pxToMetersRatio
+      x: model.globalModel.pxToMetersRatio * (model.poolDimensions.rightChamber.centerTop + model.poolDimensions.rightChamber.widthBottom / 2) + 10,
+      centerY: (model.globalModel.skyGroundBoundY + model.globalModel.units.feetToMeters( 10 )) * model.globalModel.pxToMetersRatio
     }, fontOptions ) );
-    backgroundRect = new Rectangle( 0, 0, feetsText.width+10, feetsText.height+5, 10, 10, {fill: "#67a257"} );
+    backgroundRect = new Rectangle( 0, 0, feetsText.width + 10, feetsText.height + 5, 10, 10, {fill: "#67a257"} );
     backgroundRect.centerX = feetsText.centerX;
     backgroundRect.centerY = feetsText.centerY;
     feetsLabels.addChild( backgroundRect );

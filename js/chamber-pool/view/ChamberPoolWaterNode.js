@@ -63,7 +63,7 @@ define( function( require ) {
 
     model.globalModel.leftDisplacementProperty.link( function( displacement ) {
       leftOpening.setRect( leftX, leftY + displacement * model.pxToMetersRatio, leftWidth, leftHeight - displacement * model.pxToMetersRatio );
-      rightOpening.setRect( rightX, rightY - model.pxToMetersRatio * displacement/model.LENGTH_RATIO, rightWidth, rightHeight + model.pxToMetersRatio * displacement/model.LENGTH_RATIO  );
+      rightOpening.setRect( rightX, rightY - model.pxToMetersRatio * displacement / model.LENGTH_RATIO, rightWidth, rightHeight + model.pxToMetersRatio * displacement / model.LENGTH_RATIO );
     } );
 
 

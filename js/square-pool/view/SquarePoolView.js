@@ -12,9 +12,9 @@ define( function( require ) {
   var Node = require( 'SCENERY/nodes/Node' );
   var SquarePoolBack = require( "square-pool/view/SquarePoolBack" );
   var FaucetFluidNode = require( "UNDER_PRESSURE/common/view/FaucetFluidNode" );
-  var SquarePoolWaterNode = require("square-pool/view/SquarePoolWaterNode");
+  var SquarePoolWaterNode = require( "square-pool/view/SquarePoolWaterNode" );
   var BarometersContainer = require( "UNDER_PRESSURE/common/view/BarometersContainer" );
-  var SquarePoolGrid = require("square-pool/view/SquarePoolGrid");
+  var SquarePoolGrid = require( "square-pool/view/SquarePoolGrid" );
 
 
   function SquarePoolView( model ) {
@@ -25,14 +25,14 @@ define( function( require ) {
     this.addChild( new SquarePoolBack( model ) );
 
     //fluids
-    this.addChild( new FaucetFluidNode( model.inputFaucet, model, (model.poolDimensions.y2 - model.inputFaucet.location.y)*model.pxToMetersRatio ) );
+    this.addChild( new FaucetFluidNode( model.inputFaucet, model, (model.poolDimensions.y2 - model.inputFaucet.location.y) * model.pxToMetersRatio ) );
     this.addChild( new FaucetFluidNode( model.outputFaucet, model, 1000 ) );
 
     //water
-    this.addChild(new SquarePoolWaterNode(model));
+    this.addChild( new SquarePoolWaterNode( model ) );
 
     //grid
-    this.addChild(new SquarePoolGrid(model));
+    this.addChild( new SquarePoolGrid( model ) );
   }
 
   return inherit( Node, SquarePoolView );
