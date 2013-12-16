@@ -2,7 +2,6 @@
 
 /**
  * Slider and button for changing fluid density and gravitation.
- *
  * @author Anton Ulyanov, Vasily Shakhov (Mlearner)
  */
 define( function( require ) {

@@ -1,8 +1,7 @@
 // Copyright 2002-2013, University of Colorado Boulder
 
 /**
- * top background Node
- * contains atmosphere, earth and  controls
+ * scene chooser, 4 image radio buttons
  * @author Vasily Shakhov (Mlearner)
  */
 define( function( require ) {

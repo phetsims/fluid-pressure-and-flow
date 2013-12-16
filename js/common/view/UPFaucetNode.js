@@ -2,7 +2,6 @@
 
 /**
  * Faucet node for this sim.
- *
  * @author Chris Malley (PixelZoom, Inc.), Vasily Shakhov (Mlearner)
  */
 define( function( require ) {

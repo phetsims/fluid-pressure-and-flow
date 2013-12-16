@@ -2,7 +2,7 @@
 
 /**
  * top background Node
- * contains atmosphere, earth and  controls
+ * contains atmosphere and earth
  * @author Vasily Shakhov (Mlearner)
  */
 define( function( require ) {

@@ -1,7 +1,7 @@
 // Copyright 2002-2013, University of Colorado Boulder
 
 /**
- * main ScreenView container for square pool.
+ * main view  for mystery pool. Based on square pool view.
  *
  * @author Vasily Shakhov (Mlearner)
  */

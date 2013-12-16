@@ -1,7 +1,7 @@
 // Copyright 2002-2013, University of Colorado Boulder
 
 /**
- * specific view for square pool
+ * specific view for trapezoid pool
  * grass, cement container and faucets
  * @author Vasily Shakhov (Mlearner)
  */

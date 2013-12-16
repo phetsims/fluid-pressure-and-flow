@@ -1,9 +1,8 @@
 // Copyright 2002-2013, University of Colorado Boulder
 
 /**
- * main ScreenView container for trapezoid pool.
- *
- * @author Vasily Shakhov (Mlearner)
+ * main view for trapezoid pool.
+ * * @author Vasily Shakhov (Mlearner)
  */
 define( function( require ) {
   "use strict";

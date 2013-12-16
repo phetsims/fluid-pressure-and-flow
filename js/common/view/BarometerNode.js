@@ -1,9 +1,8 @@
 // Copyright 2002-2013, University of Colorado Boulder
 
 /**
- * Slider and button for changing fluid density and gravitation.
- *
- * @author Anton Ulyanov, Vasily Shakhov (Mlearner)
+ * Barometer view
+ * @author Vasily Shakhov (Mlearner)
  */
 define( function( require ) {
   'use strict';

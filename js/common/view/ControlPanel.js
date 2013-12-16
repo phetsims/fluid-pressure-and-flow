@@ -2,7 +2,6 @@
 
 /**
  * Scenery node for the control panel, with view settings and controls.
- *
  * @author Vasily Shakhov (Mlearner)
  */
 define( function( require ) {

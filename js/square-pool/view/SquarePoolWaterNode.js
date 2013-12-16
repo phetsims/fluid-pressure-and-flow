@@ -2,7 +2,6 @@
 
 /**
  * view for water in square pool
- *
  * @author Vasily Shakhov (Mlearner)
  */
 define( function( require ) {

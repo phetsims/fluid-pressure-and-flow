@@ -1,8 +1,7 @@
 // Copyright 2002-2013, University of Colorado Boulder
 
 /**
- * Ruler Node.
- *
+ * Model Ruler Node.
  * @author Shakhov Vasily (Mlearner)
  */
 

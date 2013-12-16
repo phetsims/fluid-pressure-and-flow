@@ -1,8 +1,7 @@
 // Copyright 2002-2013, University of Colorado Boulder
 
 /**
- * Slider and button for changing fluid density and gravitation.
- *
+ * Draw grid lines in rect (x1, y1, x2 , y2)
  * @author Anton Ulyanov, Vasily Shakhov (Mlearner)
  */
 define( function( require ) {

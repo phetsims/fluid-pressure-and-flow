@@ -1,8 +1,7 @@
 // Copyright 2002-2013, University of Colorado Boulder
 
 /**
- * main ScreenView container for square pool.
- *
+ * main view of the sim.
  * @author Vasily Shakhov (Mlearner)
  */
 define( function( require ) {

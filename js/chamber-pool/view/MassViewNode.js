@@ -1,8 +1,7 @@
 // Copyright 2002-2013, University of Colorado Boulder
 
 /**
- * view for mass
- *
+ * view for single mass
  * @author Vasily Shakhov (Mlearner)
  */
 define( function( require ) {

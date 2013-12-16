@@ -1,8 +1,7 @@
 // Copyright 2002-2013, University of Colorado Boulder
 
 /**
- * main Model container for mass object.
- *
+ * model for units conversion
  * @author Vasily Shakhov (Mlearner)
  */
 define( function( require ) {

@@ -1,8 +1,7 @@
 // Copyright 2002-2013, University of Colorado Boulder
 
 /**
- * specific view for square pool
- * grass, cement container and faucets
+ * specific grid view chamber pool
  * @author Vasily Shakhov (Mlearner)
  */
 define( function( require ) {

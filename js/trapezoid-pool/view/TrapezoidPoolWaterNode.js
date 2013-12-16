@@ -1,8 +1,7 @@
 // Copyright 2002-2013, University of Colorado Boulder
 
 /**
- * view for water in square pool
- *
+ * view for water in trapezoid pool
  * @author Vasily Shakhov (Mlearner)
  */
 define( function( require ) {

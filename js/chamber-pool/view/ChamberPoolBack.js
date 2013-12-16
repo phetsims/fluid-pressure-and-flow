@@ -1,8 +1,8 @@
 // Copyright 2002-2013, University of Colorado Boulder
 
 /**
- * specific view for square pool
- * grass, cement container and faucets
+ * specific background view for chamber pool
+ * grass, cement container
  * @author Vasily Shakhov (Mlearner)
  */
 define( function( require ) {

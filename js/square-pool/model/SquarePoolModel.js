@@ -1,7 +1,7 @@
 // Copyright 2002-2013, University of Colorado Boulder
 
 /**
- * main Model container for square pool screen.
+ * main model for square pool screen.
  *
  * @author Vasily Shakhov (Mlearner)
  */

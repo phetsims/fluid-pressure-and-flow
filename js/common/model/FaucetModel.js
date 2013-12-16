@@ -1,8 +1,8 @@
 // Copyright 2002-2013, University of Colorado Boulder
 
 /**
- * Color gra
- *
+ * Faucet model
+ * location, flowRate
  * @author Chris Malley (PixelZoom, Inc.), Vasily Shakhov (Mlearner)
  */
 define( function( require ) {

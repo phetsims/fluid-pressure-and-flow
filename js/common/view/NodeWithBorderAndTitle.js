@@ -2,7 +2,6 @@
 
 /**
  * Scenery node button group. Add border and title to the group.
- *
  * @author Vasily Shakhov (Mlearner)
  */
 define( function( require ) {

@@ -1,8 +1,7 @@
 // Copyright 2002-2013, University of Colorado Boulder
 
 /**
- * top background Node
- * contains atmosphere, earth and  controls
+ * Node for sliders, reset button and scene chooser
  * @author Vasily Shakhov (Mlearner)
  */
 define( function( require ) {

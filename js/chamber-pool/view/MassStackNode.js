@@ -1,8 +1,7 @@
 // Copyright 2002-2013, University of Colorado Boulder
 
 /**
- * view for mass
- *
+ * view for mass stack on top of water
  * @author Vasily Shakhov (Mlearner)
  */
 define( function( require ) {

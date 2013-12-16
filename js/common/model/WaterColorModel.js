@@ -2,7 +2,6 @@
 
 /**
  * change water color when fluid density changes
- *
  * @author Vasily Shakhov (Mlearner)
  */
 define( function( require ) {
