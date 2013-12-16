@@ -1,7 +1,7 @@
 // Copyright 2002-2013, University of Colorado Boulder
 
 /**
- * Scenery node for the control panel, with view settings and controls.
+ * Scenery node for the control panel, view settings and controls.
  * @author Vasily Shakhov (Mlearner)
  */
 define( function( require ) {
@@ -23,6 +23,7 @@ define( function( require ) {
   var Property = require( 'AXON/Property' );
   var PhetFont = require( 'SCENERY_PHET/PhetFont' );
   var NodeWithBorderAndTitle = require( 'UNDER_PRESSURE/common/view/NodeWithBorderAndTitle' );
+  var RulerNode = require( 'SCENERY_PHET/RulerNode' );
 
   var gridString = require( 'string!UNDER_PRESSURE/grid' );
   var rulerString = require( 'string!UNDER_PRESSURE/ruler' );
@@ -38,7 +39,7 @@ define( function( require ) {
   function ControlPanel( model, x, y ) {
     var textOptions = {font: new PhetFont( 14 )};
 
-    var ruler = [new Text( rulerString, textOptions )]; //, this.createSpeedometerIcon()
+    var rulerSet = [new Text( rulerString, textOptions ), this.createRulerIcon()];
     var grid = [new Text( gridString, textOptions )];
 
     var atmosphere = new NodeWithBorderAndTitle( new HBox( {
@@ -60,20 +61,26 @@ define( function( require ) {
       align: "left"
     } ), unitsString );
 
-    //In the absence of any sun (or other) layout packages, just manually space them out so they will have the icons aligned
-    var pad = function( itemSet ) {
-      var padWidth = maxTextWidth - itemSet[0].width;
-      return [itemSet[0], new Rectangle( 0, 0, padWidth + 20, 20 ), itemSet[1]];
+    var options = {
+      boxWidth: 18,
+      spacing: 5
     };
 
 
-    var options = {boxWidth: 18};
+    var maxWidth = _.max( [atmosphere, metrics],function( item ) { return item.width } ).width;
+
+    //align ruler icon right
+    var padWidth = maxWidth - rulerSet[0].width - rulerSet[1].width - options.boxWidth - options.spacing * 2;
+    var ruler = [rulerSet[0], new Rectangle( 0, 0, padWidth, 20 ), rulerSet[1]];
+
+    //resize boxes to fit max
+    atmosphere.updateWidth( maxWidth );
+    metrics.updateWidth( maxWidth );
 
     var checkBoxChildren = [
       new CheckBox( new HBox( {children: ( ruler )} ), model.isRulerVisibleProperty, options ),
       new CheckBox( new HBox( {children: ( grid )} ), model.isGridVisibleProperty, options )
     ];
-
     var checkBoxes = new VBox( {align: 'left', spacing: 5, children: checkBoxChildren} );
 
     var content = new VBox( {
@@ -83,16 +90,21 @@ define( function( require ) {
     } );
 
 
+    //align ruler icon middle
+    ruler[2].centerY = 0;
+
     Panel.call( this, content, { xMargin: 10, yMargin: 10, fill: '#f2fa6a ', stroke: 'gray', lineWidth: 1, resize: false, x: x, y: y, scale: 0.8 } );
   }
 
   return inherit( Node, ControlPanel, {
-
-    //Create an icon for the speedometer check box
-    createSpeedometerIcon: function() {
-      //var node = new SpeedometerNode( new Property( 0 ), speedString, 10, {} );
-      //node.scale( 20 / node.width );
-      //return node;
+    //Create an icon for the ruler check box
+    createRulerIcon: function() {
+      return new RulerNode( 30, 20, 15, ["0", "1", "2"], "", {
+        insetsWidth: 7,
+        minorTicksPerMajorTick: 4,
+        majorTickFont: new PhetFont( 12 ),
+        clipArea: Shape.rect( -1, -1, 44, 22 )
+      } );
     }
   } );
 } );
