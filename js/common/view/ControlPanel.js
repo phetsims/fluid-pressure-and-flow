@@ -67,7 +67,7 @@ define( function( require ) {
     };
 
 
-    var maxWidth = _.max( [atmosphere, metrics],function( item ) { return item.width } ).width;
+    var maxWidth = _.max( [atmosphere, metrics],function( item ) { return item.width; } ).width;
 
     //align ruler icon right
     var padWidth = maxWidth - rulerSet[0].width - rulerSet[1].width - options.boxWidth - options.spacing * 2;

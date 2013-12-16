@@ -36,7 +36,7 @@ define( function( require ) {
 
     this.updateWidth( contentNode.width + 2 * this.options.xMargin );
 
-    var title = new Text( title, {font: new PhetFont( 14 ), x: 3, fontWeight: "bold"} );
+    title = new Text( title, {font: new PhetFont( 14 ), x: 3, fontWeight: "bold"} );
     title.y = -this.options.yMargin + title.height / 2 - 4;
     var titleBackground = new Rectangle( 0, title.y - title.height, title.width + 6, title.height, {fill: this.options.fill} );
 

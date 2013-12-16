@@ -99,7 +99,9 @@ define( function( require ) {
         self[key + 'Property'].reset();
       } );
       for ( var model in self.sceneModels ) {
+        if (self.sceneModels.hasOwnProperty(model)) {
         self.sceneModels[model].reset();
+        }
       }
 
     },

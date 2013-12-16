@@ -212,7 +212,7 @@ define( function( require ) {
     model.measureUnitsProperty.link( function() {
       valueLabel.text = getPropertyStringFunction();
       valueLabel.centerX = valueField.centerX; // keep the value centered in the field
-    } )
+    } );
 
 
   }

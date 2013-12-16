@@ -43,7 +43,7 @@ define( function( require ) {
       if ( faucet.flowRate !== 0 ) {
         redrawRect();
       }
-    } )
+    } );
 
 
   }

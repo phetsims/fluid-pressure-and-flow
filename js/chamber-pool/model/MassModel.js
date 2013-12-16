@@ -54,8 +54,9 @@ define( function( require ) {
 
   return inherit( PropertySet, MassModel, {
     step: function( dt ) {
+      var acceleration;
       if ( this.isDropping ) {
-        var acceleration = this.model.globalModel.gravity;
+        acceleration = this.model.globalModel.gravity;
         this.velocity = this.velocity + acceleration * dt;
         this.position = new Vector2( this.position.x, this.velocity * dt + this.position.y );
         if ( this.position.y > this.model.MAX_Y - this.height ) {
@@ -74,7 +75,7 @@ define( function( require ) {
         var gravityForce = +m * g;
         var pressureForce = -rho * h * g;
         var force = gravityForce + pressureForce;
-        var acceleration = force / m;
+        acceleration = force / m;
         var frictionCoefficient = 0.98;
         this.velocity = (this.velocity + acceleration * dt) * frictionCoefficient;
         this.position = new Vector2( this.position.x, this.position.y + this.velocity * dt );
@@ -87,7 +88,7 @@ define( function( require ) {
     },
     isInTargetDroppedArea: function() {
       var waterLine = this.model.poolDimensions.leftOpening.y2 - this.model.LEFT_WATER_HEIGHT + this.model.globalModel.leftDisplacement;
-      var bottomLine = waterLine - this.model.stack.reduce( 0, function( a, b ) {return a + b.height} );
+      var bottomLine = waterLine - this.model.stack.reduce( 0, function( a, b ) {return a + b.height;} );
       return new Bounds( this.position.x, this.position.y, this.position.x + this.width, this.position.y + this.height ).intersectsBounds( new Bounds(
         this.model.poolDimensions.leftOpening.x1, bottomLine - this.height, this.model.poolDimensions.leftOpening.x2, bottomLine ) );
     },

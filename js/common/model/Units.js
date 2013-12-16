@@ -34,7 +34,7 @@ define( function( require ) {
     this.getPressureString = {
       metric: function( pressure ) {
         if ( pressure === "" ) {
-          return "-"
+          return "-";
         }
         else {
           return (pressure / 1000).toFixed( 3 ) + " " + kPaString;
@@ -42,7 +42,7 @@ define( function( require ) {
       },
       atmosphere: function( pressure ) {
         if ( pressure === "" ) {
-          return "-"
+          return "-";
         }
         else {
           return (pressure * self.ATMOSPHERE_PER_PASCAL).toFixed( 4 ) + " " + atmString;
@@ -50,7 +50,7 @@ define( function( require ) {
       },
       english: function( pressure ) {
         if ( pressure === "" ) {
-          return "-"
+          return "-";
         }
         else {
           return (pressure * self.PSI_PER_PASCAL).toFixed( 4 ) + " " + psiString;

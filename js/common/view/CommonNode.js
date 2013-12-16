@@ -26,7 +26,7 @@ define( function( require ) {
       if ( isAtmosphere ) {
         sky.fill = new LinearGradient( 0, 0, 0, model.skyGroundBoundY * model.pxToMetersRatio )
           .addColorStop( 0, "#c4e6f5" )
-          .addColorStop( 1, "#daedfa" )
+          .addColorStop( 1, "#daedfa" );
       }
       else {
         sky.fill = "black";
