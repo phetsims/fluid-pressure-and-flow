@@ -59,7 +59,7 @@ define( function( require ) {
     this.addChild( new UnderPressureRuler( model, mvt ) );
 
     //barometers
-    this.addChild( new BarometersContainer( model ) );
+    this.addChild( new BarometersContainer( model, mvt ) );
 
   }
 

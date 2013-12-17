@@ -21,7 +21,7 @@ define( function( require ) {
 
   var pressureString = require( 'string!UNDER_PRESSURE/pressure' );
 
-  function BarometerNode( model, thisBarometerStatement ) {
+  function BarometerNode( model, mvt, thisBarometerStatement ) {
     var self = this;
 
     Node.call( this, {cursor: "pointer", pickable: true, x: 570, y: 50 } );
@@ -79,12 +79,12 @@ define( function( require ) {
       //Translate on drag events
       translate: function( args ) {
         self.translation = args.position;
-        thisBarometerStatement.set( model.getPressureAtCoords( self.centerX, self.bottom ) );
+        thisBarometerStatement.set( model.getPressureAtCoords( mvt.viewToModelX( self.centerX ), mvt.viewToModelY( self.bottom )) );
       }
     } );
     this.addInputListener( barometerDragHandler );
 
-    thisBarometerStatement.set( model.getPressureAtCoords( self.centerX, self.bottom ) );
+    thisBarometerStatement.set( model.getPressureAtCoords( mvt.viewToModelX( self.centerX ), mvt.viewToModelY( self.bottom )) );
 
     var setText = function() {
       text.text = model.units.getPressureString[model.measureUnits]( thisBarometerStatement.get() );
@@ -93,19 +93,19 @@ define( function( require ) {
     };
 
     model.gravityProperty.link( function() {
-      thisBarometerStatement.set( model.getPressureAtCoords( self.centerX, self.bottom ) );
+      thisBarometerStatement.set( model.getPressureAtCoords( mvt.viewToModelX( self.centerX ), mvt.viewToModelY( self.bottom ) ) );
     } );
     model.fluidDensityProperty.link( function() {
-      thisBarometerStatement.set( model.getPressureAtCoords( self.centerX, self.bottom ) );
+      thisBarometerStatement.set( model.getPressureAtCoords( mvt.viewToModelX( self.centerX ), mvt.viewToModelY( self.bottom ) ) );
     } );
     model.isAtmosphereProperty.link( function() {
-      thisBarometerStatement.set( model.getPressureAtCoords( self.centerX, self.bottom ) );
+      thisBarometerStatement.set( model.getPressureAtCoords( mvt.viewToModelX( self.centerX ), mvt.viewToModelY( self.bottom ) ) );
     } );
     model.currentVolumeProperty.link( function() {
-      thisBarometerStatement.set( model.getPressureAtCoords( self.centerX, self.bottom ) );
+      thisBarometerStatement.set( model.getPressureAtCoords( mvt.viewToModelX( self.centerX ), mvt.viewToModelY( self.bottom ) ) );
     } );
     model.leftDisplacementProperty.link( function() {
-      thisBarometerStatement.set( model.getPressureAtCoords( self.centerX, self.bottom ) );
+      thisBarometerStatement.set( model.getPressureAtCoords( mvt.viewToModelX( self.centerX ), mvt.viewToModelY( self.bottom ) ) );
     } );
     thisBarometerStatement.link( function() {
       setText();
