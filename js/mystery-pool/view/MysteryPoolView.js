@@ -14,9 +14,9 @@ define( function( require ) {
   var PhetFont = require( 'SCENERY_PHET/PhetFont' );
 
 
-  function MysteryPoolView( model ) {
+  function MysteryPoolView( model, mvt ) {
     var self = this;
-    SquarePoolView.call( this, model );
+    SquarePoolView.call( this, model, mvt );
 
 
     // items

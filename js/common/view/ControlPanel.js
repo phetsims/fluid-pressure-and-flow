@@ -89,10 +89,6 @@ define( function( require ) {
       align: "left"
     } );
 
-
-    //align ruler icon middle
-    ruler[2].centerY = 0;
-
     Panel.call( this, content, { xMargin: 10, yMargin: 10, fill: '#f2fa6a ', stroke: 'gray', lineWidth: 1, resize: false, x: x, y: y, scale: 0.8 } );
   }
 

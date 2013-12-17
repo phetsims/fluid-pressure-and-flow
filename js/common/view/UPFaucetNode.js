@@ -17,8 +17,8 @@ define( function( require ) {
    * @param {} width
    * @constructor
    */
-  function UPFaucetNode( model, faucet, width ) {
-    FaucetNode.call( this, faucet.maxFlowRate, faucet.flowRateProperty, faucet.enabledProperty, { horizontalPipeLength: width, scale: faucet.scale, x: faucet.location.x * model.pxToMetersRatio, y: faucet.location.y * model.pxToMetersRatio} );
+  function UPFaucetNode( faucet, width, mvt ) {
+    FaucetNode.call( this, faucet.maxFlowRate, faucet.flowRateProperty, faucet.enabledProperty, { horizontalPipeLength: width, scale: faucet.scale, x: mvt.modelToViewX(faucet.location.x ), y: mvt.modelToViewY(faucet.location.y )} );
   }
 
   return inherit( FaucetNode, UPFaucetNode );

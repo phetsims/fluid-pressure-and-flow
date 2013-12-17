@@ -15,6 +15,8 @@ define( function( require ) {
   var BarometersContainer = require( "UNDER_PRESSURE/common/view/BarometersContainer" );
   var UnderPressureRuler = require( "UNDER_PRESSURE/common/view/UnderPressureRuler" );
   var ControlsNode = require( "UNDER_PRESSURE/common/view/ControlsNode" );
+  var ModelViewTransform2 = require( 'PHETCOMMON/view/ModelViewTransform2' );
+  var Vector2 = require( 'DOT/Vector2' );
 
   var SceneView = {
     SquarePoolView: require( "square-pool/view/SquarePoolView" ),
@@ -28,12 +30,18 @@ define( function( require ) {
     var self = this;
     ScreenView.call( this, { renderer: "svg" } );
 
+    var mvt = ModelViewTransform2.createSinglePointScaleMapping(
+      Vector2.ZERO,
+      Vector2.ZERO,
+      70 ); //1m = 70px, (0,0) - top left corner
+
+
     //sky, earth and controls
-    this.addChild( new CommonNode( model ) );
+    this.addChild( new CommonNode( model, mvt ) );
 
     var scenes = {};
     model.scenes.forEach( function( name ) {
-      scenes[name] = new SceneView[name + "PoolView"]( model.sceneModels[name] );
+      scenes[name] = new SceneView[name + "PoolView"]( model.sceneModels[name], mvt );
       scenes[name].visible = false;
       self.addChild( scenes[name] );
     } );
@@ -48,7 +56,7 @@ define( function( require ) {
     } );
 
 
-    this.addChild( new UnderPressureRuler( model ) );
+    this.addChild( new UnderPressureRuler( model, mvt ) );
 
     //barometers
     this.addChild( new BarometersContainer( model ) );

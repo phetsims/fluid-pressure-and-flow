@@ -18,7 +18,6 @@ define( function( require ) {
     var self = this;
 
     this.globalModel = globalModel;
-    this.pxToMetersRatio = globalModel.pxToMetersRatio;
 
     //constants, from java model
     //The entire apparatus is this tall
@@ -144,9 +143,6 @@ define( function( require ) {
     },
     getPressureAtCoords: function( x, y ) {
       var pressure = "";
-
-      x = x / this.pxToMetersRatio;
-      y = y / this.pxToMetersRatio;
 
       if ( y < this.globalModel.skyGroundBoundY ) {
         pressure = this.globalModel.getAirPressure( y );

@@ -17,7 +17,7 @@ define( function( require ) {
   var metersStringPattern = require( 'string!UNDER_PRESSURE/readoutMeters' );
   var feetsStringPattern = require( 'string!UNDER_PRESSURE/readoutFeet' );
 
-  function SquarePoolGrid( model ) {
+  function SquarePoolGrid( model, mvt ) {
     var self = this;
     Node.call( this );
 
@@ -25,12 +25,12 @@ define( function( require ) {
       font: new PhetFont( 12 )
     };
 
-    this.addChild( new GridLinesNode( model.globalModel, 0, model.poolDimensions.leftChamber.y, model.globalModel.width / model.globalModel.pxToMetersRatio, model.poolDimensions.leftChamber.y + model.poolDimensions.leftChamber.height + 0.3, {metersStep: 0.5} ) );
+    this.addChild( new GridLinesNode( model.globalModel, mvt, 0, model.poolDimensions.leftChamber.y, mvt.viewToModelX( model.globalModel.width ), model.poolDimensions.leftChamber.y + model.poolDimensions.leftChamber.height + 0.3, {metersStep: 0.5} ) );
 
     var metersLabels = new Node();
     var metersText = new Text( StringUtils.format( metersStringPattern, 3 ), _.extend( {
-      x: model.globalModel.pxToMetersRatio * (model.poolDimensions.rightChamber.centerTop + model.poolDimensions.rightChamber.widthBottom / 2) + 10,
-      centerY: (model.globalModel.skyGroundBoundY + 3) * model.globalModel.pxToMetersRatio
+      x: mvt.modelToViewX( model.poolDimensions.rightChamber.centerTop + model.poolDimensions.rightChamber.widthBottom / 2 ) + 10,
+      centerY: mvt.modelToViewY( model.globalModel.skyGroundBoundY + 3 )
     }, fontOptions ) );
     var backgroundRect = new Rectangle( 0, 0, metersText.width + 5, metersText.height + 5, 10, 10, {fill: "#67a257"} );
     backgroundRect.centerX = metersText.centerX;
@@ -40,8 +40,8 @@ define( function( require ) {
 
     var feetsLabels = new Node();
     var feetsText = new Text( StringUtils.format( feetsStringPattern, 10 ), _.extend( {
-      x: model.globalModel.pxToMetersRatio * (model.poolDimensions.rightChamber.centerTop + model.poolDimensions.rightChamber.widthBottom / 2) + 10,
-      centerY: (model.globalModel.skyGroundBoundY + model.globalModel.units.feetToMeters( 10 )) * model.globalModel.pxToMetersRatio
+      x: mvt.modelToViewX( model.poolDimensions.rightChamber.centerTop + model.poolDimensions.rightChamber.widthBottom / 2 ) + 10,
+      centerY: mvt.modelToViewY( model.globalModel.skyGroundBoundY + model.globalModel.units.feetToMeters( 10 ) )
     }, fontOptions ) );
     backgroundRect = new Rectangle( 0, 0, feetsText.width + 10, feetsText.height + 5, 10, 10, {fill: "#67a257"} );
     backgroundRect.centerX = feetsText.centerX;

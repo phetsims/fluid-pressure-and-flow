@@ -32,7 +32,6 @@ define( function( require ) {
     this.outputFaucet = new FaucetModel( new Vector2( 7.75, 6.60 ), 1, 0.3 );
 
     this.globalModel = globalModel;
-    this.pxToMetersRatio = globalModel.pxToMetersRatio;
 
     this.poolDimensions = {
       leftChamber: {
@@ -87,9 +86,6 @@ define( function( require ) {
   return inherit( PoolWithFaucetsModel, TrapezoidPoolModel, {
     getPressureAtCoords: function( x, y ) {
       var pressure = "";
-
-      x = x / this.pxToMetersRatio;
-      y = y / this.pxToMetersRatio;
 
       if ( y < this.globalModel.skyGroundBoundY ) {
         pressure = this.globalModel.getAirPressure( y );

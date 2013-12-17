@@ -48,8 +48,6 @@ define( function( require ) {
     this.EARTH_AIR_PRESSURE = 101325;
     this.EARTH_AIR_PRESSURE_AT_500_FT = 99490;
 
-    this.pxToMetersRatio = 70; // 70px = 1 M
-
     this.gravityRange = new Range( this.MARS_GRAVITY, this.JUPITER_GRAVITY );
     this.fluidDensityRange = new Range( this.GAZOLINE_DENSITY, this.HONEY_DENSITY );
 
@@ -61,9 +59,9 @@ define( function( require ) {
         gravity: 9.8,
         fluidDensity: self.WATER_DENSITY,
         leftDisplacement: 0, //displacement from default height, for chamber-pool
-        currentScene: self.scenes[0],
+        currentScene: self.scenes[2],
         currentVolume: 0, //L, volume of liquid in currentScene
-        rulerPosition: new Vector2( 2 * self.pxToMetersRatio, this.skyGroundBoundY * self.pxToMetersRatio ), // px
+        rulerPosition: new Vector2( 140, 220 ), // px
         mysteryChoice: "gravity" //for mystery-pool, planet of fluid
       }
     );
@@ -99,8 +97,8 @@ define( function( require ) {
         self[key + 'Property'].reset();
       } );
       for ( var model in self.sceneModels ) {
-        if (self.sceneModels.hasOwnProperty(model)) {
-        self.sceneModels[model].reset();
+        if ( self.sceneModels.hasOwnProperty( model ) ) {
+          self.sceneModels[model].reset();
         }
       }
 

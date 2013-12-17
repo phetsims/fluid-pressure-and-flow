@@ -21,35 +21,35 @@ define( function( require ) {
   var grassImg = require( 'image!UNDER_PRESSURE/images/grass-texture.png' );
   var cementImg = require( 'image!UNDER_PRESSURE/images/cement-texture-dark.jpg' );
 
-  function TrapezoidPoolBack( model ) {
+  function TrapezoidPoolBack( model, mvt ) {
     Node.call( this );
 
     //grass
-    this.addChild( new Rectangle( -1000, 0, 1000 + model.verticles.x1top * model.pxToMetersRatio, 10, {
+    this.addChild( new Rectangle( -1000, 0, 1000 + mvt.modelToViewX( model.verticles.x1top ), 10, {
       fill: new Pattern( grassImg ).setTransformMatrix( Matrix3.scale( 0.25 ) ),
-      y: model.globalModel.skyGroundBoundY * model.pxToMetersRatio - 10
+      y: mvt.modelToViewY( model.globalModel.skyGroundBoundY ) - 10
     } ) );
 
-    this.addChild( new Rectangle( model.verticles.x2top * model.pxToMetersRatio, 0, (model.verticles.x3top - model.verticles.x2top) * model.pxToMetersRatio, 10, {
+    this.addChild( new Rectangle( mvt.modelToViewX( model.verticles.x2top ), 0, mvt.modelToViewX( model.verticles.x3top - model.verticles.x2top ), 10, {
       fill: new Pattern( grassImg ).setTransformMatrix( Matrix3.scale( 0.25 ) ),
-      y: model.globalModel.skyGroundBoundY * model.pxToMetersRatio - 10
+      y: mvt.modelToViewY( model.globalModel.skyGroundBoundY ) - 10
     } ) );
 
-    this.addChild( new Rectangle( model.verticles.x4top * model.pxToMetersRatio, 0, 1000, 10, {
+    this.addChild( new Rectangle( mvt.modelToViewX( model.verticles.x4top ), 0, 1000, 10, {
       fill: new Pattern( grassImg ).setTransformMatrix( Matrix3.scale( 0.25 ) ),
-      y: model.globalModel.skyGroundBoundY * model.pxToMetersRatio - 10
+      y: mvt.modelToViewY( model.globalModel.skyGroundBoundY ) - 10
     } ) );
 
     //cement border
     var shape = new Shape()
-      .moveTo( model.verticles.x1top * model.pxToMetersRatio - 2, model.poolDimensions.leftChamber.y * model.pxToMetersRatio )
-      .lineTo( model.verticles.x1bottom * model.pxToMetersRatio - 2, (model.poolDimensions.leftChamber.y + model.poolDimensions.leftChamber.height) * model.pxToMetersRatio + 2 )
-      .lineTo( model.verticles.x4bottom * model.pxToMetersRatio + 2, (model.poolDimensions.leftChamber.y + model.poolDimensions.leftChamber.height) * model.pxToMetersRatio + 2 )
-      .lineTo( model.verticles.x4top * model.pxToMetersRatio + 2, model.poolDimensions.leftChamber.y * model.pxToMetersRatio )
-      .moveTo( model.verticles.x2top * model.pxToMetersRatio + 2, model.poolDimensions.leftChamber.y * model.pxToMetersRatio )
-      .lineTo( model.verticles.x1middle * model.pxToMetersRatio - 2, model.verticles.ymiddle * model.pxToMetersRatio )
-      .lineTo( model.verticles.x2middle * model.pxToMetersRatio - 2, model.verticles.ymiddle * model.pxToMetersRatio )
-      .lineTo( model.verticles.x3top * model.pxToMetersRatio - 2, model.poolDimensions.leftChamber.y * model.pxToMetersRatio );
+      .moveTo( mvt.modelToViewX( model.verticles.x1top ) - 2, mvt.modelToViewY( model.poolDimensions.leftChamber.y ) )
+      .lineTo( mvt.modelToViewX( model.verticles.x1bottom ) - 2, mvt.modelToViewY( model.poolDimensions.leftChamber.y + model.poolDimensions.leftChamber.height ) + 2 )
+      .lineTo( mvt.modelToViewX( model.verticles.x4bottom ) + 2, mvt.modelToViewY( model.poolDimensions.leftChamber.y + model.poolDimensions.leftChamber.height ) + 2 )
+      .lineTo( mvt.modelToViewX( model.verticles.x4top ) + 2, mvt.modelToViewY( model.poolDimensions.leftChamber.y ) )
+      .moveTo( mvt.modelToViewX( model.verticles.x2top ) + 2, mvt.modelToViewY( model.poolDimensions.leftChamber.y ) )
+      .lineTo( mvt.modelToViewX( model.verticles.x1middle ) - 2, mvt.modelToViewY( model.verticles.ymiddle ) )
+      .lineTo( mvt.modelToViewX( model.verticles.x2middle ) - 2, mvt.modelToViewY( model.verticles.ymiddle ) )
+      .lineTo( mvt.modelToViewX( model.verticles.x3top ) - 2, mvt.modelToViewY( model.poolDimensions.leftChamber.y ) );
 
     this.addChild( new Path( shape, {
       stroke: new Pattern( cementImg ),
@@ -57,21 +57,21 @@ define( function( require ) {
       lineJoin: 'round'
     } ) );
 
-    this.addChild( new UPFaucetNode( model.globalModel, model.outputFaucet, 0 ) );
+    this.addChild( new UPFaucetNode( model.outputFaucet, 0, mvt ) );
 
     //white background for pool
 
     //bottom chamber
-    this.addChild( new Rectangle( model.verticles.x1middle * model.pxToMetersRatio - 6, (model.poolDimensions.bottomChamber.y1) * model.pxToMetersRatio + 1, (model.verticles.x2middle - model.verticles.x1middle) * model.pxToMetersRatio + 12, (model.poolDimensions.bottomChamber.y2 - model.poolDimensions.bottomChamber.y1) * model.pxToMetersRatio - 1, {
+    this.addChild( new Rectangle( mvt.modelToViewX( model.verticles.x1middle ) - 8, mvt.modelToViewY( model.poolDimensions.bottomChamber.y1 ) + 1, mvt.modelToViewX( model.verticles.x2middle - model.verticles.x1middle ) + 16, mvt.modelToViewY( model.poolDimensions.bottomChamber.y2 - model.poolDimensions.bottomChamber.y1 ) - 1, {
       fill: "#f3f0e9"
     } ) );
 
     //left chamber
     shape = new Shape()
-      .moveTo( model.verticles.x1top * model.pxToMetersRatio, model.poolDimensions.leftChamber.y * model.pxToMetersRatio - 1 )
-      .lineTo( model.verticles.x1bottom * model.pxToMetersRatio, (model.poolDimensions.leftChamber.y + model.poolDimensions.leftChamber.height) * model.pxToMetersRatio )
-      .lineTo( model.verticles.x2bottom * model.pxToMetersRatio, (model.poolDimensions.leftChamber.y + model.poolDimensions.leftChamber.height) * model.pxToMetersRatio )
-      .lineTo( model.verticles.x2top * model.pxToMetersRatio, model.poolDimensions.leftChamber.y * model.pxToMetersRatio - 1 );
+      .moveTo( mvt.modelToViewX( model.verticles.x1top ), mvt.modelToViewY( model.poolDimensions.leftChamber.y ) - 1 )
+      .lineTo( mvt.modelToViewX( model.verticles.x1bottom ), mvt.modelToViewY( model.poolDimensions.leftChamber.y + model.poolDimensions.leftChamber.height ) )
+      .lineTo( mvt.modelToViewX( model.verticles.x2bottom ), mvt.modelToViewY( model.poolDimensions.leftChamber.y + model.poolDimensions.leftChamber.height ) )
+      .lineTo( mvt.modelToViewX( model.verticles.x2top ), mvt.modelToViewY( model.poolDimensions.leftChamber.y ) - 1 );
 
     this.addChild( new Path( shape, {
       fill: "#f3f0e9"
@@ -79,16 +79,16 @@ define( function( require ) {
 
     //right chamber
     shape = new Shape()
-      .moveTo( model.verticles.x3top * model.pxToMetersRatio, model.poolDimensions.leftChamber.y * model.pxToMetersRatio - 1 )
-      .lineTo( model.verticles.x3bottom * model.pxToMetersRatio, (model.poolDimensions.leftChamber.y + model.poolDimensions.leftChamber.height) * model.pxToMetersRatio )
-      .lineTo( model.verticles.x4bottom * model.pxToMetersRatio, (model.poolDimensions.leftChamber.y + model.poolDimensions.leftChamber.height) * model.pxToMetersRatio )
-      .lineTo( model.verticles.x4top * model.pxToMetersRatio, model.poolDimensions.leftChamber.y * model.pxToMetersRatio - 1 );
+      .moveTo( mvt.modelToViewX( model.verticles.x3top ), mvt.modelToViewY( model.poolDimensions.leftChamber.y ) - 1 )
+      .lineTo( mvt.modelToViewX( model.verticles.x3bottom ), mvt.modelToViewY( model.poolDimensions.leftChamber.y + model.poolDimensions.leftChamber.height ) )
+      .lineTo( mvt.modelToViewX( model.verticles.x4bottom ), mvt.modelToViewY( model.poolDimensions.leftChamber.y + model.poolDimensions.leftChamber.height ) )
+      .lineTo( mvt.modelToViewX( model.verticles.x4top ), mvt.modelToViewY( model.poolDimensions.leftChamber.y ) - 1 );
 
     this.addChild( new Path( shape, {
       fill: "#f3f0e9"
     } ) );
 
-    this.addChild( new UPFaucetNode( model.globalModel, model.inputFaucet, 505 ) );
+    this.addChild( new UPFaucetNode( model.inputFaucet, 505, mvt ) );
 
 
   }

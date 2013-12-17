@@ -16,21 +16,21 @@ define( function( require ) {
   var TrapezoidPoolGrid = require( "trapezoid-pool/view/TrapezoidPoolGrid" );
 
 
-  function TrapezoidPoolView( model ) {
+  function TrapezoidPoolView( model, mvt ) {
     Node.call( this, { renderer: "svg" } );
 
     //pool
-    this.addChild( new TrapezoidPoolBack( model ) );
+    this.addChild( new TrapezoidPoolBack( model, mvt ) );
 
     //fluids
-    this.addChild( new FaucetFluidNode( model.inputFaucet, model, (model.poolDimensions.bottomChamber.y2 - model.inputFaucet.location.y) * model.pxToMetersRatio ) );
-    this.addChild( new FaucetFluidNode( model.outputFaucet, model, 1000 ) );
+    this.addChild( new FaucetFluidNode( model.inputFaucet, model, mvt, mvt.modelToViewY( model.poolDimensions.bottomChamber.y2 - model.inputFaucet.location.y ) ) );
+    this.addChild( new FaucetFluidNode( model.outputFaucet, model, mvt, 1000 ) );
 
     //water
-    this.addChild( new TrapezoidPoolWaterNode( model ) );
+    this.addChild( new TrapezoidPoolWaterNode( model, mvt ) );
 
     //grid
-    this.addChild( new TrapezoidPoolGrid( model ) );
+    this.addChild( new TrapezoidPoolGrid( model, mvt ) );
 
   }
 

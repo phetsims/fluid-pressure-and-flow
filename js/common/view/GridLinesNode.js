@@ -13,7 +13,7 @@ define( function( require ) {
   var Line = require( 'SCENERY/nodes/Line' );
   var Rectangle = require( 'SCENERY/nodes/Rectangle' );
 
-  function GridLinesNode( model, x1, y1, x2, y2, options ) {
+  function GridLinesNode( model, mvt, x1, y1, x2, y2, options ) {
     //bounds of grid
     var self = this;
     Node.call( this );
@@ -24,16 +24,16 @@ define( function( require ) {
     }, options );
 
     var addLine = function( node, y ) {
-      node.addChild( new Line( x1 * model.pxToMetersRatio, y, x2 * model.pxToMetersRatio, y, {stroke: "RGB(192, 192, 192)", lineWidth: 1.5} ) );
-      node.addChild( new Line( x1 * model.pxToMetersRatio, y + 1, x2 * model.pxToMetersRatio, y + 1, {stroke: "RGB(64, 64, 64)", lineWidth: 1} ) );
+      node.addChild( new Line( mvt.modelToViewX( x1 ), y, mvt.modelToViewX( x2 ), y, {stroke: "RGB(192, 192, 192)", lineWidth: 1.5} ) );
+      node.addChild( new Line( mvt.modelToViewX( x1 ), y + 1, mvt.modelToViewX( x2 ), y + 1, {stroke: "RGB(64, 64, 64)", lineWidth: 1} ) );
     };
 
     var metersGrid = new Node();
-    for ( var i = y1 * model.pxToMetersRatio; i <= y2 * model.pxToMetersRatio; i += options.metersStep * model.pxToMetersRatio ) {
+    for ( var i = mvt.modelToViewY( y1 ); i <= mvt.modelToViewY( y2 ); i += mvt.modelToViewY( options.metersStep ) ) {
       addLine( metersGrid, i );
     }
     var feetsGrid = new Node();
-    for ( i = y1 * model.pxToMetersRatio; i <= y2 * model.pxToMetersRatio; i += model.units.feetToMeters( options.feetsStep ) * model.pxToMetersRatio ) {
+    for ( i = mvt.modelToViewY( y1 ); i <= mvt.modelToViewY( y2 ); i += mvt.modelToViewY( model.units.feetToMeters( options.feetsStep ) ) ) {
       addLine( feetsGrid, i );
     }
 

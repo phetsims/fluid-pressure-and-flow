@@ -16,22 +16,22 @@ define( function( require ) {
   var SquarePoolGrid = require( "square-pool/view/SquarePoolGrid" );
 
 
-  function SquarePoolView( model ) {
+  function SquarePoolView( model, mvt ) {
     var self = this;
     Node.call( this, { renderer: "svg" } );
 
     //pool
-    this.addChild( new SquarePoolBack( model ) );
+    this.addChild( new SquarePoolBack( model, mvt ) );
 
     //fluids
-    this.addChild( new FaucetFluidNode( model.inputFaucet, model, (model.poolDimensions.y2 - model.inputFaucet.location.y) * model.pxToMetersRatio ) );
-    this.addChild( new FaucetFluidNode( model.outputFaucet, model, 1000 ) );
+    this.addChild( new FaucetFluidNode( model.inputFaucet, model, mvt, mvt.modelToViewY( model.poolDimensions.y2 - model.inputFaucet.location.y ) ) );
+    this.addChild( new FaucetFluidNode( model.outputFaucet, model, mvt, 1000 ) );
 
     //water
-    this.addChild( new SquarePoolWaterNode( model ) );
+    this.addChild( new SquarePoolWaterNode( model, mvt ) );
 
     //grid
-    this.addChild( new SquarePoolGrid( model ) );
+    this.addChild( new SquarePoolGrid( model, mvt ) );
   }
 
   return inherit( Node, SquarePoolView );

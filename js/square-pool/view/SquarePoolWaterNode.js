@@ -11,20 +11,19 @@ define( function( require ) {
   var LinearGradient = require( 'SCENERY/util/LinearGradient' );
   var Color = require( "SCENERY/util/Color" );
 
-  function SquarePoolWaterNode( model ) {
+  function SquarePoolWaterNode( model, mvt ) {
     var self = this;
     Rectangle.call( this, 0, 0, 1, 1, { lineWidth: 1 } );
 
+    //height of water, px
     var viewHeight;
 
-    var viewWidth = (model.poolDimensions.x2 - model.poolDimensions.x1) * model.pxToMetersRatio;
-    var maxHeight = model.MAX_HEIGHT * model.pxToMetersRatio;
+    var viewWidth = mvt.modelToViewX( model.poolDimensions.x2 - model.poolDimensions.x1 ),//width of pool, px
+      maxHeight = mvt.modelToViewY( model.MAX_HEIGHT ),//max height of water, px
+      xMin = mvt.modelToViewX( model.poolDimensions.x1 ),//left x point of pool, px
+      yMax = mvt.modelToViewY( model.poolDimensions.y2 );//bottom y point of pool, px
 
-    var xMin = model.poolDimensions.x1 * model.pxToMetersRatio,
-      yMax = model.poolDimensions.y2 * model.pxToMetersRatio;
-
-    model.globalModel.waterColorModel.waterColorProperty.link( function( color ) {
-      viewHeight = maxHeight * model.volume / model.MAX_VOLUME;
+    model.globalModel.waterColorModel.waterColorProperty.link( function() {
       self.fill = new LinearGradient( 0, yMax, 0, yMax - maxHeight )
         .addColorStop( 0, model.globalModel.waterColorModel.bottomColor )
         .addColorStop( 1, model.globalModel.waterColorModel.topColor );

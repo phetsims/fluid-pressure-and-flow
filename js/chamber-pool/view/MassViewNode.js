@@ -20,7 +20,7 @@ define( function( require ) {
   var massImg = require( 'image!UNDER_PRESSURE/images/mass.png' );
   var massLabelPattern = require( 'string!UNDER_PRESSURE/massLabelPattern' );
 
-  function MassViewNode( massModel, model ) {
+  function MassViewNode( massModel, model, mvt ) {
     var self = this;
 
 
@@ -28,8 +28,8 @@ define( function( require ) {
       cursor: "pointer"
     } );
 
-    var width = massModel.width * model.pxToMetersRatio,
-      height = massModel.height * model.pxToMetersRatio;
+    var width = mvt.modelToViewX( massModel.width ),
+      height = mvt.modelToViewY( massModel.height );
 
     this.addChild( new Image( massImg, {
       clipArea: Shape.rect( 0, 0, width, height )
@@ -52,8 +52,8 @@ define( function( require ) {
       },
       end: function( args ) {
         var newPosition = self.translation;
-        newPosition.x = newPosition.x / model.pxToMetersRatio;
-        newPosition.y = newPosition.y / model.pxToMetersRatio;
+        newPosition.x = mvt.viewToModelX( newPosition.x );
+        newPosition.y = mvt.viewToModelX( newPosition.y );
         massModel.position = newPosition;
         massModel.isDragging = false;
       },
@@ -67,7 +67,7 @@ define( function( require ) {
 
     massModel.positionProperty.link( function( position ) {
       if ( !model.isDragging ) {
-        self.translation = new Vector2( position.x * model.pxToMetersRatio, position.y * model.pxToMetersRatio );
+        self.translation = new Vector2( mvt.modelToViewX( position.x ), mvt.modelToViewY( position.y ) );
       }
     } );
 
