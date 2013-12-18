@@ -59,7 +59,7 @@ define( function( require ) {
         gravity: 9.8,
         fluidDensity: self.WATER_DENSITY,
         leftDisplacement: 0, //displacement from default height, for chamber-pool
-        currentScene: self.scenes[2],
+        currentScene: self.scenes[0],
         currentVolume: 0, //L, volume of liquid in currentScene
         rulerPosition: new Vector2( 140, 220 ), // px
         mysteryChoice: "gravity" //for mystery-pool, planet of fluid
@@ -93,9 +93,8 @@ define( function( require ) {
     },
     reset: function() {
       var self = this;
-      this.keys.forEach( function( key ) {
-        self[key + 'Property'].reset();
-      } );
+      PropertySet.prototype.reset.call( this );
+
       for ( var model in self.sceneModels ) {
         if ( self.sceneModels.hasOwnProperty( model ) ) {
           self.sceneModels[model].reset();
