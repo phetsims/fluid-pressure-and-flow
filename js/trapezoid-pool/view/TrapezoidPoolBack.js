@@ -25,19 +25,23 @@ define( function( require ) {
     Node.call( this );
 
     //grass
-    this.addChild( new Rectangle( -1000, 0, 1000 + mvt.modelToViewX( model.verticles.x1top ), 10, {
-      fill: new Pattern( grassImg ).setTransformMatrix( Matrix3.scale( 0.25 ) ),
-      y: mvt.modelToViewY( model.globalModel.skyGroundBoundY ) - 10
+    var grassPattern = new Pattern( grassImg ).setTransformMatrix( Matrix3.scale( 0.25 ) );
+    var grassRectYOffset = 1;
+    var grassRectHeight = 10;
+
+    this.addChild( new Rectangle( -1000, grassRectYOffset, 1000 + mvt.modelToViewX( model.verticles.x1top ), grassRectHeight, {
+      fill: grassPattern,
+      y: mvt.modelToViewY( model.globalModel.skyGroundBoundY ) - grassRectHeight
     } ) );
 
-    this.addChild( new Rectangle( mvt.modelToViewX( model.verticles.x2top ), 0, mvt.modelToViewX( model.verticles.x3top - model.verticles.x2top ), 10, {
-      fill: new Pattern( grassImg ).setTransformMatrix( Matrix3.scale( 0.25 ) ),
-      y: mvt.modelToViewY( model.globalModel.skyGroundBoundY ) - 10
+    this.addChild( new Rectangle( mvt.modelToViewX( model.verticles.x2top ), grassRectYOffset, mvt.modelToViewX( model.verticles.x3top - model.verticles.x2top ), grassRectHeight, {
+      fill: grassPattern,
+      y: mvt.modelToViewY( model.globalModel.skyGroundBoundY ) - grassRectHeight
     } ) );
 
-    this.addChild( new Rectangle( mvt.modelToViewX( model.verticles.x4top ), 0, 1000, 10, {
-      fill: new Pattern( grassImg ).setTransformMatrix( Matrix3.scale( 0.25 ) ),
-      y: mvt.modelToViewY( model.globalModel.skyGroundBoundY ) - 10
+    this.addChild( new Rectangle( mvt.modelToViewX( model.verticles.x4top ), grassRectYOffset, 1000, grassRectHeight, {
+      fill: grassPattern,
+      y: mvt.modelToViewY( model.globalModel.skyGroundBoundY ) - grassRectHeight
     } ) );
 
     //cement border

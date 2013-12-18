@@ -25,19 +25,23 @@ define( function( require ) {
     Node.call( this );
 
     //grass
-    this.addChild( new Rectangle( -1000, 0, 1000 + mvt.modelToViewX( model.poolDimensions.leftOpening.x1 ), 10, {
-      fill: new Pattern( grassImg ).setTransformMatrix( Matrix3.scale( 0.25 ) ),
-      y: mvt.modelToViewY( model.globalModel.skyGroundBoundY ) - 10
+    var grassPattern = new Pattern( grassImg ).setTransformMatrix( Matrix3.scale( 0.25 ) );
+    var grassRectYOffset = 1;
+    var grassRectHeight = 10;
+
+    this.addChild( new Rectangle( -1000, grassRectYOffset, 1000 + mvt.modelToViewX( model.poolDimensions.leftOpening.x1 ), grassRectHeight, {
+      fill: grassPattern,
+      y: mvt.modelToViewY( model.globalModel.skyGroundBoundY ) - grassRectHeight
     } ) );
 
-    this.addChild( new Rectangle( mvt.modelToViewX( model.poolDimensions.leftOpening.x2 ), 0, mvt.modelToViewX( model.poolDimensions.rightOpening.x1 - model.poolDimensions.leftOpening.x2 ), 10, {
-      fill: new Pattern( grassImg ).setTransformMatrix( Matrix3.scale( 0.25 ) ),
-      y: mvt.modelToViewY( model.globalModel.skyGroundBoundY ) - 10
+    this.addChild( new Rectangle( mvt.modelToViewX( model.poolDimensions.leftOpening.x2 ), grassRectYOffset, mvt.modelToViewX( model.poolDimensions.rightOpening.x1 - model.poolDimensions.leftOpening.x2 ), grassRectHeight, {
+      fill: grassPattern,
+      y: mvt.modelToViewY( model.globalModel.skyGroundBoundY ) - grassRectHeight
     } ) );
 
-    this.addChild( new Rectangle( mvt.modelToViewX( model.poolDimensions.rightOpening.x2 ), 0, 1000, 10, {
-      fill: new Pattern( grassImg ).setTransformMatrix( Matrix3.scale( 0.25 ) ),
-      y: mvt.modelToViewY( model.globalModel.skyGroundBoundY ) - 10
+    this.addChild( new Rectangle( mvt.modelToViewX( model.poolDimensions.rightOpening.x2 ), grassRectYOffset, 1000, grassRectHeight, {
+      fill: grassPattern,
+      y: mvt.modelToViewY( model.globalModel.skyGroundBoundY ) - grassRectHeight
     } ) );
 
     //calculated view coordinates for water
