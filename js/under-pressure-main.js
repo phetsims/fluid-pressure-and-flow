@@ -32,7 +32,7 @@ define( function( require ) {
     //Create and start the sim
     new Sim( simTitle, [
       new Screen( simTitle, null,
-        function() {return new UnderPressureModel( ScreenView.LAYOUT_BOUNDS.width, ScreenView.LAYOUT_BOUNDS.height );},
+        function() {return new UnderPressureModel( ScreenView.DEFAULT_LAYOUT_BOUNDS.width, ScreenView.DEFAULT_LAYOUT_BOUNDS.height );},
         function( model ) {return new UnderPressureView( model );},
         { backgroundColor: '#fff' }
       )
