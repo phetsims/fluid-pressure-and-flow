@@ -9,7 +9,6 @@ define( function( require ) {
   var inherit = require( 'PHET_CORE/inherit' );
   var Rectangle = require( 'SCENERY/nodes/Rectangle' );
   var LinearGradient = require( 'SCENERY/util/LinearGradient' );
-  var Color = require( "SCENERY/util/Color" );
 
   function SquarePoolWaterNode( model, mvt ) {
     var self = this;

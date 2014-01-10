@@ -7,12 +7,10 @@
 define( function( require ) {
   "use strict";
   var inherit = require( "PHET_CORE/inherit" );
-  var CommonNode = require( "UNDER_PRESSURE/common/view/CommonNode" );
   var Node = require( 'SCENERY/nodes/Node' );
   var TrapezoidPoolBack = require( "trapezoid-pool/view/TrapezoidPoolBack" );
   var FaucetFluidNode = require( "UNDER_PRESSURE/common/view/FaucetFluidNode" );
   var TrapezoidPoolWaterNode = require( "trapezoid-pool/view/TrapezoidPoolWaterNode" );
-  var BarometersContainer = require( "UNDER_PRESSURE/common/view/BarometersContainer" );
   var TrapezoidPoolGrid = require( "trapezoid-pool/view/TrapezoidPoolGrid" );
 
 

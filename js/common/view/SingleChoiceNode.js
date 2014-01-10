@@ -8,7 +8,6 @@ define( function( require ) {
   'use strict';
   var Node = require( 'SCENERY/nodes/Node' );
   var inherit = require( 'PHET_CORE/inherit' );
-  var Image = require( 'SCENERY/nodes/Image' );
   var Rectangle = require( 'SCENERY/nodes/Rectangle' );
   var Vector2 = require( 'DOT/Vector2' );
   var ButtonListener = require( 'SCENERY/input/ButtonListener' );

@@ -14,7 +14,6 @@ define( function( require ) {
   var Rectangle = require( 'SCENERY/nodes/Rectangle' );
 
   function NodeWithBorderAndTitle( contentNode, title, options ) {
-    var self = this;
     this.contentNode = contentNode;
 
     // default options

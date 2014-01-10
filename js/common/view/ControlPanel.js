@@ -11,16 +11,12 @@ define( function( require ) {
   var Node = require( 'SCENERY/nodes/Node' );
   var VBox = require( 'SCENERY/nodes/VBox' );
   var HBox = require( 'SCENERY/nodes/HBox' );
-  var Path = require( 'SCENERY/nodes/Path' );
   var Shape = require( 'KITE/Shape' );
   var Rectangle = require( 'SCENERY/nodes/Rectangle' );
-  var Line = require( 'SCENERY/nodes/Line' );
-  var Circle = require( 'SCENERY/nodes/Circle' );
   var Panel = require( 'SUN/Panel' );
   var CheckBox = require( 'SUN/CheckBox' );
   var AquaRadioButton = require( 'SUN/AquaRadioButton' );
   var Text = require( 'SCENERY/nodes/Text' );
-  var Property = require( 'AXON/Property' );
   var PhetFont = require( 'SCENERY_PHET/PhetFont' );
   var NodeWithBorderAndTitle = require( 'UNDER_PRESSURE/common/view/NodeWithBorderAndTitle' );
   var RulerNode = require( 'SCENERY_PHET/RulerNode' );

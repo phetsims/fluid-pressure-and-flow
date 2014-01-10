@@ -11,9 +11,7 @@ define( function( require ) {
   var PropertySet = require( 'AXON/PropertySet' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Vector2 = require( 'DOT/Vector2' );
-  var LinearFunction = require( 'DOT/LinearFunction' );
   var Bounds = require( "DOT/bounds2" );
-
 
   function MassModel( model, mass, x, y, width, height ) {
     var self = this;

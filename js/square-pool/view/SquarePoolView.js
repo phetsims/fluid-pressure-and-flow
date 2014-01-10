@@ -7,17 +7,14 @@
 define( function( require ) {
   "use strict";
   var inherit = require( "PHET_CORE/inherit" );
-  var CommonNode = require( "UNDER_PRESSURE/common/view/CommonNode" );
   var Node = require( 'SCENERY/nodes/Node' );
   var SquarePoolBack = require( "square-pool/view/SquarePoolBack" );
   var FaucetFluidNode = require( "UNDER_PRESSURE/common/view/FaucetFluidNode" );
   var SquarePoolWaterNode = require( "square-pool/view/SquarePoolWaterNode" );
-  var BarometersContainer = require( "UNDER_PRESSURE/common/view/BarometersContainer" );
   var SquarePoolGrid = require( "square-pool/view/SquarePoolGrid" );
 
 
   function SquarePoolView( model, mvt ) {
-    var self = this;
     Node.call( this, { renderer: "svg" } );
 
     //pool

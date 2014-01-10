@@ -19,15 +19,10 @@ define( function( require ) {
   var SimpleDragHandler = require( 'SCENERY/input/SimpleDragHandler' );
   var Text = require( 'SCENERY/nodes/Text' );
   var HTMLText = require( 'SCENERY/nodes/HTMLText' );
-  var Image = require( 'SCENERY/nodes/Image' );
-  var Panel = require( 'SUN/Panel' );
   var FillHighlightListener = require( 'SCENERY_PHET/input/FillHighlightListener' );
-  var Range = require( 'DOT/Range' );
-  var StringUtils = require( 'PHETCOMMON/util/StringUtils' );
   var PhetFont = require( 'SCENERY_PHET/PhetFont' );
   var AccordionBox = require( 'SUN/AccordionBox' );
   var LinearGradient = require( 'SCENERY/util/LinearGradient' );
-
 
   // Constants
   var TRACK_SIZE = new Dimension2( 170, 10 );

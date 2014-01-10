@@ -9,9 +9,6 @@ define( function( require ) {
   var inherit = require( "PHET_CORE/inherit" );
   var CommonNode = require( "UNDER_PRESSURE/common/view/CommonNode" );
   var ScreenView = require( "JOIST/ScreenView" );
-  var SquarePoolBack = require( "square-pool/view/SquarePoolBack" );
-  var FaucetFluidNode = require( "UNDER_PRESSURE/common/view/FaucetFluidNode" );
-  var SquarePoolWaterNode = require( "square-pool/view/SquarePoolWaterNode" );
   var BarometersContainer = require( "UNDER_PRESSURE/common/view/BarometersContainer" );
   var UnderPressureRuler = require( "UNDER_PRESSURE/common/view/UnderPressureRuler" );
   var ControlsNode = require( "UNDER_PRESSURE/common/view/ControlsNode" );

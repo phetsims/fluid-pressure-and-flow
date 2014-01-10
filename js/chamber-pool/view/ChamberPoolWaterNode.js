@@ -7,12 +7,10 @@
 define( function( require ) {
   'use strict';
   var inherit = require( 'PHET_CORE/inherit' );
-  var Rectangle = require( 'SCENERY/nodes/Rectangle' );
   var Node = require( 'SCENERY/nodes/Node' );
   var Shape = require( 'KITE/Shape' );
   var Path = require( 'SCENERY/nodes/Path' );
   var LinearGradient = require( 'SCENERY/util/LinearGradient' );
-  var Color = require( "SCENERY/util/Color" );
 
   function ChamberPoolWaterNode( model, mvt ) {
     Node.call( this );

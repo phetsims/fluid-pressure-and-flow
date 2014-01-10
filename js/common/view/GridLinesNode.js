@@ -11,11 +11,9 @@ define( function( require ) {
   var inherit = require( 'PHET_CORE/inherit' );
   var Node = require( 'SCENERY/nodes/Node' );
   var Line = require( 'SCENERY/nodes/Line' );
-  var Rectangle = require( 'SCENERY/nodes/Rectangle' );
 
   function GridLinesNode( model, mvt, x1, y1, x2, y2, options ) {
     //bounds of grid
-    var self = this;
     Node.call( this );
 
     options = _.extend( {

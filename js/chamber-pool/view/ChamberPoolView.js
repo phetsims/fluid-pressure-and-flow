@@ -7,15 +7,12 @@
 define( function( require ) {
   "use strict";
   var inherit = require( "PHET_CORE/inherit" );
-  var CommonNode = require( "UNDER_PRESSURE/common/view/CommonNode" );
   var Node = require( 'SCENERY/nodes/Node' );
   var ChamberPoolBack = require( "chamber-pool/view/ChamberPoolBack" );
   var ChamberPoolWaterNode = require( "chamber-pool/view/ChamberPoolWaterNode" );
   var MassViewNode = require( "chamber-pool/view/MassViewNode" );
-  var BarometersContainer = require( "UNDER_PRESSURE/common/view/BarometersContainer" );
   var MassStackNode = require( "chamber-pool/view/MassStackNode" );
   var ChamberPoolGrid = require( "chamber-pool/view/ChamberPoolGrid" );
-
 
   function ChamberPoolView( model, mvt ) {
     var self = this;

@@ -13,8 +13,6 @@ define( function( require ) {
   var Rectangle = require( 'SCENERY/nodes/Rectangle' );
 
   function CommonNode( model, mvt ) {
-    var self = this;
-
     Node.call( this );
 
     //sky

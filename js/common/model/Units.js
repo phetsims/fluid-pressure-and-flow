@@ -6,8 +6,6 @@
  */
 define( function( require ) {
   'use strict';
-  var inherit = require( 'PHET_CORE/inherit' );
-  var LinearFunction = require( 'DOT/LinearFunction' );
   var StringUtils = require( 'PHETCOMMON/util/StringUtils' );
 
   var atmString = require( "string!UNDER_PRESSURE/atm" );
