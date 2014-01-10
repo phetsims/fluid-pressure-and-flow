@@ -16,10 +16,10 @@ define( function( require ) {
   var Vector2 = require( 'DOT/Vector2' );
 
   var SceneView = {
-    SquarePoolView: require( "square-pool/view/SquarePoolView" ),
-    TrapezoidPoolView: require( "trapezoid-pool/view/TrapezoidPoolView" ),
-    ChamberPoolView: require( "chamber-pool/view/ChamberPoolView" ),
-    MysteryPoolView: require( "mystery-pool/view/MysteryPoolView" )
+    SquarePoolView: require( "UNDER_PRESSURE/square-pool/view/SquarePoolView" ),
+    TrapezoidPoolView: require( "UNDER_PRESSURE/trapezoid-pool/view/TrapezoidPoolView" ),
+    ChamberPoolView: require( "UNDER_PRESSURE/chamber-pool/view/ChamberPoolView" ),
+    MysteryPoolView: require( "UNDER_PRESSURE/mystery-pool/view/MysteryPoolView" )
   };
 
 

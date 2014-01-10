@@ -18,10 +18,10 @@ define( function( require ) {
   var Vector2 = require( 'DOT/Vector2' );
 
   var SceneModels = {
-    SquarePoolModel: require( "square-pool/model/SquarePoolModel" ),
-    TrapezoidPoolModel: require( "trapezoid-pool/model/TrapezoidPoolModel" ),
-    ChamberPoolModel: require( "chamber-pool/model/ChamberPoolModel" ),
-    MysteryPoolModel: require( "mystery-pool/model/MysteryPoolModel" )
+    SquarePoolModel: require( "UNDER_PRESSURE/square-pool/model/SquarePoolModel" ),
+    TrapezoidPoolModel: require( "UNDER_PRESSURE/trapezoid-pool/model/TrapezoidPoolModel" ),
+    ChamberPoolModel: require( "UNDER_PRESSURE/chamber-pool/model/ChamberPoolModel" ),
+    MysteryPoolModel: require( "UNDER_PRESSURE/mystery-pool/model/MysteryPoolModel" )
   };
 
   function UnderPressureModel( width, height ) {
