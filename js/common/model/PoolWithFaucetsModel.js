@@ -15,7 +15,7 @@ define( function( require ) {
     var self = this;
 
     PropertySet.call( this, {
-      volume: 0
+      volume: 1.5
     } );
 
     // Enable faucets and dropper based on amount of solution in the beaker.
