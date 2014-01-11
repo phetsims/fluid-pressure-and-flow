@@ -22,6 +22,7 @@ define( function( require ) {
     this.volumeProperty.link( function( volume ) {
       self.inputFaucet.enabled = ( volume < self.MAX_VOLUME );
       self.outputFaucet.enabled = ( volume > 0 );
+      globalModel.currentVolume = volume;
     } );
   }
 
