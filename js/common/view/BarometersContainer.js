@@ -12,11 +12,11 @@ define( function( require ) {
   var Node = require( 'SCENERY/nodes/Node' );
   var BarometerNode = require( "UNDER_PRESSURE/common/view/BarometerNode" );
 
-  function BarometersContainer( model, mvt ) {
+  function BarometersContainer( model, mvt, barometersContainerBounds ) {
     var self = this;
     Node.call( this );
     model.barometersStatement.forEach( function( positionProperty, index ) {
-      self.addChild( new BarometerNode( model, mvt, positionProperty, model.barometersPositions[index] ) );
+      self.addChild( new BarometerNode( model, mvt, positionProperty, model.barometersPositions[index],barometersContainerBounds ) );
     } );
   }
 

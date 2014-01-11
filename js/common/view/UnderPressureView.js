@@ -13,6 +13,7 @@ define( function( require ) {
   var UnderPressureRuler = require( "UNDER_PRESSURE/common/view/UnderPressureRuler" );
   var ControlsNode = require( "UNDER_PRESSURE/common/view/ControlsNode" );
   var ModelViewTransform2 = require( 'PHETCOMMON/view/ModelViewTransform2' );
+  var Bounds = require( "DOT/bounds2" );
   var Vector2 = require( 'DOT/Vector2' );
 
   var SceneView = {
@@ -43,7 +44,9 @@ define( function( require ) {
       self.addChild( scenes[name] );
     } );
 
-    this.addChild( new ControlsNode( model ) );
+
+    this.controlsNode = new ControlsNode( model );
+    this.addChild( this.controlsNode );
 
     model.currentSceneProperty.link( function( value, oldValue ) {
       scenes[value].visible = true;
@@ -56,7 +59,7 @@ define( function( require ) {
     this.addChild( new UnderPressureRuler( model, mvt ) );
 
     //barometers
-    this.addChild( new BarometersContainer( model, mvt ) );
+    this.addChild( new BarometersContainer( model, mvt, this.controlsNode.barometersContainer.visibleBounds ));
 
   }
 

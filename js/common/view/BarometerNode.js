@@ -13,6 +13,7 @@ define( function( require ) {
   var GaugeNode = require( 'SCENERY_PHET/GaugeNode' );
   var Rectangle = require( 'SCENERY/nodes/Rectangle' );
   var LinearGradient = require( 'SCENERY/util/LinearGradient' );
+  var Bounds = require( "DOT/bounds2" );
   var Path = require( 'SCENERY/nodes/Path' );
   var Shape = require( 'KITE/Shape' );
   var SimpleDragHandler = require( 'SCENERY/input/SimpleDragHandler' );
@@ -21,7 +22,7 @@ define( function( require ) {
 
   var pressureString = require( 'string!UNDER_PRESSURE/pressure' );
 
-  function BarometerNode( model, mvt, thisBarometerStatement, barometerPositionProperty ) {
+  function BarometerNode( model, mvt, thisBarometerStatement, barometerPositionProperty, containerBounds ) {
     var self = this;
 
     Node.call( this, {cursor: "pointer", pickable: true, x: barometerPositionProperty.get().x, y: barometerPositionProperty.get().y} );
@@ -80,6 +81,11 @@ define( function( require ) {
       translate: function( args ) {
         barometerPositionProperty.set(args.position);
         thisBarometerStatement.set( model.getPressureAtCoords( mvt.viewToModelX( self.centerX ), mvt.viewToModelY( self.bottom )) );
+      },
+      end: function() {
+        if(containerBounds.intersectsBounds(self.visibleBounds)) {
+          barometerPositionProperty.reset();
+        }
       }
     } );
     this.addInputListener( barometerDragHandler );
