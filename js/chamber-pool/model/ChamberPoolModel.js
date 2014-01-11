@@ -112,6 +112,7 @@ define( function( require ) {
 
   return inherit( PropertySet, ChamberPoolModel, {
     reset: function() {
+      this.stack.clear();
       this.masses.forEach( function( mass ) {
         mass.reset();
       } );
