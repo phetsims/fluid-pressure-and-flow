@@ -78,8 +78,10 @@ define( function( require ) {
     this.getStandardAirPressure = new LinearFunction( 0, this.units.feetToMeters( 500 ), this.EARTH_AIR_PRESSURE, this.EARTH_AIR_PRESSURE_AT_500_FT );
 
     this.barometersStatement = [];
+    this.barometersPositions = [];
     for ( var i = 0; i < 4; i++ ) {
       this.barometersStatement.push( new Property( 0 ) );
+      this.barometersPositions.push( new Property(new Vector2( 570, 50 )) );
     }
 
     this.currentSceneProperty.link( function() {
@@ -100,6 +102,9 @@ define( function( require ) {
           self.sceneModels[model].reset();
         }
       }
+      this.barometersPositions.forEach(function(position){
+        position.reset();
+      });
 
     },
     getAirPressure: function( height ) {

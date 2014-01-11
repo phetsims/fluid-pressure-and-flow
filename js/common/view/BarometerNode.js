@@ -21,10 +21,10 @@ define( function( require ) {
 
   var pressureString = require( 'string!UNDER_PRESSURE/pressure' );
 
-  function BarometerNode( model, mvt, thisBarometerStatement ) {
+  function BarometerNode( model, mvt, thisBarometerStatement, barometerPositionProperty ) {
     var self = this;
 
-    Node.call( this, {cursor: "pointer", pickable: true, x: 570, y: 50 } );
+    Node.call( this, {cursor: "pointer", pickable: true, x: barometerPositionProperty.get().x, y: barometerPositionProperty.get().y} );
 
 
     //visual
@@ -78,7 +78,7 @@ define( function( require ) {
       },
       //Translate on drag events
       translate: function( args ) {
-        self.translation = args.position;
+        barometerPositionProperty.set(args.position);
         thisBarometerStatement.set( model.getPressureAtCoords( mvt.viewToModelX( self.centerX ), mvt.viewToModelY( self.bottom )) );
       }
     } );
@@ -114,6 +114,9 @@ define( function( require ) {
       setText();
     } );
 
+    barometerPositionProperty.link(function(newPosition) {
+      self.translation = newPosition;
+    });
 
   }
 
