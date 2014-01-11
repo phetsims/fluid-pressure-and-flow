@@ -56,7 +56,7 @@ define( function( require ) {
       fill: "#f3f0e9"
     } ) );
 
-    this.addChild( new UPFaucetNode( model.inputFaucet, 505, mvt ) );
+    this.addChild( new UPFaucetNode( model.inputFaucet, 3000, mvt ) );
 
   }
 
