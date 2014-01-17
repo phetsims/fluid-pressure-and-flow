@@ -36,7 +36,7 @@ define( function( require ) {
       }
 
       metersLabels.addChild( new Text( StringUtils.format( pattern, i ), _.extend( {
-        right: mvt.modelToViewX( model.poolDimensions.x1 ),
+        right: mvt.modelToViewX( model.poolDimensions.x1 )-5,
         centerY: mvt.modelToViewY( model.globalModel.skyGroundBoundY + i )
       }, fontOptions ) ) );
     }

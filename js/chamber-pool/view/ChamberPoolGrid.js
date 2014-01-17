@@ -10,12 +10,11 @@ define( function( require ) {
   var inherit = require( 'PHET_CORE/inherit' );
   var Text = require( 'SCENERY/nodes/Text' );
   var GridLinesNode = require( "UNDER_PRESSURE/common/view/GridLinesNode" );
-  var StringUtils = require( 'PHETCOMMON/util/StringUtils' );
   var PhetFont = require( 'SCENERY_PHET/PhetFont' );
   var Rectangle = require( 'SCENERY/nodes/Rectangle' );
 
-  var metersStringPattern = require( 'string!UNDER_PRESSURE/readoutMeters' );
-  var feetsStringPattern = require( 'string!UNDER_PRESSURE/readoutFeet' );
+  var metersString = require( 'string!UNDER_PRESSURE/m' );
+  var feetsString = require( 'string!UNDER_PRESSURE/ft' );
 
   function ChamberPoolGrid( model,mvt ) {
     var self = this;
@@ -28,8 +27,8 @@ define( function( require ) {
     this.addChild( new GridLinesNode( model.globalModel,mvt, 0, model.poolDimensions.leftOpening.y1, mvt.viewToModelX(model.globalModel.width), model.poolDimensions.leftChamber.y2 + 0.3, {metersStep: 0.5} ) );
 
     var metersLabels = new Node();
-    var metersText = new Text( StringUtils.format( metersStringPattern, 3 ), _.extend( {
-      x: mvt.modelToViewX(model.poolDimensions.rightChamber.x2) + 5,
+    var metersText = new Text( "3 " + metersString, _.extend( {
+      x: mvt.modelToViewX(model.poolDimensions.rightChamber.x2) + 10,
       centerY: mvt.modelToViewY(model.globalModel.skyGroundBoundY + 3)
     }, fontOptions ) );
     var backgroundRect = new Rectangle( 0, 0, metersText.width + 5, metersText.height + 5, 10, 10, {fill: "#67a257"} );
@@ -39,8 +38,8 @@ define( function( require ) {
     metersLabels.addChild( metersText );
 
     var feetsLabels = new Node();
-    var feetsText = new Text( StringUtils.format( feetsStringPattern, 10 ), _.extend( {
-      x: mvt.modelToViewX(model.poolDimensions.rightChamber.x2) + 5,
+    var feetsText = new Text( "10" + feetsString, _.extend( {
+      x: mvt.modelToViewX(model.poolDimensions.rightChamber.x2) + 10,
       centerY: mvt.modelToViewY(model.globalModel.skyGroundBoundY + model.globalModel.units.feetToMeters( 10 ))
     }, fontOptions ) );
     backgroundRect = new Rectangle( 0, 0, feetsText.width + 10, feetsText.height + 5, 10, 10, {fill: "#67a257"} );
