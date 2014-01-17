@@ -1,3 +1,5 @@
+# 1.0.0-dev.2 1/17/2014 Dev version with a number of fixes.
+1/16/2014 Fixed a number is initial issues, see GitHub issue list for details.
 1/10/2014 Updated credits
 # 1.0.0-dev.1 1/10/2014 First dev version
 11/15/2013 Created repository
