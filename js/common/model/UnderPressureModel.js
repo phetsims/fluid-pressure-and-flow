@@ -42,7 +42,7 @@ define( function( require ) {
     // dimensions of the model's space
     this.width = width;
     this.height = height;
-    this.skyGroundBoundY = 3.14; // M
+    this.skyGroundBoundY = 3.5; // M
 
     //Constants for air pressure in Pascals, Pascals is SI, see http://en.wikipedia.org/wiki/Atmospheric_pressure
     this.EARTH_AIR_PRESSURE = 101325;
@@ -62,26 +62,25 @@ define( function( require ) {
         currentScene: self.scenes[0],
         currentVolume: 0, //L, volume of liquid in currentScene
         rulerPosition: new Vector2( 140, 220 ), // px
-        mysteryChoice: "gravity" //for mystery-pool, planet of fluid
+        mysteryChoice: "fluidDensity" //for mystery-pool, gravity of fluidDensity
       }
     );
+
+    this.waterColorModel = new WaterColorModel( this );
 
     this.sceneModels = {};
     this.scenes.forEach( function( name ) {
       self.sceneModels[name] = (new SceneModels[name + "PoolModel"]( self ));
     } );
 
-
-    this.waterColorModel = new WaterColorModel( this );
     this.units = new Units( self );
-
     this.getStandardAirPressure = new LinearFunction( 0, this.units.feetToMeters( 500 ), this.EARTH_AIR_PRESSURE, this.EARTH_AIR_PRESSURE_AT_500_FT );
 
     this.barometersStatement = [];
     this.barometersPositions = [];
     for ( var i = 0; i < 4; i++ ) {
       this.barometersStatement.push( new Property( 0 ) );
-      this.barometersPositions.push( new Property(new Vector2( 570, 50 )) );
+      this.barometersPositions.push( new Property( new Vector2( 570, 50 ) ) );
     }
 
     this.currentSceneProperty.link( function() {
@@ -102,9 +101,9 @@ define( function( require ) {
           self.sceneModels[model].reset();
         }
       }
-      this.barometersPositions.forEach(function(position){
+      this.barometersPositions.forEach( function( position ) {
         position.reset();
-      });
+      } );
 
     },
     getAirPressure: function( height ) {

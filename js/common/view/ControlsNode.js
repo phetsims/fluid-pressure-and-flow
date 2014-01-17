@@ -29,13 +29,14 @@ define( function( require ) {
     Node.call( this );
 
     //control panel
-    this.addChild( new ControlPanel( model, 625, 5 ) );
+    this.controlPanel = new ControlPanel( model, 625, 5 );
+    this.addChild( this.controlPanel );
 
     //control sliders
 
     this.gravitySlider = new ControlSlider( model, model.gravityProperty, model.units.getGravityString, model.gravityRange, {
       x: 599,
-      y: 350,
+      y: 360,
       title: gravityString,
       decimals: 1,
       ticks: [
@@ -57,7 +58,7 @@ define( function( require ) {
 
     this.fluidDensitySlider = new ControlSlider( model, model.fluidDensityProperty, model.units.getFluidDensityString, model.fluidDensityRange, {
       x: 599,
-      y: 230,
+      y: 260,
       title: fluidDensityString,
       ticks: [
         {
@@ -96,10 +97,10 @@ define( function( require ) {
     // add reset button
     this.addChild( new ResetAllButton( function() { model.reset(); }, { scale: 0.5, x: 730, y: model.height - 25} ) );
 
-    this.barometersContainer = new Rectangle( 0, 0, 100, 130, 10, 10, {stroke: "black", lineWidth: 1, fill: "#f2fa6a", x: 520, y: 5} )
+    this.barometersContainer = new Rectangle( 0, 0, 100, 130, 10, 10, {stroke: "black", lineWidth: 1, fill: "#f2fa6a", x: 520, y: 5} );
     this.addChild( this.barometersContainer );
 
-    this.addChild( new SceneChoiceNode( model, 10, 235 ) );
+    this.addChild( new SceneChoiceNode( model, 10, 260 ) );
 
 
   }

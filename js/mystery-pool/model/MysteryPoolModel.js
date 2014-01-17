@@ -10,31 +10,63 @@ define( function( require ) {
 
   var inherit = require( 'PHET_CORE/inherit' );
   var SquarePoolModel = require( 'UNDER_PRESSURE/square-pool/model/SquarePoolModel' );
+  var Property = require( 'AXON/Property' );
+  var Color = require( "SCENERY/util/Color" );
 
   function MysteryPoolModel( globalModel ) {
     var self = this;
     SquarePoolModel.call( this, globalModel );
 
-    //random gravity and density for mystery pool
-    this.random = {
-      gravity: Math.round( self.globalModel.gravityRange.min + Math.random() * self.globalModel.gravityRange.getLength() ),
-      fluidDensity: Math.round( self.globalModel.fluidDensityRange.min + Math.random() * self.globalModel.fluidDensityRange.getLength() )
-    };
+    //custom gravity and density for mystery pool
+    this.fluidDensity = [765, 880, 1300];
+    this.fluidDensityCustom = new Property( 0 );
+    this.waterColor = [new Color( 113, 35, 136 ), new Color( 179, 115, 176 ), new Color( 60, 29, 71 )];
 
-    this.globalModel.currentSceneProperty.link( function( scene ) {
+    this.gravity = [6.5, 14, 20];
+    this.gravityCustom = new Property( 0 );
+
+    var oldGravity, oldFluidDensity;
+    this.globalModel.currentSceneProperty.link( function( scene, oldScene ) {
       if ( scene === "Mystery" ) {
-        var choice = self.globalModel.mysteryChoice;
-        self.globalModel[choice] = self.random[choice];
+        oldGravity = self.globalModel.gravity;
+        oldFluidDensity = self.globalModel.fluidDensity;
+        self.updateChoiceValue();
+      }
+      else if ( oldScene === "Mystery" ) {
+        self.globalModel.gravity = oldGravity;
+        self.globalModel.fluidDensity = oldFluidDensity;
       }
     } );
 
-    this.globalModel.mysteryChoiceProperty.link( function( choice ) {
+    this.globalModel.mysteryChoiceProperty.link( function() {
       if ( self.globalModel.currentScene === "Mystery" ) {
-        self.globalModel[choice] = self.random[choice];
+        self.updateChoiceValue();
       }
     } );
 
+    this.fluidDensityCustom.link( function() {
+      if ( self.globalModel.currentScene === "Mystery" ) {
+        self.updateChoiceValue();
+      }
+    } );
+
+    this.gravityCustom.link( function() {
+      if ( self.globalModel.currentScene === "Mystery" ) {
+        self.updateChoiceValue();
+      }
+    } );
   }
 
-  return inherit( SquarePoolModel, MysteryPoolModel );
+  return inherit( SquarePoolModel, MysteryPoolModel, {
+    updateChoiceValue: function() {
+      var choice = this.globalModel.mysteryChoice;
+      this.globalModel[choice] = this[choice][this[choice + "Custom"].get()];
+      if ( choice === "fluidDensity" ) {
+        this.globalModel.waterColorModel.setWaterColor( this.waterColor[this[choice + "Custom"].get()] );
+      }
+      else {
+        this.globalModel.fluidDensityProperty.notifyObserversUnsafe();
+      }
+    }
+  } );
 } );

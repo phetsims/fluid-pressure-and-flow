@@ -60,5 +60,13 @@
   "ftPerS": "ft/s",
   "areaUnitsEnglish": "ft<sup>2</sup>",
   "mars":"Mars",
-  "jupiter":"Jupiter"
+  "jupiter":"Jupiter",
+  "mysteryFluid":"Mystery Fluid",
+  "mysteryPlanet":"Mystery Planet",
+  "planetA": "Planet A",
+  "planetB": "Planet B",
+  "planetC": "Planet C",
+  "fluidA": "Fluid A",
+  "fluidB": "Fluid B",
+  "fluidC": "Fluid C"
 }

@@ -38,6 +38,12 @@ define( function( require ) {
     } );
 
 
+    this.setWaterColor = function( newWaterColor ) {
+      self.bottomColor = new Color( newWaterColor.red - 20, newWaterColor.green - 20, newWaterColor.blue - 20, BOTTOM_OPACITY );
+      self.topColor = new Color( newWaterColor.red + 20, newWaterColor.green + 20, newWaterColor.blue + 20, TOP_OPACITY );
+      self.waterColor = newWaterColor;
+    };
+
     var newWaterColor;
     model.fluidDensityProperty.link( function( density ) {
       if ( density < model.WATER_DENSITY ) {
@@ -46,9 +52,7 @@ define( function( require ) {
       else {
         newWaterColor = new Color( getRedHigh( density ), getGreenHigh( density ), getBlueHigh( density ) );
       }
-      self.bottomColor = new Color( newWaterColor.red - 20, newWaterColor.green - 20, newWaterColor.blue - 20, BOTTOM_OPACITY );
-      self.topColor = new Color( newWaterColor.red + 20, newWaterColor.green + 20, newWaterColor.blue + 20, TOP_OPACITY );
-      self.waterColor = newWaterColor;
+      self.setWaterColor( newWaterColor );
     } );
 
   }
