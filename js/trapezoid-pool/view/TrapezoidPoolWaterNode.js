@@ -29,7 +29,7 @@ define( function( require ) {
         .addColorStop( 1, model.globalModel.waterColorModel.topColor );
     } );
 
-    model.volumeProperty.link( function( volume ) {
+    model.volumeProperty.link( function(  ) {
       var viewHeight = model.MAX_HEIGHT * model.volume / model.MAX_VOLUME; //height of water
 
       var topY = yMax - mvt.modelToViewY( viewHeight ), //y coord for top of the water

@@ -13,7 +13,6 @@ define( function( require ) {
   var UnderPressureRuler = require( "UNDER_PRESSURE/common/view/UnderPressureRuler" );
   var ControlsNode = require( "UNDER_PRESSURE/common/view/ControlsNode" );
   var ModelViewTransform2 = require( 'PHETCOMMON/view/ModelViewTransform2' );
-  var Bounds = require( "DOT/bounds2" );
   var Vector2 = require( 'DOT/Vector2' );
 
   var SceneView = {
