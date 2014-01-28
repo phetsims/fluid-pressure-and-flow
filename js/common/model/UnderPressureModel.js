@@ -31,7 +31,7 @@ define( function( require ) {
 
 
     this.MARS_GRAVITY = 3.71;
-    this.JUPITER_GRAVITY = 24.92;
+    this.JUPITER_GRAVITY = 24.9;
     this.GAZOLINE_DENSITY = 700;
     this.HONEY_DENSITY = 1420;
     this.WATER_DENSITY = 1000;
