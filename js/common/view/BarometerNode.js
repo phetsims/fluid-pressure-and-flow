@@ -36,11 +36,11 @@ define( function( require ) {
 
     var underGaugeRectangle = new Rectangle( gaugeNode.centerX - underGaugeRectangleWidth / 2, gaugeNode.bottom - 3, underGaugeRectangleWidth, underGaugeRectangleHeight, 5, 5, {
       fill: new LinearGradient( gaugeNode.centerX - underGaugeRectangleWidth / 2, 0, gaugeNode.centerX + underGaugeRectangleWidth / 2, 0 )
-        .addColorStop( 0, "#938b63" )
-        .addColorStop( 0.2, "#dedcdc" )
-        .addColorStop( 0.5, "#e6e7ef" )
-        .addColorStop( 0.8, "#dedcdc" )
-        .addColorStop( 1, "#938b63" )
+        .addColorStop( 0, "#656570" )
+        .addColorStop( 0.2, "#bdc3cf" )
+        .addColorStop( 0.5, "#dee6f5" )
+        .addColorStop( 0.8, "#bdc3cf" )
+        .addColorStop( 1, "#656570" )
     } );
     this.addChild( underGaugeRectangle );
 
@@ -54,11 +54,9 @@ define( function( require ) {
       .lineTo( gaugeNode.centerX + bottomTriangleShapeWidth / 2, underGaugeRectangle.rectY + underGaugeRectangleHeight );
     this.addChild( new Path( bottomTriangleShape, {
       fill: new LinearGradient( gaugeNode.centerX - bottomTriangleShapeWidth / 2, 0, gaugeNode.centerX + bottomTriangleShapeWidth / 2, 0 )
-        .addColorStop( 0, "#938b63" )
-        .addColorStop( 0.2, "#dedcdc" )
-        .addColorStop( 0.5, "#e6e7ef" )
-        .addColorStop( 0.8, "#dedcdc" )
-        .addColorStop( 1, "#938b63" )
+        .addColorStop( 0, "#656570" )
+        .addColorStop( 0.5, "#dee6f5" )
+        .addColorStop( 1, "#656570" )
     } ) );
 
 
