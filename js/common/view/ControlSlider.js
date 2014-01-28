@@ -179,8 +179,8 @@ define( function( require ) {
       {
         title: options.title,
         fill: options.fill,
-        font: new PhetFont( { size: 19 } );
-    initiallyOpen: true,
+        font: new PhetFont( { size: 19 } ),
+        initiallyOpen: true,
         minWidth: 250,
         contentPosition: 'center',
         titlePosition: 'left',
