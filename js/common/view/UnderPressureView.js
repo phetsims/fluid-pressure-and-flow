@@ -49,7 +49,7 @@ define( function( require ) {
 
 
     //resize Mystery choice
-    scenes.Mystery.resizeChoicePanel( this.controlsNode.controlPanel.width/this.controlsNode.controlPanel.transform.matrix.scaleVector.x );
+    scenes.Mystery.resizeChoicePanel( this.controlsNode.controlPanel.width / this.controlsNode.controlPanel.transform.matrix.scaleVector.x );
 
 
     model.currentSceneProperty.link( function( value, oldValue ) {
