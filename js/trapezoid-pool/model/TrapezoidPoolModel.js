@@ -69,7 +69,7 @@ define( function( require ) {
       x2middle: model.poolDimensions.rightChamber.leftBorderFunction( model.poolDimensions.bottomChamber.y2 - model.poolDimensions.bottomChamber.y1 ),
 
       x1bottom: model.poolDimensions.leftChamber.centerTop - model.poolDimensions.leftChamber.widthBottom / 2,
-      x2bottom: model.poolDimensions.leftChamber.centerTop + model.poolDimensions.leftChamber.widthBottom / 2 - 0.06,
+      x2bottom: model.poolDimensions.leftChamber.centerTop + model.poolDimensions.leftChamber.widthBottom / 2,
       x3bottom: model.poolDimensions.rightChamber.centerTop - model.poolDimensions.rightChamber.widthBottom / 2,
       x4bottom: model.poolDimensions.rightChamber.centerTop + model.poolDimensions.rightChamber.widthBottom / 2,
 
