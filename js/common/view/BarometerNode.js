@@ -78,23 +78,24 @@ define( function( require ) {
       },
       //Translate on drag events
       translate: function( args ) {
-        barometerPositionProperty.set(args.position);
-        thisBarometerStatement.set( model.getPressureAtCoords( mvt.viewToModelX( self.centerX ), mvt.viewToModelY( self.bottom )) );
+        barometerPositionProperty.set( args.position );
+        thisBarometerStatement.set( model.getPressureAtCoords( mvt.viewToModelX( self.centerX ), mvt.viewToModelY( self.bottom ) ) );
       },
       end: function() {
-        if(containerBounds.intersectsBounds(self.visibleBounds)) {
+        if ( containerBounds.intersectsBounds( self.visibleBounds ) ) {
           barometerPositionProperty.reset();
         }
       }
     } );
     this.addInputListener( barometerDragHandler );
 
-    thisBarometerStatement.set( model.getPressureAtCoords( mvt.viewToModelX( self.centerX ), mvt.viewToModelY( self.bottom )) );
+    thisBarometerStatement.set( model.getPressureAtCoords( mvt.viewToModelX( self.centerX ), mvt.viewToModelY( self.bottom ) ) );
 
     var setText = function() {
       text.text = model.units.getPressureString[model.measureUnits]( thisBarometerStatement.get() );
       text.centerX = gaugeNode.centerX;
       textBackground.setRect( text.x - 2, text.y - text.height + 2, text.width + 4, text.height + 2 );
+      textBackground.visible = (text.text !== "-");
     };
 
     model.gravityProperty.link( function() {
@@ -119,9 +120,9 @@ define( function( require ) {
       setText();
     } );
 
-    barometerPositionProperty.link(function(newPosition) {
+    barometerPositionProperty.link( function( newPosition ) {
       self.translation = newPosition;
-    });
+    } );
 
   }
 
