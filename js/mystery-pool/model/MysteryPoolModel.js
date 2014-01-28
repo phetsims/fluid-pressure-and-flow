@@ -67,6 +67,10 @@ define( function( require ) {
       else {
         this.globalModel.fluidDensityProperty.notifyObserversUnsafe();
       }
+    },
+    reset: function() {
+      this.fluidDensityCustom.reset();
+      this.gravityCustom.reset();
     }
   } );
 } );
