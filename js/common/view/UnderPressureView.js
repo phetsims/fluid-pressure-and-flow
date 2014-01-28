@@ -47,6 +47,11 @@ define( function( require ) {
     this.controlsNode = new ControlsNode( model );
     this.addChild( this.controlsNode );
 
+
+    //resize Mystery choice
+    scenes.Mystery.resizeChoicePanel( this.controlsNode.controlPanel.width/this.controlsNode.controlPanel.transform.matrix.scaleVector.x );
+
+
     model.currentSceneProperty.link( function( value, oldValue ) {
       scenes[value].visible = true;
       if ( oldValue ) {
@@ -58,7 +63,7 @@ define( function( require ) {
     this.addChild( new UnderPressureRuler( model, mvt ) );
 
     //barometers
-    this.addChild( new BarometersContainer( model, mvt, this.controlsNode.barometersContainer.visibleBounds ));
+    this.addChild( new BarometersContainer( model, mvt, this.controlsNode.barometersContainer.visibleBounds ) );
 
   }
 
