@@ -26,7 +26,7 @@ define( function( require ) {
     var SEPARATION = 3.5;//Between centers
 
     this.inputFaucet = new FaucetModel( new Vector2( 3, globalModel.skyGroundBoundY-0.44), 1, 0.42 );
-    this.outputFaucet = new FaucetModel( new Vector2( 7.2, globalModel.skyGroundBoundY+3.45 ), 1, 0.3 );
+    this.outputFaucet = new FaucetModel( new Vector2( 7.7, globalModel.skyGroundBoundY+3.45 ), 1, 0.3 );
 
     this.globalModel = globalModel;
 
