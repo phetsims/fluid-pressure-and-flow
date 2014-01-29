@@ -89,7 +89,8 @@ define( function( require ) {
         self[model.mysteryChoice + "Slider"].disable();
       }
       else {
-        self[model.mysteryChoice + "Slider"].enable();
+        self.gravitySlider.enable();
+        self.fluidDensitySlider.enable();
       }
     } );
 
