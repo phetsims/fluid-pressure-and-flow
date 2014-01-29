@@ -61,7 +61,7 @@ define( function( require ) {
         leftDisplacement: 0, //displacement from default height, for chamber-pool
         currentScene: self.scenes[0],
         currentVolume: 0, //L, volume of liquid in currentScene
-        rulerPosition: new Vector2( 140, 220 ), // px
+        rulerPosition: new Vector2( 195, 245 ), // px
         mysteryChoice: "fluidDensity" //for mystery-pool, gravity of fluidDensity
       }
     );
