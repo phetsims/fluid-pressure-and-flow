@@ -10,6 +10,9 @@ define( function( require ) {
   var inherit = require( 'PHET_CORE/inherit' );
   var Image = require( 'SCENERY/nodes/Image' );
   var SingleChoiceNode = require( "UNDER_PRESSURE/common/view/SingleChoiceNode" );
+  var Dimension2 = require( 'DOT/Dimension2' );
+
+  var ICON_SIZE = new Dimension2( 60, 40 );
 
   var iconImages = {
     SquarePoolIcon: require( "image!UNDER_PRESSURE/square-pool-icon.png" ),
@@ -26,7 +29,9 @@ define( function( require ) {
     var dy = 60;
 
     model.scenes.forEach( function( name, index ) {
-      self.addChild( new SingleChoiceNode( model.currentSceneProperty, name, new Image( iconImages[name + "PoolIcon"] ), {y: dy * index} ) );
+      var iconImage = new Image( iconImages[name + "PoolIcon"] );
+      iconImage.scale( ICON_SIZE.width / iconImage.width, ICON_SIZE.height / iconImage.height );
+      self.addChild( new SingleChoiceNode( model.currentSceneProperty, name, iconImage, {y: dy * index} ) );
     } );
 
 
