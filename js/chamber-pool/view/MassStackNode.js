@@ -29,7 +29,7 @@ define( function( require ) {
         stroke: '#000',
         lineWidth: 2,
         lineDash: [ 10, 5 ],
-        fill: "#ffdcf0"
+        fill: '#ffdcf0'
       } );
 
     this.addChild( placementRect );

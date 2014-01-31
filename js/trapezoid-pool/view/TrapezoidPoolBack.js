@@ -66,7 +66,7 @@ define( function( require ) {
 
     //bottom chamber
     this.addChild( new Rectangle( mvt.modelToViewX( model.verticles.x1middle ) - 8, mvt.modelToViewY( model.poolDimensions.bottomChamber.y1 ) + 1, mvt.modelToViewX( model.verticles.x2middle - model.verticles.x1middle ) + 16, mvt.modelToViewY( model.poolDimensions.bottomChamber.y2 - model.poolDimensions.bottomChamber.y1 ) - 1, {
-      fill: "#f3f0e9"
+      fill: '#f3f0e9'
     } ) );
 
     //left chamber
@@ -77,7 +77,7 @@ define( function( require ) {
       .lineTo( mvt.modelToViewX( model.verticles.x2top ), mvt.modelToViewY( model.poolDimensions.leftChamber.y ) - 1 );
 
     this.addChild( new Path( shape, {
-      fill: "#f3f0e9"
+      fill: '#f3f0e9'
     } ) );
 
     //right chamber
@@ -88,7 +88,7 @@ define( function( require ) {
       .lineTo( mvt.modelToViewX( model.verticles.x4top ), mvt.modelToViewY( model.poolDimensions.leftChamber.y ) - 1 );
 
     this.addChild( new Path( shape, {
-      fill: "#f3f0e9"
+      fill: '#f3f0e9'
     } ) );
 
     this.addChild( new UPFaucetNode( model.inputFaucet, 3000, mvt ) );

@@ -37,7 +37,7 @@ define( function( require ) {
 
   return inherit( PoolWithFaucetsModel, SquarePoolModel, {
     getPressureAtCoords: function( x, y ) {
-      var pressure = "";
+      var pressure = '';
 
       if ( y < this.globalModel.skyGroundBoundY ) {
         pressure = this.globalModel.getAirPressure( y );

@@ -44,17 +44,17 @@ define( function( require ) {
         new AquaRadioButton( model.isAtmosphereProperty, false, new Text( offString, textOptions ), {radius: 8} )
       ],
       spacing: 10,
-      align: "left"
+      align: 'left'
     } ), atmosphereString );
 
     var metrics = new NodeWithBorderAndTitle( new VBox( {
       children: [
-        new AquaRadioButton( model.measureUnitsProperty, "metric", new Text( metricString, textOptions ), {radius: 8} ),
-        new AquaRadioButton( model.measureUnitsProperty, "atmosphere", new Text( atmospheresString, textOptions ), {radius: 8} ),
-        new AquaRadioButton( model.measureUnitsProperty, "english", new Text( englishString, textOptions ), {radius: 8} )
+        new AquaRadioButton( model.measureUnitsProperty, 'metric', new Text( metricString, textOptions ), {radius: 8} ),
+        new AquaRadioButton( model.measureUnitsProperty, 'atmosphere', new Text( atmospheresString, textOptions ), {radius: 8} ),
+        new AquaRadioButton( model.measureUnitsProperty, 'english', new Text( englishString, textOptions ), {radius: 8} )
       ],
       spacing: 5,
-      align: "left"
+      align: 'left'
     } ), unitsString );
 
     var options = {
@@ -81,7 +81,7 @@ define( function( require ) {
     var content = new VBox( {
       spacing: 5,
       children: [checkBoxes, atmosphere, metrics],
-      align: "left"
+      align: 'left'
     } );
 
     Panel.call( this, content, { xMargin: 10, yMargin: 10, fill: '#f2fa6a ', stroke: 'gray', lineWidth: 1, resize: false, x: x, y: y, scale: 0.8 } );
@@ -90,7 +90,7 @@ define( function( require ) {
   return inherit( Node, ControlPanel, {
     //Create an icon for the ruler check box
     createRulerIcon: function() {
-      return new RulerNode( 30, 20, 15, ["0", "1", "2"], "", {
+      return new RulerNode( 30, 20, 15, ['0', '1', '2'], '', {
         insetsWidth: 7,
         minorTicksPerMajorTick: 4,
         majorTickFont: new PhetFont( 12 ),

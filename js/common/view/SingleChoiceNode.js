@@ -18,7 +18,7 @@ define( function( require ) {
     var self = this;
 
     options = _.extend( {
-      cursor: "pointer",
+      cursor: 'pointer',
       shadowOffset: 4,
       x: 0,
       y: 0
@@ -26,8 +26,8 @@ define( function( require ) {
 
     Node.call( this, options );
 
-    var shadow = new Rectangle( options.shadowOffset, options.shadowOffset, icon.width, icon.height, 5, 5, {fill: "black"} );
-    var border = new Rectangle( 0, 0, icon.width, icon.height, 3, 3, {stroke: "white", lineWidth: 3} );
+    var shadow = new Rectangle( options.shadowOffset, options.shadowOffset, icon.width, icon.height, 5, 5, {fill: 'black'} );
+    var border = new Rectangle( 0, 0, icon.width, icon.height, 3, 3, {stroke: 'white', lineWidth: 3} );
 
     this.addChild( shadow );
     this.addChild( border );

@@ -6,7 +6,7 @@
  */
 
 define( function( require ) {
-  "use strict";
+  'use strict';
 
   // Imports
   var Node = require( 'SCENERY/nodes/Node' );
@@ -24,7 +24,7 @@ define( function( require ) {
 
   function UnderPressureRuler( model, mvt ) {
     var self = this;
-    Node.call( this, { cursor: "pointer", renderer: 'svg', cssTransform: true } );
+    Node.call( this, { cursor: 'pointer', renderer: 'svg', cssTransform: true } );
 
     //close button
     var closeButton = new Node( {cursor: 'pointer'} );
@@ -47,10 +47,10 @@ define( function( require ) {
     } ) );
     this.addChild( closeButton );
 
-    var MetersRuler = new RulerNode( mvt.modelToViewX( 5 ), 50, mvt.modelToViewX( 1 ), ["0", "1", "2", "3", "4", "5"], units_metersString, {minorTicksPerMajorTick: 4, unitsFont: '12px Arial', rotation: Math.PI / 2 } );
+    var MetersRuler = new RulerNode( mvt.modelToViewX( 5 ), 50, mvt.modelToViewX( 1 ), ['0', '1', '2', '3', '4', '5'], units_metersString, {minorTicksPerMajorTick: 4, unitsFont: '12px Arial', rotation: Math.PI / 2 } );
     this.addChild( MetersRuler );
 
-    var FeetsRuler = new RulerNode( mvt.modelToViewX( model.units.feetToMeters( 10 ) ), 50, mvt.modelToViewX( model.units.feetToMeters( 1 ) ), ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10"], units_feetsString, {minorTicksPerMajorTick: 4, unitsFont: '12px Arial', rotation: Math.PI / 2 } );
+    var FeetsRuler = new RulerNode( mvt.modelToViewX( model.units.feetToMeters( 10 ) ), 50, mvt.modelToViewX( model.units.feetToMeters( 1 ) ), ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10'], units_feetsString, {minorTicksPerMajorTick: 4, unitsFont: '12px Arial', rotation: Math.PI / 2 } );
     this.addChild( FeetsRuler );
 
     closeButton.translation = new Vector2( -this.width + closeButton.width, -closeButton.height );
@@ -60,7 +60,7 @@ define( function( require ) {
     } );
 
     model.measureUnitsProperty.link( function( unit ) {
-      if ( unit === "english" ) {
+      if ( unit === 'english' ) {
         MetersRuler.visible = false;
         FeetsRuler.visible = true;
       }

@@ -9,7 +9,7 @@ define( function( require ) {
   var Node = require( 'SCENERY/nodes/Node' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Text = require( 'SCENERY/nodes/Text' );
-  var GridLinesNode = require( "UNDER_PRESSURE/common/view/GridLinesNode" );
+  var GridLinesNode = require( 'UNDER_PRESSURE/common/view/GridLinesNode' );
   var StringUtils = require( 'PHETCOMMON/util/StringUtils' );
   var PhetFont = require( 'SCENERY_PHET/PhetFont' );
 
@@ -23,7 +23,7 @@ define( function( require ) {
 
     var fontOptions = {
       font: new PhetFont( 12 ),
-      fontWeight: "bold"
+      fontWeight: 'bold'
     };
 
     this.addChild( new GridLinesNode( model.globalModel, mvt, model.poolDimensions.x1, model.poolDimensions.y1, model.poolDimensions.x2, model.poolDimensions.y2 + 0.3 ) );
@@ -53,7 +53,7 @@ define( function( require ) {
     this.addChild( feetsLabels );
 
     model.globalModel.measureUnitsProperty.link( function( value ) {
-      var metersVisible = (value !== "english");
+      var metersVisible = (value !== 'english');
       metersLabels.visible = metersVisible;
       feetsLabels.visible = !metersVisible;
     } );

@@ -8,16 +8,16 @@ define( function( require ) {
   'use strict';
   var StringUtils = require( 'PHETCOMMON/util/StringUtils' );
 
-  var atmString = require( "string!UNDER_PRESSURE/atm" );
-  var psiString = require( "string!UNDER_PRESSURE/psi" );
-  var kPaString = require( "string!UNDER_PRESSURE/kPa" );
+  var atmString = require( 'string!UNDER_PRESSURE/atm' );
+  var psiString = require( 'string!UNDER_PRESSURE/psi' );
+  var kPaString = require( 'string!UNDER_PRESSURE/kPa' );
 
   var valueWithUnitsPattern = require( 'string!UNDER_PRESSURE/valueWithUnitsPattern' );
 
-  var ftPerSPerS = require( "string!UNDER_PRESSURE/ftPerSPerS" );
-  var mPerSPerS = require( "string!UNDER_PRESSURE/mPerSPerS" );
-  var densityUnitsEnglish = require( "string!UNDER_PRESSURE/densityUnitsEnglish" );
-  var densityUnitsMetric = require( "string!UNDER_PRESSURE/densityUnitsMetric" );
+  var ftPerSPerS = require( 'string!UNDER_PRESSURE/ftPerSPerS' );
+  var mPerSPerS = require( 'string!UNDER_PRESSURE/mPerSPerS' );
+  var densityUnitsEnglish = require( 'string!UNDER_PRESSURE/densityUnitsEnglish' );
+  var densityUnitsMetric = require( 'string!UNDER_PRESSURE/densityUnitsMetric' );
 
 
   function Units( model ) {
@@ -31,33 +31,33 @@ define( function( require ) {
 
     this.getPressureString = {
       metric: function( pressure ) {
-        if ( pressure === "" ) {
-          return "-";
+        if ( pressure === '' ) {
+          return '-';
         }
         else {
-          return (pressure / 1000).toFixed( 3 ) + " " + kPaString;
+          return (pressure / 1000).toFixed( 3 ) + ' ' + kPaString;
         }
       },
       atmosphere: function( pressure ) {
-        if ( pressure === "" ) {
-          return "-";
+        if ( pressure === '' ) {
+          return '-';
         }
         else {
-          return (pressure * self.ATMOSPHERE_PER_PASCAL).toFixed( 4 ) + " " + atmString;
+          return (pressure * self.ATMOSPHERE_PER_PASCAL).toFixed( 4 ) + ' ' + atmString;
         }
       },
       english: function( pressure ) {
-        if ( pressure === "" ) {
-          return "-";
+        if ( pressure === '' ) {
+          return '-';
         }
         else {
-          return (pressure * self.PSI_PER_PASCAL).toFixed( 4 ) + " " + psiString;
+          return (pressure * self.PSI_PER_PASCAL).toFixed( 4 ) + ' ' + psiString;
         }
       }
     };
 
     this.getGravityString = function() {
-      if ( model.measureUnits === "english" ) {
+      if ( model.measureUnits === 'english' ) {
         return StringUtils.format( valueWithUnitsPattern, (self.GRAVITY_ENGLISH_PER_METRIC * model.gravity).toFixed( 1 ), ftPerSPerS );
       }
       else {
@@ -66,7 +66,7 @@ define( function( require ) {
     };
 
     this.getFluidDensityString = function() {
-      if ( model.measureUnits === "english" ) {
+      if ( model.measureUnits === 'english' ) {
         return StringUtils.format( valueWithUnitsPattern, Math.round( self.FLUIDDENSITY_ENGLISH_PER_METRIC * model.fluidDensity ), densityUnitsEnglish );
       }
       else {

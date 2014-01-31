@@ -25,17 +25,17 @@ define( function( require ) {
     model.isAtmosphereProperty.link( function( isAtmosphere ) {
       if ( isAtmosphere ) {
         sky.fill = new LinearGradient( 0, 0, 0, mvt.modelToViewY( model.skyGroundBoundY ) )
-          .addColorStop( 0, "#c4e6f5" )
-          .addColorStop( 1, "#daedfa" );
+          .addColorStop( 0, '#c4e6f5' )
+          .addColorStop( 1, '#daedfa' );
       }
       else {
-        sky.fill = "black";
+        sky.fill = 'black';
       }
     } );
 
     //earth
     this.addChild( new Rectangle( -2000, mvt.modelToViewY( model.skyGroundBoundY ), 5000, model.height - mvt.modelToViewY( model.skyGroundBoundY ) + 1000, {
-      fill: "#93774c"
+      fill: '#93774c'
     } ) );
 
   }

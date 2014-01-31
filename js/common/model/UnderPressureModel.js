@@ -12,22 +12,22 @@ define( function( require ) {
   var PropertySet = require( 'AXON/PropertySet' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Range = require( 'DOT/Range' );
-  var WaterColorModel = require( "UNDER_PRESSURE/common/model/WaterColorModel" );
-  var Units = require( "UNDER_PRESSURE/common/model/Units" );
+  var WaterColorModel = require( 'UNDER_PRESSURE/common/model/WaterColorModel' );
+  var Units = require( 'UNDER_PRESSURE/common/model/Units' );
   var LinearFunction = require( 'DOT/LinearFunction' );
   var Vector2 = require( 'DOT/Vector2' );
 
   var SceneModels = {
-    SquarePoolModel: require( "UNDER_PRESSURE/square-pool/model/SquarePoolModel" ),
-    TrapezoidPoolModel: require( "UNDER_PRESSURE/trapezoid-pool/model/TrapezoidPoolModel" ),
-    ChamberPoolModel: require( "UNDER_PRESSURE/chamber-pool/model/ChamberPoolModel" ),
-    MysteryPoolModel: require( "UNDER_PRESSURE/mystery-pool/model/MysteryPoolModel" )
+    SquarePoolModel: require( 'UNDER_PRESSURE/square-pool/model/SquarePoolModel' ),
+    TrapezoidPoolModel: require( 'UNDER_PRESSURE/trapezoid-pool/model/TrapezoidPoolModel' ),
+    ChamberPoolModel: require( 'UNDER_PRESSURE/chamber-pool/model/ChamberPoolModel' ),
+    MysteryPoolModel: require( 'UNDER_PRESSURE/mystery-pool/model/MysteryPoolModel' )
   };
 
   function UnderPressureModel( width, height ) {
     var self = this;
 
-    this.scenes = ["Square", "Trapezoid", "Chamber", "Mystery"];
+    this.scenes = ['Square', 'Trapezoid', 'Chamber', 'Mystery'];
 
     this.MARS_GRAVITY = 3.71;
     this.JUPITER_GRAVITY = 24.9;
@@ -54,14 +54,14 @@ define( function( require ) {
         isAtmosphere: true,
         isRulerVisible: false,
         isGridVisible: false,
-        measureUnits: "metric", //metric, english or atmosphere
+        measureUnits: 'metric', //metric, english or atmosphere
         gravity: 9.8,
         fluidDensity: self.WATER_DENSITY,
         leftDisplacement: 0, //displacement from default height, for chamber-pool
         currentScene: self.scenes[0],
         currentVolume: 0, //L, volume of liquid in currentScene
         rulerPosition: new Vector2( 195, 245 ), // px
-        mysteryChoice: "fluidDensity" //for mystery-pool, gravity of fluidDensity
+        mysteryChoice: 'fluidDensity' //for mystery-pool, gravity of fluidDensity
       }
     );
 
@@ -69,7 +69,7 @@ define( function( require ) {
 
     this.sceneModels = {};
     this.scenes.forEach( function( name ) {
-      self.sceneModels[name] = (new SceneModels[name + "PoolModel"]( self ));
+      self.sceneModels[name] = (new SceneModels[name + 'PoolModel']( self ));
     } );
 
     this.units = new Units( self );

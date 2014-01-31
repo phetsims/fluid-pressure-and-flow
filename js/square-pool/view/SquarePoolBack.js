@@ -52,7 +52,7 @@ define( function( require ) {
 
     //white background for pool
     this.addChild( new Rectangle( mvt.modelToViewX( model.poolDimensions.x1 ), mvt.modelToViewY( model.poolDimensions.y1 ) - 1, mvt.modelToViewX( model.poolDimensions.x2 - model.poolDimensions.x1 ), mvt.modelToViewY( model.poolDimensions.y2 - model.poolDimensions.y1 ) + 1, {
-      fill: "#f3f0e9"
+      fill: '#f3f0e9'
     } ) );
 
     this.addChild( new UPFaucetNode( model.inputFaucet, 3000, mvt ) );

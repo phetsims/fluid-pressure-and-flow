@@ -22,8 +22,8 @@ define( function( require ) {
     }, options );
 
     var addLine = function( node, y ) {
-      node.addChild( new Line( mvt.modelToViewX( x1 ), y, mvt.modelToViewX( x2 ), y, {stroke: "RGB(192, 192, 192)", lineWidth: 1.5} ) );
-      node.addChild( new Line( mvt.modelToViewX( x1 ), y + 1, mvt.modelToViewX( x2 ), y + 1, {stroke: "RGB(64, 64, 64)", lineWidth: 1} ) );
+      node.addChild( new Line( mvt.modelToViewX( x1 ), y, mvt.modelToViewX( x2 ), y, {stroke: 'RGB(192, 192, 192)', lineWidth: 1.5} ) );
+      node.addChild( new Line( mvt.modelToViewX( x1 ), y + 1, mvt.modelToViewX( x2 ), y + 1, {stroke: 'RGB(64, 64, 64)', lineWidth: 1} ) );
     };
 
     var metersGrid = new Node();
@@ -39,7 +39,7 @@ define( function( require ) {
     this.addChild( metersGrid );
 
     model.measureUnitsProperty.link( function( value ) {
-      var metersVisible = (value !== "english");
+      var metersVisible = (value !== 'english');
       metersGrid.visible = metersVisible;
       feetsGrid.visible = !metersVisible;
     } );

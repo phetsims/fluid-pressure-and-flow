@@ -10,18 +10,18 @@ define( function( require ) {
   var inherit = require( 'PHET_CORE/inherit' );
   var Rectangle = require( 'SCENERY/nodes/Rectangle' );
   var ResetAllButton = require( 'SCENERY_PHET/ResetAllButton' );
-  var ControlPanel = require( "UNDER_PRESSURE/common/view/ControlPanel" );
-  var ControlSlider = require( "UNDER_PRESSURE/common/view/ControlSlider" );
-  var SceneChoiceNode = require( "UNDER_PRESSURE/common/view/SceneChoiceNode" );
+  var ControlPanel = require( 'UNDER_PRESSURE/common/view/ControlPanel' );
+  var ControlSlider = require( 'UNDER_PRESSURE/common/view/ControlSlider' );
+  var SceneChoiceNode = require( 'UNDER_PRESSURE/common/view/SceneChoiceNode' );
 
   var fluidDensityString = require( 'string!UNDER_PRESSURE/fluidDensity' );
   var gravityString = require( 'string!UNDER_PRESSURE/gravity' );
-  var EarthString = require( "string!UNDER_PRESSURE/earth" );
-  var MarsString = require( "string!UNDER_PRESSURE/mars" );
-  var JupiterString = require( "string!UNDER_PRESSURE/jupiter" );
-  var GasolineString = require( "string!UNDER_PRESSURE/gasoline" );
-  var WaterString = require( "string!UNDER_PRESSURE/water" );
-  var HoneyString = require( "string!UNDER_PRESSURE/honey" );
+  var EarthString = require( 'string!UNDER_PRESSURE/earth' );
+  var MarsString = require( 'string!UNDER_PRESSURE/mars' );
+  var JupiterString = require( 'string!UNDER_PRESSURE/jupiter' );
+  var GasolineString = require( 'string!UNDER_PRESSURE/gasoline' );
+  var WaterString = require( 'string!UNDER_PRESSURE/water' );
+  var HoneyString = require( 'string!UNDER_PRESSURE/honey' );
 
   //REVIEW: The way this is done is quite unusual, and different from most
   //PhET sims.  Rather than having a separate node that groups together
@@ -82,15 +82,15 @@ define( function( require ) {
     this.addChild( this.fluidDensitySlider );
 
     model.mysteryChoiceProperty.link( function( choice, oldChoice ) {
-      self[choice + "Slider"].disable();
+      self[choice + 'Slider'].disable();
       if ( oldChoice ) {
-        self[oldChoice + "Slider"].enable();
+        self[oldChoice + 'Slider'].enable();
       }
     } );
 
     model.currentSceneProperty.link( function( currentScene ) {
-      if ( currentScene === "Mystery" ) {
-        self[model.mysteryChoice + "Slider"].disable();
+      if ( currentScene === 'Mystery' ) {
+        self[model.mysteryChoice + 'Slider'].disable();
       }
       else {
         self.gravitySlider.enable();
@@ -101,7 +101,7 @@ define( function( require ) {
     // add reset button
     this.addChild( new ResetAllButton( function() { model.reset(); }, { scale: 0.5, x: 730, y: model.height - 25} ) );
 
-    this.barometersContainer = new Rectangle( 0, 0, 100, 130, 10, 10, {stroke: "gray", lineWidth: 1, fill: "#f2fa6a", x: 520, y: 5} );
+    this.barometersContainer = new Rectangle( 0, 0, 100, 130, 10, 10, {stroke: 'gray', lineWidth: 1, fill: '#f2fa6a', x: 520, y: 5} );
     this.addChild( this.barometersContainer );
 
     this.addChild( new SceneChoiceNode( model, 10, 260 ) );

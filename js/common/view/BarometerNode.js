@@ -25,7 +25,7 @@ define( function( require ) {
   function BarometerNode( model, mvt, thisBarometerStatement, barometerPositionProperty, containerBounds ) {
     var self = this;
 
-    Node.call( this, {cursor: "pointer", pickable: true, x: barometerPositionProperty.get().x, y: barometerPositionProperty.get().y} );
+    Node.call( this, {cursor: 'pointer', pickable: true, x: barometerPositionProperty.get().x, y: barometerPositionProperty.get().y} );
 
 
     //visual
@@ -37,11 +37,11 @@ define( function( require ) {
 
     var underGaugeRectangle = new Rectangle( gaugeNode.centerX - underGaugeRectangleWidth / 2, gaugeNode.bottom - 3, underGaugeRectangleWidth, underGaugeRectangleHeight, 5, 5, {
       fill: new LinearGradient( gaugeNode.centerX - underGaugeRectangleWidth / 2, 0, gaugeNode.centerX + underGaugeRectangleWidth / 2, 0 )
-        .addColorStop( 0, "#656570" )
-        .addColorStop( 0.2, "#bdc3cf" )
-        .addColorStop( 0.5, "#dee6f5" )
-        .addColorStop( 0.8, "#bdc3cf" )
-        .addColorStop( 1, "#656570" )
+        .addColorStop( 0, '#656570' )
+        .addColorStop( 0.2, '#bdc3cf' )
+        .addColorStop( 0.5, '#dee6f5' )
+        .addColorStop( 0.8, '#bdc3cf' )
+        .addColorStop( 1, '#656570' )
     } );
     this.addChild( underGaugeRectangle );
 
@@ -54,14 +54,14 @@ define( function( require ) {
       .lineTo( gaugeNode.centerX + bottomTriangleShapeWidth / 2, underGaugeRectangle.rectY + underGaugeRectangleHeight );
     this.addChild( new Path( bottomTriangleShape, {
       fill: new LinearGradient( gaugeNode.centerX - bottomTriangleShapeWidth / 2, 0, gaugeNode.centerX + bottomTriangleShapeWidth / 2, 0 )
-        .addColorStop( 0, "#656570" )
-        .addColorStop( 0.5, "#dee6f5" )
-        .addColorStop( 1, "#656570" )
+        .addColorStop( 0, '#656570' )
+        .addColorStop( 0.5, '#dee6f5' )
+        .addColorStop( 1, '#656570' )
     } ) );
 
     //pressure text
-    var text = new Text( "", {font: new PhetFont( 14 ), y: 25, fontWeight: "bold"} );
-    var textBackground = new Rectangle( 0, 0, 1, 1, {stroke: "black", fill: "white"} );
+    var text = new Text( '', {font: new PhetFont( 14 ), y: 25, fontWeight: 'bold'} );
+    var textBackground = new Rectangle( 0, 0, 1, 1, {stroke: 'black', fill: 'white'} );
     this.addChild( textBackground );
     this.addChild( text );
 
@@ -91,7 +91,7 @@ define( function( require ) {
       text.text = model.units.getPressureString[model.measureUnits]( thisBarometerStatement.get() );
       text.centerX = gaugeNode.centerX;
       textBackground.setRect( text.x - 2, text.y - text.height + 2, text.width + 4, text.height + 2 );
-      textBackground.visible = (text.text !== "-");
+      textBackground.visible = (text.text !== '-');
     };
 
     model.gravityProperty.link( function() {

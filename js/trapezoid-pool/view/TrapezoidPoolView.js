@@ -5,16 +5,16 @@
  * * @author Vasily Shakhov (Mlearner)
  */
 define( function( require ) {
-  "use strict";
-  var inherit = require( "PHET_CORE/inherit" );
+  'use strict';
+  var inherit = require( 'PHET_CORE/inherit' );
   var Node = require( 'SCENERY/nodes/Node' );
-  var TrapezoidPoolBack = require( "trapezoid-pool/view/TrapezoidPoolBack" );
-  var FaucetFluidNode = require( "UNDER_PRESSURE/common/view/FaucetFluidNode" );
-  var TrapezoidPoolWaterNode = require( "trapezoid-pool/view/TrapezoidPoolWaterNode" );
-  var TrapezoidPoolGrid = require( "trapezoid-pool/view/TrapezoidPoolGrid" );
+  var TrapezoidPoolBack = require( 'trapezoid-pool/view/TrapezoidPoolBack' );
+  var FaucetFluidNode = require( 'UNDER_PRESSURE/common/view/FaucetFluidNode' );
+  var TrapezoidPoolWaterNode = require( 'trapezoid-pool/view/TrapezoidPoolWaterNode' );
+  var TrapezoidPoolGrid = require( 'trapezoid-pool/view/TrapezoidPoolGrid' );
 
   function TrapezoidPoolView( model, mvt ) {
-    Node.call( this, { renderer: "svg" } );
+    Node.call( this, { renderer: 'svg' } );
 
     //pool
     this.addChild( new TrapezoidPoolBack( model, mvt ) );

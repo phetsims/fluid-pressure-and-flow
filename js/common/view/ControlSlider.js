@@ -35,8 +35,8 @@ define( function( require ) {
 
   function Track( trackProperty, trackRange, decimals ) {
     Rectangle.call( this, 0, 0, TRACK_SIZE.width, TRACK_SIZE.height, { cursor: 'pointer', fill: new LinearGradient( 0, 0, TRACK_SIZE.width, 0 )
-      .addColorStop( 0, "#fff" )
-      .addColorStop( 1, "#000" ),
+      .addColorStop( 0, '#fff' )
+      .addColorStop( 1, '#000' ),
       stroke: 1} );
     var thisNode = this,
       positionToConcentration = new LinearFunction( 0, TRACK_SIZE.width, trackRange.min, trackRange.max, true ),
@@ -138,8 +138,8 @@ define( function( require ) {
     var minusButton = new ArrowButton( 'left', function propertyMinus() {
       trackProperty.set( (Math.max( trackProperty.get() - 1 / Math.pow( 10, options.decimals ), trackRange.min )).toFixed( options.decimals ) );
     } );
-    var valueLabel = new HTMLText( "", { font: new PhetFont( 18 ), pickable: false } );
-    var valueField = new Rectangle( 0, 0, 100, 30, 3, 3, { fill: "#FFF", stroke: 'black', lineWidth: 1, pickable: false } );
+    var valueLabel = new HTMLText( '', { font: new PhetFont( 18 ), pickable: false } );
+    var valueField = new Rectangle( 0, 0, 100, 30, 3, 3, { fill: '#FFF', stroke: 'black', lineWidth: 1, pickable: false } );
     var labelFont = new PhetFont( 14 );
 
     var label, tickLine;
@@ -199,7 +199,7 @@ define( function( require ) {
 
     //question mark, show if unknown property
     this.questionMark = new Node( {visible: false} );
-    this.questionMark.addChild( new Text( "?", { font: new PhetFont( 80 )} ) );
+    this.questionMark.addChild( new Text( '?', { font: new PhetFont( 80 )} ) );
     this.questionMark.centerX = chargeMeterBox.width / 2;
     this.questionMark.top = this.content.top;
     this.accordionContent.addChild( this.questionMark );

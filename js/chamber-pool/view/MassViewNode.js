@@ -24,7 +24,7 @@ define( function( require ) {
     var self = this;
 
     Node.call( this, {
-      cursor: "pointer"
+      cursor: 'pointer'
     } );
 
     var width = mvt.modelToViewX( massModel.width ),
@@ -36,11 +36,11 @@ define( function( require ) {
 
     //image border
     this.addChild( new Rectangle( 0, 0, width, height, {
-      stroke: "#918e8e",
+      stroke: '#918e8e',
       lineWidth: 1
     } ) );
 
-    this.addChild( new Text( StringUtils.format( massLabelPattern, massModel.mass ), { centerY: height / 2, centerX: width / 2, font: new PhetFont( 9 ), fill: 'black', pickable: false, "fontWeight": "bold"} ) );
+    this.addChild( new Text( StringUtils.format( massLabelPattern, massModel.mass ), { centerY: height / 2, centerX: width / 2, font: new PhetFont( 9 ), fill: 'black', pickable: false, 'fontWeight': 'bold'} ) );
 
     var massDragHandler = new SimpleDragHandler( {
       //When dragging across it in a mobile device, pick it up

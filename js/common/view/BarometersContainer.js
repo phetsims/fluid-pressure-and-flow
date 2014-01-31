@@ -10,7 +10,7 @@ define( function( require ) {
   // Imports
   var inherit = require( 'PHET_CORE/inherit' );
   var Node = require( 'SCENERY/nodes/Node' );
-  var BarometerNode = require( "UNDER_PRESSURE/common/view/BarometerNode" );
+  var BarometerNode = require( 'UNDER_PRESSURE/common/view/BarometerNode' );
 
   function BarometersContainer( model, mvt, barometersContainerBounds ) {
     var self = this;

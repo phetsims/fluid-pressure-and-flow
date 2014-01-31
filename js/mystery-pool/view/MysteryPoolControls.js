@@ -1,13 +1,13 @@
 // Copyright 2002-2013, University of Colorado Boulder
 
 /**
- * main view  for mystery pool. Based on square pool view.
+ * Main view for the mystery pool. Based on square pool view.
  *
  * @author Vasily Shakhov (Mlearner)
  */
 define( function( require ) {
-  "use strict";
-  var inherit = require( "PHET_CORE/inherit" );
+  'use strict';
+  var inherit = require( 'PHET_CORE/inherit' );
   var Node = require( 'SCENERY/nodes/Node' );
   var ComboBox = require( 'SUN/ComboBox' );
   var Text = require( 'SCENERY/nodes/Text' );
@@ -35,11 +35,11 @@ define( function( require ) {
     var background = new Rectangle( 0, 0, 1, 1, {stroke: 'gray', lineWidth: 1, fill: '#f2fa6a', pickable: 'false'} );
     var content = new VBox( {
       children: [
-        new AquaRadioButton( model.globalModel.mysteryChoiceProperty, "fluidDensity", new Text( mysteryFluid, textOptions ), {radius: 8} ),
-        new AquaRadioButton( model.globalModel.mysteryChoiceProperty, "gravity", new Text( mysteryPlanet, textOptions ), {radius: 8} )
+        new AquaRadioButton( model.globalModel.mysteryChoiceProperty, 'fluidDensity', new Text( mysteryFluid, textOptions ), {radius: 8} ),
+        new AquaRadioButton( model.globalModel.mysteryChoiceProperty, 'gravity', new Text( mysteryPlanet, textOptions ), {radius: 8} )
       ],
       spacing: 5,
-      align: "left"
+      align: 'left'
     } );
 
     choicePanel.addChild( background );
@@ -80,9 +80,9 @@ define( function( require ) {
     this.addChild( this.gravityComboBox );
 
     model.globalModel.mysteryChoiceProperty.link( function( value, oldValue ) {
-      self[value + "ComboBox"].visible = true;
+      self[value + 'ComboBox'].visible = true;
       if ( oldValue ) {
-        self[oldValue + "ComboBox"].visible = false;
+        self[oldValue + 'ComboBox'].visible = false;
       }
     } );
   }

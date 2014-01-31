@@ -107,7 +107,7 @@ define( function( require ) {
       .lineTo( leftChamberX2, leftOpeningY2 )
       .lineTo( leftOpeningX2, leftOpeningY2 )
       .lineTo( leftOpeningX2, leftOpeningY1 - 1 ), {
-      fill: "#f3f0e9"
+      fill: '#f3f0e9'
     } ) );
   }
 

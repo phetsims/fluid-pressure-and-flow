@@ -10,7 +10,7 @@ define( function( require ) {
   // imports
   var PropertySet = require( 'AXON/PropertySet' );
   var inherit = require( 'PHET_CORE/inherit' );
-  var Color = require( "SCENERY/util/Color" );
+  var Color = require( 'SCENERY/util/Color' );
   var LinearFunction = require( 'DOT/LinearFunction' );
 
   function WaterColourModel( model ) {

@@ -5,19 +5,19 @@
  * @author Vasily Shakhov (Mlearner)
  */
 define( function( require ) {
-  "use strict";
-  var inherit = require( "PHET_CORE/inherit" );
+  'use strict';
+  var inherit = require( 'PHET_CORE/inherit' );
   var Node = require( 'SCENERY/nodes/Node' );
-  var ChamberPoolBack = require( "chamber-pool/view/ChamberPoolBack" );
-  var ChamberPoolWaterNode = require( "chamber-pool/view/ChamberPoolWaterNode" );
-  var MassViewNode = require( "chamber-pool/view/MassViewNode" );
-  var MassStackNode = require( "chamber-pool/view/MassStackNode" );
-  var ChamberPoolGrid = require( "chamber-pool/view/ChamberPoolGrid" );
+  var ChamberPoolBack = require( 'chamber-pool/view/ChamberPoolBack' );
+  var ChamberPoolWaterNode = require( 'chamber-pool/view/ChamberPoolWaterNode' );
+  var MassViewNode = require( 'chamber-pool/view/MassViewNode' );
+  var MassStackNode = require( 'chamber-pool/view/MassStackNode' );
+  var ChamberPoolGrid = require( 'chamber-pool/view/ChamberPoolGrid' );
 
   function ChamberPoolView( model, mvt ) {
     var self = this;
 
-    Node.call( this, { renderer: "svg" } );
+    Node.call( this, { renderer: 'svg' } );
 
     //pool
     this.addChild( new ChamberPoolBack( model, mvt ) );

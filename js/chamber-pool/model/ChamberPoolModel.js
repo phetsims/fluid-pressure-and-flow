@@ -162,7 +162,7 @@ define( function( require ) {
       }
     },
     getPressureAtCoords: function( x, y ) {
-      var pressure = "";
+      var pressure = '';
 
       if ( y < this.globalModel.skyGroundBoundY ) {
         pressure = this.globalModel.getAirPressure( y );
@@ -191,7 +191,7 @@ define( function( require ) {
       var self = this;
       var isInside = false;
 
-      ["leftChamber", "rightChamber", "horizontalPassage", "leftOpening", "rightOpening"].forEach( function( name ) {
+      ['leftChamber', 'rightChamber', 'horizontalPassage', 'leftOpening', 'rightOpening'].forEach( function( name ) {
         if ( x > self.poolDimensions[name].x1 && x < self.poolDimensions[name].x2 && y > self.poolDimensions[name].y1 && y < self.poolDimensions[name].y2 ) {
           //inside bottom chamber
           isInside = true;

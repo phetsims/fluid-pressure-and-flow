@@ -18,15 +18,15 @@ define( function( require ) {
 
     // default options
     this.options = _.extend( {
-      fill: "#f2fa6a",
-      stroke: "black",
+      fill: '#f2fa6a',
+      stroke: 'black',
       lineWidth: 1, // width of the background border
       xMargin: 5,
       yMargin: 10,
       cornerRadius: 5 // radius of the rounded corners on the background
     }, options );
 
-    Node.call( this, {align: "left"} );
+    Node.call( this, {align: 'left'} );
 
     this.background = new Rectangle( -this.options.xMargin, -this.options.yMargin, contentNode.width + 2 * this.options.xMargin, contentNode.height + 2 * this.options.yMargin, this.options.cornerRadius, this.options.cornerRadius, {stroke: this.options.stroke, lineWidth: this.options.lineWidth, fill: this.options.fill} );
     this.addChild( this.background );
@@ -34,7 +34,7 @@ define( function( require ) {
 
     this.updateWidth( contentNode.width + 2 * this.options.xMargin );
 
-    title = new Text( title, {font: new PhetFont( 14 ), x: 3, fontWeight: "bold"} );
+    title = new Text( title, {font: new PhetFont( 14 ), x: 3, fontWeight: 'bold'} );
     title.y = -this.options.yMargin + title.height / 2 - 4;
     var titleBackground = new Rectangle( 0, title.y - title.height, title.width + 6, title.height, {fill: this.options.fill} );
 

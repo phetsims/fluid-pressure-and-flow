@@ -11,7 +11,7 @@ define( function( require ) {
   var inherit = require( 'PHET_CORE/inherit' );
   var SquarePoolModel = require( 'UNDER_PRESSURE/square-pool/model/SquarePoolModel' );
   var Property = require( 'AXON/Property' );
-  var Color = require( "SCENERY/util/Color" );
+  var Color = require( 'SCENERY/util/Color' );
 
   function MysteryPoolModel( globalModel ) {
     var self = this;
@@ -27,31 +27,31 @@ define( function( require ) {
 
     var oldGravity, oldFluidDensity;
     this.globalModel.currentSceneProperty.link( function( scene, oldScene ) {
-      if ( scene === "Mystery" ) {
+      if ( scene === 'Mystery' ) {
         oldGravity = self.globalModel.gravity;
         oldFluidDensity = self.globalModel.fluidDensity;
         self.updateChoiceValue();
       }
-      else if ( oldScene === "Mystery" ) {
+      else if ( oldScene === 'Mystery' ) {
         self.globalModel.gravity = oldGravity;
         self.globalModel.fluidDensity = oldFluidDensity;
       }
     } );
 
     this.globalModel.mysteryChoiceProperty.link( function() {
-      if ( self.globalModel.currentScene === "Mystery" ) {
+      if ( self.globalModel.currentScene === 'Mystery' ) {
         self.updateChoiceValue();
       }
     } );
 
     this.fluidDensityCustom.link( function() {
-      if ( self.globalModel.currentScene === "Mystery" ) {
+      if ( self.globalModel.currentScene === 'Mystery' ) {
         self.updateChoiceValue();
       }
     } );
 
     this.gravityCustom.link( function() {
-      if ( self.globalModel.currentScene === "Mystery" ) {
+      if ( self.globalModel.currentScene === 'Mystery' ) {
         self.updateChoiceValue();
       }
     } );
@@ -60,9 +60,9 @@ define( function( require ) {
   return inherit( SquarePoolModel, MysteryPoolModel, {
     updateChoiceValue: function() {
       var choice = this.globalModel.mysteryChoice;
-      this.globalModel[choice] = this[choice][this[choice + "Custom"].get()];
-      if ( choice === "fluidDensity" ) {
-        this.globalModel.waterColorModel.setWaterColor( this.waterColor[this[choice + "Custom"].get()] );
+      this.globalModel[choice] = this[choice][this[choice + 'Custom'].get()];
+      if ( choice === 'fluidDensity' ) {
+        this.globalModel.waterColorModel.setWaterColor( this.waterColor[this[choice + 'Custom'].get()] );
       }
       else {
         this.globalModel.fluidDensityProperty.notifyObserversUnsafe();
