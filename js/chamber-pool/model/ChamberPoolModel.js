@@ -13,6 +13,7 @@ define( function( require ) {
   var inherit = require( 'PHET_CORE/inherit' );
   var MassModel = require( 'chamber-pool/model/MassModel' );
 
+  var lastDt = 0;//to filter dt in step.
 
   function ChamberPoolModel( globalModel ) {
     var self = this;
@@ -118,6 +119,15 @@ define( function( require ) {
       } );
     },
     step: function( dt ) {
+      if ( !lastDt ) {lastDt = dt;} // init lastDt value
+
+      if ( Math.abs( lastDt - dt ) > lastDt * 0.3 ) {
+        dt = lastDt;
+      }
+      else {
+        lastDt = dt;
+      }
+
       var steps = 10;
       this.masses.forEach( function( mass ) {
         for ( var i = 0; i < steps; i++ ) {
