@@ -34,7 +34,9 @@ define( function( require ) {
 
 
     //sky, earth and controls
-    this.addChild( new CommonNode( model, mvt ) );
+    var commonNode = new CommonNode( model, mvt );
+    this.addChild( commonNode );
+    commonNode.moveToBack();
 
     var scenes = {};
     model.scenes.forEach( function( name ) {
