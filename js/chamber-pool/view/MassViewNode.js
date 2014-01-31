@@ -23,7 +23,6 @@ define( function( require ) {
   function MassViewNode( massModel, model, mvt ) {
     var self = this;
 
-
     Node.call( this, {
       cursor: "pointer"
     } );
@@ -70,7 +69,6 @@ define( function( require ) {
         self.translation = new Vector2( mvt.modelToViewX( position.x ), mvt.modelToViewY( position.y ) );
       }
     } );
-
   }
 
   return inherit( Node, MassViewNode );

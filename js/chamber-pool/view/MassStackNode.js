@@ -13,13 +13,11 @@ define( function( require ) {
   var Path = require( 'SCENERY/nodes/Path' );
   var Vector2 = require( 'DOT/Vector2' );
 
-
   function MassStackNode( model, mvt ) {
     var self = this;
     Node.call( this, {
       x: mvt.modelToViewX( model.poolDimensions.leftOpening.x1 )
     } );
-
 
     var totalHeight = 0; //height of all masses
 
@@ -33,7 +31,6 @@ define( function( require ) {
         lineDash: [ 10, 5 ],
         fill: "#ffdcf0"
       } );
-
 
     this.addChild( placementRect );
     this.addChild( placementRectBorder );
@@ -80,13 +77,11 @@ define( function( require ) {
       } );
     } );
 
-
     model.stack.addListeners( function() {
       changeMassStack();
     }, function() {
       changeMassStack();
     } );
-
   }
 
   return inherit( Node, MassStackNode );

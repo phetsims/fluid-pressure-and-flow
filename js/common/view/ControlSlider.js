@@ -31,6 +31,8 @@ define( function( require ) {
   var THUMB_FILL_HIGHLIGHTED = 'rgb(71,207,255)';
   var THUMB_RADIUS = 0.25 * THUMB_SIZE.width;
 
+  //REVIEW - Why wasn't HSlider used for this, rather than creating one from various pieces?
+
   function Track( trackProperty, trackRange, decimals ) {
     Rectangle.call( this, 0, 0, TRACK_SIZE.width, TRACK_SIZE.height, { cursor: 'pointer', fill: new LinearGradient( 0, 0, TRACK_SIZE.width, 0 )
       .addColorStop( 0, "#fff" )
@@ -140,7 +142,6 @@ define( function( require ) {
     var valueField = new Rectangle( 0, 0, 100, 30, 3, 3, { fill: "#FFF", stroke: 'black', lineWidth: 1, pickable: false } );
     var labelFont = new PhetFont( 14 );
 
-
     var label, tickLine;
     options.ticks.forEach( function( tick ) {
       tickLine = new TickLine();
@@ -178,7 +179,7 @@ define( function( require ) {
     this.accordionContent = new Node();
     this.accordionContent.addChild( this.content );
 
-
+    //REVIEW: This name (chargeMeterBox) doesn't seem quite right, perhaps a cut-and-paste issue?
     var chargeMeterBox = new AccordionBox( this.accordionContent,
       {
         title: options.title,
@@ -196,7 +197,6 @@ define( function( require ) {
       } );
     this.addChild( chargeMeterBox );
 
-
     //question mark, show if unknown property
     this.questionMark = new Node( {visible: false} );
     this.questionMark.addChild( new Text( "?", { font: new PhetFont( 80 )} ) );
@@ -204,6 +204,7 @@ define( function( require ) {
     this.questionMark.top = this.content.top;
     this.accordionContent.addChild( this.questionMark );
 
+    //REVIEW: Why is this function named?  Seems unnecessary.
     trackProperty.link( function updateProperty( value ) {
       valueLabel.text = getPropertyStringFunction();
       valueLabel.centerX = valueField.centerX; // keep the value centered in the field
@@ -211,13 +212,10 @@ define( function( require ) {
       minusButton.setEnabled( value > trackRange.min );
     } );
 
-
     model.measureUnitsProperty.link( function() {
       valueLabel.text = getPropertyStringFunction();
       valueLabel.centerX = valueField.centerX; // keep the value centered in the field
     } );
-
-
   }
 
   inherit( Node, ControlSlider, {
@@ -232,5 +230,4 @@ define( function( require ) {
   } );
 
   return ControlSlider;
-} )
-;
+} );

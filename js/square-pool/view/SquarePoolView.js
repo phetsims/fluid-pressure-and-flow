@@ -13,7 +13,6 @@ define( function( require ) {
   var SquarePoolWaterNode = require( "square-pool/view/SquarePoolWaterNode" );
   var SquarePoolGrid = require( "square-pool/view/SquarePoolGrid" );
 
-
   function SquarePoolView( model, mvt ) {
     Node.call( this, { renderer: "svg" } );
 

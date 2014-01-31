@@ -21,7 +21,6 @@ define( function( require ) {
     MysteryPoolIcon: require( "image!UNDER_PRESSURE/mystery-pool-icon.png" )
   };
 
-
   function SceneChoiceNode( model, x, y ) {
     var self = this;
     Node.call( this, {x: x, y: y} );
@@ -33,8 +32,6 @@ define( function( require ) {
       iconImage.scale( ICON_SIZE.width / iconImage.width, ICON_SIZE.height / iconImage.height );
       self.addChild( new SingleChoiceNode( model.currentSceneProperty, name, iconImage, {y: dy * index} ) );
     } );
-
-
   }
 
   return inherit( Node, SceneChoiceNode, {} );

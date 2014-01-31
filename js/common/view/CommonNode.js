@@ -12,6 +12,8 @@ define( function( require ) {
   var LinearGradient = require( 'SCENERY/util/LinearGradient' );
   var Rectangle = require( 'SCENERY/nodes/Rectangle' );
 
+  //REVIEW This doesn't have much that is common, perhaps it did at one time.
+  //Consider renaming (constructor and file) to something like 'BackgroundNode'.
   function CommonNode( model, mvt ) {
     Node.call( this );
 

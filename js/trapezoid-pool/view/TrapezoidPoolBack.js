@@ -92,8 +92,6 @@ define( function( require ) {
     } ) );
 
     this.addChild( new UPFaucetNode( model.inputFaucet, 3000, mvt ) );
-
-
   }
 
   return inherit( Node, TrapezoidPoolBack );

@@ -21,6 +21,7 @@ define( function( require ) {
 
   var pressureString = require( 'string!UNDER_PRESSURE/pressure' );
 
+  //DOC - add header
   function BarometerNode( model, mvt, thisBarometerStatement, barometerPositionProperty, containerBounds ) {
     var self = this;
 
@@ -44,7 +45,6 @@ define( function( require ) {
     } );
     this.addChild( underGaugeRectangle );
 
-
     var bottomTriangleShapeWidth = 6,
       bottomTriangleShapeHeight = 12;
 
@@ -59,13 +59,11 @@ define( function( require ) {
         .addColorStop( 1, "#656570" )
     } ) );
 
-
     //pressure text
     var text = new Text( "", {font: new PhetFont( 14 ), y: 25, fontWeight: "bold"} );
     var textBackground = new Rectangle( 0, 0, 1, 1, {stroke: "black", fill: "white"} );
     this.addChild( textBackground );
     this.addChild( text );
-
 
     //handlers
     var barometerDragHandler = new SimpleDragHandler( {
@@ -125,8 +123,5 @@ define( function( require ) {
   }
 
 
-  inherit( Node, BarometerNode );
-
-  return BarometerNode;
-} )
-;
+  return inherit( Node, BarometerNode );
+} );

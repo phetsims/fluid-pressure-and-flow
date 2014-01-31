@@ -12,6 +12,8 @@ define( function( require ) {
   var PropertySet = require( 'AXON/PropertySet' );
   var inherit = require( 'PHET_CORE/inherit' );
 
+  //REVIEW Constructor name doesn't match file name.
+  //DOC scale parameter not documented in constructor
   /**
    * @param {Vector2} location center of output pipe
    * @param {Number} maxFlowRate L/sec
@@ -44,6 +46,5 @@ define( function( require ) {
       this.enabledProperty.reset();
     }
   } );
-
 } );
 

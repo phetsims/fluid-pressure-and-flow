@@ -25,7 +25,6 @@ define( function( require ) {
 
     Node.call( this, options );
 
-
     var shadow = new Rectangle( options.shadowOffset, options.shadowOffset, icon.width, icon.height, 5, 5, {fill: "black"} );
     var border = new Rectangle( 0, 0, icon.width, icon.height, 3, 3, {stroke: "white", lineWidth: 4} );
 
@@ -50,8 +49,6 @@ define( function( require ) {
         property.set( value );
       }
     } ) );
-
-
   }
 
   return inherit( Node, SingleChoiceNode );

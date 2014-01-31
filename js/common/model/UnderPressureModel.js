@@ -1,8 +1,8 @@
 // Copyright 2002-2013, University of Colorado Boulder
 
 /**
- * top model for all screens,
- * all common properties and methods are placed here
+ * Top model for all screens - all common properties and methods are placed here.
+ *
  * @author Vasily Shakhov (Mlearner)
  */
 define( function( require ) {
@@ -28,7 +28,6 @@ define( function( require ) {
     var self = this;
 
     this.scenes = ["Square", "Trapezoid", "Chamber", "Mystery"];
-
 
     this.MARS_GRAVITY = 3.71;
     this.JUPITER_GRAVITY = 24.9;
@@ -76,6 +75,10 @@ define( function( require ) {
     this.units = new Units( self );
     this.getStandardAirPressure = new LinearFunction( 0, this.units.feetToMeters( 500 ), this.EARTH_AIR_PRESSURE, this.EARTH_AIR_PRESSURE_AT_500_FT );
 
+    //REVIEW: I don't understand what 'barometersStatement' is.  It might be an issue with the
+    //name, but I looked through the code for a while and am still unclear.  Please add some
+    //documentation and/or change the name.  Also, if it is an array of things that need to
+    //match up for each barometer, consider having one array of composite objects.
     this.barometersStatement = [];
     this.barometersPositions = [];
     for ( var i = 0; i < 4; i++ ) {
@@ -89,9 +92,11 @@ define( function( require ) {
   }
 
   return inherit( PropertySet, UnderPressureModel, {
+
     step: function( dt ) {
       this.sceneModels[this.currentScene].step( dt );
     },
+
     reset: function() {
       var self = this;
       PropertySet.prototype.reset.call( this );
@@ -104,8 +109,8 @@ define( function( require ) {
       this.barometersPositions.forEach( function( position ) {
         position.reset();
       } );
-
     },
+
     getAirPressure: function( height ) {
       if ( !this.isAtmosphere ) {
         return 0;
@@ -114,12 +119,13 @@ define( function( require ) {
         return this.getStandardAirPressure( this.skyGroundBoundY - height ) * this.gravity / 9.8;
       }
     },
+
     getWaterPressure: function( height ) {
       return height * this.gravity * this.fluidDensity;
     },
+
     getPressureAtCoords: function( x, y ) {
       return this.sceneModels[this.currentScene].getPressureAtCoords( x, y );
     }
   } );
-} )
-;
+} );

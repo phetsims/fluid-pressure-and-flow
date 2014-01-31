@@ -33,7 +33,6 @@ define( function( require ) {
 
     //grid
     this.addChild( new ChamberPoolGrid( model, mvt ) );
-
   }
 
   return inherit( Node, ChamberPoolView );

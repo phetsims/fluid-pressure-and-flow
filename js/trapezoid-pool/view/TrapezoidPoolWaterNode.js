@@ -48,7 +48,6 @@ define( function( require ) {
     } );
 
     this.addChild( waterPath );
-
   }
 
   return inherit( Node, TrapezoidPoolWaterNode );

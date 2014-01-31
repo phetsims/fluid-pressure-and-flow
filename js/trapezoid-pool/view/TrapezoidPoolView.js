@@ -13,7 +13,6 @@ define( function( require ) {
   var TrapezoidPoolWaterNode = require( "trapezoid-pool/view/TrapezoidPoolWaterNode" );
   var TrapezoidPoolGrid = require( "trapezoid-pool/view/TrapezoidPoolGrid" );
 
-
   function TrapezoidPoolView( model, mvt ) {
     Node.call( this, { renderer: "svg" } );
 
@@ -29,7 +28,6 @@ define( function( require ) {
 
     //grid
     this.addChild( new TrapezoidPoolGrid( model, mvt ) );
-
   }
 
   return inherit( Node, TrapezoidPoolView );

@@ -44,8 +44,6 @@ define( function( require ) {
         redrawRect();
       }
     } );
-
-
   }
 
   inherit( Rectangle, FaucetFluidNode );

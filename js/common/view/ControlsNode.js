@@ -23,6 +23,11 @@ define( function( require ) {
   var WaterString = require( "string!UNDER_PRESSURE/water" );
   var HoneyString = require( "string!UNDER_PRESSURE/honey" );
 
+  //REVIEW: The way this is done is quite unusual, and different from most
+  //PhET sims.  Rather than having a separate node that groups together
+  //these unrelated nodes, they should just be added to the UnderPressureView
+  //class.  As it is, the level of composition just makes things confusing.
+
   function ControlsNode( model ) {
     var self = this;
 
@@ -33,7 +38,6 @@ define( function( require ) {
     this.addChild( this.controlPanel );
 
     //control sliders
-
     this.gravitySlider = new ControlSlider( model, model.gravityProperty, model.units.getGravityString, model.gravityRange, {
       x: 599,
       y: 360,
@@ -94,7 +98,6 @@ define( function( require ) {
       }
     } );
 
-
     // add reset button
     this.addChild( new ResetAllButton( function() { model.reset(); }, { scale: 0.5, x: 730, y: model.height - 25} ) );
 
@@ -102,8 +105,6 @@ define( function( require ) {
     this.addChild( this.barometersContainer );
 
     this.addChild( new SceneChoiceNode( model, 10, 260 ) );
-
-
   }
 
   return inherit( Node, ControlsNode, {} );

@@ -1,8 +1,9 @@
 // Copyright 2002-2013, University of Colorado Boulder
 
 /**
- * Parent class for Pools with Faucets models
- * handles liquid changes(add,remove, faucets states)
+ * Parent type for models of pools with faucets. Handles liquid level changes
+ * based on the states of the input and output faucets.
+ *
  * @author Vasily Shakhov (Mlearner)
  */
 define( function( require ) {

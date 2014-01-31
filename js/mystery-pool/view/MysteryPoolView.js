@@ -20,7 +20,6 @@ define( function( require ) {
     this.resizeChoicePanel = function( width ) {
       mysteryPoolControls.resizeWidth( width );
     };
-
   }
 
   return inherit( SquarePoolView, MysteryPoolView );

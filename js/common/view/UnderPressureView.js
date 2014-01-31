@@ -32,7 +32,6 @@ define( function( require ) {
       Vector2.ZERO,
       70 ); //1m = 70px, (0,0) - top left corner
 
-
     //sky, earth and controls
     var commonNode = new CommonNode( model, mvt );
     this.addChild( commonNode );
@@ -45,14 +44,11 @@ define( function( require ) {
       self.addChild( scenes[name] );
     } );
 
-
     this.controlsNode = new ControlsNode( model );
     this.addChild( this.controlsNode );
 
-
     //resize Mystery choice
     scenes.Mystery.resizeChoicePanel( this.controlsNode.controlPanel.width / this.controlsNode.controlPanel.transform.matrix.scaleVector.x );
-
 
     model.currentSceneProperty.link( function( value, oldValue ) {
       scenes[value].visible = true;
@@ -61,12 +57,10 @@ define( function( require ) {
       }
     } );
 
-
     this.addChild( new UnderPressureRuler( model, mvt ) );
 
     //barometers
     this.addChild( new BarometersContainer( model, mvt, this.controlsNode.barometersContainer.visibleBounds ) );
-
   }
 
   return inherit( ScreenView, UnderPressureView );

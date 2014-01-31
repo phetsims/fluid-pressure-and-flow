@@ -95,7 +95,7 @@ define( function( require ) {
     //stack of masses
     this.stack = new ObservableArray();
 
-    PropertySet.call( this, {stackMass: 0} );
+    PropertySet.call( this, {stackMass: 0} ); //REVIEW: This is essentially the superconstructor call.  Any reason it's here and not at the top?
 
     this.masses = [
       new MassModel( self, 500, massOffset, self.MAX_Y - PASSAGE_SIZE, PASSAGE_SIZE, PASSAGE_SIZE ),
@@ -103,20 +103,21 @@ define( function( require ) {
       new MassModel( self, 250, massOffset + 2 * PASSAGE_SIZE + 2 * separation, self.MAX_Y - PASSAGE_SIZE / 2, PASSAGE_SIZE, PASSAGE_SIZE / 2 )
     ];
 
-    this.stack.addListeners( function( massModel ) {
-      self.stackMass = self.stackMass + massModel.mass;
-      var maxVelocity = 0;
-      //must equalize velocity of each mass
-      self.stack.forEach( function( mass ) {
-        maxVelocity = Math.max( mass.velocity, maxVelocity );
+    this.stack.addListeners(
+      function( massModel ) {
+        self.stackMass = self.stackMass + massModel.mass;
+        var maxVelocity = 0;
+        //must equalize velocity of each mass
+        self.stack.forEach( function( mass ) {
+          maxVelocity = Math.max( mass.velocity, maxVelocity );
+        } );
+        self.stack.forEach( function( mass ) {
+          mass.velocity = maxVelocity;
+        } );
+      },
+      function( massModel ) {
+        self.stackMass = self.stackMass - massModel.mass;
       } );
-      self.stack.forEach( function( mass ) {
-        mass.velocity = maxVelocity;
-      } );
-    }, function( massModel ) {
-      self.stackMass = self.stackMass - massModel.mass;
-    } );
-
   }
 
   return inherit( PropertySet, ChamberPoolModel, {
@@ -150,7 +151,7 @@ define( function( require ) {
         this.globalModel.leftDisplacement = maxY - (this.poolDimensions.leftOpening.y2 - this.LEFT_WATER_HEIGHT);
       }
       else {
-        //no masses, water must get to equilubrium
+        //no masses, water must get to equilibrium
         //move back toward zero displacement.  Note, this does not use correct newtonian dynamics, just a simple heuristic
         if ( this.globalModel.leftDisplacement >= 0 ) {
           this.globalModel.leftDisplacement -= this.globalModel.leftDisplacement / 10;

@@ -47,13 +47,11 @@ define( function( require ) {
     } ) );
     this.addChild( closeButton );
 
-
     var MetersRuler = new RulerNode( mvt.modelToViewX( 5 ), 50, mvt.modelToViewX( 1 ), ["0", "1", "2", "3", "4", "5"], units_metersString, {minorTicksPerMajorTick: 4, unitsFont: '12px Arial', rotation: Math.PI / 2 } );
     this.addChild( MetersRuler );
 
     var FeetsRuler = new RulerNode( mvt.modelToViewX( model.units.feetToMeters( 10 ) ), 50, mvt.modelToViewX( model.units.feetToMeters( 1 ) ), ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10"], units_feetsString, {minorTicksPerMajorTick: 4, unitsFont: '12px Arial', rotation: Math.PI / 2 } );
     this.addChild( FeetsRuler );
-
 
     closeButton.translation = new Vector2( -this.width + closeButton.width, -closeButton.height );
 
@@ -91,6 +89,5 @@ define( function( require ) {
       } ) );
   }
 
-  inherit( Node, UnderPressureRuler );
-  return UnderPressureRuler;
+  return inherit( Node, UnderPressureRuler );
 } );

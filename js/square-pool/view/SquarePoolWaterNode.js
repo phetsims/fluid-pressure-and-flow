@@ -32,8 +32,6 @@ define( function( require ) {
       viewHeight = maxHeight * model.volume / model.MAX_VOLUME;
       self.setRect( xMin, yMax - viewHeight, viewWidth, viewHeight );
     } );
-
-
   }
 
   return inherit( Rectangle, SquarePoolWaterNode );

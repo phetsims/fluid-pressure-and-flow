@@ -13,7 +13,6 @@ define( function( require ) {
   var FaucetModel = require( 'UNDER_PRESSURE/common/model/FaucetModel' );
   var LinearFunction = require( 'DOT/LinearFunction' );
 
-
   function TrapezoidPoolModel( globalModel ) {
     var model = this;
 
@@ -57,7 +56,6 @@ define( function( require ) {
       }
     };
 
-
     //key coordinates of complex figure
     this.verticles = {
       x1top: model.poolDimensions.leftChamber.centerTop - model.poolDimensions.leftChamber.widthTop / 2,
@@ -77,7 +75,6 @@ define( function( require ) {
     };
 
     PoolWithFaucetsModel.call( this, globalModel );
-
   }
 
   return inherit( PoolWithFaucetsModel, TrapezoidPoolModel, {

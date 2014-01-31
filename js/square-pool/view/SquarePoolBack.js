@@ -48,7 +48,6 @@ define( function( require ) {
       lineJoin: 'round'
     } ) );
 
-
     this.addChild( new UPFaucetNode( model.outputFaucet, 0, mvt ) );
 
     //white background for pool
@@ -57,7 +56,6 @@ define( function( require ) {
     } ) );
 
     this.addChild( new UPFaucetNode( model.inputFaucet, 3000, mvt ) );
-
   }
 
   return inherit( Node, SquarePoolBack );

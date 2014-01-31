@@ -13,12 +13,12 @@ define( function( require ) {
   var Line = require( 'SCENERY/nodes/Line' );
 
   function GridLinesNode( model, mvt, x1, y1, x2, y2, options ) {
-    //bounds of grid
+    //bounds of grid //REVIEW: Not sure what this comment means
     Node.call( this );
 
     options = _.extend( {
       metersStep: 1,
-      feetsStep: 1
+      feetsStep: 1  //REVIEW: Should be 'feetStep' instead of 'feetsStep'.
     }, options );
 
     var addLine = function( node, y ) {
@@ -43,9 +43,7 @@ define( function( require ) {
       metersGrid.visible = metersVisible;
       feetsGrid.visible = !metersVisible;
     } );
-
   }
-
 
   inherit( Node, GridLinesNode );
 

@@ -25,7 +25,6 @@ define( function( require ) {
   var fluidB = require( 'string!UNDER_PRESSURE/fluidB' );
   var fluidC = require( 'string!UNDER_PRESSURE/fluidC' );
 
-
   function MysteryPoolControls( model ) {
     var self = this;
     Node.call( this );
@@ -54,7 +53,6 @@ define( function( require ) {
       content.centerY = background.centerY;
     };
     this.resizeWidth( content.width + 10 );
-
 
     // items
     this.fluidDensityComboBox = new ComboBox( [
@@ -87,8 +85,6 @@ define( function( require ) {
         self[oldValue + "ComboBox"].visible = false;
       }
     } );
-
-
   }
 
   return inherit( Node, MysteryPoolControls );

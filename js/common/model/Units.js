@@ -74,7 +74,6 @@ define( function( require ) {
       }
     };
 
-
     this.feetToMeters = function( feets ) {
       return feets / this.FEET_PER_METER;
     };

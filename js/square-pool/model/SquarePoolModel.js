@@ -33,7 +33,6 @@ define( function( require ) {
       x2: 6.07,
       y2: self.globalModel.skyGroundBoundY + 3
     };
-
   }
 
   return inherit( PoolWithFaucetsModel, SquarePoolModel, {

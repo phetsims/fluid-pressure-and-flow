@@ -11,6 +11,7 @@ define( function( require ) {
   var inherit = require( 'PHET_CORE/inherit' );
   var FaucetNode = require( 'SCENERY_PHET/FaucetNode' );
 
+  //DOC This header doesn't match up with constructor.
   /**
    * @param {Faucet} faucet
    * @param {Vector2} location

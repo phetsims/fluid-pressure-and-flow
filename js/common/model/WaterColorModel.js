@@ -16,8 +16,7 @@ define( function( require ) {
   function WaterColourModel( model ) {
     var self = this;
 
-
-    //from java
+    //from java version
     var GAS_COLOR = new Color( 128, 128, 128 ),
       WATER_COLOR = new Color( 100, 214, 247 ),
       HONEY_COLOR = new Color( 255, 191, 0 );
@@ -37,7 +36,6 @@ define( function( require ) {
       waterColor: WATER_COLOR
     } );
 
-
     this.setWaterColor = function( newWaterColor ) {
       self.bottomColor = new Color( newWaterColor.red - 20, newWaterColor.green - 20, newWaterColor.blue - 20, BOTTOM_OPACITY );
       self.topColor = new Color( newWaterColor.red + 20, newWaterColor.green + 20, newWaterColor.blue + 20, TOP_OPACITY );
@@ -54,7 +52,6 @@ define( function( require ) {
       }
       self.setWaterColor( newWaterColor );
     } );
-
   }
 
   return inherit( PropertySet, WaterColourModel, {
@@ -62,6 +59,4 @@ define( function( require ) {
       this.waterColor.reset();
     }
   } );
-
 } );
-

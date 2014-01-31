@@ -28,7 +28,6 @@ define( function( require ) {
 
     Node.call( this, {align: "left"} );
 
-
     this.background = new Rectangle( -this.options.xMargin, -this.options.yMargin, contentNode.width + 2 * this.options.xMargin, contentNode.height + 2 * this.options.yMargin, this.options.cornerRadius, this.options.cornerRadius, {stroke: this.options.stroke, lineWidth: this.options.lineWidth, fill: this.options.fill} );
     this.addChild( this.background );
     this.addChild( contentNode, {y: 50} );
@@ -41,8 +40,6 @@ define( function( require ) {
 
     this.addChild( titleBackground );
     this.addChild( title );
-
-
   }
 
   return inherit( Node, NodeWithBorderAndTitle, {

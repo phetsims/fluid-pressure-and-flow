@@ -17,7 +17,6 @@ define( function( require ) {
   // Strings
   var simTitle = require( 'string!UNDER_PRESSURE/under-pressure.name' );
 
-
   var simOptions = {
     credits: {
       leadDesign: 'Sam Reid',

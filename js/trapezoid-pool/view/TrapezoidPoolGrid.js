@@ -60,7 +60,6 @@ define( function( require ) {
     model.globalModel.isGridVisibleProperty.link( function( value ) {
       self.visible = value;
     } );
-
   }
 
   return inherit( Node, SquarePoolGrid );

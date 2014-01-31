@@ -41,7 +41,6 @@ define( function( require ) {
       var leftY = mvt.modelToViewY( model.poolDimensions.leftOpening.y2 - model.LEFT_WATER_HEIGHT + displacement ),
         rightY = mvt.modelToViewY( model.poolDimensions.rightOpening.y2 - model.LEFT_WATER_HEIGHT - displacement / model.LENGTH_RATIO );
 
-
       waterShape = new Shape()
         .moveTo( leftOpeningX1, leftY )
         .lineTo( leftOpeningX1, leftOpeningY2 )
