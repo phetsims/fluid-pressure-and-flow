@@ -179,6 +179,7 @@ define( function( require ) {
       {
         title: options.title,
         fill: options.fill,
+        stroke: 'gray',
         font: new PhetFont( { size: 19 } ),
         initiallyOpen: true,
         minWidth: 250,

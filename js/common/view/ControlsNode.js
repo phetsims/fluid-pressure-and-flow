@@ -98,7 +98,7 @@ define( function( require ) {
     // add reset button
     this.addChild( new ResetAllButton( function() { model.reset(); }, { scale: 0.5, x: 730, y: model.height - 25} ) );
 
-    this.barometersContainer = new Rectangle( 0, 0, 100, 130, 10, 10, {stroke: "black", lineWidth: 1, fill: "#f2fa6a", x: 520, y: 5} );
+    this.barometersContainer = new Rectangle( 0, 0, 100, 130, 10, 10, {stroke: "gray", lineWidth: 1, fill: "#f2fa6a", x: 520, y: 5} );
     this.addChild( this.barometersContainer );
 
     this.addChild( new SceneChoiceNode( model, 10, 260 ) );
