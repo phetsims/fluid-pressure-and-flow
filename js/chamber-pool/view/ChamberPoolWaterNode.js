@@ -66,7 +66,7 @@ define( function( require ) {
       waterPath.shape = waterShape;
     } );
 
-    model.globalModel.waterColorModel.waterColorProperty.link( function(  ) {
+    model.globalModel.waterColorModel.waterColorProperty.link( function() {
       waterPath.fill = new LinearGradient( 0, yMax, 0, yMax - maxHeight )
         .addColorStop( 0, model.globalModel.waterColorModel.bottomColor )
         .addColorStop( 1, model.globalModel.waterColorModel.topColor );

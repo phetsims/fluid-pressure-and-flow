@@ -108,11 +108,11 @@ define( function( require ) {
       var maxVelocity = 0;
       //must equalize velocity of each mass
       self.stack.forEach( function( mass ) {
-        maxVelocity = Math.max(mass.velocity,maxVelocity);
+        maxVelocity = Math.max( mass.velocity, maxVelocity );
       } );
       self.stack.forEach( function( mass ) {
         mass.velocity = maxVelocity;
-      });
+      } );
     }, function( massModel ) {
       self.stackMass = self.stackMass - massModel.mass;
     } );

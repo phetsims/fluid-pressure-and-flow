@@ -53,7 +53,7 @@ define( function( require ) {
       content.centerX = background.centerX;
       content.centerY = background.centerY;
     };
-    this.resizeWidth(content.width + 10);
+    this.resizeWidth( content.width + 10 );
 
 
     // items

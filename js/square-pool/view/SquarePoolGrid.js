@@ -26,7 +26,7 @@ define( function( require ) {
       fontWeight: "bold"
     };
 
-    this.addChild( new GridLinesNode( model.globalModel, mvt,model.poolDimensions.x1, model.poolDimensions.y1, model.poolDimensions.x2, model.poolDimensions.y2 + 0.3 ) );
+    this.addChild( new GridLinesNode( model.globalModel, mvt, model.poolDimensions.x1, model.poolDimensions.y1, model.poolDimensions.x2, model.poolDimensions.y2 + 0.3 ) );
 
     var metersLabels = new Node();
     for ( var i = 0; i < 4; i++ ) {
@@ -36,7 +36,7 @@ define( function( require ) {
       }
 
       metersLabels.addChild( new Text( StringUtils.format( pattern, i ), _.extend( {
-        right: mvt.modelToViewX( model.poolDimensions.x1 )-8,
+        right: mvt.modelToViewX( model.poolDimensions.x1 ) - 8,
         centerY: mvt.modelToViewY( model.globalModel.skyGroundBoundY + i )
       }, fontOptions ) ) );
     }
@@ -44,7 +44,7 @@ define( function( require ) {
     var feetsLabels = new Node();
     for ( i = 0; i < 11; i++ ) {
       feetsLabels.addChild( new Text( StringUtils.format( feetsStringPattern, i ), _.extend( {
-        right: mvt.modelToViewX( model.poolDimensions.x1 )-8,
+        right: mvt.modelToViewX( model.poolDimensions.x1 ) - 8,
         centerY: mvt.modelToViewY( model.globalModel.skyGroundBoundY + model.globalModel.units.feetToMeters( i ) )
       }, fontOptions ) ) );
     }

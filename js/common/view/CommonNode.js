@@ -16,7 +16,7 @@ define( function( require ) {
     Node.call( this );
 
     //sky
-    var sky = new Rectangle( -2000, -1000, 5000, 1000+mvt.modelToViewY( model.skyGroundBoundY ) );
+    var sky = new Rectangle( -2000, -1000, 5000, 1000 + mvt.modelToViewY( model.skyGroundBoundY ) );
 
     this.addChild( sky );
 
@@ -32,7 +32,7 @@ define( function( require ) {
     } );
 
     //earth
-    this.addChild( new Rectangle( -2000, mvt.modelToViewY( model.skyGroundBoundY ), 5000, model.height - mvt.modelToViewY( model.skyGroundBoundY )+1000, {
+    this.addChild( new Rectangle( -2000, mvt.modelToViewY( model.skyGroundBoundY ), 5000, model.height - mvt.modelToViewY( model.skyGroundBoundY ) + 1000, {
       fill: "#93774c"
     } ) );
 

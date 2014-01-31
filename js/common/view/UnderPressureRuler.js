@@ -27,27 +27,25 @@ define( function( require ) {
     Node.call( this, { cursor: "pointer", renderer: 'svg', cssTransform: true } );
 
     //close button
-    var closeButton = new Node({cursor:'pointer'});
+    var closeButton = new Node( {cursor: 'pointer'} );
 
     // configure the button shape
-    var buttonShape = new Path( Shape.roundRectangle( 0, 0, 15, 15, 1.5, 1.5), { fill: 'rgb(255, 85, 0 )', stroke: 'black', lineWidth: 0.5 } );
-    closeButton.addChild(buttonShape);
+    var buttonShape = new Path( Shape.roundRectangle( 0, 0, 15, 15, 1.5, 1.5 ), { fill: 'rgb(255, 85, 0 )', stroke: 'black', lineWidth: 0.5 } );
+    closeButton.addChild( buttonShape );
     var thisButton = new Path( new Shape()
-      .moveTo( -4 , -4 )
-      .lineTo( 4, 4)
+      .moveTo( -4, -4 )
+      .lineTo( 4, 4 )
       .moveTo( 4, -4 )
-      .lineTo( -4, 4 ), {stroke:'white',centerX:closeButton.centerX,centerY:closeButton.centerY,lineWidth:2});
+      .lineTo( -4, 4 ), {stroke: 'white', centerX: closeButton.centerX, centerY: closeButton.centerY, lineWidth: 2} );
     // click to toggle
 
-    closeButton.addChild(thisButton);
+    closeButton.addChild( thisButton );
     closeButton.addInputListener( new ButtonListener( {
       fire: function() {
         model.isRulerVisible = false;
       }
     } ) );
-    this.addChild(closeButton);
-
-
+    this.addChild( closeButton );
 
 
     var MetersRuler = new RulerNode( mvt.modelToViewX( 5 ), 50, mvt.modelToViewX( 1 ), ["0", "1", "2", "3", "4", "5"], units_metersString, {minorTicksPerMajorTick: 4, unitsFont: '12px Arial', rotation: Math.PI / 2 } );
@@ -57,7 +55,7 @@ define( function( require ) {
     this.addChild( FeetsRuler );
 
 
-    closeButton.translation = new Vector2(-this.width+closeButton.width,-closeButton.height);
+    closeButton.translation = new Vector2( -this.width + closeButton.width, -closeButton.height );
 
     model.isRulerVisibleProperty.link( function( isVisible ) {
       self.visible = isVisible;

@@ -50,8 +50,8 @@ define( function( require ) {
       .lineTo( mvt.modelToViewX( model.verticles.x4bottom ) + 2, mvt.modelToViewY( model.poolDimensions.leftChamber.y + model.poolDimensions.leftChamber.height ) + 2 )
       .lineTo( mvt.modelToViewX( model.verticles.x4top ) + 2, mvt.modelToViewY( model.poolDimensions.leftChamber.y ) )
       .moveTo( mvt.modelToViewX( model.verticles.x2top ) + 2, mvt.modelToViewY( model.poolDimensions.leftChamber.y ) )
-      .lineTo( mvt.modelToViewX( model.verticles.x1middle ) + 2, mvt.modelToViewY( model.verticles.ymiddle )-1 )
-      .lineTo( mvt.modelToViewX( model.verticles.x2middle ) - 2, mvt.modelToViewY( model.verticles.ymiddle )-1 )
+      .lineTo( mvt.modelToViewX( model.verticles.x1middle ) + 2, mvt.modelToViewY( model.verticles.ymiddle ) - 1 )
+      .lineTo( mvt.modelToViewX( model.verticles.x2middle ) - 2, mvt.modelToViewY( model.verticles.ymiddle ) - 1 )
       .lineTo( mvt.modelToViewX( model.verticles.x3top ) - 2, mvt.modelToViewY( model.poolDimensions.leftChamber.y ) );
 
     this.addChild( new Path( shape, {

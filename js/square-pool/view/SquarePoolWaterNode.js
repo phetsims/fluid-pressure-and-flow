@@ -28,7 +28,7 @@ define( function( require ) {
         .addColorStop( 1, model.globalModel.waterColorModel.topColor );
     } );
 
-    model.volumeProperty.link( function(  ) {
+    model.volumeProperty.link( function() {
       viewHeight = maxHeight * model.volume / model.MAX_VOLUME;
       self.setRect( xMin, yMax - viewHeight, viewWidth, viewHeight );
     } );

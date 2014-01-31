@@ -50,7 +50,7 @@ define( function( require ) {
         self.moveToFront();
         massModel.isDragging = true;
       },
-      end: function(  ) {
+      end: function() {
         var newPosition = self.translation;
         newPosition.x = mvt.viewToModelX( newPosition.x );
         newPosition.y = mvt.viewToModelX( newPosition.y );
