@@ -12,6 +12,7 @@ define( function( require ) {
   var Vector2 = require( 'DOT/Vector2' );
   var ButtonListener = require( 'SCENERY/input/ButtonListener' );
 
+  //REVIEW: If possible, please replace this with InOutRadioButton from SUN for standard behavior.
   function SingleChoiceNode( property, value, icon, options ) {
 
     var self = this;
@@ -26,7 +27,7 @@ define( function( require ) {
     Node.call( this, options );
 
     var shadow = new Rectangle( options.shadowOffset, options.shadowOffset, icon.width, icon.height, 5, 5, {fill: "black"} );
-    var border = new Rectangle( 0, 0, icon.width, icon.height, 3, 3, {stroke: "white", lineWidth: 4} );
+    var border = new Rectangle( 0, 0, icon.width, icon.height, 3, 3, {stroke: "white", lineWidth: 3} );
 
     this.addChild( shadow );
     this.addChild( border );
