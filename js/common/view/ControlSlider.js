@@ -174,8 +174,12 @@ define( function( require ) {
     minusButton.right = valueField.left - 10;
     minusButton.centerY = valueField.centerY;
 
+    var scale = 0.65;
+    this.accordionContent = new Node();
+    this.accordionContent.addChild( this.content );
 
-    var chargeMeterBox = new AccordionBox( this.content,
+
+    var chargeMeterBox = new AccordionBox( this.accordionContent,
       {
         title: options.title,
         fill: options.fill,
@@ -186,7 +190,7 @@ define( function( require ) {
         contentPosition: 'center',
         titlePosition: 'left',
         buttonPosition: 'left',
-        scale: 0.65,
+        scale: scale,
         cornerRadius: 10,
         controlButtonInsetX: 8
       } );
@@ -195,10 +199,10 @@ define( function( require ) {
 
     //question mark, show if unknown property
     this.questionMark = new Node( {visible: false} );
-    this.questionMark.addChild( new Text( "?", { font: new PhetFont( 40 )} ) );
-    this.questionMark.centerX = track.centerX;
+    this.questionMark.addChild( new Text( "?", { font: new PhetFont( 80 )} ) );
+    this.questionMark.centerX = chargeMeterBox.width / 2;
     this.questionMark.top = this.content.top;
-    this.addChild( this.questionMark );
+    this.accordionContent.addChild( this.questionMark );
 
     trackProperty.link( function updateProperty( value ) {
       valueLabel.text = getPropertyStringFunction();
