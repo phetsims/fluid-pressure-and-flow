@@ -94,6 +94,10 @@ define( function( require ) {
       textBackground.visible = (text.text !== '-');
     };
 
+    model.currentSceneProperty.link(function() {
+      thisBarometerStatement.set( model.getPressureAtCoords( mvt.viewToModelX( self.centerX ), mvt.viewToModelY( self.bottom ) ) );
+    });
+
     model.gravityProperty.link( function() {
       thisBarometerStatement.set( model.getPressureAtCoords( mvt.viewToModelX( self.centerX ), mvt.viewToModelY( self.bottom ) ) );
     } );
