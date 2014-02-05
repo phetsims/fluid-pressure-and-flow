@@ -12,9 +12,7 @@ define( function( require ) {
   var LinearGradient = require( 'SCENERY/util/LinearGradient' );
   var Rectangle = require( 'SCENERY/nodes/Rectangle' );
 
-  //REVIEW This doesn't have much that is common, perhaps it did at one time.
-  //Consider renaming (constructor and file) to something like 'BackgroundNode'.
-  function CommonNode( model, mvt ) {
+  function BackgroundNode( model, mvt ) {
     Node.call( this );
 
     //sky
@@ -40,5 +38,5 @@ define( function( require ) {
 
   }
 
-  return inherit( Node, CommonNode, {} );
+  return inherit( Node, BackgroundNode, {} );
 } );

@@ -7,7 +7,7 @@
 define( function( require ) {
   'use strict';
   var inherit = require( 'PHET_CORE/inherit' );
-  var CommonNode = require( 'UNDER_PRESSURE/common/view/CommonNode' );
+  var BackgroundNode = require( 'UNDER_PRESSURE/common/view/BackgroundNode' );
   var ScreenView = require( 'JOIST/ScreenView' );
   var BarometersContainer = require( 'UNDER_PRESSURE/common/view/BarometersContainer' );
   var UnderPressureRuler = require( 'UNDER_PRESSURE/common/view/UnderPressureRuler' );
@@ -33,9 +33,9 @@ define( function( require ) {
       70 ); //1m = 70px, (0,0) - top left corner
 
     //sky, earth and controls
-    var commonNode = new CommonNode( model, mvt );
-    this.addChild( commonNode );
-    commonNode.moveToBack();
+    var backgroundNode = new BackgroundNode( model, mvt );
+    this.addChild( backgroundNode );
+    backgroundNode.moveToBack();
 
     var scenes = {};
     model.scenes.forEach( function( name ) {
