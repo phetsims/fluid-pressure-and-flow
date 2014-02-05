@@ -11,6 +11,7 @@ define( function( require ) {
   var inherit = require( 'PHET_CORE/inherit' );
   var SquarePoolModel = require( 'UNDER_PRESSURE/square-pool/model/SquarePoolModel' );
   var Property = require( 'AXON/Property' );
+  var PropertySet = require( 'AXON/PropertySet' );
   var Color = require( 'SCENERY/util/Color' );
 
   function MysteryPoolModel( globalModel ) {
@@ -71,6 +72,10 @@ define( function( require ) {
     reset: function() {
       this.fluidDensityCustom.reset();
       this.gravityCustom.reset();
+      PropertySet.prototype.reset.call( this );
+      this.globalModel.barometersPositions.forEach( function( position ) {
+        position.reset();
+      } );
     }
   } );
 } );
