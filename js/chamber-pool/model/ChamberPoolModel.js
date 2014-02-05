@@ -17,6 +17,7 @@ define( function( require ) {
 
   function ChamberPoolModel( globalModel ) {
     var self = this;
+    PropertySet.call( this, {stackMass: 0} );
 
     this.globalModel = globalModel;
 
@@ -94,8 +95,6 @@ define( function( require ) {
 
     //stack of masses
     this.stack = new ObservableArray();
-
-    PropertySet.call( this, {stackMass: 0} ); //REVIEW: This is essentially the superconstructor call.  Any reason it's here and not at the top?
 
     this.masses = [
       new MassModel( self, 500, massOffset, self.MAX_Y - PASSAGE_SIZE, PASSAGE_SIZE, PASSAGE_SIZE ),

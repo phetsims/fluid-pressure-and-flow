@@ -12,14 +12,13 @@ define( function( require ) {
   var PropertySet = require( 'AXON/PropertySet' );
   var inherit = require( 'PHET_CORE/inherit' );
 
-  //REVIEW Constructor name doesn't match file name.
   //DOC scale parameter not documented in constructor
   /**
    * @param {Vector2} location center of output pipe
    * @param {Number} maxFlowRate L/sec
    * @constructor
    */
-  function Faucet( location, maxFlowRate, scale ) {
+  function FaucetModel( location, maxFlowRate, scale ) {
     var thisFaucet = this;
 
     thisFaucet.location = location;
@@ -40,7 +39,7 @@ define( function( require ) {
     } );
   }
 
-  return inherit( PropertySet, Faucet, {
+  return inherit( PropertySet, FaucetModel, {
     reset: function() {
       this.flowRateProperty.reset();
       this.enabledProperty.reset();
