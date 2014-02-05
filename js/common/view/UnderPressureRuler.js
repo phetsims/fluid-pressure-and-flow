@@ -20,7 +20,7 @@ define( function( require ) {
 
   // Resources
   var units_metersString = require( 'string!UNDER_PRESSURE/m' );
-  var units_feetsString = require( 'string!UNDER_PRESSURE/ft' );
+  var units_feetString = require( 'string!UNDER_PRESSURE/ft' );
 
   function UnderPressureRuler( model, mvt ) {
     var self = this;
@@ -50,8 +50,8 @@ define( function( require ) {
     var MetersRuler = new RulerNode( mvt.modelToViewX( 5 ), 50, mvt.modelToViewX( 1 ), ['0', '1', '2', '3', '4', '5'], units_metersString, {minorTicksPerMajorTick: 4, unitsFont: '12px Arial', rotation: Math.PI / 2 } );
     this.addChild( MetersRuler );
 
-    var FeetsRuler = new RulerNode( mvt.modelToViewX( model.units.feetToMeters( 10 ) ), 50, mvt.modelToViewX( model.units.feetToMeters( 1 ) ), ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10'], units_feetsString, {minorTicksPerMajorTick: 4, unitsFont: '12px Arial', rotation: Math.PI / 2 } );
-    this.addChild( FeetsRuler );
+    var FeetRuler = new RulerNode( mvt.modelToViewX( model.units.feetToMeters( 10 ) ), 50, mvt.modelToViewX( model.units.feetToMeters( 1 ) ), ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10'], units_feetString, {minorTicksPerMajorTick: 4, unitsFont: '12px Arial', rotation: Math.PI / 2 } );
+    this.addChild( FeetRuler );
 
     closeButton.translation = new Vector2( -this.width + closeButton.width, -closeButton.height );
 
@@ -62,11 +62,11 @@ define( function( require ) {
     model.measureUnitsProperty.link( function( unit ) {
       if ( unit === 'english' ) {
         MetersRuler.visible = false;
-        FeetsRuler.visible = true;
+        FeetRuler.visible = true;
       }
       else {
         MetersRuler.visible = true;
-        FeetsRuler.visible = false;
+        FeetRuler.visible = false;
       }
     } );
 

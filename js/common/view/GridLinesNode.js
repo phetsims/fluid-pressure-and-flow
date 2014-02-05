@@ -13,12 +13,11 @@ define( function( require ) {
   var Line = require( 'SCENERY/nodes/Line' );
 
   function GridLinesNode( model, mvt, x1, y1, x2, y2, options ) {
-    //bounds of grid //REVIEW: Not sure what this comment means
     Node.call( this );
 
     options = _.extend( {
       metersStep: 1,
-      feetsStep: 1  //REVIEW: Should be 'feetStep' instead of 'feetsStep'.
+      feetStep: 1
     }, options );
 
     var addLine = function( node, y ) {
@@ -30,18 +29,18 @@ define( function( require ) {
     for ( var i = mvt.modelToViewY( y1 ); i <= mvt.modelToViewY( y2 ); i += mvt.modelToViewY( options.metersStep ) ) {
       addLine( metersGrid, i );
     }
-    var feetsGrid = new Node();
-    for ( i = mvt.modelToViewY( y1 ); i <= mvt.modelToViewY( y2 ); i += mvt.modelToViewY( model.units.feetToMeters( options.feetsStep ) ) ) {
-      addLine( feetsGrid, i );
+    var feetGrid = new Node();
+    for ( i = mvt.modelToViewY( y1 ); i <= mvt.modelToViewY( y2 ); i += mvt.modelToViewY( model.units.feetToMeters( options.feetStep ) ) ) {
+      addLine( feetGrid, i );
     }
 
-    this.addChild( feetsGrid );
+    this.addChild( feetGrid );
     this.addChild( metersGrid );
 
     model.measureUnitsProperty.link( function( value ) {
       var metersVisible = (value !== 'english');
       metersGrid.visible = metersVisible;
-      feetsGrid.visible = !metersVisible;
+      feetGrid.visible = !metersVisible;
     } );
   }
 

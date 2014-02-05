@@ -15,7 +15,7 @@ define( function( require ) {
 
   var metersStringPattern = require( 'string!UNDER_PRESSURE/readoutMeters' );
   var meterStringPattern = require( 'string!UNDER_PRESSURE/readoutMeter' );
-  var feetsStringPattern = require( 'string!UNDER_PRESSURE/readoutFeet' );
+  var feetStringPattern = require( 'string!UNDER_PRESSURE/readoutFeet' );
 
   function SquarePoolGrid( model, mvt ) {
     var self = this;
@@ -41,21 +41,21 @@ define( function( require ) {
       }, fontOptions ) ) );
     }
 
-    var feetsLabels = new Node();
+    var feetLabels = new Node();
     for ( i = 0; i < 11; i++ ) {
-      feetsLabels.addChild( new Text( StringUtils.format( feetsStringPattern, i ), _.extend( {
+      feetLabels.addChild( new Text( StringUtils.format( feetStringPattern, i ), _.extend( {
         right: mvt.modelToViewX( model.poolDimensions.x1 ) - 8,
         centerY: mvt.modelToViewY( model.globalModel.skyGroundBoundY + model.globalModel.units.feetToMeters( i ) )
       }, fontOptions ) ) );
     }
 
     this.addChild( metersLabels );
-    this.addChild( feetsLabels );
+    this.addChild( feetLabels );
 
     model.globalModel.measureUnitsProperty.link( function( value ) {
       var metersVisible = (value !== 'english');
       metersLabels.visible = metersVisible;
-      feetsLabels.visible = !metersVisible;
+      feetLabels.visible = !metersVisible;
     } );
 
     model.globalModel.isGridVisibleProperty.link( function( value ) {
