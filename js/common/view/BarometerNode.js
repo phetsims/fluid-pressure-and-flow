@@ -75,7 +75,6 @@ define( function( require ) {
       //Translate on drag events
       translate: function( args ) {
         barometerPositionProperty.set( args.position );
-        thisBarometerStatement.set( model.getPressureAtCoords( mvt.viewToModelX( self.centerX ), mvt.viewToModelY( self.bottom ) ) );
       },
       end: function() {
         if ( containerBounds.intersectsBounds( self.visibleBounds ) ) {
@@ -94,9 +93,14 @@ define( function( require ) {
       textBackground.visible = (text.text !== '-');
     };
 
-    model.currentSceneProperty.link(function() {
+
+    barometerPositionProperty.link( function( position ) {
+      thisBarometerStatement.set( model.getPressureAtCoords( mvt.viewToModelX( position.x + self.width / 2 ), mvt.viewToModelY( position.y + self.height ) ) );
+    } );
+
+    model.currentSceneProperty.link( function() {
       thisBarometerStatement.set( model.getPressureAtCoords( mvt.viewToModelX( self.centerX ), mvt.viewToModelY( self.bottom ) ) );
-    });
+    } );
 
     model.gravityProperty.link( function() {
       thisBarometerStatement.set( model.getPressureAtCoords( mvt.viewToModelX( self.centerX ), mvt.viewToModelY( self.bottom ) ) );
