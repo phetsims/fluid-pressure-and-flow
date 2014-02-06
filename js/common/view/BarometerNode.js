@@ -93,14 +93,15 @@ define( function( require ) {
       textBackground.visible = (text.text !== '-');
     };
 
+    var dy = barometerPositionProperty.get().y - self.bottom;
+   //we can't use  self.centerX,self.bottom because these vars not updated yet
+    barometerPositionProperty.link(function(position) {
+      thisBarometerStatement.set( model.getPressureAtCoords( mvt.viewToModelX( position.x ), mvt.viewToModelY( position.y-dy) ) );
+    });
 
-    barometerPositionProperty.link( function( position ) {
-      thisBarometerStatement.set( model.getPressureAtCoords( mvt.viewToModelX( position.x + self.width / 2 ), mvt.viewToModelY( position.y + self.height ) ) );
-    } );
-
-    model.currentSceneProperty.link( function() {
+    model.currentSceneProperty.link(function() {
       thisBarometerStatement.set( model.getPressureAtCoords( mvt.viewToModelX( self.centerX ), mvt.viewToModelY( self.bottom ) ) );
-    } );
+    });
 
     model.gravityProperty.link( function() {
       thisBarometerStatement.set( model.getPressureAtCoords( mvt.viewToModelX( self.centerX ), mvt.viewToModelY( self.bottom ) ) );
