@@ -15,8 +15,8 @@ define( function( require ) {
   function BarometersContainer( model, mvt, barometersContainerBounds ) {
     var self = this;
     Node.call( this );
-    model.barometersStatement.forEach( function( positionProperty, index ) {
-      self.addChild( new BarometerNode( model, mvt, positionProperty, model.barometersPositions[index], barometersContainerBounds ) );
+    model.barometers.forEach( function( barometer ) {
+      self.addChild( new BarometerNode( model, mvt, barometer.value, barometer.position, barometersContainerBounds ) );
     } );
   }
 

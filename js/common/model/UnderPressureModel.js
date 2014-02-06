@@ -75,15 +75,13 @@ define( function( require ) {
     this.units = new Units( self );
     this.getStandardAirPressure = new LinearFunction( 0, this.units.feetToMeters( 500 ), this.EARTH_AIR_PRESSURE, this.EARTH_AIR_PRESSURE_AT_500_FT );
 
-    //REVIEW: I don't understand what 'barometersStatement' is.  It might be an issue with the
-    //name, but I looked through the code for a while and am still unclear.  Please add some
-    //documentation and/or change the name.  Also, if it is an array of things that need to
-    //match up for each barometer, consider having one array of composite objects.
-    this.barometersStatement = [];
-    this.barometersPositions = [];
+    this.barometers = [];
+
     for ( var i = 0; i < 4; i++ ) {
-      this.barometersStatement.push( new Property( 0 ) );
-      this.barometersPositions.push( new Property( new Vector2( 570, 50 ) ) );
+      this.barometers.push( {
+        value: new Property( 0 ),
+        position: new Property( new Vector2( 570, 50 ) )
+      } );
     }
 
     this.currentSceneProperty.link( function() {
@@ -106,8 +104,8 @@ define( function( require ) {
           self.sceneModels[model].reset();
         }
       }
-      this.barometersPositions.forEach( function( position ) {
-        position.reset();
+      this.barometers.forEach( function( barometer ) {
+        barometer.position.reset();
       } );
     },
 
