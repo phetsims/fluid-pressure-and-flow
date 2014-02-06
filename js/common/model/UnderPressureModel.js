@@ -36,7 +36,7 @@ define( function( require ) {
     this.WATER_DENSITY = 1000;
 
     this.MIN_PRESSURE = 0;
-    this.MAX_PRESSURE = 202000;//kPa
+    this.MAX_PRESSURE = 350000;//kPa
 
     // dimensions of the model's space
     this.width = width;
