@@ -9,7 +9,7 @@ define( function( require ) {
   var Node = require( 'SCENERY/nodes/Node' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Image = require( 'SCENERY/nodes/Image' );
-  var SingleChoiceNode = require( 'UNDER_PRESSURE/common/view/SingleChoiceNode' );
+  var InOutRadioButton = require( 'SUN/InOutRadioButton' );
   var Dimension2 = require( 'DOT/Dimension2' );
 
   var ICON_SIZE = new Dimension2( 60, 40 );
@@ -30,7 +30,9 @@ define( function( require ) {
     model.scenes.forEach( function( name, index ) {
       var iconImage = new Image( iconImages[name + 'PoolIcon'] );
       iconImage.scale( ICON_SIZE.width / iconImage.width, ICON_SIZE.height / iconImage.height );
-      self.addChild( new SingleChoiceNode( model.currentSceneProperty, name, iconImage, {y: dy * index} ) );
+      var iconButton = new InOutRadioButton( model.currentSceneProperty, name, iconImage, {cornerRadius:5} );
+      iconButton.translate( 0, dy * index );
+      self.addChild( iconButton );
     } );
   }
 
