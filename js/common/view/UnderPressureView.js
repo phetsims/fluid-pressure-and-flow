@@ -11,9 +11,22 @@ define( function( require ) {
   var ScreenView = require( 'JOIST/ScreenView' );
   var BarometersContainer = require( 'UNDER_PRESSURE/common/view/BarometersContainer' );
   var UnderPressureRuler = require( 'UNDER_PRESSURE/common/view/UnderPressureRuler' );
-  var ControlsNode = require( 'UNDER_PRESSURE/common/view/ControlsNode' );
   var ModelViewTransform2 = require( 'PHETCOMMON/view/ModelViewTransform2' );
   var Vector2 = require( 'DOT/Vector2' );
+  var ControlPanel = require( 'UNDER_PRESSURE/common/view/ControlPanel' );
+  var ControlSlider = require( 'UNDER_PRESSURE/common/view/ControlSlider' );
+  var SceneChoiceNode = require( 'UNDER_PRESSURE/common/view/SceneChoiceNode' );
+  var ResetAllButton = require( 'SCENERY_PHET/ResetAllButton' );
+  var Rectangle = require( 'SCENERY/nodes/Rectangle' );
+
+  var fluidDensityString = require( 'string!UNDER_PRESSURE/fluidDensity' );
+  var gravityString = require( 'string!UNDER_PRESSURE/gravity' );
+  var EarthString = require( 'string!UNDER_PRESSURE/earth' );
+  var MarsString = require( 'string!UNDER_PRESSURE/mars' );
+  var JupiterString = require( 'string!UNDER_PRESSURE/jupiter' );
+  var GasolineString = require( 'string!UNDER_PRESSURE/gasoline' );
+  var WaterString = require( 'string!UNDER_PRESSURE/water' );
+  var HoneyString = require( 'string!UNDER_PRESSURE/honey' );
 
   var SceneView = {
     SquarePoolView: require( 'UNDER_PRESSURE/square-pool/view/SquarePoolView' ),
@@ -21,7 +34,6 @@ define( function( require ) {
     ChamberPoolView: require( 'UNDER_PRESSURE/chamber-pool/view/ChamberPoolView' ),
     MysteryPoolView: require( 'UNDER_PRESSURE/mystery-pool/view/MysteryPoolView' )
   };
-
 
   function UnderPressureView( model ) {
     var self = this;
@@ -44,11 +56,83 @@ define( function( require ) {
       self.addChild( scenes[name] );
     } );
 
-    this.controlsNode = new ControlsNode( model );
-    this.addChild( this.controlsNode );
+
+    //control panel
+    this.controlPanel = new ControlPanel( model, 625, 5 );
+    this.addChild( this.controlPanel );
+
+    //control sliders
+    this.fluidDensitySlider = new ControlSlider( model, model.fluidDensityProperty, model.units.getFluidDensityString, model.fluidDensityRange, {
+      x: 565,
+      y: 250,
+      title: fluidDensityString,
+      ticks: [
+        {
+          title: WaterString,
+          value: 1000
+        },
+        {
+          title: GasolineString,
+          value: model.fluidDensityRange.min
+        },
+        {
+          title: HoneyString,
+          value: model.fluidDensityRange.max
+        }
+      ]
+    } );
+    this.addChild( this.fluidDensitySlider );
+
+    this.gravitySlider = new ControlSlider( model, model.gravityProperty, model.units.getGravityString, model.gravityRange, {
+      x: 565,
+      y: this.fluidDensitySlider.bottom+10,
+      title: gravityString,
+      decimals: 1,
+      ticks: [
+        {
+          title: EarthString,
+          value: 9.8
+        },
+        {
+          title: MarsString,
+          value: model.gravityRange.min
+        },
+        {
+          title: JupiterString,
+          value: model.gravityRange.max
+        }
+      ]
+    } );
+    this.addChild( this.gravitySlider );
+
+    model.mysteryChoiceProperty.link( function( choice, oldChoice ) {
+      self[choice + 'Slider'].disable();
+      if ( oldChoice ) {
+        self[oldChoice + 'Slider'].enable();
+      }
+    } );
+
+    model.currentSceneProperty.link( function( currentScene ) {
+      if ( currentScene === 'Mystery' ) {
+        self[model.mysteryChoice + 'Slider'].disable();
+      }
+      else {
+        self.gravitySlider.enable();
+        self.fluidDensitySlider.enable();
+      }
+    } );
+
+    // add reset button
+    this.addChild( new ResetAllButton( function() { model.reset(); }, { scale: 0.5, x: 725, y: model.height - 25} ) );
+
+    this.barometersContainer = new Rectangle( 0, 0, 100, 130, 10, 10, {stroke: 'gray', lineWidth: 1, fill: '#f2fa6a', x: 520, y: 5} );
+    this.addChild( this.barometersContainer );
+
+    this.addChild( new SceneChoiceNode( model, 10, 260 ) );
+
 
     //resize Mystery choice
-    scenes.Mystery.resizeChoicePanel( this.controlsNode.controlPanel.width / this.controlsNode.controlPanel.transform.matrix.scaleVector.x );
+    scenes.Mystery.resizeChoicePanel( this.controlPanel.width / this.controlPanel.transform.matrix.scaleVector.x );
 
     model.currentSceneProperty.link( function( value, oldValue ) {
       scenes[value].visible = true;
@@ -60,7 +144,7 @@ define( function( require ) {
     this.addChild( new UnderPressureRuler( model, mvt ) );
 
     //barometers
-    this.addChild( new BarometersContainer( model, mvt, this.controlsNode.barometersContainer.visibleBounds ) );
+    this.addChild( new BarometersContainer( model, mvt, this.barometersContainer.visibleBounds ) );
   }
 
   return inherit( ScreenView, UnderPressureView );
