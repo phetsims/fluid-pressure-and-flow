@@ -23,6 +23,8 @@ define( function( require ) {
   var WaterString = require( 'string!UNDER_PRESSURE/water' );
   var HoneyString = require( 'string!UNDER_PRESSURE/honey' );
 
+
+
   //REVIEW: The way this is done is quite unusual, and different from most
   //PhET sims.  Rather than having a separate node that groups together
   //these unrelated nodes, they should just be added to the UnderPressureView
@@ -38,9 +40,30 @@ define( function( require ) {
     this.addChild( this.controlPanel );
 
     //control sliders
+    this.fluidDensitySlider = new ControlSlider( model, model.fluidDensityProperty, model.units.getFluidDensityString, model.fluidDensityRange, {
+      x: 565,
+      y: 250,
+      title: fluidDensityString,
+      ticks: [
+        {
+          title: WaterString,
+          value: 1000
+        },
+        {
+          title: GasolineString,
+          value: model.fluidDensityRange.min
+        },
+        {
+          title: HoneyString,
+          value: model.fluidDensityRange.max
+        }
+      ]
+    } );
+    this.addChild( this.fluidDensitySlider );
+
     this.gravitySlider = new ControlSlider( model, model.gravityProperty, model.units.getGravityString, model.gravityRange, {
-      x: 599,
-      y: 360,
+      x: 565,
+      y: this.fluidDensitySlider.bottom+10,
       title: gravityString,
       decimals: 1,
       ticks: [
@@ -60,26 +83,7 @@ define( function( require ) {
     } );
     this.addChild( this.gravitySlider );
 
-    this.fluidDensitySlider = new ControlSlider( model, model.fluidDensityProperty, model.units.getFluidDensityString, model.fluidDensityRange, {
-      x: 599,
-      y: 260,
-      title: fluidDensityString,
-      ticks: [
-        {
-          title: WaterString,
-          value: 1000
-        },
-        {
-          title: GasolineString,
-          value: model.fluidDensityRange.min
-        },
-        {
-          title: HoneyString,
-          value: model.fluidDensityRange.max
-        }
-      ]
-    } );
-    this.addChild( this.fluidDensitySlider );
+
 
     model.mysteryChoiceProperty.link( function( choice, oldChoice ) {
       self[choice + 'Slider'].disable();
@@ -99,7 +103,7 @@ define( function( require ) {
     } );
 
     // add reset button
-    this.addChild( new ResetAllButton( function() { model.reset(); }, { scale: 0.5, x: 730, y: model.height - 25} ) );
+    this.addChild( new ResetAllButton( function() { model.reset(); }, { scale: 0.5, x: 725, y: model.height - 25} ) );
 
     this.barometersContainer = new Rectangle( 0, 0, 100, 130, 10, 10, {stroke: 'gray', lineWidth: 1, fill: '#f2fa6a', x: 520, y: 5} );
     this.addChild( this.barometersContainer );

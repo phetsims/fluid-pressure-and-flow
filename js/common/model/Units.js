@@ -61,7 +61,7 @@ define( function( require ) {
         return StringUtils.format( valueWithUnitsPattern, (self.GRAVITY_ENGLISH_PER_METRIC * model.gravity).toFixed( 1 ), ftPerSPerS );
       }
       else {
-        return StringUtils.format( valueWithUnitsPattern, model.gravity, mPerSPerS );
+        return StringUtils.format( valueWithUnitsPattern, model.gravity.toFixed( 1 ), mPerSPerS );
       }
     };
 
