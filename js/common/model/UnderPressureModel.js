@@ -24,6 +24,11 @@ define( function( require ) {
     MysteryPoolModel: require( 'UNDER_PRESSURE/mystery-pool/model/MysteryPoolModel' )
   };
 
+  /**
+   * @param {Number} width of sim
+   * @param {Number} height of sim
+   */
+
   function UnderPressureModel( width, height ) {
     var self = this;
 

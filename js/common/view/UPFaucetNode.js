@@ -11,11 +11,10 @@ define( function( require ) {
   var inherit = require( 'PHET_CORE/inherit' );
   var FaucetNode = require( 'SCENERY_PHET/FaucetNode' );
 
-  //DOC This header doesn't match up with constructor.
   /**
-   * @param {Faucet} faucet
-   * @param {Vector2} location
-   * @param {} width
+   * @param {Faucet} faucet model
+   * @param {Number} width of horizontal part of pipe
+   * @param {ModelViewTransform2} mvt , Transform between model and view coordinate frames
    * @constructor
    */
   function UPFaucetNode( faucet, width, mvt ) {

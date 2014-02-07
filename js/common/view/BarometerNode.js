@@ -21,7 +21,14 @@ define( function( require ) {
 
   var pressureString = require( 'string!UNDER_PRESSURE/pressure' );
 
-  //DOC - add header
+  /**
+   * @param {UnderPressureModel} model of simulation
+   * @param {ModelViewTransform2} mvt , Transform between model and view coordinate frames
+   * @param {Property} barometerValueProperty - value {Pa}, associated with current barometer instance
+   * @param {Property} barometerPositionProperty - position (Vector2), associated with current barometer instance
+   * @param {Bounds2} containerBounds - bounds of container for all barometers, needed to snap barometer to initial position when it in container
+   */
+
   function BarometerNode( model, mvt, barometerValueProperty, barometerPositionProperty, containerBounds ) {
     var self = this;
 

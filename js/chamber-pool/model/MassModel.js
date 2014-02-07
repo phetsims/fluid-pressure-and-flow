@@ -13,6 +13,16 @@ define( function( require ) {
   var Vector2 = require( 'DOT/Vector2' );
   var Bounds = require( 'DOT/bounds2' );
 
+  /**
+   * @param {UnderPressureModel} model of simulation
+   * @param {Number} mass of object, gramm
+   * @param {Number} x coord, m
+   * @param {Number} y coord, m
+   * @param {Number} width , m
+   * @param {Number} height , m
+   * @constructor
+   */
+
   function MassModel( model, mass, x, y, width, height ) {
     var self = this;
 

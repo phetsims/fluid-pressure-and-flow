@@ -20,6 +20,13 @@ define( function( require ) {
   var massImg = require( 'image!UNDER_PRESSURE/images/mass.png' );
   var massLabelPattern = require( 'string!UNDER_PRESSURE/massLabelPattern' );
 
+  /**
+   * @param {MassModel} massModel of simulation
+   * @param {ChamberPoolModel} model of simulation
+   * @param {ModelViewTransform2} mvt , Transform between model and view coordinate frames
+   * @constructor
+   */
+
   function MassViewNode( massModel, model, mvt ) {
     var self = this;
 

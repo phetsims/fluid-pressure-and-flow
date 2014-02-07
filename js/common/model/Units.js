@@ -19,7 +19,6 @@ define( function( require ) {
   var densityUnitsEnglish = require( 'string!UNDER_PRESSURE/densityUnitsEnglish' );
   var densityUnitsMetric = require( 'string!UNDER_PRESSURE/densityUnitsMetric' );
 
-
   function Units( model ) {
     var self = this;
 
