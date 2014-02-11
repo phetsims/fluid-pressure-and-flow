@@ -84,6 +84,11 @@ define( function( require ) {
       align: 'left'
     } );
 
+    this.resizeWidth = function( maxWidth ) {
+      atmosphere.updateWidth( maxWidth );
+      metrics.updateWidth( maxWidth );
+    };
+
     Panel.call( this, content, { xMargin: 10, yMargin: 10, fill: '#f2fa6a ', stroke: 'gray', lineWidth: 1, resize: false, x: x, y: y, scale: 0.8 } );
   }
 

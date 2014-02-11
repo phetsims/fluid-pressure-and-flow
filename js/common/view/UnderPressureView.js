@@ -63,7 +63,7 @@ define( function( require ) {
 
     //control sliders
     this.fluidDensitySlider = new ControlSlider( model, model.fluidDensityProperty, model.units.getFluidDensityString, model.fluidDensityRange, {
-      x: 565,
+      x: 585,
       y: 250,
       title: fluidDensityString,
       ticks: [
@@ -84,8 +84,8 @@ define( function( require ) {
     this.addChild( this.fluidDensitySlider );
 
     this.gravitySlider = new ControlSlider( model, model.gravityProperty, model.units.getGravityString, model.gravityRange, {
-      x: 565,
-      y: this.fluidDensitySlider.bottom+10,
+      x: 585,
+      y: this.fluidDensitySlider.bottom + 10,
       title: gravityString,
       decimals: 1,
       ticks: [
@@ -123,16 +123,25 @@ define( function( require ) {
     } );
 
     // add reset button
-    this.addChild( new ResetAllButton( function() { model.reset(); }, { scale: 0.5, x: 725, y: model.height - 25} ) );
+    this.addChild( new ResetAllButton( function() { model.reset(); }, { scale: 0.5, x: 745, y: model.height - 25} ) );
 
     this.barometersContainer = new Rectangle( 0, 0, 100, 130, 10, 10, {stroke: 'gray', lineWidth: 1, fill: '#f2fa6a', x: 520, y: 5} );
     this.addChild( this.barometersContainer );
 
     this.addChild( new SceneChoiceNode( model, 10, 260 ) );
 
+    //resize control panels
+    var panels = [this.controlPanel, scenes.Mystery.mysteryPoolControls.choicePanel],
+      maxWidth = 0;
+    panels.forEach( function( panel ) {
+      maxWidth = Math.max( maxWidth, panel.width / panel.transform.matrix.scaleVector.x );
+    } );
+    scenes.Mystery.mysteryPoolControls.choicePanel.resizeWidth( maxWidth );
+    panels.forEach( function( panel ) {
+      panel.centerX = self.gravitySlider.centerX;
+    } );
+    this.barometersContainer.x = this.controlPanel.x - 10 - this.barometersContainer.width;
 
-    //resize Mystery choice
-    scenes.Mystery.resizeChoicePanel( this.controlPanel.width / this.controlPanel.transform.matrix.scaleVector.x );
 
     model.currentSceneProperty.link( function( value, oldValue ) {
       scenes[value].visible = true;

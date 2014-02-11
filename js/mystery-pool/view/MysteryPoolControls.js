@@ -31,7 +31,7 @@ define( function( require ) {
 
     //choice for mystery scene
     var textOptions = {font: new PhetFont( 14 )};
-    var choicePanel = new Node( {x: 625, y: 192, scale: 0.8} );
+    this.choicePanel = new Node( {x: 625, y: 192, scale: 0.8} );
     var background = new Rectangle( 0, 0, 1, 1, {stroke: 'gray', lineWidth: 1, fill: '#f2fa6a', pickable: 'false'} );
     var content = new VBox( {
       children: [
@@ -42,17 +42,9 @@ define( function( require ) {
       align: 'left'
     } );
 
-    choicePanel.addChild( background );
-    choicePanel.addChild( content );
-
-    this.addChild( choicePanel );
-
-    this.resizeWidth = function( width ) {
-      background.setRect( 0, 0, width, content.height + 10, 5, 5 );
-      content.centerX = background.centerX;
-      content.centerY = background.centerY;
-    };
-    this.resizeWidth( content.width + 10 );
+    this.choicePanel.addChild( background );
+    this.choicePanel.addChild( content );
+    this.addChild( this.choicePanel );
 
     // items
     this.fluidDensityComboBox = new ComboBox( [
@@ -78,6 +70,13 @@ define( function( require ) {
       visible: false
     } );
     this.addChild( this.gravityComboBox );
+
+    this.choicePanel.resizeWidth = function( width ) {
+      background.setRect( 0, 0, width, content.height + 10, 5, 5 );
+      content.centerX = background.centerX;
+      content.centerY = background.centerY;
+    };
+    this.choicePanel.resizeWidth( content.width + 10 );
 
     model.globalModel.mysteryChoiceProperty.link( function( value, oldValue ) {
       self[value + 'ComboBox'].visible = true;

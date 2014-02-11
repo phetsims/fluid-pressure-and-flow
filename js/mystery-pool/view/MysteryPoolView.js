@@ -14,12 +14,9 @@ define( function( require ) {
   function MysteryPoolView( model, mvt ) {
     SquarePoolView.call( this, model, mvt );
 
-    var mysteryPoolControls = new MysteryPoolControls( model );
-    this.addChild( mysteryPoolControls );
+    this.mysteryPoolControls = new MysteryPoolControls( model );
+    this.addChild( this.mysteryPoolControls );
 
-    this.resizeChoicePanel = function( width ) {
-      mysteryPoolControls.resizeWidth( width );
-    };
   }
 
   return inherit( SquarePoolView, MysteryPoolView );
