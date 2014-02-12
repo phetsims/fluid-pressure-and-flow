@@ -12,7 +12,7 @@ define( function( require ) {
   var InOutRadioButton = require( 'SUN/InOutRadioButton' );
   var Dimension2 = require( 'DOT/Dimension2' );
 
-  var ICON_SIZE = new Dimension2( 60, 40 );
+  var ICON_SIZE = new Dimension2( 55, 37 );
 
   var iconImages = {
     SquarePoolIcon: require( 'image!UNDER_PRESSURE/square-pool-icon.png' ),
