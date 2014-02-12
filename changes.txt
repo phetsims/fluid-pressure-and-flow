@@ -1,3 +1,13 @@
+# 1.0.0-dev.5 2/12/2014 Dev version with a number of fixes.
+Fixed issues with control panels not resizing for translated text
+Fixed issue with pressure gauges not being updated on screen switch
+Fixed issue with overlapping weights
+Fixed issue with flying weights
+Fixed issues with mystery fluid question mark
+Cleaned up code based on code review
+New icons
+# 1.0.0-dev.4 1/17/2014 Dev version with a number of fixes.
+# 1.0.0-dev.3 1/17/2014 Dev version with a number of fixes.
 # 1.0.0-dev.2 1/17/2014 Dev version with a number of fixes.
 1/16/2014 Fixed a number is initial issues, see GitHub issue list for details.
 1/10/2014 Updated credits
