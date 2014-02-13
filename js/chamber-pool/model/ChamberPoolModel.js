@@ -40,15 +40,15 @@ define( function( require ) {
     this.LENGTH_RATIO = RIGHT_OPENING_WIDTH / LEFT_OPENING_WIDTH;
 
     //Height of each chamber, physics not working properly to vary these independently
-    var CHAMBER_HEIGHT = 1.25;
+    var CHAMBER_HEIGHT = 1.3;
 
     //from mockup
     //left chamber start x
-    var LEFT_CHAMBER_X = 1.5;
+    var LEFT_CHAMBER_X = 1.25;
     var LEFT_CHAMBER_WIDTH = 3;
 
     //right(bottom) chamber start x
-    var RIGHT_CHAMBER_X = 6.5;
+    var RIGHT_CHAMBER_X = 6.3;
     var RIGHT_CHAMBER_WIDTH = 1.25;
 
     //default left opening water height
@@ -57,7 +57,7 @@ define( function( require ) {
     //masses can't have y-coord more that this, sky height - grass height
     this.MAX_Y = self.globalModel.skyGroundBoundY - 0.05;
 
-    var massOffset = 1.05; // start x-coordinate of first mass
+    var massOffset = 0.85; // start x-coordinate of first mass
     var separation = 0.03; //separation between masses
 
     this.poolDimensions = {
