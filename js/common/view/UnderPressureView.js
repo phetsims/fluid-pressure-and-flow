@@ -106,9 +106,11 @@ define( function( require ) {
     this.addChild( this.gravitySlider );
 
     model.mysteryChoiceProperty.link( function( choice, oldChoice ) {
-      self[choice + 'Slider'].disable();
-      if ( oldChoice ) {
-        self[oldChoice + 'Slider'].enable();
+      if ( model.currentScene === 'Mystery' ) {
+        self[choice + 'Slider'].disable();
+        if ( oldChoice ) {
+          self[oldChoice + 'Slider'].enable();
+        }
       }
     } );
 
