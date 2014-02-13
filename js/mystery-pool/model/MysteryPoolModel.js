@@ -73,8 +73,8 @@ define( function( require ) {
       this.fluidDensityCustom.reset();
       this.gravityCustom.reset();
       PropertySet.prototype.reset.call( this );
-      this.globalModel.barometersPositions.forEach( function( position ) {
-        position.reset();
+      this.globalModel.barometers.forEach( function( barometer ) {
+        barometer.position.reset();
       } );
     }
   } );
