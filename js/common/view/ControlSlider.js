@@ -19,6 +19,7 @@ define( function( require ) {
   var HSlider = require( 'SUN/HSlider' );
   var AccordionBox = require( 'SUN/AccordionBox' );
   var LinearGradient = require( 'SCENERY/util/LinearGradient' );
+  var Util = require( 'DOT/Util' );
 
   // Constants
   var TRACK_SIZE = new Dimension2( 190, 10 );
@@ -49,10 +50,10 @@ define( function( require ) {
     // nodes
     this.content = new Node();
     var plusButton = new ArrowButton( 'right', function propertyPlus() {
-      trackProperty.set( (parseFloat( Math.min( trackProperty.get() ) + 1 / Math.pow( 10, options.decimals ), trackRange.max )).toFixed( options.decimals ) );
+      trackProperty.set( Util.toFixed( parseFloat( Math.min( trackProperty.get() ) + 1 / Math.pow( 10, options.decimals ), trackRange.max ), options.decimals ) );
     } );
     var minusButton = new ArrowButton( 'left', function propertyMinus() {
-      trackProperty.set( (Math.max( trackProperty.get() - 1 / Math.pow( 10, options.decimals ), trackRange.min )).toFixed( options.decimals ) );
+      trackProperty.set( Util.toFixed( parseFloat( Math.max( trackProperty.get() ) - 1 / Math.pow( 10, options.decimals ), trackRange.min ), options.decimals ) );
     } );
     var valueLabel = new HTMLText( '', { font: new PhetFont( 18 ), pickable: false } );
     var valueField = new Rectangle( 0, 0, 100, 30, 3, 3, { fill: '#FFF', stroke: 'black', lineWidth: 1, pickable: false } );

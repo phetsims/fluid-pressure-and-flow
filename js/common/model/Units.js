@@ -7,6 +7,7 @@
 define( function( require ) {
   'use strict';
   var StringUtils = require( 'PHETCOMMON/util/StringUtils' );
+  var Util = require( 'DOT/Util' );
 
   var atmString = require( 'string!UNDER_PRESSURE/atm' );
   var psiString = require( 'string!UNDER_PRESSURE/psi' );
@@ -34,7 +35,7 @@ define( function( require ) {
           return '-';
         }
         else {
-          return (pressure / 1000).toFixed( 3 ) + ' ' + kPaString;
+          return Util.toFixed( pressure / 1000, 3 ) + ' ' + kPaString;
         }
       },
       atmosphere: function( pressure ) {
@@ -42,7 +43,7 @@ define( function( require ) {
           return '-';
         }
         else {
-          return (pressure * self.ATMOSPHERE_PER_PASCAL).toFixed( 4 ) + ' ' + atmString;
+          return Util.toFixed( pressure * self.ATMOSPHERE_PER_PASCAL, 4 ) + ' ' + atmString;
         }
       },
       english: function( pressure ) {
@@ -50,17 +51,17 @@ define( function( require ) {
           return '-';
         }
         else {
-          return (pressure * self.PSI_PER_PASCAL).toFixed( 4 ) + ' ' + psiString;
+          return  Util.toFixed( pressure * self.PSI_PER_PASCAL, 4 ) + ' ' + psiString;
         }
       }
     };
 
     this.getGravityString = function() {
       if ( model.measureUnits === 'english' ) {
-        return StringUtils.format( valueWithUnitsPattern, (self.GRAVITY_ENGLISH_PER_METRIC * model.gravity).toFixed( 1 ), ftPerSPerS );
+        return StringUtils.format( valueWithUnitsPattern, Util.toFixed( self.GRAVITY_ENGLISH_PER_METRIC * model.gravity, 1 ), ftPerSPerS );
       }
       else {
-        return StringUtils.format( valueWithUnitsPattern, model.gravity.toFixed( 1 ), mPerSPerS );
+        return StringUtils.format( valueWithUnitsPattern, Util.toFixed( model.gravity, 1 ), mPerSPerS );
       }
     };
 
