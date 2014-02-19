@@ -25,7 +25,7 @@ define( function( require ) {
     //The entire apparatus is this tall
     this.MAX_HEIGHT = 3; // meters
 
-    this.DEFAULT_HEIGHT = 2.5; //meters, without load
+    this.DEFAULT_HEIGHT = 2.3; //meters, without load
 
     //The size of the passage between the chambers
     var PASSAGE_SIZE = 0.5;
@@ -52,7 +52,7 @@ define( function( require ) {
     var RIGHT_CHAMBER_WIDTH = 1.25;
 
     //default left opening water height
-    this.LEFT_WATER_HEIGHT = 1.0;
+    this.LEFT_WATER_HEIGHT = this.DEFAULT_HEIGHT-CHAMBER_HEIGHT;
 
     //masses can't have y-coord more that this, sky height - grass height
     this.MAX_Y = self.globalModel.skyGroundBoundY - 0.05;
