@@ -85,7 +85,7 @@ define( function( require ) {
 
     this.gravitySlider = new ControlSlider( model, model.gravityProperty, model.units.getGravityString, model.gravityRange, {
       x: 585,
-      y: this.fluidDensitySlider.bottom + 10,
+      y: 360,
       title: gravityString,
       decimals: 1,
       ticks: [
