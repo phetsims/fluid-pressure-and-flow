@@ -27,9 +27,10 @@ define( function( require ) {
    * @param {Property} barometerValueProperty - value {Pa}, associated with current barometer instance
    * @param {Property} barometerPositionProperty - position (Vector2), associated with current barometer instance
    * @param {Bounds2} containerBounds - bounds of container for all barometers, needed to snap barometer to initial position when it in container
+   * @param {Node} view - main view of simulation
    */
 
-  function BarometerNode( model, mvt, barometerValueProperty, barometerPositionProperty, containerBounds ) {
+  function BarometerNode( model, mvt, barometerValueProperty, barometerPositionProperty, containerBounds, view ) {
     var self = this;
 
     Node.call( this, {cursor: 'pointer', pickable: true, x: barometerPositionProperty.get().x, y: barometerPositionProperty.get().y} );
@@ -73,15 +74,19 @@ define( function( require ) {
     this.addChild( text );
 
     //handlers
+    var barometerClickOffset = {x: 0, y: 0};
     var barometerDragHandler = new SimpleDragHandler( {
       //When dragging across it in a mobile device, pick it up
       allowTouchSnag: true,
-      start: function() {
+      start: function( event ) {
+        barometerClickOffset.x = self.globalToParentPoint( event.pointer.point ).x - event.currentTarget.x;
+        barometerClickOffset.y = self.globalToParentPoint( event.pointer.point ).y - event.currentTarget.y;
         self.moveToFront();
       },
       //Translate on drag events
-      translate: function( args ) {
-        barometerPositionProperty.set( args.position );
+      drag: function( event ) {
+        var point = self.globalToParentPoint( event.pointer.point ).subtract( barometerClickOffset );
+        barometerPositionProperty.set( view.viewBounds.getClosestPoint( point.x, point.y ) );
       },
       end: function() {
         if ( containerBounds.intersectsBounds( self.visibleBounds ) ) {

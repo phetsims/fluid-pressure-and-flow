@@ -24,10 +24,11 @@ define( function( require ) {
    * @param {MassModel} massModel of simulation
    * @param {ChamberPoolModel} model of simulation
    * @param {ModelViewTransform2} mvt , Transform between model and view coordinate frames
+   * @param {Node} view - global view
    * @constructor
    */
 
-  function MassViewNode( massModel, model, mvt ) {
+  function MassViewNode( massModel, model, mvt, view ) {
     var self = this;
 
     Node.call( this, {
@@ -38,21 +39,26 @@ define( function( require ) {
       height = mvt.modelToViewY( massModel.height );
 
     this.addChild( new Image( massImg, {
-      clipArea: Shape.rect( 0, 0, width, height )
+      clipArea: Shape.rect( 0, 0, width, height ),
+      x: -width / 2,
+      y: -height / 2
     } ) );
 
     //image border
-    this.addChild( new Rectangle( 0, 0, width, height, {
+    this.addChild( new Rectangle( -width / 2, -height / 2, width, height, {
       stroke: '#918e8e',
       lineWidth: 1
     } ) );
 
-    this.addChild( new Text( StringUtils.format( massLabelPattern, massModel.mass ), { centerY: height / 2, centerX: width / 2, font: new PhetFont( 9 ), fill: 'black', pickable: false, 'fontWeight': 'bold'} ) );
+    this.addChild( new Text( StringUtils.format( massLabelPattern, massModel.mass ), { centerY: 0, centerX: 0, font: new PhetFont( 9 ), fill: 'black', pickable: false, 'fontWeight': 'bold'} ) );
 
+    var massClickOffset = {x: 0, y: 0};
     var massDragHandler = new SimpleDragHandler( {
       //When dragging across it in a mobile device, pick it up
       allowTouchSnag: true,
-      start: function() {
+      start: function( event ) {
+        massClickOffset.x = self.globalToParentPoint( event.pointer.point ).x - event.currentTarget.x;
+        massClickOffset.y = self.globalToParentPoint( event.pointer.point ).y - event.currentTarget.y;
         self.moveToFront();
         massModel.isDragging = true;
       },
@@ -64,8 +70,9 @@ define( function( require ) {
         massModel.isDragging = false;
       },
       //Translate on drag events
-      translate: function( args ) {
-        self.translation = args.position;
+      drag: function( event ) {
+        var point = self.globalToParentPoint( event.pointer.point ).subtract( massClickOffset );
+        self.translation = view.viewBounds.getClosestPoint( point.x, point.y );
       }
     } );
 

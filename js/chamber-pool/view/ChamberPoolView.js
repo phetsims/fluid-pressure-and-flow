@@ -14,7 +14,7 @@ define( function( require ) {
   var MassStackNode = require( 'chamber-pool/view/MassStackNode' );
   var ChamberPoolGrid = require( 'chamber-pool/view/ChamberPoolGrid' );
 
-  function ChamberPoolView( model, mvt ) {
+  function ChamberPoolView( model, mvt, view ) {
     var self = this;
 
     Node.call( this, { renderer: 'svg' } );
@@ -26,7 +26,7 @@ define( function( require ) {
     this.addChild( new ChamberPoolWaterNode( model, mvt ) );
 
     model.masses.forEach( function( massModel ) {
-      self.addChild( new MassViewNode( massModel, model, mvt ) );
+      self.addChild( new MassViewNode( massModel, model, mvt, view ) );
     } );
 
     this.addChild( new MassStackNode( model, mvt ) );

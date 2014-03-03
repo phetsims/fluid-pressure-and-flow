@@ -57,7 +57,7 @@ define( function( require ) {
     //masses can't have y-coord more that this, sky height - grass height
     this.MAX_Y = self.globalModel.skyGroundBoundY - 0.05;
 
-    var massOffset = 0.85; // start x-coordinate of first mass
+    var massOffset = 1.1; // start x-coordinate of first mass
     var separation = 0.03; //separation between masses
 
     this.poolDimensions = {
@@ -97,9 +97,9 @@ define( function( require ) {
     this.stack = new ObservableArray();
 
     this.masses = [
-      new MassModel( self, 500, massOffset, self.MAX_Y - PASSAGE_SIZE, PASSAGE_SIZE, PASSAGE_SIZE ),
-      new MassModel( self, 250, massOffset + PASSAGE_SIZE + separation, self.MAX_Y - PASSAGE_SIZE / 2, PASSAGE_SIZE, PASSAGE_SIZE / 2 ),
-      new MassModel( self, 250, massOffset + 2 * PASSAGE_SIZE + 2 * separation, self.MAX_Y - PASSAGE_SIZE / 2, PASSAGE_SIZE, PASSAGE_SIZE / 2 )
+      new MassModel( self, 500, massOffset, self.MAX_Y - PASSAGE_SIZE / 2, PASSAGE_SIZE, PASSAGE_SIZE ),
+      new MassModel( self, 250, massOffset + PASSAGE_SIZE + separation, self.MAX_Y - PASSAGE_SIZE / 4, PASSAGE_SIZE, PASSAGE_SIZE / 2 ),
+      new MassModel( self, 250, massOffset + 2 * PASSAGE_SIZE + 2 * separation, self.MAX_Y - PASSAGE_SIZE / 4, PASSAGE_SIZE, PASSAGE_SIZE / 2 )
     ];
 
     this.stack.addListeners(
@@ -145,7 +145,7 @@ define( function( require ) {
       if ( this.stackMass ) {
         var maxY = 0;
         this.stack.forEach( function( massModel ) {
-          maxY = Math.max( massModel.position.y + massModel.height, maxY );
+          maxY = Math.max( massModel.position.y + massModel.height / 2, maxY );
         } );
         this.globalModel.leftDisplacement = maxY - (this.poolDimensions.leftOpening.y2 - this.LEFT_WATER_HEIGHT);
       }

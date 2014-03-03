@@ -22,7 +22,7 @@ define( function( require ) {
   var units_metersString = require( 'string!UNDER_PRESSURE/m' );
   var units_feetString = require( 'string!UNDER_PRESSURE/ft' );
 
-  function UnderPressureRuler( model, mvt ) {
+  function UnderPressureRuler( model, mvt, view ) {
     var self = this;
     Node.call( this, { cursor: 'pointer', renderer: 'svg', cssTransform: true } );
 
@@ -82,8 +82,8 @@ define( function( require ) {
           rulerClickOffset.y = self.globalToParentPoint( event.pointer.point ).y - event.currentTarget.y;
         },
         drag: function( event ) {
-          var x = self.globalToParentPoint( event.pointer.point ).x - rulerClickOffset.x,
-            y = self.globalToParentPoint( event.pointer.point ).y - rulerClickOffset.y;
+          var x = Math.min( view.viewBounds.maxX + self.width / 2, Math.max( self.globalToParentPoint( event.pointer.point ).x - rulerClickOffset.x, view.viewBounds.minX + self.width / 2 ) ),
+            y = Math.min( view.viewBounds.maxY - self.height / 2, Math.max( self.globalToParentPoint( event.pointer.point ).y - rulerClickOffset.y, view.viewBounds.minY - self.height / 2 ) );
           model.rulerPosition = new Vector2( x, y );
         }
       } ) );
