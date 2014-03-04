@@ -156,7 +156,7 @@ define( function( require ) {
     this.addChild( new UnderPressureRuler( model, mvt, self ) );
 
     //barometers
-    this.addChild( new BarometersContainer( model, mvt, this.barometersContainer.visibleBounds, self ) );
+    this.addChild( new BarometersContainer( model, mvt, this.barometersContainer.visibleBounds, self.layoutBounds ) );
 
     this.updateViewBounds = function() {
       var scale = self.transform.matrix.scaleVector.x;
