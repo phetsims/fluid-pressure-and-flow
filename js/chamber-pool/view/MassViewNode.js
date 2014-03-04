@@ -65,7 +65,7 @@ define( function( require ) {
       end: function() {
         var newPosition = self.translation;
         newPosition.x = mvt.viewToModelX( newPosition.x );
-        newPosition.y = mvt.viewToModelX( newPosition.y );
+        newPosition.y = mvt.viewToModelY( newPosition.y );
         massModel.position = newPosition;
         massModel.isDragging = false;
       },
