@@ -52,7 +52,7 @@ define( function( require ) {
 
     var scenes = {};
     model.scenes.forEach( function( name ) {
-      scenes[name] = new SceneView[name + 'PoolView']( model.sceneModels[name], mvt, self );
+      scenes[name] = new SceneView[name + 'PoolView']( model.sceneModels[name], mvt, self.layoutBounds );
       scenes[name].visible = false;
       self.addChild( scenes[name] );
     } );
@@ -153,18 +153,10 @@ define( function( require ) {
       }
     } );
 
-    this.addChild( new UnderPressureRuler( model, mvt, self ) );
+    this.addChild( new UnderPressureRuler( model, mvt, self.layoutBounds ) );
 
     //barometers
     this.addChild( new BarometersContainer( model, mvt, this.barometersContainer.visibleBounds, self.layoutBounds ) );
-
-    this.updateViewBounds = function() {
-      var scale = self.transform.matrix.scaleVector.x;
-      this.viewBounds = new Rect( -this.x / scale, -this.y / scale, model.width + 2 * this.x / scale, model.height + 2 * this.y / scale );
-    };
-    self.updateViewBounds();
-    setTimeout( function() {self.updateViewBounds();}, 200 );
-
   }
 
   return inherit( ScreenView, UnderPressureView );

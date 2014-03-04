@@ -24,11 +24,11 @@ define( function( require ) {
    * @param {MassModel} massModel of simulation
    * @param {ChamberPoolModel} model of simulation
    * @param {ModelViewTransform2} mvt , Transform between model and view coordinate frames
-   * @param {Node} view - global view
+   * @param {Bounds2} dragBounds - bounds that define where the barometer may be dragged
    * @constructor
    */
 
-  function MassViewNode( massModel, model, mvt, view ) {
+  function MassViewNode( massModel, model, mvt, dragBounds ) {
     var self = this;
 
     Node.call( this, {
@@ -72,7 +72,7 @@ define( function( require ) {
       //Translate on drag events
       drag: function( event ) {
         var point = self.globalToParentPoint( event.pointer.point ).subtract( massClickOffset );
-        self.translation = view.viewBounds.getClosestPoint( point.x, point.y );
+        self.translation = dragBounds.getClosestPoint( point.x, point.y );
       }
     } );
 
