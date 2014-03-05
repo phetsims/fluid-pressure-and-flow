@@ -17,7 +17,6 @@ define( function( require ) {
   var ControlSlider = require( 'UNDER_PRESSURE/common/view/ControlSlider' );
   var SceneChoiceNode = require( 'UNDER_PRESSURE/common/view/SceneChoiceNode' );
   var ResetAllButton = require( 'SCENERY_PHET/ResetAllButton' );
-  var Rect = require( 'DOT/Rectangle' );
   var Rectangle = require( 'SCENERY/nodes/Rectangle' );
 
   var fluidDensityString = require( 'string!UNDER_PRESSURE/fluidDensity' );
