@@ -76,7 +76,7 @@ define( function( require ) {
     } );
 
     //handlers
-    this.addInputListener( new MovableDragHandler( { locationProperty: model.rulerPositionProperty, dragBounds: dragBounds.shift( this.width / 2, -this.height / 2 ) },
+    this.addInputListener( new MovableDragHandler( { locationProperty: model.rulerPositionProperty, dragBounds: dragBounds.shifted(this.width / 2, -this.height / 2 ) },
       ModelViewTransform2.createIdentity() ) );
 
   }
