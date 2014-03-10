@@ -51,7 +51,7 @@ define( function( require ) {
 
     var scenes = {};
     model.scenes.forEach( function( name ) {
-      scenes[name] = new SceneView[name + 'PoolView']( model.sceneModels[name], mvt );
+      scenes[name] = new SceneView[name + 'PoolView']( model.sceneModels[name], mvt, self.layoutBounds );
       scenes[name].visible = false;
       self.addChild( scenes[name] );
     } );
@@ -85,7 +85,7 @@ define( function( require ) {
 
     this.gravitySlider = new ControlSlider( model, model.gravityProperty, model.units.getGravityString, model.gravityRange, {
       x: 585,
-      y: this.fluidDensitySlider.bottom + 10,
+      y: 360,
       title: gravityString,
       decimals: 1,
       ticks: [
@@ -152,10 +152,10 @@ define( function( require ) {
       }
     } );
 
-    this.addChild( new UnderPressureRuler( model, mvt ) );
+    this.addChild( new UnderPressureRuler( model, mvt, self.layoutBounds ) );
 
     //barometers
-    this.addChild( new BarometersContainer( model, mvt, this.barometersContainer.visibleBounds ) );
+    this.addChild( new BarometersContainer( model, mvt, this.barometersContainer.visibleBounds, self.layoutBounds ) );
   }
 
   return inherit( ScreenView, UnderPressureView );

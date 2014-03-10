@@ -15,9 +15,10 @@ define( function( require ) {
   var LinearGradient = require( 'SCENERY/util/LinearGradient' );
   var Path = require( 'SCENERY/nodes/Path' );
   var Shape = require( 'KITE/Shape' );
-  var SimpleDragHandler = require( 'SCENERY/input/SimpleDragHandler' );
   var Text = require( 'SCENERY/nodes/Text' );
   var PhetFont = require( 'SCENERY_PHET/PhetFont' );
+  var MovableDragHandler = require( 'SCENERY_PHET/input/MovableDragHandler' );
+  var ModelViewTransform2 = require( 'PHETCOMMON/view/ModelViewTransform2' );
 
   var pressureString = require( 'string!UNDER_PRESSURE/pressure' );
 
@@ -27,9 +28,10 @@ define( function( require ) {
    * @param {Property} barometerValueProperty - value {Pa}, associated with current barometer instance
    * @param {Property} barometerPositionProperty - position (Vector2), associated with current barometer instance
    * @param {Bounds2} containerBounds - bounds of container for all barometers, needed to snap barometer to initial position when it in container
+   * @param {Bounds2} dragBounds - bounds that define where the barometer may be dragged
    */
 
-  function BarometerNode( model, mvt, barometerValueProperty, barometerPositionProperty, containerBounds ) {
+  function BarometerNode( model, mvt, barometerValueProperty, barometerPositionProperty, containerBounds, dragBounds ) {
     var self = this;
 
     Node.call( this, {cursor: 'pointer', pickable: true, x: barometerPositionProperty.get().x, y: barometerPositionProperty.get().y} );
@@ -73,22 +75,16 @@ define( function( require ) {
     this.addChild( text );
 
     //handlers
-    var barometerDragHandler = new SimpleDragHandler( {
-      //When dragging across it in a mobile device, pick it up
-      allowTouchSnag: true,
-      start: function() {
-        self.moveToFront();
-      },
-      //Translate on drag events
-      translate: function( args ) {
-        barometerPositionProperty.set( args.position );
-      },
-      end: function() {
-        if ( containerBounds.intersectsBounds( self.visibleBounds ) ) {
-          barometerPositionProperty.reset();
+    var barometerDragHandler = new MovableDragHandler( { locationProperty: barometerPositionProperty, dragBounds: dragBounds },
+      ModelViewTransform2.createIdentity(),
+      {
+        endDrag: function() {
+          if ( containerBounds.intersectsBounds( self.visibleBounds ) ) {
+            barometerPositionProperty.reset();
+          }
         }
-      }
-    } );
+      } );
+
     this.addInputListener( barometerDragHandler );
 
     barometerValueProperty.set( model.getPressureAtCoords( mvt.viewToModelX( self.centerX ), mvt.viewToModelY( self.bottom ) ) );

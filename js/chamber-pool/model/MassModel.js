@@ -67,8 +67,8 @@ define( function( require ) {
         acceleration = this.model.globalModel.gravity;
         this.velocity = this.velocity + acceleration * dt;
         this.position = new Vector2( this.position.x, this.velocity * dt + this.position.y );
-        if ( this.position.y > this.model.MAX_Y - this.height ) {
-          this.position = new Vector2( this.position.x, this.model.MAX_Y - this.height );
+        if ( this.position.y > this.model.MAX_Y - this.height / 2 ) {
+          this.position = new Vector2( this.position.x, this.model.MAX_Y - this.height / 2 );
           this.isDropping = false;
           this.velocityProperty.reset();
         }
@@ -97,17 +97,17 @@ define( function( require ) {
     isInTargetDroppedArea: function() {
       var waterLine = this.model.poolDimensions.leftOpening.y2 - this.model.LEFT_WATER_HEIGHT + this.model.globalModel.leftDisplacement;
       var bottomLine = waterLine - this.model.stack.reduce( 0, function( a, b ) {return a + b.height;} );
-      return new Bounds( this.position.x, this.position.y, this.position.x + this.width, this.position.y + this.height ).intersectsBounds( new Bounds(
-        this.model.poolDimensions.leftOpening.x1, bottomLine - this.height, this.model.poolDimensions.leftOpening.x2, bottomLine ) );
+      return new Bounds( this.position.x - this.width / 2, this.position.y - this.height / 2, this.position.x + this.width, this.position.y + this.height ).intersectsBounds( new Bounds(
+        this.model.poolDimensions.leftOpening.x1, bottomLine - this.height / 2, this.model.poolDimensions.leftOpening.x2, bottomLine ) );
     },
     cannotFall: function() {
       //mass dropped under earth or over opening
-      return this.position.y > this.model.MAX_Y + this.height || this.isMassOverOpening();
+      return this.position.y > this.model.MAX_Y + this.height / 2 || this.isMassOverOpening();
     },
     isMassOverOpening: function() {
       var isOverOpening = false;
       var leftCorner = this.position.x,
-        rightCorner = this.position.x + this.width;
+        rightCorner = this.position.x + this.width / 2;
       if ( this.model.poolDimensions.leftOpening.x1 < leftCorner && leftCorner < this.model.poolDimensions.leftOpening.x2 ) {
         isOverOpening = true;
       }

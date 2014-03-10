@@ -12,17 +12,18 @@ define( function( require ) {
   var Node = require( 'SCENERY/nodes/Node' );
   var inherit = require( 'PHET_CORE/inherit' );
   var RulerNode = require( 'SCENERY_PHET/RulerNode' );
-  var SimpleDragHandler = require( 'SCENERY/input/SimpleDragHandler' );
   var ButtonListener = require( 'SCENERY/input/ButtonListener' );
   var Path = require( 'SCENERY/nodes/Path' );
   var Shape = require( 'KITE/Shape' );
   var Vector2 = require( 'DOT/Vector2' );
+  var MovableDragHandler = require( 'SCENERY_PHET/input/MovableDragHandler' );
+  var ModelViewTransform2 = require( 'PHETCOMMON/view/ModelViewTransform2' );
 
   // Resources
   var units_metersString = require( 'string!UNDER_PRESSURE/m' );
   var units_feetString = require( 'string!UNDER_PRESSURE/ft' );
 
-  function UnderPressureRuler( model, mvt ) {
+  function UnderPressureRuler( model, mvt, dragBounds ) {
     var self = this;
     Node.call( this, { cursor: 'pointer', renderer: 'svg', cssTransform: true } );
 
@@ -74,19 +75,10 @@ define( function( require ) {
       self.translation = value;
     } );
 
-    var rulerClickOffset = {x: 0, y: 0};
-    self.addInputListener( new SimpleDragHandler(
-      {
-        start: function( event ) {
-          rulerClickOffset.x = self.globalToParentPoint( event.pointer.point ).x - event.currentTarget.x;
-          rulerClickOffset.y = self.globalToParentPoint( event.pointer.point ).y - event.currentTarget.y;
-        },
-        drag: function( event ) {
-          var x = self.globalToParentPoint( event.pointer.point ).x - rulerClickOffset.x,
-            y = self.globalToParentPoint( event.pointer.point ).y - rulerClickOffset.y;
-          model.rulerPosition = new Vector2( x, y );
-        }
-      } ) );
+    //handlers
+    this.addInputListener( new MovableDragHandler( { locationProperty: model.rulerPositionProperty, dragBounds: dragBounds.shifted(this.width / 2, -this.height / 2 ) },
+      ModelViewTransform2.createIdentity() ) );
+
   }
 
   return inherit( Node, UnderPressureRuler );
