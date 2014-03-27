@@ -24,7 +24,8 @@ define( function( require ) {
       font: new PhetFont( 12 )
     };
 
-    this.addChild( new GridLinesNode( model.globalModel, mvt, 0, model.poolDimensions.leftOpening.y1, mvt.viewToModelX( model.globalModel.width ), model.poolDimensions.leftChamber.y2 + 0.3 ) );
+    this.addChild( new GridLinesNode( model.globalModel, mvt, model.poolDimensions.leftChamber.x1, model.poolDimensions.leftOpening.y1,
+      model.poolDimensions.rightOpening.x2, model.poolDimensions.leftChamber.y2 + 0.3 ) );
 
     var metersLabels = new Node();
     var metersText = new Text( '3 ' + metersString, _.extend( {
