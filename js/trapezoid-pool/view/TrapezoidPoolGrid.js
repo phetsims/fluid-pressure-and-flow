@@ -24,37 +24,43 @@ define( function( require ) {
       font: new PhetFont( 12 )
     };
 
-    this.addChild( new GridLinesNode( model.globalModel, mvt, 0, model.poolDimensions.leftChamber.y, mvt.viewToModelX( model.globalModel.width ), model.poolDimensions.leftChamber.y + model.poolDimensions.leftChamber.height + 0.3, {metersStep: 0.5} ) );
+    var leftEdgeOfGrid = model.poolDimensions.leftChamber.centerTop - model.poolDimensions.leftChamber.widthBottom / 2;
+    var rightEdgeOfGrid = model.poolDimensions.rightChamber.centerTop + model.poolDimensions.rightChamber.widthTop / 2;
+    this.addChild( new GridLinesNode( model.globalModel, mvt, leftEdgeOfGrid, model.poolDimensions.leftChamber.y, rightEdgeOfGrid, model.poolDimensions.leftChamber.y + model.poolDimensions.leftChamber.height + 0.3 ) );
 
-    var metersLabels = new Node();
-    var metersText = new Text( '3' + metersString, _.extend( {
-      x: mvt.modelToViewX( model.poolDimensions.rightChamber.centerTop + model.poolDimensions.rightChamber.widthBottom / 2 ) + 10,
-      y: mvt.modelToViewY( model.globalModel.skyGroundBoundY + 3 ) + 17
-    }, fontOptions ) );
-    var backgroundRect = new Rectangle( 0, 0, metersText.width + 5, metersText.height + 5, 10, 10, {fill: '#67a257'} );
-    backgroundRect.centerX = metersText.centerX;
-    backgroundRect.centerY = metersText.centerY;
-    metersLabels.addChild( backgroundRect );
-    metersLabels.addChild( metersText );
+    // Add the labels for meters
+    var labelPosX = mvt.modelToViewX( ( model.poolDimensions.leftChamber.centerTop + model.poolDimensions.leftChamber.widthTop / 2 + model.poolDimensions.rightChamber.centerTop - model.poolDimensions.rightChamber.widthTop / 2 ) / 2 );
+    var slantMultiplier = 0.45; // Empirically determined to make label line up in space between the pools.
+    var depthLabelsMeters = new Node();
+    for ( var depthMeters = 1; depthMeters <= model.poolDimensions.leftChamber.height; depthMeters++ ) {
+      var metersText = new Text( depthMeters + ' ' + metersString, fontOptions );
+      var metersLabelRect = new Rectangle( 0, 0, metersText.width + 5, metersText.height + 5, 10, 10, {fill: '#67a257'} );
+      metersText.center = metersLabelRect.center;
+      metersLabelRect.addChild( metersText );
+      metersLabelRect.centerX = labelPosX + mvt.modelToViewX( depthMeters * slantMultiplier );
+      metersLabelRect.centerY = mvt.modelToViewY( depthMeters + model.globalModel.skyGroundBoundY );
+      depthLabelsMeters.addChild( metersLabelRect );
+    }
 
-    var feetLabels = new Node();
-    var feetText = new Text( '10' + feetString, _.extend( {
-      x: mvt.modelToViewX( model.poolDimensions.rightChamber.centerTop + model.poolDimensions.rightChamber.widthBottom / 2 ) + 10,
-      y: mvt.modelToViewY( model.globalModel.skyGroundBoundY + model.globalModel.units.feetToMeters( 10 ) ) + 17
-    }, fontOptions ) );
-    backgroundRect = new Rectangle( 0, 0, feetText.width + 10, feetText.height + 5, 10, 10, {fill: '#67a257'} );
-    backgroundRect.centerX = feetText.centerX;
-    backgroundRect.centerY = feetText.centerY;
-    feetLabels.addChild( backgroundRect );
-    feetLabels.addChild( feetText );
+    // Add the labels for feet, adjust for loop to limit number of labels.
+    var depthLabelsFeet = new Node();
+    for ( var depthFeet = 5; depthFeet <= model.poolDimensions.leftChamber.height * 3.3 + 1; depthFeet += 5 ) {
+      var feetText = new Text( depthFeet + ' ' + feetString, fontOptions );
+      var feetLabelRect = new Rectangle( 0, 0, feetText.width + 5, feetText.height + 5, 10, 10, {fill: '#67a257'} );
+      feetText.center = feetLabelRect.center;
+      feetLabelRect.addChild( feetText );
+      feetLabelRect.centerX = labelPosX + mvt.modelToViewX( depthFeet / 3.3 * slantMultiplier );
+      feetLabelRect.centerY = mvt.modelToViewY( depthFeet / 3.3 + model.globalModel.skyGroundBoundY );
+      depthLabelsFeet.addChild( feetLabelRect );
+    }
 
-    this.addChild( metersLabels );
-    this.addChild( feetLabels );
+    this.addChild( depthLabelsMeters );
+    this.addChild( depthLabelsFeet );
 
     model.globalModel.measureUnitsProperty.link( function( value ) {
       var metersVisible = (value !== 'english');
-      metersLabels.visible = metersVisible;
-      feetLabels.visible = !metersVisible;
+      depthLabelsMeters.visible = metersVisible;
+      depthLabelsFeet.visible = !metersVisible;
     } );
 
     model.globalModel.isGridVisibleProperty.link( function( value ) {
