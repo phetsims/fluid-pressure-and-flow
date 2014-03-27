@@ -1,3 +1,4 @@
+Added labels to grid for pools 2 & 3
 Fixed issue with text in slider controls on Firefox
 Bounded grids at edge of pool for pool configs 2 and 3.
 Made all pools have 1 meter grid resolution
