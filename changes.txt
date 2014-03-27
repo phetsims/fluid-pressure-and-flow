@@ -1,3 +1,6 @@
+Fixed issue with text in slider controls on Firefox
+Bounded grids at edge of pool for pool configs 2 and 3.
+Made all pools have 1 meter grid resolution
 # 1.0.0-dev.6 2/24/2014 Dev version with a number of fixes.
 # 1.0.0-dev.5 2/12/2014 Dev version with a number of fixes.
 Fixed issues with control panels not resizing for translated text
