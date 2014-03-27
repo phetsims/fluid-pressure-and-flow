@@ -14,7 +14,7 @@ define( function( require ) {
   var Node = require( 'SCENERY/nodes/Node' );
   var Rectangle = require( 'SCENERY/nodes/Rectangle' );
   var Text = require( 'SCENERY/nodes/Text' );
-  var HTMLText = require( 'SCENERY/nodes/HTMLText' );
+  var SubSupText = require( 'SCENERY_PHET/SubSupText' );
   var PhetFont = require( 'SCENERY_PHET/PhetFont' );
   var HSlider = require( 'SUN/HSlider' );
   var AccordionBox = require( 'SUN/AccordionBox' );
@@ -55,7 +55,7 @@ define( function( require ) {
     var minusButton = new ArrowButton( 'left', function propertyMinus() {
       trackProperty.set( Util.toFixed( parseFloat( Math.max( trackProperty.get() ) - 1 / Math.pow( 10, options.decimals ), trackRange.min ), options.decimals ) );
     } );
-    var valueLabel = new HTMLText( '', { font: new PhetFont( 18 ), pickable: false } );
+    var valueLabel = new SubSupText( '', { font: new PhetFont( 18 ), pickable: false } );
     var valueField = new Rectangle( 0, 0, 100, 30, 3, 3, { fill: '#FFF', stroke: 'black', lineWidth: 1, pickable: false } );
     var labelFont = new PhetFont( 14 );
 
@@ -112,14 +112,14 @@ define( function( require ) {
 
     trackProperty.link( function ( value ) {
       valueLabel.text = getPropertyStringFunction();
-      valueLabel.centerX = valueField.centerX; // keep the value centered in the field
+      valueLabel.center = valueField.center; // keep the value centered in the field
       plusButton.setEnabled( value < trackRange.max );
       minusButton.setEnabled( value > trackRange.min );
     } );
 
     model.measureUnitsProperty.link( function() {
       valueLabel.text = getPropertyStringFunction();
-      valueLabel.centerX = valueField.centerX; // keep the value centered in the field
+      valueLabel.center = valueField.center; // keep the value centered in the field
     } );
   }
 
