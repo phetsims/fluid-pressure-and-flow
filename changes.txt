@@ -1,11 +1,8 @@
-# 1.0.0-rc.3 3/27/2014 Release candidate with a number of fixes.
-Merged in changes from the master branch
+Changed labels for pools 1 and 4 to use "m" and "ft" instead of "meters" and "feet".
 Added labels to grid for pools 2 & 3
 Fixed issue with text in slider controls on Firefox
 Bounded grids at edge of pool for pool configs 2 and 3.
 Made all pools have 1 meter grid resolution
-# 1.0.0-rc.2
-# 1.0.0-rc.1
 # 1.0.0-dev.6 2/24/2014 Dev version with a number of fixes.
 # 1.0.0-dev.5 2/12/2014 Dev version with a number of fixes.
 Fixed issues with control panels not resizing for translated text
