@@ -30,7 +30,7 @@ define( function( require ) {
     // Add the labels for meters
     var labelPosX = mvt.modelToViewX( ( model.poolDimensions.leftChamber.x2 + model.poolDimensions.rightOpening.x1 ) / 2 );
     var depthLabelsMeters = new Node();
-    for ( var depthMeters = 1; depthMeters <= model.poolDimensions.leftChamber.y2 - model.globalModel.skyGroundBoundY; depthMeters++ ) {
+    for ( var depthMeters = 0; depthMeters <= model.poolDimensions.leftChamber.y2 - model.globalModel.skyGroundBoundY; depthMeters++ ) {
       var metersText = new Text( depthMeters + ' ' + metersString, fontOptions );
       var metersLabelRect = new Rectangle( 0, 0, metersText.width + 5, metersText.height + 5, 10, 10, {fill: '#67a257'} );
       metersText.center = metersLabelRect.center;
@@ -42,7 +42,7 @@ define( function( require ) {
 
     // Add the labels for feet, adjust for loop to limit number of labels.
     var depthLabelsFeet = new Node();
-    for ( var depthFeet = 5; depthFeet <= ( model.poolDimensions.leftChamber.y2 - model.globalModel.skyGroundBoundY ) * 3.3 + 1; depthFeet += 5 ) {
+    for ( var depthFeet = 0; depthFeet <= ( model.poolDimensions.leftChamber.y2 - model.globalModel.skyGroundBoundY ) * 3.3 + 1; depthFeet += 5 ) {
       var feetText = new Text( depthFeet + ' ' + feetString, fontOptions );
       var feetLabelRect = new Rectangle( 0, 0, feetText.width + 5, feetText.height + 5, 10, 10, {fill: '#67a257'} );
       feetText.center = feetLabelRect.center;
