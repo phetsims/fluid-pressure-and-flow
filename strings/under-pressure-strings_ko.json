@@ -39,7 +39,6 @@
   "waterTower": "물탱크",
   "flow": "흐름",
   "units": "단위",
-  "readoutMeter": "{0}미터",
   "flux": "유량",
   "fluxMeter": "유량계"
 }

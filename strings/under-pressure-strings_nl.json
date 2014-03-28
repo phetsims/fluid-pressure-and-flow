@@ -43,7 +43,7 @@
   "massLabelPattern": "{0} kg",
   "normal": "Normaal",
   "off": "Uit",
-  "readoutMeters": "{0} meters",
+  "readoutMeters": "{0} m",
   "unknownVelocity": "-",
   "densityUnitsMetric": "<html>kg/m<sup>3</sup></html>",
   "areaUnitsMetric": "m<sup>2</sup>",
@@ -57,7 +57,6 @@
   "units": "Eenheden",
   "flux": "Flux:",
   "fluxMeter": "Fluxmeter",
-  "readoutMeter": "{0} meter",
   "ftPerS": "voet/s",
   "areaUnitsEnglish": "voet<sup>2</sup>"
 }

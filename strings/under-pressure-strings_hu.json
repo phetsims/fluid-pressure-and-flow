@@ -30,13 +30,12 @@
   "grid": "Szintvonalak",
   "normal": "Normális mozgás",
   "off": "Ki",
-  "readoutMeters": "{0} méter",
+  "readoutMeters": "{0} m",
   "atmosphere": "Légköri nyomás",
   "waterTower": "Víztorony",
   "high": "magas",
   "flow": "Áramlás",
   "units": "Egységek",
-  "readoutMeter": "{0} méter",
   "flux": "Térfogatáram-sűrűség, \"fluxus\":",
   "fluxMeter": "Fluxusmérő"
 }

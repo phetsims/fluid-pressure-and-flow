@@ -57,7 +57,6 @@
   "units": "单位",
   "flux": "流量",
   "fluxMeter": "磁通量计",
-  "readoutMeter": "{0} 米",
   "ftPerS": "ft/s",
   "areaUnitsEnglish": "ft<sup>2</sup>"
 }

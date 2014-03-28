@@ -56,7 +56,6 @@
   "units": "Unitats",
   "flux": "Cabal",
   "fluxMeter": "Mesurador de cabal",
-  "readoutMeter": "{0} metre",
   "ftPerS": "ft/s",
   "areaUnitsEnglish": "ft<sup>2</sup>"
 }

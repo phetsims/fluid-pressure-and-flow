@@ -35,7 +35,7 @@
   "area": "Tiết diện:",
   "rateUnitsEnglish": "ft<sup>3</sup>/s",
   "water": "Nước",
-  "readoutFeet": "{0} feet",
+  "readoutFeet": "{0} ft",
   "gravity": "Trọng lực",
   "metric": "MKS",
   "grid": "Lưới",
@@ -57,7 +57,6 @@
   "units": "Đơn vị",
   "flux": "Thông lượng",
   "fluxMeter": "Thông lượng kế",
-  "readoutMeter": "{0} m",
   "ftPerS": "ft/s",
   "areaUnitsEnglish": "ft<sup>2</sup>"
 }

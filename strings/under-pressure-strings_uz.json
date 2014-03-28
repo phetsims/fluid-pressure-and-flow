@@ -41,7 +41,7 @@
   "massLabelPattern": "{0} кг",
   "normal": "Нормал",
   "off": "Учирмок",
-  "readoutMeters": "{0} метр",
+  "readoutMeters": "{0} м",
   "unknownVelocity": "-",
   "densityUnitsMetric": "<html>кг/м<sup>3</sup></html>",
   "areaUnitsMetric": "м<sup>2</sup>",
@@ -54,7 +54,6 @@
   "units": "Улчов бирликлари",
   "flux": "Окиш",
   "fluxMeter": "Оким метр",
-  "readoutMeter": "{0} метр",
   "ftPerS": "фут/с",
   "areaUnitsEnglish": "фт<sup>2</sup>"
 }

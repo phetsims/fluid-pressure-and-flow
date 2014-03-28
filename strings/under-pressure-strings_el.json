@@ -40,7 +40,7 @@
   "massLabelPattern": "{0} κ.",
   "normal": "Κανονική κίνηση",
   "off": "Κλειστό",
-  "readoutMeters": "{0} μέτρα",
+  "readoutMeters": "{0} μ",
   "unknownVelocity": "-",
   "densityUnitsMetric": "<html>kg/m<sup>3</sup></html>",
   "areaUnitsMetric": "m<sup>2</sup>",
@@ -54,7 +54,6 @@
   "units": "Σύστημα μέτρησης",
   "flux": "Ροή:",
   "fluxMeter": "Μετρητής ροής:",
-  "readoutMeter": "{0} μέτρο",
   "ftPerS": "πδ/δ",
   "areaUnitsEnglish": "ft<sup>2</sup>"
 }

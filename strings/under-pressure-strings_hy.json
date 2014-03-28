@@ -34,7 +34,7 @@
   "area": "Մակերես",
   "water": "Ջուր",
   "rateUnitsEnglish": "ft<sup>3</sup>/s",
-  "readoutFeet": "{0} feet",
+  "readoutFeet": "{0} ft",
   "gravity": "Գրավիտացիա",
   "metric": "Մետրային",
   "grid": "Ցանց",
@@ -56,7 +56,6 @@
   "units": "Չափայնություն",
   "flux": "Հոսք.",
   "fluxMeter": "Հոսքի չափայնությունը",
-  "readoutMeter": "{0} մետր",
   "ftPerS": "ft/s",
   "areaUnitsEnglish": "ft<sup>2</sup>"
 }

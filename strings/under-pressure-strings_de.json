@@ -41,7 +41,7 @@
   "massLabelPattern": "{0} kg",
   "normal": "normal",
   "off": "Aus",
-  "readoutMeters": "{0} Meter",
+  "readoutMeters": "{0} M",
   "unknownVelocity": "-",
   "densityUnitsMetric": "<html>kg/m<sup>3</sup></html>",
   "areaUnitsMetric": "m<sup>2</sup>",
@@ -54,7 +54,6 @@
   "units": "Druck-Maßeinheit",
   "flux": "Strömungsgeschwindigkeit",
   "fluxMeter": "Strömungsgeschwindigkeitsmesser",
-  "readoutMeter": "{0} Meter",
   "ftPerS": "ft/s",
   "areaUnitsEnglish": "ft<sup>2</sup>"
 }

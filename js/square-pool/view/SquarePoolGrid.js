@@ -14,7 +14,6 @@ define( function( require ) {
   var PhetFont = require( 'SCENERY_PHET/PhetFont' );
 
   var metersStringPattern = require( 'string!UNDER_PRESSURE/readoutMeters' );
-  var meterStringPattern = require( 'string!UNDER_PRESSURE/readoutMeter' );
   var feetStringPattern = require( 'string!UNDER_PRESSURE/readoutFeet' );
 
   function SquarePoolGrid( model, mvt ) {
@@ -30,12 +29,7 @@ define( function( require ) {
 
     var metersLabels = new Node();
     for ( var i = 0; i < 4; i++ ) {
-      var pattern = metersStringPattern;
-      if ( i === 1 ) {
-        pattern = meterStringPattern;
-      }
-
-      metersLabels.addChild( new Text( StringUtils.format( pattern, i ), _.extend( {
+      metersLabels.addChild( new Text( StringUtils.format( metersStringPattern, i ), _.extend( {
         right: mvt.modelToViewX( model.poolDimensions.x1 ) - 8,
         centerY: mvt.modelToViewY( model.globalModel.skyGroundBoundY + i )
       }, fontOptions ) ) );

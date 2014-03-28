@@ -33,7 +33,7 @@
   "grid": "griglia",
   "normal": "Normale",
   "off": "spento",
-  "readoutMeters": "{0} metri",
+  "readoutMeters": "{0} m",
   "atmosphere": "Atmosfera",
   "high": "alto",
   "waterTower": "Serbatoio su torre",
@@ -42,7 +42,6 @@
   "units": "Unità",
   "flux": "Flusso:",
   "fluxMeter": "Flussometro",
-  "readoutMeter": "{0} metro",
   "ftPerS": "pd/s",
   "areaUnitsEnglish": "pd<sup>2</sup>"
 }

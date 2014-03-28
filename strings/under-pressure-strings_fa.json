@@ -35,7 +35,7 @@
   "area": "سطح",
   "rateUnitsEnglish": "ft<sup>3</sup>/s",
   "water": "آب",
-  "readoutFeet": "{0} feet",
+  "readoutFeet": "{0} ft",
   "gravity": "گرانش",
   "metric": "متريك",
   "grid": "ترازبندي",
@@ -43,7 +43,7 @@
   "massLabelPattern": "{0} kg",
   "normal": "روبه بالا",
   "off": "خاموش",
-  "readoutMeters": "{0} meters",
+  "readoutMeters": "{0} m",
   "unknownVelocity": "-",
   "densityUnitsMetric": "<html>kg/m<sup>3</sup></html>",
   "areaUnitsMetric": "m<sup>2</sup>",
@@ -57,7 +57,6 @@
   "units": "يكاها",
   "flux": "شار",
   "fluxMeter": "شارسنج",
-  "readoutMeter": "{0} meter",
   "ftPerS": "ft/s",
   "areaUnitsEnglish": "ft<sup>2</sup>"
 }

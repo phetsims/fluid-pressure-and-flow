@@ -29,7 +29,7 @@
   "on": "Aç",
   "area": "Meýdan",
   "water": "suw",
-  "readoutFeet": "{0} futlar",
+  "readoutFeet": "{0} ft",
   "gravity": "Agyrlyk güýji",
   "metric": "Metriki",
   "grid": "Setka",
@@ -37,7 +37,7 @@
   "massLabelPattern": "{0} kg",
   "normal": "Normal",
   "off": "Ýap",
-  "readoutMeters": "{0} metrlar",
+  "readoutMeters": "{0} m",
   "unknownVelocity": "näbelli tizlik",
   "atmosphere": "Atmosfera",
   "high": "ýokary",
@@ -45,6 +45,5 @@
   "flow": "Akym",
   "units": "Ölçeg birlikleri",
   "flux": "Akma",
-  "fluxMeter": "Akymy ölçeýji",
-  "readoutMeter": "{0} metr"
+  "fluxMeter": "Akymy ölçeýji"
 }
