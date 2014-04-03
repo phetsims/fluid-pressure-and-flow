@@ -8,11 +8,16 @@
 define( function( require ) {
   'use strict';
 
+  // Imports
   var inherit = require( 'PHET_CORE/inherit' );
   var SquarePoolModel = require( 'UNDER_PRESSURE/square-pool/model/SquarePoolModel' );
   var Property = require( 'AXON/Property' );
   var PropertySet = require( 'AXON/PropertySet' );
   var Color = require( 'SCENERY/util/Color' );
+
+  // Constants
+  var WATER_DENSITY = 1000;
+  var EARTH_GRAVITY = 9.8;
 
   function MysteryPoolModel( globalModel ) {
     var self = this;
@@ -20,7 +25,7 @@ define( function( require ) {
 
     //custom gravity and density for mystery pool
     this.fluidDensity = [1300, 765, 880];
-    this.fluidDensityCustom = new Property( 0 );
+    this.fluidDensityCustom = new Property( 1 );
     this.waterColor = [new Color( 113, 35, 136 ), new Color( 179, 115, 176 ), new Color( 60, 29, 71 )];
 
     this.gravity = [20, 14, 6.5];
@@ -64,9 +69,11 @@ define( function( require ) {
       this.globalModel[choice] = this[choice][this[choice + 'Custom'].get()];
       if ( choice === 'fluidDensity' ) {
         this.globalModel.waterColorModel.setWaterColor( this.waterColor[this[choice + 'Custom'].get()] );
+        this.globalModel.gravity = EARTH_GRAVITY;
       }
       else {
         this.globalModel.fluidDensityProperty.notifyObserversUnsafe();
+        this.globalModel.fluidDensity = WATER_DENSITY;
       }
     },
     reset: function() {
