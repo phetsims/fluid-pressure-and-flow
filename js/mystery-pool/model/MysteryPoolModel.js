@@ -15,17 +15,13 @@ define( function( require ) {
   var PropertySet = require( 'AXON/PropertySet' );
   var Color = require( 'SCENERY/util/Color' );
 
-  // Constants
-  var WATER_DENSITY = 1000;
-  var EARTH_GRAVITY = 9.8;
-
   function MysteryPoolModel( globalModel ) {
     var self = this;
     SquarePoolModel.call( this, globalModel );
 
     //custom gravity and density for mystery pool
     this.fluidDensity = [1300, 765, 880];
-    this.fluidDensityCustom = new Property( 1 );
+    this.fluidDensityCustom = new Property( 0 );
     this.waterColor = [new Color( 113, 35, 136 ), new Color( 179, 115, 176 ), new Color( 60, 29, 71 )];
 
     this.gravity = [20, 14, 6.5];
@@ -44,7 +40,17 @@ define( function( require ) {
       }
     } );
 
-    this.globalModel.mysteryChoiceProperty.link( function() {
+    this.globalModel.mysteryChoiceProperty.link( function( mysteryChoice ) {
+
+      // Reset the value of the non-mystery quantity when the other quantity is selected.
+      if ( mysteryChoice === 'fluidDensity' ) {
+        self.globalModel.gravityProperty.reset();
+      }
+      else if ( mysteryChoice === 'gravity' ) {
+        self.globalModel.fluidDensityProperty.reset();
+      }
+
+      // Update mystery quantity.
       if ( self.globalModel.currentScene === 'Mystery' ) {
         self.updateChoiceValue();
       }
@@ -69,11 +75,9 @@ define( function( require ) {
       this.globalModel[choice] = this[choice][this[choice + 'Custom'].get()];
       if ( choice === 'fluidDensity' ) {
         this.globalModel.waterColorModel.setWaterColor( this.waterColor[this[choice + 'Custom'].get()] );
-        this.globalModel.gravity = EARTH_GRAVITY;
       }
       else {
         this.globalModel.fluidDensityProperty.notifyObserversUnsafe();
-        this.globalModel.fluidDensity = WATER_DENSITY;
       }
     },
     reset: function() {
