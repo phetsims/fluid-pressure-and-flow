@@ -1,3 +1,6 @@
+Changed barometer node layout so it doesn't obscure highest and lowest readings
+Added more variation in fluid densities in mystery pool
+Fixed an issue where switching between mystery planet and mystery fluid would give away the answers
 Changed labels for pools 1 and 4 to use "m" and "ft" instead of "meters" and "feet".
 Added labels to grid for pools 2 & 3
 Fixed issue with text in slider controls on Firefox
