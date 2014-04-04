@@ -68,8 +68,8 @@ define( function( require ) {
         .addColorStop( 1, '#656570' )
     } ) );
 
-    //pressure text
-    var text = new Text( '', {font: new PhetFont( 14 ), y: 25, fontWeight: 'bold'} );
+    //pressure text, y position empirically determined
+    var text = new Text( '', {font: new PhetFont( 14 ), y: 40, fontWeight: 'bold'} );
     var textBackground = new Rectangle( 0, 0, 1, 1, {stroke: 'black', fill: 'white'} );
     this.addChild( textBackground );
     this.addChild( text );
