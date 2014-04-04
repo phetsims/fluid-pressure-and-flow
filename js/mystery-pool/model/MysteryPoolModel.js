@@ -20,7 +20,7 @@ define( function( require ) {
     SquarePoolModel.call( this, globalModel );
 
     //custom gravity and density for mystery pool
-    this.fluidDensity = [1300, 765, 880];
+    this.fluidDensity = [1700, 840, 1100];
     this.fluidDensityCustom = new Property( 0 );
     this.waterColor = [new Color( 113, 35, 136 ), new Color( 179, 115, 176 ), new Color( 60, 29, 71 )];
 
