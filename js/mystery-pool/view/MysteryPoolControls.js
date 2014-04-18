@@ -32,7 +32,7 @@ define( function( require ) {
     //choice for mystery scene
     var textOptions = {font: new PhetFont( 14 )};
     this.choicePanel = new Node( {x: 625, y: 192, scale: 0.8} );
-    var background = new Rectangle( 0, 0, 1, 1, {stroke: 'gray', lineWidth: 1, fill: '#f2fa6a', pickable: 'false'} );
+    var background = new Rectangle( 0, 0, 1, 1, {stroke: 'gray', lineWidth: 1, fill: '#f2fa6a', pickable: false } );
     var content = new VBox( {
       children: [
         new AquaRadioButton( model.globalModel.mysteryChoiceProperty, 'fluidDensity', new Text( mysteryFluid, textOptions ), {radius: 8} ),

@@ -60,7 +60,7 @@ define( function( require ) {
       lineJoin: 'round'
     } ) );
 
-    this.addChild( new UPFaucetNode( model.outputFaucet, 0, mvt ) );
+    this.addChild( new UPFaucetNode( model.outputFaucet, 200, mvt ) );
 
     //white background for pool
 
