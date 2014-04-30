@@ -77,7 +77,7 @@ define( function( require ) {
         this.globalModel.waterColorModel.setWaterColor( this.waterColor[this[choice + 'Custom'].get()] );
       }
       else {
-        this.globalModel.fluidDensityProperty.notifyObserversUnsafe();
+        this.globalModel.fluidDensityProperty.notifyObserversStatic();
       }
     },
     reset: function() {
