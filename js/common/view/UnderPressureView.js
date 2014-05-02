@@ -16,7 +16,7 @@ define( function( require ) {
   var ControlPanel = require( 'UNDER_PRESSURE/common/view/ControlPanel' );
   var ControlSlider = require( 'UNDER_PRESSURE/common/view/ControlSlider' );
   var SceneChoiceNode = require( 'UNDER_PRESSURE/common/view/SceneChoiceNode' );
-  var ResetAllButton = require( 'SCENERY_PHET/ResetAllButton' );
+  var ResetAllButtonDeprecated = require( 'SCENERY_PHET/ResetAllButtonDeprecated' );
   var Rectangle = require( 'SCENERY/nodes/Rectangle' );
 
   var fluidDensityString = require( 'string!UNDER_PRESSURE/fluidDensity' );
@@ -125,7 +125,7 @@ define( function( require ) {
     } );
 
     // add reset button
-    this.addChild( new ResetAllButton( function() { model.reset(); }, { scale: 0.5, x: 745, y: model.height - 25} ) );
+    this.addChild( new ResetAllButtonDeprecated( function() { model.reset(); }, { scale: 0.5, x: 745, y: model.height - 25} ) );
 
     this.barometersContainer = new Rectangle( 0, 0, 100, 130, 10, 10, {stroke: 'gray', lineWidth: 1, fill: '#f2fa6a', x: 520, y: 5} );
     this.addChild( this.barometersContainer );
