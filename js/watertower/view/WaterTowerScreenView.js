@@ -34,6 +34,8 @@ define( function( require ) {
       centerX: ScreenView.DEFAULT_LAYOUT_BOUNDS.centerX,
       centerY: ScreenView.DEFAULT_LAYOUT_BOUNDS.centerY,
       scale: ScreenView.DEFAULT_LAYOUT_BOUNDS.height / mockupImage.height,
+
+      //Decrease the opacity so you can compare this to new elements that are being added
       opacity: 0.5
     } ) );
   }
