@@ -99,7 +99,7 @@ define( function( require ) {
         buttonPosition: 'left',
         scale: scale,
         cornerRadius: 10,
-        controlButtonInsetX: 8
+        controlButtonXMargin: 8
       } );
     this.addChild( accordionBox );
 
