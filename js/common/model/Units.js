@@ -66,12 +66,18 @@ define( function( require ) {
     };
 
     this.getFluidDensityString = function() {
+      var value;
+      var units;
       if ( model.measureUnits === 'english' ) {
-        return StringUtils.format( valueWithUnitsPattern, Math.round( self.FLUIDDENSITY_ENGLISH_PER_METRIC * model.fluidDensity ), densityUnitsEnglish );
+        value = self.FLUIDDENSITY_ENGLISH_PER_METRIC * model.fluidDensity;
+        units = densityUnitsEnglish;
       }
       else {
-        return StringUtils.format( valueWithUnitsPattern, Math.round( model.fluidDensity ), densityUnitsMetric );
+        value = model.fluidDensity;
+        units = densityUnitsMetric;
       }
+      var numDecimalsPlaces = value >= 100 ? 0 : 1;
+      return StringUtils.format( valueWithUnitsPattern, Util.toFixed( value, numDecimalsPlaces ), units );
     };
 
     this.feetToMeters = function( feet ) {
