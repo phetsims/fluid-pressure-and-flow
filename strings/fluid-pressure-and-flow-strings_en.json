@@ -68,5 +68,7 @@
   "planetC": "Planet C",
   "fluidA": "Fluid A",
   "fluidB": "Fluid B",
-  "fluidC": "Fluid C"
+  "fluidC": "Fluid C",
+  "feet": "feet",
+  "meters": "meters"
 }

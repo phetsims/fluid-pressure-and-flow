@@ -19,6 +19,7 @@ require.config(
 
       // third-party libs
       text: '../../sherpa/text',
+      underscore: '../../sherpa/lodash-2.4.1',
 
       // PhET plugins
       image: '../../chipper/requirejs-plugins/image',
@@ -39,6 +40,9 @@ require.config(
 
       // this sim
       FLUID_PRESSURE_AND_FLOW: '.'
+    },
+    shim: {
+      underscore: { exports: "_" }
     },
 
     urlArgs: new Date().getTime()  // cache buster to make browser reload all included scripts
