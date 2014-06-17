@@ -1,0 +1,3 @@
+handle.png source=PhET author=gruneich
+nozzle.png source=PhET author=gruneich
+wheel.png source=PhET author=gruneich
