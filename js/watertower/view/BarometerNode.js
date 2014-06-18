@@ -29,19 +29,19 @@ define( function( require ) {
    * Main constructor for BarometerNode.
    *
    * @param {WaterTowerModel} model of simulation
-   * @param {ModelViewTransform2} mvt , Transform between model and view coordinate frames
+   * @param {ModelViewTransform2} modelViewTransform , Transform between model and view coordinate frames
    * @param {Property} barometerValueProperty - value {Pa}, associated with current barometer instance
    * @param {Property} barometerPositionProperty - position (Vector2), associated with current barometer instance
    * @param {Bounds2} containerBounds - bounds of container for all barometers, needed to snap barometer to initial position when it in container
    * @param {Bounds2} dragBounds - bounds that define where the barometer may be dragged
    * @constructor
    */
-  function BarometerNode( model, mvt, barometerValueProperty, barometerPositionProperty, containerBounds, dragBounds, options ) {
+  function BarometerNode( model, modelViewTransform, barometerValueProperty, barometerPositionProperty, containerBounds, dragBounds, options ) {
     var barometerNode = this;
 
-    Node.call( this, {cursor: 'pointer', pickable: true, x: barometerPositionProperty.get().x, y: barometerPositionProperty.get().y} );
+    Node.call( this, {cursor: 'pointer'} );
 
-    //visual
+    // Show the circuar part of the gauge and the needle
     var gaugeNode = new GaugeNode( barometerValueProperty, pressureString, {min: model.MIN_PRESSURE, max: model.MAX_PRESSURE}, {scale: 0.3} );
     this.addChild( gaugeNode );
 
@@ -88,7 +88,7 @@ define( function( require ) {
         }
       } ) );
 
-    barometerValueProperty.set( model.getPressureAtCoords( mvt.viewToModelX( barometerNode.centerX ), mvt.viewToModelY( barometerNode.bottom ) ) );
+    barometerValueProperty.set( model.getPressureAtCoords( modelViewTransform.viewToModelX( barometerNode.centerX ), modelViewTransform.viewToModelY( barometerNode.bottom ) ) );
 
     var updateText = function() {
       text.text = model.units.getPressureString[model.measureUnits]( barometerValueProperty.get() );
@@ -98,7 +98,7 @@ define( function( require ) {
     };
 
     var updateValue = function() {
-      barometerValueProperty.set( model.getPressureAtCoords( mvt.viewToModelX( barometerNode.centerX ), mvt.viewToModelY( barometerNode.bottom ) ) );
+      barometerValueProperty.set( model.getPressureAtCoords( modelViewTransform.viewToModelX( barometerNode.centerX ), modelViewTransform.viewToModelY( barometerNode.bottom ) ) );
     };
     model.fluidDensityProperty.link( updateValue );
     model.isAtmosphereProperty.link( updateValue );
