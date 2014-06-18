@@ -30,7 +30,7 @@ define( function( require ) {
    * @param {WaterTowerModel} model of simulation
    * @param {ModelViewTransform2} modelViewTransform , Transform between model and view coordinate frames
    * @param {Property} velocityProperty - value {Vector2}, associated with current sensor instance
-   * @param {Property} sensorPositionProperty - position (Vector2), associated with current sensor instance
+   * @param {Property} positionProperty - position (Vector2), associated with current sensor instance
    * @param {Bounds2} containerBounds - bounds of container for all velocity sensors, needed to reset to initial position
    * @param {Bounds2} dragBounds - bounds that define where the sensor may be dragged
    * @constructor
@@ -41,7 +41,7 @@ define( function( require ) {
 
     var outerNode = new Rectangle( 0, 0, 80, 70, 10, 10, {stroke: 'gray', lineWidth: 1, fill: '#CD9E4D', x: 400, y: 45} );
     velocitySensorNode.addChild( outerNode );
-    velocitySensorNode.addChild( new Text( speedString, {fill: 'black', font: new PhetFont( {size: 16, weight: 'bold'} ), x: 410, y: 72} ) )
+    velocitySensorNode.addChild( new Text( speedString, {fill: 'black', font: new PhetFont( {size: 16, weight: 'bold'} ), x: 410, y: 72} ) );
 
     var innerNode = new Rectangle( 0, 0, 72, 22, {stroke: 'gray', lineWidth: 1, fill: '#ffffff', x: 403, y: 80} );
     velocitySensorNode.addChild( innerNode );
@@ -60,7 +60,6 @@ define( function( require ) {
             positionProperty.reset();
             labelNode.centerX = outerNode.centerX;
             labelNode.text = '-';
-
           }
         }
       } ) );

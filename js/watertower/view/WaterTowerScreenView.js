@@ -109,7 +109,6 @@ define( function( require ) {
     this.addChild( this.barometersContainer );
     this.barometersContainer.x = this.controlPanel.x - 5 - this.barometersContainer.width;
     this.addChild( new BarometersContainer( model, mvt, this.barometersContainer.visibleBounds, thisView.layoutBounds ) );
-
     this.addChild( new VelocitySensorsContainer( model, mvt, this.barometersContainer.visibleBounds, thisView.layoutBounds ) );
 
     this.addChild( new WaterTowerRuler( model, mvt, thisView.layoutBounds ) );
