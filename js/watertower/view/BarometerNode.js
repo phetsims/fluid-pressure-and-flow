@@ -21,6 +21,7 @@ define( function( require ) {
   var PhetFont = require( 'SCENERY_PHET/PhetFont' );
   var MovableDragHandler = require( 'SCENERY_PHET/input/MovableDragHandler' );
   var ModelViewTransform2 = require( 'PHETCOMMON/view/ModelViewTransform2' );
+  var DerivedProperty = require( 'AXON/DerivedProperty' );
 
   // strings
   var pressureString = require( 'string!FLUID_PRESSURE_AND_FLOW/pressure' );
@@ -77,7 +78,8 @@ define( function( require ) {
         .addColorStop( 1, '#656570' )
     } ) );
 
-    //handlers
+    // Add an input listener so the BarometerNode can be dragged
+    // Constrain the location so it cannot be dragged offscreen
     this.addInputListener( new MovableDragHandler( {locationProperty: barometerPositionProperty, dragBounds: dragBounds},
       ModelViewTransform2.createIdentity(),
       {
@@ -88,24 +90,18 @@ define( function( require ) {
         }
       } ) );
 
-    barometerValueProperty.set( model.getPressureAtCoords( modelViewTransform.viewToModelX( barometerNode.centerX ), modelViewTransform.viewToModelY( barometerNode.bottom ) ) );
+    //Update the value in the barometer value model by reading from the model.
+    DerivedProperty.multilink( [model.fluidDensityProperty, model.isAtmosphereProperty, barometerPositionProperty], function() {
+      barometerValueProperty.set( model.getPressureAtCoords( modelViewTransform.viewToModelX( barometerNode.centerX ), modelViewTransform.viewToModelY( barometerNode.bottom ) ) );
+    } );
 
-    var updateText = function() {
-      text.text = model.units.getPressureString[model.measureUnits]( barometerValueProperty.get() );
+    //Update the text when the value or units changes.
+    DerivedProperty.multilink( [barometerValueProperty, model.measureUnitsProperty], function( barometerValue, units ) {
+      text.text = model.units.getPressureString[units]( barometerValue );
       text.centerX = gaugeNode.centerX;
       textBackground.setRect( text.x - 2, text.y - text.height + 2, text.width + 4, text.height + 2 );
       textBackground.visible = (text.text !== '-');
-    };
-
-    var updateValue = function() {
-      barometerValueProperty.set( model.getPressureAtCoords( modelViewTransform.viewToModelX( barometerNode.centerX ), modelViewTransform.viewToModelY( barometerNode.bottom ) ) );
-    };
-    model.fluidDensityProperty.link( updateValue );
-    model.isAtmosphereProperty.link( updateValue );
-    barometerPositionProperty.link( updateValue );
-
-    barometerValueProperty.link( updateText );
-    model.measureUnitsProperty.link( updateText );
+    } );
 
     barometerPositionProperty.linkAttribute( barometerNode, 'translation' );
 
