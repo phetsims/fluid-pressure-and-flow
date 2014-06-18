@@ -4,11 +4,12 @@
  * Barometer view modified from under-pressure
  * @author Vasily Shakhov (Mlearner)
  * @author Siddhartha Chinthapally (ActualConcepts)
+ * @author Sam Reid
  */
 define( function( require ) {
   'use strict';
 
-  // Imports
+  // modules
   var inherit = require( 'PHET_CORE/inherit' );
   var Node = require( 'SCENERY/nodes/Node' );
   var GaugeNode = require( 'SCENERY_PHET/GaugeNode' );
@@ -21,30 +22,31 @@ define( function( require ) {
   var MovableDragHandler = require( 'SCENERY_PHET/input/MovableDragHandler' );
   var ModelViewTransform2 = require( 'PHETCOMMON/view/ModelViewTransform2' );
 
-  // Strings
+  // strings
   var pressureString = require( 'string!FLUID_PRESSURE_AND_FLOW/pressure' );
 
   /**
+   * Main constructor for BarometerNode.
+   *
    * @param {WaterTowerModel} model of simulation
    * @param {ModelViewTransform2} mvt , Transform between model and view coordinate frames
    * @param {Property} barometerValueProperty - value {Pa}, associated with current barometer instance
    * @param {Property} barometerPositionProperty - position (Vector2), associated with current barometer instance
    * @param {Bounds2} containerBounds - bounds of container for all barometers, needed to snap barometer to initial position when it in container
    * @param {Bounds2} dragBounds - bounds that define where the barometer may be dragged
+   * @constructor
    */
-
-  function BarometerNode( model, mvt, barometerValueProperty, barometerPositionProperty, containerBounds, dragBounds ) {
-    var self = this;
+  function BarometerNode( model, mvt, barometerValueProperty, barometerPositionProperty, containerBounds, dragBounds, options ) {
+    var barometerNode = this;
 
     Node.call( this, {cursor: 'pointer', pickable: true, x: barometerPositionProperty.get().x, y: barometerPositionProperty.get().y} );
-
 
     //visual
     var gaugeNode = new GaugeNode( barometerValueProperty, pressureString, {min: model.MIN_PRESSURE, max: model.MAX_PRESSURE}, {scale: 0.3} );
     this.addChild( gaugeNode );
 
-    var underGaugeRectangleWidth = 25,
-      underGaugeRectangleHeight = 25;
+    var underGaugeRectangleWidth = 25;
+    var underGaugeRectangleHeight = 25;
     var underGaugeRectangle = new Rectangle( gaugeNode.centerX - underGaugeRectangleWidth / 2, gaugeNode.bottom - 3, underGaugeRectangleWidth, underGaugeRectangleHeight, 5, 5, {
       fill: new LinearGradient( gaugeNode.centerX - underGaugeRectangleWidth / 2, 0, gaugeNode.centerX + underGaugeRectangleWidth / 2, 0 )
         .addColorStop( 0, '#656570' )
@@ -54,6 +56,7 @@ define( function( require ) {
         .addColorStop( 1, '#656570' )
     } );
     this.addChild( underGaugeRectangle );
+
     //pressure text, y position empirically determined
     var text = new Text( '', {font: new PhetFont( 10 ), y: 40, fontWeight: 'bold'} );
     var textBackground = new Rectangle( 0, 0, 0, 0.5, {stroke: 'black', fill: 'white'} );
@@ -74,55 +77,39 @@ define( function( require ) {
         .addColorStop( 1, '#656570' )
     } ) );
 
-
     //handlers
-    var barometerDragHandler = new MovableDragHandler( {locationProperty: barometerPositionProperty, dragBounds: dragBounds},
+    this.addInputListener( new MovableDragHandler( {locationProperty: barometerPositionProperty, dragBounds: dragBounds},
       ModelViewTransform2.createIdentity(),
       {
         endDrag: function() {
-          if ( containerBounds.intersectsBounds( self.visibleBounds ) ) {
+          if ( containerBounds.intersectsBounds( barometerNode.visibleBounds ) ) {
             barometerPositionProperty.reset();
           }
         }
-      } );
+      } ) );
 
-    this.addInputListener( barometerDragHandler );
+    barometerValueProperty.set( model.getPressureAtCoords( mvt.viewToModelX( barometerNode.centerX ), mvt.viewToModelY( barometerNode.bottom ) ) );
 
-    barometerValueProperty.set( model.getPressureAtCoords( mvt.viewToModelX( self.centerX ), mvt.viewToModelY( self.bottom ) ) );
-
-    var setText = function() {
+    var updateText = function() {
       text.text = model.units.getPressureString[model.measureUnits]( barometerValueProperty.get() );
       text.centerX = gaugeNode.centerX;
       textBackground.setRect( text.x - 2, text.y - text.height + 2, text.width + 4, text.height + 2 );
       textBackground.visible = (text.text !== '-');
     };
 
-    var dy = barometerPositionProperty.get().y - self.bottom;
-    //we can't use  self.centerX,self.bottom because these vars not updated yet
-    barometerPositionProperty.link( function( position ) {
-      barometerValueProperty.set( model.getPressureAtCoords( mvt.viewToModelX( position.x ), mvt.viewToModelY( position.y - dy ) ) );
-    } );
+    var updateValue = function() {
+      barometerValueProperty.set( model.getPressureAtCoords( mvt.viewToModelX( barometerNode.centerX ), mvt.viewToModelY( barometerNode.bottom ) ) );
+    };
+    model.fluidDensityProperty.link( updateValue );
+    model.isAtmosphereProperty.link( updateValue );
+    barometerPositionProperty.link( updateValue );
 
-    model.fluidDensityProperty.link( function() {
-      barometerValueProperty.set( model.getPressureAtCoords( mvt.viewToModelX( self.centerX ), mvt.viewToModelY( self.bottom ) ) );
-    } );
+    barometerValueProperty.link( updateText );
+    model.measureUnitsProperty.link( updateText );
 
-    model.isAtmosphereProperty.link( function() {
-      barometerValueProperty.set( model.getPressureAtCoords( mvt.viewToModelX( self.centerX ), mvt.viewToModelY( self.bottom ) ) );
-    } );
+    barometerPositionProperty.linkAttribute( barometerNode, 'translation' );
 
-    barometerValueProperty.link( function() {
-      setText();
-    } );
-
-    model.measureUnitsProperty.link( function() {
-      setText();
-    } );
-
-    barometerPositionProperty.link( function( newPosition ) {
-      self.translation = newPosition;
-    } );
-
+    this.mutate( options );
   }
 
   return inherit( Node, BarometerNode );
