@@ -70,5 +70,7 @@
   "fluidB": "Fluid B",
   "fluidC": "Fluid C",
   "feet": "feet",
-  "meters": "meters"
+  "meters": "meters",
+  "speed" : "Speed",
+  "speedMeter": "speed meter"
 }
