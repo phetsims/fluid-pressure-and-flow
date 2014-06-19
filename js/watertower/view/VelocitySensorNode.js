@@ -17,6 +17,9 @@ define( function( require ) {
   var ModelViewTransform2 = require( 'PHETCOMMON/view/ModelViewTransform2' );
   var ArrowShapeNode = require( 'SCENERY_PHET/ArrowNode' );
   var DerivedProperty = require( 'AXON/DerivedProperty' );
+  var Shape = require('KITE/Shape');
+  var Path = require('SCENERY/nodes/Path');
+  var LinearGradient = require('SCENERY/util/LinearGradient');
 
   // strings
   var speedString = require( 'string!FLUID_PRESSURE_AND_FLOW/speed' );
@@ -43,13 +46,26 @@ define( function( require ) {
     velocitySensorNode.addChild( outerNode );
     velocitySensorNode.addChild( new Text( speedString, {fill: 'black', font: new PhetFont( {size: 16, weight: 'bold'} ),  x:containerBounds.centerX-700, y:containerBounds.centerY-68} ) );
 
-    var innerNode = new Rectangle( 0, 0, 72, 22, {stroke: 'gray', lineWidth: 1, fill: '#ffffff',x:containerBounds.centerX-708, y:containerBounds.centerY-60} );
+    var innerNode = new Rectangle( 0, 0, 70, 22, {stroke: 'gray', lineWidth: 1, fill: '#ffffff',x:containerBounds.centerX-708, y:containerBounds.centerY-60} );
     velocitySensorNode.addChild( innerNode );
 
     var labelNode = new Text( speedMeterString, {fill: 'black', font: new PhetFont( {size: 12, weight: 'bold'} ), x:containerBounds.centerX-695, y:containerBounds.centerY-40} );
     velocitySensorNode.addChild( labelNode );
 
-    velocitySensorNode.addChild( new ArrowShapeNode( 5, 0, 4, 16, {stroke: '#CD9E4D', fill: '#CD9E4D', x:containerBounds.centerX-680, y:containerBounds.centerY-30} ) );
+    var bottomTriangleShapeWidth = 30;
+    var bottomTriangleShapeHeight = 12;
+
+    var bottomTriangleShape = new Shape()
+      .moveTo(outerNode.centerX - bottomTriangleShapeWidth / 2, innerNode.rectY + 1)
+      .lineTo(outerNode.centerX, bottomTriangleShapeHeight + innerNode.rectY + 1)
+      .lineTo(outerNode.centerX + bottomTriangleShapeWidth / 2, innerNode.rectY + 1);
+
+    this.addChild(new Path(bottomTriangleShape, {
+      fill: new LinearGradient(outerNode.centerX - bottomTriangleShapeWidth / 2, 0, outerNode.centerX + bottomTriangleShapeWidth / 2, 0)
+        .addColorStop(1, '#CD9E4D')
+        .addColorStop(1, '#CD9E4D')
+        .addColorStop(1, '#CD9E4D'), x:containerBounds.centerX-713, y:containerBounds.centerY-25.5,stroke: 'gray'
+    }));
 
     //handlers
     this.addInputListener( new MovableDragHandler( {locationProperty: positionProperty, dragBounds: dragBounds},
