@@ -15,7 +15,6 @@ define( function( require ) {
   var PhetFont = require( 'SCENERY_PHET/PhetFont' );
   var MovableDragHandler = require( 'SCENERY_PHET/input/MovableDragHandler' );
   var ModelViewTransform2 = require( 'PHETCOMMON/view/ModelViewTransform2' );
-  var ArrowShapeNode = require( 'SCENERY_PHET/ArrowNode' );
   var DerivedProperty = require( 'AXON/DerivedProperty' );
   var Shape = require('KITE/Shape');
   var Path = require('SCENERY/nodes/Path');
