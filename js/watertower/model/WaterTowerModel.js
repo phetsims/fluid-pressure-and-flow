@@ -60,7 +60,7 @@ define( function( require ) {
     this.speedometers = [];
     for ( var j = 0; j < 4; j++ ) {
       this.speedometers.push( {
-        value: new Property( new Vector2( 0, 0 ) ),
+        value: new Property( new Vector2( 5, 5 ) ),
         position: new Property( new Vector2( 560, 60 ) )
       } );
     }

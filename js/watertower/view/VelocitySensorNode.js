@@ -39,17 +39,17 @@ define( function( require ) {
     var velocitySensorNode = this;
     Node.call( this, {cursor: 'pointer', pickable: true} );
 
-    var outerNode = new Rectangle( 0, 0, 80, 70, 10, 10, {stroke: 'gray', lineWidth: 1, fill: '#CD9E4D', x: 400, y: 45} );
+    var outerNode = new Rectangle( 0, 0, 80, 70, 10, 10, {stroke: 'gray', lineWidth: 1, fill: '#CD9E4D'} );
     velocitySensorNode.addChild( outerNode );
-    velocitySensorNode.addChild( new Text( speedString, {fill: 'black', font: new PhetFont( {size: 16, weight: 'bold'} ), x: 410, y: 72} ) );
+    velocitySensorNode.addChild( new Text( speedString, {fill: 'black', font: new PhetFont( {size: 16, weight: 'bold'} ),  x:containerBounds.centerX-700, y:containerBounds.centerY-68} ) );
 
-    var innerNode = new Rectangle( 0, 0, 72, 22, {stroke: 'gray', lineWidth: 1, fill: '#ffffff', x: 403, y: 80} );
+    var innerNode = new Rectangle( 0, 0, 72, 22, {stroke: 'gray', lineWidth: 1, fill: '#ffffff',x:containerBounds.centerX-708, y:containerBounds.centerY-60} );
     velocitySensorNode.addChild( innerNode );
 
-    var labelNode = new Text( speedMeterString, {fill: 'black', font: new PhetFont( {size: 12, weight: 'bold'} ), x: 402, y: 92} );
+    var labelNode = new Text( speedMeterString, {fill: 'black', font: new PhetFont( {size: 12, weight: 'bold'} ), x:containerBounds.centerX-695, y:containerBounds.centerY-40} );
     velocitySensorNode.addChild( labelNode );
 
-    velocitySensorNode.addChild( new ArrowShapeNode( 5, 0, 4, 16, {stroke: '#CD9E4D', fill: '#CD9E4D', x: 435, y: 110} ) );
+    velocitySensorNode.addChild( new ArrowShapeNode( 5, 0, 4, 16, {stroke: '#CD9E4D', fill: '#CD9E4D', x:containerBounds.centerX-680, y:containerBounds.centerY-30} ) );
 
     //handlers
     this.addInputListener( new MovableDragHandler( {locationProperty: positionProperty, dragBounds: dragBounds},
@@ -69,9 +69,9 @@ define( function( require ) {
     //Update the text when the value or units changes.
     DerivedProperty.multilink( [velocityProperty, model.measureUnitsProperty], function( velocity, units ) {
       if ( units === 'metric' ) {
-        labelNode.text = velocity.magnitude() + ' ' + mPerS;
+        labelNode.text = velocity.magnitude().toFixed(2) + ' ' + mPerS;
       } else {
-        labelNode.text = (velocity.magnitude() * 3.28) + ' ' + ftPerS;
+        labelNode.text = (velocity.magnitude() * 3.28).toFixed(2) + ' ' + ftPerS;
       }
       labelNode.center = innerNode.center;
     });
