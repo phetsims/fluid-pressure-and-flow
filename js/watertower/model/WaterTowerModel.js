@@ -16,6 +16,7 @@ define( function( require ) {
   var LinearFunction = require( 'DOT/LinearFunction' );
   var Vector2 = require( 'DOT/Vector2' );
   var Units = require( 'FLUID_PRESSURE_AND_FLOW/watertower/model/Units' );
+  var WaterTower = require( 'FLUID_PRESSURE_AND_FLOW/watertower/model/WaterTower' );
 
   function WaterTowerModel() {
     var self = this;
@@ -48,6 +49,8 @@ define( function( require ) {
     this.getStandardAirPressure = new LinearFunction( 0, 150, this.EARTH_AIR_PRESSURE, this.EARTH_AIR_PRESSURE_AT_500_FT );
 
     this.units = new Units( self );
+
+    this.waterTower = new WaterTower();
 
     this.barometers = [];
 

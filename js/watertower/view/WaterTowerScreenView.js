@@ -27,6 +27,8 @@ define( function( require ) {
   var MeasuringTape = require( 'FLUID_PRESSURE_AND_FLOW/watertower/view/MeasuringTape' );
   var UnitsControlPanel = require( 'FLUID_PRESSURE_AND_FLOW/watertower/view/UnitsControlPanel' );
   var WaterTowerRuler = require( 'FLUID_PRESSURE_AND_FLOW/watertower/view/WaterTowerRuler' );
+  var WaterTowerView = require( 'FLUID_PRESSURE_AND_FLOW/watertower/view/WaterTowerView' );
+
   var VelocitySensorsContainer = require( 'FLUID_PRESSURE_AND_FLOW/watertower/view/VelocitySensorsContainer' );
 
   //strings
@@ -55,16 +57,11 @@ define( function( require ) {
       Vector2.ZERO,
       70 ); //1m = 70px, (0,0) - top left corner
 
-    // add background -- sky, earth
-    var backgroundNode = new OutsideBackgroundNode( this.layoutBounds.centerX, this.layoutBounds.centerY + 20, this.layoutBounds.width * 3, this.layoutBounds.height, this.layoutBounds.height );
-    this.addChild( backgroundNode );
-    backgroundNode.moveToBack();
 
     //control panel
     this.controlPanel = new ControlPanel( model, 800, 60 );
     this.addChild( this.controlPanel );
-    this.unitsContolPanel = new UnitsControlPanel( model, 800, 160 );
-    this.addChild( this.unitsContolPanel );
+    this.addChild( new UnitsControlPanel( model, 800, 160 ) );
 
     //control sliders
     this.fluidDensitySlider = new ControlSlider( model, model.fluidDensityProperty, model.units.getFluidDensityString, model.fluidDensityRange, {
@@ -113,6 +110,16 @@ define( function( require ) {
 
     this.addChild( new WaterTowerRuler( model, mvt, thisView.layoutBounds ) );
     this.addChild( new MeasuringTape( model, mvt, thisView.layoutBounds ) );
+
+    var waterTowerView = new WaterTowerView ( model.waterTower );
+    this.addChild( waterTowerView);
+    waterTowerView.moveToBack();
+
+    // add background -- sky, earth
+    var backgroundNode = new OutsideBackgroundNode( this.layoutBounds.centerX, this.layoutBounds.centerY + 20, this.layoutBounds.width * 3, this.layoutBounds.height, this.layoutBounds.height );
+    this.addChild( backgroundNode );
+    backgroundNode.moveToBack();
+
   }
 
   return inherit( ScreenView, WaterTowerScreenView );
