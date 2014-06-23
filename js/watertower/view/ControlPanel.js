@@ -25,6 +25,17 @@ define( function( require ) {
   var hoseString = require( 'string!FLUID_PRESSURE_AND_FLOW/hose' );
 
   function ControlPanel( model, options ) {
+
+    options = _.extend( {
+      xMargin: 10,
+      yMargin: 10,
+      fill: '#f2fa6a ',
+      stroke: 'gray',
+      lineWidth: 1,
+      resize: false,
+      scale: 0.9
+    }, options );
+
     var textOptions = {font: new PhetFont( 14 )};
 
     var measuringTape = [new Text( measuringTapeString, textOptions )];
@@ -50,8 +61,7 @@ define( function( require ) {
       align: 'left'
     } );
 
-    Panel.call( this, content, { xMargin: 10, yMargin: 10, fill: '#f2fa6a ', stroke: 'gray', lineWidth: 1, resize: false, scale: 0.9 } );
-    this.mutate( options );
+    Panel.call( this, content, options );
   }
 
   return inherit( Node, ControlPanel, {
