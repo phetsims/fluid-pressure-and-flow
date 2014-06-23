@@ -114,9 +114,8 @@ define( function( require ) {
     this.addChild( new StepButton( function() {}, model.isPlayProperty, { stroke: 'black', fill: '#005566', left: playPauseButton.right + 10, y: 440} ) );
 
     //barometers
-    this.barometersContainer = new Rectangle( 0, 0, 180, 90, 10, 10, {stroke: 'gray', lineWidth: 1, fill: '#f2fa6a', y: 50} );
+    this.barometersContainer = new Rectangle( 0, 0, 180, 90, 10, 10, {stroke: 'gray', lineWidth: 1, fill: '#f2fa6a', right: this.controlPanel.left - 10, top: this.controlPanel.top} );
     this.addChild( this.barometersContainer );
-    this.barometersContainer.x = this.controlPanel.x - 5 - this.barometersContainer.width;
     this.addChild( new BarometersContainer( model, mvt, this.barometersContainer.visibleBounds, this.layoutBounds ) );
     this.addChild( new VelocitySensorsContainer( model, mvt,  this.barometersContainer.visibleBounds, this.layoutBounds ) );
 
