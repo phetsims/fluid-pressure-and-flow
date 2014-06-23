@@ -24,23 +24,23 @@ define( function( require ) {
   var rulerString = require( 'string!FLUID_PRESSURE_AND_FLOW/ruler' );
   var hoseString = require( 'string!FLUID_PRESSURE_AND_FLOW/hose' );
 
-  function ControlPanel( model, x, y ) {
+  function ControlPanel( model, options ) {
     var textOptions = {font: new PhetFont( 14 )};
 
     var measuringTape = [new Text( measuringTapeString, textOptions )];
     //align ruler icon right
     var ruler = [new Text( rulerString, textOptions ), new Rectangle( 0, 0, 50, 20 ), this.createRulerIcon()];
     var hose = [new Text( hoseString, textOptions )];
-    var options = {
+    var checkBoxOptions = {
       boxWidth: 18,
       spacing: 5
     };
 
 
     var checkBoxChildren = [
-      new CheckBox( new HBox( {children: ruler} ), model.isRulerVisibleProperty, options ),
-      new CheckBox( new HBox( {children: measuringTape} ), model.isMeasuringTapeVisibleProperty, options ),
-      new CheckBox( new HBox( {children: hose} ), model.isHoseVisibleProperty, options )
+      new CheckBox( new HBox( {children: ruler} ), model.isRulerVisibleProperty, checkBoxOptions ),
+      new CheckBox( new HBox( {children: measuringTape} ), model.isMeasuringTapeVisibleProperty, checkBoxOptions ),
+      new CheckBox( new HBox( {children: hose} ), model.isHoseVisibleProperty, checkBoxOptions )
     ];
     var checkBoxes = new VBox( {align: 'left', spacing: 10, children: checkBoxChildren} );
 
@@ -50,7 +50,8 @@ define( function( require ) {
       align: 'left'
     } );
 
-    Panel.call( this, content, { xMargin: 10, yMargin: 10, fill: '#f2fa6a ', stroke: 'gray', lineWidth: 1, resize: false, x: x, y: y, scale: 0.9 } );
+    Panel.call( this, content, { xMargin: 10, yMargin: 10, fill: '#f2fa6a ', stroke: 'gray', lineWidth: 1, resize: false, scale: 0.9 } );
+    this.mutate(options);
   }
 
   return inherit( Node, ControlPanel, {

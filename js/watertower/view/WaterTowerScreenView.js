@@ -53,6 +53,8 @@ define( function( require ) {
     // Also note, the sky and ground should extend to the sides of the browser window.  Please use OutsideBackgroundNode for this.
 
     var textOptions = {font: new PhetFont( 14 )};
+
+    //TODO: Invert the y-axis, so that y grows up.
     var mvt = ModelViewTransform2.createSinglePointScaleMapping(
       Vector2.ZERO,
       Vector2.ZERO,
@@ -64,10 +66,12 @@ define( function( require ) {
       y: 100,
       scale: 0.4 //size of the faucet
     }));
+
     //control panel
-    this.controlPanel = new ControlPanel( model, 600, 50 );
+    this.controlPanel = new ControlPanel( model, {right: this.layoutBounds.right - 10, top: 10} );
     this.addChild( this.controlPanel );
-    this.addChild( new UnitsControlPanel( model, 600, 150) );
+
+    this.addChild( new UnitsControlPanel( model, {left: this.controlPanel.left, top: this.controlPanel.bottom + 10} ));
 
     //control slider
     this.addChild( new ControlSlider( model, model.fluidDensityProperty, model.units.getFluidDensityString, model.fluidDensityRange, {
@@ -114,7 +118,7 @@ define( function( require ) {
     this.addChild( new VelocitySensorsContainer( model, mvt,  this.barometersContainer.visibleBounds, this.layoutBounds ) );
 
     this.addChild( new WaterTowerRuler( model, mvt, this.layoutBounds ) );
-    this.addChild( new MeasuringTape( model, mvt, this.layoutBounds ) );
+    this.addChild( new MeasuringTape( model, mvt, this.layoutBounds , {x : 10, y: 100}) );
 
     var waterTowerView = new WaterTowerView ( model.waterTower , { x: 0, y: 100});
     this.addChild( waterTowerView);
