@@ -47,7 +47,6 @@ define( function( require ) {
   return inherit( PropertySet, WaterTower, {
 
     getTankShape: function() {
-
       return new Shape()
         .moveTo( this.tankBottomCenter.x - this.TANK_RADIUS, this.tankBottomCenter.y )
         .lineTo( this.tankBottomCenter.x + this.TANK_RADIUS, this.tankBottomCenter.y )
@@ -85,7 +84,6 @@ define( function( require ) {
       return new Vector2( this.tankBottomCenter.x + this.TANK_RADIUS + 0.55 / 2, this.tankBottomCenter.y - 0.15 );
     },
 
-
     setFluidVolume: function( volume ) {
       this.fluidVolume = volume;
     },
@@ -94,6 +92,4 @@ define( function( require ) {
       this.fluidVolume = this.TANK_VOLUME;
     }
   } );
-
-
 } );

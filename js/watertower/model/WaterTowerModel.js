@@ -76,7 +76,6 @@ define( function( require ) {
         position: new Property( new Vector2( 0, 0 ) )
       } );
     }
-
   }
 
   return inherit( PropertySet, WaterTowerModel, {
@@ -111,10 +110,12 @@ define( function( require ) {
       //TODO: Check whether in water or air and return the appropriate value
       return this.getAirPressure( 0 );
     },
+
     // Called by the animation loop. Optional, so if your model has no animation, you can omit this.
     step: function() {
       // Handle model animation here.
     },
+
     getFluidDensityString: function() {
       debugger;
       if ( this.measureUnits === 'english' ) {
@@ -124,8 +125,5 @@ define( function( require ) {
         return StringUtils.format( valueWithUnitsPattern, Math.round( this.fluidDensity ), densityUnitsMetric );
       }
     }
-
   } );
-
-} )
-;
+} );
