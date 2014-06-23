@@ -72,9 +72,11 @@ define( function( require ) {
     valueField.bottom = hSlider.top - 5;
     valueLabel.centerX = valueField.centerX;
     valueLabel.centerY = valueField.centerY - 3;
+
     // plus button to the right of the value
     plusButton.left = valueField.right + 10;
     plusButton.centerY = valueField.centerY;
+
     // minus button to the left of the value
     minusButton.right = valueField.left - 10;
     minusButton.centerY = valueField.centerY;

@@ -28,6 +28,7 @@ define( function( require ) {
     var textOptions = {font: new PhetFont( 14 )};
 
     var measuringTape = [new Text( measuringTapeString, textOptions )];
+
     //align ruler icon right
     var ruler = [new Text( rulerString, textOptions ), new Rectangle( 0, 0, 50, 20 ), this.createRulerIcon()];
     var hose = [new Text( hoseString, textOptions )];
@@ -35,7 +36,6 @@ define( function( require ) {
       boxWidth: 18,
       spacing: 5
     };
-
 
     var checkBoxChildren = [
       new CheckBox( new HBox( {children: ruler} ), model.isRulerVisibleProperty, checkBoxOptions ),
@@ -51,10 +51,11 @@ define( function( require ) {
     } );
 
     Panel.call( this, content, { xMargin: 10, yMargin: 10, fill: '#f2fa6a ', stroke: 'gray', lineWidth: 1, resize: false, scale: 0.9 } );
-    this.mutate(options);
+    this.mutate( options );
   }
 
   return inherit( Node, ControlPanel, {
+
     //Create an icon for the ruler check box
     createRulerIcon: function() {
       return new RulerNode( 30, 20, 15, ['0', '1', '2'], '', {

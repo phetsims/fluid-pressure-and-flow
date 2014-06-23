@@ -50,6 +50,7 @@ define( function( require ) {
       .lineTo( -4, 4 ), {stroke: 'white', centerX: closeButton.centerX, centerY: closeButton.centerY, lineWidth: 2} );
 
     closeButton.addChild( xIcon );
+
     // click to toggle
     closeButton.addInputListener( new ButtonListener( {
       fire: function() {

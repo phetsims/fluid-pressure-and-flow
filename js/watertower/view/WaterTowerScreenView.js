@@ -62,18 +62,18 @@ define( function( require ) {
       Vector2.ZERO,
       70 ); //1m = 70px, (0,0) - top left corner
 
-    this.addChild( new FaucetNode(1, model.faucetFlowRateProperty, model.isFaucetEnabledProperty, {
+    this.addChild( new FaucetNode( 1, model.faucetFlowRateProperty, model.isFaucetEnabledProperty, {
       horizontalPipeLength: 1000,
       x: 0,
       y: 100,
       scale: 0.4 //size of the faucet
-    }));
+    } ) );
 
     //control panel
     this.controlPanel = new ControlPanel( model, {right: this.layoutBounds.right - 10, top: 10} );
     this.addChild( this.controlPanel );
 
-    this.addChild( new UnitsControlPanel( model, {left: this.controlPanel.left, top: this.controlPanel.bottom + 10} ));
+    this.addChild( new UnitsControlPanel( model, {left: this.controlPanel.left, top: this.controlPanel.bottom + 10} ) );
 
     //control slider
     this.addChild( new ControlSlider( model, model.fluidDensityProperty, model.getFluidDensityString.bind( model ), model.fluidDensityRange, {
@@ -121,13 +121,13 @@ define( function( require ) {
     this.addChild( new VelocitySensorsContainer( model, mvt, this.sensorPanel.visibleBounds, this.layoutBounds ) );
 
     this.addChild( new WaterTowerRuler( model.isRulerVisibleProperty, model.rulerPositionProperty, model.measureUnitsProperty, mvt, this.layoutBounds ) );
-    this.addChild( new MeasuringTape( model, mvt, this.layoutBounds , {x : 10, y: 100}) );
+    this.addChild( new MeasuringTape( model, mvt, this.layoutBounds, {x: 10, y: 100} ) );
 
-    var waterTowerView = new WaterTowerView ( model.waterTower , { x: 0, y: 100});
-    this.addChild( waterTowerView);
+    var waterTowerView = new WaterTowerView( model.waterTower, { x: 0, y: 100} );
+    this.addChild( waterTowerView );
     waterTowerView.moveToBack();
 
-    this.addChild(new SluiceControl(model));
+    this.addChild( new SluiceControl( model ) );
 
     // add background -- sky, earth
     var backgroundNode = new OutsideBackgroundNode( this.layoutBounds.centerX, this.layoutBounds.centerY + 100, this.layoutBounds.width * 3, this.layoutBounds.height, this.layoutBounds.height );
@@ -137,5 +137,4 @@ define( function( require ) {
   }
 
   return inherit( ScreenView, WaterTowerScreenView );
-
 } );

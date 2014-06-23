@@ -147,6 +147,7 @@ define( function( require ) {
   }
 
   return inherit( Node, MeasuringTape, {
+
     // init tape for view mode
     init: function( model ) {
       this.options.forEach( function( el ) {
@@ -156,6 +157,7 @@ define( function( require ) {
 
       this.model = model;
     },
+
     // init tape
     initTape: function( option, angle ) {
       this.rotate( -angle );
@@ -163,14 +165,17 @@ define( function( require ) {
       this.setTip( option.lengthDefault, 0 );
       this.base.setTranslation( -this.centerRotation.x + option.x, -this.centerRotation.y + option.y );
     },
+
     // return text for current planet mode
     getText: function() {
       var option = this.options[this.mode];
       return (option.length / 10).toFixed( option.precision );
     },
+
     rotate: function( angle ) {
       this.base.rotateAround( new Vector2( this.notBase.x, this.notBase.y ), angle );
     },
+
     scale: function( scale ) {
       this.options[this.mode].lengthDefault *= 1 / this.prevScale;
       this.options[this.mode].lengthDefault *= scale;
@@ -178,6 +183,7 @@ define( function( require ) {
       this.setTip( this.options[this.mode].tipX * scale, this.options[this.mode].tipY * scale );
       this.prevScale = scale;
     },
+
     setTip: function( x, y ) {
       var option = this.options[this.mode];
       option.length = Math.sqrt( Math.pow( x, 2 ) + Math.pow( y, 2 ) );
@@ -196,6 +202,7 @@ define( function( require ) {
       option.tipX = x;
       option.tipY = y;
     },
+
     translate: function( x, y, v ) {
       this.notBase.setTranslation( x, y );
 
