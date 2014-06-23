@@ -24,7 +24,6 @@ define( function( require ) {
   var units_feetString = require( 'string!FLUID_PRESSURE_AND_FLOW/ft' );
 
   function WaterTowerRuler( model, mvt, dragBounds, options ) {
-    var self = this;
     Node.call( this, {cursor: 'pointer'} );
 
     //close button
@@ -56,9 +55,7 @@ define( function( require ) {
 
     closeButton.translation = new Vector2( -this.width + closeButton.width, -closeButton.height );
 
-    model.isRulerVisibleProperty.link( function( isVisible ) {
-      self.visible = isVisible;
-    } );
+    model.isRulerVisibleProperty.linkAttribute( this, 'visible' );
 
     model.measureUnitsProperty.link( function( unit ) {
       if ( unit === 'english' ) {
@@ -71,9 +68,7 @@ define( function( require ) {
       }
     } );
 
-    model.rulerPositionProperty.link( function updateRulerLocation( value ) {
-      self.translation = value;
-    } );
+    model.rulerPositionProperty.linkAttribute( this, 'translation' );
 
     //handlers
     this.addInputListener( new MovableDragHandler( {locationProperty: model.rulerPositionProperty, dragBounds: dragBounds.shifted( this.width / 2, -this.height / 2 )},
