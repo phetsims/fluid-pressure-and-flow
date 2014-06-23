@@ -33,13 +33,13 @@ define( function( require ) {
     // configure the button shape
     var buttonShape = new Path( Shape.roundRectangle( 0, 0, 15, 15, 1.5, 1.5 ), {fill: 'rgb(255, 85, 0 )', stroke: 'black', lineWidth: 0.5} );
     closeButton.addChild( buttonShape );
-    var thisButton = new Path( new Shape()
+    var xIcon = new Path( new Shape()
       .moveTo( -4, -4 )
       .lineTo( 4, 4 )
       .moveTo( 4, -4 )
       .lineTo( -4, 4 ), {stroke: 'white', centerX: closeButton.centerX, centerY: closeButton.centerY, lineWidth: 2} );
 
-    closeButton.addChild( thisButton );
+    closeButton.addChild( xIcon );
     // click to toggle
     closeButton.addInputListener( new ButtonListener( {
       fire: function() {
