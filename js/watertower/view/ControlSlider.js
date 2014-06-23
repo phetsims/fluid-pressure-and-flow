@@ -123,7 +123,7 @@ define( function( require ) {
     this.mutate( options );
   }
 
-  inherit( Node, ControlSlider, {
+  return inherit( Node, ControlSlider, {
     disable: function() {
       this.content.visible = false;
       this.questionMark.visible = true;
@@ -134,5 +134,4 @@ define( function( require ) {
     }
   } );
 
-  return ControlSlider;
 } );
