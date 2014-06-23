@@ -1,7 +1,7 @@
 // Copyright 2002-2013, University of Colorado Boulder
 
 /**
- * Model Ruler Node.
+ * Model Ruler Node. Supports english and metric views of the ruler.
  * @author Shakhov Vasily (Mlearner)
  */
 
@@ -23,6 +23,14 @@ define( function( require ) {
   var units_metersString = require( 'string!FLUID_PRESSURE_AND_FLOW/m' );
   var units_feetString = require( 'string!FLUID_PRESSURE_AND_FLOW/ft' );
 
+  /**
+   * Main constructor
+   * @param {WaterTowerModel} model The sim model
+   * @param {ModelViewTransform2} mvt to convert model units to view units
+   * @param {Bounds2} dragBounds for the area where the ruler can be dragged
+   * @param options
+   * @constructor
+   */
   function WaterTowerRuler( model, mvt, dragBounds, options ) {
     Node.call( this, {cursor: 'pointer'} );
 
@@ -47,6 +55,7 @@ define( function( require ) {
     } ) );
     this.addChild( closeButton );
 
+    //Maintain two different rules internally and link their visibility to the measureUnits property
     var metersRuler = new RulerNode( mvt.modelToViewX( 5 ), 50, mvt.modelToViewX( 1 ), ['0', '1', '2', '3', '4', '5'], units_metersString, {minorTicksPerMajorTick: 4, unitsFont: '12px Arial', rotation: Math.PI / 2} );
     this.addChild( metersRuler );
 
