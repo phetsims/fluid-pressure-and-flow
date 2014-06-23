@@ -20,6 +20,7 @@ define( function( require ) {
   var AquaRadioButton = require( 'SUN/AquaRadioButton' );
   var PhetFont = require( 'SCENERY_PHET/PhetFont' );
   var Text = require( 'SCENERY/nodes/Text' );
+  var FaucetNode = require( 'SCENERY_PHET/FaucetNode' );
 
   var BarometersContainer = require( 'FLUID_PRESSURE_AND_FLOW/watertower/view/BarometersContainer' );
   var ControlSlider = require( 'FLUID_PRESSURE_AND_FLOW/watertower/view/ControlSlider' );
@@ -44,8 +45,7 @@ define( function( require ) {
    * @constructor
    */
   function WaterTowerScreenView( model ) {
-    var thisView = this;
-    ScreenView.call( thisView );
+    ScreenView.call( this );
 
     // Please note that this is to help line up elements in the play area, and some user interface components from the Sun repo will
     // be much bigger to make the sims usable on tablets.
@@ -57,14 +57,13 @@ define( function( require ) {
       Vector2.ZERO,
       70 ); //1m = 70px, (0,0) - top left corner
 
-
     //control panel
     this.controlPanel = new ControlPanel( model, 800, 60 );
     this.addChild( this.controlPanel );
     this.addChild( new UnitsControlPanel( model, 800, 160 ) );
 
-    //control sliders
-    this.fluidDensitySlider = new ControlSlider( model, model.fluidDensityProperty, model.units.getFluidDensityString, model.fluidDensityRange, {
+    //control slider
+    this.addChild( new ControlSlider( model, model.fluidDensityProperty, model.units.getFluidDensityString, model.fluidDensityRange, {
       x: 595,
       y: 400,
       title: fluidDensityString,
@@ -82,8 +81,7 @@ define( function( require ) {
           value: model.fluidDensityRange.max
         }
       ]
-    } );
-    this.addChild( this.fluidDensitySlider );
+    } ) );
 
     model.isPlayProperty.link( function( data ) {
       // TODO;
@@ -105,11 +103,11 @@ define( function( require ) {
     this.barometersContainer = new Rectangle( 0, 0, 160, 90, 10, 10, {stroke: 'gray', lineWidth: 1, fill: '#f2fa6a', x: 700, y: 50} );
     this.addChild( this.barometersContainer );
     this.barometersContainer.x = this.controlPanel.x - 5 - this.barometersContainer.width;
-    this.addChild( new BarometersContainer( model, mvt, this.barometersContainer.visibleBounds, thisView.layoutBounds ) );
-    this.addChild( new VelocitySensorsContainer( model, mvt,  this.barometersContainer.visibleBounds, thisView.layoutBounds ) );
+    this.addChild( new BarometersContainer( model, mvt, this.barometersContainer.visibleBounds, this.layoutBounds ) );
+    this.addChild( new VelocitySensorsContainer( model, mvt,  this.barometersContainer.visibleBounds, this.layoutBounds ) );
 
-    this.addChild( new WaterTowerRuler( model, mvt, thisView.layoutBounds ) );
-    this.addChild( new MeasuringTape( model, mvt, thisView.layoutBounds ) );
+    this.addChild( new WaterTowerRuler( model, mvt, this.layoutBounds ) );
+    this.addChild( new MeasuringTape( model, mvt, this.layoutBounds ) );
 
     var waterTowerView = new WaterTowerView ( model.waterTower );
     this.addChild( waterTowerView);
