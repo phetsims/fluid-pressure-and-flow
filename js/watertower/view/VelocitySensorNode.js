@@ -24,7 +24,7 @@ define( function( require ) {
   var speedString = require( 'string!FLUID_PRESSURE_AND_FLOW/speed' );
   var speedMeterString = require( 'string!FLUID_PRESSURE_AND_FLOW/speedMeter' );
   var mPerS = require( 'string!FLUID_PRESSURE_AND_FLOW/mPerS' );
-  var ftPerS = require( 'string!FLUID_PRESSURE_AND_FLOW/fPerS' );
+  var ftPerS = require( 'string!FLUID_PRESSURE_AND_FLOW/ftPerS' );
 
   /**
    * Main constructor for VelocitySensorNode.
