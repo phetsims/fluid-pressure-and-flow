@@ -84,12 +84,9 @@ define( function( require ) {
 
     //Update the text when the value or units changes.
     DerivedProperty.multilink( [velocityProperty, model.measureUnitsProperty], function( velocity, units ) {
-      if ( units === 'metric' ) {
-        labelNode.text = velocity.magnitude().toFixed( 2 ) + ' ' + mPerS;
-      }
-      else {
-        labelNode.text = (velocity.magnitude() * 3.28).toFixed( 2 ) + ' ' + ftPerS;
-      }
+      labelNode.text = units === 'metric' ?
+                       velocity.magnitude().toFixed( 2 ) + ' ' + mPerS :
+                       (velocity.magnitude() * 3.28).toFixed( 2 ) + ' ' + ftPerS
       labelNode.center = innerNode.center;
     } );
 
