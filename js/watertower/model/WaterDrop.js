@@ -33,7 +33,7 @@ define( function( require ) {
 
     this.addDerivedProperty( 'radius', ['volume'], function( volume ) {
       return Util.cubeRoot( (3 * volume) / (4 * Math.PI) );
-    } )
+    } );
   }
 
   return inherit( PropertySet, WaterDrop, {
