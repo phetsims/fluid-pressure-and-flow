@@ -43,6 +43,7 @@ define( function( require ) {
         rulerPosition: new Vector2( 195, 245 ), // px
         waterFlow: 'water',
         waterSpeed: 'waterSpeed',
+        isSluiceOpen: false,
         scale: 1 // scale coefficient
       }
     );
