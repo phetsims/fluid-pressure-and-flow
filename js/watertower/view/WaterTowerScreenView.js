@@ -47,7 +47,7 @@ define( function( require ) {
    * @constructor
    */
   function WaterTowerScreenView( model ) {
-    ScreenView.call( this );
+    ScreenView.call( this, {renderer: 'svg'} );
 
     // Please note that this is to help line up elements in the play area, and some user interface components from the Sun repo will
     // be much bigger to make the sims usable on tablets.
@@ -114,10 +114,10 @@ define( function( require ) {
     this.addChild( new StepButton( function() {}, model.isPlayProperty, { stroke: 'black', fill: '#005566', left: playPauseButton.right + 10, y: 440} ) );
 
     //barometers
-    this.barometersContainer = new Rectangle( 0, 0, 180, 90, 10, 10, {stroke: 'gray', lineWidth: 1, fill: '#f2fa6a', right: this.controlPanel.left - 10, top: this.controlPanel.top} );
-    this.addChild( this.barometersContainer );
-    this.addChild( new BarometersContainer( model, mvt, this.barometersContainer.visibleBounds, this.layoutBounds ) );
-    this.addChild( new VelocitySensorsContainer( model, mvt,  this.barometersContainer.visibleBounds, this.layoutBounds ) );
+    this.sensorPanel = new Rectangle( 0, 0, 180, 90, 10, 10, {stroke: 'gray', lineWidth: 1, fill: '#f2fa6a', right: this.controlPanel.left - 10, top: this.controlPanel.top} );
+    this.addChild( this.sensorPanel );
+    this.addChild( new BarometersContainer( model, mvt, this.sensorPanel.visibleBounds, this.layoutBounds ) );
+    this.addChild( new VelocitySensorsContainer( model, mvt, this.sensorPanel.visibleBounds, this.layoutBounds ) );
 
     this.addChild( new WaterTowerRuler( model, mvt, this.layoutBounds ) );
     this.addChild( new MeasuringTape( model, mvt, this.layoutBounds , {x : 10, y: 100}) );

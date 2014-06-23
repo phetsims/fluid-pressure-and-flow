@@ -23,9 +23,9 @@ define( function( require ) {
   var units_metersString = require( 'string!FLUID_PRESSURE_AND_FLOW/m' );
   var units_feetString = require( 'string!FLUID_PRESSURE_AND_FLOW/ft' );
 
-  function WaterTowerRuler( model, mvt, dragBounds ) {
+  function WaterTowerRuler( model, mvt, dragBounds, options ) {
     var self = this;
-    Node.call( this, {cursor: 'pointer', renderer: 'svg', cssTransform: true} );
+    Node.call( this, {cursor: 'pointer'} );
 
     //close button
     var closeButton = new Node( {cursor: 'pointer'} );
@@ -48,11 +48,11 @@ define( function( require ) {
     } ) );
     this.addChild( closeButton );
 
-    var MetersRuler = new RulerNode( mvt.modelToViewX( 5 ), 50, mvt.modelToViewX( 1 ), ['0', '1', '2', '3', '4', '5'], units_metersString, {minorTicksPerMajorTick: 4, unitsFont: '12px Arial', rotation: Math.PI / 2} );
-    this.addChild( MetersRuler );
+    var metersRuler = new RulerNode( mvt.modelToViewX( 5 ), 50, mvt.modelToViewX( 1 ), ['0', '1', '2', '3', '4', '5'], units_metersString, {minorTicksPerMajorTick: 4, unitsFont: '12px Arial', rotation: Math.PI / 2} );
+    this.addChild( metersRuler );
 
-    var FeetRuler = new RulerNode( mvt.modelToViewX( model.units.feetToMeters( 10 ) ), 50, mvt.modelToViewX( model.units.feetToMeters( 1 ) ), ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10'], units_feetString, {minorTicksPerMajorTick: 4, unitsFont: '12px Arial', rotation: Math.PI / 2} );
-    this.addChild( FeetRuler );
+    var feetRuler = new RulerNode( mvt.modelToViewX( model.units.feetToMeters( 10 ) ), 50, mvt.modelToViewX( model.units.feetToMeters( 1 ) ), ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10'], units_feetString, {minorTicksPerMajorTick: 4, unitsFont: '12px Arial', rotation: Math.PI / 2} );
+    this.addChild( feetRuler );
 
     closeButton.translation = new Vector2( -this.width + closeButton.width, -closeButton.height );
 
@@ -62,12 +62,12 @@ define( function( require ) {
 
     model.measureUnitsProperty.link( function( unit ) {
       if ( unit === 'english' ) {
-        MetersRuler.visible = false;
-        FeetRuler.visible = true;
+        metersRuler.visible = false;
+        feetRuler.visible = true;
       }
       else {
-        MetersRuler.visible = true;
-        FeetRuler.visible = false;
+        metersRuler.visible = true;
+        feetRuler.visible = false;
       }
     } );
 
@@ -78,6 +78,7 @@ define( function( require ) {
     //handlers
     this.addInputListener( new MovableDragHandler( {locationProperty: model.rulerPositionProperty, dragBounds: dragBounds.shifted( this.width / 2, -this.height / 2 )},
       ModelViewTransform2.createIdentity() ) );
+    this.mutate( options );
 
   }
 
