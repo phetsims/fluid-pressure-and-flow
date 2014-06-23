@@ -19,7 +19,6 @@ define( function( require ) {
   var WaterTower = require( 'FLUID_PRESSURE_AND_FLOW/watertower/model/WaterTower' );
 
   function WaterTowerModel() {
-    var self = this;
     this.GASOLINE_DENSITY = 700;
     this.HONEY_DENSITY = 1420;
     this.WATER_DENSITY = 1000;
@@ -37,8 +36,10 @@ define( function( require ) {
         isSpeedometerVisible: true,
         isHoseVisible: false,
         isPlay: true,
+        faucetFlowRate: 0,
+        isFaucetEnabled: true,
         measureUnits: 'metric', //metric, english or atmosphere
-        fluidDensity: self.WATER_DENSITY,
+        fluidDensity: this.WATER_DENSITY,
         rulerPosition: new Vector2( 195, 245 ), // px
         waterFlow: 'water',
         waterSpeed: 'waterSpeed',
@@ -48,7 +49,7 @@ define( function( require ) {
 
     this.getStandardAirPressure = new LinearFunction( 0, 150, this.EARTH_AIR_PRESSURE, this.EARTH_AIR_PRESSURE_AT_500_FT );
 
-    this.units = new Units( self );
+    this.units = new Units( this );
 
     this.waterTower = new WaterTower();
 
@@ -57,14 +58,14 @@ define( function( require ) {
     for ( var i = 0; i < 4; i++ ) {
       this.barometers.push( {
         value: new Property( 0 ),
-        position: new Property( new Vector2( 570, 50 ) )
+        position: new Property( new Vector2( 0, 0 ) )
       } );
     }
     this.speedometers = [];
     for ( var j = 0; j < 4; j++ ) {
       this.speedometers.push( {
         value: new Property( new Vector2( 5, 5 ) ),
-        position: new Property( new Vector2( 560, 60 ) )
+        position: new Property( new Vector2( 0, 0 ) )
       } );
     }
   }

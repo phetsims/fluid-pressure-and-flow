@@ -43,12 +43,13 @@ define( function( require ) {
 
     var outerNode = new Rectangle( 0, 0, 80, 70, 10, 10, {stroke: 'gray', lineWidth: 1, fill: '#CD9E4D'} );
     velocitySensorNode.addChild( outerNode );
-    velocitySensorNode.addChild( new Text( speedString, {fill: 'black', font: new PhetFont( {size: 16, weight: 'bold'} ),  x:containerBounds.centerX-700, y:containerBounds.centerY-68} ) );
 
-    var innerNode = new Rectangle( 0, 0, 70, 22, {stroke: 'gray', lineWidth: 1, fill: '#ffffff',x:containerBounds.centerX-708, y:containerBounds.centerY-60} );
+    velocitySensorNode.addChild( new Text( speedString, {fill: 'black', font: new PhetFont( {size: 16, weight: 'bold'} ), x:15, y:20} ) );
+
+    var innerNode = new Rectangle( 0, 0, 70, 22, {stroke: 'gray', lineWidth: 1, fill: '#ffffff',x:5, y:30} );
     velocitySensorNode.addChild( innerNode );
 
-    var labelNode = new Text( speedMeterString, {fill: 'black', font: new PhetFont( {size: 12, weight: 'bold'} ), x:containerBounds.centerX-695, y:containerBounds.centerY-40} );
+    var labelNode = new Text( speedMeterString, {fill: 'black', font: new PhetFont( {size: 12, weight: 'bold'} ), x:10, y:40} );
     velocitySensorNode.addChild( labelNode );
 
     var bottomTriangleShapeWidth = 30;
@@ -63,7 +64,7 @@ define( function( require ) {
       fill: new LinearGradient(outerNode.centerX - bottomTriangleShapeWidth / 2, 0, outerNode.centerX + bottomTriangleShapeWidth / 2, 0)
         .addColorStop(1, '#CD9E4D')
         .addColorStop(1, '#CD9E4D')
-        .addColorStop(1, '#CD9E4D'), x:containerBounds.centerX-713, y:containerBounds.centerY-25.5,stroke: 'gray'
+        .addColorStop(1, '#CD9E4D'), x:0, y:69,stroke: 'gray'
     }));
 
     //handlers
