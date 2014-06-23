@@ -7,7 +7,7 @@
 define( function( require ) {
     'use strict';
 
-    // Imports
+    // modules
     var inherit = require( 'PHET_CORE/inherit' );
     var Node = require( 'SCENERY/nodes/Node' );
     var BarometerNode = require( 'FLUID_PRESSURE_AND_FLOW/watertower/view/BarometerNode' );
