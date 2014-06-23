@@ -23,7 +23,6 @@ define( function( require ) {
   var densityUnitsMetric = require( 'string!FLUID_PRESSURE_AND_FLOW/densityUnitsMetric' );
 
   function Units() {
-
   }
 
   return inherit( Object, Units, {}, {
@@ -62,7 +61,5 @@ define( function( require ) {
     ATMOSPHERE_PER_PASCAL: 9.8692E-6,
     PSI_PER_PASCAL: 145.04E-6,
     GRAVITY_ENGLISH_PER_METRIC: 32.16 / 9.80665 //http://evaosd.fartoomuch.info/library/units.htm
-
   } );
-} )
-;
+} );
