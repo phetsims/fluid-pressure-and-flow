@@ -44,7 +44,7 @@ define( function( require ) {
 
     Node.call( this, {cursor: 'pointer'} );
 
-    // Show the circuar part of the gauge and the needle
+    // Show the circular part of the gauge and the needle
     var gaugeNode = new GaugeNode( barometerValueProperty, pressureString, {min: model.MIN_PRESSURE, max: model.MAX_PRESSURE}, {scale: 0.3} );
     this.addChild( gaugeNode );
 
