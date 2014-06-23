@@ -43,7 +43,7 @@ define( function( require ) {
   ];
 
   function MeasuringTape( model ) {
-    var self = this;
+    var measuringTape = this;
     Node.call( this );
 
     this.mode = 0;
@@ -55,7 +55,7 @@ define( function( require ) {
     // add base of tape and not base node
     this.base = new Node( {children: [new Image( measuringTapeImg )], scale: 0.8} );
     this.addChild( this.base );
-    this.centerRotation = new Vector2( self.base.getWidth(), self.base.getHeight() );
+    this.centerRotation = new Vector2( measuringTape.base.getWidth(), measuringTape.base.getHeight() );
     this.notBase = new Node();
 
     // init drag and drop for measuring tape
@@ -65,11 +65,11 @@ define( function( require ) {
       start: function( e ) {
         currentlyDragging = 'base';
         var h,
-          y0 = self.globalToParentPoint( e.pointer.point ).y - e.currentTarget.y,
-          x0 = self.globalToParentPoint( e.pointer.point ).x - e.currentTarget.x;
+          y0 = measuringTape.globalToParentPoint( e.pointer.point ).y - e.currentTarget.y,
+          x0 = measuringTape.globalToParentPoint( e.pointer.point ).x - e.currentTarget.x;
 
-        h = self.centerRotation.timesScalar( Math.cos( angle / 2 ) ).rotated( angle / 2 );
-        v = self.centerRotation.plus( h.minus( self.centerRotation ).multiply( 2 ) );
+        h = measuringTape.centerRotation.timesScalar( Math.cos( angle / 2 ) ).rotated( angle / 2 );
+        v = measuringTape.centerRotation.plus( h.minus( measuringTape.centerRotation ).multiply( 2 ) );
 
         clickYOffset = y0 - v.y;
         clickXOffset = x0 - v.x;
@@ -78,9 +78,9 @@ define( function( require ) {
         if ( currentlyDragging !== 'base' ) {
           return;
         }
-        var x = self.globalToParentPoint( e.pointer.point ).x - clickXOffset;
-        var y = self.globalToParentPoint( e.pointer.point ).y - clickYOffset;
-        self.translate( x, y, v );
+        var x = measuringTape.globalToParentPoint( e.pointer.point ).x - clickXOffset;
+        var y = measuringTape.globalToParentPoint( e.pointer.point ).y - clickYOffset;
+        measuringTape.translate( x, y, v );
       }
     } ) );
 
@@ -104,22 +104,22 @@ define( function( require ) {
     this.tip.addInputListener( new SimpleDragHandler( {
       start: function( e ) {
         currentlyDragging = 'tip';
-        clickYOffset = self.globalToParentPoint( e.pointer.point ).y - e.currentTarget.y;
-        clickXOffset = self.globalToParentPoint( e.pointer.point ).x - e.currentTarget.x;
+        clickYOffset = measuringTape.globalToParentPoint( e.pointer.point ).y - e.currentTarget.y;
+        clickXOffset = measuringTape.globalToParentPoint( e.pointer.point ).x - e.currentTarget.x;
       },
       drag: function( e ) {
         if ( currentlyDragging !== 'tip' ) {
           return;
         }
-        var y = self.globalToParentPoint( e.pointer.point ).y - clickYOffset;
-        var x = self.globalToParentPoint( e.pointer.point ).x - clickXOffset;
+        var y = measuringTape.globalToParentPoint( e.pointer.point ).y - clickYOffset;
+        var x = measuringTape.globalToParentPoint( e.pointer.point ).x - clickXOffset;
         // return to previous angle
-        self.rotate( -angle );
+        measuringTape.rotate( -angle );
 
         // set new angle
         angle = Math.atan2( y, x );
-        self.rotate( angle );
-        self.setTip( x, y );
+        measuringTape.rotate( angle );
+        measuringTape.setTip( x, y );
       }
     } ) );
 
@@ -129,12 +129,12 @@ define( function( require ) {
 
     this.addChild( this.notBase );
     model.measureUnitsProperty.link( function( data ) {
-      var lengthValue = self.getText();
+      var lengthValue = measuringTape.getText();
       if ( data === "metric" ) {
-        self.text.setText( lengthValue + " " + metersString );
+        measuringTape.text.setText( lengthValue + " " + metersString );
       }
       else {
-        self.text.setText( (lengthValue * 3.28).toFixed( options[self.mode].precision ) + " " + feetString );
+        measuringTape.text.setText( (lengthValue * 3.28).toFixed( options[measuringTape.mode].precision ) + " " + feetString );
       }
     } );
 
@@ -142,7 +142,7 @@ define( function( require ) {
     model.isMeasuringTapeVisibleProperty.linkAttribute( this, 'visible' );
 
     model.scaleProperty.link( function( newScale ) {
-      self.scale( newScale );
+      measuringTape.scale( newScale );
     } );
   }
 

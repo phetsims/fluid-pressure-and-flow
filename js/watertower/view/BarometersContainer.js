@@ -14,12 +14,12 @@ define( function( require ) {
     var Vector2 = require( 'DOT/Vector2' );
 
     function BarometersContainer( model, mvt, barometersContainerBounds, layoutBounds ) {
-      var self = this;
+      var barometersContainer = this;
       Node.call( this );
       model.barometers.forEach( function( barometer ) {
         barometer.position.storeInitialValue( new Vector2( barometersContainerBounds.centerX + 50, barometersContainerBounds.centerY - 15 ) );
         barometer.position.reset();
-        self.addChild( new BarometerNode( model, mvt, barometer.value, barometer.position, barometersContainerBounds, layoutBounds ) );
+        barometersContainer.addChild( new BarometerNode( model, mvt, barometer.value, barometer.position, barometersContainerBounds, layoutBounds ) );
       } );
     }
 
