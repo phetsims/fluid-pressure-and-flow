@@ -18,6 +18,7 @@ define( function( require ) {
   var Vector2 = require( 'DOT/Vector2' );
   var MovableDragHandler = require( 'SCENERY_PHET/input/MovableDragHandler' );
   var ModelViewTransform2 = require( 'PHETCOMMON/view/ModelViewTransform2' );
+  var Units = require( 'FLUID_PRESSURE_AND_FLOW/watertower/model/Units' );
 
   // Strings
   var units_metersString = require( 'string!FLUID_PRESSURE_AND_FLOW/m' );
@@ -25,13 +26,15 @@ define( function( require ) {
 
   /**
    * Main constructor
-   * @param {WaterTowerModel} model The sim model
+   * @param {Property<Boolean>} isRulerVisibleProperty controls the ruler visibility
+   * @param {Property<Vector2>} rulerPositionProperty controls the ruler position
+   * @param {Property<String>} measureUnitsProperty controls the ruler view -- english/metric
    * @param {ModelViewTransform2} mvt to convert model units to view units
    * @param {Bounds2} dragBounds for the area where the ruler can be dragged
    * @param options
    * @constructor
    */
-  function WaterTowerRuler( model, mvt, dragBounds, options ) {
+  function WaterTowerRuler( isRulerVisibleProperty, rulerPositionProperty, measureUnitsProperty, mvt, dragBounds, options ) {
     Node.call( this, {cursor: 'pointer'} );
 
     //close button
@@ -50,7 +53,7 @@ define( function( require ) {
     // click to toggle
     closeButton.addInputListener( new ButtonListener( {
       fire: function() {
-        model.isRulerVisible = false;
+        isRulerVisibleProperty.value = false;
       }
     } ) );
     this.addChild( closeButton );
@@ -59,20 +62,20 @@ define( function( require ) {
     var metersRuler = new RulerNode( mvt.modelToViewX( 5 ), 50, mvt.modelToViewX( 1 ), ['0', '1', '2', '3', '4', '5'], units_metersString, {minorTicksPerMajorTick: 4, unitsFont: '12px Arial', rotation: Math.PI / 2} );
     this.addChild( metersRuler );
 
-    var feetRuler = new RulerNode( mvt.modelToViewX( model.units.feetToMeters( 10 ) ), 50, mvt.modelToViewX( model.units.feetToMeters( 1 ) ), ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10'], units_feetString, {minorTicksPerMajorTick: 4, unitsFont: '12px Arial', rotation: Math.PI / 2} );
+    var feetRuler = new RulerNode( mvt.modelToViewX( Units.feetToMeters( 10 ) ), 50, mvt.modelToViewX( Units.feetToMeters( 1 ) ), ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10'], units_feetString, {minorTicksPerMajorTick: 4, unitsFont: '12px Arial', rotation: Math.PI / 2} );
     this.addChild( feetRuler );
 
     closeButton.translation = new Vector2( -this.width + closeButton.width, -closeButton.height );
 
-    model.isRulerVisibleProperty.linkAttribute( this, 'visible' );
+    isRulerVisibleProperty.linkAttribute( this, 'visible' );
 
-    model.measureUnitsProperty.valueEquals( 'english' ).linkAttribute( feetRuler, 'visible' );
-    model.measureUnitsProperty.valueEquals( 'metric' ).linkAttribute( metersRuler, 'visible' );
+    measureUnitsProperty.valueEquals( 'english' ).linkAttribute( feetRuler, 'visible' );
+    measureUnitsProperty.valueEquals( 'metric' ).linkAttribute( metersRuler, 'visible' );
 
-    model.rulerPositionProperty.linkAttribute( this, 'translation' );
+    rulerPositionProperty.linkAttribute( this, 'translation' );
 
     //handlers
-    this.addInputListener( new MovableDragHandler( {locationProperty: model.rulerPositionProperty, dragBounds: dragBounds.shifted( this.width / 2, -this.height / 2 )},
+    this.addInputListener( new MovableDragHandler( {locationProperty: rulerPositionProperty, dragBounds: dragBounds.shifted( this.width / 2, -this.height / 2 )},
       ModelViewTransform2.createIdentity() ) );
     this.mutate( options );
 

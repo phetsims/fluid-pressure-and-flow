@@ -22,6 +22,7 @@ define( function( require ) {
   var MovableDragHandler = require( 'SCENERY_PHET/input/MovableDragHandler' );
   var ModelViewTransform2 = require( 'PHETCOMMON/view/ModelViewTransform2' );
   var DerivedProperty = require( 'AXON/DerivedProperty' );
+  var Units = require( 'FLUID_PRESSURE_AND_FLOW/watertower/model/Units' );
 
   // strings
   var pressureString = require( 'string!FLUID_PRESSURE_AND_FLOW/pressure' );
@@ -35,6 +36,7 @@ define( function( require ) {
    * @param {Property} barometerPositionProperty - position (Vector2), associated with current barometer instance
    * @param {Bounds2} containerBounds - bounds of container for all barometers, needed to snap barometer to initial position when it in container
    * @param {Bounds2} dragBounds - bounds that define where the barometer may be dragged
+   * @param {options} options that can be passed on to the underlying node
    * @constructor
    */
   function BarometerNode( model, modelViewTransform, barometerValueProperty, barometerPositionProperty, containerBounds, dragBounds, options ) {
@@ -97,7 +99,7 @@ define( function( require ) {
 
     //Update the text when the value or units changes.
     DerivedProperty.multilink( [barometerValueProperty, model.measureUnitsProperty], function( barometerValue, units ) {
-      text.text = model.units.getPressureString[units]( barometerValue );
+      text.text = Units.getPressureString[units]( barometerValue );
       text.centerX = gaugeNode.centerX;
       textBackground.setRect( text.x - 2, text.y - text.height + 2, text.width + 4, text.height + 2 );
       textBackground.visible = (text.text !== '-');

@@ -17,6 +17,13 @@ define( function( require ) {
   var Vector2 = require( 'DOT/Vector2' );
   var Units = require( 'FLUID_PRESSURE_AND_FLOW/watertower/model/Units' );
   var WaterTower = require( 'FLUID_PRESSURE_AND_FLOW/watertower/model/WaterTower' );
+  var StringUtils = require( 'PHETCOMMON/util/StringUtils' );
+
+  // strings
+  var densityUnitsEnglish = require( 'string!FLUID_PRESSURE_AND_FLOW/densityUnitsEnglish' );
+  var densityUnitsMetric = require( 'string!FLUID_PRESSURE_AND_FLOW/densityUnitsMetric' );
+  var valueWithUnitsPattern = require( 'string!FLUID_PRESSURE_AND_FLOW/valueWithUnitsPattern' );
+
 
   function WaterTowerModel() {
     this.GASOLINE_DENSITY = 700;
@@ -50,7 +57,7 @@ define( function( require ) {
 
     this.getStandardAirPressure = new LinearFunction( 0, 150, this.EARTH_AIR_PRESSURE, this.EARTH_AIR_PRESSURE_AT_500_FT );
 
-    this.units = new Units( this );
+    this.units = new Units();
 
     this.waterTower = new WaterTower();
 
@@ -69,8 +76,8 @@ define( function( require ) {
         position: new Property( new Vector2( 0, 0 ) )
       } );
     }
-  }
 
+  }
   return inherit( PropertySet, WaterTowerModel, {
 
     // Resets all model elements
@@ -106,6 +113,18 @@ define( function( require ) {
     // Called by the animation loop. Optional, so if your model has no animation, you can omit this.
     step: function() {
       // Handle model animation here.
+    },
+    getFluidDensityString: function() {
+      debugger;
+      if ( this.measureUnits === 'english' ) {
+        return StringUtils.format( valueWithUnitsPattern, Math.round( Units.FLUIDDENSITY_ENGLISH_PER_METRIC * this.fluidDensity ), densityUnitsEnglish );
+      }
+      else {
+        return StringUtils.format( valueWithUnitsPattern, Math.round( this.fluidDensity ), densityUnitsMetric );
+      }
     }
+
   } );
-} );
+
+} )
+;

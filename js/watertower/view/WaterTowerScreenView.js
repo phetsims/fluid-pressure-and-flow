@@ -32,6 +32,7 @@ define( function( require ) {
   var WaterTowerRuler = require( 'FLUID_PRESSURE_AND_FLOW/watertower/view/WaterTowerRuler' );
   var WaterTowerView = require( 'FLUID_PRESSURE_AND_FLOW/watertower/view/WaterTowerView' );
 
+
   var VelocitySensorsContainer = require( 'FLUID_PRESSURE_AND_FLOW/watertower/view/VelocitySensorsContainer' );
 
   //strings
@@ -75,7 +76,7 @@ define( function( require ) {
     this.addChild( new UnitsControlPanel( model, {left: this.controlPanel.left, top: this.controlPanel.bottom + 10} ));
 
     //control slider
-    this.addChild( new ControlSlider( model, model.fluidDensityProperty, model.units.getFluidDensityString, model.fluidDensityRange, {
+    this.addChild( new ControlSlider( model, model.fluidDensityProperty, model.getFluidDensityString.bind( model ), model.fluidDensityRange, {
       x: 495,
       bottom: this.layoutBounds.bottom - 10,
       title: fluidDensityString,
@@ -119,7 +120,7 @@ define( function( require ) {
     this.addChild( new BarometersContainer( model, mvt, this.sensorPanel.visibleBounds, this.layoutBounds ) );
     this.addChild( new VelocitySensorsContainer( model, mvt, this.sensorPanel.visibleBounds, this.layoutBounds ) );
 
-    this.addChild( new WaterTowerRuler( model, mvt, this.layoutBounds ) );
+    this.addChild( new WaterTowerRuler( model.isRulerVisibleProperty, model.rulerPositionProperty, model.measureUnitsProperty, mvt, this.layoutBounds ) );
     this.addChild( new MeasuringTape( model, mvt, this.layoutBounds , {x : 10, y: 100}) );
 
     var waterTowerView = new WaterTowerView ( model.waterTower , { x: 0, y: 100});
