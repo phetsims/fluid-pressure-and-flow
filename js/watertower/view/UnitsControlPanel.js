@@ -18,7 +18,7 @@ define( function( require ) {
   var englishString = require( 'string!FLUID_PRESSURE_AND_FLOW/english' );
   var unitsString = require( 'string!FLUID_PRESSURE_AND_FLOW/units' );
 
-  function UnitsControlPanel( model, options) {
+  function UnitsControlPanel( model, options ) {
     var textOptions = {font: new PhetFont( 14 )};
     var metrics = new VBox( {
       children: [
@@ -35,7 +35,7 @@ define( function( require ) {
     };
 
     Panel.call( this, metrics, { xMargin: 10, yMargin: 10, fill: '#f2fa6a ', stroke: 'gray', lineWidth: 1, resize: false, scale: 0.9 } );
-    this.mutate(options);
+    this.mutate( options );
   }
 
   return inherit( Node, UnitsControlPanel );

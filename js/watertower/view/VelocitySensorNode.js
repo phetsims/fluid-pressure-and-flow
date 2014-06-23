@@ -16,9 +16,9 @@ define( function( require ) {
   var MovableDragHandler = require( 'SCENERY_PHET/input/MovableDragHandler' );
   var ModelViewTransform2 = require( 'PHETCOMMON/view/ModelViewTransform2' );
   var DerivedProperty = require( 'AXON/DerivedProperty' );
-  var Shape = require('KITE/Shape');
-  var Path = require('SCENERY/nodes/Path');
-  var LinearGradient = require('SCENERY/util/LinearGradient');
+  var Shape = require( 'KITE/Shape' );
+  var Path = require( 'SCENERY/nodes/Path' );
+  var LinearGradient = require( 'SCENERY/util/LinearGradient' );
 
   // strings
   var speedString = require( 'string!FLUID_PRESSURE_AND_FLOW/speed' );
@@ -44,28 +44,28 @@ define( function( require ) {
     var outerNode = new Rectangle( 0, 0, 80, 70, 10, 10, {stroke: 'gray', lineWidth: 1, fill: '#CD9E4D'} );
     velocitySensorNode.addChild( outerNode );
 
-    velocitySensorNode.addChild( new Text( speedString, {fill: 'black', font: new PhetFont( {size: 16, weight: 'bold'} ), x:15, y:20} ) );
+    velocitySensorNode.addChild( new Text( speedString, {fill: 'black', font: new PhetFont( {size: 16, weight: 'bold'} ), x: 15, y: 20} ) );
 
-    var innerNode = new Rectangle( 0, 0, 70, 22, {stroke: 'gray', lineWidth: 1, fill: '#ffffff',x:5, y:30} );
+    var innerNode = new Rectangle( 0, 0, 70, 22, {stroke: 'gray', lineWidth: 1, fill: '#ffffff', x: 5, y: 30} );
     velocitySensorNode.addChild( innerNode );
 
-    var labelNode = new Text( speedMeterString, {fill: 'black', font: new PhetFont( {size: 12, weight: 'bold'} ), x:10, y:40} );
+    var labelNode = new Text( speedMeterString, {fill: 'black', font: new PhetFont( {size: 12, weight: 'bold'} ), x: 10, y: 40} );
     velocitySensorNode.addChild( labelNode );
 
     var bottomTriangleShapeWidth = 30;
     var bottomTriangleShapeHeight = 12;
 
     var bottomTriangleShape = new Shape()
-      .moveTo(outerNode.centerX - bottomTriangleShapeWidth / 2, innerNode.rectY + 1)
-      .lineTo(outerNode.centerX, bottomTriangleShapeHeight + innerNode.rectY + 1)
-      .lineTo(outerNode.centerX + bottomTriangleShapeWidth / 2, innerNode.rectY + 1);
+      .moveTo( outerNode.centerX - bottomTriangleShapeWidth / 2, innerNode.rectY + 1 )
+      .lineTo( outerNode.centerX, bottomTriangleShapeHeight + innerNode.rectY + 1 )
+      .lineTo( outerNode.centerX + bottomTriangleShapeWidth / 2, innerNode.rectY + 1 );
 
-    this.addChild(new Path(bottomTriangleShape, {
-      fill: new LinearGradient(outerNode.centerX - bottomTriangleShapeWidth / 2, 0, outerNode.centerX + bottomTriangleShapeWidth / 2, 0)
-        .addColorStop(1, '#CD9E4D')
-        .addColorStop(1, '#CD9E4D')
-        .addColorStop(1, '#CD9E4D'), x:0, y:69,stroke: 'gray'
-    }));
+    this.addChild( new Path( bottomTriangleShape, {
+      fill: new LinearGradient( outerNode.centerX - bottomTriangleShapeWidth / 2, 0, outerNode.centerX + bottomTriangleShapeWidth / 2, 0 )
+        .addColorStop( 1, '#CD9E4D' )
+        .addColorStop( 1, '#CD9E4D' )
+        .addColorStop( 1, '#CD9E4D' ), x: 0, y: 69, stroke: 'gray'
+    } ) );
 
     //handlers
     this.addInputListener( new MovableDragHandler( {locationProperty: positionProperty, dragBounds: dragBounds},
@@ -80,17 +80,18 @@ define( function( require ) {
         }
       } ) );
 
-    positionProperty.linkAttribute( velocitySensorNode, 'translation');
+    positionProperty.linkAttribute( velocitySensorNode, 'translation' );
 
     //Update the text when the value or units changes.
     DerivedProperty.multilink( [velocityProperty, model.measureUnitsProperty], function( velocity, units ) {
       if ( units === 'metric' ) {
-        labelNode.text = velocity.magnitude().toFixed(2) + ' ' + mPerS;
-      } else {
-        labelNode.text = (velocity.magnitude() * 3.28).toFixed(2) + ' ' + ftPerS;
+        labelNode.text = velocity.magnitude().toFixed( 2 ) + ' ' + mPerS;
+      }
+      else {
+        labelNode.text = (velocity.magnitude() * 3.28).toFixed( 2 ) + ' ' + ftPerS;
       }
       labelNode.center = innerNode.center;
-    });
+    } );
 
   }
 

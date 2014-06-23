@@ -22,9 +22,9 @@ define( function( require ) {
     function SluiceControl( model, options ) {
 
       Node.call( this );
-      this.addChild( new ABSwitch(model.isSluiceOpenProperty, false, new Text("Close"), true, new Text("Open"), {x: 0, y: 400}));
+      this.addChild( new ABSwitch( model.isSluiceOpenProperty, false, new Text( "Close" ), true, new Text( "Open" ), {x: 0, y: 400} ) );
 
-      this.mutate(options);
+      this.mutate( options );
     }
 
     return inherit( Node, SluiceControl );
