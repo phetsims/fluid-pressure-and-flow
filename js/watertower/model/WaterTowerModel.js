@@ -94,12 +94,7 @@ define( function( require ) {
     },
 
     getAirPressure: function( height ) {
-      if ( !this.isAtmosphere ) {
-        return 0;
-      }
-      else {
-        return this.getStandardAirPressure( height );
-      }
+      return !this.isAtmosphere ? 0 : this.getStandardAirPressure( height );
     },
 
     getWaterPressure: function( height ) {
