@@ -117,7 +117,6 @@ define( function( require ) {
     },
 
     getFluidDensityString: function() {
-      debugger;
       if ( this.measureUnits === 'english' ) {
         return StringUtils.format( valueWithUnitsPattern, Math.round( Units.FLUID_DENSITY_ENGLISH_PER_METRIC * this.fluidDensity ), densityUnitsEnglish );
       }
