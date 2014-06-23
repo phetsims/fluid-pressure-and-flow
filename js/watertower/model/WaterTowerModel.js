@@ -78,6 +78,7 @@ define( function( require ) {
     }
 
   }
+
   return inherit( PropertySet, WaterTowerModel, {
 
     // Resets all model elements
@@ -117,7 +118,7 @@ define( function( require ) {
     getFluidDensityString: function() {
       debugger;
       if ( this.measureUnits === 'english' ) {
-        return StringUtils.format( valueWithUnitsPattern, Math.round( Units.FLUIDDENSITY_ENGLISH_PER_METRIC * this.fluidDensity ), densityUnitsEnglish );
+        return StringUtils.format( valueWithUnitsPattern, Math.round( Units.FLUID_DENSITY_ENGLISH_PER_METRIC * this.fluidDensity ), densityUnitsEnglish );
       }
       else {
         return StringUtils.format( valueWithUnitsPattern, Math.round( this.fluidDensity ), densityUnitsMetric );

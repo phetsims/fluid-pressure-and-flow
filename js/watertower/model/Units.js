@@ -24,7 +24,6 @@ define( function( require ) {
 
   function Units() {
 
-
   }
 
   return inherit( Object, Units, {}, {
@@ -59,7 +58,7 @@ define( function( require ) {
       }
     },
     FEET_PER_METER: 3.2808399,
-    FLUIDDENSITY_ENGLISH_PER_METRIC: 62.4 / 1000.0,
+    FLUID_DENSITY_ENGLISH_PER_METRIC: 62.4 / 1000.0,
     ATMOSPHERE_PER_PASCAL: 9.8692E-6,
     PSI_PER_PASCAL: 145.04E-6,
     GRAVITY_ENGLISH_PER_METRIC: 32.16 / 9.80665 //http://evaosd.fartoomuch.info/library/units.htm
