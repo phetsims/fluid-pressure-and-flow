@@ -18,7 +18,7 @@ define( function( require ) {
    */
   function WaterTowerView( model, options ) {
     options = _.extend( {
-      waterColor: 'blue',
+      waterColor: 'rgb(20, 244, 255)',
       towerFrameColor: 'black'
     }, options );
 
