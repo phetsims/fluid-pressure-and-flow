@@ -50,7 +50,7 @@ define( function( require ) {
       align: 'left'
     } );
 
-    Panel.call( this, content, { xMargin: 10, yMargin: 10, fill: '#f2fa6a ', stroke: 'gray', lineWidth: 1, resize: false, x: x, y: y, scale: 0.8 } );
+    Panel.call( this, content, { xMargin: 10, yMargin: 10, fill: '#f2fa6a ', stroke: 'gray', lineWidth: 1, resize: false, x: x, y: y, scale: 0.9 } );
   }
 
   return inherit( Node, ControlPanel, {

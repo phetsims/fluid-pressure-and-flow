@@ -57,14 +57,20 @@ define( function( require ) {
       Vector2.ZERO,
       70 ); //1m = 70px, (0,0) - top left corner
 
+    this.addChild( new FaucetNode(1, model.faucetFlowRateProperty, model.isFaucetEnabledProperty, {
+      horizontalPipeLength: 1000,
+      x: 0,
+      y: 100,
+      scale: 0.4 //size of the faucet
+    }));
     //control panel
-    this.controlPanel = new ControlPanel( model, 800, 60 );
+    this.controlPanel = new ControlPanel( model, 600, 50 );
     this.addChild( this.controlPanel );
-    this.addChild( new UnitsControlPanel( model, 800, 160 ) );
+    this.addChild( new UnitsControlPanel( model, 600, 150) );
 
     //control slider
     this.addChild( new ControlSlider( model, model.fluidDensityProperty, model.units.getFluidDensityString, model.fluidDensityRange, {
-      x: 595,
+      x: 495,
       y: 400,
       title: fluidDensityString,
       ticks: [
@@ -91,7 +97,7 @@ define( function( require ) {
       listener: function() {
         model.reset();
       },
-      scale: 0.66, x: 805, y: 450
+      scale: 0.66, x: 705, y: 450
     } ) );
 
     //adding radio button and play pause button at bottom of the page
@@ -100,7 +106,7 @@ define( function( require ) {
     this.addChild( new PlayPauseButton( model.isPlayProperty, {radius: 20, stroke: 'black', fill: '#005566', x: 400, y: 440} ) );
 
     //barometers
-    this.barometersContainer = new Rectangle( 0, 0, 160, 90, 10, 10, {stroke: 'gray', lineWidth: 1, fill: '#f2fa6a', x: 700, y: 50} );
+    this.barometersContainer = new Rectangle( 0, 0, 180, 90, 10, 10, {stroke: 'gray', lineWidth: 1, fill: '#f2fa6a', y: 50} );
     this.addChild( this.barometersContainer );
     this.barometersContainer.x = this.controlPanel.x - 5 - this.barometersContainer.width;
     this.addChild( new BarometersContainer( model, mvt, this.barometersContainer.visibleBounds, this.layoutBounds ) );
@@ -109,12 +115,12 @@ define( function( require ) {
     this.addChild( new WaterTowerRuler( model, mvt, this.layoutBounds ) );
     this.addChild( new MeasuringTape( model, mvt, this.layoutBounds ) );
 
-    var waterTowerView = new WaterTowerView ( model.waterTower );
+    var waterTowerView = new WaterTowerView ( model.waterTower , { x: 0, y: 100});
     this.addChild( waterTowerView);
     waterTowerView.moveToBack();
 
     // add background -- sky, earth
-    var backgroundNode = new OutsideBackgroundNode( this.layoutBounds.centerX, this.layoutBounds.centerY + 20, this.layoutBounds.width * 3, this.layoutBounds.height, this.layoutBounds.height );
+    var backgroundNode = new OutsideBackgroundNode( this.layoutBounds.centerX, this.layoutBounds.centerY + 100, this.layoutBounds.width * 3, this.layoutBounds.height, this.layoutBounds.height );
     this.addChild( backgroundNode );
     backgroundNode.moveToBack();
 

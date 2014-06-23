@@ -24,8 +24,8 @@ define( function( require ) {
 
     Node.call( this );
 
-    this.addChild(new Path(model.getWaterShape(),{ x: 50, y: 50 + model.TANK_HEIGHT - model.waterLevel(), fill: options.waterColor}));
-    this.addChild(new Path(model.getTankShape(),{ x: 50, y: 50, stroke: options.towerFrameColor}));
+    this.addChild(new Path(model.getWaterShape(),{ y: 50 + model.TANK_HEIGHT - model.waterLevel(), fill: options.waterColor}));
+    this.addChild(new Path(model.getTankShape(),{ y: 50, stroke: options.towerFrameColor}));
 
     this.mutate(options);
   }
