@@ -26,6 +26,7 @@ define( function( require ) {
   var ControlSlider = require( 'FLUID_PRESSURE_AND_FLOW/watertower/view/ControlSlider' );
   var ControlPanel = require( 'FLUID_PRESSURE_AND_FLOW/watertower/view/ControlPanel' );
   var MeasuringTape = require( 'FLUID_PRESSURE_AND_FLOW/watertower/view/MeasuringTape' );
+  var SluiceControl = require( 'FLUID_PRESSURE_AND_FLOW/watertower/view/SluiceControl' );
   var UnitsControlPanel = require( 'FLUID_PRESSURE_AND_FLOW/watertower/view/UnitsControlPanel' );
   var WaterTowerRuler = require( 'FLUID_PRESSURE_AND_FLOW/watertower/view/WaterTowerRuler' );
   var WaterTowerView = require( 'FLUID_PRESSURE_AND_FLOW/watertower/view/WaterTowerView' );
@@ -118,6 +119,8 @@ define( function( require ) {
     var waterTowerView = new WaterTowerView ( model.waterTower , { x: 0, y: 100});
     this.addChild( waterTowerView);
     waterTowerView.moveToBack();
+
+    this.addChild(new SluiceControl(model));
 
     // add background -- sky, earth
     var backgroundNode = new OutsideBackgroundNode( this.layoutBounds.centerX, this.layoutBounds.centerY + 100, this.layoutBounds.width * 3, this.layoutBounds.height, this.layoutBounds.height );
