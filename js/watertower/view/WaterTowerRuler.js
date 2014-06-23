@@ -57,16 +57,8 @@ define( function( require ) {
 
     model.isRulerVisibleProperty.linkAttribute( this, 'visible' );
 
-    model.measureUnitsProperty.link( function( unit ) {
-      if ( unit === 'english' ) {
-        metersRuler.visible = false;
-        feetRuler.visible = true;
-      }
-      else {
-        metersRuler.visible = true;
-        feetRuler.visible = false;
-      }
-    } );
+    model.measureUnitsProperty.valueEquals( 'english' ).linkAttribute( feetRuler, 'visible' );
+    model.measureUnitsProperty.valueEquals( 'metric' ).linkAttribute( metersRuler, 'visible' );
 
     model.rulerPositionProperty.linkAttribute( this, 'translation' );
 
