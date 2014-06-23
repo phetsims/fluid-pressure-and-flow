@@ -38,10 +38,12 @@ define( function( require ) {
 
   return inherit( PropertySet, WaterDrop, {
     step: function( dt ) {
+
       // v_f = v_i + a * dt
       var acceleration = new Vector2( 0, -Constants.EARTH_GRAVITY );
       var v_i = this.velocity.get();
       this.velocity = this.velocity.plus( acceleration.times( dt ) );
+
       // d = (v_f + v_i) * dt/2; assuming constant acceleration
       var displacement = this.velocity.plus( v_i ).times( dt / 2 );
       this.position = this.position.plus( displacement );
@@ -56,5 +58,4 @@ define( function( require ) {
       return dropShape.containsPoint( point );
     }
   } );
-
 } );
