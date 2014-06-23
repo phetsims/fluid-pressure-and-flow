@@ -17,6 +17,7 @@ define( function( require ) {
   var ResetAllButton = require( 'SCENERY_PHET/ResetAllButton' );
   var Rectangle = require( 'SCENERY/nodes/Rectangle' );
   var PlayPauseButton = require( 'SCENERY_PHET/PlayPauseButton' );
+  var StepButton = require( 'SCENERY_PHET/StepButton' );
   var AquaRadioButton = require( 'SUN/AquaRadioButton' );
   var PhetFont = require( 'SCENERY_PHET/PhetFont' );
   var Text = require( 'SCENERY/nodes/Text' );
@@ -76,7 +77,7 @@ define( function( require ) {
     //control slider
     this.addChild( new ControlSlider( model, model.fluidDensityProperty, model.units.getFluidDensityString, model.fluidDensityRange, {
       x: 495,
-      y: 400,
+      bottom: this.layoutBounds.bottom - 10,
       title: fluidDensityString,
       ticks: [
         {
@@ -108,7 +109,9 @@ define( function( require ) {
     //adding radio button and play pause button at bottom of the page
     this.addChild( new AquaRadioButton( model.waterSpeedProperty, slowMotionString, new Text( slowMotionString, textOptions ), {radius: 8, x: 250, y: 430} ) );
     this.addChild( new AquaRadioButton( model.waterSpeedProperty, normalString, new Text( normalString, textOptions ), {radius: 8, x: 250, y: 450} ) );
-    this.addChild( new PlayPauseButton( model.isPlayProperty, {radius: 20, stroke: 'black', fill: '#005566', x: 400, y: 440} ) );
+    var playPauseButton = new PlayPauseButton( model.isPlayProperty, { stroke: 'black', fill: '#005566', x: 400, y: 440} );
+    this.addChild( playPauseButton );
+    this.addChild( new StepButton( function() {}, model.isPlayProperty, { stroke: 'black', fill: '#005566', left: playPauseButton.right + 10, y: 440} ) );
 
     //barometers
     this.barometersContainer = new Rectangle( 0, 0, 180, 90, 10, 10, {stroke: 'gray', lineWidth: 1, fill: '#f2fa6a', y: 50} );

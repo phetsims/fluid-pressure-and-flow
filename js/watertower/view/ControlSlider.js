@@ -26,7 +26,7 @@ define( function( require ) {
 
   function ControlSlider( model, trackProperty, getPropertyStringFunction, trackRange, options ) {
     options = _.extend( {
-      scale: 0.6,
+      scale: 1.0,
       fill: '#f2fa6a',
       xMargin: 15,
       yMargin: 5,
@@ -34,10 +34,7 @@ define( function( require ) {
       ticks: []
     }, options );
 
-    Node.call( this, {
-      x: options.x,
-      y: options.y
-    } );
+    Node.call( this );
 
 
     var hSlider = new HSlider( trackProperty, trackRange, {
@@ -121,6 +118,7 @@ define( function( require ) {
       valueLabel.text = getPropertyStringFunction();
       valueLabel.center = valueField.center; // keep the value centered in the field
     } );
+    this.mutate( options );
   }
 
   inherit( Node, ControlSlider, {
