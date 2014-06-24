@@ -60,6 +60,13 @@ define( function( require ) {
       Vector2.ZERO,
       70 ); //1m = 70px, (0,0) - top left corner
 
+
+    // add background -- sky, earth
+
+    this.addChild( new OutsideBackgroundNode( this.layoutBounds.centerX, this.layoutBounds.centerY + 100, this.layoutBounds.width * 3, this.layoutBounds.height, this.layoutBounds.height ) );
+
+    this.addChild( new WaterTowerView( model.waterTower, { x: 0, y: 100} ) );
+
     this.addChild( new FaucetNode( 1, model.faucetFlowRateProperty, model.isFaucetEnabledProperty, {
       horizontalPipeLength: 1000,
       x: 0,
@@ -133,16 +140,8 @@ define( function( require ) {
     this.addChild( new WaterTowerRuler( model.isRulerVisibleProperty, model.rulerPositionProperty, model.measureUnitsProperty, mvt, this.layoutBounds ) );
     this.addChild( new MeasuringTape( model, mvt, this.layoutBounds, {x: 10, y: 100} ) );
 
-    var waterTowerView = new WaterTowerView( model.waterTower, { x: 0, y: 100} );
-    this.addChild( waterTowerView );
-    waterTowerView.moveToBack();
-
     this.addChild( new SluiceControl( model ) );
 
-    // add background -- sky, earth
-    var backgroundNode = new OutsideBackgroundNode( this.layoutBounds.centerX, this.layoutBounds.centerY + 100, this.layoutBounds.width * 3, this.layoutBounds.height, this.layoutBounds.height );
-    this.addChild( backgroundNode );
-    backgroundNode.moveToBack();
 
   }
 
