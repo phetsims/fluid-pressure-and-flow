@@ -23,7 +23,7 @@ define( function( require ) {
   var Text = require( 'SCENERY/nodes/Text' );
   var FaucetNode = require( 'SCENERY_PHET/FaucetNode' );
 
-  var BarometersContainer = require( 'FLUID_PRESSURE_AND_FLOW/watertower/view/BarometersContainer' );
+  var BarometerNode = require( 'FLUID_PRESSURE_AND_FLOW/watertower/view/BarometerNode' );
   var ControlSlider = require( 'FLUID_PRESSURE_AND_FLOW/watertower/view/ControlSlider' );
   var ControlPanel = require( 'FLUID_PRESSURE_AND_FLOW/watertower/view/ControlPanel' );
   var MeasuringTape = require( 'FLUID_PRESSURE_AND_FLOW/watertower/view/MeasuringTape' );
@@ -31,9 +31,7 @@ define( function( require ) {
   var UnitsControlPanel = require( 'FLUID_PRESSURE_AND_FLOW/watertower/view/UnitsControlPanel' );
   var WaterTowerRuler = require( 'FLUID_PRESSURE_AND_FLOW/watertower/view/WaterTowerRuler' );
   var WaterTowerView = require( 'FLUID_PRESSURE_AND_FLOW/watertower/view/WaterTowerView' );
-
-
-  var VelocitySensorsContainer = require( 'FLUID_PRESSURE_AND_FLOW/watertower/view/VelocitySensorsContainer' );
+  var VelocitySensorNode = require( 'FLUID_PRESSURE_AND_FLOW/watertower/view/VelocitySensorNode' );
 
   //strings
   var fluidDensityString = require( 'string!FLUID_PRESSURE_AND_FLOW/fluidDensity' );
@@ -114,11 +112,23 @@ define( function( require ) {
     this.addChild( playPauseButton );
     this.addChild( new StepButton( function() {}, model.isPlayProperty, { stroke: 'black', fill: '#005566', left: playPauseButton.right + 10, y: 440} ) );
 
-    //barometers
-    this.sensorPanel = new Rectangle( 0, 0, 180, 90, 10, 10, {stroke: 'gray', lineWidth: 1, fill: '#f2fa6a', right: this.controlPanel.left - 10, top: this.controlPanel.top} );
-    this.addChild( this.sensorPanel );
-    this.addChild( new BarometersContainer( model, mvt, this.sensorPanel.visibleBounds, this.layoutBounds ) );
-    this.addChild( new VelocitySensorsContainer( model, mvt, this.sensorPanel.visibleBounds, this.layoutBounds ) );
+    //Add the sensors panel
+    var sensorPanel = new Rectangle( 0, 0, 180, 90, 10, 10, {stroke: 'gray', lineWidth: 1, fill: '#f2fa6a', right: this.controlPanel.left - 10, top: this.controlPanel.top} );
+    this.addChild( sensorPanel );
+
+    //Add barometers within the sensor panel bounds
+    _.each( model.barometers, function( barometer ) {
+      barometer.positionProperty.storeInitialValue( new Vector2( sensorPanel.visibleBounds.centerX + 50, sensorPanel.visibleBounds.centerY - 15 ) );
+      barometer.reset();
+      this.addChild( new BarometerNode( model, mvt, barometer, sensorPanel.visibleBounds, this.layoutBounds ) );
+    }.bind( this ) );
+
+    //Add speedometers within the sensor panel bounds
+    _.each( model.speedometers, function( velocitySensor ) {
+      velocitySensor.positionProperty.storeInitialValue( new Vector2( sensorPanel.visibleBounds.centerX - 70, sensorPanel.visibleBounds.centerY - 40 ) );
+      velocitySensor.positionProperty.reset();
+      this.addChild( new VelocitySensorNode( model, mvt, velocitySensor, sensorPanel.visibleBounds, this.layoutBounds ) );
+    }.bind( this ) );
 
     this.addChild( new WaterTowerRuler( model.isRulerVisibleProperty, model.rulerPositionProperty, model.measureUnitsProperty, mvt, this.layoutBounds ) );
     this.addChild( new MeasuringTape( model, mvt, this.layoutBounds, {x: 10, y: 100} ) );
