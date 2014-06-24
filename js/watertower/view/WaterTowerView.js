@@ -10,6 +10,7 @@ define( function( require ) {
   var inherit = require( 'PHET_CORE/inherit' );
   var Node = require( 'SCENERY/nodes/Node' );
   var Path = require( 'SCENERY/nodes/Path' );
+  var WaterTowerLegsNode = require( 'FLUID_PRESSURE_AND_FLOW/watertower/view/WaterTowerLegsNode' );
 
   /**
    * @param {WaterTower} model
@@ -24,8 +25,10 @@ define( function( require ) {
 
     Node.call( this );
 
-    this.addChild( new Path( model.getWaterShape(), { y: 50 + model.TANK_HEIGHT - model.waterLevel(), fill: options.waterColor} ) );
-    this.addChild( new Path( model.getTankShape(), { y: 50, stroke: options.towerFrameColor} ) );
+    this.addChild( new Path( model.getWaterShape(), { y: 20 + model.TANK_HEIGHT - model.waterLevel(), fill: options.waterColor} ) );
+    var waterTank = new Path( model.getTankShape(), { y: 20, stroke: options.towerFrameColor} );
+    this.addChild( waterTank );
+    this.addChild( new WaterTowerLegsNode( 2 * model.TANK_RADIUS, model.TANK_HEIGHT * 1.15, {top: waterTank.bottom} ) );
 
     this.mutate( options );
   }
