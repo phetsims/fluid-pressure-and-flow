@@ -27,7 +27,7 @@ define( function( require ) {
     this.TANK_VOLUME = Math.PI * this.TANK_RADIUS * this.TANK_RADIUS * this.TANK_HEIGHT;
 
     //Location of the bottom center of the water tower
-    this.tankBottomCenter = new Vector2( 0, this.INITIAL_Y );
+    this.tankBottomCenter = new Vector2( this.TANK_RADIUS, this.INITIAL_Y );
 
     //Start the tank partly full so that the "fill" button and faucet slider are initially enabled
     this.fluidVolume = this.TANK_VOLUME * 0.8;

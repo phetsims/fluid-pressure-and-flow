@@ -56,10 +56,10 @@ define( function( require ) {
 
     var textOptions = {font: new PhetFont( 14 )};
 
-    //TODO: Invert the y-axis, so that y grows up.
-    var mvt = ModelViewTransform2.createSinglePointScaleMapping(
+    //Invert the y-axis, so that y grows up.
+    var mvt = ModelViewTransform2.createSinglePointScaleInvertedYMapping(
       Vector2.ZERO,
-      Vector2.ZERO,
+      new Vector2( 0, this.layoutBounds.maxY ),
       70 ); //1m = 70px, (0,0) - top left corner
 
 
@@ -71,7 +71,7 @@ define( function( require ) {
 
     this.addChild( new FaucetNode( 1, model.faucetFlowRateProperty, model.isFaucetEnabledProperty, {
       horizontalPipeLength: 1000,
-      x: 0,
+      x: 40,
       y: 100,
       scale: 0.4 //size of the faucet
     } ) );
