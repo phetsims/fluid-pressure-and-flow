@@ -41,6 +41,8 @@ define( function( require ) {
   var normalString = require( 'string!FLUID_PRESSURE_AND_FLOW/normal' );
   var slowMotionString = require( 'string!FLUID_PRESSURE_AND_FLOW/slowMotion' );
 
+  //View layout related constants
+  var inset = 10;
   /**
    * @param {WaterTowerModel} model
    * @constructor
@@ -75,7 +77,7 @@ define( function( require ) {
     } ) );
 
     //control panel
-    this.controlPanel = new ControlPanel( model, {right: this.layoutBounds.right - 10, top: 10} );
+    this.controlPanel = new ControlPanel( model, {right: this.layoutBounds.right - inset, top: inset} );
     this.addChild( this.controlPanel );
 
     this.addChild( new UnitsControlPanel( model, {left: this.controlPanel.left, top: this.controlPanel.bottom + 10} ) );
@@ -83,7 +85,7 @@ define( function( require ) {
     //control slider
     this.addChild( new ControlSlider( model, model.fluidDensityProperty, model.getFluidDensityString.bind( model ), model.fluidDensityRange, {
       x: 495,
-      bottom: this.layoutBounds.bottom - 10,
+      bottom: this.layoutBounds.bottom - inset,
       title: fluidDensityString,
       ticks: [
         {
@@ -117,10 +119,10 @@ define( function( require ) {
     this.addChild( new AquaRadioButton( model.waterSpeedProperty, normalString, new Text( normalString, textOptions ), {radius: 8, x: 250, y: 450} ) );
     var playPauseButton = new PlayPauseButton( model.isPlayProperty, { stroke: 'black', fill: '#005566', x: 400, y: 440} );
     this.addChild( playPauseButton );
-    this.addChild( new StepButton( function() {}, model.isPlayProperty, { stroke: 'black', fill: '#005566', left: playPauseButton.right + 10, y: 440} ) );
+    this.addChild( new StepButton( function() {}, model.isPlayProperty, { stroke: 'black', fill: '#005566', left: playPauseButton.right + inset, y: 440} ) );
 
     //Add the sensors panel
-    var sensorPanel = new Rectangle( 0, 0, 180, 90, 10, 10, {stroke: 'gray', lineWidth: 1, fill: '#f2fa6a', right: this.controlPanel.left - 10, top: this.controlPanel.top} );
+    var sensorPanel = new Rectangle( 0, 0, 180, 90, 10, 10, {stroke: 'gray', lineWidth: 1, fill: '#f2fa6a', right: this.controlPanel.left - inset, top: this.controlPanel.top} );
     this.addChild( sensorPanel );
 
     //Add barometers within the sensor panel bounds
