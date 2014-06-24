@@ -16,10 +16,10 @@ define( function( require ) {
     function VelocitySensorsContainer( model, mvt, sensorsContainerBounds, layoutBounds ) {
       var thisContainer = this;
       Node.call( this );
-      _.each( model.speedometers, function( sensor ) {
-        sensor.position.storeInitialValue( new Vector2( sensorsContainerBounds.centerX - 70, sensorsContainerBounds.centerY - 40 ) );
-        sensor.position.reset();
-        thisContainer.addChild( new VelocitySensorNode( model, mvt, sensor.value, sensor.position, sensorsContainerBounds, layoutBounds ) );
+      _.each( model.speedometers, function( velocitySensor ) {
+        velocitySensor.positionProperty.storeInitialValue( new Vector2( sensorsContainerBounds.centerX - 70, sensorsContainerBounds.centerY - 40 ) );
+        velocitySensor.positionProperty.reset();
+        thisContainer.addChild( new VelocitySensorNode( model, mvt, velocitySensor, sensorsContainerBounds, layoutBounds ) );
       } );
     }
 

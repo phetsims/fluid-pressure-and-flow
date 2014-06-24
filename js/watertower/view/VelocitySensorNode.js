@@ -31,13 +31,12 @@ define( function( require ) {
    *
    * @param {WaterTowerModel} model of simulation
    * @param {ModelViewTransform2} modelViewTransform , Transform between model and view coordinate frames
-   * @param {Property} velocityProperty - value {Vector2}, associated with current sensor instance
-   * @param {Property} positionProperty - position (Vector2), associated with current sensor instance
+   * @param {VelocitySensor} velocitySensor - model for the velocity sensor
    * @param {Bounds2} containerBounds - bounds of container for all velocity sensors, needed to reset to initial position
    * @param {Bounds2} dragBounds - bounds that define where the sensor may be dragged
    * @constructor
    */
-  function VelocitySensorNode( model, modelViewTransform, velocityProperty, positionProperty, containerBounds, dragBounds ) {
+  function VelocitySensorNode( model, modelViewTransform, velocitySensor, containerBounds, dragBounds ) {
     var velocitySensorNode = this;
     Node.call( this, {cursor: 'pointer', pickable: true} );
 
@@ -68,25 +67,25 @@ define( function( require ) {
     } ) );
 
     //handlers
-    this.addInputListener( new MovableDragHandler( {locationProperty: positionProperty, dragBounds: dragBounds},
+    this.addInputListener( new MovableDragHandler( {locationProperty: velocitySensor.positionProperty, dragBounds: dragBounds},
       ModelViewTransform2.createIdentity(),
       {
         endDrag: function() {
           if ( containerBounds.intersectsBounds( velocitySensorNode.visibleBounds ) ) {
-            positionProperty.reset();
+            velocitySensor.positionProperty.reset();
             labelNode.centerX = outerNode.centerX;
             labelNode.text = '-';
           }
         }
       } ) );
 
-    positionProperty.linkAttribute( velocitySensorNode, 'translation' );
+    velocitySensor.positionProperty.linkAttribute( velocitySensorNode, 'translation' );
 
     //Update the text when the value or units changes.
-    DerivedProperty.multilink( [velocityProperty, model.measureUnitsProperty], function( velocity, units ) {
+    DerivedProperty.multilink( [velocitySensor.valueProperty, model.measureUnitsProperty], function( velocity, units ) {
       labelNode.text = units === 'metric' ?
                        velocity.magnitude().toFixed( 2 ) + ' ' + mPerS :
-                       (velocity.magnitude() * 3.28).toFixed( 2 ) + ' ' + ftPerS
+                       (velocity.magnitude() * 3.28).toFixed( 2 ) + ' ' + ftPerS;
       labelNode.center = innerNode.center;
     } );
 

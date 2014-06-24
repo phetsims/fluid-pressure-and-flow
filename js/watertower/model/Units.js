@@ -8,7 +8,6 @@ define( function( require ) {
   'use strict';
 
   //modules
-  var StringUtils = require( 'PHETCOMMON/util/StringUtils' );
   var Util = require( 'DOT/Util' );
   var inherit = require( 'PHET_CORE/inherit' );
 
@@ -16,11 +15,6 @@ define( function( require ) {
   var atmString = require( 'string!FLUID_PRESSURE_AND_FLOW/atm' );
   var psiString = require( 'string!FLUID_PRESSURE_AND_FLOW/psi' );
   var kPaString = require( 'string!FLUID_PRESSURE_AND_FLOW/kPa' );
-  var valueWithUnitsPattern = require( 'string!FLUID_PRESSURE_AND_FLOW/valueWithUnitsPattern' );
-  var ftPerSPerS = require( 'string!FLUID_PRESSURE_AND_FLOW/ftPerSPerS' );
-  var mPerSPerS = require( 'string!FLUID_PRESSURE_AND_FLOW/mPerSPerS' );
-  var densityUnitsEnglish = require( 'string!FLUID_PRESSURE_AND_FLOW/densityUnitsEnglish' );
-  var densityUnitsMetric = require( 'string!FLUID_PRESSURE_AND_FLOW/densityUnitsMetric' );
 
   function Units() {
   }

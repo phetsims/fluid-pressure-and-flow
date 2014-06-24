@@ -9,13 +9,15 @@ define( function( require ) {
   'use strict';
 
   // modules
-  var Property = require( 'AXON/Property' );
   var PropertySet = require( 'AXON/PropertySet' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Range = require( 'DOT/Range' );
   var LinearFunction = require( 'DOT/LinearFunction' );
   var Vector2 = require( 'DOT/Vector2' );
   var Units = require( 'FLUID_PRESSURE_AND_FLOW/watertower/model/Units' );
+  var Barometer = require( 'FLUID_PRESSURE_AND_FLOW/watertower/model/Barometer' );
+  var VelocitySensor = require( 'FLUID_PRESSURE_AND_FLOW/watertower/model/VelocitySensor' );
+
   var WaterTower = require( 'FLUID_PRESSURE_AND_FLOW/watertower/model/WaterTower' );
   var StringUtils = require( 'PHETCOMMON/util/StringUtils' );
 
@@ -62,19 +64,13 @@ define( function( require ) {
     this.waterTower = new WaterTower();
 
     this.barometers = [];
-
     for ( var i = 0; i < 4; i++ ) {
-      this.barometers.push( {
-        value: new Property( 0 ),
-        position: new Property( new Vector2( 0, 0 ) )
-      } );
+      this.barometers.push( new Barometer( new Vector2( 0, 0 ), 0 ) );
     }
+
     this.speedometers = [];
     for ( var j = 0; j < 4; j++ ) {
-      this.speedometers.push( {
-        value: new Property( new Vector2( 5, 5 ) ),
-        position: new Property( new Vector2( 0, 0 ) )
-      } );
+      this.speedometers.push( new VelocitySensor( new Vector2( 0, 0 ), new Vector2( 5, 5 ) ) );
     }
   }
 
@@ -85,11 +81,11 @@ define( function( require ) {
       PropertySet.prototype.reset.call( this );
 
       _.each( this.barometers, function( barometer ) {
-        barometer.position.reset();
+        barometer.reset();
       } );
 
       _.each( this.speedometers, function( speedometer ) {
-        speedometer.position.reset();
+        speedometer.reset();
       } );
     },
 

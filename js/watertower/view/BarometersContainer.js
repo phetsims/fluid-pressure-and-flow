@@ -17,9 +17,9 @@ define( function( require ) {
       var barometersContainer = this;
       Node.call( this );
       model.barometers.forEach( function( barometer ) {
-        barometer.position.storeInitialValue( new Vector2( barometersContainerBounds.centerX + 50, barometersContainerBounds.centerY - 15 ) );
-        barometer.position.reset();
-        barometersContainer.addChild( new BarometerNode( model, mvt, barometer.value, barometer.position, barometersContainerBounds, layoutBounds ) );
+        barometer.positionProperty.storeInitialValue( new Vector2( barometersContainerBounds.centerX + 50, barometersContainerBounds.centerY - 15 ) );
+        barometer.reset();
+        barometersContainer.addChild( new BarometerNode( model, mvt, barometer, barometersContainerBounds, layoutBounds ) );
       } );
     }
 
