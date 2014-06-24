@@ -30,10 +30,6 @@ define( function( require ) {
       align: 'left'
     } );
 
-    this.resizeWidth = function( maxWidth ) {
-      metrics.updateWidth( maxWidth );
-    };
-
     Panel.call( this, metrics, { xMargin: 10, yMargin: 10, fill: '#f2fa6a ', stroke: 'gray', lineWidth: 1, resize: false, scale: 0.9 } );
     this.mutate( options );
   }
