@@ -55,14 +55,6 @@ define( function( require ) {
         .lineTo( this.tankBottomCenter.x - this.TANK_RADIUS, this.tankBottomCenter.y );
     },
 
-    getSupportShape: function() {
-      this.bottomCenter = this.tankBottomCenter;
-      this.leftLegTop = new Vector2( this.bottomCenter.x - this.TANK_RADIUS / 2, this.bottomCenter.y );
-      this.leftLegBottom = new Vector2( this.bottomCenter.x - this.TANK_RADIUS / 2 - this.LEG_EXTENSION, 0 );
-      this.rightLegTop = new Vector2( this.bottomCenter.x + this.TANK_RADIUS / 2, this.bottomCenter.y );
-      this.rightLegBottom = new Vector2( this.bottomCenter.x + this.TANK_RADIUS / 2 + this.LEG_EXTENSION, 0 );
-    },
-
     getTankTopCenter: function() {
       return new Vector2( this.tankBottomCenter.x, this.tankBottomCenter.y + this.TANK_HEIGHT );
     },

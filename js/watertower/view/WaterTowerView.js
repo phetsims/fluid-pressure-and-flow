@@ -23,10 +23,11 @@ define( function( require ) {
 
   /**
    * @param {WaterTower} model
+   * @param {ModelViewTransform2} mvt transform to convert between model and view values
    * @param options
    * @constructor
    */
-  function WaterTowerView( model, options ) {
+  function WaterTowerView( model, mvt, options ) {
     var waterTowerView = this;
     options = _.extend( {
       waterColor: 'rgb(20, 244, 255)',
