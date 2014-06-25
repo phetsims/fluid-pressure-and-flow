@@ -114,7 +114,7 @@ define( function( require ) {
         model.reset();
         waterTowerView.y = 100;
       },
-      scale: 0.66, x: 705, y: 450
+      x: 705, y: 450
     } ) );
 
     //adding radio button and play pause button at bottom of the page
