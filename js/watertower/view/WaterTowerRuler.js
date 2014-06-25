@@ -29,12 +29,12 @@ define( function( require ) {
    * @param {Property<Boolean>} isRulerVisibleProperty controls the ruler visibility
    * @param {Property<Vector2>} rulerPositionProperty controls the ruler position
    * @param {Property<String>} measureUnitsProperty controls the ruler view -- english/metric
-   * @param {ModelViewTransform2} mvt to convert model units to view units
+   * @param {ModelViewTransform2} modelViewTransform to convert model units to view units
    * @param {Bounds2} dragBounds for the area where the ruler can be dragged
    * @param options
    * @constructor
    */
-  function WaterTowerRuler( isRulerVisibleProperty, rulerPositionProperty, measureUnitsProperty, mvt, dragBounds, options ) {
+  function WaterTowerRuler( isRulerVisibleProperty, rulerPositionProperty, measureUnitsProperty, modelViewTransform, dragBounds, options ) {
     Node.call( this, {cursor: 'pointer'} );
 
 
@@ -59,10 +59,10 @@ define( function( require ) {
     this.addChild( closeButton );
 
     //Maintain two different rules internally and link their visibility to the measureUnits property
-    var metersRuler = new RulerNode( mvt.modelToViewX( 5 ), 50, mvt.modelToViewX( 1 ), ['0', '1', '2', '3', '4', '5'], units_metersString, {minorTicksPerMajorTick: 4, unitsFont: '12px Arial', rotation: Math.PI / 2} );
+    var metersRuler = new RulerNode( modelViewTransform.modelToViewX( 5 ), 50, modelViewTransform.modelToViewX( 1 ), ['0', '1', '2', '3', '4', '5'], units_metersString, {minorTicksPerMajorTick: 4, unitsFont: '12px Arial', rotation: Math.PI / 2} );
     this.addChild( metersRuler );
 
-    var feetRuler = new RulerNode( mvt.modelToViewX( Units.feetToMeters( 10 ) ), 50, mvt.modelToViewX( Units.feetToMeters( 1 ) ), ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10'], units_feetString, {minorTicksPerMajorTick: 4, unitsFont: '12px Arial', rotation: Math.PI / 2} );
+    var feetRuler = new RulerNode( modelViewTransform.modelToViewX( Units.feetToMeters( 10 ) ), 50, modelViewTransform.modelToViewX( Units.feetToMeters( 1 ) ), ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10'], units_feetString, {minorTicksPerMajorTick: 4, unitsFont: '12px Arial', rotation: Math.PI / 2} );
     this.addChild( feetRuler );
 
     closeButton.translation = new Vector2( -this.width + closeButton.width, -closeButton.height );

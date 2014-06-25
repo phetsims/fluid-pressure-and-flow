@@ -58,7 +58,7 @@ define( function( require ) {
     var textOptions = {font: new PhetFont( 14 )};
 
     //Invert the y-axis, so that y grows up.
-    var mvt = ModelViewTransform2.createSinglePointScaleInvertedYMapping(
+    var modelViewTransform = ModelViewTransform2.createSinglePointScaleInvertedYMapping(
       Vector2.ZERO,
       new Vector2( 0, this.layoutBounds.maxY ),
       70 ); //1m = 70px, (0,0) - top left corner
@@ -68,7 +68,7 @@ define( function( require ) {
 
     this.addChild( new OutsideBackgroundNode( this.layoutBounds.centerX, this.layoutBounds.centerY + 100, this.layoutBounds.width * 3, this.layoutBounds.height, this.layoutBounds.height ) );
 
-    var waterTowerView = new WaterTowerView( model.waterTower, mvt, { x: 0, y: 100} );
+    var waterTowerView = new WaterTowerView( model.waterTower, modelViewTransform, { x: 0, y: 100} );
     this.addChild( waterTowerView );
 
     this.addChild( new FaucetNode( 1, model.faucetFlowRateProperty, model.isFaucetEnabledProperty, {
@@ -132,18 +132,18 @@ define( function( require ) {
     _.each( model.barometers, function( barometer ) {
       barometer.positionProperty.storeInitialValue( new Vector2( sensorPanel.visibleBounds.centerX + 50, sensorPanel.visibleBounds.centerY - 15 ) );
       barometer.reset();
-      this.addChild( new BarometerNode( model, mvt, barometer, sensorPanel.visibleBounds, this.layoutBounds ) );
+      this.addChild( new BarometerNode( model, modelViewTransform, barometer, sensorPanel.visibleBounds, this.layoutBounds ) );
     }.bind( this ) );
 
     //Add speedometers within the sensor panel bounds
     _.each( model.speedometers, function( velocitySensor ) {
       velocitySensor.positionProperty.storeInitialValue( new Vector2( sensorPanel.visibleBounds.centerX - 70, sensorPanel.visibleBounds.centerY - 40 ) );
       velocitySensor.positionProperty.reset();
-      this.addChild( new VelocitySensorNode( model, mvt, velocitySensor, sensorPanel.visibleBounds, this.layoutBounds ) );
+      this.addChild( new VelocitySensorNode( model, modelViewTransform, velocitySensor, sensorPanel.visibleBounds, this.layoutBounds ) );
     }.bind( this ) );
 
-    this.addChild( new WaterTowerRuler( model.isRulerVisibleProperty, model.rulerPositionProperty, model.measureUnitsProperty, mvt, this.layoutBounds ) );
-    this.addChild( new MeasuringTape( model, mvt, this.layoutBounds, {x: 10, y: 100} ) );
+    this.addChild( new WaterTowerRuler( model.isRulerVisibleProperty, model.rulerPositionProperty, model.measureUnitsProperty, modelViewTransform, this.layoutBounds ) );
+    this.addChild( new MeasuringTape( model, modelViewTransform, this.layoutBounds, {x: 10, y: 100} ) );
 
     this.addChild( new SluiceControl( model ) );
 

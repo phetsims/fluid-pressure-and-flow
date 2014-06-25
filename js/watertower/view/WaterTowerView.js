@@ -23,11 +23,11 @@ define( function( require ) {
 
   /**
    * @param {WaterTower} model
-   * @param {ModelViewTransform2} mvt transform to convert between model and view values
+   * @param {ModelViewTransform2} modelViewTransform transform to convert between model and view values
    * @param options
    * @constructor
    */
-  function WaterTowerView( model, mvt, options ) {
+  function WaterTowerView( model, modelViewTransform, options ) {
     var waterTowerView = this;
     options = _.extend( {
       waterColor: 'rgb(20, 244, 255)',
@@ -37,24 +37,24 @@ define( function( require ) {
     Node.call( this );
 
     //Todo: fix this
-    this.groundY = 220;//mvt.modelToViewY( model.TANK_HEIGHT ) * 2.15;
+    this.groundY = 220;//modelViewTransform.modelToViewY( model.TANK_HEIGHT ) * 2.15;
 
     //add the frame
     var modelTankShape = new Shape()
-      .moveTo( mvt.modelToViewX( 0 ), mvt.modelToViewY( 0 ) )
-      .lineTo( mvt.modelToViewX( 2 * model.TANK_RADIUS ), mvt.modelToViewY( 0 ) )
-      .lineTo( mvt.modelToViewX( 2 * model.TANK_RADIUS ), mvt.modelToViewY( model.TANK_HEIGHT ) )
-      .lineTo( mvt.modelToViewX( 0 ), mvt.modelToViewY( model.TANK_HEIGHT ) ).close();
+      .moveTo( modelViewTransform.modelToViewX( 0 ), modelViewTransform.modelToViewY( 0 ) )
+      .lineTo( modelViewTransform.modelToViewX( 2 * model.TANK_RADIUS ), modelViewTransform.modelToViewY( 0 ) )
+      .lineTo( modelViewTransform.modelToViewX( 2 * model.TANK_RADIUS ), modelViewTransform.modelToViewY( model.TANK_HEIGHT ) )
+      .lineTo( modelViewTransform.modelToViewX( 0 ), modelViewTransform.modelToViewY( model.TANK_HEIGHT ) ).close();
 
     this.waterTankFrame = new Path( modelTankShape, { top: 20, stroke: options.towerFrameColor} );
     this.addChild( this.waterTankFrame );
 
     //add water
     var waterShape = new Shape()
-      .moveTo( mvt.modelToViewX( 0 ) + 1, mvt.modelToViewY( 0 ) + 1 )
-      .lineTo( mvt.modelToViewX( 2 * model.TANK_RADIUS ) - 1, mvt.modelToViewY( 0 ) + 1 )
-      .lineTo( mvt.modelToViewX( 2 * model.TANK_RADIUS ) - 1, mvt.modelToViewY( model.waterLevel() ) )
-      .lineTo( mvt.modelToViewX( 0 ) + 1, mvt.modelToViewY( model.waterLevel() ) ).close();
+      .moveTo( modelViewTransform.modelToViewX( 0 ) + 1, modelViewTransform.modelToViewY( 0 ) + 1 )
+      .lineTo( modelViewTransform.modelToViewX( 2 * model.TANK_RADIUS ) - 1, modelViewTransform.modelToViewY( 0 ) + 1 )
+      .lineTo( modelViewTransform.modelToViewX( 2 * model.TANK_RADIUS ) - 1, modelViewTransform.modelToViewY( model.waterLevel() ) )
+      .lineTo( modelViewTransform.modelToViewX( 0 ) + 1, modelViewTransform.modelToViewY( model.waterLevel() ) ).close();
     this.addChild( new Path( waterShape, { bottom: this.waterTankFrame.bottom - 1, fill: options.waterColor} ) );
 
     //add the legs
