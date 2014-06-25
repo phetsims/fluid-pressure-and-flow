@@ -10,12 +10,17 @@ define( function( require ) {
   var inherit = require( 'PHET_CORE/inherit' );
   var Node = require( 'SCENERY/nodes/Node' );
   var Path = require( 'SCENERY/nodes/Path' );
+  var Shape = require( 'KITE/Shape' );
+  var Rectangle = require( 'SCENERY/nodes/Rectangle' );
   var Image = require( 'SCENERY/nodes/Image' );
-  var WaterTowerLegsNode = require( 'FLUID_PRESSURE_AND_FLOW/watertower/view/WaterTowerLegsNode' );
+  var LinearGradient = require( 'SCENERY/util/LinearGradient' );
 
+  var WaterTowerLegsNode = require( 'FLUID_PRESSURE_AND_FLOW/watertower/view/WaterTowerLegsNode' );
 
   //images
   var handleImage = require( 'image!FLUID_PRESSURE_AND_FLOW/handle.png' );
+  var wheelImage = require( 'image!FLUID_PRESSURE_AND_FLOW/wheel.png' );
+
   /**
    * @param {WaterTower} model
    * @param options
@@ -33,8 +38,25 @@ define( function( require ) {
     var waterTankFrame = new Path( model.getTankShape(), { y: 20, stroke: options.towerFrameColor} );
     this.addChild( waterTankFrame );
     this.addChild( new WaterTowerLegsNode( 2 * model.TANK_RADIUS, model.TANK_HEIGHT * 1.15, {top: waterTankFrame.bottom} ) );
+
     var handleNode = new Image( handleImage, { cursor: 'pointer', scale: 0.3, top: waterTankFrame.bottom, centerX: waterTankFrame.centerX} );
+    var wheelNode = new Image( wheelImage, { cursor: 'pointer', scale: 0.4, bottom: waterTankFrame.top, right: waterTankFrame.right + 3} );
     this.addChild( handleNode );
+    this.addChild( wheelNode );
+    this.addChild( new Path( Shape.lineSegment( 0, model.TANK_HEIGHT - 20, 0, 0 ), { right: wheelNode.right, top: wheelNode.bottom, lineWidth: 1, stroke: 'black'} ) );
+    var sluiceGate = new Rectangle( 0, 0, 5, 20, {
+      fill: new LinearGradient( 0, 0, 5, 0 )
+        .addColorStop( 0, '#656570' )
+        .addColorStop( 0.2, '#bdc3cf' )
+        .addColorStop( 0.5, '#dee6f5' )
+        .addColorStop( 0.8, '#bdc3cf' )
+        .addColorStop( 1, '#656570' ),
+      bottom: waterTankFrame.bottom,
+      left: waterTankFrame.right,
+      stroke: 'black',
+      lineWidth: 0.5
+    } );
+    this.addChild( sluiceGate );
     this.mutate( options );
   }
 
