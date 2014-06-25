@@ -19,6 +19,7 @@ define( function( require ) {
   var MovableDragHandler = require( 'SCENERY_PHET/input/MovableDragHandler' );
   var ModelViewTransform2 = require( 'PHETCOMMON/view/ModelViewTransform2' );
   var Units = require( 'FLUID_PRESSURE_AND_FLOW/watertower/model/Units' );
+  var RectangularPushButton = require( 'SUN/buttons/RectangularPushButton' );
 
   // Strings
   var units_metersString = require( 'string!FLUID_PRESSURE_AND_FLOW/m' );
@@ -37,26 +38,25 @@ define( function( require ) {
   function WaterTowerRuler( isRulerVisibleProperty, rulerPositionProperty, measureUnitsProperty, mvt, dragBounds, options ) {
     Node.call( this, {cursor: 'pointer'} );
 
-    //close button
-    var closeButton = new Node( {cursor: 'pointer'} );
 
     // configure the button shape
-    var buttonShape = new Path( Shape.roundRectangle( 0, 0, 15, 15, 1.5, 1.5 ), {fill: 'rgb(255, 85, 0 )', stroke: 'black', lineWidth: 0.5} );
-    closeButton.addChild( buttonShape );
     var xIcon = new Path( new Shape()
       .moveTo( -4, -4 )
       .lineTo( 4, 4 )
       .moveTo( 4, -4 )
-      .lineTo( -4, 4 ), {stroke: 'white', centerX: closeButton.centerX, centerY: closeButton.centerY, lineWidth: 2} );
+      .lineTo( -4, 4 ), {stroke: 'white', lineWidth: 2} );
 
-    closeButton.addChild( xIcon );
+    //close button
+    var closeButton = new RectangularPushButton( {
+      baseColor: 'red',
+      content: xIcon,
 
-    // click to toggle
-    closeButton.addInputListener( new ButtonListener( {
-      fire: function() {
+      // click to toggle
+      listener: function() {
         isRulerVisibleProperty.value = false;
       }
-    } ) );
+    } );
+
     this.addChild( closeButton );
 
     //Maintain two different rules internally and link their visibility to the measureUnits property
