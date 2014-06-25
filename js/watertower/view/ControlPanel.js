@@ -8,6 +8,7 @@
 define( function( require ) {
   'use strict';
 
+  // modules
   var inherit = require( 'PHET_CORE/inherit' );
   var Node = require( 'SCENERY/nodes/Node' );
   var VBox = require( 'SCENERY/nodes/VBox' );
@@ -20,6 +21,7 @@ define( function( require ) {
   var PhetFont = require( 'SCENERY_PHET/PhetFont' );
   var RulerNode = require( 'SCENERY_PHET/RulerNode' );
 
+  // strings
   var measuringTapeString = require( 'string!FLUID_PRESSURE_AND_FLOW/measuringTape' );
   var rulerString = require( 'string!FLUID_PRESSURE_AND_FLOW/ruler' );
   var hoseString = require( 'string!FLUID_PRESSURE_AND_FLOW/hose' );

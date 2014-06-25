@@ -20,14 +20,16 @@ define( function( require ) {
   var Image = require( 'SCENERY/nodes/Image' );
   var Text = require( 'SCENERY/nodes/Text' );
   var PhetFont = require( 'SCENERY_PHET/PhetFont' );
-  var FONT = new PhetFont( 16 );
 
-  //images
+  // images
   var measuringTapeImg = require( 'image!FLUID_PRESSURE_AND_FLOW/measuringTape.png' );
 
-  //strings
+  // strings
   var feetString = require( 'string!FLUID_PRESSURE_AND_FLOW/feet' );
   var metersString = require( 'string!FLUID_PRESSURE_AND_FLOW/meters' );
+
+  // constants
+  var FONT = new PhetFont( 16 );
 
   var options = [
     {

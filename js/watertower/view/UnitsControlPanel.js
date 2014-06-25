@@ -7,6 +7,8 @@
  */
 define( function( require ) {
   'use strict';
+
+  // modules
   var inherit = require( 'PHET_CORE/inherit' );
   var Node = require( 'SCENERY/nodes/Node' );
   var VBox = require( 'SCENERY/nodes/VBox' );
@@ -14,6 +16,8 @@ define( function( require ) {
   var AquaRadioButton = require( 'SUN/AquaRadioButton' );
   var Text = require( 'SCENERY/nodes/Text' );
   var PhetFont = require( 'SCENERY_PHET/PhetFont' );
+
+  // strings
   var metricString = require( 'string!FLUID_PRESSURE_AND_FLOW/metric' );
   var englishString = require( 'string!FLUID_PRESSURE_AND_FLOW/english' );
   var unitsString = require( 'string!FLUID_PRESSURE_AND_FLOW/units' );

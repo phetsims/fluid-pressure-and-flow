@@ -21,7 +21,7 @@ define( function( require ) {
   var LinearGradient = require( 'SCENERY/util/LinearGradient' );
   var Util = require( 'DOT/Util' );
 
-  // Constants
+  // constants
   var TRACK_SIZE = new Dimension2( 190, 10 );
 
   function ControlSlider( model, trackProperty, getPropertyStringFunction, trackRange, options ) {

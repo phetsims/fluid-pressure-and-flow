@@ -17,7 +17,6 @@ define( function( require ) {
   var Units = require( 'FLUID_PRESSURE_AND_FLOW/watertower/model/Units' );
   var Barometer = require( 'FLUID_PRESSURE_AND_FLOW/watertower/model/Barometer' );
   var VelocitySensor = require( 'FLUID_PRESSURE_AND_FLOW/watertower/model/VelocitySensor' );
-
   var WaterTower = require( 'FLUID_PRESSURE_AND_FLOW/watertower/model/WaterTower' );
   var StringUtils = require( 'PHETCOMMON/util/StringUtils' );
 
