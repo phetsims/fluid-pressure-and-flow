@@ -36,6 +36,8 @@ define( function( require ) {
 
     Node.call( this );
 
+    //Todo: fix this
+    this.groundY = 220;//mvt.modelToViewY( model.TANK_HEIGHT ) * 2.15;
 
     //add the frame
     var modelTankShape = new Shape()
@@ -44,8 +46,8 @@ define( function( require ) {
       .lineTo( mvt.modelToViewX( 2 * model.TANK_RADIUS ), mvt.modelToViewY( model.TANK_HEIGHT ) )
       .lineTo( mvt.modelToViewX( 0 ), mvt.modelToViewY( model.TANK_HEIGHT ) ).close();
 
-    var waterTankFrame = new Path( modelTankShape, { top: 20, stroke: options.towerFrameColor} );
-    this.addChild( waterTankFrame );
+    this.waterTankFrame = new Path( modelTankShape, { top: 20, stroke: options.towerFrameColor} );
+    this.addChild( this.waterTankFrame );
 
     //add water
     var waterShape = new Shape()
@@ -53,19 +55,21 @@ define( function( require ) {
       .lineTo( mvt.modelToViewX( 2 * model.TANK_RADIUS ) - 1, mvt.modelToViewY( 0 ) + 1 )
       .lineTo( mvt.modelToViewX( 2 * model.TANK_RADIUS ) - 1, mvt.modelToViewY( model.waterLevel() ) )
       .lineTo( mvt.modelToViewX( 0 ) + 1, mvt.modelToViewY( model.waterLevel() ) ).close();
-    this.addChild( new Path( waterShape, { bottom: waterTankFrame.bottom - 1, fill: options.waterColor} ) );
+    this.addChild( new Path( waterShape, { bottom: this.waterTankFrame.bottom - 1, fill: options.waterColor} ) );
 
     //add the legs
-    this.addChild( new WaterTowerLegsNode( waterTankFrame.width, waterTankFrame.height * 1.05, {top: waterTankFrame.bottom} ) );
+    var waterTowerLegsInitialHeight = 120;
+    this.waterTowerLegs = new WaterTowerLegsNode( this.waterTankFrame.width, waterTowerLegsInitialHeight, {top: this.waterTankFrame.bottom} );
+    this.addChild( this.waterTowerLegs );
 
     //add the handle
-    var handleNode = new Image( handleImage, { cursor: 'pointer', scale: 0.3, top: waterTankFrame.bottom, centerX: waterTankFrame.centerX} );
+    var handleNode = new Image( handleImage, { cursor: 'pointer', scale: 0.3, top: this.waterTankFrame.bottom, centerX: this.waterTankFrame.centerX} );
     this.addChild( handleNode );
 
     //add the wheel and rope
-    var wheelNode = new Image( wheelImage, { cursor: 'pointer', scale: 0.4, bottom: waterTankFrame.top, right: waterTankFrame.right + 3} );
+    var wheelNode = new Image( wheelImage, { cursor: 'pointer', scale: 0.4, bottom: this.waterTankFrame.top, right: this.waterTankFrame.right + 3} );
     this.addChild( wheelNode );
-    this.addChild( new Path( Shape.lineSegment( 0, waterTankFrame.height - 20, 0, 0 ), { right: wheelNode.right, top: wheelNode.bottom, lineWidth: 1, stroke: 'black'} ) );
+    this.addChild( new Path( Shape.lineSegment( 0, this.waterTankFrame.height - 20, 0, 0 ), { right: wheelNode.right, top: wheelNode.bottom, lineWidth: 1, stroke: 'black'} ) );
 
     //add the gate at the end of the rope
     var sluiceGate = new Rectangle( 0, 0, 5, 20, {
@@ -74,8 +78,8 @@ define( function( require ) {
         .addColorStop( 0.5, '#dee6f5' )
         .addColorStop( 0.7, '#bdc3cf' )
         .addColorStop( 1, '#656570' ),
-      bottom: waterTankFrame.bottom,
-      left: waterTankFrame.right,
+      bottom: this.waterTankFrame.bottom,
+      left: this.waterTankFrame.right,
       stroke: 'black',
       lineWidth: 0.5
     } );
@@ -88,16 +92,23 @@ define( function( require ) {
       },
       drag: function( e ) {
         var y = waterTowerView.globalToParentPoint( e.pointer.point ).y - clickYOffset;
-
+        console.log( y );
         //restrict the node movement between 80 and 180
         y = (y < 80) ? 80 : (y > 180) ? 180 : y;
         waterTowerView.setTranslation( 0, y );
+        waterTowerView.updateWaterTowerLegs( y );
       }
     } ) );
 
     this.mutate( options );
   }
 
-  return inherit( Node, WaterTowerView );
+  return inherit( Node, WaterTowerView, {
+    updateWaterTowerLegs: function( y ) {
+      this.waterTowerLegs.waterTowerHeight = this.groundY - y;
+      this.waterTowerLegs.updateShape();
+      this.waterTowerLegs.top = this.waterTankFrame.bottom;
+    }
+  } );
 
 } );
