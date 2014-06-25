@@ -39,11 +39,12 @@ define( function( require ) {
 
 
     // configure the button shape
+    var closeIconRadius = 4;
     var xIcon = new Path( new Shape()
-      .moveTo( -4, -4 )
-      .lineTo( 4, 4 )
-      .moveTo( 4, -4 )
-      .lineTo( -4, 4 ), {stroke: 'white', lineWidth: 2} );
+      .moveTo( -closeIconRadius, -closeIconRadius )
+      .lineTo( closeIconRadius, closeIconRadius )
+      .moveTo( closeIconRadius, -closeIconRadius )
+      .lineTo( -closeIconRadius, closeIconRadius ), {stroke: 'white', lineWidth: 2} );
 
     //close button
     var closeButton = new RectangularPushButton( {
