@@ -43,6 +43,7 @@ define( function( require ) {
 
   //View layout related constants
   var inset = 10;
+
   /**
    * @param {WaterTowerModel} model
    * @constructor

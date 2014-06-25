@@ -61,7 +61,7 @@ define( function( require ) {
       this.leftLegPath.setShape( new Shape().moveTo( fLeftLegX( 0 ), 0 )
         .lineTo( fLeftLegX( height ), height )
         .lineTo( fLeftLegX( height ) + options.legWidth, height )
-        .lineTo( fLeftLegX( 0 ) + options.legWidth, 0 ).close());
+        .lineTo( fLeftLegX( 0 ) + options.legWidth, 0 ).close() );
 
 
       //Right leg
