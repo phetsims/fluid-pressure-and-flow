@@ -27,9 +27,19 @@ define( function( require ) {
       legWidth: 10,
       crossbeamWidth: 4
     }, options );
+    var legPaintOptions = {stroke: 'black', lineWidth: 1, fill: 'black'};
+    var crossbeamPaintOptions = { stroke: 'black', lineWidth: this.options.crossbeamWidth};
+
     this.waterTowerWidth = width;
     this.waterTowerHeight = height;
 
+    this.leftLegPath = new Path( null, legPaintOptions );
+    this.rightLegPath = new Path( null, legPaintOptions );
+    this.crossbeam1Path = new Path( null, crossbeamPaintOptions );
+    this.crossbeam2Path = new Path( null, crossbeamPaintOptions );
+    this.crossbeam3Path = new Path( null, crossbeamPaintOptions );
+    this.crossbeam4Path = new Path( null, crossbeamPaintOptions );
+    this.children = [ this.leftLegPath, this.rightLegPath, this.crossbeam1Path, this.crossbeam2Path, this.crossbeam3Path, this.crossbeam4Path ];
     this.updateShape();
     this.mutate( this.options );
   }
@@ -46,26 +56,24 @@ define( function( require ) {
       var fLeftLegX = new LinearFunction( 0, height, leftLegTopX, 0 ); //y1, y2, x1, x2
       var fRightLegX = new LinearFunction( 0, height, rightLegTopX, width );
 
-      var legPaintOptions = {stroke: 'black', lineWidth: 1, fill: 'black'};
-      this.children = [];
       //Left leg
-      this.addChild( new Path( new Shape().moveTo( fLeftLegX( 0 ), 0 )
+      this.leftLegPath.setShape( new Shape().moveTo( fLeftLegX( 0 ), 0 )
         .lineTo( fLeftLegX( height ), height )
         .lineTo( fLeftLegX( height ) + options.legWidth, height )
-        .lineTo( fLeftLegX( 0 ) + options.legWidth, 0 ).close(), legPaintOptions ) );
+        .lineTo( fLeftLegX( 0 ) + options.legWidth, 0 ).close());
+
 
       //Right leg
-      this.addChild( new Path( new Shape().moveTo( fRightLegX( 0 ), 0 )
+      this.rightLegPath.setShape( new Shape().moveTo( fRightLegX( 0 ), 0 )
         .lineTo( fRightLegX( height ), height )
         .lineTo( fRightLegX( height ) - options.legWidth, height )
-        .lineTo( fRightLegX( 0 ) - options.legWidth, 0 ).close(), legPaintOptions ) );
+        .lineTo( fRightLegX( 0 ) - options.legWidth, 0 ).close() );
 
       //Crossbeams
-      var crossbeamPaintOptions = { stroke: 'black', lineWidth: options.crossbeamWidth};
-      this.addChild( new Path( Shape.lineSegment( fLeftLegX( height * 0.9 ), height * 0.9, fRightLegX( height * 0.7 ), height * 0.7 ), crossbeamPaintOptions ) );
-      this.addChild( new Path( Shape.lineSegment( fLeftLegX( height * 0.7 ), height * 0.7, fRightLegX( height * 0.9 ), height * 0.9 ), crossbeamPaintOptions ) );
-      this.addChild( new Path( Shape.lineSegment( fLeftLegX( height * 0.5 ), height * 0.5, fRightLegX( height * 0.3 ), height * 0.3 ), crossbeamPaintOptions ) );
-      this.addChild( new Path( Shape.lineSegment( fLeftLegX( height * 0.3 ), height * 0.3, fRightLegX( height * 0.5 ), height * 0.5 ), crossbeamPaintOptions ) );
+      this.crossbeam1Path.setShape( Shape.lineSegment( fLeftLegX( height * 0.9 ), height * 0.9, fRightLegX( height * 0.7 ), height * 0.7 ) );
+      this.crossbeam2Path.setShape( Shape.lineSegment( fLeftLegX( height * 0.7 ), height * 0.7, fRightLegX( height * 0.9 ), height * 0.9 ) );
+      this.crossbeam3Path.setShape( Shape.lineSegment( fLeftLegX( height * 0.5 ), height * 0.5, fRightLegX( height * 0.3 ), height * 0.3 ) );
+      this.crossbeam4Path.setShape( Shape.lineSegment( fLeftLegX( height * 0.3 ), height * 0.3, fRightLegX( height * 0.5 ), height * 0.5 )) ;
 
     }
   } );
