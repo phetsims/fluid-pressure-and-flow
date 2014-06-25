@@ -8,7 +8,7 @@
 define( function( require ) {
   'use strict';
 
-  // Modules
+  // modules
   var Node = require( 'SCENERY/nodes/Node' );
   var inherit = require( 'PHET_CORE/inherit' );
   var RulerNode = require( 'SCENERY_PHET/RulerNode' );
@@ -20,7 +20,7 @@ define( function( require ) {
   var Units = require( 'FLUID_PRESSURE_AND_FLOW/watertower/model/Units' );
   var RectangularPushButton = require( 'SUN/buttons/RectangularPushButton' );
 
-  // Strings
+  // strings
   var units_metersString = require( 'string!FLUID_PRESSURE_AND_FLOW/m' );
   var units_feetString = require( 'string!FLUID_PRESSURE_AND_FLOW/ft' );
 
