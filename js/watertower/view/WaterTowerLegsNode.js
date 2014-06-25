@@ -13,6 +13,7 @@ define( function( require ) {
   var Shape = require( 'KITE/Shape' );
   var Path = require( 'SCENERY/nodes/Path' );
   var LinearFunction = require( 'DOT/LinearFunction' );
+  var Line = require( 'SCENERY/nodes/Line' );
 
   /**
    *
@@ -35,10 +36,10 @@ define( function( require ) {
 
     this.leftLegPath = new Path( null, legPaintOptions );
     this.rightLegPath = new Path( null, legPaintOptions );
-    this.crossbeam1Path = new Path( null, crossbeamPaintOptions );
-    this.crossbeam2Path = new Path( null, crossbeamPaintOptions );
-    this.crossbeam3Path = new Path( null, crossbeamPaintOptions );
-    this.crossbeam4Path = new Path( null, crossbeamPaintOptions );
+    this.crossbeam1Path = new Line( 0, 0, 0, 0, crossbeamPaintOptions );
+    this.crossbeam2Path = new Line( 0, 0, 0, 0, crossbeamPaintOptions );
+    this.crossbeam3Path = new Line( 0, 0, 0, 0, crossbeamPaintOptions );
+    this.crossbeam4Path = new Line( 0, 0, 0, 0, crossbeamPaintOptions );
     this.children = [ this.leftLegPath, this.rightLegPath, this.crossbeam1Path, this.crossbeam2Path, this.crossbeam3Path, this.crossbeam4Path ];
     this.updateShape();
     this.mutate( this.options );
@@ -70,10 +71,10 @@ define( function( require ) {
         .lineTo( fRightLegX( 0 ) - options.legWidth, 0 ).close() );
 
       //Crossbeams
-      this.crossbeam1Path.setShape( Shape.lineSegment( fLeftLegX( height * 0.9 ), height * 0.9, fRightLegX( height * 0.7 ), height * 0.7 ) );
-      this.crossbeam2Path.setShape( Shape.lineSegment( fLeftLegX( height * 0.7 ), height * 0.7, fRightLegX( height * 0.9 ), height * 0.9 ) );
-      this.crossbeam3Path.setShape( Shape.lineSegment( fLeftLegX( height * 0.5 ), height * 0.5, fRightLegX( height * 0.3 ), height * 0.3 ) );
-      this.crossbeam4Path.setShape( Shape.lineSegment( fLeftLegX( height * 0.3 ), height * 0.3, fRightLegX( height * 0.5 ), height * 0.5 )) ;
+      this.crossbeam1Path.setLine( fLeftLegX( height * 0.9 ), height * 0.9, fRightLegX( height * 0.7 ), height * 0.7 );
+      this.crossbeam2Path.setLine( fLeftLegX( height * 0.7 ), height * 0.7, fRightLegX( height * 0.9 ), height * 0.9 );
+      this.crossbeam3Path.setLine( fLeftLegX( height * 0.5 ), height * 0.5, fRightLegX( height * 0.3 ), height * 0.3 );
+      this.crossbeam4Path.setLine( fLeftLegX( height * 0.3 ), height * 0.3, fRightLegX( height * 0.5 ), height * 0.5 );
 
     }
   } );
