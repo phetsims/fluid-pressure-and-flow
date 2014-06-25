@@ -36,15 +36,24 @@ define( function( require ) {
     Node.call( this );
 
     this.addChild( new Path( model.getWaterShape(), { y: 20 + model.TANK_HEIGHT - model.waterLevel(), fill: options.waterColor} ) );
+
+    //add the frame
     var waterTankFrame = new Path( model.getTankShape(), { y: 20, stroke: options.towerFrameColor} );
     this.addChild( waterTankFrame );
+
+    //add the legs
     this.addChild( new WaterTowerLegsNode( 2 * model.TANK_RADIUS, model.TANK_HEIGHT * 1.15, {top: waterTankFrame.bottom} ) );
 
+    //add the handle
     var handleNode = new Image( handleImage, { cursor: 'pointer', scale: 0.3, top: waterTankFrame.bottom, centerX: waterTankFrame.centerX} );
-    var wheelNode = new Image( wheelImage, { cursor: 'pointer', scale: 0.4, bottom: waterTankFrame.top, right: waterTankFrame.right + 3} );
     this.addChild( handleNode );
+
+    //add the wheel and rope
+    var wheelNode = new Image( wheelImage, { cursor: 'pointer', scale: 0.4, bottom: waterTankFrame.top, right: waterTankFrame.right + 3} );
     this.addChild( wheelNode );
     this.addChild( new Path( Shape.lineSegment( 0, model.TANK_HEIGHT - 20, 0, 0 ), { right: wheelNode.right, top: wheelNode.bottom, lineWidth: 1, stroke: 'black'} ) );
+
+    //add the gate at the end of the rope
     var sluiceGate = new Rectangle( 0, 0, 5, 20, {
       fill: new LinearGradient( 0, 0, 5, 0 )
         .addColorStop( 0, '#656570' )
