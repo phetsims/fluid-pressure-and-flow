@@ -14,7 +14,7 @@ define( function( require ) {
   var Rectangle = require( 'SCENERY/nodes/Rectangle' );
   var Image = require( 'SCENERY/nodes/Image' );
   var LinearGradient = require( 'SCENERY/util/LinearGradient' );
-
+  var SimpleDragHandler = require( 'SCENERY/input/SimpleDragHandler' );
   var WaterTowerLegsNode = require( 'FLUID_PRESSURE_AND_FLOW/watertower/view/WaterTowerLegsNode' );
 
   //images
@@ -27,6 +27,7 @@ define( function( require ) {
    * @constructor
    */
   function WaterTowerView( model, options ) {
+    var waterTowerView = this;
     options = _.extend( {
       waterColor: 'rgb(20, 244, 255)',
       towerFrameColor: 'black'
@@ -47,9 +48,8 @@ define( function( require ) {
     var sluiceGate = new Rectangle( 0, 0, 5, 20, {
       fill: new LinearGradient( 0, 0, 5, 0 )
         .addColorStop( 0, '#656570' )
-        .addColorStop( 0.2, '#bdc3cf' )
         .addColorStop( 0.5, '#dee6f5' )
-        .addColorStop( 0.8, '#bdc3cf' )
+        .addColorStop( 0.7, '#bdc3cf' )
         .addColorStop( 1, '#656570' ),
       bottom: waterTankFrame.bottom,
       left: waterTankFrame.right,
@@ -57,6 +57,21 @@ define( function( require ) {
       lineWidth: 0.5
     } );
     this.addChild( sluiceGate );
+
+    var clickYOffset;
+    handleNode.addInputListener( new SimpleDragHandler( {
+      start: function( e ) {
+        clickYOffset = waterTowerView.globalToParentPoint( e.pointer.point ).y - e.currentTarget.y;
+      },
+      drag: function( e ) {
+        var y = waterTowerView.globalToParentPoint( e.pointer.point ).y - clickYOffset;
+
+        //restrict the node movement between 80 and 180
+        y = (y < 80) ? 80 : (y > 180) ? 180 : y;
+        waterTowerView.setTranslation( 0, y );
+      }
+    } ) );
+
     this.mutate( options );
   }
 
