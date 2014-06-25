@@ -36,14 +36,27 @@ define( function( require ) {
 
     Node.call( this );
 
-    this.addChild( new Path( model.getWaterShape(), { y: 20 + model.TANK_HEIGHT - model.waterLevel(), fill: options.waterColor} ) );
 
     //add the frame
-    var waterTankFrame = new Path( model.getTankShape(), { y: 20, stroke: options.towerFrameColor} );
+    var modelTankShape = new Shape()
+      .moveTo( mvt.modelToViewX( 0 ), mvt.modelToViewY( 0 ) )
+      .lineTo( mvt.modelToViewX( 2 * model.TANK_RADIUS ), mvt.modelToViewY( 0 ) )
+      .lineTo( mvt.modelToViewX( 2 * model.TANK_RADIUS ), mvt.modelToViewY( model.TANK_HEIGHT ) )
+      .lineTo( mvt.modelToViewX( 0 ), mvt.modelToViewY( model.TANK_HEIGHT ) ).close();
+
+    var waterTankFrame = new Path( modelTankShape, { top: 20, stroke: options.towerFrameColor} );
     this.addChild( waterTankFrame );
 
+    //add water
+    var waterShape = new Shape()
+      .moveTo( mvt.modelToViewX( 0 ) + 1, mvt.modelToViewY( 0 ) + 1 )
+      .lineTo( mvt.modelToViewX( 2 * model.TANK_RADIUS ) - 1, mvt.modelToViewY( 0 ) + 1 )
+      .lineTo( mvt.modelToViewX( 2 * model.TANK_RADIUS ) - 1, mvt.modelToViewY( model.waterLevel() ) )
+      .lineTo( mvt.modelToViewX( 0 ) + 1, mvt.modelToViewY( model.waterLevel() ) ).close();
+    this.addChild( new Path( waterShape, { bottom: waterTankFrame.bottom - 1, fill: options.waterColor} ) );
+
     //add the legs
-    this.addChild( new WaterTowerLegsNode( 2 * model.TANK_RADIUS, model.TANK_HEIGHT * 1.15, {top: waterTankFrame.bottom} ) );
+    this.addChild( new WaterTowerLegsNode( waterTankFrame.width, waterTankFrame.height * 1.05, {top: waterTankFrame.bottom} ) );
 
     //add the handle
     var handleNode = new Image( handleImage, { cursor: 'pointer', scale: 0.3, top: waterTankFrame.bottom, centerX: waterTankFrame.centerX} );
@@ -52,7 +65,7 @@ define( function( require ) {
     //add the wheel and rope
     var wheelNode = new Image( wheelImage, { cursor: 'pointer', scale: 0.4, bottom: waterTankFrame.top, right: waterTankFrame.right + 3} );
     this.addChild( wheelNode );
-    this.addChild( new Path( Shape.lineSegment( 0, model.TANK_HEIGHT - 20, 0, 0 ), { right: wheelNode.right, top: wheelNode.bottom, lineWidth: 1, stroke: 'black'} ) );
+    this.addChild( new Path( Shape.lineSegment( 0, waterTankFrame.height - 20, 0, 0 ), { right: wheelNode.right, top: wheelNode.bottom, lineWidth: 1, stroke: 'black'} ) );
 
     //add the gate at the end of the rope
     var sluiceGate = new Rectangle( 0, 0, 5, 20, {

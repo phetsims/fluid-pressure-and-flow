@@ -18,9 +18,9 @@ define( function( require ) {
     //Layout parameters for the water tower
     this.MAX_Y = 18;
     this.INITIAL_Y = 15;
-    this.TANK_RADIUS = 50;
+    this.TANK_RADIUS = 0.8;
     this.PANEL_OFFSET = this.TANK_RADIUS + 0.25;
-    this.TANK_HEIGHT = 100;
+    this.TANK_HEIGHT = 1.6;
     this.LEG_EXTENSION = 3;
 
     //Assume the tank is a cylinder ond compute the max volume
@@ -46,15 +46,6 @@ define( function( require ) {
 
   return inherit( PropertySet, WaterTower, {
 
-    getTankShape: function() {
-      return new Shape()
-        .moveTo( this.tankBottomCenter.x - this.TANK_RADIUS, this.tankBottomCenter.y )
-        .lineTo( this.tankBottomCenter.x + this.TANK_RADIUS, this.tankBottomCenter.y )
-        .lineTo( this.tankBottomCenter.x + this.TANK_RADIUS, this.tankBottomCenter.y + this.TANK_HEIGHT )
-        .lineTo( this.tankBottomCenter.x - this.TANK_RADIUS, this.tankBottomCenter.y + this.TANK_HEIGHT )
-        .lineTo( this.tankBottomCenter.x - this.TANK_RADIUS, this.tankBottomCenter.y );
-    },
-
     getTankTopCenter: function() {
       return new Vector2( this.tankBottomCenter.x, this.tankBottomCenter.y + this.TANK_HEIGHT );
     },
@@ -63,14 +54,6 @@ define( function( require ) {
       return this.fluidVolume / (Math.PI * this.TANK_RADIUS * this.TANK_RADIUS);
     },
 
-    getWaterShape: function() {
-      return new Shape()
-        .moveTo( this.tankBottomCenter.x - this.TANK_RADIUS, this.tankBottomCenter.y )
-        .lineTo( this.tankBottomCenter.x + this.TANK_RADIUS, this.tankBottomCenter.y )
-        .lineTo( this.tankBottomCenter.x + this.TANK_RADIUS, this.tankBottomCenter.y + this.waterLevel() )
-        .lineTo( this.tankBottomCenter.x - this.TANK_RADIUS, this.tankBottomCenter.y + this.waterLevel() )
-        .lineTo( this.tankBottomCenter.x - this.TANK_RADIUS, this.tankBottomCenter.y );
-    },
 
     getHoleLocation: function() {
       return new Vector2( this.tankBottomCenter.x + this.TANK_RADIUS + 0.55 / 2, this.tankBottomCenter.y - 0.15 );
