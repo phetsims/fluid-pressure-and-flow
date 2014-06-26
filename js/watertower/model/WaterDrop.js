@@ -54,8 +54,7 @@ define( function( require ) {
      * @param {Vector2} point
      */
     contains: function( point ) {
-      var dropShape = new Shape.circle( this.position.x, this.position.y, this.radius.get() );
-      return dropShape.containsPoint( point );
+      return point.distanceXY( this.position.x, this.position.y ) < this.radius;
     }
   } );
 } );
