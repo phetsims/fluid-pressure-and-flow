@@ -55,7 +55,8 @@ define( function( require ) {
       .lineTo( modelViewTransform.modelToViewX( 2 * model.TANK_RADIUS ) - 1, modelViewTransform.modelToViewY( 0 ) + 1 )
       .lineTo( modelViewTransform.modelToViewX( 2 * model.TANK_RADIUS ) - 1, modelViewTransform.modelToViewY( model.waterLevel() ) )
       .lineTo( modelViewTransform.modelToViewX( 0 ) + 1, modelViewTransform.modelToViewY( model.waterLevel() ) ).close();
-    this.addChild( new Path( waterShape, { bottom: this.waterTankFrame.bottom - 1, fill: options.waterColor} ) );
+    this.waterShapeNode = new Path( waterShape, { bottom: this.waterTankFrame.bottom - 1, fill: options.waterColor} );
+    this.addChild( this.waterShapeNode );
 
     //add the legs
     var waterTowerLegsInitialHeight = 120;
@@ -95,7 +96,7 @@ define( function( require ) {
         console.log( y );
         //restrict the node movement between 80 and 180
         y = (y < 80) ? 80 : (y > 180) ? 180 : y;
-        waterTowerView.setTranslation( 0, y );
+        waterTowerView.setTranslation( waterTowerView.x, y );
         waterTowerView.updateWaterTowerLegs( y );
       }
     } ) );

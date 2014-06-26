@@ -68,7 +68,7 @@ define( function( require ) {
 
     this.addChild( new OutsideBackgroundNode( this.layoutBounds.centerX, this.layoutBounds.centerY + 100, this.layoutBounds.width * 3, this.layoutBounds.height, this.layoutBounds.height ) );
 
-    var waterTowerView = new WaterTowerView( model.waterTower, modelViewTransform, { x: 0, y: 100} );
+    var waterTowerView = new WaterTowerView( model.waterTower, modelViewTransform, { left: this.layoutBounds.left + 50, top: this.layoutBounds.top + 90} );
     this.addChild( waterTowerView );
 
     this.addChild( new FaucetNode( 1, model.faucetFlowRateProperty, model.isFaucetEnabledProperty, {
