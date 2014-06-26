@@ -101,6 +101,15 @@ define( function( require ) {
       }
     } ) );
 
+    model.fluidVolumeProperty.link( function() {
+      var waterShape = new Shape()
+        .moveTo( modelViewTransform.modelToViewX( 0 ) + 1, modelViewTransform.modelToViewY( 0 ) + 1 )
+        .lineTo( modelViewTransform.modelToViewX( 2 * model.TANK_RADIUS ) - 1, modelViewTransform.modelToViewY( 0 ) + 1 )
+        .lineTo( modelViewTransform.modelToViewX( 2 * model.TANK_RADIUS ) - 1, modelViewTransform.modelToViewY( model.waterLevel() ) )
+        .lineTo( modelViewTransform.modelToViewX( 0 ) + 1, modelViewTransform.modelToViewY( model.waterLevel() ) ).close();
+      waterTowerView.waterShapeNode.setShape( waterShape );
+    } );
+
     this.mutate( options );
   }
 

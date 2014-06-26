@@ -12,8 +12,17 @@ define( function( require ) {
   var Vector2 = require( 'DOT/Vector2' );
   var inherit = require( 'PHET_CORE/inherit' );
 
-  function WaterTower() {
+  function WaterTower( options ) {
 
+    this.options = _.extend( {
+      initialWaterLevel: 0.8
+    }, options );
+
+    PropertySet.call( this, {
+      isFull: false, //Flag indicating whether the tank is full, for purposes of disabling controls that can be used to fill the tank
+      isHoleOpen: false,
+      fluidVolume: 0
+    } );
     //Layout parameters for the water tower
     this.MAX_Y = 18;
     this.INITIAL_Y = 15;
@@ -29,18 +38,13 @@ define( function( require ) {
     this.tankBottomCenter = new Vector2( this.TANK_RADIUS, this.INITIAL_Y );
 
     //Start the tank partly full so that the "fill" button and faucet slider are initially enabled
-    this.fluidVolume = this.TANK_VOLUME * 0.8;
+    this.fluidVolume = this.TANK_VOLUME * this.options.initialWaterLevel;
 
     //The movable panel that can cover the hole.
     this.panelOffset = new Vector2( this.PANEL_OFFSET, 0 );
 
     //Size of the hole in meters
     this.HOLE_SIZE = 1;
-
-    PropertySet.call( this, {
-      isFull: false, //Flag indicating whether the tank is full, for purposes of disabling controls that can be used to fill the tank
-      isHoleOpen: false
-    } );
   }
 
   return inherit( PropertySet, WaterTower, {
