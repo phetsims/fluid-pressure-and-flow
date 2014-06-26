@@ -63,7 +63,6 @@ define( function( require ) {
       new Vector2( 0, this.layoutBounds.maxY ),
       70 ); //1m = 70px, (0,0) - top left corner
 
-
     // add background -- sky, earth
 
     this.addChild( new OutsideBackgroundNode( this.layoutBounds.centerX, this.layoutBounds.centerY + 100, this.layoutBounds.width * 3, this.layoutBounds.height, this.layoutBounds.height ) );
@@ -73,9 +72,9 @@ define( function( require ) {
 
     this.addChild( new FaucetNode( 1, model.faucetFlowRateProperty, model.isFaucetEnabledProperty, {
       horizontalPipeLength: 1000,
-      x: 40,
-      y: 100,
-      scale: 0.4 //size of the faucet
+      right: waterTowerView.left + 40,
+      top: this.layoutBounds.top + inset,
+      scale: 0.3 //size of the faucet
     } ) );
 
     // control panel
