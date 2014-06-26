@@ -43,8 +43,12 @@ define( function( require ) {
     var modelTankShape = new Shape()
       .moveTo( modelViewTransform.modelToViewX( 0 ), modelViewTransform.modelToViewY( 0 ) )
       .lineTo( modelViewTransform.modelToViewX( 2 * model.TANK_RADIUS ), modelViewTransform.modelToViewY( 0 ) )
+      .moveTo( modelViewTransform.modelToViewX( 2 * model.TANK_RADIUS ), modelViewTransform.modelToViewY( model.HOLE_SIZE ) )
       .lineTo( modelViewTransform.modelToViewX( 2 * model.TANK_RADIUS ), modelViewTransform.modelToViewY( model.TANK_HEIGHT ) )
-      .lineTo( modelViewTransform.modelToViewX( 0 ), modelViewTransform.modelToViewY( model.TANK_HEIGHT ) ).close();
+      .lineTo( modelViewTransform.modelToViewX( model.HOLE_SIZE + model.INLET_X_OFFSET ), modelViewTransform.modelToViewY( model.TANK_HEIGHT ) )
+      .moveTo( modelViewTransform.modelToViewX( model.INLET_X_OFFSET ), modelViewTransform.modelToViewY( model.TANK_HEIGHT ) )
+      .lineTo( modelViewTransform.modelToViewX( 0 ), modelViewTransform.modelToViewY( model.TANK_HEIGHT ) )
+      .lineTo( modelViewTransform.modelToViewX( 0 ), modelViewTransform.modelToViewY( 0 ) );
 
     this.waterTankFrame = new Path( modelTankShape, { top: 20, stroke: options.towerFrameColor} );
     this.addChild( this.waterTankFrame );

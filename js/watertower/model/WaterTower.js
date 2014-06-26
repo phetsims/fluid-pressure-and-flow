@@ -29,7 +29,7 @@ define( function( require ) {
     this.TANK_RADIUS = 0.8;
     this.PANEL_OFFSET = this.TANK_RADIUS + 0.25;
     this.TANK_HEIGHT = 1.6;
-    this.LEG_EXTENSION = 3;
+    this.INLET_X_OFFSET = 0.1;
 
     //Assume the tank is a cylinder ond compute the max volume
     this.TANK_VOLUME = Math.PI * this.TANK_RADIUS * this.TANK_RADIUS * this.TANK_HEIGHT;
@@ -44,19 +44,14 @@ define( function( require ) {
     this.panelOffset = new Vector2( this.PANEL_OFFSET, 0 );
 
     //Size of the hole in meters
-    this.HOLE_SIZE = 1;
+    this.HOLE_SIZE = 0.2;
   }
 
   return inherit( PropertySet, WaterTower, {
 
-    getTankTopCenter: function() {
-      return new Vector2( this.tankBottomCenter.x, this.tankBottomCenter.y + this.TANK_HEIGHT );
-    },
-
     waterLevel: function() {
       return this.fluidVolume / (Math.PI * this.TANK_RADIUS * this.TANK_RADIUS);
     },
-
 
     getHoleLocation: function() {
       return new Vector2( this.tankBottomCenter.x + this.TANK_RADIUS + 0.55 / 2, this.tankBottomCenter.y - 0.15 );
