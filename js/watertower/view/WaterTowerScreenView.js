@@ -78,15 +78,25 @@ define( function( require ) {
       scale: 0.4 //size of the faucet
     } ) );
 
-    //control panel
+    // control panel
     this.controlPanel = new ControlPanel( model, {right: this.layoutBounds.right - inset, top: inset} );
     this.addChild( this.controlPanel );
+    this.addChild( new UnitsControlPanel( model, {left: this.controlPanel.left, top: this.controlPanel.bottom + inset} ) );
 
-    this.addChild( new UnitsControlPanel( model, {left: this.controlPanel.left, top: this.controlPanel.bottom + 10} ) );
+    // add reset button near the bottom right
+    var resetAllButton = new ResetAllButton( {
+      listener: function() {
+        model.reset();
+        waterTowerView.y = 100;
+      },
+      right: this.layoutBounds.right - 2 * inset,
+      bottom: this.layoutBounds.bottom - inset
+    } );
+    this.addChild( resetAllButton );
 
-    //control slider
-    this.addChild( new ControlSlider( model, model.fluidDensityProperty, model.getFluidDensityString.bind( model ), model.fluidDensityRange, {
-      x: 495,
+    //add the fluid density control slider
+    var controlSlider = new ControlSlider( model, model.fluidDensityProperty, model.getFluidDensityString.bind( model ), model.fluidDensityRange, {
+      right: resetAllButton.left - 4 * inset,
       bottom: this.layoutBounds.bottom - inset,
       title: fluidDensityString,
       ticks: [
@@ -103,26 +113,22 @@ define( function( require ) {
           value: model.fluidDensityRange.max
         }
       ]
-    } ) );
-
-    model.isPlayProperty.link( function( data ) {
-      // TODO;
     } );
+    this.addChild( controlSlider );
 
-    this.addChild( new ResetAllButton( {
-      listener: function() {
-        model.reset();
-        waterTowerView.y = 100;
-      },
-      x: 705, y: 450
-    } ) );
+    // add the sluice control near bottom left
+    var sluiceControl = new SluiceControl( model, { left: this.layoutBounds.left, bottom: this.layoutBounds.bottom - 70} );
+    this.addChild( sluiceControl );
 
-    //adding radio button and play pause button at bottom of the page
-    this.addChild( new AquaRadioButton( model.waterSpeedProperty, slowMotionString, new Text( slowMotionString, textOptions ), {radius: 8, x: 250, y: 430} ) );
-    this.addChild( new AquaRadioButton( model.waterSpeedProperty, normalString, new Text( normalString, textOptions ), {radius: 8, x: 250, y: 450} ) );
-    var playPauseButton = new PlayPauseButton( model.isPlayProperty, { stroke: 'black', fill: '#005566', x: 400, y: 440} );
+    //add the normal/slow motion options
+    var normalOption = new AquaRadioButton( model.waterSpeedProperty, normalString, new Text( normalString, textOptions ), {radius: 6, y: this.layoutBounds.bottom - 2 * inset, x: sluiceControl.right + 3 * inset} );
+    this.addChild( normalOption );
+    this.addChild( new AquaRadioButton( model.waterSpeedProperty, slowMotionString, new Text( slowMotionString, textOptions ), {radius: 6, x: sluiceControl.right + 3 * inset, y: normalOption.y - 2 * inset} ) );
+
+    // add play pause button and step button
+    var playPauseButton = new PlayPauseButton( model.isPlayProperty, { stroke: 'black', fill: '#005566', bottom: normalOption.bottom, right: (normalOption.right + controlSlider.left) / 2 } );
     this.addChild( playPauseButton );
-    this.addChild( new StepButton( function() {}, model.isPlayProperty, { stroke: 'black', fill: '#005566', left: playPauseButton.right + inset, y: 440} ) );
+    this.addChild( new StepButton( function() {}, model.isPlayProperty, { stroke: 'black', fill: '#005566', left: playPauseButton.right + inset, y: playPauseButton.centerY} ) );
 
     //Add the sensors panel
     var sensorPanel = new Rectangle( 0, 0, 180, 90, 10, 10, {stroke: 'gray', lineWidth: 1, fill: '#f2fa6a', right: this.controlPanel.left - inset, top: this.controlPanel.top} );
@@ -144,10 +150,6 @@ define( function( require ) {
 
     this.addChild( new WaterTowerRuler( model.isRulerVisibleProperty, model.rulerPositionProperty, model.measureUnitsProperty, modelViewTransform, this.layoutBounds ) );
     this.addChild( new MeasuringTape( model, modelViewTransform, this.layoutBounds, {x: 10, y: 100} ) );
-
-    this.addChild( new SluiceControl( model ) );
-
-
   }
 
   return inherit( ScreenView, WaterTowerScreenView );
