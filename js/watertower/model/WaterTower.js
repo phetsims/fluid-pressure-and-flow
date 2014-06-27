@@ -13,6 +13,7 @@ define( function( require ) {
   var inherit = require( 'PHET_CORE/inherit' );
 
   function WaterTower( options ) {
+    var waterTower = this;
 
     this.options = _.extend( {
       initialWaterLevel: 0.8
@@ -45,13 +46,12 @@ define( function( require ) {
 
     //Size of the hole in meters
     this.HOLE_SIZE = 0.2;
+    this.addDerivedProperty( 'waterLevel', ['fluidVolume'], function( fluidVolume ) {
+      return fluidVolume / (Math.PI * waterTower.TANK_RADIUS * waterTower.TANK_RADIUS);
+    } );
   }
 
   return inherit( PropertySet, WaterTower, {
-
-    waterLevel: function() {
-      return this.fluidVolume / (Math.PI * this.TANK_RADIUS * this.TANK_RADIUS);
-    },
 
     getHoleLocation: function() {
       return new Vector2( this.tankBottomCenter.x + this.TANK_RADIUS + 0.55 / 2, this.tankBottomCenter.y - 0.15 );
