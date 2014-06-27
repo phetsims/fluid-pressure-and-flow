@@ -15,21 +15,25 @@ define( function( require ) {
   var inherit = require( 'PHET_CORE/inherit' );
 
   // constants
-  var Constants = require( 'FLUID_PRESSURE_AND_FLOW/Constants' );
+  var Constants = require( 'FLUID_PRESSURE_AND_FLOW/watertower/Constants' );
 
   /**
    * @param {Vector2} position of the water drop
    * @param {Vector2} velocity of the water drop
-   * @param {Number} volume of the water drop
+   * @param {Number} volume of the water drop in m3
    * @constructor
    */
   function WaterDrop( position, velocity, volume ) {
 
     PropertySet.call( this, {
-      velocity: velocity,
       position: position,
+      velocity: velocity,
       volume: volume
     } );
+
+    // node holds a reference to the waterdrop node. This is used to remove the view element when the water drop is no longer necessary.
+    // This is a shortcut to prevent having removal listeners for individual drops.
+    this.node = null;
 
     this.addDerivedProperty( 'radius', ['volume'], function( volume ) {
       return Util.cubeRoot( (3 * volume) / (4 * Math.PI) );
@@ -41,7 +45,7 @@ define( function( require ) {
 
       // v_f = v_i + a * dt
       var acceleration = new Vector2( 0, -Constants.EARTH_GRAVITY );
-      var v_i = this.velocity.get();
+      var v_i = this.velocity;
       this.velocity = this.velocity.plus( acceleration.times( dt ) );
 
       // d = (v_f + v_i) * dt/2; assuming constant acceleration
