@@ -38,5 +38,5 @@ define( function( require ) {
     this.mutate( options );
   }
 
-  return inherit( Node, UnitsControlPanel );
+  return inherit( Panel, UnitsControlPanel );
 } );

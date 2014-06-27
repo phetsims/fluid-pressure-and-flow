@@ -66,7 +66,7 @@ define( function( require ) {
     Panel.call( this, content, options );
   }
 
-  return inherit( Node, ControlPanel, {
+  return inherit( Panel, ControlPanel, {
 
     //Create an icon for the ruler check box
     createRulerIcon: function() {
