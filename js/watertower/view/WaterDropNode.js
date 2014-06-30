@@ -23,7 +23,7 @@ define( function( require ) {
   function WaterDropNode( waterDrop, modelViewTransform, options ) {
 
     var waterDropNode = this;
-    Circle.call( this, modelViewTransform.modelToViewDeltaX( waterDrop.radius ), {fill: 'blue'} );
+    Circle.call( this, modelViewTransform.modelToViewDeltaX( waterDrop.radius ), {fill: 'rgb(20, 244, 255)'} );
 
     waterDrop.positionProperty.link( function( position ) {
 
