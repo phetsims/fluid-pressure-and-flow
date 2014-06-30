@@ -21,7 +21,7 @@ define( function( require ) {
   var WaterDrop = require( 'FLUID_PRESSURE_AND_FLOW/watertower/model/WaterDrop' );
   var StringUtils = require( 'PHETCOMMON/util/StringUtils' );
   var ObservableArray = require( 'AXON/ObservableArray' );
-
+  var Constants = require( 'FLUID_PRESSURE_AND_FLOW/watertower/Constants' );
   // strings
   var densityUnitsEnglish = require( 'string!FLUID_PRESSURE_AND_FLOW/densityUnitsEnglish' );
   var densityUnitsMetric = require( 'string!FLUID_PRESSURE_AND_FLOW/densityUnitsMetric' );
@@ -65,6 +65,7 @@ define( function( require ) {
     this.waterTower = new WaterTower();
     this.faucetPosition = new Vector2( 1, 3.8 ); //model co-ordinates
     this.faucetDrops = new ObservableArray();
+    this.waterTowerDrops = new ObservableArray();
 
     this.barometers = [];
     for ( var i = 0; i < 4; i++ ) {
@@ -75,6 +76,11 @@ define( function( require ) {
     for ( var j = 0; j < 4; j++ ) {
       this.speedometers.push( new VelocitySensor( new Vector2( 0, 0 ), new Vector2( 0, 0 ) ) );
     }
+
+    //
+    this.dropsToRemove = [];
+    this.accumulatedDt = 0;
+
   }
 
   return inherit( PropertySet, WaterTowerModel, {
@@ -105,30 +111,72 @@ define( function( require ) {
       return this.getAirPressure( 0 );
     },
 
-    // Called by the animation loop. Optional, so if your model has no animation, you can omit this.
+    // Called by the animation loop.
     step: function( dt ) {
-      // Handle model animation here.
 
-      var dropsToRemove = [];
+      // Ensure that water flow looks ok even on very low frame rates
+      this.accumulatedDt += dt;
+      var newFaucetDrops = [];
+      var newWaterTowerDrops = [];
+      var newFaucetDrop;
+      var newWaterDrop;
 
-      if ( !this.waterTower.isFull ) {
-        this.faucetDrops.push( new WaterDrop( this.faucetPosition.copy(), new Vector2( 0, 0 ), 0.004 ) );
-      }
-      else {
-        this.faucetDrops.clear();
+      while ( this.accumulatedDt > 0.016 ) {
+        this.accumulatedDt -= 0.016;
+        if ( !this.waterTower.isFull ) {
+          newFaucetDrop = new WaterDrop( this.faucetPosition.copy().plus( new Vector2( Math.random() * 0.01, Math.random() * 0.01 ) ), new Vector2( 0, 0 ), 0.004 );
+          this.faucetDrops.push( newFaucetDrop );
+          newFaucetDrops.push( newFaucetDrop );
+          newFaucetDrop.step( this.accumulatedDt );
+        }
+        else {
+          this.faucetDrops.clear();
+        }
+
+        //Add watertower drops if the tank is open and there is fluid in the tank
+        if ( this.isSluiceOpen && this.waterTower.fluidVolume > 0 ) {
+          newWaterDrop = new WaterDrop( new Vector2( 2.2, 1.8 ).plus( new Vector2( Math.random() * 0.01, Math.random() * 0.01 ) ), new Vector2( Math.sqrt( 2 * Constants.EARTH_GRAVITY * this.waterTower.waterLevel ) + Math.random() * 0.1, 0 ), 0.004 );
+          this.waterTowerDrops.push( newWaterDrop );
+          newWaterDrop.step( this.accumulatedDt );
+          newWaterTowerDrops.push( newWaterDrop );
+          this.waterTower.fluidVolume = this.waterTower.fluidVolume - 0.004;
+        }
       }
 
       for ( var i = 0, numberOfDrops = this.faucetDrops.length; i < numberOfDrops; i++ ) {
-        this.faucetDrops.get( i ).step( dt );
+        //step only the 'old' drops
+        if ( newFaucetDrops.indexOf( this.faucetDrops.get( i ) ) === -1 ) {
+          this.faucetDrops.get( i ).step( dt );
+        }
 
         //check if the faucetDrops hit the waterlevel
         if ( this.faucetDrops.get( i ).position.y < 1.7 + this.waterTower.waterLevel ) {
-          dropsToRemove.push( this.faucetDrops.get( i ) );
+          this.dropsToRemove.push( this.faucetDrops.get( i ) );
           this.waterTower.fluidVolume = this.waterTower.fluidVolume + this.faucetDrops.get( i ).volume;
         }
       }
 
-      this.faucetDrops.removeAll( dropsToRemove );
+      this.faucetDrops.removeAll( this.dropsToRemove );
+
+      //Add watertower drops if the tank is open and there is fluid in the tank
+      if ( this.isSluiceOpen && this.waterTower.fluidVolume > 0 ) {
+        this.waterTowerDrops.push( new WaterDrop( new Vector2( 2.2, 1.8 ), new Vector2( Math.sqrt( 2 * Constants.EARTH_GRAVITY * this.waterTower.waterLevel ), 0 ), 0.004 ) );
+        this.waterTower.fluidVolume = this.waterTower.fluidVolume - 0.004;
+      }
+
+      this.dropsToRemove = [];
+      for ( i = 0, numberOfDrops = this.waterTowerDrops.length; i < numberOfDrops; i++ ) {
+        //step only the 'old' drops
+        if ( newWaterTowerDrops.indexOf( this.waterTowerDrops.get( i ) ) === -1 ) {
+          this.waterTowerDrops.get( i ).step( dt );
+        }
+
+        //remove them as soon as they hit the ground
+        if ( this.waterTowerDrops.get( i ).position.y < 0 ) {
+          this.dropsToRemove.push( this.waterTowerDrops.get( i ) );
+        }
+      }
+      this.waterTowerDrops.removeAll( this.dropsToRemove );
     },
 
     getFluidDensityString: function() {

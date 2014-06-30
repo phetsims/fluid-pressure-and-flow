@@ -16,6 +16,7 @@ define( function( require ) {
   var OutsideBackgroundNode = require( 'SCENERY_PHET/OutsideBackgroundNode' );
   var ResetAllButton = require( 'SCENERY_PHET/ResetAllButton' );
   var Rectangle = require( 'SCENERY/nodes/Rectangle' );
+  var Node = require( 'SCENERY/nodes/Node' );
 
   var PlayPauseButton = require( 'SCENERY_PHET/PlayPauseButton' );
   var StepButton = require( 'SCENERY_PHET/StepButton' );
@@ -73,6 +74,9 @@ define( function( require ) {
     var waterTowerView = new WaterTowerView( waterTowerModel.waterTower, modelViewTransform, { left: this.layoutBounds.left + 50, bottom: modelViewTransform.modelToViewY( 0 )} );
     this.addChild( waterTowerView );
 
+    var faucetDropsLayer = new Node();
+    waterTowerScreenView.addChild( faucetDropsLayer );
+
     var faucetNode = new FaucetNode( 1, waterTowerModel.faucetFlowRateProperty, waterTowerModel.isFaucetEnabledProperty, {
       horizontalPipeLength: 1000,
       right: waterTowerView.left + 40,
@@ -120,7 +124,7 @@ define( function( require ) {
     this.addChild( controlSlider );
 
     // add the sluice control near bottom left
-    var sluiceControl = new SluiceControl( waterTowerModel, { left: this.layoutBounds.left, bottom: this.layoutBounds.bottom - 70} );
+    var sluiceControl = new SluiceControl( waterTowerModel.isSluiceOpenProperty, { left: this.layoutBounds.left, bottom: this.layoutBounds.bottom - 70} );
     this.addChild( sluiceControl );
 
     //add the normal/slow motion options
@@ -156,14 +160,24 @@ define( function( require ) {
 
     waterTowerModel.faucetDrops.addItemAddedListener( function( waterDrop ) {
       var waterDropNode = new WaterDropNode( waterDrop, modelViewTransform );
-      waterTowerScreenView.addChild( waterDropNode );
-      waterTowerScreenView.moveChildToFront( faucetNode );
+      faucetDropsLayer.addChild( waterDropNode );
       waterDrop.node = waterDropNode;
     } );
 
     waterTowerModel.faucetDrops.addItemRemovedListener( function( removedDrop ) {
+      faucetDropsLayer.removeChild( removedDrop.node );
+    } );
+
+    waterTowerModel.waterTowerDrops.addItemAddedListener( function( waterDrop ) {
+      var waterDropNode = new WaterDropNode( waterDrop, modelViewTransform );
+      waterTowerScreenView.addChild( waterDropNode );
+      waterDrop.node = waterDropNode;
+    } );
+
+    waterTowerModel.waterTowerDrops.addItemRemovedListener( function( removedDrop ) {
       waterTowerScreenView.removeChild( removedDrop.node );
     } );
+
   }
 
   return inherit( ScreenView, WaterTowerScreenView );
