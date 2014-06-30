@@ -11,7 +11,6 @@ define( function( require ) {
   var PropertySet = require( 'AXON/PropertySet' );
   var Vector2 = require( 'DOT/Vector2' );
   var Util = require( 'DOT/Util' );
-  var Shape = require( 'KITE/Shape' );
   var inherit = require( 'PHET_CORE/inherit' );
 
   // constants

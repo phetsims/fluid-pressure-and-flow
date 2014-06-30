@@ -10,7 +10,6 @@ define( function( require ) {
 
   // modules
   var inherit = require( 'PHET_CORE/inherit' );
-  var Node = require( 'SCENERY/nodes/Node' );
   var VBox = require( 'SCENERY/nodes/VBox' );
   var Panel = require( 'SUN/Panel' );
   var AquaRadioButton = require( 'SUN/AquaRadioButton' );

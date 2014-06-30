@@ -52,7 +52,7 @@ define( function( require ) {
 
     this.addDerivedProperty( 'isFull', ['fluidVolume'], function( fluidVolume ) {
       return fluidVolume >= waterTower.TANK_VOLUME;
-    } )
+    } );
   }
 
   return inherit( PropertySet, WaterTower, {
