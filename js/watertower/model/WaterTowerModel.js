@@ -18,7 +18,9 @@ define( function( require ) {
   var Barometer = require( 'FLUID_PRESSURE_AND_FLOW/watertower/model/Barometer' );
   var VelocitySensor = require( 'FLUID_PRESSURE_AND_FLOW/watertower/model/VelocitySensor' );
   var WaterTower = require( 'FLUID_PRESSURE_AND_FLOW/watertower/model/WaterTower' );
+  var WaterDrop = require( 'FLUID_PRESSURE_AND_FLOW/watertower/model/WaterDrop' );
   var StringUtils = require( 'PHETCOMMON/util/StringUtils' );
+  var ObservableArray = require( 'AXON/ObservableArray' );
 
   // strings
   var densityUnitsEnglish = require( 'string!FLUID_PRESSURE_AND_FLOW/densityUnitsEnglish' );
@@ -61,6 +63,8 @@ define( function( require ) {
     this.units = new Units();
 
     this.waterTower = new WaterTower();
+    this.faucetPosition = new Vector2( 1, 6.2 ); //model co-ordinates
+    this.faucetDrops = new ObservableArray();
 
     this.barometers = [];
     for ( var i = 0; i < 4; i++ ) {
@@ -69,7 +73,7 @@ define( function( require ) {
 
     this.speedometers = [];
     for ( var j = 0; j < 4; j++ ) {
-      this.speedometers.push( new VelocitySensor( new Vector2( 0, 0 ), new Vector2( 5, 5 ) ) );
+      this.speedometers.push( new VelocitySensor( new Vector2( 0, 0 ), new Vector2( 0, 0 ) ) );
     }
   }
 
@@ -102,8 +106,21 @@ define( function( require ) {
     },
 
     // Called by the animation loop. Optional, so if your model has no animation, you can omit this.
-    step: function() {
+    step: function( dt ) {
       // Handle model animation here.
+      var dropsToRemove = [];
+      var waterDrop = new WaterDrop( this.faucetPosition.copy(), new Vector2( 0, 0 ), 0.0001 );
+      this.faucetDrops.push( waterDrop );
+
+      for ( var i = 0, numberOfDrops = this.faucetDrops.length; i < numberOfDrops; i++ ) {
+        this.faucetDrops.get( i ).step( dt );
+        //check if the faucetDrops hit the waterlevel
+        if ( this.faucetDrops.get( i ).position.y < this.faucetDrops.get( i ).radius + this.waterTower.waterLevel ) {
+          dropsToRemove.push( this.faucetDrops.get( i ) );
+        }
+      }
+
+      this.faucetDrops.removeAll( dropsToRemove );
     },
 
     getFluidDensityString: function() {
