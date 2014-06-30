@@ -15,14 +15,14 @@ define( function( require ) {
 
     /**
      * Constructor for the sluice controller
-     * @param model
+     * @param {Property<Boolean>} isSluiceOpenProperty -- property to control the sluice gate
      * @param options
      * @constructor
      */
-    function SluiceControl( model, options ) {
+    function SluiceControl( isSluiceOpenProperty, options ) {
 
       Node.call( this );
-      this.addChild( new ABSwitch( model.isSluiceOpenProperty, false, new Text( "Close" ), true, new Text( "Open" ) ) );
+      this.addChild( new ABSwitch( isSluiceOpenProperty, false, new Text( "Close" ), true, new Text( "Open" ) ) );
 
       this.mutate( options );
     }
