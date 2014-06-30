@@ -20,7 +20,6 @@ define( function( require ) {
     }, options );
 
     PropertySet.call( this, {
-      //isFull: false, //Flag indicating whether the tank is full, for purposes of disabling controls that can be used to fill the tank
       isHoleOpen: false,
       fluidVolume: 0
     } );
