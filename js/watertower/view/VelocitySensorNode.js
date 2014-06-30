@@ -18,6 +18,7 @@ define( function( require ) {
   var DerivedProperty = require( 'AXON/DerivedProperty' );
   var Shape = require( 'KITE/Shape' );
   var Path = require( 'SCENERY/nodes/Path' );
+  var ArrowShape = require( 'SCENERY_PHET/ArrowShape' );
   var LinearGradient = require( 'SCENERY/util/LinearGradient' );
 
   // strings
@@ -59,12 +60,35 @@ define( function( require ) {
       .lineTo( outerNode.centerX, bottomTriangleShapeHeight + innerNode.rectY + 1 )
       .lineTo( outerNode.centerX + bottomTriangleShapeWidth / 2, innerNode.rectY + 1 );
 
-    this.addChild( new Path( bottomTriangleShape, {
+    var triangleShapeNode = new Path( bottomTriangleShape, {
       fill: new LinearGradient( outerNode.centerX - bottomTriangleShapeWidth / 2, 0, outerNode.centerX + bottomTriangleShapeWidth / 2, 0 )
         .addColorStop( 1, '#CD9E4D' )
         .addColorStop( 1, '#CD9E4D' )
         .addColorStop( 1, '#CD9E4D' ), x: 0, y: 69, stroke: 'gray'
-    } ) );
+    } );
+    this.addChild( triangleShapeNode );
+
+    // arrow shape
+    var arrowShape = new Path( new ArrowShape( 0, 0, 0.3 * modelViewTransform.modelToViewDeltaX( velocitySensor.value.x ), 0.3 * modelViewTransform.modelToViewDeltaY( velocitySensor.value.y ), {fill: 'black'} ), {fill: 'blue'} );
+    this.addChild( arrowShape );
+
+    velocitySensor.valueProperty.link( function( velocity ) {
+      // fixing arrowShape path position.
+      if ( velocity.y > 0 ) {
+        arrowShape.bottom = triangleShapeNode.bottom;
+      }
+      else {
+        arrowShape.top = triangleShapeNode.bottom;
+      }
+      if ( velocity.x > 0 ) {
+        arrowShape.left = outerNode.centerX;
+      }
+      else {
+        arrowShape.right = outerNode.centerX;
+      }
+    } );
+    velocitySensor.isArrowVisibleProperty.linkAttribute( arrowShape, 'visible' );
+
 
     //handlers
     this.addInputListener( new MovableDragHandler( {locationProperty: velocitySensor.positionProperty, dragBounds: dragBounds},
