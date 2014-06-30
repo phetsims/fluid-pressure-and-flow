@@ -63,7 +63,7 @@ define( function( require ) {
     this.units = new Units();
 
     this.waterTower = new WaterTower();
-    this.faucetPosition = new Vector2( 1, 6.2 ); //model co-ordinates
+    this.faucetPosition = new Vector2( 1, 3.8 ); //model co-ordinates
     this.faucetDrops = new ObservableArray();
 
     this.barometers = [];
@@ -108,15 +108,23 @@ define( function( require ) {
     // Called by the animation loop. Optional, so if your model has no animation, you can omit this.
     step: function( dt ) {
       // Handle model animation here.
+
       var dropsToRemove = [];
-      var waterDrop = new WaterDrop( this.faucetPosition.copy(), new Vector2( 0, 0 ), 0.0001 );
-      this.faucetDrops.push( waterDrop );
+
+      if ( !this.waterTower.isFull ) {
+        this.faucetDrops.push( new WaterDrop( this.faucetPosition.copy(), new Vector2( 0, 0 ), 0.004 ) );
+      }
+      else {
+        this.faucetDrops.clear();
+      }
 
       for ( var i = 0, numberOfDrops = this.faucetDrops.length; i < numberOfDrops; i++ ) {
         this.faucetDrops.get( i ).step( dt );
+
         //check if the faucetDrops hit the waterlevel
-        if ( this.faucetDrops.get( i ).position.y < this.faucetDrops.get( i ).radius + this.waterTower.waterLevel ) {
+        if ( this.faucetDrops.get( i ).position.y < 1.7 + this.waterTower.waterLevel ) {
           dropsToRemove.push( this.faucetDrops.get( i ) );
+          this.waterTower.fluidVolume = this.waterTower.fluidVolume + this.faucetDrops.get( i ).volume;
         }
       }
 

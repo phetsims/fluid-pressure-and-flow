@@ -20,7 +20,7 @@ define( function( require ) {
     }, options );
 
     PropertySet.call( this, {
-      isFull: false, //Flag indicating whether the tank is full, for purposes of disabling controls that can be used to fill the tank
+      //isFull: false, //Flag indicating whether the tank is full, for purposes of disabling controls that can be used to fill the tank
       isHoleOpen: false,
       fluidVolume: 0
     } );
@@ -49,6 +49,10 @@ define( function( require ) {
     this.addDerivedProperty( 'waterLevel', ['fluidVolume'], function( fluidVolume ) {
       return fluidVolume / (Math.PI * waterTower.TANK_RADIUS * waterTower.TANK_RADIUS);
     } );
+
+    this.addDerivedProperty( 'isFull', ['fluidVolume'], function( fluidVolume ) {
+      return fluidVolume >= waterTower.TANK_VOLUME;
+    } )
   }
 
   return inherit( PropertySet, WaterTower, {

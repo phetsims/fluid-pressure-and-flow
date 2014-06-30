@@ -63,22 +63,23 @@ define( function( require ) {
     //Invert the y-axis, so that y grows up.
     var modelViewTransform = ModelViewTransform2.createSinglePointScaleInvertedYMapping(
       Vector2.ZERO,
-      new Vector2( 0, this.layoutBounds.maxY ),
+      new Vector2( 0, 350 ),
       70 ); //1m = 70px, (0,0) - top left corner
 
     // add background -- sky, earth
 
     this.addChild( new OutsideBackgroundNode( this.layoutBounds.centerX, this.layoutBounds.centerY + 100, this.layoutBounds.width * 3, this.layoutBounds.height, this.layoutBounds.height ) );
 
-    var waterTowerView = new WaterTowerView( waterTowerModel.waterTower, modelViewTransform, { left: this.layoutBounds.left + 50, top: this.layoutBounds.top + 90} );
+    var waterTowerView = new WaterTowerView( waterTowerModel.waterTower, modelViewTransform, { left: this.layoutBounds.left + 50, bottom: modelViewTransform.modelToViewY( 0 )} );
     this.addChild( waterTowerView );
 
-    this.addChild( new FaucetNode( 1, waterTowerModel.faucetFlowRateProperty, waterTowerModel.isFaucetEnabledProperty, {
+    var faucetNode = new FaucetNode( 1, waterTowerModel.faucetFlowRateProperty, waterTowerModel.isFaucetEnabledProperty, {
       horizontalPipeLength: 1000,
       right: waterTowerView.left + 40,
       top: this.layoutBounds.top + inset,
       scale: 0.3 //size of the faucet
-    } ) );
+    } );
+    this.addChild( faucetNode );
 
     // control panel
     this.controlPanel = new ControlPanel( waterTowerModel, {right: this.layoutBounds.right - inset, top: inset} );
@@ -156,6 +157,7 @@ define( function( require ) {
     waterTowerModel.faucetDrops.addItemAddedListener( function( waterDrop ) {
       var waterDropNode = new WaterDropNode( waterDrop, modelViewTransform );
       waterTowerScreenView.addChild( waterDropNode );
+      waterTowerScreenView.moveChildToFront( faucetNode );
       waterDrop.node = waterDropNode;
     } );
 
