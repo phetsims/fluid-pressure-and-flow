@@ -16,6 +16,7 @@ define( function( require ) {
   var OutsideBackgroundNode = require( 'SCENERY_PHET/OutsideBackgroundNode' );
   var ResetAllButton = require( 'SCENERY_PHET/ResetAllButton' );
   var Rectangle = require( 'SCENERY/nodes/Rectangle' );
+
   var PlayPauseButton = require( 'SCENERY_PHET/PlayPauseButton' );
   var StepButton = require( 'SCENERY_PHET/StepButton' );
   var AquaRadioButton = require( 'SUN/AquaRadioButton' );
@@ -31,6 +32,7 @@ define( function( require ) {
   var UnitsControlPanel = require( 'FLUID_PRESSURE_AND_FLOW/watertower/view/UnitsControlPanel' );
   var WaterTowerRuler = require( 'FLUID_PRESSURE_AND_FLOW/watertower/view/WaterTowerRuler' );
   var WaterTowerView = require( 'FLUID_PRESSURE_AND_FLOW/watertower/view/WaterTowerView' );
+  var WaterDropNode = require( 'FLUID_PRESSURE_AND_FLOW/watertower/view/WaterDropNode' );
   var VelocitySensorNode = require( 'FLUID_PRESSURE_AND_FLOW/watertower/view/VelocitySensorNode' );
 
   //strings
@@ -45,10 +47,11 @@ define( function( require ) {
   var inset = 10;
 
   /**
-   * @param {WaterTowerModel} model
+   * @param {WaterTowerModel} waterTowerModel
    * @constructor
    */
-  function WaterTowerScreenView( model ) {
+  function WaterTowerScreenView( waterTowerModel ) {
+    var waterTowerScreenView = this;
     ScreenView.call( this, {renderer: 'svg'} );
 
     // Please note that this is to help line up elements in the play area, and some user interface components from the Sun repo will
@@ -67,10 +70,10 @@ define( function( require ) {
 
     this.addChild( new OutsideBackgroundNode( this.layoutBounds.centerX, this.layoutBounds.centerY + 100, this.layoutBounds.width * 3, this.layoutBounds.height, this.layoutBounds.height ) );
 
-    var waterTowerView = new WaterTowerView( model.waterTower, modelViewTransform, { left: this.layoutBounds.left + 50, top: this.layoutBounds.top + 90} );
+    var waterTowerView = new WaterTowerView( waterTowerModel.waterTower, modelViewTransform, { left: this.layoutBounds.left + 50, top: this.layoutBounds.top + 90} );
     this.addChild( waterTowerView );
 
-    this.addChild( new FaucetNode( 1, model.faucetFlowRateProperty, model.isFaucetEnabledProperty, {
+    this.addChild( new FaucetNode( 1, waterTowerModel.faucetFlowRateProperty, waterTowerModel.isFaucetEnabledProperty, {
       horizontalPipeLength: 1000,
       right: waterTowerView.left + 40,
       top: this.layoutBounds.top + inset,
@@ -78,14 +81,14 @@ define( function( require ) {
     } ) );
 
     // control panel
-    this.controlPanel = new ControlPanel( model, {right: this.layoutBounds.right - inset, top: inset} );
+    this.controlPanel = new ControlPanel( waterTowerModel, {right: this.layoutBounds.right - inset, top: inset} );
     this.addChild( this.controlPanel );
-    this.addChild( new UnitsControlPanel( model, {left: this.controlPanel.left, top: this.controlPanel.bottom + inset} ) );
+    this.addChild( new UnitsControlPanel( waterTowerModel, {left: this.controlPanel.left, top: this.controlPanel.bottom + inset} ) );
 
     // add reset button near the bottom right
     var resetAllButton = new ResetAllButton( {
       listener: function() {
-        model.reset();
+        waterTowerModel.reset();
         waterTowerView.y = 100;
       },
       right: this.layoutBounds.right - 2 * inset,
@@ -94,7 +97,7 @@ define( function( require ) {
     this.addChild( resetAllButton );
 
     //add the fluid density control slider
-    var controlSlider = new ControlSlider( model, model.fluidDensityProperty, model.getFluidDensityString.bind( model ), model.fluidDensityRange, {
+    var controlSlider = new ControlSlider( waterTowerModel, waterTowerModel.fluidDensityProperty, waterTowerModel.getFluidDensityString.bind( waterTowerModel ), waterTowerModel.fluidDensityRange, {
       right: resetAllButton.left - 4 * inset,
       bottom: this.layoutBounds.bottom - inset,
       title: fluidDensityString,
@@ -105,50 +108,60 @@ define( function( require ) {
         },
         {
           title: gasolineString,
-          value: model.fluidDensityRange.min
+          value: waterTowerModel.fluidDensityRange.min
         },
         {
           title: honeyString,
-          value: model.fluidDensityRange.max
+          value: waterTowerModel.fluidDensityRange.max
         }
       ]
     } );
     this.addChild( controlSlider );
 
     // add the sluice control near bottom left
-    var sluiceControl = new SluiceControl( model, { left: this.layoutBounds.left, bottom: this.layoutBounds.bottom - 70} );
+    var sluiceControl = new SluiceControl( waterTowerModel, { left: this.layoutBounds.left, bottom: this.layoutBounds.bottom - 70} );
     this.addChild( sluiceControl );
 
     //add the normal/slow motion options
-    var normalOption = new AquaRadioButton( model.waterSpeedProperty, normalString, new Text( normalString, textOptions ), {radius: 6, y: this.layoutBounds.bottom - 2 * inset, x: sluiceControl.right + 3 * inset} );
+    var normalOption = new AquaRadioButton( waterTowerModel.waterSpeedProperty, normalString, new Text( normalString, textOptions ), {radius: 6, y: this.layoutBounds.bottom - 2 * inset, x: sluiceControl.right + 3 * inset} );
     this.addChild( normalOption );
-    this.addChild( new AquaRadioButton( model.waterSpeedProperty, slowMotionString, new Text( slowMotionString, textOptions ), {radius: 6, x: sluiceControl.right + 3 * inset, y: normalOption.y - 2 * inset} ) );
+    this.addChild( new AquaRadioButton( waterTowerModel.waterSpeedProperty, slowMotionString, new Text( slowMotionString, textOptions ), {radius: 6, x: sluiceControl.right + 3 * inset, y: normalOption.y - 2 * inset} ) );
 
     // add play pause button and step button
-    var playPauseButton = new PlayPauseButton( model.isPlayProperty, { stroke: 'black', fill: '#005566', bottom: normalOption.bottom, right: (normalOption.right + controlSlider.left) / 2 } );
+    var playPauseButton = new PlayPauseButton( waterTowerModel.isPlayProperty, { stroke: 'black', fill: '#005566', bottom: normalOption.bottom, right: (normalOption.right + controlSlider.left) / 2 } );
     this.addChild( playPauseButton );
-    this.addChild( new StepButton( function() {}, model.isPlayProperty, { stroke: 'black', fill: '#005566', left: playPauseButton.right + inset, y: playPauseButton.centerY} ) );
+    this.addChild( new StepButton( function() {}, waterTowerModel.isPlayProperty, { stroke: 'black', fill: '#005566', left: playPauseButton.right + inset, y: playPauseButton.centerY} ) );
 
     //Add the sensors panel
     var sensorPanel = new Rectangle( 0, 0, 180, 90, 10, 10, {stroke: 'gray', lineWidth: 1, fill: '#f2fa6a', right: this.controlPanel.left - inset, top: this.controlPanel.top} );
     this.addChild( sensorPanel );
 
     //Add barometers within the sensor panel bounds
-    _.each( model.barometers, function( barometer ) {
+    _.each( waterTowerModel.barometers, function( barometer ) {
       barometer.positionProperty.storeInitialValue( new Vector2( sensorPanel.visibleBounds.centerX + 50, sensorPanel.visibleBounds.centerY - 15 ) );
       barometer.reset();
-      this.addChild( new BarometerNode( model, modelViewTransform, barometer, sensorPanel.visibleBounds, this.layoutBounds ) );
+      this.addChild( new BarometerNode( waterTowerModel, modelViewTransform, barometer, sensorPanel.visibleBounds, this.layoutBounds ) );
     }.bind( this ) );
 
     //Add speedometers within the sensor panel bounds
-    _.each( model.speedometers, function( velocitySensor ) {
+    _.each( waterTowerModel.speedometers, function( velocitySensor ) {
       velocitySensor.positionProperty.storeInitialValue( new Vector2( sensorPanel.visibleBounds.centerX - 70, sensorPanel.visibleBounds.centerY - 40 ) );
       velocitySensor.positionProperty.reset();
-      this.addChild( new VelocitySensorNode( model, modelViewTransform, velocitySensor, sensorPanel.visibleBounds, this.layoutBounds ) );
+      this.addChild( new VelocitySensorNode( waterTowerModel, modelViewTransform, velocitySensor, sensorPanel.visibleBounds, this.layoutBounds ) );
     }.bind( this ) );
 
-    this.addChild( new WaterTowerRuler( model.isRulerVisibleProperty, model.rulerPositionProperty, model.measureUnitsProperty, modelViewTransform, this.layoutBounds ) );
-    this.addChild( new MeasuringTape( model, modelViewTransform, this.layoutBounds, {x: 10, y: 100} ) );
+    this.addChild( new WaterTowerRuler( waterTowerModel.isRulerVisibleProperty, waterTowerModel.rulerPositionProperty, waterTowerModel.measureUnitsProperty, modelViewTransform, this.layoutBounds ) );
+    this.addChild( new MeasuringTape( waterTowerModel, modelViewTransform, this.layoutBounds, {x: 10, y: 100} ) );
+
+    waterTowerModel.faucetDrops.addItemAddedListener( function( waterDrop ) {
+      var waterDropNode = new WaterDropNode( waterDrop, modelViewTransform );
+      waterTowerScreenView.addChild( waterDropNode );
+      waterDrop.node = waterDropNode;
+    } );
+
+    waterTowerModel.faucetDrops.addItemRemovedListener( function( removedDrop ) {
+      waterTowerScreenView.removeChild( removedDrop.node );
+    } );
   }
 
   return inherit( ScreenView, WaterTowerScreenView );
