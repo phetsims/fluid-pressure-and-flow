@@ -14,7 +14,6 @@ define( function( require ) {
     var Node = require( 'SCENERY/nodes/Node' );
     var Rectangle = require( 'SCENERY/nodes/Rectangle' );
     var ABSwitch = require( 'SUN/ABSwitch' );
-    var Text = require( 'SCENERY/nodes/Text' );
     var WaterTowerLegsNode = require( 'FLUID_PRESSURE_AND_FLOW/watertower/view/WaterTowerLegsNode' );
 
     var optionWidth = 60;

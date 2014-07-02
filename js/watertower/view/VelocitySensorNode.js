@@ -42,18 +42,18 @@ define( function( require ) {
 
 // adding outer rectangle
     var outerRectangle = new Rectangle( 0, 0, 100, 60, 10, 10, {stroke: new LinearGradient( 0, 0, 0, 100 )
-      .addColorStop( .0, '#FFAD73' )
-      .addColorStop( .1, '#C5631E' )
-      .addColorStop( .2, '#C5631E' )
-      .addColorStop( .3, '#C5631E' )
-      .addColorStop( .4, '#C5631E' )
-      .addColorStop( .6, '#C5631E' ), lineWidth: 1, fill: new LinearGradient( 0, 0, 0, 100 )
-      .addColorStop( .0, '#FFAD73' )
-      .addColorStop( .1, '#FFAD73' )
-      .addColorStop( .2, '#FFAD73' )
-      .addColorStop( .3, '#FFAD73' )
-      .addColorStop( .4, '#FFAD73' )
-      .addColorStop( .6, '#C5631E' )} );
+      .addColorStop( 0, '#FFAD73' )
+      .addColorStop( 0.1, '#C5631E' )
+      .addColorStop( 0.2, '#C5631E' )
+      .addColorStop( 0.3, '#C5631E' )
+      .addColorStop( 0.4, '#C5631E' )
+      .addColorStop( 0.6, '#C5631E' ), lineWidth: 1, fill: new LinearGradient( 0, 0, 0, 100 )
+      .addColorStop( 0, '#FFAD73' )
+      .addColorStop( 0.1, '#FFAD73' )
+      .addColorStop( 0.2, '#FFAD73' )
+      .addColorStop( 0.3, '#FFAD73' )
+      .addColorStop( 0.4, '#FFAD73' )
+      .addColorStop( 0.6, '#C5631E' )} );
     velocitySensorNode.addChild( outerRectangle );
     //second rectangle
     var innerRectangle = new Rectangle( 0, 0, 96, 54, 10, 10, {stroke: '#C5631E', lineWidth: 1, fill: '#C5631E', y: outerRectangle.centerY - 27, x: outerRectangle.centerX - 47} );
@@ -70,18 +70,20 @@ define( function( require ) {
     var labelNode = new Text( '', {fill: 'black', font: new PhetFont( {size: 12, weight: 'bold'} ), y: innerMostRectangle.centerY} );
     velocitySensorNode.addChild( labelNode );
 
-    var outerBottomTriangleShapeWidth = 20, outerBottomTriangleShapeHeight = 22, innerBottomTriangleShapeWidth = 16
-      , innerBottomTriangleShapeHeight = 16;
+    var outerBottomTriangleShapeWidth = 20;
+    var outerBottomTriangleShapeHeight = 22;
+    var innerBottomTriangleShapeWidth = 16;
+    var innerBottomTriangleShapeHeight = 16;
     // adding bottom triangle shape
     var outerTriangleShapeNode = new Path( new Shape()
       .moveTo( innerRectangle.centerX - outerBottomTriangleShapeWidth / 2, innerMostRectangle.rectY + 1 )
       .lineTo( innerRectangle.centerX, outerBottomTriangleShapeHeight + innerMostRectangle.rectY + 1 )
       .lineTo( innerRectangle.centerX + outerBottomTriangleShapeWidth / 2, innerMostRectangle.rectY + 1 ), {
       fill: new LinearGradient( 0, 0, 0, 30 )
-        .addColorStop( .0, '#FFAD73' ).addColorStop( .1, '#FFAD73' ).addColorStop( .2, '#FFAD73' ).addColorStop( .3, '#FFAD73' )
-        .addColorStop( .4, '#FFAD73' ).addColorStop( .6, '#FFAD73' ), y: outerRectangle.bottom - 2, stroke: new LinearGradient( 0, 0, 0, 30 )
-        .addColorStop( .0, '#8D4716' ).addColorStop( .1, '#8D4716' ).addColorStop( .2, '#8D4716' ).addColorStop( .3, '#8D4716' )
-        .addColorStop( .4, '#8D4716' ).addColorStop( .6, '#8D4716' )  } );
+        .addColorStop( 0, '#FFAD73' ).addColorStop( 0.1, '#FFAD73' ).addColorStop( 0.2, '#FFAD73' ).addColorStop( 0.3, '#FFAD73' )
+        .addColorStop( 0.4, '#FFAD73' ).addColorStop( 0.6, '#FFAD73' ), y: outerRectangle.bottom - 2, stroke: new LinearGradient( 0, 0, 0, 30 )
+        .addColorStop( 0, '#8D4716' ).addColorStop( 0.1, '#8D4716' ).addColorStop( 0.2, '#8D4716' ).addColorStop( 0.3, '#8D4716' )
+        .addColorStop( 0.4, '#8D4716' ).addColorStop( 0.6, '#8D4716' )  } );
     this.addChild( outerTriangleShapeNode );
     var innerTriangleShapeNode = new Path( new Shape()
       .moveTo( innerRectangle.centerX - innerBottomTriangleShapeWidth / 2, innerMostRectangle.rectY + 1 )
