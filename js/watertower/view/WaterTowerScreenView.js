@@ -150,7 +150,7 @@ define( function( require ) {
 
     //Add speedometers within the sensor panel bounds
     _.each( waterTowerModel.speedometers, function( velocitySensor ) {
-      velocitySensor.positionProperty.storeInitialValue( new Vector2( sensorPanel.visibleBounds.centerX - 70, sensorPanel.visibleBounds.centerY - 40 ) );
+      velocitySensor.positionProperty.storeInitialValue( new Vector2( sensorPanel.visibleBounds.centerX - 85, sensorPanel.visibleBounds.centerY - 40 ) );
       velocitySensor.positionProperty.reset();
       this.addChild( new VelocitySensorNode( waterTowerModel, modelViewTransform, velocitySensor, sensorPanel.visibleBounds, this.layoutBounds ) );
     }.bind( this ) );
