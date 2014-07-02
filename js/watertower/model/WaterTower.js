@@ -16,7 +16,7 @@ define( function( require ) {
     var waterTower = this;
 
     this.options = _.extend( {
-      initialWaterLevel: 0.8
+      initialFluidLevel: 0.8
     }, options );
 
     PropertySet.call( this, {
@@ -38,14 +38,14 @@ define( function( require ) {
     this.tankBottomCenter = new Vector2( this.TANK_RADIUS, this.INITIAL_Y );
 
     //Start the tank partly full so that the "fill" button and faucet slider are initially enabled
-    this.fluidVolume = this.TANK_VOLUME * this.options.initialWaterLevel;
+    this.fluidVolume = this.TANK_VOLUME * this.options.initialFluidLevel;
 
     //The movable panel that can cover the hole.
     this.panelOffset = new Vector2( this.PANEL_OFFSET, 0 );
 
     //Size of the hole in meters
     this.HOLE_SIZE = 0.2;
-    this.addDerivedProperty( 'waterLevel', ['fluidVolume'], function( fluidVolume ) {
+    this.addDerivedProperty( 'fluidLevel', ['fluidVolume'], function( fluidVolume ) {
       return fluidVolume / (Math.PI * waterTower.TANK_RADIUS * waterTower.TANK_RADIUS);
     } );
 

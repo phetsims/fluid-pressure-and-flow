@@ -57,8 +57,8 @@ define( function( require ) {
     var waterShape = new Shape()
       .moveTo( modelViewTransform.modelToViewX( 0 ) + 2, modelViewTransform.modelToViewY( 0 ) )
       .lineTo( modelViewTransform.modelToViewX( 2 * waterTower.TANK_RADIUS ) - 2, modelViewTransform.modelToViewY( 0 ) )
-      .lineTo( modelViewTransform.modelToViewX( 2 * waterTower.TANK_RADIUS ) - 2, modelViewTransform.modelToViewY( waterTower.waterLevel ) + 2 )
-      .lineTo( modelViewTransform.modelToViewX( 0 ) + 2, modelViewTransform.modelToViewY( waterTower.waterLevel ) + 2 ).close();
+      .lineTo( modelViewTransform.modelToViewX( 2 * waterTower.TANK_RADIUS ) - 2, modelViewTransform.modelToViewY( waterTower.fluidLevel ) + 2 )
+      .lineTo( modelViewTransform.modelToViewX( 0 ) + 2, modelViewTransform.modelToViewY( waterTower.fluidLevel ) + 2 ).close();
     this.waterShapeNode = new Path( waterShape, { bottom: this.waterTankFrame.bottom - 1, fill: options.waterColor} );
     this.addChild( this.waterShapeNode );
 
@@ -109,8 +109,8 @@ define( function( require ) {
       var waterShape = new Shape()
         .moveTo( modelViewTransform.modelToViewX( 0 ) + 2, modelViewTransform.modelToViewY( 0 ) )
         .lineTo( modelViewTransform.modelToViewX( 2 * waterTower.TANK_RADIUS ) - 2, modelViewTransform.modelToViewY( 0 ) )
-        .lineTo( modelViewTransform.modelToViewX( 2 * waterTower.TANK_RADIUS ) - 2, modelViewTransform.modelToViewY( waterTower.waterLevel ) + 2 )
-        .lineTo( modelViewTransform.modelToViewX( 0 ) + 2, modelViewTransform.modelToViewY( waterTower.waterLevel ) + 2 ).close();
+        .lineTo( modelViewTransform.modelToViewX( 2 * waterTower.TANK_RADIUS ) - 2, modelViewTransform.modelToViewY( waterTower.fluidLevel ) + 2 )
+        .lineTo( modelViewTransform.modelToViewX( 0 ) + 2, modelViewTransform.modelToViewY( waterTower.fluidLevel ) + 2 ).close();
       waterTowerView.waterShapeNode.setShape( waterShape );
     } );
 

@@ -135,7 +135,7 @@ define( function( require ) {
 
         //Add watertower drops if the tank is open and there is fluid in the tank
         if ( this.isSluiceOpen && this.waterTower.fluidVolume > 0 ) {
-          newWaterDrop = new WaterDrop( new Vector2( 2.2, 1.8 ).plus( new Vector2( Math.random() * 0.01, Math.random() * 0.01 ) ), new Vector2( Math.sqrt( 2 * Constants.EARTH_GRAVITY * this.waterTower.waterLevel ) + Math.random() * 0.1, 0 ), 0.004 );
+          newWaterDrop = new WaterDrop( new Vector2( 2.2, 1.8 ).plus( new Vector2( Math.random() * 0.01, Math.random() * 0.01 ) ), new Vector2( Math.sqrt( 2 * Constants.EARTH_GRAVITY * this.waterTower.fluidLevel ) + Math.random() * 0.1, 0 ), 0.004 );
           this.waterTowerDrops.push( newWaterDrop );
           newWaterDrop.step( this.accumulatedDt );
           newWaterTowerDrops.push( newWaterDrop );
@@ -149,8 +149,8 @@ define( function( require ) {
           this.faucetDrops.get( i ).step( dt );
         }
 
-        //check if the faucetDrops hit the waterlevel
-        if ( this.faucetDrops.get( i ).position.y < 1.7 + this.waterTower.waterLevel ) {
+        //check if the faucetDrops hit the fluidLevel
+        if ( this.faucetDrops.get( i ).position.y < 1.7 + this.waterTower.fluidLevel ) {
           this.dropsToRemove.push( this.faucetDrops.get( i ) );
           this.waterTower.fluidVolume = this.waterTower.fluidVolume + this.faucetDrops.get( i ).volume;
         }
@@ -160,7 +160,7 @@ define( function( require ) {
 
       //Add watertower drops if the tank is open and there is fluid in the tank
       if ( this.isSluiceOpen && this.waterTower.fluidVolume > 0 ) {
-        this.waterTowerDrops.push( new WaterDrop( new Vector2( 2.2, 1.8 ), new Vector2( Math.sqrt( 2 * Constants.EARTH_GRAVITY * this.waterTower.waterLevel ), 0 ), 0.004 ) );
+        this.waterTowerDrops.push( new WaterDrop( new Vector2( 2.2, 1.8 ), new Vector2( Math.sqrt( 2 * Constants.EARTH_GRAVITY * this.waterTower.fluidLevel ), 0 ), 0.004 ) );
         this.waterTower.fluidVolume = this.waterTower.fluidVolume - 0.004;
       }
 
