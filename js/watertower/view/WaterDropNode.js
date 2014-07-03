@@ -15,14 +15,15 @@ define( function( require ) {
   /**
    *
    * @param {WaterDrop} waterDrop for the water drop node
+   * @param {FluidColorModel} fluidColorModel for the "water" drop
    * @param {ModelViewTransform2} modelViewTransform to transform between model and view values
    * @param options
    * @constructor
    */
-  function WaterDropNode( waterDrop, modelViewTransform, options ) {
+  function WaterDropNode( waterDrop, fluidColorModel, modelViewTransform, options ) {
 
     var waterDropNode = this;
-    Circle.call( this, modelViewTransform.modelToViewDeltaX( waterDrop.radius ), {fill: 'rgb(20, 244, 255)'} );
+    Circle.call( this, modelViewTransform.modelToViewDeltaX( waterDrop.radius ), {fill: fluidColorModel.color} );
 
     waterDrop.positionProperty.link( function( position ) {
 

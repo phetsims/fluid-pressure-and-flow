@@ -22,15 +22,15 @@ define( function( require ) {
   var wheelImage = require( 'image!FLUID_PRESSURE_AND_FLOW/wheel.png' );
 
   /**
-   * @param {WaterTower} waterTower
+   * @param {WaterTower} waterTower model
+   * @param {FluidColorModel} fluidColorModel to change the color basedon density
    * @param {ModelViewTransform2} modelViewTransform transform to convert between waterTower and view values
    * @param options
    * @constructor
    */
-  function WaterTowerView( waterTower, modelViewTransform, options ) {
+  function WaterTowerView( waterTower, fluidColorModel, modelViewTransform, options ) {
     var waterTowerView = this;
     options = _.extend( {
-      waterColor: 'rgb(20, 244, 255)',
       towerFrameColor: 'black'
     }, options );
 
@@ -59,7 +59,7 @@ define( function( require ) {
       .lineTo( modelViewTransform.modelToViewX( 2 * waterTower.TANK_RADIUS ) - 2, modelViewTransform.modelToViewY( 0 ) )
       .lineTo( modelViewTransform.modelToViewX( 2 * waterTower.TANK_RADIUS ) - 2, modelViewTransform.modelToViewY( waterTower.fluidLevel ) + 2 )
       .lineTo( modelViewTransform.modelToViewX( 0 ) + 2, modelViewTransform.modelToViewY( waterTower.fluidLevel ) + 2 ).close();
-    this.waterShapeNode = new Path( waterShape, { bottom: this.waterTankFrame.bottom - 1, fill: options.waterColor} );
+    this.waterShapeNode = new Path( waterShape, { bottom: this.waterTankFrame.bottom - 1, fill: fluidColorModel.color} );
     this.addChild( this.waterShapeNode );
 
     //add the legs
@@ -113,6 +113,8 @@ define( function( require ) {
         .lineTo( modelViewTransform.modelToViewX( 0 ) + 2, modelViewTransform.modelToViewY( waterTower.fluidLevel ) + 2 ).close();
       waterTowerView.waterShapeNode.setShape( waterShape );
     } );
+
+    fluidColorModel.colorProperty.linkAttribute( waterTowerView.waterShapeNode, "fill" );
 
     this.mutate( options );
   }

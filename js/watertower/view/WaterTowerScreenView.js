@@ -71,7 +71,7 @@ define( function( require ) {
 
     this.addChild( new OutsideBackgroundNode( this.layoutBounds.centerX, this.layoutBounds.centerY + 100, this.layoutBounds.width * 3, this.layoutBounds.height, this.layoutBounds.height ) );
 
-    var waterTowerView = new WaterTowerView( waterTowerModel.waterTower, modelViewTransform, { left: this.layoutBounds.left + 50, bottom: modelViewTransform.modelToViewY( 0 )} );
+    var waterTowerView = new WaterTowerView( waterTowerModel.waterTower, waterTowerModel.fluidColorModel, modelViewTransform, { left: this.layoutBounds.left + 50, bottom: modelViewTransform.modelToViewY( 0 )} );
     this.addChild( waterTowerView );
 
     var faucetDropsLayer = new Node();
@@ -159,7 +159,7 @@ define( function( require ) {
     this.addChild( new MeasuringTape( waterTowerModel, modelViewTransform, this.layoutBounds, {x: 10, y: 100} ) );
 
     waterTowerModel.faucetDrops.addItemAddedListener( function( waterDrop ) {
-      var waterDropNode = new WaterDropNode( waterDrop, modelViewTransform );
+      var waterDropNode = new WaterDropNode( waterDrop, waterTowerModel.fluidColorModel, modelViewTransform );
       faucetDropsLayer.addChild( waterDropNode );
       waterDrop.node = waterDropNode;
     } );
@@ -169,7 +169,7 @@ define( function( require ) {
     } );
 
     waterTowerModel.waterTowerDrops.addItemAddedListener( function( waterDrop ) {
-      var waterDropNode = new WaterDropNode( waterDrop, modelViewTransform );
+      var waterDropNode = new WaterDropNode( waterDrop, waterTowerModel.fluidColorModel, modelViewTransform );
       waterTowerScreenView.addChild( waterDropNode );
       waterDrop.node = waterDropNode;
     } );
