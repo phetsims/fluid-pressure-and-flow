@@ -79,7 +79,7 @@ define( function( require ) {
 
     var faucetNode = new FaucetNode( 1, waterTowerModel.faucetFlowRateProperty, waterTowerModel.isFaucetEnabledProperty, {
       horizontalPipeLength: 1000,
-      right: waterTowerView.left + 88,
+      right: waterTowerView.left + 107,
       top: this.layoutBounds.top + inset,
       scale: 0.3 //size of the faucet
     } );

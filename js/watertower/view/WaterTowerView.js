@@ -103,6 +103,7 @@ define( function( require ) {
       listener: function() {
         waterTower.fill();
       },
+      xMargin: 15,
       right: this.waterTankFrame.left - 20,
       top: this.waterTankFrame.centerY
     } ) );
