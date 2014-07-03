@@ -18,8 +18,10 @@ define( function( require ) {
   var DerivedProperty = require( 'AXON/DerivedProperty' );
   var Shape = require( 'KITE/Shape' );
   var Path = require( 'SCENERY/nodes/Path' );
-  var ArrowShape = require( 'SCENERY_PHET/ArrowShape' );
   var LinearGradient = require( 'SCENERY/util/LinearGradient' );
+  var ArrowShape = require( 'SCENERY_PHET/ArrowShape' );
+  var Vector2 = require( 'DOT/Vector2' );
+
 
   // strings
   var speedString = require( 'string!FLUID_PRESSURE_AND_FLOW/speed' );
@@ -40,60 +42,51 @@ define( function( require ) {
     var velocitySensorNode = this;
     Node.call( this, {cursor: 'pointer', pickable: true} );
 
-// adding outer rectangle
-    var outerRectangle = new Rectangle( 0, 0, 100, 60, 10, 10, {stroke: new LinearGradient( 0, 0, 0, 100 )
-      .addColorStop( 0, '#FFAD73' )
-      .addColorStop( 0.1, '#C5631E' )
-      .addColorStop( 0.2, '#C5631E' )
-      .addColorStop( 0.3, '#C5631E' )
-      .addColorStop( 0.4, '#C5631E' )
-      .addColorStop( 0.6, '#C5631E' ), lineWidth: 1, fill: new LinearGradient( 0, 0, 0, 100 )
-      .addColorStop( 0, '#FFAD73' )
-      .addColorStop( 0.1, '#FFAD73' )
-      .addColorStop( 0.2, '#FFAD73' )
-      .addColorStop( 0.3, '#FFAD73' )
-      .addColorStop( 0.4, '#FFAD73' )
-      .addColorStop( 0.6, '#C5631E' )} );
+    var rectangleWidth = 100;
+    var rectangleHeight = 56;
+
+    // adding outer rectangle
+    var outerRectangle = new Rectangle( 0, 0, rectangleWidth, rectangleHeight, 10, 10, {
+      stroke: new LinearGradient( 0, 0, 0, rectangleHeight ).addColorStop( 0, '#FFAD73' ).addColorStop( 0.6, '#893D11' ),
+      fill: new LinearGradient( 0, 0, 0, rectangleHeight ).addColorStop( 0, '#FFAD73' ).addColorStop( 0.6, '#893D11' )} );
     velocitySensorNode.addChild( outerRectangle );
     //second rectangle
-    var innerRectangle = new Rectangle( 0, 0, 96, 54, 10, 10, {stroke: '#C5631E', lineWidth: 1, fill: '#C5631E', y: outerRectangle.centerY - 27, x: outerRectangle.centerX - 47} );
+    var innerRectangle = new Rectangle( 2, 2, rectangleWidth - 4, rectangleHeight - 4, 10, 10, { fill: '#C5631E'} );
     velocitySensorNode.addChild( innerRectangle );
 
+    // adding velocity meter title text
+    var titleText = new Text( speedString, {fill: 'black', font: new PhetFont( {size: 16, weight: 'normal'} ), center: innerRectangle.center, top: innerRectangle.top + 2} );
+    velocitySensorNode.addChild( titleText );
+
     // adding inner rectangle
-    var innerMostRectangle = new Rectangle( 10, 0, 70, 22, 5, 5, {stroke: 'white', lineWidth: 1, fill: '#ffffff', x: innerRectangle.centerX - 45, y: innerRectangle.centerY} );
+    var innerMostRectangle = new Rectangle( 10, 0, rectangleWidth - 30, rectangleHeight - 38, 5, 5, {stroke: 'white', lineWidth: 1, fill: '#ffffff', center: innerRectangle.center, top: titleText.bottom + 2} );
     velocitySensorNode.addChild( innerMostRectangle );
 
-    // adding speed meter title text
-    velocitySensorNode.addChild( new Text( speedString, {fill: 'black', font: new PhetFont( {size: 16, weight: 'bold'} ), x: innerMostRectangle.top - 10, y: innerMostRectangle.top - 10} ) );
+    // adding velocity measure label
+    var labelText = new Text( '', {fill: 'black', font: new PhetFont( {size: 12, weight: 'bold'} ), center: innerMostRectangle.center} );
+    velocitySensorNode.addChild( labelText );
 
-    // adding speed measure label
-    var labelNode = new Text( '', {fill: 'black', font: new PhetFont( {size: 12, weight: 'bold'} ), y: innerMostRectangle.centerY} );
-    velocitySensorNode.addChild( labelNode );
+    var triangleWidth = 30;
+    var triangleHeight = 16;
 
-    var outerBottomTriangleShapeWidth = 20;
-    var outerBottomTriangleShapeHeight = 22;
-    var innerBottomTriangleShapeWidth = 16;
-    var innerBottomTriangleShapeHeight = 16;
     // adding bottom triangle shape
     var outerTriangleShapeNode = new Path( new Shape()
-      .moveTo( innerRectangle.centerX - outerBottomTriangleShapeWidth / 2, innerMostRectangle.rectY + 1 )
-      .lineTo( innerRectangle.centerX, outerBottomTriangleShapeHeight + innerMostRectangle.rectY + 1 )
-      .lineTo( innerRectangle.centerX + outerBottomTriangleShapeWidth / 2, innerMostRectangle.rectY + 1 ), {
-      fill: new LinearGradient( 0, 0, 0, 30 )
-        .addColorStop( 0, '#FFAD73' ).addColorStop( 0.1, '#FFAD73' ).addColorStop( 0.2, '#FFAD73' ).addColorStop( 0.3, '#FFAD73' )
-        .addColorStop( 0.4, '#FFAD73' ).addColorStop( 0.6, '#FFAD73' ), y: outerRectangle.bottom - 2, stroke: new LinearGradient( 0, 0, 0, 30 )
-        .addColorStop( 0, '#8D4716' ).addColorStop( 0.1, '#8D4716' ).addColorStop( 0.2, '#8D4716' ).addColorStop( 0.3, '#8D4716' )
-        .addColorStop( 0.4, '#8D4716' ).addColorStop( 0.6, '#8D4716' )  } );
+      .moveTo( innerRectangle.centerX - triangleWidth / 2, innerMostRectangle.rectY + 1 )
+      .lineTo( innerRectangle.centerX, triangleHeight + innerMostRectangle.rectY + 1 )
+      .lineTo( innerRectangle.centerX + triangleWidth / 2, innerMostRectangle.rectY + 1 ), {
+      fill: new LinearGradient( 0, 0, 0, 2 * rectangleHeight )
+        .addColorStop( 0.0, '#FFAD73' ).addColorStop( 0.1, '#C5631E' ), top: outerRectangle.bottom - 1, stroke: '#8D4716'  } );
     this.addChild( outerTriangleShapeNode );
+
     var innerTriangleShapeNode = new Path( new Shape()
-      .moveTo( innerRectangle.centerX - innerBottomTriangleShapeWidth / 2, innerMostRectangle.rectY + 1 )
-      .lineTo( innerRectangle.centerX, innerBottomTriangleShapeHeight + innerMostRectangle.rectY + 1 )
-      .lineTo( innerRectangle.centerX + innerBottomTriangleShapeWidth / 2, innerMostRectangle.rectY + 1 ), {
-      fill: '#C5631E', bottom: outerTriangleShapeNode.bottom - 4, stroke: '#C5631E'  } );
+      .moveTo( innerRectangle.centerX + 8 - ((triangleWidth) / 2), innerMostRectangle.rectY + 1 )
+      .lineTo( innerRectangle.centerX + 5, (triangleHeight ) + innerMostRectangle.rectY - 4 )
+      .lineTo( innerRectangle.centerX + (triangleWidth) / 2, innerMostRectangle.rectY + 1 ), {
+      fill: '#C5631E', center: outerTriangleShapeNode.center, stroke: '#C5631E'  } );
     this.addChild( innerTriangleShapeNode );
 
     // arrow shape
-    var arrowShape = new Path( new ArrowShape( 0, 0, 0.3 * modelViewTransform.modelToViewDeltaX( velocitySensor.value.x ), 0.3 * modelViewTransform.modelToViewDeltaY( velocitySensor.value.y ), {fill: 'black'} ), {fill: 'blue'} );
+    var arrowShape = new Path( new ArrowShape( 0, 0, 0.3 * modelViewTransform.modelToViewDeltaX( velocitySensor.value.x ), 0.3 * modelViewTransform.modelToViewDeltaY( velocitySensor.value.y ) ), {fill: 'blue'} );
     this.addChild( arrowShape );
 
     velocitySensor.valueProperty.link( function( velocity ) {
@@ -113,7 +106,6 @@ define( function( require ) {
     } );
     velocitySensor.isArrowVisibleProperty.linkAttribute( arrowShape, 'visible' );
 
-
     //handlers
     this.addInputListener( new MovableDragHandler( {locationProperty: velocitySensor.positionProperty, dragBounds: dragBounds},
       ModelViewTransform2.createIdentity(),
@@ -121,8 +113,9 @@ define( function( require ) {
         endDrag: function() {
           if ( containerBounds.intersectsBounds( velocitySensorNode.visibleBounds ) ) {
             velocitySensor.positionProperty.reset();
-            labelNode.center = innerMostRectangle.center;
-            labelNode.text = '-';
+            velocitySensor.value = new Vector2( 0, 0 );
+            labelText.centerX = innerRectangle.centerX + 20;
+            labelText.text = '-';
           }
         }
       } ) );
@@ -131,10 +124,10 @@ define( function( require ) {
 
     //Update the text when the value or units changes.
     DerivedProperty.multilink( [velocitySensor.valueProperty, model.measureUnitsProperty], function( velocity, units ) {
-      labelNode.text = units === 'metric' ?
+      labelText.text = units === 'metric' ?
                        velocity.magnitude().toFixed( 2 ) + ' ' + mPerS :
                        (velocity.magnitude() * 3.28).toFixed( 2 ) + ' ' + ftPerS;
-      labelNode.center = innerMostRectangle.center;
+      labelText.center = innerMostRectangle.center;
     } );
 
   }
