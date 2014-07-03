@@ -42,6 +42,9 @@ define( function( require ) {
     var velocitySensorNode = this;
     Node.call( this, {cursor: 'pointer', pickable: true} );
 
+    this.velocitySensor = velocitySensor;
+    this.modelViewTransform = modelViewTransform;
+    this.model = model;
     var rectangleWidth = 100;
     var rectangleHeight = 56;
 
@@ -86,25 +89,27 @@ define( function( require ) {
     this.addChild( innerTriangleShapeNode );
 
     // arrow shape
-    var arrowShape = new Path( new ArrowShape( 0, 0, 0.3 * modelViewTransform.modelToViewDeltaX( velocitySensor.value.x ), 0.3 * modelViewTransform.modelToViewDeltaY( velocitySensor.value.y ) ), {fill: 'blue'} );
-    this.addChild( arrowShape );
+    this.arrowShape = new Path( new ArrowShape( 0, 0, 0.3 * modelViewTransform.modelToViewDeltaX( velocitySensor.value.x ), 0.3 * modelViewTransform.modelToViewDeltaY( velocitySensor.value.y ) ), {fill: 'blue'} );
+    this.addChild( this.arrowShape );
 
     velocitySensor.valueProperty.link( function( velocity ) {
       // fixing arrowShape path position.
       if ( velocity.y > 0 ) {
-        arrowShape.bottom = outerTriangleShapeNode.bottom;
+        this.arrowShape.bottom = outerTriangleShapeNode.bottom;
       }
       else {
-        arrowShape.top = outerTriangleShapeNode.bottom;
+        this.arrowShape.top = outerTriangleShapeNode.bottom;
       }
       if ( velocity.x > 0 ) {
-        arrowShape.left = outerRectangle.centerX;
+        this.arrowShape.left = outerRectangle.centerX;
       }
       else {
-        arrowShape.right = outerRectangle.centerX;
+        this.arrowShape.right = outerRectangle.centerX;
       }
-    } );
-    velocitySensor.isArrowVisibleProperty.linkAttribute( arrowShape, 'visible' );
+      this.arrowShape.setShape( new ArrowShape( 0, 0, 0.3 * this.modelViewTransform.modelToViewDeltaX( this.velocitySensor.value.x ), 0.3 * this.modelViewTransform.modelToViewDeltaY( this.velocitySensor.value.y ) ) );
+
+    }.bind( velocitySensorNode ) );
+    velocitySensor.isArrowVisibleProperty.linkAttribute( this.arrowShape, 'visible' );
 
     //handlers
     this.addInputListener( new MovableDragHandler( {locationProperty: velocitySensor.positionProperty, dragBounds: dragBounds},
@@ -122,6 +127,8 @@ define( function( require ) {
 
     velocitySensor.positionProperty.linkAttribute( velocitySensorNode, 'translation' );
 
+    velocitySensor.positionProperty.link( this.checkForWaterDrops.bind( velocitySensorNode ) );
+
     //Update the text when the value or units changes.
     DerivedProperty.multilink( [velocitySensor.valueProperty, model.measureUnitsProperty], function( velocity, units ) {
       labelText.text = units === 'metric' ?
@@ -132,5 +139,24 @@ define( function( require ) {
 
   }
 
-  return inherit( Node, VelocitySensorNode );
+  return inherit( Node, VelocitySensorNode, {
+    checkForWaterDrops: function( position ) {
+      //Todo: Fix the position
+      var modelPosition = new Vector2( this.modelViewTransform.viewToModelX( position.x ), this.modelViewTransform.viewToModelY( position.y ) ).plus( new Vector2( 0.75, -1.1 ) );
+      var waterDropExists = false;
+
+      for ( var i = 0, j = this.model.waterTowerDrops.length; i < j; i++ ) {
+        if ( this.model.waterTowerDrops.get( i ).contains( modelPosition ) ) {
+          this.velocitySensor.value = this.model.waterTowerDrops.get( i ).velocity;
+          waterDropExists = true;
+          break;
+        }
+      }
+
+      if ( !waterDropExists ) {
+        this.velocitySensor.value = new Vector2( 0, 0 );
+      }
+
+    }
+  } );
 } );
