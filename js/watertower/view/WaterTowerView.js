@@ -16,6 +16,8 @@ define( function( require ) {
   var LinearGradient = require( 'SCENERY/util/LinearGradient' );
   var SimpleDragHandler = require( 'SCENERY/input/SimpleDragHandler' );
   var WaterTowerLegsNode = require( 'FLUID_PRESSURE_AND_FLOW/watertower/view/WaterTowerLegsNode' );
+  var TextPushButton = require( 'SUN/buttons/TextPushButton' );
+  var Font = require( 'SCENERY/util/Font' );
 
   //images
   var handleImage = require( 'image!FLUID_PRESSURE_AND_FLOW/handle.png' );
@@ -89,6 +91,17 @@ define( function( require ) {
       lineWidth: 0.5
     } );
     this.addChild( sluiceGate );
+
+    // water tank fill button
+    this.addChild( new TextPushButton( "Fill", {
+      font: new Font( '16px Arial' ),
+      baseColor: 'yellow',
+      listener: function() {
+        waterTower.fill();
+      },
+      right: this.waterTankFrame.left - 20,
+      top: this.waterTankFrame.centerY
+    } ) );
 
     var clickYOffset;
     handleNode.addInputListener( new SimpleDragHandler( {

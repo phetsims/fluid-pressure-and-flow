@@ -64,7 +64,7 @@ define( function( require ) {
     this.units = new Units();
 
     this.waterTower = new WaterTower();
-    this.faucetPosition = new Vector2( 1, 3.8 ); //model co-ordinates
+    this.faucetPosition = new Vector2( 1.12, 3.8 ); //model co-ordinates
     this.faucetDrops = new ObservableArray();
     this.waterTowerDrops = new ObservableArray();
     this.fluidColorModel = new FluidColorModel( this );

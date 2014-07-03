@@ -71,7 +71,7 @@ define( function( require ) {
 
     this.addChild( new OutsideBackgroundNode( this.layoutBounds.centerX, this.layoutBounds.centerY + 100, this.layoutBounds.width * 3, this.layoutBounds.height, this.layoutBounds.height ) );
 
-    var waterTowerView = new WaterTowerView( waterTowerModel.waterTower, waterTowerModel.fluidColorModel, modelViewTransform, { left: this.layoutBounds.left + 50, bottom: modelViewTransform.modelToViewY( 0 )} );
+    var waterTowerView = new WaterTowerView( waterTowerModel.waterTower, waterTowerModel.fluidColorModel, modelViewTransform, { left: this.layoutBounds.left + 10, bottom: modelViewTransform.modelToViewY( 0 )} );
     this.addChild( waterTowerView );
 
     var faucetDropsLayer = new Node();
@@ -79,7 +79,7 @@ define( function( require ) {
 
     var faucetNode = new FaucetNode( 1, waterTowerModel.faucetFlowRateProperty, waterTowerModel.isFaucetEnabledProperty, {
       horizontalPipeLength: 1000,
-      right: waterTowerView.left + 40,
+      right: waterTowerView.left + 88,
       top: this.layoutBounds.top + inset,
       scale: 0.3 //size of the faucet
     } );
