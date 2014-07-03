@@ -23,6 +23,10 @@ define( function( require ) {
   var handleImage = require( 'image!FLUID_PRESSURE_AND_FLOW/handle.png' );
   var wheelImage = require( 'image!FLUID_PRESSURE_AND_FLOW/wheel.png' );
 
+  // strings
+  var fillString = require( 'string!FLUID_PRESSURE_AND_FLOW/fill' );
+
+
   /**
    * @param {WaterTower} waterTower model
    * @param {FluidColorModel} fluidColorModel to change the color basedon density
@@ -93,7 +97,7 @@ define( function( require ) {
     this.addChild( sluiceGate );
 
     // water tank fill button
-    this.addChild( new TextPushButton( "Fill", {
+    this.addChild( new TextPushButton( fillString, {
       font: new Font( '16px Arial' ),
       baseColor: 'yellow',
       listener: function() {
