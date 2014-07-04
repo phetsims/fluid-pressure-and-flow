@@ -144,7 +144,7 @@ define( function( require ) {
 
   return inherit( Node, VelocitySensorNode, {
     checkForWaterDrops: function( position ) {
-      var modelPosition = new Vector2( this.modelViewTransform.viewToModelX( position.x + 50 ), this.modelViewTransform.viewToModelY( position.y + 80 ) );
+      var modelPosition = new Vector2( this.modelViewTransform.viewToModelX( position.x + 50 ), this.modelViewTransform.viewToModelY( position.y + 75 ) );
       var waterDropExists = false;
       for ( var i = 0, j = this.model.waterTowerDrops.length; i < j; i++ ) {
         if ( this.model.waterTowerDrops.get( i ).contains( modelPosition ) ) {

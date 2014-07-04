@@ -77,6 +77,10 @@ define( function( require ) {
     var faucetDropsLayer = new Node();
     waterTowerScreenView.addChild( faucetDropsLayer );
 
+    var waterTowerDropsLayer = new Node();
+    waterTowerScreenView.addChild( waterTowerDropsLayer );
+
+
     var faucetNode = new FaucetNode( 1, waterTowerModel.faucetFlowRateProperty, waterTowerModel.isFaucetEnabledProperty, {
       horizontalPipeLength: 1000,
       right: modelViewTransform.modelToViewX( waterTowerModel.faucetPosition.x ) + 20,
@@ -169,12 +173,12 @@ define( function( require ) {
 
     waterTowerModel.waterTowerDrops.addItemAddedListener( function( waterDrop ) {
       var waterDropNode = new WaterDropNode( waterDrop, waterTowerModel.fluidColorModel, modelViewTransform );
-      waterTowerScreenView.addChild( waterDropNode );
+      waterTowerDropsLayer.addChild( waterDropNode );
       waterDrop.node = waterDropNode;
     } );
 
     waterTowerModel.waterTowerDrops.addItemRemovedListener( function( removedDrop ) {
-      waterTowerScreenView.removeChild( removedDrop.node );
+      waterTowerDropsLayer.removeChild( removedDrop.node );
     } );
 
     waterTowerModel.isSluiceOpenProperty.link( function( isSluiceOpen ) {
