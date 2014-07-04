@@ -10,6 +10,8 @@ define( function( require ) {
   var inherit = require( 'PHET_CORE/inherit' );
   var Node = require( 'SCENERY/nodes/Node' );
   var Path = require( 'SCENERY/nodes/Path' );
+  var Vector2 = require( 'DOT/Vector2' );
+
   var Shape = require( 'KITE/Shape' );
   var Rectangle = require( 'SCENERY/nodes/Rectangle' );
   var Image = require( 'SCENERY/nodes/Image' );
@@ -26,10 +28,9 @@ define( function( require ) {
   // strings
   var fillString = require( 'string!FLUID_PRESSURE_AND_FLOW/fill' );
 
-
   /**
    * @param {WaterTower} waterTower model
-   * @param {FluidColorModel} fluidColorModel to change the color basedon density
+   * @param {FluidColorModel} fluidColorModel to change the color based on density
    * @param {ModelViewTransform2} modelViewTransform transform to convert between waterTower and view values
    * @param options
    * @constructor
@@ -42,9 +43,8 @@ define( function( require ) {
 
     Node.call( this );
 
-    //Todo: fix this
-    this.groundY = 220;//modelViewTransform.modelToViewY( waterTower.TANK_HEIGHT ) * 2.15;
-
+    this.waterTower = waterTower;
+    this.modelViewTransform = modelViewTransform;
     //add the frame
     var modelTankShape = new Shape()
       .moveTo( modelViewTransform.modelToViewX( 0 ), modelViewTransform.modelToViewY( 0 ) )
@@ -68,7 +68,7 @@ define( function( require ) {
 
     this.addChild( this.waterTankFrame );
     //add the legs
-    var waterTowerLegsInitialHeight = 120;
+    var waterTowerLegsInitialHeight = modelViewTransform.modelToViewDeltaX( waterTower.tankPosition.y );
     this.waterTowerLegs = new WaterTowerLegsNode( this.waterTankFrame.width, waterTowerLegsInitialHeight, {top: this.waterTankFrame.bottom} );
     this.addChild( this.waterTowerLegs );
 
@@ -107,20 +107,24 @@ define( function( require ) {
       top: this.waterTankFrame.centerY - 15
     } ) );
 
-    var clickYOffset;
     handleNode.addInputListener( new SimpleDragHandler( {
-      start: function( e ) {
-        clickYOffset = waterTowerView.globalToParentPoint( e.pointer.point ).y - e.currentTarget.y;
-      },
       drag: function( e ) {
-        var y = waterTowerView.globalToParentPoint( e.pointer.point ).y - clickYOffset;
-        console.log( y );
-        //restrict the node movement between 80 and 180
-        y = (y < 80) ? 80 : (y > 180) ? 180 : y;
-        waterTowerView.setTranslation( waterTowerView.x, y );
-        waterTowerView.updateWaterTowerLegs( y );
+        var y = modelViewTransform.viewToModelY( e.pointer.point.y );
+        //restrict the tank bottom to be between 0.1 and 2 meters
+        y = y > 2 ? 2 : y < 0.1 ? 0.1 : y;
+        waterTowerView.waterTower.tankPosition = new Vector2( waterTowerView.waterTower.tankPosition.x, y );
       }
     } ) );
+
+    waterTower.tankPositionProperty.link( function( tankPosition ) {
+      waterTowerView.updateWaterTowerLegs();
+      if ( tankPosition.y > 0.2 ) {
+        waterTowerView.bottom = modelViewTransform.modelToViewY( 0 ) - 6;
+      }
+      else {
+        waterTowerView.bottom = modelViewTransform.modelToViewY( 0 ) + 2;
+      }
+    } );
 
     waterTower.fluidVolumeProperty.link( function() {
       var waterShape = new Shape()
@@ -131,16 +135,17 @@ define( function( require ) {
       waterTowerView.waterShapeNode.setShape( waterShape );
     } );
 
-    fluidColorModel.colorProperty.linkAttribute( waterTowerView.waterShapeNode, "fill" );
+    fluidColorModel.colorProperty.linkAttribute( waterTowerView.waterShapeNode, 'fill' );
+
+    this.setTranslation( modelViewTransform.modelToViewDeltaX( waterTower.tankPosition.x ), -modelViewTransform.modelToViewDeltaY( waterTower.tankPosition.y ) );
 
     this.mutate( options );
   }
 
   return inherit( Node, WaterTowerView, {
-    updateWaterTowerLegs: function( y ) {
-      this.waterTowerLegs.waterTowerHeight = this.groundY - y;
+    updateWaterTowerLegs: function() {
+      this.waterTowerLegs.waterTowerHeight = -this.modelViewTransform.modelToViewDeltaY( this.waterTower.tankPosition.y);
       this.waterTowerLegs.updateShape();
-      this.waterTowerLegs.top = this.waterTankFrame.bottom;
     }
   } );
 

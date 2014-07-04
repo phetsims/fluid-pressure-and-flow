@@ -69,9 +69,9 @@ define( function( require ) {
 
     // add background -- sky, earth
 
-    this.addChild( new OutsideBackgroundNode( this.layoutBounds.centerX, this.layoutBounds.centerY + 100, this.layoutBounds.width * 3, this.layoutBounds.height, this.layoutBounds.height ) );
+    this.addChild( new OutsideBackgroundNode( this.layoutBounds.centerX, 344, this.layoutBounds.width * 3, this.layoutBounds.height, this.layoutBounds.height ) );
 
-    var waterTowerView = new WaterTowerView( waterTowerModel.waterTower, waterTowerModel.fluidColorModel, modelViewTransform, { left: this.layoutBounds.left + 10, bottom: modelViewTransform.modelToViewY( 0 )} );
+    var waterTowerView = new WaterTowerView( waterTowerModel.waterTower, waterTowerModel.fluidColorModel, modelViewTransform );
     this.addChild( waterTowerView );
 
     var faucetDropsLayer = new Node();
@@ -79,7 +79,7 @@ define( function( require ) {
 
     var faucetNode = new FaucetNode( 1, waterTowerModel.faucetFlowRateProperty, waterTowerModel.isFaucetEnabledProperty, {
       horizontalPipeLength: 1000,
-      right: waterTowerView.left + 107,
+      right: modelViewTransform.modelToViewX( waterTowerModel.faucetPosition.x ) + 20,
       top: this.layoutBounds.top + inset,
       scale: 0.3 //size of the faucet
     } );
@@ -94,7 +94,6 @@ define( function( require ) {
     var resetAllButton = new ResetAllButton( {
       listener: function() {
         waterTowerModel.reset();
-        waterTowerView.y = 100;
       },
       right: this.layoutBounds.right - 2 * inset,
       bottom: this.layoutBounds.bottom - inset

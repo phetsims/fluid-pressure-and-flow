@@ -19,29 +19,18 @@ define( function( require ) {
       initialFluidLevel: 0.8
     }, options );
 
-    PropertySet.call( this, {
-      isHoleOpen: false,
-      fluidVolume: 0
-    } );
-    //Layout parameters for the water tower
-    this.MAX_Y = 18;
-    this.INITIAL_Y = 15;
     this.TANK_RADIUS = 0.8;
-    this.PANEL_OFFSET = this.TANK_RADIUS + 0.25;
     this.TANK_HEIGHT = 1.6;
     this.INLET_X_OFFSET = 0.15;
 
     //Assume the tank is a cylinder ond compute the max volume
     this.TANK_VOLUME = Math.PI * this.TANK_RADIUS * this.TANK_RADIUS * this.TANK_HEIGHT;
 
-    //Location of the bottom center of the water tower
-    this.tankBottomCenter = new Vector2( this.TANK_RADIUS, this.INITIAL_Y );
-
-    //Start the tank partly full so that the "fill" button and faucet slider are initially enabled
-    this.fluidVolume = this.TANK_VOLUME * this.options.initialFluidLevel;
-
-    //The movable panel that can cover the hole.
-    this.panelOffset = new Vector2( this.PANEL_OFFSET, 0 );
+    PropertySet.call( this, {
+      isHoleOpen: false,
+      fluidVolume: this.TANK_VOLUME * this.options.initialFluidLevel,
+      tankPosition: new Vector2( 0, 1.5 ) //water tank bottom left
+    } );
 
     //Size of the hole in meters
     this.HOLE_SIZE = 0.2;
@@ -55,9 +44,8 @@ define( function( require ) {
   }
 
   return inherit( PropertySet, WaterTower, {
-
-    getHoleLocation: function() {
-      return new Vector2( this.tankBottomCenter.x + this.TANK_RADIUS + 0.55 / 2, this.tankBottomCenter.y - 0.15 );
+    reset: function() {
+      PropertySet.prototype.reset.call( this );
     },
 
     setFluidVolume: function( volume ) {
