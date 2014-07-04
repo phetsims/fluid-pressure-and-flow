@@ -22,8 +22,8 @@ define( function( require ) {
     //Layout parameters for the Hose
 
     this.L1 = 0.5;
-    this.H2 = 1.0; //initally 1  make it 0.3
-    this.width = 0.3;   // initally 0.3   make it 0.25
+    this.H2 = 1.0; //initially 1  make it 0.3
+    this.width = 0.3;   // initially 0.3   make it 0.25
     this.hoseWidth = 2.5;
 
     this.angle = angle;
