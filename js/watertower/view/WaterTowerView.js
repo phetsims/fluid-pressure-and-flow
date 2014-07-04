@@ -82,7 +82,7 @@ define( function( require ) {
     this.addChild( new Path( Shape.lineSegment( 0, this.waterTankFrame.height - 20, 0, 0 ), { right: wheelNode.right, top: wheelNode.bottom, lineWidth: 1, stroke: 'black'} ) );
 
     //add the gate at the end of the rope
-    var sluiceGate = new Rectangle( 0, 0, 5, 20, {
+    this.sluiceGate = new Rectangle( 0, 0, 5, 20, {
       fill: new LinearGradient( 0, 0, 5, 0 )
         .addColorStop( 0, '#656570' )
         .addColorStop( 0.5, '#dee6f5' )
@@ -93,7 +93,7 @@ define( function( require ) {
       stroke: 'black',
       lineWidth: 0.5
     } );
-    this.addChild( sluiceGate );
+    this.addChild( this.sluiceGate );
 
     // water tank fill button
     this.addChild( new TextPushButton( fillString, {

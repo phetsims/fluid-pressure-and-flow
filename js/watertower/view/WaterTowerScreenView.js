@@ -177,6 +177,15 @@ define( function( require ) {
       waterTowerScreenView.removeChild( removedDrop.node );
     } );
 
+    waterTowerModel.isSluiceOpenProperty.link( function( isSluiceOpen ) {
+      if ( isSluiceOpen ) {
+        waterTowerView.sluiceGate.bottom = waterTowerView.waterTankFrame.bottom + modelViewTransform.modelToViewDeltaY( waterTowerView.waterTower.HOLE_SIZE );
+      }
+      else {
+        waterTowerView.sluiceGate.bottom = waterTowerView.waterTankFrame.bottom;
+      }
+    } );
+
   }
 
   return inherit( ScreenView, WaterTowerScreenView );
