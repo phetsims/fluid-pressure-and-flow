@@ -95,7 +95,7 @@ define( function( require ) {
       listener: function() {
         waterTowerModel.reset();
       },
-      right: this.layoutBounds.right - 2 * inset,
+      right: this.layoutBounds.right - inset,
       bottom: this.layoutBounds.bottom - inset
     } );
     this.addChild( resetAllButton );
