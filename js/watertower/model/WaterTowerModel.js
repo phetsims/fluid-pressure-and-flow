@@ -117,9 +117,8 @@ define( function( require ) {
     // Called by the animation loop.
     step: function( dt ) {
 
-      if ( dt > 1 ) {
-        dt = 1;
-      } //to prevent sudden dt bursts when the user comes back to the page after a while
+      //prevent sudden dt bursts when the user comes back to the page after a while
+      dt = ( dt > 1 ) ? 1 : dt;
 
       // Ensure that water flow looks ok even on very low frame rates
       this.accumulatedDt += dt;
