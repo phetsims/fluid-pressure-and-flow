@@ -3,7 +3,7 @@
 /**
  * Measuring tape modified from gravity-and-orbits.
  * @author Vasily Shakhov (Mlearner)
- * @author Siddhartha Chinthapally
+ * @author Siddhartha Chinthapally (ActualConcepts)
  */
 define( function( require ) {
   'use strict';

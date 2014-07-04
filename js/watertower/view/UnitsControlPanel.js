@@ -3,7 +3,7 @@
 /**
  * View for the 'Control Panel' node.
  *
- * @author Siddhartha Chinthapally (PhET Interactive Simulations)
+ * @author Siddhartha Chinthapally (ActualConcepts)
  */
 define( function( require ) {
   'use strict';
