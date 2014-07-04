@@ -19,11 +19,19 @@ define( function( require ) {
   var Text = require( 'SCENERY/nodes/Text' );
   var PhetFont = require( 'SCENERY_PHET/PhetFont' );
   var RulerNode = require( 'SCENERY_PHET/RulerNode' );
+  var Path = require( 'SCENERY/nodes/Path' );
+  var Image = require( 'SCENERY/nodes/Image' );
 
   // strings
   var measuringTapeString = require( 'string!FLUID_PRESSURE_AND_FLOW/measuringTape' );
   var rulerString = require( 'string!FLUID_PRESSURE_AND_FLOW/ruler' );
   var hoseString = require( 'string!FLUID_PRESSURE_AND_FLOW/hose' );
+
+  // images
+  //image
+  var nozzleImg = require( 'image!FLUID_PRESSURE_AND_FLOW/nozzle.png' );
+  var measuringTapeImg = require( 'image!FLUID_PRESSURE_AND_FLOW/measuringTape.png' );
+
 
   function ControlPanel( model, options ) {
 
@@ -39,11 +47,11 @@ define( function( require ) {
 
     var textOptions = {font: new PhetFont( 14 )};
 
-    var measuringTape = [new Text( measuringTapeString, textOptions )];
+    var measuringTape = [new Text( measuringTapeString, textOptions ), new Rectangle( 0, 0, 30, 20 ), this.createMeasuringTapeIcon()];
 
     //align ruler icon right
-    var ruler = [new Text( rulerString, textOptions ), new Rectangle( 0, 0, 50, 20 ), this.createRulerIcon()];
-    var hose = [new Text( hoseString, textOptions )];
+    var ruler = [new Text( rulerString, textOptions ), new Rectangle( 0, 0, 80, 20 ), this.createRulerIcon()];
+    var hose = [new Text( hoseString, textOptions ), new Rectangle( 0, 0, 60, 20 ), this.createHoseIcon()];
     var checkBoxOptions = {
       boxWidth: 18,
       spacing: 5
@@ -75,6 +83,17 @@ define( function( require ) {
         majorTickFont: new PhetFont( 12 ),
         clipArea: Shape.rect( -1, -1, 44, 22 )
       } );
+    },
+    createHoseIcon: function() {
+      var icon = new Path( new Shape().moveTo( 0, 0 ).arc( -15, 8, 10, 180, 90, true ).lineTo( 10, 16 ).lineTo( 10, 0 ).lineTo( 0, 0 ), {stroke: 'grey', lineWidth: 1, fill: '#00FF99'} );
+      icon.addChild( new Image( nozzleImg, { cursor: 'pointer', rotation: Math.PI / 2, scale: 0.8, left: icon.right, bottom: icon.bottom + 1} ) );
+      return icon;
+    },
+    createMeasuringTapeIcon: function() {
+      var icon = new Image( measuringTapeImg, { cursor: 'pointer', scale: 0.6} );
+      var size = 5;
+      icon.addChild( new Path( new Shape().moveTo( -size, 0 ).lineTo( size, 0 ).moveTo( 0, -size ).lineTo( 0, size ), {stroke: '#E05F20', lineWidth: 2, left: icon.right + 12, top: icon.bottom + 12} ) );
+      return icon;
     }
   } );
 } );
