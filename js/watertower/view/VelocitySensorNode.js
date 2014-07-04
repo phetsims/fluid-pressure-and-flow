@@ -47,6 +47,7 @@ define( function( require ) {
     this.model = model;
     var rectangleWidth = 100;
     var rectangleHeight = 56;
+    this.layoutBounds = dragBounds;
 
     // adding outer rectangle
     var outerRectangle = new Rectangle( 0, 0, rectangleWidth, rectangleHeight, 10, 10, {
@@ -93,7 +94,10 @@ define( function( require ) {
     this.addChild( this.arrowShape );
 
     velocitySensor.valueProperty.link( function( velocity ) {
-      // fixing arrowShape path position.
+
+      this.arrowShape.setShape( new ArrowShape( 0, 0, 0.3 * this.modelViewTransform.modelToViewDeltaX( this.velocitySensor.value.x ), 0.3 * this.modelViewTransform.modelToViewDeltaY( this.velocitySensor.value.y ) ) );
+
+      // set the arrowShape path position.
       if ( velocity.y > 0 ) {
         this.arrowShape.bottom = outerTriangleShapeNode.bottom;
       }
@@ -106,7 +110,6 @@ define( function( require ) {
       else {
         this.arrowShape.right = outerRectangle.centerX;
       }
-      this.arrowShape.setShape( new ArrowShape( 0, 0, 0.3 * this.modelViewTransform.modelToViewDeltaX( this.velocitySensor.value.x ), 0.3 * this.modelViewTransform.modelToViewDeltaY( this.velocitySensor.value.y ) ) );
 
     }.bind( velocitySensorNode ) );
     velocitySensor.isArrowVisibleProperty.linkAttribute( this.arrowShape, 'visible' );
@@ -141,10 +144,8 @@ define( function( require ) {
 
   return inherit( Node, VelocitySensorNode, {
     checkForWaterDrops: function( position ) {
-      //Todo: Fix the position
-      var modelPosition = new Vector2( this.modelViewTransform.viewToModelX( position.x ), this.modelViewTransform.viewToModelY( position.y ) ).plus( new Vector2( 0.75, -1.1 ) );
+      var modelPosition = new Vector2( this.modelViewTransform.viewToModelX( position.x + 50 ), this.modelViewTransform.viewToModelY( position.y + 80 ) );
       var waterDropExists = false;
-
       for ( var i = 0, j = this.model.waterTowerDrops.length; i < j; i++ ) {
         if ( this.model.waterTowerDrops.get( i ).contains( modelPosition ) ) {
           this.velocitySensor.value = this.model.waterTowerDrops.get( i ).velocity;
