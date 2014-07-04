@@ -20,6 +20,7 @@ define( function( require ) {
   var WaterTowerLegsNode = require( 'FLUID_PRESSURE_AND_FLOW/watertower/view/WaterTowerLegsNode' );
   var TextPushButton = require( 'SUN/buttons/TextPushButton' );
   var Font = require( 'SCENERY/util/Font' );
+  var HoseView = require( 'FLUID_PRESSURE_AND_FLOW/watertower/view/hoseView' );
 
   //images
   var handleImage = require( 'image!FLUID_PRESSURE_AND_FLOW/handle.png' );
@@ -31,11 +32,12 @@ define( function( require ) {
   /**
    * @param {WaterTower} waterTower model
    * @param {FluidColorModel} fluidColorModel to change the color based on density
+   * @param {Property<Boolean>} isHoseVisibleProperty controls the visibility of the hose
    * @param {ModelViewTransform2} modelViewTransform transform to convert between waterTower and view values
    * @param options
    * @constructor
    */
-  function WaterTowerView( waterTower, fluidColorModel, modelViewTransform, options ) {
+  function WaterTowerView( waterTower, isHoseVisibleProperty, fluidColorModel, modelViewTransform, options ) {
     var waterTowerView = this;
     options = _.extend( {
       towerFrameColor: 'black'
@@ -75,6 +77,10 @@ define( function( require ) {
     //add the handle
     var handleNode = new Image( handleImage, { cursor: 'pointer', scale: 0.3, top: this.waterTankFrame.bottom, centerX: this.waterTankFrame.centerX} );
     this.addChild( handleNode );
+
+    // add the hose
+    var hoseView = new HoseView( waterTower.hose, waterTower.tankPosition, modelViewTransform, isHoseVisibleProperty, {top: this.waterTankFrame.bottom - 23, x: this.waterTankFrame.right} );
+    this.addChild( hoseView );
 
     //add the wheel and rope
     var wheelNode = new Image( wheelImage, { cursor: 'pointer', scale: 0.4, bottom: this.waterTankFrame.top, right: this.waterTankFrame.right + 3} );

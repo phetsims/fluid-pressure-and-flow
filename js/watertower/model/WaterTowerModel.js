@@ -67,6 +67,7 @@ define( function( require ) {
     this.faucetPosition = new Vector2( 0.25, 3.8 ); //faucet right co-ordinates
     this.faucetDrops = new ObservableArray();
     this.waterTowerDrops = new ObservableArray();
+    this.hoseDrops = new ObservableArray();
     this.fluidColorModel = new FluidColorModel( this );
 
     this.barometers = [];
@@ -128,8 +129,10 @@ define( function( require ) {
       this.accumulatedDt += dt;
       var newFaucetDrops = [];
       var newWaterTowerDrops = [];
+      var newHoseDrops = [];
       var newFaucetDrop;
       var newWaterDrop;
+      var newHoseDrop;
 
       while ( this.accumulatedDt > 0.016 ) {
         this.accumulatedDt -= 0.016;
@@ -144,13 +147,24 @@ define( function( require ) {
         }
 
         //Add watertower drops if the tank is open and there is fluid in the tank
-        if ( this.isSluiceOpen && this.waterTower.fluidVolume > 0 ) {
+        if ( this.isSluiceOpen && this.waterTower.fluidVolume > 0 && !this.isHoseVisible ) {
           newWaterDrop = new WaterDrop( this.waterTower.tankPosition.plus( new Vector2( 2 * this.waterTower.TANK_RADIUS + Math.random() * 0.04 - 0.02, this.waterTower.HOLE_SIZE + Math.random() * 0.04 - 0.02 ) ), new Vector2( Math.sqrt( 2 * Constants.EARTH_GRAVITY * this.waterTower.fluidLevel ), 0 ), 0.004 );
           this.waterTowerDrops.push( newWaterDrop );
           newWaterDrop.step( this.accumulatedDt );
           newWaterTowerDrops.push( newWaterDrop );
           this.waterTower.fluidVolume = this.waterTower.fluidVolume - 0.004;
         }
+
+        //Add hose waterDrops if the tank is open and there fluid in the tank and hose visible
+        if ( this.isSluiceOpen && this.waterTower.fluidVolume > 0 && this.isHoseVisible ) {
+          var velocityMagnitude = Math.sqrt( 2 * Constants.EARTH_GRAVITY * this.waterTower.fluidLevel );
+          newHoseDrop = new WaterDrop( new Vector2( 4.5, 1.8 ), new Vector2( velocityMagnitude * Math.cos( this.waterTower.hose.angle * Math.PI / 180 ), velocityMagnitude * Math.sin( this.waterTower.hose.angle * Math.PI / 180 ) ), 0.004 );
+          this.hoseDrops.push( newHoseDrop );
+          newHoseDrop.step( this.accumulatedDt );
+          newHoseDrops.push( newHoseDrop );
+          this.waterTower.fluidVolume = this.waterTower.fluidVolume - 0.004;
+        }
+
       }
 
       for ( var i = 0, numberOfDrops = this.faucetDrops.length; i < numberOfDrops; i++ ) {
@@ -168,7 +182,7 @@ define( function( require ) {
 
       this.faucetDrops.removeAll( this.dropsToRemove );
 
-      //Add watertower drops if the tank is open and there is fluid in the tank
+      // Decrease the fluid volume in the tank
       if ( this.isSluiceOpen && this.waterTower.fluidVolume > 0 ) {
         this.waterTower.fluidVolume = this.waterTower.fluidVolume - 0.004;
       }
@@ -186,6 +200,24 @@ define( function( require ) {
         }
       }
       this.waterTowerDrops.removeAll( this.dropsToRemove );
+
+
+      //hose
+
+      this.dropsToRemove = [];
+
+      for ( i = 0, numberOfDrops = this.hoseDrops.length; i < numberOfDrops; i++ ) {
+        //step only the 'old' drops
+        if ( newHoseDrops.indexOf( this.hoseDrops.get( i ) ) === -1 ) {
+          this.hoseDrops.get( i ).step( dt );
+        }
+        //remove them as soon as they hit the ground
+        if ( this.hoseDrops.get( i ).position.y < this.hoseDrops.get( i ).radius ) {
+          this.dropsToRemove.push( this.hoseDrops.get( i ) );
+        }
+      }
+      this.hoseDrops.removeAll( this.dropsToRemove );
+
     },
 
     getFluidDensityString: function() {

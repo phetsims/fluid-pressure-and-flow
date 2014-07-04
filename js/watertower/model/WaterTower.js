@@ -11,6 +11,7 @@ define( function( require ) {
   var PropertySet = require( 'AXON/PropertySet' );
   var Vector2 = require( 'DOT/Vector2' );
   var inherit = require( 'PHET_CORE/inherit' );
+  var Hose = require( 'FLUID_PRESSURE_AND_FLOW/watertower/model/Hose' );
 
   function WaterTower( options ) {
     var waterTower = this;
@@ -32,6 +33,8 @@ define( function( require ) {
       tankPosition: new Vector2( 0, 1.5 ) //water tank bottom left
     } );
 
+    this.hose = new Hose( 2.5, 90 );
+
     //Size of the hole in meters
     this.HOLE_SIZE = 0.2;
     this.addDerivedProperty( 'fluidLevel', ['fluidVolume'], function( fluidVolume ) {
@@ -46,10 +49,6 @@ define( function( require ) {
   return inherit( PropertySet, WaterTower, {
     reset: function() {
       PropertySet.prototype.reset.call( this );
-    },
-
-    setFluidVolume: function( volume ) {
-      this.fluidVolume = volume;
     },
 
     fill: function() {

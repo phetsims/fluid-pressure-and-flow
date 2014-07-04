@@ -71,7 +71,7 @@ define( function( require ) {
 
     this.addChild( new OutsideBackgroundNode( this.layoutBounds.centerX, 344, this.layoutBounds.width * 3, this.layoutBounds.height, this.layoutBounds.height ) );
 
-    var waterTowerView = new WaterTowerView( waterTowerModel.waterTower, waterTowerModel.fluidColorModel, modelViewTransform );
+    var waterTowerView = new WaterTowerView( waterTowerModel.waterTower, waterTowerModel.isHoseVisibleProperty, waterTowerModel.fluidColorModel, modelViewTransform );
     this.addChild( waterTowerView );
 
     var faucetDropsLayer = new Node();
@@ -80,6 +80,8 @@ define( function( require ) {
     var waterTowerDropsLayer = new Node();
     waterTowerScreenView.addChild( waterTowerDropsLayer );
 
+    var hoseDropsLayer = new Node();
+    waterTowerScreenView.addChild( hoseDropsLayer );
 
     var faucetNode = new FaucetNode( 0.6, waterTowerModel.faucetFlowRateProperty, waterTowerModel.isFaucetEnabledProperty, {
       horizontalPipeLength: 1000,
@@ -179,6 +181,17 @@ define( function( require ) {
 
     waterTowerModel.waterTowerDrops.addItemRemovedListener( function( removedDrop ) {
       waterTowerDropsLayer.removeChild( removedDrop.node );
+    } );
+
+    //For waterDrops from hose
+    waterTowerModel.hoseDrops.addItemAddedListener( function( waterDrop ) {
+      var waterDropNode = new WaterDropNode( waterDrop, waterTowerModel.fluidColorModel, modelViewTransform );
+      hoseDropsLayer.addChild( waterDropNode );
+      waterDrop.node = waterDropNode;
+    } );
+
+    waterTowerModel.hoseDrops.addItemRemovedListener( function( removedDrop ) {
+      hoseDropsLayer.removeChild( removedDrop.node );
     } );
 
     waterTowerModel.isSluiceOpenProperty.link( function( isSluiceOpen ) {
