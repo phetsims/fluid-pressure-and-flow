@@ -41,7 +41,6 @@ define( function( require ) {
     this.fluidDensityRange = new Range( this.GASOLINE_DENSITY, this.HONEY_DENSITY );
 
     PropertySet.call( this, {
-        isAtmosphere: true,
         isRulerVisible: false,
         isMeasuringTapeVisible: false,
         isSpeedometerVisible: true,
@@ -107,16 +106,29 @@ define( function( require ) {
     },
 
     getAirPressure: function( height ) {
-      return !this.isAtmosphere ? 0 : this.getStandardAirPressure( height );
+      return this.getStandardAirPressure( height );
     },
 
-    getWaterPressure: function( height ) {
+    getFluidPressure: function( height ) {
       return height * 9.8 * this.fluidDensity;
     },
 
     getPressureAtCoords: function( x, y ) {
-      //TODO: Check whether in water or air and return the appropriate value
-      return this.getAirPressure( 0 );
+      //
+      if ( y < 0 ) {
+        return 0;
+      }
+
+      var pressure = this.getAirPressure( y );
+
+      //add the fluid pressure if the point is in the water tank
+      if ( x > this.waterTower.tankPosition.x && x < this.waterTower.tankPosition.x + 2 * this.waterTower.TANK_RADIUS
+             && y > this.waterTower.tankPosition.y && y < this.waterTower.tankPosition.y + this.waterTower.fluidLevel ) {
+        pressure = this.getAirPressure( this.waterTower.tankPosition.y + this.waterTower.fluidLevel ) +
+                   this.getFluidPressure( this.waterTower.tankPosition.y + this.waterTower.fluidLevel - y );
+      }
+
+      return pressure;
     },
 
     // Called by the animation loop.

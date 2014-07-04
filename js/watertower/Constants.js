@@ -8,6 +8,8 @@ define( function() {
   'use strict';
 
   return {
-    EARTH_GRAVITY: 9.8
+    EARTH_GRAVITY: 9.8,
+    MIN_PRESSURE: 80000,
+    MAX_PRESSURE: 130000
   };
 } );

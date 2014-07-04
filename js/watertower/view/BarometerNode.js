@@ -23,6 +23,7 @@ define( function( require ) {
   var ModelViewTransform2 = require( 'PHETCOMMON/view/ModelViewTransform2' );
   var DerivedProperty = require( 'AXON/DerivedProperty' );
   var Units = require( 'FLUID_PRESSURE_AND_FLOW/watertower/model/Units' );
+  var Constants = require( 'FLUID_PRESSURE_AND_FLOW/watertower/Constants' );
 
   // strings
   var pressureString = require( 'string!FLUID_PRESSURE_AND_FLOW/pressure' );
@@ -44,7 +45,7 @@ define( function( require ) {
     Node.call( this, {cursor: 'pointer'} );
 
     // Show the circular part of the gauge and the needle
-    var gaugeNode = new GaugeNode( barometer.valueProperty, pressureString, {min: model.MIN_PRESSURE, max: model.MAX_PRESSURE}, {scale: 0.3} );
+    var gaugeNode = new GaugeNode( barometer.valueProperty, pressureString, {min: Constants.MIN_PRESSURE, max: Constants.MAX_PRESSURE}, {scale: 0.4} );
     this.addChild( gaugeNode );
 
     var underGaugeRectangleWidth = 25;
@@ -92,8 +93,8 @@ define( function( require ) {
       } ) );
 
     //Update the value in the barometer value model by reading from the model.
-    DerivedProperty.multilink( [model.fluidDensityProperty, model.isAtmosphereProperty, barometer.positionProperty], function() {
-      barometer.valueProperty.set( model.getPressureAtCoords( modelViewTransform.viewToModelX( barometerNode.centerX ), modelViewTransform.viewToModelY( barometerNode.bottom ) ) );
+    DerivedProperty.multilink( [barometer.positionProperty, model.fluidDensityProperty], function( position, fluidDensity ) {
+      barometer.valueProperty.set( model.getPressureAtCoords( modelViewTransform.viewToModelX( position.x ), modelViewTransform.viewToModelY( position.y + (60) ) ) );
     } );
 
     //Update the text when the value or units changes.
