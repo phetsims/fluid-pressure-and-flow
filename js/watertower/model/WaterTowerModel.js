@@ -47,7 +47,7 @@ define( function( require ) {
         isSpeedometerVisible: true,
         isHoseVisible: false,
         isPlay: true,
-        faucetFlowRate: 0,
+        faucetFlowRate: 0, // cubic meter/sec
         isFaucetEnabled: true,
         measureUnits: 'metric', //metric, english or atmosphere
         fluidDensity: this.WATER_DENSITY,
@@ -78,6 +78,10 @@ define( function( require ) {
     for ( var j = 0; j < 4; j++ ) {
       this.speedometers.push( new VelocitySensor( new Vector2( 0, 0 ), new Vector2( 0, 0 ) ) );
     }
+
+    this.waterTower.isFullProperty.link( function( isFull ) {
+      this.isFaucetEnabled = !isFull;
+    }.bind( this ) );
 
     //
     this.dropsToRemove = [];
@@ -129,8 +133,8 @@ define( function( require ) {
 
       while ( this.accumulatedDt > 0.016 ) {
         this.accumulatedDt -= 0.016;
-        if ( !this.waterTower.isFull ) {
-          newFaucetDrop = new WaterDrop( this.faucetPosition.copy().plus( new Vector2( Math.random() * 0.01, Math.random() * 0.01 ) ), new Vector2( 0, 0 ), 0.004 );
+        if ( this.isFaucetEnabled && this.faucetFlowRate > 0 ) {
+          newFaucetDrop = new WaterDrop( this.faucetPosition.copy().plus( new Vector2( Math.random() * 0.01, Math.random() * 0.01 ) ), new Vector2( 0, 0 ), this.faucetFlowRate * 0.016 );
           this.faucetDrops.push( newFaucetDrop );
           newFaucetDrops.push( newFaucetDrop );
           newFaucetDrop.step( this.accumulatedDt );
