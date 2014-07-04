@@ -105,7 +105,7 @@ define( function( require ) {
       },
       xMargin: 15,
       right: this.waterTankFrame.left - 20,
-      top: this.waterTankFrame.centerY
+      top: this.waterTankFrame.centerY - 15
     } ) );
 
     var clickYOffset;
