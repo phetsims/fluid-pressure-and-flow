@@ -33,8 +33,8 @@ define( function( require ) {
 
   var options = [
     {
-      x: 0,
-      y: 75,
+      x: 100,
+      y: 175,
       tipX: 119.5,
       tipY: 0,
       scale: 1,
@@ -171,7 +171,7 @@ define( function( require ) {
     // return text for current planet mode
     getText: function() {
       var option = this.options[this.mode];
-      return (option.length / 10).toFixed( option.precision );
+      return (option.length / 70).toFixed( option.precision );
     },
 
     rotate: function( angle ) {
