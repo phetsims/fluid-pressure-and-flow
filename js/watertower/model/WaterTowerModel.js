@@ -130,8 +130,8 @@ define( function( require ) {
       var pressure = this.getAirPressure( y );
 
       //add the fluid pressure if the point is in the water tank
-      if ( x > this.waterTower.tankPosition.x && x < this.waterTower.tankPosition.x + 2 * this.waterTower.TANK_RADIUS
-             && y > this.waterTower.tankPosition.y && y < this.waterTower.tankPosition.y + this.waterTower.fluidLevel ) {
+      if ( x > this.waterTower.tankPosition.x && x < this.waterTower.tankPosition.x + 2 * this.waterTower.TANK_RADIUS &&
+           y > this.waterTower.tankPosition.y && y < this.waterTower.tankPosition.y + this.waterTower.fluidLevel ) {
         pressure = this.getAirPressure( this.waterTower.tankPosition.y + this.waterTower.fluidLevel ) +
                    this.getFluidPressure( this.waterTower.tankPosition.y + this.waterTower.fluidLevel - y );
       }
