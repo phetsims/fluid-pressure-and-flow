@@ -23,6 +23,8 @@ define( function( require ) {
   var StringUtils = require( 'PHETCOMMON/util/StringUtils' );
   var ObservableArray = require( 'AXON/ObservableArray' );
   var Constants = require( 'FLUID_PRESSURE_AND_FLOW/watertower/Constants' );
+  var DerivedProperty = require( 'AXON/DerivedProperty' );
+
   // strings
   var densityUnitsEnglish = require( 'string!FLUID_PRESSURE_AND_FLOW/densityUnitsEnglish' );
   var densityUnitsMetric = require( 'string!FLUID_PRESSURE_AND_FLOW/densityUnitsMetric' );
@@ -80,8 +82,13 @@ define( function( require ) {
       this.speedometers.push( new VelocitySensor( new Vector2( 0, 0 ), new Vector2( 0, 0 ) ) );
     }
 
-    this.waterTower.isFullProperty.link( function( isFull ) {
-      this.isFaucetEnabled = !isFull;
+    DerivedProperty.multilink( [this.waterTower.isFullProperty, this.faucetModeProperty], function( isFull, faucetMode ) {
+      if ( faucetMode === "manual" ) {
+        this.isFaucetEnabled = !isFull;
+      }
+      else {
+        this.isFaucetEnabled = false;
+      }
     }.bind( this ) );
 
     //
@@ -149,8 +156,9 @@ define( function( require ) {
 
       while ( this.accumulatedDt > 0.016 ) {
         this.accumulatedDt -= 0.016;
-        if ( this.isFaucetEnabled && this.faucetFlowRate > 0 ) {
-          newFaucetDrop = new WaterDrop( this.faucetPosition.copy().plus( new Vector2( Math.random() * 0.01, Math.random() * 0.01 ) ), new Vector2( 0, 0 ), this.faucetFlowRate * 0.016 );
+        if ( (this.faucetMode === "manual" && this.isFaucetEnabled ) || (this.faucetMode === "matchLeakage" && this.isSluiceOpen && !this.waterTower.isFull) ) {
+          newFaucetDrop = new WaterDrop( this.faucetPosition.copy().plus( new Vector2( Math.random() * 0.01, Math.random() * 0.01 ) ), new Vector2( 0, 0 ), this.faucetMode === "manual" ? this.faucetFlowRate * 0.016 : 0.004 );
+
           this.faucetDrops.push( newFaucetDrop );
           newFaucetDrops.push( newFaucetDrop );
           newFaucetDrop.step( this.accumulatedDt );
@@ -194,11 +202,6 @@ define( function( require ) {
       }
 
       this.faucetDrops.removeAll( this.dropsToRemove );
-
-      // Decrease the fluid volume in the tank
-      if ( this.isSluiceOpen && this.waterTower.fluidVolume > 0 ) {
-        this.waterTower.fluidVolume = this.waterTower.fluidVolume - 0.004;
-      }
 
       this.dropsToRemove = [];
       for ( i = 0, numberOfDrops = this.waterTowerDrops.length; i < numberOfDrops; i++ ) {
