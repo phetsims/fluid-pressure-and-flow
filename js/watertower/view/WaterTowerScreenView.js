@@ -35,6 +35,7 @@ define( function( require ) {
   var WaterTowerView = require( 'FLUID_PRESSURE_AND_FLOW/watertower/view/WaterTowerView' );
   var WaterDropNode = require( 'FLUID_PRESSURE_AND_FLOW/watertower/view/WaterDropNode' );
   var VelocitySensorNode = require( 'FLUID_PRESSURE_AND_FLOW/watertower/view/VelocitySensorNode' );
+  var FaucetControlPanel = require( 'FLUID_PRESSURE_AND_FLOW/watertower/view/FaucetControlPanel' );
 
   //strings
   var fluidDensityString = require( 'string!FLUID_PRESSURE_AND_FLOW/fluidDensity' );
@@ -90,6 +91,9 @@ define( function( require ) {
       scale: 0.3 //size of the faucet
     } );
     this.addChild( faucetNode );
+
+
+    this.addChild( new FaucetControlPanel( waterTowerModel.faucetModeProperty, { left: faucetNode.right + inset, bottom: faucetNode.bottom, fill: 'green'} ) );
 
     // control panel
     this.controlPanel = new ControlPanel( waterTowerModel, {right: this.layoutBounds.right - inset, top: inset} );

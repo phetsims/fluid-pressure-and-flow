@@ -48,12 +48,13 @@ define( function( require ) {
         isPlay: true,
         faucetFlowRate: 0, // cubic meter/sec
         isFaucetEnabled: true,
-        measureUnits: 'metric', //metric, english or atmosphere
+        measureUnits: 'metric', //metric, english
         fluidDensity: this.WATER_DENSITY,
         rulerPosition: new Vector2( 195, 245 ), // px
         waterFlow: 'water',
         waterSpeed: 'waterSpeed',
         isSluiceOpen: false,
+        faucetMode: 'manual', //manual or matchLeakage
         scale: 1 // scale coefficient
       }
     );
