@@ -234,6 +234,15 @@ define( function( require ) {
       }
       this.hoseDrops.removeAll( this.dropsToRemove );
 
+      // update sensor values
+      for ( var k = 0; k < this.speedometers.length; k++ ) {
+        this.speedometers[k].value = this.waterDropVelocityAt( this.modelViewTransform.viewToModelX( this.speedometers[k].position.x + 50 ), this.modelViewTransform.viewToModelY( this.speedometers[k].position.y + 75 ) );
+      }
+
+      for ( k = 0; k < this.barometers.length; k++ ) {
+        this.barometers[k].value = this.getPressureAtCoords( this.modelViewTransform.viewToModelX( this.barometers[k].position.x ), this.modelViewTransform.viewToModelY( this.barometers[k].position.y + (60) ) );
+      }
+
     },
 
     getFluidDensityString: function() {
@@ -243,6 +252,18 @@ define( function( require ) {
       else {
         return StringUtils.format( valueWithUnitsPattern, Math.round( this.fluidDensity ), densityUnitsMetric );
       }
+    },
+
+    waterDropVelocityAt: function( x, y ) {
+      var waterDrops = (this.isHoseVisible) ? this.hoseDrops : this.waterTowerDrops;
+
+      for ( var i = 0, j = waterDrops.length; i < j; i++ ) {
+        if ( waterDrops.get( i ).contains( new Vector2( x, y ) ) ) {
+          return waterDrops.get( i ).velocity;
+        }
+      }
+      return Vector2.ZERO;
     }
+
   } );
 } );

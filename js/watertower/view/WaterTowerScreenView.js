@@ -68,8 +68,10 @@ define( function( require ) {
       new Vector2( 0, 350 ),
       70 ); //1m = 70px, (0,0) - top left corner
 
-    // add background -- sky, earth
+    // TODO: find a way to not do this
+    waterTowerModel.modelViewTransform = modelViewTransform;
 
+    // add background -- sky, earth
     this.addChild( new OutsideBackgroundNode( this.layoutBounds.centerX, 344, this.layoutBounds.width * 3, this.layoutBounds.height, this.layoutBounds.height ) );
 
     var waterTowerView = new WaterTowerView( waterTowerModel.waterTower, waterTowerModel.isHoseVisibleProperty, waterTowerModel.fluidColorModel, modelViewTransform );
