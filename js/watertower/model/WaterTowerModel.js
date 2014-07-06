@@ -47,17 +47,21 @@ define( function( require ) {
         isMeasuringTapeVisible: false,
         isSpeedometerVisible: true,
         isHoseVisible: false,
-        isPlay: true,
+        isPlay: true,//Whether the sim is paused or running
         faucetFlowRate: 0, // cubic meter/sec
         isFaucetEnabled: true,
         measureUnits: 'metric', //metric, english
         fluidDensity: this.WATER_DENSITY,
         rulerPosition: new Vector2( 195, 245 ), // px
         waterFlow: 'water',
-        waterSpeed: 'waterSpeed',
+
         isSluiceOpen: false,
         faucetMode: 'manual', //manual or matchLeakage
-        scale: 1 // scale coefficient
+        scale: 1, // scale coefficient
+
+        //speed of the model, either 'normal' or 'slow'
+        speed: 'normal'
+
       }
     );
 
@@ -141,6 +145,17 @@ define( function( require ) {
 
     // Called by the animation loop.
     step: function( dt ) {
+      if ( this.isPlay ) {
+        if ( this.speed === "normal" ) {
+          this.stepInternal( dt );
+        }
+        else {
+          this.stepInternal( 0.25 * dt );
+        }
+      }
+    },
+
+    stepInternal: function( dt ) {
 
       //prevent sudden dt bursts when the user comes back to the page after a while
       dt = ( dt > 1 ) ? 1 : dt;
