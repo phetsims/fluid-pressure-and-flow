@@ -26,6 +26,9 @@ define( function( require ) {
     this.width = 0.3;   // initially 0.3   make it 0.25
     this.hoseWidth = 2.5;
 
+    this.nozzleX = 0;
+    this.nozzleY = 0;
+
     this.angle = angle;
     this.height = height;
 

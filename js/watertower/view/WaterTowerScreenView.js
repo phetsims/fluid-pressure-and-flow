@@ -34,6 +34,7 @@ define( function( require ) {
   var WaterTowerRuler = require( 'FLUID_PRESSURE_AND_FLOW/watertower/view/WaterTowerRuler' );
   var WaterTowerView = require( 'FLUID_PRESSURE_AND_FLOW/watertower/view/WaterTowerView' );
   var WaterDropNode = require( 'FLUID_PRESSURE_AND_FLOW/watertower/view/WaterDropNode' );
+  var HoseView = require( 'FLUID_PRESSURE_AND_FLOW/watertower/view/HoseView' );
   var VelocitySensorNode = require( 'FLUID_PRESSURE_AND_FLOW/watertower/view/VelocitySensorNode' );
   var FaucetControlPanel = require( 'FLUID_PRESSURE_AND_FLOW/watertower/view/FaucetControlPanel' );
 
@@ -74,6 +75,13 @@ define( function( require ) {
     // add background -- sky, earth
     this.addChild( new OutsideBackgroundNode( this.layoutBounds.centerX, 344, this.layoutBounds.width * 3, this.layoutBounds.height, this.layoutBounds.height ) );
 
+    var hoseDropsLayer = new Node();
+    waterTowerScreenView.addChild( hoseDropsLayer );
+
+    // add the hose
+    this.hoseView = new HoseView( waterTowerModel.waterTower.hose, waterTowerModel.waterTower.tankPosition, modelViewTransform, waterTowerModel.isHoseVisibleProperty );
+    this.addChild( this.hoseView );
+
     var waterTowerView = new WaterTowerView( waterTowerModel.waterTower, waterTowerModel.isHoseVisibleProperty, waterTowerModel.fluidColorModel, modelViewTransform );
     this.addChild( waterTowerView );
 
@@ -83,8 +91,6 @@ define( function( require ) {
     var waterTowerDropsLayer = new Node();
     waterTowerScreenView.addChild( waterTowerDropsLayer );
 
-    var hoseDropsLayer = new Node();
-    waterTowerScreenView.addChild( hoseDropsLayer );
 
     var faucetNode = new FaucetNode( 0.6, waterTowerModel.faucetFlowRateProperty, waterTowerModel.isFaucetEnabledProperty, {
       horizontalPipeLength: 1000,
@@ -210,6 +216,11 @@ define( function( require ) {
         waterTowerView.sluiceGate.bottom = waterTowerView.waterTankFrame.bottom;
       }
     } );
+
+    waterTowerModel.waterTower.tankPositionProperty.link( function( tankPosition ) {
+      this.hoseView.y = modelViewTransform.modelToViewY( tankPosition.y ) - 128;
+      this.hoseView.x = waterTowerView.waterTankFrame.right;
+    }.bind( this ) );
 
   }
 

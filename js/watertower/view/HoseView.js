@@ -36,7 +36,6 @@ define( function( require ) {
 
     this.angleInRadians = Math.PI * hoseModel.angle / 180;
 
-    //Calculating a point for below line
     this.angleWithPerpendicularInRadians = Math.PI * (90 - hoseModel.angle) / 180;  // angle with perpendicular
 
     this.varX = this.hoseWidth - hoseModel.H2 * Math.cos( this.angleInRadians );
@@ -53,6 +52,10 @@ define( function( require ) {
 
     this.x2 = this.varX - hoseModel.width * Math.cos( this.angleWithPerpendicularInRadians );
     this.y2 = this.varY - (hoseModel.width - hoseModel.width * Math.sin( this.angleWithPerpendicularInRadians ));
+
+
+    this.model.nozzleX = this.model.hoseWidth + 0.57;
+    this.model.nozzleY = this.varY + this.model.H2 * Math.sin( this.angleInRadians ) + 2.0;
 
 
     // TODO : compare this.varX with tank bottom Y
@@ -89,7 +92,7 @@ define( function( require ) {
         .lineTo( modelViewTransform.modelToViewX( this.x2 ), modelViewTransform.modelToViewY( this.y2 ) )
         .moveTo( modelViewTransform.modelToViewX( this.upperLinePointX ), modelViewTransform.modelToViewY( this.upperLinePointY ) )
         .arc( modelViewTransform.modelToViewX( this.upperLinePointX ), modelViewTransform.modelToViewY( this.upperLinePointY ), 21,
-          Math.PI / 2, this.angleWithPerpendicularInRadians, true );  //17.5 for width 0.25
+          Math.PI / 2, this.angleWithPerpendicularInRadians, true );
 
     }
 
@@ -118,7 +121,7 @@ define( function( require ) {
     this.spoutHandle = new Node( {children: [new Image( spoutHandleImg )], scale: 1.0, cursor: 'pointer', bottom: nozzle.bottom, left: nozzle.right - 4} );
 
     this.spoutAndNozzle = new Node( { children: [nozzle, this.spoutHandle],
-      bottom: this.modelViewTransform.modelToViewDeltaY( -this.hoseHeight + this.model.H2 ) + 122 + 40 * Math.cos( this.angleInRadians ), //150,45 142,60 122,90, 162, 0
+      bottom: this.modelViewTransform.modelToViewDeltaY( -this.hoseHeight + this.model.H2 ) + 122 + 40 * Math.cos( this.angleInRadians ),
       left: this.modelViewTransform.modelToViewX( this.hoseWidth ) - 26 * Math.sin( this.angleInRadians ),
       rotation: this.angleWithPerpendicularInRadians
     } );
@@ -128,7 +131,6 @@ define( function( require ) {
     var startX;
     var startY;
     var initialHoseAngle;
-
 
     this.spoutHandle.addInputListener( new SimpleDragHandler( {
       start: function( e ) {
@@ -207,6 +209,10 @@ define( function( require ) {
       this.x2 = this.varX - this.model.width * Math.cos( this.angleWithPerpendicularInRadians );
       this.y2 = this.varY - (this.model.width - this.model.width * Math.sin( this.angleWithPerpendicularInRadians ));
 
+      this.model.nozzleX = this.model.hoseWidth + 0.57;
+      this.model.nozzleY = this.varY + this.model.H2 * Math.sin( this.angleInRadians ) + 2.0;
+
+
       // TODo : compare this.varX with tank bottom Y
       if ( this.varY >= 0.05445405423281646 /*this.tankPosition.Y*/ ) {
         this.hosePath.setShape( new Shape()
@@ -223,7 +229,7 @@ define( function( require ) {
           .lineTo( this.modelViewTransform.modelToViewX( this.x2 ), this.modelViewTransform.modelToViewY( this.y2 ) )
           .moveTo( this.modelViewTransform.modelToViewX( this.upperLinePointX ), this.modelViewTransform.modelToViewY( this.upperLinePointY ) )
           .arc( this.modelViewTransform.modelToViewX( this.upperLinePointX ), this.modelViewTransform.modelToViewY( this.upperLinePointY ), 21,
-            Math.PI / 2, this.angleWithPerpendicularInRadians, true ) );  //17.5 for width 0.25
+            Math.PI / 2, this.angleWithPerpendicularInRadians, true ) );
 
 
         this.handleNodeCenterX = (this.upperLinePointX - this.model.L1 ) / 2 + this.model.L1;
@@ -234,7 +240,6 @@ define( function( require ) {
 
       }
       else {
-
         this.hosePath.setShape( new Shape()
           .moveTo( this.modelViewTransform.modelToViewX( this.varX ), this.modelViewTransform.modelToViewY( this.varY ) )
           .lineTo( this.modelViewTransform.modelToViewX( this.hoseWidth ), this.modelViewTransform.modelToViewY( -this.hoseHeight + this.model.H2 ) )
@@ -249,7 +254,7 @@ define( function( require ) {
           .lineTo( this.modelViewTransform.modelToViewX( this.x2 ), this.modelViewTransform.modelToViewY( this.y2 ) )
           .moveTo( this.modelViewTransform.modelToViewX( this.upperLinePointX ), this.modelViewTransform.modelToViewY( this.upperLinePointY ) )
           .arc( this.modelViewTransform.modelToViewX( this.upperLinePointX ), this.modelViewTransform.modelToViewY( this.upperLinePointY ), 21,
-            Math.PI / 2, this.angleWithPerpendicularInRadians, true ) );//17.5 for width 0.25
+            Math.PI / 2, this.angleWithPerpendicularInRadians, true ) );
 
 
         this.handleNodeCenterX = (this.upperLinePointX - (this.model.L1 + this.model.width)) / 2 + this.model.L1 + this.model.width;
@@ -258,8 +263,7 @@ define( function( require ) {
       }
       this.model.height = this.hoseHeight;
 
-
-      this.spoutAndNozzle.bottom = this.modelViewTransform.modelToViewDeltaY( -this.hoseHeight + this.model.H2 ) + 122 + 40 * Math.cos( this.angleInRadians ); //150,45 142,60 122,90, 162, 0
+      this.spoutAndNozzle.bottom = this.modelViewTransform.modelToViewDeltaY( -this.hoseHeight + this.model.H2 ) + 122 + 40 * Math.cos( this.angleInRadians );
       this.spoutAndNozzle.left = this.modelViewTransform.modelToViewX( this.hoseWidth ) - 26 * Math.sin( this.angleInRadians );
       this.spoutAndNozzle.rotation = this.angleWithPerpendicularInRadians;
 
