@@ -75,30 +75,28 @@ define( function( require ) {
     // TODO: find a way to not do this
     waterTowerModel.modelViewTransform = modelViewTransform;
 
-    // add background -- sky, earth
-    //this.addChild( new OutsideBackgroundNode( this.layoutBounds.centerX, 344, this.layoutBounds.width * 3, this.layoutBounds.height, this.layoutBounds.height ) );
-
     // add background -- sky
     this.addChild( new SkyNode( this.layoutBounds.centerX - ((this.layoutBounds.width * 3) / 2), (groundY - this.layoutBounds.height), this.layoutBounds.width * 3, this.layoutBounds.height, this.layoutBounds.height, {skyGradientHeight: this.layoutBounds.height / 2}));
 
     var hoseDropsLayer = new Node();
     waterTowerScreenView.addChild( hoseDropsLayer );
 
-    // add the hose
-    this.hoseView = new HoseView( waterTowerModel.hose, waterTowerModel.waterTower.tankPosition, modelViewTransform, waterTowerModel.isHoseVisibleProperty );
-    this.addChild( this.hoseView );
-
-    var faucetDropsLayer = new Node();
-    waterTowerScreenView.addChild( faucetDropsLayer );
-
-    var waterTowerView = new WaterTowerView( waterTowerModel.waterTower, waterTowerModel.fluidColorModel, modelViewTransform );
-    this.addChild( waterTowerView );
-
     var waterTowerDropsLayer = new Node();
     waterTowerScreenView.addChild( waterTowerDropsLayer );
 
     // add background -- earth
-    this.addChild( new GroundNode( this.layoutBounds.centerX - ( (this.layoutBounds.width * 3) / 2), groundY, this.layoutBounds.width * 3, this.layoutBounds.height, groundY + (this.layoutBounds.height / 2)));
+    this.addChild( new GroundNode( this.layoutBounds.centerX - ( (this.layoutBounds.width * 3) / 2), groundY, this.layoutBounds.width * 3, this.layoutBounds.height, groundY + (this.layoutBounds.height / 2) ) );
+
+    // add the hose
+    this.hoseView = new HoseView( waterTowerModel.hose, waterTowerModel.waterTower.tankPosition, modelViewTransform, waterTowerModel.isHoseVisibleProperty );
+    this.addChild( this.hoseView );
+
+    var waterTowerView = new WaterTowerView( waterTowerModel.waterTower, waterTowerModel.fluidColorModel, modelViewTransform );
+    this.addChild( waterTowerView );
+
+    var faucetDropsLayer = new Node();
+    waterTowerScreenView.addChild( faucetDropsLayer );
+
 
     var faucetNode = new FaucetNode( 0.6, waterTowerModel.faucetFlowRateProperty, waterTowerModel.isFaucetEnabledProperty, {
       horizontalPipeLength: 1000,
@@ -225,8 +223,8 @@ define( function( require ) {
     } );
 
     waterTowerModel.waterTower.tankPositionProperty.link( function( tankPosition ) {
-      this.hoseView.y = modelViewTransform.modelToViewY( tankPosition.y ) - 128;
-      this.hoseView.x = waterTowerView.right - 5;
+      this.hoseView.y = modelViewTransform.modelToViewY( tankPosition.y ) - 129;
+      this.hoseView.x = waterTowerView.right - 6;
     }.bind( this ) );
 
   }
