@@ -75,7 +75,7 @@ define( function( require ) {
 
     this.hose = new Hose( 2.5, 90 );
 
-    this.faucetPosition = new Vector2( 1.27, 3.8 ); //faucet right co-ordinates
+    this.faucetPosition = new Vector2( 1.3, 3.8 ); //faucet right co-ordinates
     this.faucetDrops = new ObservableArray();
     this.waterTowerDrops = new ObservableArray();
     this.hoseDrops = new ObservableArray();
@@ -190,15 +190,14 @@ define( function( require ) {
 
         //Add watertower drops if the tank is open and there is fluid in the tank
         if ( this.isSluiceOpen && this.waterTower.fluidVolume > 0 && !this.isHoseVisible ) {
-          var volume = 0.004;
-          var radius = Util.cubeRoot( (3 * volume) / (4 * Math.PI) );
+          var radius = this.waterTower.HOLE_SIZE / 2 * 0.9;
 
           // ensure that the waterdrops are smaller than the fluid level
           if ( 2 * radius > this.waterTower.fluidLevel ) {
             radius = this.waterTower.fluidLevel / 2;
-            volume = 4 * Math.PI * radius * radius * radius / 3;
           }
-          newWaterDrop = new WaterDrop( this.waterTower.tankPosition.plus( new Vector2( 2 * this.waterTower.TANK_RADIUS + Math.random() * 0.04 - 0.02, 2 * radius + Math.random() * radius / 2 ) ), new Vector2( Math.sqrt( 2 * Constants.EARTH_GRAVITY * this.waterTower.fluidLevel ), 0 ), volume );
+          var volume = 4 * Math.PI * radius * radius * radius / 3;
+          newWaterDrop = new WaterDrop( this.waterTower.tankPosition.plus( new Vector2( 2 * this.waterTower.TANK_RADIUS + Math.random() * 0.04 - 0.02, 2 * radius - Math.random() * 0.05 ) ), new Vector2( Math.sqrt( 2 * Constants.EARTH_GRAVITY * this.waterTower.fluidLevel ), 0 ), volume );
           this.waterTowerDrops.push( newWaterDrop );
           newWaterDrop.step( this.accumulatedDt );
           newWaterTowerDrops.push( newWaterDrop );

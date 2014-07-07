@@ -33,7 +33,7 @@ define( function( require ) {
     } );
 
     //Size of the hole in meters
-    this.HOLE_SIZE = 0.25;
+    this.HOLE_SIZE = 0.3;
     this.addDerivedProperty( 'fluidLevel', ['fluidVolume'], function( fluidVolume ) {
       return fluidVolume / (Math.PI * waterTower.TANK_RADIUS * waterTower.TANK_RADIUS);
     } );
