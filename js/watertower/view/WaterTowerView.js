@@ -57,6 +57,14 @@ define( function( require ) {
       .lineTo( modelViewTransform.modelToViewX( 0 ), modelViewTransform.modelToViewY( 0 ) );
     this.waterTankFrame = new Path( modelTankShape, { top: 20, stroke: options.towerFrameColor, lineWidth: 1} );
 
+    //added tank background shape
+    var tankBackgroundShape = new Shape()
+      .moveTo( modelViewTransform.modelToViewX( 0 ) - 1, modelViewTransform.modelToViewY( 0 ) - 1 )
+      .lineTo( modelViewTransform.modelToViewX( 2 * waterTower.TANK_RADIUS ), modelViewTransform.modelToViewY( 0 ) - 1 )
+      .lineTo( modelViewTransform.modelToViewX( 2 * waterTower.TANK_RADIUS ), modelViewTransform.modelToViewY( waterTower.TANK_HEIGHT ) + 0.5 )
+      .lineTo( modelViewTransform.modelToViewX( 0 ) + 0.5, modelViewTransform.modelToViewY( waterTower.TANK_HEIGHT ) + 0.5 ).close();
+    this.addChild( new Path( tankBackgroundShape, { bottom: this.waterTankFrame.bottom - 1, fill: 'gray'} ) );
+
     //add water
     var waterShape = new Shape()
       .moveTo( modelViewTransform.modelToViewX( 0 ), modelViewTransform.modelToViewY( 0 ) )
@@ -79,10 +87,10 @@ define( function( require ) {
     //add the wheel and rope
     var wheelNode = new Image( wheelImage, { cursor: 'pointer', scale: 0.4, bottom: this.waterTankFrame.top, right: this.waterTankFrame.right + 3} );
     this.addChild( wheelNode );
-    this.addChild( new Path( Shape.lineSegment( 0, this.waterTankFrame.height - 20, 0, 0 ), { right: wheelNode.right, top: wheelNode.bottom, lineWidth: 1, stroke: 'black'} ) );
+    this.addChild( new Path( Shape.lineSegment( 0, this.waterTankFrame.height - modelViewTransform.modelToViewDeltaX( waterTower.HOLE_SIZE * 1.5 ), 0, 0 ), { right: wheelNode.right, top: wheelNode.bottom, lineWidth: 1, stroke: 'black'} ) );
 
     //add the gate at the end of the rope
-    this.sluiceGate = new Rectangle( 0, 0, 5, 20, {
+    this.sluiceGate = new Rectangle( 0, 0, 5, modelViewTransform.modelToViewDeltaX( waterTower.HOLE_SIZE * 1.5), {
       fill: new LinearGradient( 0, 0, 5, 0 )
         .addColorStop( 0, '#656570' )
         .addColorStop( 0.5, '#dee6f5' )
