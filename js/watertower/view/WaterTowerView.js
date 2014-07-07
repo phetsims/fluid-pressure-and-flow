@@ -104,7 +104,7 @@ define( function( require ) {
     this.addChild( this.sluiceGate );
 
     // water tank fill button
-    this.addChild( new TextPushButton( fillString, {
+    var fillButton = new TextPushButton( fillString, {
       font: new Font( '16px Arial' ),
       baseColor: 'yellow',
       listener: function() {
@@ -113,7 +113,8 @@ define( function( require ) {
       xMargin: 15,
       right: this.waterTankFrame.left - 10,
       top: this.waterTankFrame.centerY - 15
-    } ) );
+    } );
+    this.addChild( fillButton );
 
     handleNode.addInputListener( new SimpleDragHandler( {
       drag: function( e ) {
@@ -141,6 +142,10 @@ define( function( require ) {
         .lineTo( modelViewTransform.modelToViewX( 2 * waterTower.TANK_RADIUS ), modelViewTransform.modelToViewY( waterTower.fluidLevel ) )
         .lineTo( modelViewTransform.modelToViewX( 0 ), modelViewTransform.modelToViewY( waterTower.fluidLevel ) ).close();
       waterTowerView.waterShapeNode.setShape( waterShape );
+    } );
+
+    waterTower.isFullProperty.link( function( isFull ) {
+      fillButton.enabled = !isFull;
     } );
 
     fluidColorModel.colorProperty.linkAttribute( waterTowerView.waterShapeNode, 'fill' );
