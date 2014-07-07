@@ -103,6 +103,7 @@ define( function( require ) {
     this.dropsToRemove = [];
     this.accumulatedDt = 0;
     this.accumulatedDtForSensors = 0;
+    this.leakageVolume = 0;
   }
 
   return inherit( PropertySet, WaterTowerModel, {
@@ -177,7 +178,7 @@ define( function( require ) {
       while ( this.accumulatedDt > 0.016 ) {
         this.accumulatedDt -= 0.016;
         if ( (this.faucetMode === "manual" && this.isFaucetEnabled ) || (this.faucetMode === "matchLeakage" && this.isSluiceOpen && !this.waterTower.isFull) ) {
-          newFaucetDrop = new WaterDrop( this.faucetPosition.copy().plus( new Vector2( Math.random() * 0.01, Math.random() * 0.01 ) ), new Vector2( 0, 0 ), this.faucetMode === "manual" ? this.faucetFlowRate * 0.016 : 0.004 );
+          newFaucetDrop = new WaterDrop( this.faucetPosition.copy().plus( new Vector2( Math.random() * 0.01, Math.random() * 0.01 ) ), new Vector2( 0, 0 ), this.faucetMode === "manual" ? this.faucetFlowRate * 0.016 : this.leakageVolume );
 
           this.faucetDrops.push( newFaucetDrop );
           newFaucetDrops.push( newFaucetDrop );
@@ -195,27 +196,32 @@ define( function( require ) {
           if ( 2 * radius > this.waterTower.fluidLevel ) {
             radius = this.waterTower.fluidLevel / 2;
           }
-          var volume = 4 * Math.PI * radius * radius * radius / 3;
-          newWaterDrop = new WaterDrop( this.waterTower.tankPosition.plus( new Vector2( 2 * this.waterTower.TANK_RADIUS + Math.random() * 0.04 - 0.02, 2 * radius - Math.random() * 0.05 ) ), new Vector2( Math.sqrt( 2 * Constants.EARTH_GRAVITY * this.waterTower.fluidLevel ), 0 ), volume );
+
+          // ensure that the water drop is not too small
+          radius = radius < 0.05 ? 0.05 : radius;
+          this.leakageVolume = 4 * Math.PI * radius * radius * radius / 3;
+          newWaterDrop = new WaterDrop( this.waterTower.tankPosition.plus( new Vector2( 2 * this.waterTower.TANK_RADIUS + Math.random() * 0.03, 2 * radius + Math.random() * 0.06 - 0.03 ) ), new Vector2( Math.sqrt( 2 * Constants.EARTH_GRAVITY * this.waterTower.fluidLevel ), 0 ), this.leakageVolume );
           this.waterTowerDrops.push( newWaterDrop );
           newWaterDrop.step( this.accumulatedDt );
           newWaterTowerDrops.push( newWaterDrop );
-          this.waterTower.fluidVolume = this.waterTower.fluidVolume - 0.004;
+          this.waterTower.fluidVolume = this.waterTower.fluidVolume - this.leakageVolume;
         }
 
         //Add hose waterDrops if the tank is open and there fluid in the tank and hose visible
         if ( this.isSluiceOpen && this.waterTower.fluidVolume > 0 && this.isHoseVisible ) {
+          this.leakageVolume = 0;
           var y = this.waterTower.tankPosition.y - 1.5 + this.hose.nozzleY + 0.3 * Math.sin( this.hose.angle * Math.PI / 180 ) - 0.25 * Math.cos( this.hose.angle * Math.PI / 180 );
           if ( y < this.waterTower.fluidLevel + this.waterTower.tankPosition.y ) {
+            this.leakageVolume = 0.004;
             var velocityMagnitude = Math.sqrt( 2 * Constants.EARTH_GRAVITY * (this.waterTower.tankPosition.y + this.waterTower.fluidLevel - y) );
             newHoseDrop = new WaterDrop( new Vector2( this.hose.nozzleX + this.waterTower.tankPosition.x + 2 * this.waterTower.TANK_RADIUS - 0.7 * Math.sin( this.hose.angle * Math.PI / 180 ) + 0.1 * Math.cos( this.hose.angle * Math.PI / 180 ) + Math.random() * 0.04 - 0.02,
                   this.waterTower.tankPosition.y - 1.5 + this.hose.nozzleY + 0.3 * Math.sin( this.hose.angle * Math.PI / 180 ) - 0.25 * Math.cos( this.hose.angle * Math.PI / 180 ) + Math.random() * 0.04 - 0.02 ),
-              new Vector2( velocityMagnitude * Math.cos( this.hose.angle * Math.PI / 180 ), velocityMagnitude * Math.sin( this.hose.angle * Math.PI / 180 ) ), 0.004 );
+              new Vector2( velocityMagnitude * Math.cos( this.hose.angle * Math.PI / 180 ), velocityMagnitude * Math.sin( this.hose.angle * Math.PI / 180 ) ), this.leakageVolume );
 
             this.hoseDrops.push( newHoseDrop );
             newHoseDrop.step( this.accumulatedDt );
             newHoseDrops.push( newHoseDrop );
-            this.waterTower.fluidVolume = this.waterTower.fluidVolume - 0.004;
+            this.waterTower.fluidVolume = this.waterTower.fluidVolume - this.leakageVolume;
           }
         }
 
