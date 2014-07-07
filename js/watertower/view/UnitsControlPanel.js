@@ -10,8 +10,6 @@ define( function( require ) {
 
   // modules
   var inherit = require( 'PHET_CORE/inherit' );
-  var VBox = require( 'SCENERY/nodes/VBox' );
-  var Panel = require( 'SUN/Panel' );
   var AquaRadioButton = require( 'SUN/AquaRadioButton' );
   var Text = require( 'SCENERY/nodes/Text' );
   var PhetFont = require( 'SCENERY_PHET/PhetFont' );
@@ -24,7 +22,7 @@ define( function( require ) {
   var unitsString = require( 'string!FLUID_PRESSURE_AND_FLOW/units' );
 
   function UnitsControlPanel( model, options ) {
-    Node.call( this, {cursor: 'pointer'});
+    Node.call( this, {cursor: 'pointer'} );
 
     var textOptions = {font: new PhetFont( 14 )};
 
@@ -37,7 +35,6 @@ define( function( require ) {
     unitsPanel.addChild( englishRadio );
     this.addChild( unitsPanel );
     this.mutate( options );
-
   }
 
   return inherit( Node, UnitsControlPanel );
