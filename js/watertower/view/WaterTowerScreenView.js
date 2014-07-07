@@ -13,7 +13,8 @@ define( function( require ) {
   var ScreenView = require( 'JOIST/ScreenView' );
   var ModelViewTransform2 = require( 'PHETCOMMON/view/ModelViewTransform2' );
   var Vector2 = require( 'DOT/Vector2' );
-  var OutsideBackgroundNode = require( 'SCENERY_PHET/OutsideBackgroundNode' );
+  var SkyNode = require( 'SCENERY_PHET/SkyNode' );
+  var GroundNode = require( 'SCENERY_PHET/GroundNode' );
   var ResetAllButton = require( 'SCENERY_PHET/ResetAllButton' );
   var Rectangle = require( 'SCENERY/nodes/Rectangle' );
   var Node = require( 'SCENERY/nodes/Node' );
@@ -69,11 +70,16 @@ define( function( require ) {
       new Vector2( 0, 350 ),
       70 ); //1m = 70px, (0,0) - top left corner
 
+    var groundY = modelViewTransform.modelToViewY( 0 ) - 6;
+
     // TODO: find a way to not do this
     waterTowerModel.modelViewTransform = modelViewTransform;
 
     // add background -- sky, earth
-    this.addChild( new OutsideBackgroundNode( this.layoutBounds.centerX, 344, this.layoutBounds.width * 3, this.layoutBounds.height, this.layoutBounds.height ) );
+    //this.addChild( new OutsideBackgroundNode( this.layoutBounds.centerX, 344, this.layoutBounds.width * 3, this.layoutBounds.height, this.layoutBounds.height ) );
+
+    // add background -- sky
+    this.addChild( new SkyNode( this.layoutBounds.centerX - ((this.layoutBounds.width * 3) / 2), (groundY - this.layoutBounds.height), this.layoutBounds.width * 3, this.layoutBounds.height, this.layoutBounds.height, {skyGradientHeight: this.layoutBounds.height / 2}));
 
     var hoseDropsLayer = new Node();
     waterTowerScreenView.addChild( hoseDropsLayer );
@@ -90,6 +96,9 @@ define( function( require ) {
 
     var waterTowerDropsLayer = new Node();
     waterTowerScreenView.addChild( waterTowerDropsLayer );
+
+    // add background -- earth
+    this.addChild( new GroundNode( this.layoutBounds.centerX - ( (this.layoutBounds.width * 3) / 2), groundY, this.layoutBounds.width * 3, this.layoutBounds.height, groundY + (this.layoutBounds.height / 2)));
 
     var faucetNode = new FaucetNode( 0.6, waterTowerModel.faucetFlowRateProperty, waterTowerModel.isFaucetEnabledProperty, {
       horizontalPipeLength: 1000,
