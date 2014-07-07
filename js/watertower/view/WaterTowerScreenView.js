@@ -82,15 +82,14 @@ define( function( require ) {
     this.hoseView = new HoseView( waterTowerModel.hose, waterTowerModel.waterTower.tankPosition, modelViewTransform, waterTowerModel.isHoseVisibleProperty );
     this.addChild( this.hoseView );
 
-    var waterTowerView = new WaterTowerView( waterTowerModel.waterTower, waterTowerModel.fluidColorModel, modelViewTransform );
-    this.addChild( waterTowerView );
-
     var faucetDropsLayer = new Node();
     waterTowerScreenView.addChild( faucetDropsLayer );
 
+    var waterTowerView = new WaterTowerView( waterTowerModel.waterTower, waterTowerModel.fluidColorModel, modelViewTransform );
+    this.addChild( waterTowerView );
+
     var waterTowerDropsLayer = new Node();
     waterTowerScreenView.addChild( waterTowerDropsLayer );
-
 
     var faucetNode = new FaucetNode( 0.6, waterTowerModel.faucetFlowRateProperty, waterTowerModel.isFaucetEnabledProperty, {
       horizontalPipeLength: 1000,
@@ -99,7 +98,6 @@ define( function( require ) {
       scale: 0.3 //size of the faucet
     } );
     this.addChild( faucetNode );
-
 
     this.addChild( new FaucetControlPanel( waterTowerModel.faucetModeProperty, { left: faucetNode.right + inset, bottom: faucetNode.bottom, fill: 'green'} ) );
 
@@ -141,7 +139,7 @@ define( function( require ) {
     this.addChild( controlSlider );
 
     // add the sluice control near bottom left
-    var sluiceControl = new SluiceControl( waterTowerModel.isSluiceOpenProperty, { left: this.layoutBounds.left, bottom: this.layoutBounds.bottom - 70} );
+    var sluiceControl = new SluiceControl( waterTowerModel.isSluiceOpenProperty, { right: waterTowerView.right + 30, bottom: this.layoutBounds.bottom - 70} );
     this.addChild( sluiceControl );
 
     //add the normal/slow motion options
@@ -219,7 +217,7 @@ define( function( require ) {
 
     waterTowerModel.waterTower.tankPositionProperty.link( function( tankPosition ) {
       this.hoseView.y = modelViewTransform.modelToViewY( tankPosition.y ) - 128;
-      this.hoseView.x = waterTowerView.waterTankFrame.right;
+      this.hoseView.x = waterTowerView.right - 5;
     }.bind( this ) );
 
   }

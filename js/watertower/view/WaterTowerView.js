@@ -103,7 +103,7 @@ define( function( require ) {
         waterTower.fill();
       },
       xMargin: 15,
-      right: this.waterTankFrame.left - 20,
+      right: this.waterTankFrame.left - 10,
       top: this.waterTankFrame.centerY - 15
     } ) );
 

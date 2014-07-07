@@ -74,7 +74,7 @@ define( function( require ) {
 
     this.hose = new Hose( 2.5, 90 );
 
-    this.faucetPosition = new Vector2( 0.25, 3.8 ); //faucet right co-ordinates
+    this.faucetPosition = new Vector2( 1.27, 3.8 ); //faucet right co-ordinates
     this.faucetDrops = new ObservableArray();
     this.waterTowerDrops = new ObservableArray();
     this.hoseDrops = new ObservableArray();
@@ -200,7 +200,7 @@ define( function( require ) {
           var y = this.waterTower.tankPosition.y - 1.5 + this.hose.nozzleY + 0.3 * Math.sin( this.hose.angle * Math.PI / 180 ) - 0.25 * Math.cos( this.hose.angle * Math.PI / 180 );
           if ( y < this.waterTower.fluidLevel + this.waterTower.tankPosition.y ) {
             var velocityMagnitude = Math.sqrt( 2 * Constants.EARTH_GRAVITY * (this.waterTower.tankPosition.y + this.waterTower.fluidLevel - y) );
-            newHoseDrop = new WaterDrop( new Vector2( this.hose.nozzleX + 2 * this.waterTower.TANK_RADIUS - 0.7 * Math.sin( this.hose.angle * Math.PI / 180 ) + 0.1 * Math.cos( this.hose.angle * Math.PI / 180 ) + Math.random() * 0.04 - 0.02,
+            newHoseDrop = new WaterDrop( new Vector2( this.hose.nozzleX + this.waterTower.tankPosition.x + 2 * this.waterTower.TANK_RADIUS - 0.7 * Math.sin( this.hose.angle * Math.PI / 180 ) + 0.1 * Math.cos( this.hose.angle * Math.PI / 180 ) + Math.random() * 0.04 - 0.02,
                   this.waterTower.tankPosition.y - 1.5 + this.hose.nozzleY + 0.3 * Math.sin( this.hose.angle * Math.PI / 180 ) - 0.25 * Math.cos( this.hose.angle * Math.PI / 180 ) + Math.random() * 0.04 - 0.02 ),
               new Vector2( velocityMagnitude * Math.cos( this.hose.angle * Math.PI / 180 ), velocityMagnitude * Math.sin( this.hose.angle * Math.PI / 180 ) ), 0.004 );
 

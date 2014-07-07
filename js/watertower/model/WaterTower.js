@@ -29,11 +29,11 @@ define( function( require ) {
     PropertySet.call( this, {
       isHoleOpen: false,
       fluidVolume: this.TANK_VOLUME * this.options.initialFluidLevel,
-      tankPosition: new Vector2( 0, 1.5 ) //water tank bottom left
+      tankPosition: new Vector2( 1, 1.5 ) //water tank bottom left
     } );
 
     //Size of the hole in meters
-    this.HOLE_SIZE = 0.2;
+    this.HOLE_SIZE = 0.25;
     this.addDerivedProperty( 'fluidLevel', ['fluidVolume'], function( fluidVolume ) {
       return fluidVolume / (Math.PI * waterTower.TANK_RADIUS * waterTower.TANK_RADIUS);
     } );

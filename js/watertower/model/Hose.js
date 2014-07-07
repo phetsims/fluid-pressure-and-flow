@@ -14,19 +14,19 @@ define( function( require ) {
   /**
    * Hose constructor
    * @param {Number} height -- total vertical length of the hose
-   * @param {Number} angle rotated in degrees by the spout measure from a horizontal line. Initially this will be 90.
+   * @param {Number} angle rotated in degrees by the spout, measured from a horizontal line. Initially this will be 90.
    * @constructor
    */
 
   function Hose( height, angle ) {
     //Layout parameters for the Hose
 
-    this.L1 = 0.5;
-    this.H2 = 1.0; //initially 1  make it 0.3
-    this.width = 0.3;   // initially 0.3   make it 0.25
-    this.hoseWidth = 2.5;
+    this.L1 = 0.6; // length of the horizontal portion of the hose from the tank hole
+    this.H2 = 0.6; // length of the vertical/horizontal portion of the hose attached to the spout and nozzle (not including spout/nozzle)
+    this.width = 0.3; // diameter of the hose
+    this.hoseWidth = 2.5; //the total width of the hose node
 
-    this.nozzleX = 0;
+    this.nozzleX = 0; //position of the nozzle in model co-ordinates
     this.nozzleY = 0;
 
     this.angle = angle;
