@@ -32,7 +32,7 @@ define( function( require ) {
 
       // close option
       var tankDim = optionWidth * 0.33;
-      var closeOptionNode = new Rectangle( 0, 0, optionWidth, optionHeight, 5, 5, {stroke: 'gray', lineWidth: 1, fill: 'white'} );
+      var closeOptionNode = new Rectangle( 0, 0, optionWidth, optionHeight, 5, 5, {stroke: 'black', lineWidth: 1, fill: 'white'} );
       var closeWaterTowerLegs = new WaterTowerLegsNode( tankDim, tankDim * 0.7, {
         legWidth: 1,
         crossbeamWidth: 1,
@@ -52,7 +52,7 @@ define( function( require ) {
       closeOptionNode.addChild( closeWaterTowerLegs );
 
       // open option
-      var openOptionNode = new Rectangle( 0, 0, optionWidth, optionHeight, 5, 5, {stroke: 'gray', lineWidth: 1, fill: 'white'} );
+      var openOptionNode = new Rectangle( 0, 0, optionWidth, optionHeight, 5, 5, {stroke: 'black', lineWidth: 1, fill: 'white'} );
 
       var openWaterTowerLegs = new WaterTowerLegsNode( tankDim, 0.7 * tankDim, {
         legWidth: 1,
@@ -79,7 +79,7 @@ define( function( require ) {
       openOptionNode.addChild( openWaterTowerLegs );
       openOptionNode.addChild( waterFlow );
 
-      var sluicePanel = new Rectangle( 0, 0, 2 * optionWidth + 100, optionHeight + 2 * inset, 10, 10, {stroke: 'gray', lineWidth: 1, fill: 'blue'} );
+      var sluicePanel = new Rectangle( 0, 0, 2 * optionWidth + 100, optionHeight + 2 * inset, 10, 10, {stroke: 'black', lineWidth: 1, fill: '#1F5EFF'} );
       sluicePanel.addChild( new ABSwitch( isSluiceOpenProperty, false, closeOptionNode, true, openOptionNode, {left: sluicePanel.left + inset, top: sluicePanel.top + inset} ) );
       this.addChild( sluicePanel );
 
