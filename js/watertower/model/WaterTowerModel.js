@@ -25,7 +25,6 @@ define( function( require ) {
   var Constants = require( 'FLUID_PRESSURE_AND_FLOW/watertower/Constants' );
   var DerivedProperty = require( 'AXON/DerivedProperty' );
   var Hose = require( 'FLUID_PRESSURE_AND_FLOW/watertower/model/Hose' );
-  var Util = require( 'DOT/Util' );
 
   // strings
   var densityUnitsEnglish = require( 'string!FLUID_PRESSURE_AND_FLOW/densityUnitsEnglish' );
