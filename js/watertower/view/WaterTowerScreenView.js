@@ -146,7 +146,7 @@ define( function( require ) {
     this.addChild( controlSlider );
 
     // add the sluice control near bottom left
-    var sluiceControl = new SluiceControl( waterTowerModel.isSluiceOpenProperty, { right: waterTowerView.right + 30, bottom: this.layoutBounds.bottom - 70} );
+    var sluiceControl = new SluiceControl( waterTowerModel.isSluiceOpenProperty, { right: waterTowerView.right + 36, bottom: this.layoutBounds.bottom - 70} );
     this.addChild( sluiceControl );
 
     //add the normal/slow motion options
@@ -180,7 +180,7 @@ define( function( require ) {
     }.bind( this ) );
 
     this.addChild( new WaterTowerRuler( waterTowerModel.isRulerVisibleProperty, waterTowerModel.rulerPositionProperty, waterTowerModel.measureUnitsProperty, modelViewTransform, this.layoutBounds ) );
-    this.addChild( new MeasuringTape( waterTowerModel, modelViewTransform, this.layoutBounds, {x: 10, y: 100} ) );
+    this.addChild( new MeasuringTape( waterTowerModel, modelViewTransform, this.layoutBounds ) );
 
     waterTowerModel.faucetDrops.addItemAddedListener( function( waterDrop ) {
       var waterDropNode = new WaterDropNode( waterDrop, waterTowerModel.fluidColorModel, modelViewTransform );

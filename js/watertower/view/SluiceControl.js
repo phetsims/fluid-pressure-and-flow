@@ -16,8 +16,8 @@ define( function( require ) {
     var ABSwitch = require( 'SUN/ABSwitch' );
     var WaterTowerLegsNode = require( 'FLUID_PRESSURE_AND_FLOW/watertower/view/WaterTowerLegsNode' );
 
-    var optionWidth = 60;
-    var optionHeight = 50;
+    var optionWidth = 48;
+    var optionHeight = 36;
     var inset = 10;
 
     /**
@@ -31,9 +31,9 @@ define( function( require ) {
       Node.call( this );
 
       // close option
-      var tankDim = optionHeight * 0.4;
+      var tankDim = optionWidth * 0.33;
       var closeOptionNode = new Rectangle( 0, 0, optionWidth, optionHeight, 5, 5, {stroke: 'gray', lineWidth: 1, fill: 'white'} );
-      var closeWaterTowerLegs = new WaterTowerLegsNode( tankDim, tankDim, {
+      var closeWaterTowerLegs = new WaterTowerLegsNode( tankDim, tankDim * 0.7, {
         legWidth: 1,
         crossbeamWidth: 1,
         bottom: closeOptionNode.bottom,
@@ -54,7 +54,7 @@ define( function( require ) {
       // open option
       var openOptionNode = new Rectangle( 0, 0, optionWidth, optionHeight, 5, 5, {stroke: 'gray', lineWidth: 1, fill: 'white'} );
 
-      var openWaterTowerLegs = new WaterTowerLegsNode( tankDim, tankDim, {
+      var openWaterTowerLegs = new WaterTowerLegsNode( tankDim, 0.7 * tankDim, {
         legWidth: 1,
         crossbeamWidth: 1,
         bottom: openOptionNode.bottom,
@@ -69,10 +69,10 @@ define( function( require ) {
         left: openWaterTowerLegs.left
       } );
 
-      var waterFlow = new Path( new Shape().moveTo( 0, 0 ).quadraticCurveTo( 12, 5, 14, 25 ), {
+      var waterFlow = new Path( new Shape().moveTo( 0, 0 ).quadraticCurveTo( 10, 0, 13, 15 ), {
         left: openWaterTank.right - 3,
-        lineWidth: 6,
-        top: openWaterTank.bottom - 8,
+        lineWidth: 4,
+        top: openWaterTank.bottom - 6,
         stroke: '#33D6FF'
       } );
       openOptionNode.addChild( openWaterTank );
