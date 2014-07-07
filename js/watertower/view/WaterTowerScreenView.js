@@ -79,7 +79,7 @@ define( function( require ) {
     waterTowerScreenView.addChild( hoseDropsLayer );
 
     // add the hose
-    this.hoseView = new HoseView( waterTowerModel.waterTower.hose, waterTowerModel.waterTower.tankPosition, modelViewTransform, waterTowerModel.isHoseVisibleProperty );
+    this.hoseView = new HoseView( waterTowerModel.hose, waterTowerModel.waterTower.tankPosition, modelViewTransform, waterTowerModel.isHoseVisibleProperty );
     this.addChild( this.hoseView );
 
     var waterTowerView = new WaterTowerView( waterTowerModel.waterTower, waterTowerModel.fluidColorModel, modelViewTransform );

@@ -24,6 +24,7 @@ define( function( require ) {
   var ObservableArray = require( 'AXON/ObservableArray' );
   var Constants = require( 'FLUID_PRESSURE_AND_FLOW/watertower/Constants' );
   var DerivedProperty = require( 'AXON/DerivedProperty' );
+  var Hose = require( 'FLUID_PRESSURE_AND_FLOW/watertower/model/Hose' );
 
   // strings
   var densityUnitsEnglish = require( 'string!FLUID_PRESSURE_AND_FLOW/densityUnitsEnglish' );
@@ -70,7 +71,10 @@ define( function( require ) {
     this.units = new Units();
 
     this.waterTower = new WaterTower();
-    this.faucetPosition = new Vector2( 0.25, 3.8 ); //faucet right co-ordinates
+
+    this.hose = new Hose( 2.5, 90 );
+
+    this.faucetPosition = new Vector2( 1.25, 3.8 ); //faucet right co-ordinates
     this.faucetDrops = new ObservableArray();
     this.waterTowerDrops = new ObservableArray();
     this.hoseDrops = new ObservableArray();
