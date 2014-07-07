@@ -25,6 +25,7 @@ define( function( require ) {
   var Constants = require( 'FLUID_PRESSURE_AND_FLOW/watertower/Constants' );
   var DerivedProperty = require( 'AXON/DerivedProperty' );
   var Hose = require( 'FLUID_PRESSURE_AND_FLOW/watertower/model/Hose' );
+  var Util = require( 'DOT/Util' );
 
   // strings
   var densityUnitsEnglish = require( 'string!FLUID_PRESSURE_AND_FLOW/densityUnitsEnglish' );
@@ -188,7 +189,15 @@ define( function( require ) {
 
         //Add watertower drops if the tank is open and there is fluid in the tank
         if ( this.isSluiceOpen && this.waterTower.fluidVolume > 0 && !this.isHoseVisible ) {
-          newWaterDrop = new WaterDrop( this.waterTower.tankPosition.plus( new Vector2( 2 * this.waterTower.TANK_RADIUS + Math.random() * 0.04 - 0.02, this.waterTower.HOLE_SIZE + Math.random() * 0.04 - 0.02 ) ), new Vector2( Math.sqrt( 2 * Constants.EARTH_GRAVITY * this.waterTower.fluidLevel ), 0 ), 0.004 );
+          var volume = 0.004;
+          var radius = Util.cubeRoot( (3 * volume) / (4 * Math.PI) );
+
+          // ensure that the waterdrops are smaller than the fluid level
+          if ( 2 * radius > this.waterTower.fluidLevel ) {
+            radius = this.waterTower.fluidLevel / 2;
+            volume = 4 * Math.PI * radius * radius * radius / 3;
+          }
+          newWaterDrop = new WaterDrop( this.waterTower.tankPosition.plus( new Vector2( 2 * this.waterTower.TANK_RADIUS + Math.random() * 0.04 - 0.02, 2 * radius + Math.random() * radius / 2 ) ), new Vector2( Math.sqrt( 2 * Constants.EARTH_GRAVITY * this.waterTower.fluidLevel ), 0 ), volume );
           this.waterTowerDrops.push( newWaterDrop );
           newWaterDrop.step( this.accumulatedDt );
           newWaterTowerDrops.push( newWaterDrop );
