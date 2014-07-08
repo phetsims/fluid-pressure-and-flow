@@ -93,6 +93,9 @@ define( function( require ) {
     DerivedProperty.multilink( [this.waterTower.isFullProperty, this.faucetModeProperty], function( isFull, faucetMode ) {
       if ( faucetMode === "manual" ) {
         this.isFaucetEnabled = !isFull;
+        if ( isFull ) {
+          this.faucetFlowRate = 0;
+        }
       }
       else {
         this.isFaucetEnabled = false;
@@ -177,7 +180,7 @@ define( function( require ) {
 
       while ( this.accumulatedDt > 0.016 ) {
         this.accumulatedDt -= 0.016;
-        if ( (this.faucetMode === "manual" && this.isFaucetEnabled ) || (this.faucetMode === "matchLeakage" && this.isSluiceOpen && !this.waterTower.isFull) ) {
+        if ( (this.faucetMode === "manual" && this.isFaucetEnabled ) || (this.faucetMode === "matchLeakage" && this.isSluiceOpen && this.waterTower.fluidVolume > 0) ) {
           newFaucetDrop = new WaterDrop( this.faucetPosition.copy().plus( new Vector2( Math.random() * 0.04 - 0.02, 0 ) ), new Vector2( 0, 0 ), this.faucetMode === "manual" ? this.faucetFlowRate * 0.016 : this.leakageVolume );
 
           this.faucetDrops.push( newFaucetDrop );
@@ -236,7 +239,9 @@ define( function( require ) {
         //check if the faucetDrops hit the fluidLevel
         if ( this.faucetDrops.get( i ).position.y < 0.03 + this.waterTower.tankPosition.y + this.waterTower.fluidLevel + this.faucetDrops.get( i ).radius ) {
           this.dropsToRemove.push( this.faucetDrops.get( i ) );
-          this.waterTower.fluidVolume = this.waterTower.fluidVolume + this.faucetDrops.get( i ).volume;
+          if ( this.waterTower.fluidVolume <= this.waterTower.TANK_VOLUME - this.faucetDrops.get( i ).volume ) {
+            this.waterTower.fluidVolume = this.waterTower.fluidVolume + this.faucetDrops.get( i ).volume;
+          }
         }
       }
 
