@@ -26,7 +26,7 @@ define( function( require ) {
 
     var textOptions = {font: new PhetFont( 14 )};
 
-    var unitsPanel = new Rectangle( 0, 0, 190, 80, 10, 10, {fill: '#f2fa6a', stroke: 'gray', lineWidth: 1} );
+    var unitsPanel = new Rectangle( 0, 0, 175, 80, 10, 10, {fill: '#f2fa6a', stroke: 'gray', lineWidth: 1} );
     var titleText = new Text( unitsString, {font: new PhetFont( 14 ), top: unitsPanel.top + 10, centerX: unitsPanel.centerX} );
     var metricRadio = new AquaRadioButton( model.measureUnitsProperty, 'metric', new Text( metricString, textOptions ), {radius: 8, x: 20, y: unitsPanel.top + 35} );
     var englishRadio = new AquaRadioButton( model.measureUnitsProperty, 'english', new Text( englishString, textOptions ), {radius: 8, x: 20, y: unitsPanel.top + 60} );

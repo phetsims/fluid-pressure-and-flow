@@ -47,11 +47,11 @@ define( function( require ) {
 
     var textOptions = {font: new PhetFont( 14 )};
 
-    var measuringTape = [new Text( measuringTapeString, textOptions ), new Rectangle( 0, 0, 30, 20 ), this.createMeasuringTapeIcon()];
+    var measuringTape = [new Text( measuringTapeString, textOptions ), new Rectangle( 0, 0, 10, 20 ), this.createMeasuringTapeIcon()];
 
     //align ruler icon right
-    var ruler = [new Text( rulerString, textOptions ), new Rectangle( 0, 0, 80, 20 ), this.createRulerIcon()];
-    var hose = [new Text( hoseString, textOptions ), new Rectangle( 0, 0, 60, 20 ), this.createHoseIcon()];
+    var ruler = [new Text( rulerString, textOptions ), new Rectangle( 0, 0, 65, 20 ), this.createRulerIcon()];
+    var hose = [new Text( hoseString, textOptions ), new Rectangle( 0, 0, 40, 20 ), this.createHoseIcon()];
     var checkBoxOptions = {
       boxWidth: 18,
       spacing: 5
