@@ -25,7 +25,7 @@ define( function( require ) {
     var self = this;
 
     //from java version
-    var GAS_COLOR = new Color( 128, 128, 128 );
+    var GAS_COLOR = new Color( 149, 142, 139 );
     var WATER_COLOR = new Color( 20, 244, 255 );
     var HONEY_COLOR = new Color( 255, 191, 0 );
 
