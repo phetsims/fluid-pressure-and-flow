@@ -102,7 +102,8 @@ define( function( require ) {
       horizontalPipeLength: 1000,
       right: modelViewTransform.modelToViewX( waterTowerModel.faucetPosition.x ) + 20,
       top: this.layoutBounds.top + inset,
-      scale: 0.3 //size of the faucet
+      scale: 0.3, //size of the faucet,
+      closeOnRelease: false
     } );
     this.addChild( faucetNode );
 
