@@ -85,13 +85,13 @@ define( function( require ) {
     this.accordionContent = new Node();
     this.accordionContent.addChild( this.content );
 
-    var accordionBox = new AccordionBox( this.accordionContent,
+    this.accordionBox = new AccordionBox( this.accordionContent,
       {
         title: options.title,
         fill: options.fill,
         stroke: 'gray',
         font: new PhetFont( { size: 19 } ),
-        initiallyOpen: true,
+        initiallyOpen: false,
         minWidth: 270,
         contentPosition: 'center',
         titlePosition: 'left',
@@ -100,12 +100,12 @@ define( function( require ) {
         cornerRadius: 10,
         controlButtonInsetX: 8
       } );
-    this.addChild( accordionBox );
+    this.addChild( this.accordionBox );
 
     //question mark, show if unknown property
     this.questionMark = new Node( {visible: false} );
     this.questionMark.addChild( new Text( '?', { font: new PhetFont( 80 )} ) );
-    this.questionMark.centerX = accordionBox.width / 2;
+    this.questionMark.centerX = this.accordionBox.width / 2;
     this.questionMark.top = this.content.top;
     this.accordionContent.addChild( this.questionMark );
 
@@ -132,6 +132,9 @@ define( function( require ) {
     enable: function() {
       this.content.visible = true;
       this.questionMark.visible = false;
+    },
+    reset: function() {
+      this.accordionBox.open.set( false );
     }
   } );
 

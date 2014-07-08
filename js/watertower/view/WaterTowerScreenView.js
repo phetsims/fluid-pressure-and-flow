@@ -117,6 +117,7 @@ define( function( require ) {
     var resetAllButton = new ResetAllButton( {
       listener: function() {
         waterTowerModel.reset();
+        controlSlider.reset();
       },
       right: this.layoutBounds.right - inset,
       bottom: this.layoutBounds.bottom - inset
