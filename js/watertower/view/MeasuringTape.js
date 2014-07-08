@@ -31,10 +31,10 @@ define( function( require ) {
   // constants
   var FONT = new PhetFont( 16 );
 
-  var options = [
+  var defaultOptions = [
     {
-      x: 100,
-      y: 175,
+      x: 280,
+      y: 344,
       tipX: 119.5,
       tipY: 0,
       scale: 1,
@@ -42,7 +42,8 @@ define( function( require ) {
       value: 50000,
       precision: 2
     }
-  ];
+    ]
+    ;
 
   function MeasuringTape( model ) {
     var measuringTape = this;
@@ -51,7 +52,7 @@ define( function( require ) {
     this.mode = 0;
     this.prevScale = 1;
 
-    this.options = options;
+    this.options = defaultOptions;
     this.init( model );
 
     // add base of tape and not base node
@@ -136,12 +137,15 @@ define( function( require ) {
         measuringTape.text.setText( lengthValue + " " + metersString );
       }
       else {
-        measuringTape.text.setText( (lengthValue * 3.28).toFixed( options[measuringTape.mode].precision ) + " " + feetString );
+        measuringTape.text.setText( (lengthValue * 3.28).toFixed( measuringTape.options[measuringTape.mode].precision ) + " " + feetString );
       }
     } );
 
     // add observers
     model.isMeasuringTapeVisibleProperty.linkAttribute( this, 'visible' );
+
+    //Inital position for tape
+    measuringTape.initTape( measuringTape.options[0], angle );
 
     model.scaleProperty.link( function( newScale ) {
       measuringTape.scale( newScale );
@@ -195,7 +199,7 @@ define( function( require ) {
       var lengthValue = this.getText();
 
       if ( this.model.measureUnits === "english" ) {
-        this.text.setText( (lengthValue * 3.28).toFixed( options[this.mode].precision ) + " " + feetString );
+        this.text.setText( (lengthValue * 3.28).toFixed( option.precision ) + " " + feetString );
       }
       else {
         this.text.setText( lengthValue + " " + metersString );

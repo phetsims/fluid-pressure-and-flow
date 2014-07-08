@@ -180,7 +180,7 @@ define( function( require ) {
     }.bind( this ) );
 
     this.addChild( new WaterTowerRuler( waterTowerModel.isRulerVisibleProperty, waterTowerModel.rulerPositionProperty, waterTowerModel.measureUnitsProperty, modelViewTransform, this.layoutBounds ) );
-    this.addChild( new MeasuringTape( waterTowerModel, modelViewTransform, this.layoutBounds ) );
+    this.addChild( new MeasuringTape( waterTowerModel ) );
 
     waterTowerModel.faucetDrops.addItemAddedListener( function( waterDrop ) {
       var waterDropNode = new WaterDropNode( waterDrop, waterTowerModel.fluidColorModel, modelViewTransform );

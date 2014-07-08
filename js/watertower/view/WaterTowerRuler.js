@@ -60,10 +60,10 @@ define( function( require ) {
     this.addChild( closeButton );
 
     //Maintain two different rules internally and link their visibility to the measureUnits property
-    var metersRuler = new RulerNode( modelViewTransform.modelToViewX( 5 ), 50, modelViewTransform.modelToViewX( 1 ), ['0', '1', '2', '3', '4', '5'], units_metersString, {minorTicksPerMajorTick: 4, unitsFont: '12px Arial', rotation: Math.PI / 2} );
+    var metersRuler = new RulerNode( modelViewTransform.modelToViewX( 3 ), 50, modelViewTransform.modelToViewX( 1 ), ['0', '1', '2', '3'], units_metersString, {minorTicksPerMajorTick: 4, unitsFont: '12px Arial', rotation: Math.PI / 2} );
     this.addChild( metersRuler );
 
-    var feetRuler = new RulerNode( modelViewTransform.modelToViewX( Units.feetToMeters( 10 ) ), 50, modelViewTransform.modelToViewX( Units.feetToMeters( 1 ) ), ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10'], units_feetString, {minorTicksPerMajorTick: 4, unitsFont: '12px Arial', rotation: Math.PI / 2} );
+    var feetRuler = new RulerNode( modelViewTransform.modelToViewX( 3 ), 50, modelViewTransform.modelToViewX( Units.feetToMeters( 1 ) ), ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10'], units_feetString, {minorTicksPerMajorTick: 4, unitsFont: '12px Arial', rotation: Math.PI / 2} );
     this.addChild( feetRuler );
 
     closeButton.translation = new Vector2( -this.width + closeButton.width, -closeButton.height );
