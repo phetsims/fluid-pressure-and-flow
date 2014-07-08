@@ -116,23 +116,29 @@ define( function( require ) {
     } );
     this.addChild( fillButton );
 
+    var clickYOffset;
+    var initialY;
     handleNode.addInputListener( new SimpleDragHandler( {
+      start: function( e ) {
+        clickYOffset = waterTowerView.globalToParentPoint( e.pointer.point ).y;
+        initialY = waterTower.tankPosition.y;
+      },
       drag: function( e ) {
-        var y = modelViewTransform.viewToModelY( e.pointer.point.y );
+        var deltaY = waterTowerView.globalToParentPoint( e.pointer.point ).y - clickYOffset;
+        deltaY = modelViewTransform.viewToModelDeltaY( deltaY );
+        var newY = initialY + deltaY;
         //restrict the tank bottom to be between 0.1 and 2 meters
-        y = y > 2 ? 2 : y < 0.1 ? 0.1 : y;
-        waterTowerView.waterTower.tankPosition = new Vector2( waterTowerView.waterTower.tankPosition.x, y );
+        newY = newY > 2 ? 2 : newY < 0.1 ? 0.1 : newY;
+        waterTowerView.waterTower.tankPosition = new Vector2( waterTowerView.waterTower.tankPosition.x, newY );
       }
     } ) );
 
     waterTower.tankPositionProperty.link( function( tankPosition ) {
       waterTowerView.updateWaterTowerLegs();
-      if ( tankPosition.y > 0.2 ) {
+      if ( tankPosition.y > 0.23 )
         waterTowerView.bottom = modelViewTransform.modelToViewY( 0 ) - 6;
-      }
-      else {
-        waterTowerView.bottom = modelViewTransform.modelToViewY( 0 ) + 2;
-      }
+      else
+        waterTowerView.bottom = modelViewTransform.modelToViewY( tankPosition.y ) + 10;
     } );
 
     waterTower.fluidVolumeProperty.link( function() {
