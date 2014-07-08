@@ -135,10 +135,7 @@ define( function( require ) {
 
     waterTower.tankPositionProperty.link( function( tankPosition ) {
       waterTowerView.updateWaterTowerLegs();
-      if ( tankPosition.y > 0.23 )
-        waterTowerView.bottom = modelViewTransform.modelToViewY( 0 ) - 6;
-      else
-        waterTowerView.bottom = modelViewTransform.modelToViewY( tankPosition.y ) + 10;
+      waterTowerView.bottom = ( tankPosition.y > 0.23 ) ? waterTowerView.bottom = modelViewTransform.modelToViewY( 0 ) - 6 : waterTowerView.bottom = modelViewTransform.modelToViewY( tankPosition.y ) + 10;
     } );
 
     waterTower.fluidVolumeProperty.link( function() {
