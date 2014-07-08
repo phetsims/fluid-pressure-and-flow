@@ -72,7 +72,7 @@ define( function( require ) {
 
     this.waterTower = new WaterTower();
 
-    this.hose = new Hose( 2.5, 90 );
+    this.hose = new Hose( 1.5, 90 );
 
     this.faucetPosition = new Vector2( 1.3, 3.8 ); //faucet right co-ordinates
     this.faucetDrops = new ObservableArray();
@@ -239,8 +239,13 @@ define( function( require ) {
         //check if the faucetDrops hit the fluidLevel
         if ( this.faucetDrops.get( i ).position.y < 0.03 + this.waterTower.tankPosition.y + this.waterTower.fluidLevel + this.faucetDrops.get( i ).radius ) {
           this.dropsToRemove.push( this.faucetDrops.get( i ) );
-          if ( this.waterTower.fluidVolume <= this.waterTower.TANK_VOLUME - this.faucetDrops.get( i ).volume ) {
+
+          if ( this.waterTower.fluidVolume < this.waterTower.TANK_VOLUME ) {
             this.waterTower.fluidVolume = this.waterTower.fluidVolume + this.faucetDrops.get( i ).volume;
+          }
+
+          if ( this.waterTower.fluidVolume > this.waterTower.TANK_VOLUME ) {
+            this.waterTower.fluidVolume = this.waterTower.TANK_VOLUME;
           }
         }
       }
