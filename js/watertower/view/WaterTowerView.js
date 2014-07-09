@@ -32,10 +32,11 @@ define( function( require ) {
    * @param {WaterTower} waterTower model
    * @param {FluidColorModel} fluidColorModel to change the color based on density
    * @param {ModelViewTransform2} modelViewTransform transform to convert between waterTower and view values
+   * @param {HoseView} hoseView
    * @param options
    * @constructor
    */
-  function WaterTowerView( waterTower, fluidColorModel, modelViewTransform, options ) {
+  function WaterTowerView( waterTower, fluidColorModel, modelViewTransform, hoseView, options ) {
     var waterTowerView = this;
     options = _.extend( {
       towerFrameColor: 'black'
@@ -118,10 +119,12 @@ define( function( require ) {
 
     var clickYOffset;
     var initialY;
+    var initialHeight;
     handleNode.addInputListener( new SimpleDragHandler( {
       start: function( e ) {
         clickYOffset = waterTowerView.globalToParentPoint( e.pointer.point ).y;
         initialY = waterTower.tankPosition.y;
+        initialHeight = hoseView.hoseHeight;
       },
       drag: function( e ) {
         var deltaY = waterTowerView.globalToParentPoint( e.pointer.point ).y - clickYOffset;
@@ -129,7 +132,12 @@ define( function( require ) {
         var newY = initialY + deltaY;
         //restrict the tank bottom to be between 0.1 and 2 meters
         newY = newY > 2 ? 2 : newY < 0.1 ? 0.1 : newY;
+        deltaY = newY - initialY;
         waterTowerView.waterTower.tankPosition = new Vector2( waterTowerView.waterTower.tankPosition.x, newY );
+
+        hoseView.hoseHeight = initialHeight + deltaY;
+        hoseView.update();
+        hoseView.setTranslation( modelViewTransform.modelToViewX( 2.6 ), modelViewTransform.modelToViewY( waterTowerView.waterTower.tankPosition.y ) - 130 );
       }
     } ) );
 

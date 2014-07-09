@@ -91,7 +91,7 @@ define( function( require ) {
     this.hoseView = new HoseView( waterTowerModel.hose, waterTowerModel.waterTower.tankPosition, modelViewTransform, waterTowerModel.isHoseVisibleProperty );
     this.addChild( this.hoseView );
 
-    var waterTowerView = new WaterTowerView( waterTowerModel.waterTower, waterTowerModel.fluidColorModel, modelViewTransform );
+    var waterTowerView = new WaterTowerView( waterTowerModel.waterTower, waterTowerModel.fluidColorModel, modelViewTransform, this.hoseView );
     this.addChild( waterTowerView );
 
     var faucetDropsLayer = new Node();
@@ -223,12 +223,6 @@ define( function( require ) {
         waterTowerView.sluiceGate.bottom = waterTowerView.waterTankFrame.bottom;
       }
     } );
-
-    waterTowerModel.waterTower.tankPositionProperty.link( function( tankPosition ) {
-      this.hoseView.y = modelViewTransform.modelToViewY( tankPosition.y ) - 129;
-      this.hoseView.x = waterTowerView.right - 6;
-    }.bind( this ) );
-
   }
 
   return inherit( ScreenView, WaterTowerScreenView );

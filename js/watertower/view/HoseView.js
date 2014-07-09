@@ -156,7 +156,7 @@ define( function( require ) {
           return;
         }
 
-        var angleMoved = Math.atan( deltaY / deltaX );
+        var angleMoved = Math.atan2( deltaY, deltaX );
         angleMoved = (angleMoved * 180 / Math.PI);    //radians to degree conversion
 
         var angleToUpdate = initialHoseAngle - angleMoved;
@@ -169,15 +169,17 @@ define( function( require ) {
     // add observers
     isHoseVisibleProperty.linkAttribute( this, 'visible' );
 
+    hoseView.setTranslation( 180, 115 );
+
     this.mutate( options );
 
   }
 
   return inherit( Node, HoseView, {
     updateHoseHeight: function( y ) {
-      y = y - 100;
+      y = y - 115;
       var newHeight = -this.modelViewTransform.viewToModelDeltaY( y ) > -1.5 ? -this.modelViewTransform.viewToModelDeltaY( y ) : -1.5;
-      newHeight = newHeight > 2.5 ? 2.5 : newHeight;
+      newHeight = newHeight > 1.5 ? 1.5 : newHeight;
       this.hoseHeight = newHeight;
       this.update();
     },
