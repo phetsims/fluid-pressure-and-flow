@@ -23,6 +23,15 @@ define( function( require ) {
   // view constants
   var CORNER_RADIUS = 4; //px
 
+  /**
+   *
+   * @param {Hose} hose model
+   * @param {Property<Vector2>} tankPositionProperty the bottom left of the tank frame
+   * @param {ModelViewTransform2} modelViewTransform transform to convert between model and view values
+   * @param {Property<Boolean>} isHoseVisibleProperty controls the hose visibility
+   * @param options
+   * @constructor
+   */
   function HoseView( hose, tankPositionProperty, modelViewTransform, isHoseVisibleProperty, options ) {
     var hoseView = this;
     Node.call( this );
