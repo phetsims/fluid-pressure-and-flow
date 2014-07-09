@@ -61,20 +61,7 @@ define( function( require ) {
     // TODO : compare this.varX with tank bottom Y
     //When the hose is above
     if ( this.varY >= 0.05 ) {
-      this.hoseShape = new Shape()
-        .moveTo( modelViewTransform.modelToViewX( this.varX ), modelViewTransform.modelToViewY( this.varY ) )
-        .lineTo( modelViewTransform.modelToViewX( this.hoseWidth ), modelViewTransform.modelToViewY( -this.hoseHeight + hoseModel.H2 ) )
-        .lineTo( modelViewTransform.modelToViewX( this.upperLineEndPointX ), modelViewTransform.modelToViewY( this.upperLineEndPointY ) )
-        .lineTo( modelViewTransform.modelToViewX( this.upperLinePointX ), modelViewTransform.modelToViewY( this.upperLinePointY ) )
-        .lineTo( modelViewTransform.modelToViewX( hoseModel.L1 - hoseModel.width ), modelViewTransform.modelToViewY( this.upperLinePointY ) )
-        .lineTo( modelViewTransform.modelToViewX( hoseModel.L1 - hoseModel.width ), modelViewTransform.modelToViewY( hoseModel.width ) )
-        .lineTo( modelViewTransform.modelToViewX( 0 ), modelViewTransform.modelToViewY( hoseModel.width ) )
-        .lineTo( modelViewTransform.modelToViewX( 0 ), modelViewTransform.modelToViewY( 0 ) )
-        .lineTo( modelViewTransform.modelToViewX( hoseModel.L1 ), modelViewTransform.modelToViewY( 0 ) )
-        .lineTo( modelViewTransform.modelToViewX( hoseModel.L1 ), modelViewTransform.modelToViewY( this.y2 ) )
-        .lineTo( modelViewTransform.modelToViewX( this.x2 ), modelViewTransform.modelToViewY( this.y2 ) )
-        .arc( modelViewTransform.modelToViewX( this.upperLinePointX ), modelViewTransform.modelToViewY( this.upperLinePointY ), 21,
-          Math.PI / 2, this.angleWithPerpendicularInRadians, true );
+      this.hoseShape = this.getTopShape();
     }
     else {
 
@@ -215,20 +202,7 @@ define( function( require ) {
 
       // TODO : compare this.varX with tank bottom Y
       if ( this.varY >= 0.05 /*this.tankPosition.Y*/ ) {
-        this.hosePath.setShape( new Shape()
-          .moveTo( this.modelViewTransform.modelToViewX( this.varX ), this.modelViewTransform.modelToViewY( this.varY ) )
-          .lineTo( this.modelViewTransform.modelToViewX( this.hoseWidth ), this.modelViewTransform.modelToViewY( -this.hoseHeight + this.model.H2 ) )
-          .lineTo( this.modelViewTransform.modelToViewX( this.upperLineEndPointX ), this.modelViewTransform.modelToViewY( this.upperLineEndPointY ) )
-          .lineTo( this.modelViewTransform.modelToViewX( this.upperLinePointX ), this.modelViewTransform.modelToViewY( this.upperLinePointY ) )
-          .lineTo( this.modelViewTransform.modelToViewX( this.model.L1 - this.model.width ), this.modelViewTransform.modelToViewY( this.upperLinePointY ) )
-          .lineTo( this.modelViewTransform.modelToViewX( this.model.L1 - this.model.width ), this.modelViewTransform.modelToViewY( this.model.width ) )
-          .lineTo( this.modelViewTransform.modelToViewX( 0 ), this.modelViewTransform.modelToViewY( this.model.width ) )
-          .lineTo( this.modelViewTransform.modelToViewX( 0 ), this.modelViewTransform.modelToViewY( 0 ) )
-          .lineTo( this.modelViewTransform.modelToViewX( this.model.L1 ), this.modelViewTransform.modelToViewY( 0 ) )
-          .lineTo( this.modelViewTransform.modelToViewX( this.model.L1 ), this.modelViewTransform.modelToViewY( this.y2 ) )
-          .lineTo( this.modelViewTransform.modelToViewX( this.x2 ), this.modelViewTransform.modelToViewY( this.y2 ) )
-          .arc( this.modelViewTransform.modelToViewX( this.upperLinePointX ), this.modelViewTransform.modelToViewY( this.upperLinePointY ), 21,
-            Math.PI / 2, this.angleWithPerpendicularInRadians, true ) );
+        this.hosePath.setShape( this.getTopShape() );
 
 
         this.handleNodeCenterX = (this.upperLinePointX - this.model.L1 ) / 2 + this.model.L1;
@@ -268,6 +242,42 @@ define( function( require ) {
     },
     reset: function() {
       this.setTranslation( this.initialPosition );
+    },
+
+    getTopShape: function() {
+      var shape = new Shape();
+      shape = shape.moveTo( this.modelViewTransform.modelToViewX( this.varX ), this.modelViewTransform.modelToViewY( this.varY ) )
+        .lineTo( this.modelViewTransform.modelToViewX( this.hoseWidth ), this.modelViewTransform.modelToViewY( -this.hoseHeight + this.model.H2 ) )
+        .lineTo( this.modelViewTransform.modelToViewX( this.upperLineEndPointX ), this.modelViewTransform.modelToViewY( this.upperLineEndPointY ) )
+        .lineTo( this.modelViewTransform.modelToViewX( this.upperLinePointX ), this.modelViewTransform.modelToViewY( this.upperLinePointY ) - 4 * Math.cos( this.angleWithPerpendicularInRadians ) )
+        .arc( this.modelViewTransform.modelToViewX( this.upperLinePointX ) - 4, this.modelViewTransform.modelToViewY( this.upperLinePointY ) - 4, 4, this.angleWithPerpendicularInRadians, Math.PI / 2, false )
+        .lineTo( this.modelViewTransform.modelToViewX( this.model.L1 - this.model.width ) + 10, this.modelViewTransform.modelToViewY( this.upperLinePointY ) );
+
+      if ( this.upperLinePointY - this.model.width > 0.2 ) {
+        shape = shape.arc( this.modelViewTransform.modelToViewX( this.model.L1 - this.model.width ) + 10, this.modelViewTransform.modelToViewY( this.upperLinePointY ) + 10, 10, -Math.PI / 2, Math.PI, true )
+          .lineTo( this.modelViewTransform.modelToViewX( this.model.L1 - this.model.width ), this.modelViewTransform.modelToViewY( this.model.width ) - 4 )
+          .arc( this.modelViewTransform.modelToViewX( this.model.L1 - this.model.width ) - 4, this.modelViewTransform.modelToViewY( this.model.width ) - 4, 4, 0, Math.PI / 2, false );
+      }
+
+      shape = shape.lineTo( this.modelViewTransform.modelToViewX( 0 ), this.modelViewTransform.modelToViewY( this.model.width ) )
+        .lineTo( this.modelViewTransform.modelToViewX( 0 ), this.modelViewTransform.modelToViewY( 0 ) );
+
+
+      if ( this.upperLinePointY - this.model.width > 0.2 ) {
+        shape = shape.lineTo( this.modelViewTransform.modelToViewX( this.model.L1 ) - 4, this.modelViewTransform.modelToViewY( 0 ) )
+          .arc( this.modelViewTransform.modelToViewX( this.model.L1 ) - 4, this.modelViewTransform.modelToViewY( 0 ) - 4, 4, Math.PI / 2, 0, true )
+          .lineTo( this.modelViewTransform.modelToViewX( this.model.L1 ), this.modelViewTransform.modelToViewY( this.y2 ) + 4 )
+          .arc( this.modelViewTransform.modelToViewX( this.model.L1 ) + 4, this.modelViewTransform.modelToViewY( this.y2 ) + 4, 4, Math.PI, -Math.PI / 2, false );
+      }
+      else {
+        shape = shape.lineTo( this.modelViewTransform.modelToViewX( this.model.L1 ), this.modelViewTransform.modelToViewY( this.y2 ) );
+      }
+
+      shape = shape.lineTo( this.modelViewTransform.modelToViewX( this.x2 ), this.modelViewTransform.modelToViewY( this.y2 ) )
+        .arc( this.modelViewTransform.modelToViewX( this.upperLinePointX ), this.modelViewTransform.modelToViewY( this.upperLinePointY ), this.modelViewTransform.modelToViewDeltaX( this.model.width ),
+          Math.PI / 2, this.angleWithPerpendicularInRadians, true );
+
+      return shape;
     }
   } );
 
