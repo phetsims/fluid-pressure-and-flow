@@ -51,7 +51,7 @@ define( function( require ) {
     this.computeInternalVariables();
 
     //When the hose is above
-    if ( this.elbowOuterY >= 0 ) {
+    if ( this.elbowOuterY >= 0.2 * Math.cos( this.angleWithVertical ) ) {
       this.hoseShape = this.getTopShape();
     }
     else {
@@ -159,7 +159,7 @@ define( function( require ) {
 
       this.computeInternalVariables();
 
-      if ( this.elbowOuterY >= 0 ) {
+      if ( this.elbowOuterY >= 0.2 * Math.cos( this.angleWithVertical ) ) {
         this.hosePath.setShape( this.getTopShape() );
         this.handleNodeCenterX = (this.elbowInnerX - this.hose.L1 ) / 2 + this.hose.L1;
         this.handleNode.centerX = this.modelViewTransform.modelToViewX( this.handleNodeCenterX );
@@ -192,7 +192,7 @@ define( function( require ) {
         .arc( this.modelViewTransform.modelToViewX( this.elbowInnerX ) - CORNER_RADIUS, this.modelViewTransform.modelToViewY( this.elbowInnerY ) - CORNER_RADIUS, CORNER_RADIUS, this.angleWithVertical, Math.PI / 2, false )
         .lineTo( this.modelViewTransform.modelToViewX( this.hose.L1 - this.hose.width ) + CORNER_RADIUS, this.modelViewTransform.modelToViewY( this.elbowInnerY ) );
 
-      if ( this.elbowInnerY - this.hose.width > 0.1 ) {
+      if ( this.elbowInnerY - this.hose.width > 0.08 ) {
         shape = shape.arc( this.modelViewTransform.modelToViewX( this.hose.L1 - this.hose.width ) + CORNER_RADIUS, this.modelViewTransform.modelToViewY( this.elbowInnerY ) + CORNER_RADIUS, CORNER_RADIUS, -Math.PI / 2, Math.PI, true )
           .lineTo( this.modelViewTransform.modelToViewX( this.hose.L1 - this.hose.width ), this.modelViewTransform.modelToViewY( this.hose.width ) - CORNER_RADIUS )
           .arc( this.modelViewTransform.modelToViewX( this.hose.L1 - this.hose.width ) - CORNER_RADIUS, this.modelViewTransform.modelToViewY( this.hose.width ) - CORNER_RADIUS, CORNER_RADIUS, 0, Math.PI / 2, false );
@@ -202,7 +202,7 @@ define( function( require ) {
         .lineTo( this.modelViewTransform.modelToViewX( 0 ), this.modelViewTransform.modelToViewY( 0 ) );
 
 
-      if ( this.elbowInnerY - this.hose.width > 0.1 ) {
+      if ( this.elbowInnerY - this.hose.width > 0.08 ) {
         shape = shape.lineTo( this.modelViewTransform.modelToViewX( this.hose.L1 ) - CORNER_RADIUS, this.modelViewTransform.modelToViewY( 0 ) )
           .arc( this.modelViewTransform.modelToViewX( this.hose.L1 ) - CORNER_RADIUS, this.modelViewTransform.modelToViewY( 0 ) - CORNER_RADIUS, CORNER_RADIUS, Math.PI / 2, 0, true )
           .lineTo( this.modelViewTransform.modelToViewX( this.hose.L1 ), this.modelViewTransform.modelToViewY( this.elbowLowerY ) + CORNER_RADIUS )
@@ -229,7 +229,7 @@ define( function( require ) {
         .arc( this.modelViewTransform.modelToViewX( this.elbowInnerX ) - CORNER_RADIUS, this.modelViewTransform.modelToViewY( this.elbowInnerY ) - CORNER_RADIUS, CORNER_RADIUS, this.angleWithVertical, Math.PI / 2, false )
         .lineTo( this.modelViewTransform.modelToViewX( this.hose.L1 ) + CORNER_RADIUS, this.modelViewTransform.modelToViewY( this.elbowInnerY ) );
 
-      if ( -this.elbowInnerY + this.hose.width > 0.1 ) {
+      if ( -this.elbowInnerY + this.hose.width > 0.08 ) {
         shape = shape.arc( this.modelViewTransform.modelToViewX( this.hose.L1 ) + CORNER_RADIUS, this.modelViewTransform.modelToViewY( this.elbowInnerY ) - CORNER_RADIUS, CORNER_RADIUS, Math.PI / 2, Math.PI, false )
           .lineTo( this.modelViewTransform.modelToViewX( this.hose.L1 ), this.modelViewTransform.modelToViewY( this.hose.width ) + CORNER_RADIUS )
           .arc( this.modelViewTransform.modelToViewX( this.hose.L1 ) - CORNER_RADIUS, this.modelViewTransform.modelToViewY( this.hose.width ) + CORNER_RADIUS, CORNER_RADIUS, 0, -Math.PI / 2, true );
@@ -238,7 +238,7 @@ define( function( require ) {
       shape = shape.lineTo( this.modelViewTransform.modelToViewX( 0 ), this.modelViewTransform.modelToViewY( this.hose.width ) )
         .lineTo( this.modelViewTransform.modelToViewX( 0 ), this.modelViewTransform.modelToViewY( 0 ) );
 
-      if ( -this.elbowInnerY + this.hose.width > 0.1 ) {
+      if ( -this.elbowInnerY + this.hose.width > 0.08 ) {
         shape = shape.lineTo( this.modelViewTransform.modelToViewX( this.hose.L1 - this.hose.width ) - CORNER_RADIUS, this.modelViewTransform.modelToViewY( 0 ) )
           .arc( this.modelViewTransform.modelToViewX( this.hose.L1 - this.hose.width ) - CORNER_RADIUS, this.modelViewTransform.modelToViewY( 0 ) + CORNER_RADIUS, CORNER_RADIUS, -Math.PI / 2, 0, false )
           .lineTo( this.modelViewTransform.modelToViewX( this.hose.L1 - this.hose.width ), this.modelViewTransform.modelToViewY( this.elbowLowerY ) - CORNER_RADIUS )
