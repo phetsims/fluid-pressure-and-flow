@@ -175,9 +175,9 @@ define( function( require ) {
 
   return inherit( Node, HoseView, {
     updateHoseHeight: function( y ) {
-      var maxHeight = this.tankPositionProperty.value.y + 0.6;
       var newHeight = -this.modelViewTransform.viewToModelDeltaY( y );
-      newHeight = newHeight > maxHeight ? maxHeight : newHeight;
+      newHeight = newHeight > this.tankPositionProperty.value.y + 0.6 ? this.tankPositionProperty.value.y + 0.6 :
+                  newHeight < this.tankPositionProperty.value.y - 2.5 ? this.tankPositionProperty.value.y - 2.5 : newHeight;
 
       this.hoseHeight = newHeight;
       this.update();
