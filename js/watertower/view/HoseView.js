@@ -97,17 +97,17 @@ define( function( require ) {
 
     this.spoutHandle.addInputListener( new SimpleDragHandler( {
       start: function( e ) {
-        startY = hoseView.globalToParentPoint( e.pointer.point ).y - e.currentTarget.y;
-        startX = hoseView.globalToParentPoint( e.pointer.point ).x - e.currentTarget.x;
+        startY = hoseView.globalToParentPoint( e.pointer.point ).y;
+        startX = hoseView.globalToParentPoint( e.pointer.point ).x;
         initialHoseAngle = hoseView.angle * 180 / Math.PI;
       },
       drag: function( e ) {
 
-        var endY = hoseView.globalToParentPoint( e.pointer.point ).y - e.currentTarget.y;
-        var endX = hoseView.globalToParentPoint( e.pointer.point ).x - e.currentTarget.x;
+        var endY = hoseView.globalToParentPoint( e.pointer.point ).y;
+        var endX = hoseView.globalToParentPoint( e.pointer.point ).x;
 
         //finding angle
-        var deltaX = 30 - (startX - endX);
+        var deltaX = endX - startX + 40;
         var deltaY = endY - startY;
 
         // drag bounds
@@ -174,11 +174,11 @@ define( function( require ) {
 
       this.hose.height = this.hoseHeight;
 
+      this.spoutAndNozzle.setRotation( this.angleWithVertical );
       this.spoutAndNozzle.bottom = this.modelViewTransform.modelToViewDeltaY( -this.hoseHeight + this.hose.H2 ) + 122 + 40 * Math.cos( this.angle );
       this.spoutAndNozzle.left = this.modelViewTransform.modelToViewX( this.hoseLengthX ) - 26 * Math.sin( this.angle );
-      this.spoutAndNozzle.rotation = this.angleWithVertical;
-
     },
+
     reset: function() {
       this.setTranslation( this.initialPosition );
     },
