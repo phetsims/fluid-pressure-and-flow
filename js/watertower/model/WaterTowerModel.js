@@ -153,6 +153,8 @@ define( function( require ) {
 
     // Called by the animation loop.
     step: function( dt ) {
+      //prevent sudden dt bursts on slow devices or when the user comes back to the tab after a while
+      dt = ( dt > 0.04 ) ? 0.04 : dt;
       if ( this.isPlay ) {
         if ( this.speed === "normal" ) {
           this.stepInternal( dt );
@@ -164,9 +166,6 @@ define( function( require ) {
     },
 
     stepInternal: function( dt ) {
-
-      //prevent sudden dt bursts when the user comes back to the page after a while
-      dt = ( dt > 1 ) ? 1 : dt;
 
       // Ensure that water flow looks ok even on very low frame rates
       this.accumulatedDt += dt;
