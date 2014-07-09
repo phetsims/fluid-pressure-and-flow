@@ -160,7 +160,7 @@ define( function( require ) {
           this.stepInternal( dt );
         }
         else {
-          this.stepInternal( 0.25 * dt );
+          this.stepInternal( 0.33 * dt );
         }
       }
     },
@@ -209,7 +209,7 @@ define( function( require ) {
         //Add hose waterDrops if the tank is open and there fluid in the tank and hose visible
         if ( this.isSluiceOpen && this.waterTower.fluidVolume > 0 && this.isHoseVisible ) {
           this.leakageVolume = 0;
-          var y = this.waterTower.tankPosition.y + this.hose.elbowOuterY + 1.2 * Math.sin( this.hose.angle * Math.PI / 180 ) + 0.2 * Math.cos( this.hose.angle * Math.PI / 180 );
+          var y = this.waterTower.tankPosition.y + this.hose.elbowOuterY + 1.2 * Math.sin( this.hose.angle * Math.PI / 180 ) + 0.25 * Math.cos( this.hose.angle * Math.PI / 180 );
           if ( y < this.waterTower.fluidLevel + this.waterTower.tankPosition.y ) {
             this.leakageVolume = 0.004;
             var velocityMagnitude = Math.sqrt( 2 * Constants.EARTH_GRAVITY * (this.waterTower.tankPosition.y + this.waterTower.fluidLevel - y) );
@@ -262,9 +262,7 @@ define( function( require ) {
       }
       this.waterTowerDrops.removeAll( this.dropsToRemove );
 
-
       //hose
-
       this.dropsToRemove = [];
 
       for ( i = 0, numberOfDrops = this.hoseDrops.length; i < numberOfDrops; i++ ) {
