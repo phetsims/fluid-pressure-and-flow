@@ -103,13 +103,15 @@ define( function( require ) {
     this.addChild( this.handleNode );
 
     var clickYOffset;
+    var initialHeight;
     this.handleNode.addInputListener( new SimpleDragHandler( {
       start: function( e ) {
         clickYOffset = hoseView.globalToParentPoint( e.pointer.point ).y - e.currentTarget.y;
+        initialHeight = hoseView.hoseHeight;
       },
       drag: function( e ) {
         var y = hoseView.globalToParentPoint( e.pointer.point ).y - clickYOffset;
-        hoseView.updateHoseHeight( y - 115 );
+        hoseView.updateHoseHeight( initialHeight + y - 115 );
       }
     } ) );
 
