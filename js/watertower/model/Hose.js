@@ -26,8 +26,8 @@ define( function( require ) {
     this.width = 0.3; // diameter of the hose
     this.hoseLengthX = 2.5; //the total width of the hose node
 
-    this.nozzleX = 0; //position of the nozzle in model co-ordinates
-    this.nozzleY = 0;
+    this.elbowOuterX = 0; //position of the elbow in model co-ordinates
+    this.elbowOuterY = 0;
 
     this.angle = angle;
     this.height = height; //height between the two horizontal portions of the hose

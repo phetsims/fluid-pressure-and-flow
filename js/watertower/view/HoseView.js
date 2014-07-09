@@ -163,7 +163,7 @@ define( function( require ) {
         this.hosePath.setShape( this.getTopShape() );
         this.handleNodeCenterX = (this.elbowInnerX - this.hose.L1 ) / 2 + this.hose.L1;
         this.handleNode.centerX = this.modelViewTransform.modelToViewX( this.handleNodeCenterX );
-        this.handleNode.y = this.modelViewTransform.modelToViewY( this.elbowInnerY ) - 228;
+        this.handleNode.y = this.modelViewTransform.modelToViewY( this.elbowInnerY ) - 115 - 112;
       }
       else {
         this.hosePath.setShape( this.getBottomShape() );
@@ -263,8 +263,8 @@ define( function( require ) {
       this.elbowInnerY = this.nozzleAttachmentInnerY - this.hose.H2 * Math.sin( this.angle );
       this.elbowLowerX = this.elbowOuterX - this.hose.width * Math.cos( this.angleWithVertical );
       this.elbowLowerY = this.elbowOuterY - (this.hose.width - this.hose.width * Math.sin( this.angleWithVertical ));
-      this.hose.nozzleX = this.hose.hoseLengthX + 0.57;
-      this.hose.nozzleY = this.elbowOuterY + this.hose.H2 * Math.sin( this.angle ) + 2.0;
+      this.hose.elbowOuterX = this.elbowOuterX;
+      this.hose.elbowOuterY = this.elbowOuterY;
     }
   } );
 
