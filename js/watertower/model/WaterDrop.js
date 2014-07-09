@@ -9,7 +9,6 @@ define( function( require ) {
 
   // modules
   var PropertySet = require( 'AXON/PropertySet' );
-  var Vector2 = require( 'DOT/Vector2' );
   var Util = require( 'DOT/Util' );
   var inherit = require( 'PHET_CORE/inherit' );
 
@@ -42,14 +41,22 @@ define( function( require ) {
   return inherit( PropertySet, WaterDrop, {
     step: function( dt ) {
 
+      //Math is done component-wise to avoid too many allocations, see https://github.com/phetsims/fluid-pressure-and-flow/issues/46
       // v_f = v_i + a * dt
-      var acceleration = new Vector2( 0, -Constants.EARTH_GRAVITY );
-      var v_i = this.velocity;
-      this.velocity = this.velocity.plus( acceleration.times( dt ) );
+      var accelerationY = -Constants.EARTH_GRAVITY;
+
+      var initialVelocityX = this.velocity.x;
+      var initialVelocityY = this.velocity.y;
+
+      this.velocity.setY( this.velocity.y + accelerationY * dt );
+      this.velocityProperty._notifyObservers();
 
       // d = (v_f + v_i) * dt/2; assuming constant acceleration
-      var displacement = this.velocity.plus( v_i ).times( dt / 2 );
-      this.position = this.position.plus( displacement );
+      var displacementX = (this.velocity.x + initialVelocityX) * dt / 2;
+      var displacementY = (this.velocity.y + initialVelocityY) * dt / 2;
+
+      this.position.setXY( this.position.x + displacementX, this.position.y + displacementY );
+      this.positionProperty._notifyObservers();
     },
 
     /**
