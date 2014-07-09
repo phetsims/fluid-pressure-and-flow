@@ -59,6 +59,7 @@ define( function( require ) {
 
 
     // TODO : compare this.varX with tank bottom Y
+    //When the hose is above
     if ( this.varY >= 0.05 ) {
       this.hoseShape = new Shape()
         .moveTo( modelViewTransform.modelToViewX( this.varX ), modelViewTransform.modelToViewY( this.varY ) )
@@ -72,7 +73,6 @@ define( function( require ) {
         .lineTo( modelViewTransform.modelToViewX( hoseModel.L1 ), modelViewTransform.modelToViewY( 0 ) )
         .lineTo( modelViewTransform.modelToViewX( hoseModel.L1 ), modelViewTransform.modelToViewY( this.y2 ) )
         .lineTo( modelViewTransform.modelToViewX( this.x2 ), modelViewTransform.modelToViewY( this.y2 ) )
-        .moveTo( modelViewTransform.modelToViewX( this.upperLinePointX ), modelViewTransform.modelToViewY( this.upperLinePointY ) )
         .arc( modelViewTransform.modelToViewX( this.upperLinePointX ), modelViewTransform.modelToViewY( this.upperLinePointY ), 21,
           Math.PI / 2, this.angleWithPerpendicularInRadians, true );
     }
@@ -90,7 +90,6 @@ define( function( require ) {
         .lineTo( modelViewTransform.modelToViewX( hoseModel.L1 ), modelViewTransform.modelToViewY( 0 ) )
         .lineTo( modelViewTransform.modelToViewX( hoseModel.L1 ), modelViewTransform.modelToViewY( this.y2 ) )
         .lineTo( modelViewTransform.modelToViewX( this.x2 ), modelViewTransform.modelToViewY( this.y2 ) )
-        .moveTo( modelViewTransform.modelToViewX( this.upperLinePointX ), modelViewTransform.modelToViewY( this.upperLinePointY ) )
         .arc( modelViewTransform.modelToViewX( this.upperLinePointX ), modelViewTransform.modelToViewY( this.upperLinePointY ), 21,
           Math.PI / 2, this.angleWithPerpendicularInRadians, true );
 
@@ -228,7 +227,6 @@ define( function( require ) {
           .lineTo( this.modelViewTransform.modelToViewX( this.model.L1 ), this.modelViewTransform.modelToViewY( 0 ) )
           .lineTo( this.modelViewTransform.modelToViewX( this.model.L1 ), this.modelViewTransform.modelToViewY( this.y2 ) )
           .lineTo( this.modelViewTransform.modelToViewX( this.x2 ), this.modelViewTransform.modelToViewY( this.y2 ) )
-          .moveTo( this.modelViewTransform.modelToViewX( this.upperLinePointX ), this.modelViewTransform.modelToViewY( this.upperLinePointY ) )
           .arc( this.modelViewTransform.modelToViewX( this.upperLinePointX ), this.modelViewTransform.modelToViewY( this.upperLinePointY ), 21,
             Math.PI / 2, this.angleWithPerpendicularInRadians, true ) );
 
@@ -253,7 +251,6 @@ define( function( require ) {
           .lineTo( this.modelViewTransform.modelToViewX( this.model.L1 ), this.modelViewTransform.modelToViewY( 0 ) )
           .lineTo( this.modelViewTransform.modelToViewX( this.model.L1 ), this.modelViewTransform.modelToViewY( this.y2 ) )
           .lineTo( this.modelViewTransform.modelToViewX( this.x2 ), this.modelViewTransform.modelToViewY( this.y2 ) )
-          .moveTo( this.modelViewTransform.modelToViewX( this.upperLinePointX ), this.modelViewTransform.modelToViewY( this.upperLinePointY ) )
           .arc( this.modelViewTransform.modelToViewX( this.upperLinePointX ), this.modelViewTransform.modelToViewY( this.upperLinePointY ), 21,
             Math.PI / 2, this.angleWithPerpendicularInRadians, true ) );
 
