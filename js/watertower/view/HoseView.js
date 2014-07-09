@@ -183,15 +183,10 @@ define( function( require ) {
       this.update();
     },
 
-    updateHoseAngle: function( x ) {
-
-      this.model.angle = x;
-      var degree = x;
-      this.angleInRadians = Math.PI * degree / 180;
-
-      //Calculating a point for below line
-      var angle2 = 90 - degree;           // angle with perpendicular
-      this.angleWithPerpendicularInRadians = Math.PI * angle2 / 180;
+    updateHoseAngle: function( angle ) {
+      this.model.angle = angle;
+      this.angleInRadians = Math.PI * angle / 180;
+      this.angleWithPerpendicularInRadians = Math.PI * (90 - angle) / 180;
       this.update();
     },
 
