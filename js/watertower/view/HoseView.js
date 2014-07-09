@@ -20,18 +20,16 @@ define( function( require ) {
   var handle = require( 'image!FLUID_PRESSURE_AND_FLOW/handle.png' );
 
 
-  function HoseView( hoseModel, tankPosition, modelViewTransform, isHoseVisibleProperty, options ) {
-
+  function HoseView( hoseModel, tankPositionProperty, modelViewTransform, isHoseVisibleProperty, options ) {
     var hoseView = this;
     Node.call( this );
-
 
     this.model = hoseModel;
     this.modelViewTransform = modelViewTransform;
     this.hoseHeight = hoseModel.height;
     this.hoseWidth = hoseModel.hoseWidth;
 
-    this.tankPosition = tankPosition;
+    this.tankPositionProperty = tankPositionProperty;
 
 
     this.angleInRadians = Math.PI * hoseModel.angle / 180;
@@ -111,7 +109,7 @@ define( function( require ) {
       },
       drag: function( e ) {
         var y = hoseView.globalToParentPoint( e.pointer.point ).y - clickYOffset;
-        hoseView.updateHoseHeight( y );
+        hoseView.updateHoseHeight( y - 115 );
       }
     } ) );
 
@@ -177,12 +175,14 @@ define( function( require ) {
 
   return inherit( Node, HoseView, {
     updateHoseHeight: function( y ) {
-      y = y - 115;
-      var newHeight = -this.modelViewTransform.viewToModelDeltaY( y ) > -1.5 ? -this.modelViewTransform.viewToModelDeltaY( y ) : -1.5;
-      newHeight = newHeight > 1.5 ? 1.5 : newHeight;
+      var maxHeight = this.tankPositionProperty.value.y + 0.6;
+      var newHeight = -this.modelViewTransform.viewToModelDeltaY( y );
+      newHeight = newHeight > maxHeight ? maxHeight : newHeight;
+
       this.hoseHeight = newHeight;
       this.update();
     },
+
     updateHoseAngle: function( x ) {
 
       this.model.angle = x;
@@ -193,8 +193,8 @@ define( function( require ) {
       var angle2 = 90 - degree;           // angle with perpendicular
       this.angleWithPerpendicularInRadians = Math.PI * angle2 / 180;
       this.update();
-
     },
+
     update: function() {
 
       this.varX = this.hoseWidth - this.model.H2 * Math.cos( this.angleInRadians );
