@@ -186,9 +186,6 @@ define( function( require ) {
           newFaucetDrops.push( newFaucetDrop );
           newFaucetDrop.step( this.accumulatedDt );
         }
-        else {
-          this.faucetDrops.clear();
-        }
 
         //Add watertower drops if the tank is open and there is fluid in the tank
         if ( this.isSluiceOpen && this.waterTower.fluidVolume > 0 && !this.isHoseVisible ) {
