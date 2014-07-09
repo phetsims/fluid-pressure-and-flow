@@ -130,8 +130,8 @@ define( function( require ) {
         var deltaY = waterTowerView.globalToParentPoint( e.pointer.point ).y - clickYOffset;
         deltaY = modelViewTransform.viewToModelDeltaY( deltaY );
         var newY = initialY + deltaY;
-        //restrict the tank bottom to be between 0.1 and 2 meters
-        newY = newY > 2 ? 2 : newY < 0.1 ? 0.1 : newY;
+        //restrict the tank bottom to be between 0.1 and 1.7 meters
+        newY = newY > 1.7 ? 1.7 : newY < 0.1 ? 0.1 : newY;
         deltaY = newY - initialY;
         waterTowerView.waterTower.tankPosition = new Vector2( waterTowerView.waterTower.tankPosition.x, newY );
 
