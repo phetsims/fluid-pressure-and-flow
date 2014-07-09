@@ -24,13 +24,13 @@ define( function( require ) {
     this.L1 = 0.6; // length of the horizontal portion of the hose from the tank hole
     this.H2 = 0.6; // length of the vertical/horizontal portion of the hose attached to the spout and nozzle (not including spout/nozzle)
     this.width = 0.3; // diameter of the hose
-    this.hoseWidth = 2.5; //the total width of the hose node
+    this.hoseLengthX = 2.5; //the total width of the hose node
 
     this.nozzleX = 0; //position of the nozzle in model co-ordinates
     this.nozzleY = 0;
 
     this.angle = angle;
-    this.height = height;
+    this.height = height; //height between the two horizontal portions of the hose
 
     PropertySet.call( this, {
       enabled: false
