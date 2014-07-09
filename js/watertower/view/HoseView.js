@@ -27,7 +27,7 @@ define( function( require ) {
     var hoseView = this;
     Node.call( this );
 
-    this.model = hoseModel;
+    this.hoseModel = hoseModel;
     this.modelViewTransform = modelViewTransform;
     this.hoseHeight = hoseModel.height;
     this.hoseWidth = hoseModel.hoseWidth;
@@ -35,9 +35,9 @@ define( function( require ) {
 
     this.tankPositionProperty = tankPositionProperty;
 
-    this.angleInRadians = Math.PI * hoseModel.angle / 180;
+    this.angle = Math.PI * hoseModel.angle / 180;
 
-    this.angleWithPerpendicularInRadians = Math.PI * (90 - hoseModel.angle) / 180;  // angle with perpendicular
+    this.angleWithVertical = Math.PI * (90 - hoseModel.angle) / 180;  // angle with perpendicular
 
     this.computeInternalVariables();
 
@@ -52,7 +52,7 @@ define( function( require ) {
     this.hosePath = new Path( this.hoseShape, {top: 100, stroke: 'grey', fill: '#00FF00'} );
     this.addChild( this.hosePath );
 
-    this.handleNodeCenterX = (this.upperLinePointX - (this.model.L1 + this.model.width)) / 2 + this.model.L1 + this.model.width;
+    this.handleNodeCenterX = (this.upperLinePointX - (this.hoseModel.L1 + this.hoseModel.width)) / 2 + this.hoseModel.L1 + this.hoseModel.width;
 
     this.handleNode = new Image( handle, { rotation: Math.PI, cursor: 'pointer', scale: 0.3, y: this.hosePath.bottom + modelViewTransform.modelToViewDeltaY( 0.3 ), centerX: modelViewTransform.modelToViewX( this.handleNodeCenterX )} );
     this.addChild( this.handleNode );
@@ -75,9 +75,9 @@ define( function( require ) {
     this.spoutHandle = new Node( {children: [new Image( spoutHandleImg )], scale: 1.0, cursor: 'pointer', bottom: nozzle.bottom, left: nozzle.right - 4} );
 
     this.spoutAndNozzle = new Node( { children: [nozzle, this.spoutHandle],
-      bottom: this.modelViewTransform.modelToViewDeltaY( -this.hoseHeight + this.model.H2 ) + 122 + 40 * Math.cos( this.angleInRadians ),
-      left: this.modelViewTransform.modelToViewX( this.hoseWidth ) - 26 * Math.sin( this.angleInRadians ),
-      rotation: this.angleWithPerpendicularInRadians
+      bottom: this.modelViewTransform.modelToViewDeltaY( -this.hoseHeight + this.hoseModel.H2 ) + 122 + 40 * Math.cos( this.angle ),
+      left: this.modelViewTransform.modelToViewX( this.hoseWidth ) - 26 * Math.sin( this.angle ),
+      rotation: this.angleWithVertical
     } );
 
     this.addChild( this.spoutAndNozzle );
@@ -90,7 +90,7 @@ define( function( require ) {
       start: function( e ) {
         startY = hoseView.globalToParentPoint( e.pointer.point ).y - e.currentTarget.y;
         startX = hoseView.globalToParentPoint( e.pointer.point ).x - e.currentTarget.x;
-        initialHoseAngle = hoseView.angleInRadians * 180 / Math.PI;
+        initialHoseAngle = hoseView.angle * 180 / Math.PI;
       },
       drag: function( e ) {
 
@@ -140,9 +140,9 @@ define( function( require ) {
     },
 
     updateHoseAngle: function( angle ) {
-      this.model.angle = angle;
-      this.angleInRadians = Math.PI * angle / 180;
-      this.angleWithPerpendicularInRadians = Math.PI * (90 - angle) / 180;
+      this.hoseModel.angle = angle;
+      this.angle = Math.PI * angle / 180;
+      this.angleWithVertical = Math.PI * (90 - angle) / 180;
       this.update();
     },
 
@@ -152,22 +152,22 @@ define( function( require ) {
 
       if ( this.varY >= 0 ) {
         this.hosePath.setShape( this.getTopShape() );
-        this.handleNodeCenterX = (this.upperLinePointX - this.model.L1 ) / 2 + this.model.L1;
+        this.handleNodeCenterX = (this.upperLinePointX - this.hoseModel.L1 ) / 2 + this.hoseModel.L1;
         this.handleNode.centerX = this.modelViewTransform.modelToViewX( this.handleNodeCenterX );
         this.handleNode.y = this.modelViewTransform.modelToViewY( this.upperLinePointY ) - 228;
       }
       else {
         this.hosePath.setShape( this.getBottomShape() );
-        this.handleNodeCenterX = (this.upperLinePointX - (this.model.L1)) / 2 + this.model.L1;
+        this.handleNodeCenterX = (this.upperLinePointX - (this.hoseModel.L1)) / 2 + this.hoseModel.L1;
         this.handleNode.centerX = this.modelViewTransform.modelToViewX( this.handleNodeCenterX );
-        this.handleNode.y = this.hosePath.bottom + this.modelViewTransform.modelToViewDeltaY( this.model.width );
+        this.handleNode.y = this.hosePath.bottom + this.modelViewTransform.modelToViewDeltaY( this.hoseModel.width );
       }
 
-      this.model.height = this.hoseHeight;
+      this.hoseModel.height = this.hoseHeight;
 
-      this.spoutAndNozzle.bottom = this.modelViewTransform.modelToViewDeltaY( -this.hoseHeight + this.model.H2 ) + 122 + 40 * Math.cos( this.angleInRadians );
-      this.spoutAndNozzle.left = this.modelViewTransform.modelToViewX( this.hoseWidth ) - 26 * Math.sin( this.angleInRadians );
-      this.spoutAndNozzle.rotation = this.angleWithPerpendicularInRadians;
+      this.spoutAndNozzle.bottom = this.modelViewTransform.modelToViewDeltaY( -this.hoseHeight + this.hoseModel.H2 ) + 122 + 40 * Math.cos( this.angle );
+      this.spoutAndNozzle.left = this.modelViewTransform.modelToViewX( this.hoseWidth ) - 26 * Math.sin( this.angle );
+      this.spoutAndNozzle.rotation = this.angleWithVertical;
 
     },
     reset: function() {
@@ -177,35 +177,35 @@ define( function( require ) {
     getTopShape: function() {
       var shape = new Shape();
       shape = shape.moveTo( this.modelViewTransform.modelToViewX( this.varX ), this.modelViewTransform.modelToViewY( this.varY ) )
-        .lineTo( this.modelViewTransform.modelToViewX( this.hoseWidth ), this.modelViewTransform.modelToViewY( -this.hoseHeight + this.model.H2 ) )
+        .lineTo( this.modelViewTransform.modelToViewX( this.hoseWidth ), this.modelViewTransform.modelToViewY( -this.hoseHeight + this.hoseModel.H2 ) )
         .lineTo( this.modelViewTransform.modelToViewX( this.upperLineEndPointX ), this.modelViewTransform.modelToViewY( this.upperLineEndPointY ) )
-        .lineTo( this.modelViewTransform.modelToViewX( this.upperLinePointX ), this.modelViewTransform.modelToViewY( this.upperLinePointY ) - CORNER_RADIUS * Math.cos( this.angleWithPerpendicularInRadians ) )
-        .arc( this.modelViewTransform.modelToViewX( this.upperLinePointX ) - CORNER_RADIUS, this.modelViewTransform.modelToViewY( this.upperLinePointY ) - CORNER_RADIUS, CORNER_RADIUS, this.angleWithPerpendicularInRadians, Math.PI / 2, false )
-        .lineTo( this.modelViewTransform.modelToViewX( this.model.L1 - this.model.width ) + CORNER_RADIUS, this.modelViewTransform.modelToViewY( this.upperLinePointY ) );
+        .lineTo( this.modelViewTransform.modelToViewX( this.upperLinePointX ), this.modelViewTransform.modelToViewY( this.upperLinePointY ) - CORNER_RADIUS * Math.cos( this.angleWithVertical ) )
+        .arc( this.modelViewTransform.modelToViewX( this.upperLinePointX ) - CORNER_RADIUS, this.modelViewTransform.modelToViewY( this.upperLinePointY ) - CORNER_RADIUS, CORNER_RADIUS, this.angleWithVertical, Math.PI / 2, false )
+        .lineTo( this.modelViewTransform.modelToViewX( this.hoseModel.L1 - this.hoseModel.width ) + CORNER_RADIUS, this.modelViewTransform.modelToViewY( this.upperLinePointY ) );
 
-      if ( this.upperLinePointY - this.model.width > 0.1 ) {
-        shape = shape.arc( this.modelViewTransform.modelToViewX( this.model.L1 - this.model.width ) + CORNER_RADIUS, this.modelViewTransform.modelToViewY( this.upperLinePointY ) + CORNER_RADIUS, CORNER_RADIUS, -Math.PI / 2, Math.PI, true )
-          .lineTo( this.modelViewTransform.modelToViewX( this.model.L1 - this.model.width ), this.modelViewTransform.modelToViewY( this.model.width ) - CORNER_RADIUS )
-          .arc( this.modelViewTransform.modelToViewX( this.model.L1 - this.model.width ) - CORNER_RADIUS, this.modelViewTransform.modelToViewY( this.model.width ) - CORNER_RADIUS, CORNER_RADIUS, 0, Math.PI / 2, false );
+      if ( this.upperLinePointY - this.hoseModel.width > 0.1 ) {
+        shape = shape.arc( this.modelViewTransform.modelToViewX( this.hoseModel.L1 - this.hoseModel.width ) + CORNER_RADIUS, this.modelViewTransform.modelToViewY( this.upperLinePointY ) + CORNER_RADIUS, CORNER_RADIUS, -Math.PI / 2, Math.PI, true )
+          .lineTo( this.modelViewTransform.modelToViewX( this.hoseModel.L1 - this.hoseModel.width ), this.modelViewTransform.modelToViewY( this.hoseModel.width ) - CORNER_RADIUS )
+          .arc( this.modelViewTransform.modelToViewX( this.hoseModel.L1 - this.hoseModel.width ) - CORNER_RADIUS, this.modelViewTransform.modelToViewY( this.hoseModel.width ) - CORNER_RADIUS, CORNER_RADIUS, 0, Math.PI / 2, false );
       }
 
-      shape = shape.lineTo( this.modelViewTransform.modelToViewX( 0 ), this.modelViewTransform.modelToViewY( this.model.width ) )
+      shape = shape.lineTo( this.modelViewTransform.modelToViewX( 0 ), this.modelViewTransform.modelToViewY( this.hoseModel.width ) )
         .lineTo( this.modelViewTransform.modelToViewX( 0 ), this.modelViewTransform.modelToViewY( 0 ) );
 
 
-      if ( this.upperLinePointY - this.model.width > 0.1 ) {
-        shape = shape.lineTo( this.modelViewTransform.modelToViewX( this.model.L1 ) - CORNER_RADIUS, this.modelViewTransform.modelToViewY( 0 ) )
-          .arc( this.modelViewTransform.modelToViewX( this.model.L1 ) - CORNER_RADIUS, this.modelViewTransform.modelToViewY( 0 ) - CORNER_RADIUS, CORNER_RADIUS, Math.PI / 2, 0, true )
-          .lineTo( this.modelViewTransform.modelToViewX( this.model.L1 ), this.modelViewTransform.modelToViewY( this.y2 ) + CORNER_RADIUS )
-          .arc( this.modelViewTransform.modelToViewX( this.model.L1 ) + CORNER_RADIUS, this.modelViewTransform.modelToViewY( this.y2 ) + CORNER_RADIUS, CORNER_RADIUS, Math.PI, -Math.PI / 2, false );
+      if ( this.upperLinePointY - this.hoseModel.width > 0.1 ) {
+        shape = shape.lineTo( this.modelViewTransform.modelToViewX( this.hoseModel.L1 ) - CORNER_RADIUS, this.modelViewTransform.modelToViewY( 0 ) )
+          .arc( this.modelViewTransform.modelToViewX( this.hoseModel.L1 ) - CORNER_RADIUS, this.modelViewTransform.modelToViewY( 0 ) - CORNER_RADIUS, CORNER_RADIUS, Math.PI / 2, 0, true )
+          .lineTo( this.modelViewTransform.modelToViewX( this.hoseModel.L1 ), this.modelViewTransform.modelToViewY( this.y2 ) + CORNER_RADIUS )
+          .arc( this.modelViewTransform.modelToViewX( this.hoseModel.L1 ) + CORNER_RADIUS, this.modelViewTransform.modelToViewY( this.y2 ) + CORNER_RADIUS, CORNER_RADIUS, Math.PI, -Math.PI / 2, false );
       }
       else {
-        shape = shape.lineTo( this.modelViewTransform.modelToViewX( this.model.L1 ), this.modelViewTransform.modelToViewY( this.y2 ) );
+        shape = shape.lineTo( this.modelViewTransform.modelToViewX( this.hoseModel.L1 ), this.modelViewTransform.modelToViewY( this.y2 ) );
       }
 
       shape = shape.lineTo( this.modelViewTransform.modelToViewX( this.x2 ), this.modelViewTransform.modelToViewY( this.y2 ) )
-        .arc( this.modelViewTransform.modelToViewX( this.upperLinePointX ), this.modelViewTransform.modelToViewY( this.upperLinePointY ), this.modelViewTransform.modelToViewDeltaX( this.model.width ),
-          Math.PI / 2, this.angleWithPerpendicularInRadians, true );
+        .arc( this.modelViewTransform.modelToViewX( this.upperLinePointX ), this.modelViewTransform.modelToViewY( this.upperLinePointY ), this.modelViewTransform.modelToViewDeltaX( this.hoseModel.width ),
+          Math.PI / 2, this.angleWithVertical, true );
 
       return shape;
     },
@@ -214,48 +214,48 @@ define( function( require ) {
       var shape = new Shape();
 
       shape = shape.moveTo( this.modelViewTransform.modelToViewX( this.varX ), this.modelViewTransform.modelToViewY( this.varY ) )
-        .lineTo( this.modelViewTransform.modelToViewX( this.hoseWidth ), this.modelViewTransform.modelToViewY( -this.hoseHeight + this.model.H2 ) )
+        .lineTo( this.modelViewTransform.modelToViewX( this.hoseWidth ), this.modelViewTransform.modelToViewY( -this.hoseHeight + this.hoseModel.H2 ) )
         .lineTo( this.modelViewTransform.modelToViewX( this.upperLineEndPointX ), this.modelViewTransform.modelToViewY( this.upperLineEndPointY ) )
-        .lineTo( this.modelViewTransform.modelToViewX( this.upperLinePointX ), this.modelViewTransform.modelToViewY( this.upperLinePointY ) - CORNER_RADIUS * Math.cos( this.angleWithPerpendicularInRadians ) )
-        .arc( this.modelViewTransform.modelToViewX( this.upperLinePointX ) - CORNER_RADIUS, this.modelViewTransform.modelToViewY( this.upperLinePointY ) - CORNER_RADIUS, CORNER_RADIUS, this.angleWithPerpendicularInRadians, Math.PI / 2, false )
-        .lineTo( this.modelViewTransform.modelToViewX( this.model.L1 ) + CORNER_RADIUS, this.modelViewTransform.modelToViewY( this.upperLinePointY ) );
+        .lineTo( this.modelViewTransform.modelToViewX( this.upperLinePointX ), this.modelViewTransform.modelToViewY( this.upperLinePointY ) - CORNER_RADIUS * Math.cos( this.angleWithVertical ) )
+        .arc( this.modelViewTransform.modelToViewX( this.upperLinePointX ) - CORNER_RADIUS, this.modelViewTransform.modelToViewY( this.upperLinePointY ) - CORNER_RADIUS, CORNER_RADIUS, this.angleWithVertical, Math.PI / 2, false )
+        .lineTo( this.modelViewTransform.modelToViewX( this.hoseModel.L1 ) + CORNER_RADIUS, this.modelViewTransform.modelToViewY( this.upperLinePointY ) );
 
-      if ( -this.upperLinePointY + this.model.width > 0.1 ) {
-        shape = shape.arc( this.modelViewTransform.modelToViewX( this.model.L1 ) + CORNER_RADIUS, this.modelViewTransform.modelToViewY( this.upperLinePointY ) - CORNER_RADIUS, CORNER_RADIUS, Math.PI / 2, Math.PI, false )
-          .lineTo( this.modelViewTransform.modelToViewX( this.model.L1 ), this.modelViewTransform.modelToViewY( this.model.width ) + CORNER_RADIUS )
-          .arc( this.modelViewTransform.modelToViewX( this.model.L1 ) - CORNER_RADIUS, this.modelViewTransform.modelToViewY( this.model.width ) + CORNER_RADIUS, CORNER_RADIUS, 0, -Math.PI / 2, true );
+      if ( -this.upperLinePointY + this.hoseModel.width > 0.1 ) {
+        shape = shape.arc( this.modelViewTransform.modelToViewX( this.hoseModel.L1 ) + CORNER_RADIUS, this.modelViewTransform.modelToViewY( this.upperLinePointY ) - CORNER_RADIUS, CORNER_RADIUS, Math.PI / 2, Math.PI, false )
+          .lineTo( this.modelViewTransform.modelToViewX( this.hoseModel.L1 ), this.modelViewTransform.modelToViewY( this.hoseModel.width ) + CORNER_RADIUS )
+          .arc( this.modelViewTransform.modelToViewX( this.hoseModel.L1 ) - CORNER_RADIUS, this.modelViewTransform.modelToViewY( this.hoseModel.width ) + CORNER_RADIUS, CORNER_RADIUS, 0, -Math.PI / 2, true );
       }
 
-      shape = shape.lineTo( this.modelViewTransform.modelToViewX( 0 ), this.modelViewTransform.modelToViewY( this.model.width ) )
+      shape = shape.lineTo( this.modelViewTransform.modelToViewX( 0 ), this.modelViewTransform.modelToViewY( this.hoseModel.width ) )
         .lineTo( this.modelViewTransform.modelToViewX( 0 ), this.modelViewTransform.modelToViewY( 0 ) );
 
-      if ( -this.upperLinePointY + this.model.width > 0.1 ) {
-        shape = shape.lineTo( this.modelViewTransform.modelToViewX( this.model.L1 - this.model.width ) - CORNER_RADIUS, this.modelViewTransform.modelToViewY( 0 ) )
-          .arc( this.modelViewTransform.modelToViewX( this.model.L1 - this.model.width ) - CORNER_RADIUS, this.modelViewTransform.modelToViewY( 0 ) + CORNER_RADIUS, CORNER_RADIUS, -Math.PI / 2, 0, false )
-          .lineTo( this.modelViewTransform.modelToViewX( this.model.L1 - this.model.width ), this.modelViewTransform.modelToViewY( this.y2 ) - CORNER_RADIUS )
-          .arc( this.modelViewTransform.modelToViewX( this.model.L1 - this.model.width ) + CORNER_RADIUS, this.modelViewTransform.modelToViewY( this.y2 ) - CORNER_RADIUS, CORNER_RADIUS, Math.PI, Math.PI / 2, true );
+      if ( -this.upperLinePointY + this.hoseModel.width > 0.1 ) {
+        shape = shape.lineTo( this.modelViewTransform.modelToViewX( this.hoseModel.L1 - this.hoseModel.width ) - CORNER_RADIUS, this.modelViewTransform.modelToViewY( 0 ) )
+          .arc( this.modelViewTransform.modelToViewX( this.hoseModel.L1 - this.hoseModel.width ) - CORNER_RADIUS, this.modelViewTransform.modelToViewY( 0 ) + CORNER_RADIUS, CORNER_RADIUS, -Math.PI / 2, 0, false )
+          .lineTo( this.modelViewTransform.modelToViewX( this.hoseModel.L1 - this.hoseModel.width ), this.modelViewTransform.modelToViewY( this.y2 ) - CORNER_RADIUS )
+          .arc( this.modelViewTransform.modelToViewX( this.hoseModel.L1 - this.hoseModel.width ) + CORNER_RADIUS, this.modelViewTransform.modelToViewY( this.y2 ) - CORNER_RADIUS, CORNER_RADIUS, Math.PI, Math.PI / 2, true );
       }
       else {
-        shape = shape.lineTo( this.modelViewTransform.modelToViewX( this.model.L1 - this.model.width ), this.modelViewTransform.modelToViewY( this.y2 ) );
+        shape = shape.lineTo( this.modelViewTransform.modelToViewX( this.hoseModel.L1 - this.hoseModel.width ), this.modelViewTransform.modelToViewY( this.y2 ) );
       }
       shape = shape.lineTo( this.modelViewTransform.modelToViewX( this.x2 ), this.modelViewTransform.modelToViewY( this.y2 ) )
-        .arc( this.modelViewTransform.modelToViewX( this.upperLinePointX ), this.modelViewTransform.modelToViewY( this.upperLinePointY ), this.modelViewTransform.modelToViewDeltaX( this.model.width ),
-          Math.PI / 2, this.angleWithPerpendicularInRadians, true );
+        .arc( this.modelViewTransform.modelToViewX( this.upperLinePointX ), this.modelViewTransform.modelToViewY( this.upperLinePointY ), this.modelViewTransform.modelToViewDeltaX( this.hoseModel.width ),
+          Math.PI / 2, this.angleWithVertical, true );
 
       return shape;
     },
 
     computeInternalVariables: function() {
-      this.varX = this.hoseWidth - this.model.H2 * Math.cos( this.angleInRadians );
-      this.varY = -this.hoseHeight + this.model.H2 - this.model.H2 * Math.sin( this.angleInRadians );
-      this.upperLineEndPointX = this.hoseWidth - this.model.width * Math.sin( this.angleInRadians );
-      this.upperLineEndPointY = -this.hoseHeight + this.model.H2 + this.model.width * Math.cos( this.angleInRadians );
-      this.upperLinePointX = this.upperLineEndPointX - this.model.H2 * Math.cos( this.angleInRadians );
-      this.upperLinePointY = this.upperLineEndPointY - this.model.H2 * Math.sin( this.angleInRadians );
-      this.x2 = this.varX - this.model.width * Math.cos( this.angleWithPerpendicularInRadians );
-      this.y2 = this.varY - (this.model.width - this.model.width * Math.sin( this.angleWithPerpendicularInRadians ));
-      this.model.nozzleX = this.model.hoseWidth + 0.57;
-      this.model.nozzleY = this.varY + this.model.H2 * Math.sin( this.angleInRadians ) + 2.0;
+      this.varX = this.hoseWidth - this.hoseModel.H2 * Math.cos( this.angle );
+      this.varY = -this.hoseHeight + this.hoseModel.H2 - this.hoseModel.H2 * Math.sin( this.angle );
+      this.upperLineEndPointX = this.hoseWidth - this.hoseModel.width * Math.sin( this.angle );
+      this.upperLineEndPointY = -this.hoseHeight + this.hoseModel.H2 + this.hoseModel.width * Math.cos( this.angle );
+      this.upperLinePointX = this.upperLineEndPointX - this.hoseModel.H2 * Math.cos( this.angle );
+      this.upperLinePointY = this.upperLineEndPointY - this.hoseModel.H2 * Math.sin( this.angle );
+      this.x2 = this.varX - this.hoseModel.width * Math.cos( this.angleWithVertical );
+      this.y2 = this.varY - (this.hoseModel.width - this.hoseModel.width * Math.sin( this.angleWithVertical ));
+      this.hoseModel.nozzleX = this.hoseModel.hoseWidth + 0.57;
+      this.hoseModel.nozzleY = this.varY + this.hoseModel.H2 * Math.sin( this.angle ) + 2.0;
     }
   } );
 
