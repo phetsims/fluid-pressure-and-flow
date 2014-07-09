@@ -91,7 +91,7 @@ define( function( require ) {
     this.addChild( new Path( Shape.lineSegment( 0, this.waterTankFrame.height - modelViewTransform.modelToViewDeltaX( waterTower.HOLE_SIZE * 1.5 ), 0, 0 ), { right: wheelNode.right, top: wheelNode.bottom, lineWidth: 1, stroke: 'black'} ) );
 
     //add the gate at the end of the rope
-    this.sluiceGate = new Rectangle( 0, 0, 5, modelViewTransform.modelToViewDeltaX( waterTower.HOLE_SIZE * 1.5), {
+    this.sluiceGate = new Rectangle( 0, 0, 5, modelViewTransform.modelToViewDeltaX( waterTower.HOLE_SIZE * 1.5 ), {
       fill: new LinearGradient( 0, 0, 5, 0 )
         .addColorStop( 0, '#656570' )
         .addColorStop( 0.5, '#dee6f5' )
@@ -168,7 +168,7 @@ define( function( require ) {
 
   return inherit( Node, WaterTowerView, {
     updateWaterTowerLegs: function() {
-      this.waterTowerLegs.waterTowerHeight = -this.modelViewTransform.modelToViewDeltaY( this.waterTower.tankPosition.y);
+      this.waterTowerLegs.waterTowerHeight = -this.modelViewTransform.modelToViewDeltaY( this.waterTower.tankPosition.y );
       this.waterTowerLegs.updateShape();
     }
   } );

@@ -32,16 +32,16 @@ define( function( require ) {
   var FONT = new PhetFont( 16 );
 
   var defaultOptions = [
-    {
-      x: 280,
-      y: 344,
-      tipX: 119.5,
-      tipY: 0,
-      scale: 1,
-      length: 119.5,
-      value: 50000,
-      precision: 2
-    }
+      {
+        x: 280,
+        y: 344,
+        tipX: 119.5,
+        tipY: 0,
+        scale: 1,
+        length: 119.5,
+        value: 50000,
+        precision: 2
+      }
     ]
     ;
 

@@ -76,7 +76,7 @@ define( function( require ) {
     waterTowerModel.modelViewTransform = modelViewTransform;
 
     // add background -- sky
-    this.addChild( new SkyNode( this.layoutBounds.centerX - ((this.layoutBounds.width * 3) / 2), (groundY - this.layoutBounds.height), this.layoutBounds.width * 3, this.layoutBounds.height, this.layoutBounds.height, {skyGradientHeight: this.layoutBounds.height / 2}));
+    this.addChild( new SkyNode( this.layoutBounds.centerX - ((this.layoutBounds.width * 3) / 2), (groundY - this.layoutBounds.height), this.layoutBounds.width * 3, this.layoutBounds.height, this.layoutBounds.height, {skyGradientHeight: this.layoutBounds.height / 2} ) );
 
     var hoseDropsLayer = new Node();
     waterTowerScreenView.addChild( hoseDropsLayer );
