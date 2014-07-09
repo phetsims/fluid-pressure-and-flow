@@ -119,6 +119,7 @@ define( function( require ) {
       listener: function() {
         waterTowerModel.reset();
         controlSlider.reset();
+        waterTowerScreenView.hoseView.reset();
       },
       right: this.layoutBounds.right - inset,
       bottom: this.layoutBounds.bottom - inset

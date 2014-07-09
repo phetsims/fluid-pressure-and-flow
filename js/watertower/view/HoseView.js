@@ -14,6 +14,7 @@ define( function( require ) {
   var Node = require( 'SCENERY/nodes/Node' );
   var Shape = require( 'KITE/Shape' );
   var SimpleDragHandler = require( 'SCENERY/input/SimpleDragHandler' );
+  var Vector2 = require( 'DOT/Vector2' );
 
   var nozzleImg = require( 'image!FLUID_PRESSURE_AND_FLOW/nozzle.png' );
   var spoutHandleImg = require( 'image!FLUID_PRESSURE_AND_FLOW/spout-handle.png' );
@@ -28,6 +29,7 @@ define( function( require ) {
     this.modelViewTransform = modelViewTransform;
     this.hoseHeight = hoseModel.height;
     this.hoseWidth = hoseModel.hoseWidth;
+    this.initialPosition = new Vector2( 180, 115 );
 
     this.tankPositionProperty = tankPositionProperty;
 
@@ -57,7 +59,7 @@ define( function( require ) {
 
 
     // TODO : compare this.varX with tank bottom Y
-    if ( this.varY >= 0.05445405423281646 ) {
+    if ( this.varY >= 0.05 ) {
       this.hoseShape = new Shape()
         .moveTo( modelViewTransform.modelToViewX( this.varX ), modelViewTransform.modelToViewY( this.varY ) )
         .lineTo( modelViewTransform.modelToViewX( this.hoseWidth ), modelViewTransform.modelToViewY( -this.hoseHeight + hoseModel.H2 ) )
@@ -169,7 +171,7 @@ define( function( require ) {
     // add observers
     isHoseVisibleProperty.linkAttribute( this, 'visible' );
 
-    hoseView.setTranslation( 180, 115 );
+    hoseView.setTranslation( this.initialPosition );
 
     this.mutate( options );
 
@@ -212,8 +214,8 @@ define( function( require ) {
       this.model.nozzleY = this.varY + this.model.H2 * Math.sin( this.angleInRadians ) + 2.0;
 
 
-      // TODo : compare this.varX with tank bottom Y
-      if ( this.varY >= 0.05445405423281646 /*this.tankPosition.Y*/ ) {
+      // TODO : compare this.varX with tank bottom Y
+      if ( this.varY >= 0.05 /*this.tankPosition.Y*/ ) {
         this.hosePath.setShape( new Shape()
           .moveTo( this.modelViewTransform.modelToViewX( this.varX ), this.modelViewTransform.modelToViewY( this.varY ) )
           .lineTo( this.modelViewTransform.modelToViewX( this.hoseWidth ), this.modelViewTransform.modelToViewY( -this.hoseHeight + this.model.H2 ) )
@@ -266,6 +268,9 @@ define( function( require ) {
       this.spoutAndNozzle.left = this.modelViewTransform.modelToViewX( this.hoseWidth ) - 26 * Math.sin( this.angleInRadians );
       this.spoutAndNozzle.rotation = this.angleWithPerpendicularInRadians;
 
+    },
+    reset: function() {
+      this.setTranslation( this.initialPosition );
     }
   } );
 
