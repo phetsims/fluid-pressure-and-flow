@@ -24,7 +24,16 @@ define( function( require ) {
   // constants
   var TRACK_SIZE = new Dimension2( 190, 10 );
 
-  function ControlSlider( model, trackProperty, getPropertyStringFunction, trackRange, options ) {
+  /**
+   *
+   * @param {WaterTowerModel} waterTowerModel of the simulation
+   * @param {Property<Number>} trackProperty tracks the property used in the slider
+   * @param {function} getPropertyStringFunction returns a display value
+   * @param {Range} trackRange is the range of values that the trackProperty can take
+   * @param options
+   * @constructor
+   */
+  function ControlSlider( waterTowerModel, trackProperty, getPropertyStringFunction, trackRange, options ) {
     options = _.extend( {
       scale: 1.0,
       fill: '#f2fa6a',
@@ -103,22 +112,16 @@ define( function( require ) {
       } );
     this.addChild( this.accordionBox );
 
-    //question mark, show if unknown property
-    this.questionMark = new Node( {visible: false} );
-    this.questionMark.addChild( new Text( '?', { font: new PhetFont( 80 )} ) );
-    this.questionMark.centerX = this.accordionBox.width / 2;
-    this.questionMark.top = this.content.top;
-    this.accordionContent.addChild( this.questionMark );
 
     trackProperty.link( function( value ) {
       valueLabel.text = getPropertyStringFunction();
       valueLabel.center = valueField.center; // keep the value centered in the field
       plusButton.setEnabled( value < trackRange.max );
       minusButton.setEnabled( value > trackRange.min );
-      model.fluidDensity = value;
+      waterTowerModel.fluidDensity = value;
     } );
 
-    model.measureUnitsProperty.link( function() {
+    waterTowerModel.measureUnitsProperty.link( function() {
       valueLabel.text = getPropertyStringFunction();
       valueLabel.center = valueField.center; // keep the value centered in the field
     } );
@@ -128,11 +131,9 @@ define( function( require ) {
   return inherit( Node, ControlSlider, {
     disable: function() {
       this.content.visible = false;
-      this.questionMark.visible = true;
     },
     enable: function() {
       this.content.visible = true;
-      this.questionMark.visible = false;
     },
     reset: function() {
       this.accordionBox.open.set( false );
