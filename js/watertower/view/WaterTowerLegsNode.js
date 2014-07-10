@@ -56,6 +56,7 @@ define( function( require ) {
       var rightLegTopX = width * 0.8;
       var options = this.options;
 
+      // use 1 instead of 0 when the height is 0. This is to prevent divide by zero and other problems.
       var fLeftLegX = new LinearFunction( 0, height > 0 ? height : 1, leftLegTopX, 0 ); //y1, y2, x1, x2
       var fRightLegX = new LinearFunction( 0, height > 0 ? height : 1, rightLegTopX, width );
 

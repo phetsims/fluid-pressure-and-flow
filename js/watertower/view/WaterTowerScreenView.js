@@ -61,7 +61,7 @@ define( function( require ) {
 
     var textOptions = {font: new PhetFont( 14 )};
 
-    //Invert the y-axis, so that y grows up.
+    // Invert the y-axis, so that y grows up.
     var modelViewTransform = ModelViewTransform2.createSinglePointScaleInvertedYMapping(
       Vector2.ZERO,
       new Vector2( 0, 350 ),
@@ -123,7 +123,7 @@ define( function( require ) {
     } );
     this.addChild( resetAllButton );
 
-    //add the fluid density control slider
+    // add the fluid density control slider
     var controlSlider = new ControlSlider( waterTowerModel, waterTowerModel.fluidDensityProperty, waterTowerModel.getFluidDensityString.bind( waterTowerModel ), waterTowerModel.fluidDensityRange, {
       right: resetAllButton.left - 4 * inset,
       bottom: this.layoutBounds.bottom - inset,
@@ -131,7 +131,7 @@ define( function( require ) {
       ticks: [
         {
           title: waterString,
-          value: 1000
+          value: waterTowerModel.fluidDensity
         },
         {
           title: gasolineString,
@@ -169,18 +169,18 @@ define( function( require ) {
 
     this.addChild( speedControl.mutate( {right: playPauseButton.left - inset, bottom: playPauseButton.bottom} ) );
 
-    //Add the sensors panel
+    // add the sensors panel
     var sensorPanel = new Rectangle( 0, 0, 190, 105, 10, 10, {stroke: 'gray', lineWidth: 1, fill: '#f2fa6a', right: this.controlPanel.left - inset, top: this.controlPanel.top} );
     this.addChild( sensorPanel );
 
-    //Add barometers within the sensor panel bounds
+    // add barometers within the sensor panel bounds
     _.each( waterTowerModel.barometers, function( barometer ) {
       barometer.positionProperty.storeInitialValue( new Vector2( sensorPanel.visibleBounds.centerX + 55, sensorPanel.visibleBounds.centerY - 15 ) );
       barometer.reset();
       this.addChild( new BarometerNode( waterTowerModel, modelViewTransform, barometer, sensorPanel.visibleBounds, this.layoutBounds ) );
     }.bind( this ) );
 
-    //Add speedometers within the sensor panel bounds
+    // add speedometers within the sensor panel bounds
     _.each( waterTowerModel.speedometers, function( velocitySensor ) {
       velocitySensor.positionProperty.storeInitialValue( new Vector2( sensorPanel.visibleBounds.centerX - 85, sensorPanel.visibleBounds.centerY - 35 ) );
       velocitySensor.positionProperty.reset();
@@ -190,12 +190,14 @@ define( function( require ) {
     this.addChild( new WaterTowerRuler( waterTowerModel.isRulerVisibleProperty, waterTowerModel.rulerPositionProperty, waterTowerModel.measureUnitsProperty, modelViewTransform, this.layoutBounds ) );
     this.addChild( new MeasuringTape( waterTowerModel ) );
 
+    // add a waterdrop node to the view when a waterdrop is added to faucetdrops
     waterTowerModel.faucetDrops.addItemAddedListener( function( waterDrop ) {
       var waterDropNode = new WaterDropNode( waterDrop, waterTowerModel.fluidColorModel, modelViewTransform );
       faucetDropsLayer.addChild( waterDropNode );
       waterDrop.node = waterDropNode;
     } );
 
+    // remove the waterdrop node linked to the faucet drop that was removed from faucetdrops
     waterTowerModel.faucetDrops.addItemRemovedListener( function( removedDrop ) {
       faucetDropsLayer.removeChild( removedDrop.node );
     } );
@@ -210,7 +212,6 @@ define( function( require ) {
       waterTowerDropsLayer.removeChild( removedDrop.node );
     } );
 
-    //For waterDrops from hose
     waterTowerModel.hoseDrops.addItemAddedListener( function( waterDrop ) {
       var waterDropNode = new WaterDropNode( waterDrop, waterTowerModel.fluidColorModel, modelViewTransform );
       hoseDropsLayer.addChild( waterDropNode );
