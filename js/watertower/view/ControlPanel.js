@@ -47,20 +47,29 @@ define( function( require ) {
 
     var textOptions = {font: new PhetFont( 14 )};
 
-    var measuringTape = [new Text( measuringTapeString, textOptions ), new Rectangle( 0, 0, 10, 20 ), this.createMeasuringTapeIcon()];
+    var ruler = [new Text( rulerString, textOptions ), this.createRulerIcon()];
+    var measuringTape = [new Text( measuringTapeString, textOptions ), this.createMeasuringTapeIcon()];
+    var hose = [new Text( hoseString, textOptions ), this.createHoseIcon()];
 
-    //align ruler icon right
-    var ruler = [new Text( rulerString, textOptions ), new Rectangle( 0, 0, 65, 20 ), this.createRulerIcon()];
-    var hose = [new Text( hoseString, textOptions ), new Rectangle( 0, 0, 40, 20 ), this.createHoseIcon()];
+    var widestItem = _.max( [measuringTape, ruler, hose], function( itemSet ) { return itemSet[0].width + itemSet[1].width; } );
+
+    var maxWidth = widestItem[0].width + widestItem[1].width;
+
+    //In the absence of any sun (or other) layout packages, just manually space them out so they will have the icons aligned
+    var pad = function( itemSet ) {
+      var padWidth = maxWidth - itemSet[0].width - itemSet[1].width;
+      return [itemSet[0], new Rectangle( 0, 0, padWidth + 5, 20 ), itemSet[1]];
+    };
+
     var checkBoxOptions = {
       boxWidth: 18,
       spacing: 5
     };
 
     var checkBoxChildren = [
-      new CheckBox( new HBox( {children: ruler} ), model.isRulerVisibleProperty, checkBoxOptions ),
-      new CheckBox( new HBox( {children: measuringTape} ), model.isMeasuringTapeVisibleProperty, checkBoxOptions ),
-      new CheckBox( new HBox( {children: hose} ), model.isHoseVisibleProperty, checkBoxOptions )
+      new CheckBox( new HBox( {children: pad( ruler )} ), model.isRulerVisibleProperty, checkBoxOptions ),
+      new CheckBox( new HBox( {children: pad( measuringTape )} ), model.isMeasuringTapeVisibleProperty, checkBoxOptions ),
+      new CheckBox( new HBox( {children: pad( hose )} ), model.isHoseVisibleProperty, checkBoxOptions )
     ];
     var checkBoxes = new VBox( {align: 'left', spacing: 10, children: checkBoxChildren} );
 
@@ -84,11 +93,15 @@ define( function( require ) {
         clipArea: Shape.rect( -1, -1, 44, 22 )
       } );
     },
+
+    //create an icon for the hose
     createHoseIcon: function() {
       var icon = new Path( new Shape().moveTo( 0, 0 ).arc( -15, 8, 10, 180, 90, true ).lineTo( 10, 16 ).lineTo( 10, 0 ).lineTo( 0, 0 ), {stroke: 'grey', lineWidth: 1, fill: '#00FF99'} );
       icon.addChild( new Image( nozzleImg, { cursor: 'pointer', rotation: Math.PI / 2, scale: 0.8, left: icon.right, bottom: icon.bottom + 1} ) );
       return icon;
     },
+
+    //create an icon for the measuring tape
     createMeasuringTapeIcon: function() {
       var icon = new Image( measuringTapeImg, { cursor: 'pointer', scale: 0.6} );
       var size = 5;
