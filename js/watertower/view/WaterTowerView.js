@@ -131,7 +131,7 @@ define( function( require ) {
         deltaY = modelViewTransform.viewToModelDeltaY( deltaY );
         var newY = initialY + deltaY;
         //restrict the tank bottom to be between 0.1 and 1.7 meters
-        newY = newY > 1.7 ? 1.7 : newY < 0.1 ? 0.1 : newY;
+        newY = newY > 1.7 ? 1.7 : newY < 0 ? 0 : newY;
         deltaY = newY - initialY;
         waterTowerView.waterTower.tankPosition = new Vector2( waterTowerView.waterTower.tankPosition.x, newY );
 
