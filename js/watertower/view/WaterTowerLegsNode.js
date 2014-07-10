@@ -56,8 +56,8 @@ define( function( require ) {
       var rightLegTopX = width * 0.8;
       var options = this.options;
 
-      var fLeftLegX = new LinearFunction( 0, height, leftLegTopX, 0 ); //y1, y2, x1, x2
-      var fRightLegX = new LinearFunction( 0, height, rightLegTopX, width );
+      var fLeftLegX = new LinearFunction( 0, height > 0 ? height : 1, leftLegTopX, 0 ); //y1, y2, x1, x2
+      var fRightLegX = new LinearFunction( 0, height > 0 ? height : 1, rightLegTopX, width );
 
       //Left leg
       this.leftLegPath.setShape( new Shape().moveTo( fLeftLegX( 0 ), 0 )
