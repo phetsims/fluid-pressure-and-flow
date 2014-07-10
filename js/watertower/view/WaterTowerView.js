@@ -124,7 +124,7 @@ define( function( require ) {
       start: function( e ) {
         clickYOffset = waterTowerView.globalToParentPoint( e.pointer.point ).y;
         initialY = waterTower.tankPosition.y;
-        initialHeight = hoseView.hoseHeight;
+        initialHeight = hoseView.hose.height;
       },
       drag: function( e ) {
         var deltaY = waterTowerView.globalToParentPoint( e.pointer.point ).y - clickYOffset;
@@ -135,8 +135,7 @@ define( function( require ) {
         deltaY = newY - initialY;
         waterTowerView.waterTower.tankPosition = new Vector2( waterTowerView.waterTower.tankPosition.x, newY );
 
-        hoseView.hoseHeight = initialHeight + deltaY;
-        hoseView.update();
+        hoseView.hose.height = initialHeight + deltaY;
         hoseView.setTranslation( modelViewTransform.modelToViewX( 2.6 ), modelViewTransform.modelToViewY( waterTowerView.waterTower.tankPosition.y ) - 130 );
       }
     } ) );

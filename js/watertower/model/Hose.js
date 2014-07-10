@@ -10,11 +10,12 @@ define( function( require ) {
 
   var inherit = require( 'PHET_CORE/inherit' );
   var PropertySet = require( 'AXON/PropertySet' );
+  var Vector2 = require( 'DOT/Vector2' );
 
   /**
    * Hose constructor
    * @param {Number} height -- total vertical length of the hose
-   * @param {Number} angle rotated in degrees by the spout, measured from a horizontal line. Initially this will be 90.
+   * @param {Number} angle rotated (in radians) by the spout, measured from a horizontal line. Initially this will be PI/2.
    * @constructor
    */
 
@@ -28,15 +29,34 @@ define( function( require ) {
 
     this.elbowOuterX = 0; //position of the elbow in model co-ordinates
     this.elbowOuterY = 0;
-
-    this.angle = angle;
-    this.height = height; //height between the two horizontal portions of the hose
+    this.initialPosition = new Vector2( 182, 115 );
+    this.angleWithVertical = Math.PI / 2 - angle;
 
     PropertySet.call( this, {
-      enabled: false
+      height: height,
+      angle: angle
     } );
+
+    this.update();
   }
 
-  return inherit( PropertySet, Hose );
+  return inherit( PropertySet, Hose, {
+    // Resets all model elements
+    reset: function() {
+      PropertySet.prototype.reset.call( this );
+      this.update();
+    },
+    update: function() {
+      this.angleWithVertical = Math.PI / 2 - this.angle;
+      this.elbowOuterX = this.hoseLengthX - this.H2 * Math.cos( this.angle );
+      this.elbowOuterY = -this.height + this.H2 - this.H2 * Math.sin( this.angle );
+      this.nozzleAttachmentInnerX = this.hoseLengthX - this.width * Math.sin( this.angle );
+      this.nozzleAttachmentInnerY = -this.height + this.H2 + this.width * Math.cos( this.angle );
+      this.elbowInnerX = this.nozzleAttachmentInnerX - this.H2 * Math.cos( this.angle );
+      this.elbowInnerY = this.nozzleAttachmentInnerY - this.H2 * Math.sin( this.angle );
+      this.elbowLowerX = this.elbowOuterX - this.width * Math.sin( this.angle );
+      this.elbowLowerY = this.elbowOuterY - (this.width - this.width * Math.cos( this.angle ));
+    }
+  } );
 } );
 
