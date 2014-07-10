@@ -18,6 +18,7 @@ define( function( require ) {
   var ResetAllButton = require( 'SCENERY_PHET/ResetAllButton' );
   var Rectangle = require( 'SCENERY/nodes/Rectangle' );
   var Node = require( 'SCENERY/nodes/Node' );
+  var VBox = require( 'SCENERY/nodes/VBox' );
 
   var PlayPauseButton = require( 'SCENERY_PHET/PlayPauseButton' );
   var StepButton = require( 'SCENERY_PHET/StepButton' );
@@ -148,17 +149,25 @@ define( function( require ) {
     var sluiceControl = new SluiceControl( waterTowerModel.isSluiceOpenProperty, { right: waterTowerView.right + 36, bottom: this.layoutBounds.bottom - 70} );
     this.addChild( sluiceControl );
 
-    //add the normal/slow motion options
-    var normalOption = new AquaRadioButton( waterTowerModel.speedProperty, "normal", new Text( normalString, textOptions ), {radius: 6, y: this.layoutBounds.bottom - 2 * inset, x: sluiceControl.right + 3 * inset} );
-    this.addChild( normalOption );
-    this.addChild( new AquaRadioButton( waterTowerModel.speedProperty, "slow", new Text( slowMotionString, textOptions ), {radius: 6, x: sluiceControl.right + 3 * inset, y: normalOption.y - 2 * inset} ) );
-
     // add play pause button and step button
-    var playPauseButton = new PlayPauseButton( waterTowerModel.isPlayProperty, { stroke: 'black', fill: '#005566', bottom: normalOption.bottom, right: (normalOption.right + controlSlider.left) / 2 } );
-    this.addChild( playPauseButton );
-    this.addChild( new StepButton( function() {
+    var stepButton = new StepButton( function() {
       waterTowerModel.stepInternal( 0.016 );
-    }, waterTowerModel.isPlayProperty, { stroke: 'black', fill: '#005566', left: playPauseButton.right + inset, y: playPauseButton.centerY} ) );
+    }, waterTowerModel.isPlayProperty, { stroke: 'black', fill: '#005566', right: controlSlider.left - inset, bottom: controlSlider.bottom - inset} );
+
+    this.addChild( stepButton );
+
+    var playPauseButton = new PlayPauseButton( waterTowerModel.isPlayProperty, { stroke: 'black', fill: '#005566', y: stepButton.centerY, right: stepButton.left - inset } );
+    this.addChild( playPauseButton );
+
+    var speedControl = new VBox( {
+      align: 'left',
+      spacing: 5,
+      children: [
+        new AquaRadioButton( waterTowerModel.speedProperty, 'normal', new Text( normalString, textOptions ), {radius: 6} ),
+        new AquaRadioButton( waterTowerModel.speedProperty, 'slow', new Text( slowMotionString, textOptions ), {radius: 6} )
+      ]} );
+
+    this.addChild( speedControl.mutate( {right: playPauseButton.left - inset, bottom: playPauseButton.bottom} ) );
 
     //Add the sensors panel
     var sensorPanel = new Rectangle( 0, 0, 190, 105, 10, 10, {stroke: 'gray', lineWidth: 1, fill: '#f2fa6a', right: this.controlPanel.left - inset, top: this.controlPanel.top} );
