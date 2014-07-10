@@ -58,10 +58,6 @@ define( function( require ) {
     var waterTowerScreenView = this;
     ScreenView.call( this, {renderer: 'svg'} );
 
-    // Please note that this is to help line up elements in the play area, and some user interface components from the Sun repo will
-    // be much bigger to make the sims usable on tablets.
-    // Also note, the sky and ground should extend to the sides of the browser window.  Please use OutsideBackgroundNode for this.
-
     var textOptions = {font: new PhetFont( 14 )};
 
     //Invert the y-axis, so that y grows up.
@@ -224,6 +220,18 @@ define( function( require ) {
         waterTowerView.sluiceGate.bottom = waterTowerView.waterTankFrame.bottom;
       }
     } );
+
+    waterTowerModel.waterTower.fluidVolumeProperty.link( function( fluidVolume ) {
+      if ( waterTowerModel.isSluiceOpen && waterTowerModel.faucetMode === 'matchLeakage' ) {
+        // Disable the fill button if the tank is nearly full in match leakage mode to prevent fill button flickering.
+        // See https://github.com/phetsims/fluid-pressure-and-flow/issues/44
+        waterTowerView.fillButton.enabled = fluidVolume < 0.99 * waterTowerModel.waterTower.TANK_VOLUME;
+      }
+      else {
+        waterTowerView.fillButton.enabled = (fluidVolume < waterTowerModel.waterTower.TANK_VOLUME);
+      }
+    } );
+
   }
 
   return inherit( ScreenView, WaterTowerScreenView );
