@@ -95,11 +95,14 @@ define( function( require ) {
       }
     }.bind( this ) );
 
-    //
+    // variables used in step function. Declaring here to avoid gc
     this.dropsToRemove = [];
     this.accumulatedDt = 0;
     this.accumulatedDtForSensors = 0;
     this.leakageVolume = 0;
+    this.newFaucetDrops = [];
+    this.newWaterTowerDrops = [];
+    this.newHoseDrops = [];
   }
 
   return inherit( PropertySet, WaterTowerModel, {
@@ -163,12 +166,14 @@ define( function( require ) {
       // Ensure that water flow looks ok even on very low frame rates
       this.accumulatedDt += dt;
       this.accumulatedDtForSensors += dt;
-      var newFaucetDrops = [];
-      var newWaterTowerDrops = [];
-      var newHoseDrops = [];
+
       var newFaucetDrop;
       var newWaterDrop;
       var newHoseDrop;
+
+      this.newFaucetDrops = [];
+      this.newWaterTowerDrops = [];
+      this.newHoseDrops = [];
 
       while ( this.accumulatedDt > 0.016 ) {
         this.accumulatedDt -= 0.016;
@@ -176,7 +181,7 @@ define( function( require ) {
           newFaucetDrop = new WaterDrop( this.faucetPosition.copy().plus( new Vector2( Math.random() * 0.04 - 0.02, 0 ) ), new Vector2( 0, 0 ), this.faucetMode === "manual" ? this.faucetFlowRate * 0.016 : this.leakageVolume );
 
           this.faucetDrops.push( newFaucetDrop );
-          newFaucetDrops.push( newFaucetDrop );
+          this.newFaucetDrops.push( newFaucetDrop );
           newFaucetDrop.step( this.accumulatedDt );
         }
 
@@ -195,7 +200,7 @@ define( function( require ) {
           newWaterDrop = new WaterDrop( this.waterTower.tankPosition.plus( new Vector2( 2 * this.waterTower.TANK_RADIUS + Math.random() * 0.03, 2 * radius + Math.random() * 0.06 - 0.03 ) ), new Vector2( Math.sqrt( 2 * Constants.EARTH_GRAVITY * this.waterTower.fluidLevel ), 0 ), this.leakageVolume );
           this.waterTowerDrops.push( newWaterDrop );
           newWaterDrop.step( this.accumulatedDt );
-          newWaterTowerDrops.push( newWaterDrop );
+          this.newWaterTowerDrops.push( newWaterDrop );
           this.waterTower.fluidVolume = this.waterTower.fluidVolume - this.leakageVolume;
         }
 
@@ -212,7 +217,7 @@ define( function( require ) {
 
             this.hoseDrops.push( newHoseDrop );
             newHoseDrop.step( this.accumulatedDt );
-            newHoseDrops.push( newHoseDrop );
+            this.newHoseDrops.push( newHoseDrop );
             this.waterTower.fluidVolume = this.waterTower.fluidVolume - this.leakageVolume;
           }
         }
@@ -221,7 +226,7 @@ define( function( require ) {
 
       for ( var i = 0, numberOfDrops = this.faucetDrops.length; i < numberOfDrops; i++ ) {
         //step only the 'old' drops
-        if ( newFaucetDrops.indexOf( this.faucetDrops.get( i ) ) === -1 ) {
+        if ( this.newFaucetDrops.indexOf( this.faucetDrops.get( i ) ) === -1 ) {
           this.faucetDrops.get( i ).step( dt );
         }
 
@@ -244,7 +249,7 @@ define( function( require ) {
       this.dropsToRemove = [];
       for ( i = 0, numberOfDrops = this.waterTowerDrops.length; i < numberOfDrops; i++ ) {
         //step only the 'old' drops
-        if ( newWaterTowerDrops.indexOf( this.waterTowerDrops.get( i ) ) === -1 ) {
+        if ( this.newWaterTowerDrops.indexOf( this.waterTowerDrops.get( i ) ) === -1 ) {
           this.waterTowerDrops.get( i ).step( dt );
         }
 
@@ -260,7 +265,7 @@ define( function( require ) {
 
       for ( i = 0, numberOfDrops = this.hoseDrops.length; i < numberOfDrops; i++ ) {
         //step only the 'old' drops
-        if ( newHoseDrops.indexOf( this.hoseDrops.get( i ) ) === -1 ) {
+        if ( this.newHoseDrops.indexOf( this.hoseDrops.get( i ) ) === -1 ) {
           this.hoseDrops.get( i ).step( dt );
         }
         //remove them as soon as they hit the ground
@@ -274,7 +279,7 @@ define( function( require ) {
       if ( this.accumulatedDtForSensors > 0.25 ) {
         this.accumulatedDtForSensors -= 0.25;
         for ( var k = 0; k < this.speedometers.length; k++ ) {
-          this.speedometers[k].value = this.waterDropVelocityAt( this.modelViewTransform.viewToModelX( this.speedometers[k].position.x + 50 ), this.modelViewTransform.viewToModelY( this.speedometers[k].position.y + 75 ) );
+          this.speedometers[k].value = this.getWaterDropVelocityAt( this.modelViewTransform.viewToModelX( this.speedometers[k].position.x + 50 ), this.modelViewTransform.viewToModelY( this.speedometers[k].position.y + 75 ) );
         }
 
         for ( k = 0; k < this.barometers.length; k++ ) {
@@ -292,7 +297,7 @@ define( function( require ) {
       }
     },
 
-    waterDropVelocityAt: function( x, y ) {
+    getWaterDropVelocityAt: function( x, y ) {
       var waterDrops = (this.isHoseVisible) ? this.hoseDrops : this.waterTowerDrops;
 
       for ( var i = 0, j = waterDrops.length; i < j; i++ ) {
