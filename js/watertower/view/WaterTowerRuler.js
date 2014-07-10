@@ -66,17 +66,19 @@ define( function( require ) {
     var feetRuler = new RulerNode( modelViewTransform.modelToViewX( 3 ), 50, modelViewTransform.modelToViewX( Units.feetToMeters( 1 ) ), ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10'], units_feetString, {minorTicksPerMajorTick: 4, unitsFont: '12px Arial', rotation: Math.PI / 2} );
     this.addChild( feetRuler );
 
-    closeButton.translation = new Vector2( -this.width + closeButton.width, -closeButton.height );
-
     isRulerVisibleProperty.linkAttribute( this, 'visible' );
 
     measureUnitsProperty.valueEquals( 'english' ).linkAttribute( feetRuler, 'visible' );
     measureUnitsProperty.valueEquals( 'metric' ).linkAttribute( metersRuler, 'visible' );
 
-    rulerPositionProperty.linkAttribute( this, 'translation' );
+    rulerPositionProperty.linkAttribute( metersRuler, 'translation' );
+    rulerPositionProperty.linkAttribute( feetRuler, 'translation' );
+    rulerPositionProperty.link( function( rulerPosition ) {
+      closeButton.setTranslation( rulerPosition.x - metersRuler.width, rulerPosition.y - closeButton.height );
+    } );
 
     //handlers
-    this.addInputListener( new MovableDragHandler( {locationProperty: rulerPositionProperty, dragBounds: dragBounds.shifted( this.width / 2, -this.height / 2 )},
+    metersRuler.addInputListener( new MovableDragHandler( {locationProperty: rulerPositionProperty, dragBounds: dragBounds.shifted( this.width / 2, -this.height / 2 )},
       ModelViewTransform2.createIdentity() ) );
     this.mutate( options );
 
