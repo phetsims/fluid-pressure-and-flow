@@ -33,7 +33,13 @@ define( function( require ) {
   var measuringTapeImg = require( 'image!FLUID_PRESSURE_AND_FLOW/measuringTape.png' );
 
 
-  function ControlPanel( model, options ) {
+  /**
+   *
+   * @param {WaterTowerModel} waterTowerModel of the simulation
+   * @param options
+   * @constructor
+   */
+  function ControlPanel( waterTowerModel, options ) {
 
     options = _.extend( {
       xMargin: 10,
@@ -67,9 +73,9 @@ define( function( require ) {
     };
 
     var checkBoxChildren = [
-      new CheckBox( new HBox( {children: pad( ruler )} ), model.isRulerVisibleProperty, checkBoxOptions ),
-      new CheckBox( new HBox( {children: pad( measuringTape )} ), model.isMeasuringTapeVisibleProperty, checkBoxOptions ),
-      new CheckBox( new HBox( {children: pad( hose )} ), model.isHoseVisibleProperty, checkBoxOptions )
+      new CheckBox( new HBox( {children: pad( ruler )} ), waterTowerModel.isRulerVisibleProperty, checkBoxOptions ),
+      new CheckBox( new HBox( {children: pad( measuringTape )} ), waterTowerModel.isMeasuringTapeVisibleProperty, checkBoxOptions ),
+      new CheckBox( new HBox( {children: pad( hose )} ), waterTowerModel.isHoseVisibleProperty, checkBoxOptions )
     ];
     var checkBoxes = new VBox( {align: 'left', spacing: 10, children: checkBoxChildren} );
 

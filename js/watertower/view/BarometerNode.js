@@ -31,7 +31,7 @@ define( function( require ) {
   /**
    * Main constructor for BarometerNode.
    *
-   * @param {WaterTowerModel} model of simulation
+   * @param {WaterTowerModel} waterTowerModel of simulation
    * @param {ModelViewTransform2} modelViewTransform , Transform between model and view coordinate frames
    * @param {Property} barometer - the barometer model
    * @param {Bounds2} containerBounds - bounds of container for all barometers, needed to snap barometer to initial position when it in container
@@ -39,7 +39,7 @@ define( function( require ) {
    * @param {options} options that can be passed on to the underlying node
    * @constructor
    */
-  function BarometerNode( model, modelViewTransform, barometer, containerBounds, dragBounds, options ) {
+  function BarometerNode( waterTowerModel, modelViewTransform, barometer, containerBounds, dragBounds, options ) {
     var barometerNode = this;
 
     Node.call( this, {cursor: 'pointer'} );
@@ -93,12 +93,12 @@ define( function( require ) {
       } ) );
 
     //Update the value in the barometer value model by reading from the model.
-    DerivedProperty.multilink( [barometer.positionProperty, model.fluidDensityProperty], function( position, fluidDensity ) {
-      barometer.valueProperty.set( model.getPressureAtCoords( modelViewTransform.viewToModelX( position.x ), modelViewTransform.viewToModelY( position.y + (60) ) ) );
+    DerivedProperty.multilink( [barometer.positionProperty, waterTowerModel.fluidDensityProperty], function( position, fluidDensity ) {
+      barometer.valueProperty.set( waterTowerModel.getPressureAtCoords( modelViewTransform.viewToModelX( position.x ), modelViewTransform.viewToModelY( position.y + (60) ) ) );
     } );
 
     //Update the text when the value or units changes.
-    DerivedProperty.multilink( [barometer.valueProperty, model.measureUnitsProperty], function( barometerValue, units ) {
+    DerivedProperty.multilink( [barometer.valueProperty, waterTowerModel.measureUnitsProperty], function( barometerValue, units ) {
       text.text = Units.getPressureString[units]( barometerValue );
       text.centerX = gaugeNode.centerX;
       textBackground.setRect( text.x - 2, text.y - text.height + 2, text.width + 4, text.height + 2 );

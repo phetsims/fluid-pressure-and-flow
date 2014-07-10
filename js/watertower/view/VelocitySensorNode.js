@@ -31,20 +31,20 @@ define( function( require ) {
   /**
    * Main constructor for VelocitySensorNode.
    *
-   * @param {WaterTowerModel} model of simulation
+   * @param {WaterTowerModel} waterTowerModel of simulation
    * @param {ModelViewTransform2} modelViewTransform , Transform between model and view coordinate frames
    * @param {VelocitySensor} velocitySensor - model for the velocity sensor
    * @param {Bounds2} containerBounds - bounds of container for all velocity sensors, needed to reset to initial position
    * @param {Bounds2} dragBounds - bounds that define where the sensor may be dragged
    * @constructor
    */
-  function VelocitySensorNode( model, modelViewTransform, velocitySensor, containerBounds, dragBounds ) {
+  function VelocitySensorNode( waterTowerModel, modelViewTransform, velocitySensor, containerBounds, dragBounds ) {
     var velocitySensorNode = this;
     Node.call( this, {cursor: 'pointer', pickable: true} );
 
     this.velocitySensor = velocitySensor;
     this.modelViewTransform = modelViewTransform;
-    this.model = model;
+
     var rectangleWidth = 100;
     var rectangleHeight = 56;
     this.layoutBounds = dragBounds;
@@ -54,6 +54,7 @@ define( function( require ) {
       stroke: new LinearGradient( 0, 0, 0, rectangleHeight ).addColorStop( 0, '#FFAD73' ).addColorStop( 0.6, '#893D11' ),
       fill: new LinearGradient( 0, 0, 0, rectangleHeight ).addColorStop( 0, '#FFAD73' ).addColorStop( 0.6, '#893D11' )} );
     velocitySensorNode.addChild( outerRectangle );
+
     //second rectangle
     var innerRectangle = new Rectangle( 2, 2, rectangleWidth - 4, rectangleHeight - 4, 10, 10, { fill: '#C5631E'} );
     velocitySensorNode.addChild( innerRectangle );
@@ -94,7 +95,6 @@ define( function( require ) {
     this.addChild( this.arrowShape );
 
     velocitySensor.valueProperty.link( function( velocity ) {
-
       this.arrowShape.setShape( new ArrowShape( 0, 0, 0.3 * this.modelViewTransform.modelToViewDeltaX( this.velocitySensor.value.x ), 0.3 * this.modelViewTransform.modelToViewDeltaY( this.velocitySensor.value.y ) ) );
 
       // set the arrowShape path position.
@@ -110,11 +110,11 @@ define( function( require ) {
       else {
         this.arrowShape.right = outerRectangle.centerX;
       }
-
     }.bind( velocitySensorNode ) );
+
     velocitySensor.isArrowVisibleProperty.linkAttribute( this.arrowShape, 'visible' );
 
-    //handlers
+    // drag handler
     this.addInputListener( new MovableDragHandler( {locationProperty: velocitySensor.positionProperty, dragBounds: dragBounds},
       ModelViewTransform2.createIdentity(),
       {
@@ -130,10 +130,12 @@ define( function( require ) {
 
     velocitySensor.positionProperty.linkAttribute( velocitySensorNode, 'translation' );
 
-    velocitySensor.positionProperty.link( this.checkForWaterDrops.bind( velocitySensorNode ) );
+    velocitySensor.positionProperty.link( function( position ) {
+      velocitySensor.value = waterTowerModel.getWaterDropVelocityAt( modelViewTransform.viewToModelX( position.x + 50 ), modelViewTransform.viewToModelY( position.y + 75 ) );
+    } );
 
     //Update the text when the value or units changes.
-    DerivedProperty.multilink( [velocitySensor.valueProperty, model.measureUnitsProperty], function( velocity, units ) {
+    DerivedProperty.multilink( [velocitySensor.valueProperty, waterTowerModel.measureUnitsProperty], function( velocity, units ) {
       labelText.text = units === 'metric' ?
                        velocity.magnitude().toFixed( 2 ) + ' ' + mPerS :
                        (velocity.magnitude() * 3.28).toFixed( 2 ) + ' ' + ftPerS;
@@ -142,9 +144,5 @@ define( function( require ) {
 
   }
 
-  return inherit( Node, VelocitySensorNode, {
-    checkForWaterDrops: function( position ) {
-      this.velocitySensor.value = this.model.waterDropVelocityAt( this.modelViewTransform.viewToModelX( position.x + 50 ), this.modelViewTransform.viewToModelY( position.y + 75 ) );
-    }
-  } );
+  return inherit( Node, VelocitySensorNode );
 } );

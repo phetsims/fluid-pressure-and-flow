@@ -108,7 +108,7 @@ define( function( require ) {
     var fillButtonFont = new PhetFont( 14 );
     var xMargin = 7;
     if ( fillString.length > 8 ) {
-      fillButtonFont = new new PhetFont( 10 );
+      fillButtonFont = new PhetFont( 10 );
       xMargin = 2;
     }
     this.fillButton = new TextPushButton( fillString, {
