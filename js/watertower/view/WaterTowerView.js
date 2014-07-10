@@ -105,13 +105,19 @@ define( function( require ) {
     this.addChild( this.sluiceGate );
 
     // water tank fill button
+    var fillButtonFont = new Font( '14px Arial' );
+    var xMargin = 7;
+    if ( fillString.length > 8 ) {
+      fillButtonFont = new Font( '10px Arial' );
+      xMargin = 2;
+    }
     this.fillButton = new TextPushButton( fillString, {
-      font: new Font( '16px Arial' ),
+      font: fillButtonFont,
       baseColor: 'yellow',
       listener: function() {
         waterTower.fill();
       },
-      xMargin: 15,
+      xMargin: xMargin,
       right: this.waterTankFrame.left - 10,
       top: this.waterTankFrame.centerY - 15
     } );
