@@ -19,7 +19,7 @@ define( function( require ) {
   var SimpleDragHandler = require( 'SCENERY/input/SimpleDragHandler' );
   var WaterTowerLegsNode = require( 'FLUID_PRESSURE_AND_FLOW/watertower/view/WaterTowerLegsNode' );
   var TextPushButton = require( 'SUN/buttons/TextPushButton' );
-  var Font = require( 'SCENERY/util/Font' );
+  var PhetFont = require( 'SCENERY_PHET/PhetFont' );
 
   //images
   var handleImage = require( 'image!FLUID_PRESSURE_AND_FLOW/handle.png' );
@@ -105,10 +105,10 @@ define( function( require ) {
     this.addChild( this.sluiceGate );
 
     // water tank fill button
-    var fillButtonFont = new Font( '14px Arial' );
+    var fillButtonFont = new PhetFont( 14 );
     var xMargin = 7;
     if ( fillString.length > 8 ) {
-      fillButtonFont = new Font( '10px Arial' );
+      fillButtonFont = new new PhetFont( 10 );
       xMargin = 2;
     }
     this.fillButton = new TextPushButton( fillString, {
