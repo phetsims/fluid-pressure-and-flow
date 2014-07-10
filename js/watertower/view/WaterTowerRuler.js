@@ -40,6 +40,7 @@ define( function( require ) {
 
     // configure the button shape
     var closeIconRadius = 4;
+    var rulerWidth = 50;
     var xIcon = new Path( new Shape()
       .moveTo( -closeIconRadius, -closeIconRadius )
       .lineTo( closeIconRadius, closeIconRadius )
@@ -60,10 +61,10 @@ define( function( require ) {
     this.addChild( closeButton );
 
     //Maintain two different rules internally and link their visibility to the measureUnits property
-    var metersRuler = new RulerNode( modelViewTransform.modelToViewX( 3 ), 50, modelViewTransform.modelToViewX( 1 ), ['0', '1', '2', '3'], units_metersString, {minorTicksPerMajorTick: 4, unitsFont: '12px Arial', rotation: Math.PI / 2} );
+    var metersRuler = new RulerNode( modelViewTransform.modelToViewX( 3 ), rulerWidth, modelViewTransform.modelToViewX( 1 ), ['0', '1', '2', '3'], units_metersString, {minorTicksPerMajorTick: 4, unitsFont: '12px Arial', rotation: Math.PI / 2} );
     this.addChild( metersRuler );
 
-    var feetRuler = new RulerNode( modelViewTransform.modelToViewX( 3 ), 50, modelViewTransform.modelToViewX( Units.feetToMeters( 1 ) ), ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10'], units_feetString, {minorTicksPerMajorTick: 4, unitsFont: '12px Arial', rotation: Math.PI / 2} );
+    var feetRuler = new RulerNode( modelViewTransform.modelToViewX( 3 ), rulerWidth, modelViewTransform.modelToViewX( Units.feetToMeters( 1 ) ), ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10'], units_feetString, {minorTicksPerMajorTick: 4, unitsFont: '12px Arial', rotation: Math.PI / 2} );
     this.addChild( feetRuler );
 
     isRulerVisibleProperty.linkAttribute( this, 'visible' );
@@ -74,12 +75,15 @@ define( function( require ) {
     rulerPositionProperty.linkAttribute( metersRuler, 'translation' );
     rulerPositionProperty.linkAttribute( feetRuler, 'translation' );
     rulerPositionProperty.link( function( rulerPosition ) {
-      closeButton.setTranslation( rulerPosition.x - metersRuler.width, rulerPosition.y - closeButton.height );
+      closeButton.setTranslation( rulerPosition.x - rulerWidth, rulerPosition.y - closeButton.height );
     } );
 
     //handlers
     metersRuler.addInputListener( new MovableDragHandler( {locationProperty: rulerPositionProperty, dragBounds: dragBounds.shifted( this.width / 2, -this.height / 2 )},
       ModelViewTransform2.createIdentity() ) );
+    feetRuler.addInputListener( new MovableDragHandler( {locationProperty: rulerPositionProperty, dragBounds: dragBounds.shifted( this.width / 2, -this.height / 2 )},
+      ModelViewTransform2.createIdentity() ) );
+
     this.mutate( options );
 
   }
