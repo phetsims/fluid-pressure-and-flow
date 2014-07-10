@@ -40,7 +40,7 @@ define( function( require ) {
     this.modelViewTransform = modelViewTransform;
     this.hoseHeight = hose.height;
     this.hoseLengthX = hose.hoseLengthX;
-    this.initialPosition = new Vector2( 180, 115 );
+    this.initialPosition = new Vector2( 182, 115 );
 
     this.tankPositionProperty = tankPositionProperty;
 
