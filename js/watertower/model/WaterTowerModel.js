@@ -33,15 +33,8 @@ define( function( require ) {
 
 
   function WaterTowerModel() {
-    this.GASOLINE_DENSITY = 700;
-    this.HONEY_DENSITY = 1420;
-    this.WATER_DENSITY = 1000;
 
-    //Constants for air pressure in Pascals, Pascals is SI, see http://en.wikipedia.org/wiki/Atmospheric_pressure
-    this.EARTH_AIR_PRESSURE = 101325;
-    this.EARTH_AIR_PRESSURE_AT_500_FT = 99490;
-
-    this.fluidDensityRange = new Range( this.GASOLINE_DENSITY, this.HONEY_DENSITY );
+    this.fluidDensityRange = new Range( Constants.GASOLINE_DENSITY, Constants.HONEY_DENSITY );
 
     PropertySet.call( this, {
         isRulerVisible: false,
@@ -52,7 +45,7 @@ define( function( require ) {
         faucetFlowRate: 0, // cubic meter/sec
         isFaucetEnabled: true,
         measureUnits: 'metric', //metric, english
-        fluidDensity: this.WATER_DENSITY,
+        fluidDensity: Constants.WATER_DENSITY,
         rulerPosition: new Vector2( 300, 100 ), // px
         waterFlow: 'water',
 
@@ -66,7 +59,7 @@ define( function( require ) {
       }
     );
 
-    this.getStandardAirPressure = new LinearFunction( 0, 150, this.EARTH_AIR_PRESSURE, this.EARTH_AIR_PRESSURE_AT_500_FT );
+    this.getStandardAirPressure = new LinearFunction( 0, 150, Constants.EARTH_AIR_PRESSURE, Constants.EARTH_AIR_PRESSURE_AT_500_FT );
 
     this.units = new Units();
 

@@ -15,13 +15,14 @@ define( function( require ) {
   var inherit = require( 'PHET_CORE/inherit' );
   var Color = require( 'SCENERY/util/Color' );
   var LinearFunction = require( 'DOT/LinearFunction' );
+  var Constants = require( 'FLUID_PRESSURE_AND_FLOW/watertower/Constants' );
 
   /**
    *
-   * @param {WaterTowerModel} model
+   * @param {WaterTowerModel} waterTowerModel
    * @constructor
    */
-  function FluidColorModel( model ) {
+  function FluidColorModel( waterTowerModel ) {
     var self = this;
 
     //from java version
@@ -29,21 +30,21 @@ define( function( require ) {
     var WATER_COLOR = new Color( 20, 244, 255 );
     var HONEY_COLOR = new Color( 255, 191, 0 );
 
-    var getRedLow = new LinearFunction( model.fluidDensityRange.min, model.WATER_DENSITY, GAS_COLOR.red, WATER_COLOR.red );
-    var getGreenLow = new LinearFunction( model.fluidDensityRange.min, model.WATER_DENSITY, GAS_COLOR.green, WATER_COLOR.green );
-    var getBlueLow = new LinearFunction( model.fluidDensityRange.min, model.WATER_DENSITY, GAS_COLOR.blue, WATER_COLOR.blue );
+    var getRedLow = new LinearFunction( waterTowerModel.fluidDensityRange.min, Constants.WATER_DENSITY, GAS_COLOR.red, WATER_COLOR.red );
+    var getGreenLow = new LinearFunction( waterTowerModel.fluidDensityRange.min, Constants.WATER_DENSITY, GAS_COLOR.green, WATER_COLOR.green );
+    var getBlueLow = new LinearFunction( waterTowerModel.fluidDensityRange.min, Constants.WATER_DENSITY, GAS_COLOR.blue, WATER_COLOR.blue );
 
-    var getRedHigh = new LinearFunction( model.WATER_DENSITY, model.fluidDensityRange.max, WATER_COLOR.red, HONEY_COLOR.red );
-    var getGreenHigh = new LinearFunction( model.WATER_DENSITY, model.fluidDensityRange.max, WATER_COLOR.green, HONEY_COLOR.green );
-    var getBlueHigh = new LinearFunction( model.WATER_DENSITY, model.fluidDensityRange.max, WATER_COLOR.blue, HONEY_COLOR.blue );
+    var getRedHigh = new LinearFunction( Constants.WATER_DENSITY, waterTowerModel.fluidDensityRange.max, WATER_COLOR.red, HONEY_COLOR.red );
+    var getGreenHigh = new LinearFunction( Constants.WATER_DENSITY, waterTowerModel.fluidDensityRange.max, WATER_COLOR.green, HONEY_COLOR.green );
+    var getBlueHigh = new LinearFunction( Constants.WATER_DENSITY, waterTowerModel.fluidDensityRange.max, WATER_COLOR.blue, HONEY_COLOR.blue );
 
     PropertySet.call( this, {
       color: WATER_COLOR
     } );
 
 
-    model.fluidDensityProperty.link( function( density ) {
-      if ( density < model.WATER_DENSITY ) {
+    waterTowerModel.fluidDensityProperty.link( function( density ) {
+      if ( density < Constants.WATER_DENSITY ) {
         self.color = new Color( getRedLow( density ), getGreenLow( density ), getBlueLow( density ) );
       }
       else {
