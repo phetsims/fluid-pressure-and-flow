@@ -1,7 +1,7 @@
 // Copyright 2002-2013, University of Colorado Boulder
 
 /**
- * Model for the water tower, water, tower legs, hose
+ * Model for the water tower frame and fluid volume
  * @author Siddhartha Chinthapally (Actual Concepts)
  */
 define( function( require ) {
@@ -21,9 +21,11 @@ define( function( require ) {
 
     this.TANK_RADIUS = 0.8;
     this.TANK_HEIGHT = 1.6;
+
+    // Offset of the inlet (hole which receives water from the faucet) as measured from tank left
     this.INLET_X_OFFSET = 0.15;
 
-    //Assume the tank is a cylinder ond compute the max volume
+    // Assume the tank is a cylinder and compute the max volume
     this.TANK_VOLUME = Math.PI * this.TANK_RADIUS * this.TANK_RADIUS * this.TANK_HEIGHT;
 
     PropertySet.call( this, {
@@ -32,7 +34,7 @@ define( function( require ) {
       tankPosition: new Vector2( 1, 1.5 ) //water tank bottom left
     } );
 
-    //Size of the hole in meters
+    // Size of the hole in meters
     this.HOLE_SIZE = 0.3;
     this.addDerivedProperty( 'fluidLevel', ['fluidVolume'], function( fluidVolume ) {
       return fluidVolume / (Math.PI * waterTower.TANK_RADIUS * waterTower.TANK_RADIUS);
