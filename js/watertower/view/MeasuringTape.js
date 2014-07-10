@@ -45,7 +45,12 @@ define( function( require ) {
     ]
     ;
 
-  function MeasuringTape( model ) {
+  /**
+   * Constructor for the measuring tape
+   * @param {WaterTowerModel} waterTowerModel of the simulation
+   * @constructor
+   */
+  function MeasuringTape( waterTowerModel ) {
     var measuringTape = this;
     Node.call( this );
 
@@ -53,7 +58,7 @@ define( function( require ) {
     this.prevScale = 1;
 
     this.options = defaultOptions;
-    this.init( model );
+    this.init( waterTowerModel );
 
     // add base of tape and not base node
     this.base = new Node( {children: [new Image( measuringTapeImg )], scale: 0.8} );
@@ -131,7 +136,7 @@ define( function( require ) {
     this.notBase.addChild( this.text );
 
     this.addChild( this.notBase );
-    model.measureUnitsProperty.link( function( data ) {
+    waterTowerModel.measureUnitsProperty.link( function( data ) {
       var lengthValue = measuringTape.getText();
       if ( data === "metric" ) {
         measuringTape.text.setText( lengthValue + " " + metersString );
@@ -142,12 +147,12 @@ define( function( require ) {
     } );
 
     // add observers
-    model.isMeasuringTapeVisibleProperty.linkAttribute( this, 'visible' );
+    waterTowerModel.isMeasuringTapeVisibleProperty.linkAttribute( this, 'visible' );
 
     //Inital position for tape
     measuringTape.initTape( measuringTape.options[0], angle );
 
-    model.scaleProperty.link( function( newScale ) {
+    waterTowerModel.scaleProperty.link( function( newScale ) {
       measuringTape.scale( newScale );
     } );
   }

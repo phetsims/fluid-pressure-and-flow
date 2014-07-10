@@ -109,7 +109,7 @@ define( function( require ) {
     // control panel
     this.controlPanel = new ControlPanel( waterTowerModel, {right: this.layoutBounds.right - inset, top: inset} );
     this.addChild( this.controlPanel );
-    this.addChild( new UnitsControlPanel( waterTowerModel, {left: this.controlPanel.left, top: this.controlPanel.bottom + inset} ) );
+    this.addChild( new UnitsControlPanel( waterTowerModel.measureUnitsProperty, {left: this.controlPanel.left, top: this.controlPanel.bottom + inset} ) );
 
     // add reset button near the bottom right
     var resetAllButton = new ResetAllButton( {
