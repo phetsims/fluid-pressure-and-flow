@@ -23,7 +23,7 @@ define( function( require ) {
   var StringUtils = require( 'PHETCOMMON/util/StringUtils' );
   var ObservableArray = require( 'AXON/ObservableArray' );
   var Constants = require( 'FLUID_PRESSURE_AND_FLOW/watertower/Constants' );
-  var DerivedProperty = require( 'AXON/DerivedProperty' );
+  var Property = require( 'AXON/Property' );
   var Hose = require( 'FLUID_PRESSURE_AND_FLOW/watertower/model/Hose' );
 
   // strings
@@ -83,7 +83,7 @@ define( function( require ) {
       this.speedometers.push( new VelocitySensor( new Vector2( 0, 0 ), new Vector2( 0, 0 ) ) );
     }
 
-    DerivedProperty.multilink( [this.waterTower.isFullProperty, this.faucetModeProperty], function( isFull, faucetMode ) {
+    Property.multilink( [this.waterTower.isFullProperty, this.faucetModeProperty], function( isFull, faucetMode ) {
       if ( faucetMode === "manual" ) {
         this.isFaucetEnabled = !isFull;
         if ( isFull ) {

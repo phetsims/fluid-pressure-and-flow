@@ -21,7 +21,7 @@ define( function( require ) {
   var PhetFont = require( 'SCENERY_PHET/PhetFont' );
   var MovableDragHandler = require( 'SCENERY_PHET/input/MovableDragHandler' );
   var ModelViewTransform2 = require( 'PHETCOMMON/view/ModelViewTransform2' );
-  var DerivedProperty = require( 'AXON/DerivedProperty' );
+  var Property = require( 'AXON/Property' );
   var Units = require( 'FLUID_PRESSURE_AND_FLOW/watertower/model/Units' );
   var Constants = require( 'FLUID_PRESSURE_AND_FLOW/watertower/Constants' );
 
@@ -93,12 +93,12 @@ define( function( require ) {
       } ) );
 
     //Update the value in the barometer value model by reading from the model.
-    DerivedProperty.multilink( [barometer.positionProperty, waterTowerModel.fluidDensityProperty], function( position, fluidDensity ) {
+    Property.multilink( [barometer.positionProperty, waterTowerModel.fluidDensityProperty], function( position, fluidDensity ) {
       barometer.valueProperty.set( waterTowerModel.getPressureAtCoords( modelViewTransform.viewToModelX( position.x ), modelViewTransform.viewToModelY( position.y + (60) ) ) );
     } );
 
     //Update the text when the value or units changes.
-    DerivedProperty.multilink( [barometer.valueProperty, waterTowerModel.measureUnitsProperty], function( barometerValue, units ) {
+    Property.multilink( [barometer.valueProperty, waterTowerModel.measureUnitsProperty], function( barometerValue, units ) {
       text.text = Units.getPressureString[units]( barometerValue );
       text.centerX = gaugeNode.centerX;
       textBackground.setRect( text.x - 2, text.y - text.height + 2, text.width + 4, text.height + 2 );

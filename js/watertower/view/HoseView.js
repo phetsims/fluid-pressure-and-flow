@@ -14,7 +14,7 @@ define( function( require ) {
   var Node = require( 'SCENERY/nodes/Node' );
   var Shape = require( 'KITE/Shape' );
   var SimpleDragHandler = require( 'SCENERY/input/SimpleDragHandler' );
-  var DerivedProperty = require( 'AXON/DerivedProperty' );
+  var Property = require( 'AXON/Property' );
 
   var nozzleImg = require( 'image!FLUID_PRESSURE_AND_FLOW/nozzle.png' );
   var spoutHandleImg = require( 'image!FLUID_PRESSURE_AND_FLOW/spout-handle.png' );
@@ -123,7 +123,7 @@ define( function( require ) {
 
     hoseView.setTranslation( this.hose.initialPosition );
 
-    DerivedProperty.multilink( [this.hose.heightProperty, this.hose.angleProperty], function() {
+    Property.multilink( [this.hose.heightProperty, this.hose.angleProperty], function() {
       hoseView.hose.update();
       hoseView.update();
     } );

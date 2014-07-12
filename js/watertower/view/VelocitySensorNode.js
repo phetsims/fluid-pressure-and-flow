@@ -15,7 +15,7 @@ define( function( require ) {
   var PhetFont = require( 'SCENERY_PHET/PhetFont' );
   var MovableDragHandler = require( 'SCENERY_PHET/input/MovableDragHandler' );
   var ModelViewTransform2 = require( 'PHETCOMMON/view/ModelViewTransform2' );
-  var DerivedProperty = require( 'AXON/DerivedProperty' );
+  var Property = require( 'AXON/Property' );
   var Shape = require( 'KITE/Shape' );
   var Path = require( 'SCENERY/nodes/Path' );
   var LinearGradient = require( 'SCENERY/util/LinearGradient' );
@@ -135,7 +135,7 @@ define( function( require ) {
     } );
 
     //Update the text when the value or units changes.
-    DerivedProperty.multilink( [velocitySensor.valueProperty, waterTowerModel.measureUnitsProperty], function( velocity, units ) {
+    Property.multilink( [velocitySensor.valueProperty, waterTowerModel.measureUnitsProperty], function( velocity, units ) {
       labelText.text = units === 'metric' ?
                        velocity.magnitude().toFixed( 2 ) + ' ' + mPerS :
                        (velocity.magnitude() * 3.28).toFixed( 2 ) + ' ' + ftPerS;
