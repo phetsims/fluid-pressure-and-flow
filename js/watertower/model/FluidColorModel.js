@@ -53,9 +53,5 @@ define( function( require ) {
     } );
   }
 
-  return inherit( PropertySet, FluidColorModel, {
-    reset: function() {
-      this.color.reset();
-    }
-  } );
+  return inherit( PropertySet, FluidColorModel );
 } );

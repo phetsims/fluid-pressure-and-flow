@@ -46,10 +46,6 @@ define( function( require ) {
   }
 
   return inherit( PropertySet, WaterTower, {
-    reset: function() {
-      PropertySet.prototype.reset.call( this );
-    },
-
     fill: function() {
       this.fluidVolume = this.TANK_VOLUME;
     }
