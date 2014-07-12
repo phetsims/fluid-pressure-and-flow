@@ -61,8 +61,6 @@ define( function( require ) {
 
     this.getStandardAirPressure = new LinearFunction( 0, 150, Constants.EARTH_AIR_PRESSURE, Constants.EARTH_AIR_PRESSURE_AT_500_FT );
 
-    this.units = new Units();
-
     this.waterTower = new WaterTower();
 
     this.hose = new Hose( 1.5, Math.PI / 2 );
