@@ -10,10 +10,8 @@ define( function( require ) {
 
   // modules
   var Util = require( 'DOT/Util' );
-  var inherit = require( 'PHET_CORE/inherit' );
 
   // strings
-  var atmString = require( 'string!FLUID_PRESSURE_AND_FLOW/atm' );
   var psiString = require( 'string!FLUID_PRESSURE_AND_FLOW/psi' );
   var kPaString = require( 'string!FLUID_PRESSURE_AND_FLOW/kPa' );
 
