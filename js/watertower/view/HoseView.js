@@ -8,6 +8,7 @@
 define( function( require ) {
   'use strict';
 
+  // modules
   var Image = require( 'SCENERY/nodes/Image' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Path = require( 'SCENERY/nodes/Path' );
@@ -16,6 +17,7 @@ define( function( require ) {
   var SimpleDragHandler = require( 'SCENERY/input/SimpleDragHandler' );
   var Property = require( 'AXON/Property' );
 
+  // images
   var nozzleImg = require( 'image!FLUID_PRESSURE_AND_FLOW/nozzle.png' );
   var spoutHandleImg = require( 'image!FLUID_PRESSURE_AND_FLOW/spout-handle.png' );
   var handle = require( 'image!FLUID_PRESSURE_AND_FLOW/handle.png' );
