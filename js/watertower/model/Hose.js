@@ -10,6 +10,8 @@ define( function( require ) {
 
   var inherit = require( 'PHET_CORE/inherit' );
   var PropertySet = require( 'AXON/PropertySet' );
+  var Property = require( 'AXON/Property' );
+
   var Vector2 = require( 'DOT/Vector2' );
 
   /**
@@ -37,16 +39,8 @@ define( function( require ) {
       angle: angle
     } );
 
-    this.update();
-  }
 
-  return inherit( PropertySet, Hose, {
-    // Resets all model elements
-    reset: function() {
-      PropertySet.prototype.reset.call( this );
-      this.update();
-    },
-    update: function() {
+    var update = function() {
       this.angleWithVertical = Math.PI / 2 - this.angle;
       this.elbowOuterX = this.hoseLengthX - this.H2 * Math.cos( this.angle );
       this.elbowOuterY = -this.height + this.H2 - this.H2 * Math.sin( this.angle );
@@ -56,7 +50,16 @@ define( function( require ) {
       this.elbowInnerY = this.nozzleAttachmentInnerY - this.H2 * Math.sin( this.angle );
       this.elbowLowerX = this.elbowOuterX - this.width * Math.sin( this.angle );
       this.elbowLowerY = this.elbowOuterY - (this.width - this.width * Math.cos( this.angle ));
-    }
-  } );
+    }.bind( this );
+
+    update();
+
+    Property.multilink( [this.heightProperty, this.angleProperty], function() {
+      update();
+    } );
+
+  }
+
+  return inherit( PropertySet, Hose );
 } );
 
