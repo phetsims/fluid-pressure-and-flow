@@ -166,6 +166,10 @@ define( function( require ) {
       this.hose.reset();
     },
 
+    /**
+     * @private
+     * @returns {Shape}
+     */
     getTopShape: function() {
       var shape = new Shape();
       shape = shape.moveTo( this.modelViewTransform.modelToViewX( this.hose.elbowOuterX ), this.modelViewTransform.modelToViewY( this.hose.elbowOuterY ) )
@@ -202,6 +206,10 @@ define( function( require ) {
       return shape;
     },
 
+    /**
+     * @private
+     * @returns {Shape}
+     */
     getBottomShape: function() {
       var shape = new Shape();
       shape = shape.moveTo( this.modelViewTransform.modelToViewX( this.hose.elbowOuterX ), this.modelViewTransform.modelToViewY( this.hose.elbowOuterY ) )

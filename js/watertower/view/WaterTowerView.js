@@ -147,7 +147,9 @@ define( function( require ) {
     } ) );
 
     waterTower.tankPositionProperty.link( function( tankPosition ) {
-      waterTowerView.updateWaterTowerLegs();
+      // update the legs
+      waterTowerView.waterTowerLegs.waterTowerHeight = -waterTowerView.modelViewTransform.modelToViewDeltaY( waterTowerView.waterTower.tankPosition.y );
+      waterTowerView.waterTowerLegs.updateShape();
       waterTowerView.bottom = ( tankPosition.y > 0.23 ) ? waterTowerView.bottom = modelViewTransform.modelToViewY( 0 ) - 6 : waterTowerView.bottom = modelViewTransform.modelToViewY( tankPosition.y ) + 10;
     } );
 
@@ -168,11 +170,6 @@ define( function( require ) {
     this.mutate( options );
   }
 
-  return inherit( Node, WaterTowerView, {
-    updateWaterTowerLegs: function() {
-      this.waterTowerLegs.waterTowerHeight = -this.modelViewTransform.modelToViewDeltaY( this.waterTower.tankPosition.y );
-      this.waterTowerLegs.updateShape();
-    }
-  } );
+  return inherit( Node, WaterTowerView );
 
 } );
