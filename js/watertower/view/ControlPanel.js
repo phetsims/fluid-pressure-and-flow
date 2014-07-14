@@ -61,7 +61,8 @@ define( function( require ) {
 
     var maxWidth = widestItem[0].width + widestItem[1].width;
 
-    //In the absence of any sun (or other) layout packages, just manually space them out so they will have the icons aligned
+    // itemSet is a combination of a text node and a corresponding icon (image node). Corresponds to a row in the panel.
+    // pad inserts a "spacing" node (rectangle) so that the text, space and image together occupy a certain fixed width.
     var pad = function( itemSet ) {
       var padWidth = maxWidth - itemSet[0].width - itemSet[1].width;
       return [itemSet[0], new Rectangle( 0, 0, padWidth + 5, 20 ), itemSet[1]];
@@ -72,6 +73,7 @@ define( function( require ) {
       spacing: 5
     };
 
+    // pad all the rows so the text nodes are left aligned and the icons is right aligned
     var checkBoxChildren = [
       new CheckBox( new HBox( {children: pad( ruler )} ), waterTowerModel.isRulerVisibleProperty, checkBoxOptions ),
       new CheckBox( new HBox( {children: pad( measuringTape )} ), waterTowerModel.isMeasuringTapeVisibleProperty, checkBoxOptions ),
