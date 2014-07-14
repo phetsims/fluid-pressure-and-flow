@@ -1,7 +1,7 @@
 //  Copyright 2002-2014, University of Colorado Boulder
 
 /**
- * View for the 'Control Panel' node.
+ * View for the 'Units Control Panel' node.
  *
  * @author Siddhartha Chinthapally (ActualConcepts)
  */
