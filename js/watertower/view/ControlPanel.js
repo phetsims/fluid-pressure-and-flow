@@ -66,8 +66,8 @@ define( function( require ) {
 
     //create an icon for the hose
     var createHoseIcon = function() {
-      var icon = new Path( new Shape().moveTo( 0, 0 ).arc( -15, 8, 10, 180, 90, true ).lineTo( 10, 16 ).lineTo( 10, 0 ).lineTo( 0, 0 ), {stroke: 'grey', lineWidth: 1, fill: '#00FF99'} );
-      icon.addChild( new Image( nozzleImg, { cursor: 'pointer', rotation: Math.PI / 2, scale: 0.8, left: icon.right, bottom: icon.bottom + 1} ) );
+      var icon = new Path( new Shape().moveTo( 0, 0 ).arc( -16, 8, 8, -Math.PI / 2, Math.PI / 2, true ).lineTo( 10, 16 ).lineTo( 10, 0 ).lineTo( 0, 0 ), {stroke: 'grey', lineWidth: 1, fill: '#00FF99'} );
+      icon.addChild( new Image( nozzleImg, { cursor: 'pointer', rotation: Math.PI / 2, scale: 0.8, left: icon.right, bottom: icon.bottom + 3} ) );
       return icon;
     };
 
