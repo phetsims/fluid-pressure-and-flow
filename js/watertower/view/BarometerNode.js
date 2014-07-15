@@ -100,9 +100,10 @@ define( function( require ) {
     //Update the text when the value or units changes.
     Property.multilink( [barometer.valueProperty, waterTowerModel.measureUnitsProperty], function( barometerValue, units ) {
       text.text = Units.getPressureString[units]( barometerValue );
-      text.centerX = gaugeNode.centerX;
-      textBackground.setRect( text.x - 2, text.y - text.height + 2, text.width + 4, text.height + 2 );
+      textBackground.setRect( 0, 0, text.width + 4, text.height + 2 );
       textBackground.visible = (text.text !== '-');
+      textBackground.center = underGaugeRectangle.center;
+      text.center = textBackground.center;
     } );
 
     barometer.positionProperty.linkAttribute( barometerNode, 'translation' );
