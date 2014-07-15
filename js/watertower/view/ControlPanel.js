@@ -53,32 +53,6 @@ define( function( require ) {
 
     var textOptions = {font: new PhetFont( 14 )};
 
-
-    //Create an icon for the ruler check box
-    var createRulerIcon = function() {
-      return new RulerNode( 30, 20, 15, ['0', '1', '2'], '', {
-        insetsWidth: 7,
-        minorTicksPerMajorTick: 4,
-        majorTickFont: new PhetFont( 12 ),
-        clipArea: Shape.rect( -1, -1, 44, 22 )
-      } );
-    };
-
-    //create an icon for the hose
-    var createHoseIcon = function() {
-      var icon = new Path( new Shape().moveTo( 0, 0 ).arc( -15, 8, 10, 180, 90, true ).lineTo( 10, 16 ).lineTo( 10, 0 ).lineTo( 0, 0 ), {stroke: 'grey', lineWidth: 1, fill: '#00FF99'} );
-      icon.addChild( new Image( nozzleImg, { cursor: 'pointer', rotation: Math.PI / 2, scale: 0.8, left: icon.right, bottom: icon.bottom + 1} ) );
-      return icon;
-    };
-
-    //create an icon for the measuring tape
-    var createMeasuringTapeIcon = function() {
-      var icon = new Image( measuringTapeImg, { cursor: 'pointer', scale: 0.6} );
-      var size = 5;
-      icon.addChild( new Path( new Shape().moveTo( -size, 0 ).lineTo( size, 0 ).moveTo( 0, -size ).lineTo( 0, size ), {stroke: '#E05F20', lineWidth: 2, left: icon.right + 12, top: icon.bottom + 12} ) );
-      return icon;
-    };
-
     var ruler = [new Text( rulerString, textOptions ), createRulerIcon()];
     var measuringTape = [new Text( measuringTapeString, textOptions ), createMeasuringTapeIcon()];
     var hose = [new Text( hoseString, textOptions ), createHoseIcon()];
@@ -115,6 +89,31 @@ define( function( require ) {
 
     Panel.call( this, content, options );
   }
+
+  //Create an icon for the ruler check box
+  var createRulerIcon = function() {
+    return new RulerNode( 30, 20, 15, ['0', '1', '2'], '', {
+      insetsWidth: 7,
+      minorTicksPerMajorTick: 4,
+      majorTickFont: new PhetFont( 12 ),
+      clipArea: Shape.rect( -1, -1, 44, 22 )
+    } );
+  };
+
+  //create an icon for the hose
+  var createHoseIcon = function() {
+    var icon = new Path( new Shape().moveTo( 0, 0 ).arc( -15, 8, 10, 180, 90, true ).lineTo( 10, 16 ).lineTo( 10, 0 ).lineTo( 0, 0 ), {stroke: 'grey', lineWidth: 1, fill: '#00FF99'} );
+    icon.addChild( new Image( nozzleImg, { cursor: 'pointer', rotation: Math.PI / 2, scale: 0.8, left: icon.right, bottom: icon.bottom + 1} ) );
+    return icon;
+  };
+
+  //create an icon for the measuring tape
+  var createMeasuringTapeIcon = function() {
+    var icon = new Image( measuringTapeImg, { cursor: 'pointer', scale: 0.6} );
+    var size = 5;
+    icon.addChild( new Path( new Shape().moveTo( -size, 0 ).lineTo( size, 0 ).moveTo( 0, -size ).lineTo( 0, size ), {stroke: '#E05F20', lineWidth: 2, left: icon.right + 12, top: icon.bottom + 12} ) );
+    return icon;
+  };
 
   return inherit( Panel, ControlPanel );
 } );
