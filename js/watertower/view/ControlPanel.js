@@ -13,7 +13,7 @@ define( function( require ) {
   var VBox = require( 'SCENERY/nodes/VBox' );
   var HBox = require( 'SCENERY/nodes/HBox' );
   var Shape = require( 'KITE/Shape' );
-  var Rectangle = require( 'SCENERY/nodes/Rectangle' );
+  var HStrut = require( 'SUN/HStrut' );
   var Panel = require( 'SUN/Panel' );
   var CheckBox = require( 'SUN/CheckBox' );
   var Text = require( 'SCENERY/nodes/Text' );
@@ -53,19 +53,19 @@ define( function( require ) {
 
     var textOptions = {font: new PhetFont( 14 )};
 
-    var ruler = [new Text( rulerString, textOptions ), createRulerIcon()];
-    var measuringTape = [new Text( measuringTapeString, textOptions ), createMeasuringTapeIcon()];
-    var hose = [new Text( hoseString, textOptions ), createHoseIcon()];
+    // itemSpec describes the pieces that make up an item in the control panel, conforms to the contract: { label: {Node}, icon: {Node} }
+    var ruler = { label: new Text( rulerString, textOptions ), icon: createRulerIcon() };
+    var measuringTape = { label: new Text( measuringTapeString, textOptions ), icon: createMeasuringTapeIcon() };
+    var hose = { label: new Text( hoseString, textOptions ), icon: createHoseIcon() };
 
-    var widestItem = _.max( [measuringTape, ruler, hose], function( itemSet ) { return itemSet[0].width + itemSet[1].width; } );
+    // compute the maximum item width
+    var widestItemSpec = _.max( [ ruler, measuringTape, hose], function( item ) { return item.label.width + item.icon.width; } );
+    var maxWidth = widestItemSpec.label.width + widestItemSpec.icon.width;
 
-    var maxWidth = widestItem[0].width + widestItem[1].width;
-
-    // itemSet is a combination of a text node and a corresponding icon (image node). Corresponds to a row in the panel.
     // pad inserts a "spacing" node (rectangle) so that the text, space and image together occupy a certain fixed width.
-    var pad = function( itemSet ) {
-      var padWidth = maxWidth - itemSet[0].width - itemSet[1].width;
-      return [itemSet[0], new Rectangle( 0, 0, padWidth + 5, 20 ), itemSet[1]];
+    var createItem = function( itemSpec ) {
+      var strutWidth = maxWidth - itemSpec.label.width - itemSpec.icon.width + 5;
+      return new HBox( { children: [ itemSpec.label, new HStrut( strutWidth ), itemSpec.icon ] } );
     };
 
     var checkBoxOptions = {
@@ -75,9 +75,9 @@ define( function( require ) {
 
     // pad all the rows so the text nodes are left aligned and the icons is right aligned
     var checkBoxChildren = [
-      new CheckBox( new HBox( {children: pad( ruler )} ), waterTowerModel.isRulerVisibleProperty, checkBoxOptions ),
-      new CheckBox( new HBox( {children: pad( measuringTape )} ), waterTowerModel.isMeasuringTapeVisibleProperty, checkBoxOptions ),
-      new CheckBox( new HBox( {children: pad( hose )} ), waterTowerModel.isHoseVisibleProperty, checkBoxOptions )
+      new CheckBox( createItem( ruler ), waterTowerModel.isRulerVisibleProperty, checkBoxOptions ),
+      new CheckBox( createItem( measuringTape ), waterTowerModel.isMeasuringTapeVisibleProperty, checkBoxOptions ),
+      new CheckBox( createItem( hose ), waterTowerModel.isHoseVisibleProperty, checkBoxOptions )
     ];
     var checkBoxes = new VBox( {align: 'left', spacing: 10, children: checkBoxChildren} );
 
