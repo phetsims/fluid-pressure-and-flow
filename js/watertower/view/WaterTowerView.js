@@ -150,7 +150,7 @@ define( function( require ) {
       // update the legs
       waterTowerView.waterTowerLegs.waterTowerHeight = -waterTowerView.modelViewTransform.modelToViewDeltaY( waterTowerView.waterTower.tankPosition.y );
       waterTowerView.waterTowerLegs.updateShape();
-      waterTowerView.bottom = ( tankPosition.y > 0.23 ) ? waterTowerView.bottom = modelViewTransform.modelToViewY( 0 ) - 6 : waterTowerView.bottom = modelViewTransform.modelToViewY( tankPosition.y ) + 10;
+      waterTowerView.bottom = ( tankPosition.y > 0.23 ) ? modelViewTransform.modelToViewY( 0 ) - 6 : modelViewTransform.modelToViewY( tankPosition.y ) + 10;
     } );
 
     waterTower.fluidVolumeProperty.link( function() {
