@@ -1,7 +1,11 @@
 // Copyright (c) 2002 - 2014. University of Colorado Boulder
 
 /**
- * HoseNode
+ * HoseNode represents a draggable and bendable hose.
+ * The hose can be expanded in the y direction by dragging the attached handle.
+ * Hose can be bent about its elbow by dragging the spout handle. The rotation is limited to 90 degrees.
+ * Hose adjusts its height and width to ensure that the nozzle is always above the ground.
+ *
  * @author Siddhartha Chinthapally (Actual Concepts) on 7/4/2014.
  */
 
@@ -25,7 +29,7 @@ define( function( require ) {
   var CORNER_RADIUS = 4; //px
 
   /**
-   *
+   * HoseNode constructor
    * @param {Hose} hose model
    * @param {Property<Vector2>} tankPositionProperty the bottom left of the tank frame
    * @param {ModelViewTransform2} modelViewTransform transform to convert between model and view values
