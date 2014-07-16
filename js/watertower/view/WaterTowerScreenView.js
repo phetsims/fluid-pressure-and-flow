@@ -36,7 +36,7 @@ define( function( require ) {
   var WaterTowerRuler = require( 'FLUID_PRESSURE_AND_FLOW/watertower/view/WaterTowerRuler' );
   var WaterTowerView = require( 'FLUID_PRESSURE_AND_FLOW/watertower/view/WaterTowerView' );
   var WaterDropNode = require( 'FLUID_PRESSURE_AND_FLOW/watertower/view/WaterDropNode' );
-  var HoseView = require( 'FLUID_PRESSURE_AND_FLOW/watertower/view/HoseView' );
+  var HoseNode = require( 'FLUID_PRESSURE_AND_FLOW/watertower/view/HoseNode' );
   var VelocitySensorNode = require( 'FLUID_PRESSURE_AND_FLOW/watertower/view/VelocitySensorNode' );
   var FaucetControlPanel = require( 'FLUID_PRESSURE_AND_FLOW/watertower/view/FaucetControlPanel' );
 
@@ -85,7 +85,7 @@ define( function( require ) {
     this.addChild( new GroundNode( this.layoutBounds.centerX - ( (this.layoutBounds.width * 3) / 2), groundY, this.layoutBounds.width * 3, this.layoutBounds.height, groundY + (this.layoutBounds.height / 2) ) );
 
     // add the hose
-    this.hoseNode = new HoseView( waterTowerModel.hose, waterTowerModel.waterTower.tankPositionProperty, modelViewTransform, waterTowerModel.isHoseVisibleProperty );
+    this.hoseNode = new HoseNode( waterTowerModel.hose, waterTowerModel.waterTower.tankPositionProperty, modelViewTransform, waterTowerModel.isHoseVisibleProperty );
     this.addChild( this.hoseNode );
 
     var waterTowerView = new WaterTowerView( waterTowerModel.waterTower, waterTowerModel.fluidColorModel, modelViewTransform, this.hoseNode );

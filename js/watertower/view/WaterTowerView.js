@@ -32,7 +32,7 @@ define( function( require ) {
    * @param {WaterTower} waterTower model
    * @param {FluidColorModel} fluidColorModel to change the color based on density
    * @param {ModelViewTransform2} modelViewTransform transform to convert between waterTower and view values
-   * @param {HoseView} hoseNode
+   * @param {HoseNode} hoseNode
    * @param options
    * @constructor
    */

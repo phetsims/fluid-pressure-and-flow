@@ -1,7 +1,7 @@
 // Copyright (c) 2002 - 2014. University of Colorado Boulder
 
 /**
- * HoseView
+ * HoseNode
  * @author Siddhartha Chinthapally (Actual Concepts) on 7/4/2014.
  */
 
@@ -33,7 +33,7 @@ define( function( require ) {
    * @param options
    * @constructor
    */
-  function HoseView( hose, tankPositionProperty, modelViewTransform, isHoseVisibleProperty, options ) {
+  function HoseNode( hose, tankPositionProperty, modelViewTransform, isHoseVisibleProperty, options ) {
     var hoseNode = this;
     Node.call( this );
 
@@ -133,7 +133,7 @@ define( function( require ) {
     this.mutate( options );
   }
 
-  return inherit( Node, HoseView, {
+  return inherit( Node, HoseNode, {
     updateHoseHeight: function( height ) {
       //bound the hose to ground and 3.3 mtr above the ground
       height = height > this.tankPositionProperty.value.y + this.hose.H2 + this.nozzleHeight * Math.sin( this.hose.angle ) + 0.1 * Math.cos( this.hose.angle ) ? this.tankPositionProperty.value.y + this.hose.H2 + this.nozzleHeight * Math.sin( this.hose.angle ) + 0.1 * Math.cos( this.hose.angle ) :
