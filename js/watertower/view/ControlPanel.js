@@ -62,7 +62,7 @@ define( function( require ) {
     var widestItemSpec = _.max( [ ruler, measuringTape, hose], function( item ) { return item.label.width + item.icon.width; } );
     var maxWidth = widestItemSpec.label.width + widestItemSpec.icon.width;
 
-    // pad inserts a "spacing" node (rectangle) so that the text, space and image together occupy a certain fixed width.
+    // pad inserts a spacing node (HStrut) so that the text, space and image together occupy a certain fixed width.
     var createItem = function( itemSpec ) {
       var strutWidth = maxWidth - itemSpec.label.width - itemSpec.icon.width + 5;
       return new HBox( { children: [ itemSpec.label, new HStrut( strutWidth ), itemSpec.icon ] } );
