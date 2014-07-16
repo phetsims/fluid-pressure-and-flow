@@ -85,10 +85,10 @@ define( function( require ) {
     this.addChild( new GroundNode( this.layoutBounds.centerX - ( (this.layoutBounds.width * 3) / 2), groundY, this.layoutBounds.width * 3, this.layoutBounds.height, groundY + (this.layoutBounds.height / 2) ) );
 
     // add the hose
-    this.hoseView = new HoseView( waterTowerModel.hose, waterTowerModel.waterTower.tankPositionProperty, modelViewTransform, waterTowerModel.isHoseVisibleProperty );
-    this.addChild( this.hoseView );
+    this.hoseNode = new HoseView( waterTowerModel.hose, waterTowerModel.waterTower.tankPositionProperty, modelViewTransform, waterTowerModel.isHoseVisibleProperty );
+    this.addChild( this.hoseNode );
 
-    var waterTowerView = new WaterTowerView( waterTowerModel.waterTower, waterTowerModel.fluidColorModel, modelViewTransform, this.hoseView );
+    var waterTowerView = new WaterTowerView( waterTowerModel.waterTower, waterTowerModel.fluidColorModel, modelViewTransform, this.hoseNode );
     this.addChild( waterTowerView );
 
     var faucetDropsLayer = new Node();
@@ -116,7 +116,7 @@ define( function( require ) {
       listener: function() {
         waterTowerModel.reset();
         controlSlider.reset();
-        waterTowerScreenView.hoseView.reset();
+        waterTowerScreenView.hoseNode.reset();
       },
       right: this.layoutBounds.right - inset,
       bottom: this.layoutBounds.bottom - inset
