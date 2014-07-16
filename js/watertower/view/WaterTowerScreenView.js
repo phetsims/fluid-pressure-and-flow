@@ -29,7 +29,7 @@ define( function( require ) {
 
   var BarometerNode = require( 'FLUID_PRESSURE_AND_FLOW/watertower/view/BarometerNode' );
   var ControlSlider = require( 'FLUID_PRESSURE_AND_FLOW/watertower/view/ControlSlider' );
-  var ControlPanel = require( 'FLUID_PRESSURE_AND_FLOW/watertower/view/ControlPanel' );
+  var ToolsControlPanel = require( 'FLUID_PRESSURE_AND_FLOW/watertower/view/ToolsControlPanel' );
   var MeasuringTape = require( 'FLUID_PRESSURE_AND_FLOW/watertower/view/MeasuringTape' );
   var SluiceControl = require( 'FLUID_PRESSURE_AND_FLOW/watertower/view/SluiceControl' );
   var UnitsControlPanel = require( 'FLUID_PRESSURE_AND_FLOW/watertower/view/UnitsControlPanel' );
@@ -106,10 +106,10 @@ define( function( require ) {
 
     this.addChild( new FaucetControlPanel( waterTowerModel.faucetModeProperty, { left: faucetNode.right + inset, bottom: faucetNode.bottom, fill: 'green'} ) );
 
-    // control panel
-    this.controlPanel = new ControlPanel( waterTowerModel, {right: this.layoutBounds.right - inset, top: inset} );
-    this.addChild( this.controlPanel );
-    this.addChild( new UnitsControlPanel( waterTowerModel.measureUnitsProperty, {left: this.controlPanel.left, top: this.controlPanel.bottom + inset} ) );
+    // tools control panel
+    this.toolsControlPanel = new ToolsControlPanel( waterTowerModel, {right: this.layoutBounds.right - inset, top: inset} );
+    this.addChild( this.toolsControlPanel );
+    this.addChild( new UnitsControlPanel( waterTowerModel.measureUnitsProperty, {left: this.toolsControlPanel.left, top: this.toolsControlPanel.bottom + inset} ) );
 
     // add reset button near the bottom right
     var resetAllButton = new ResetAllButton( {
@@ -170,7 +170,7 @@ define( function( require ) {
     this.addChild( speedControl.mutate( {right: playPauseButton.left - inset, bottom: playPauseButton.bottom} ) );
 
     // add the sensors panel
-    var sensorPanel = new Rectangle( 0, 0, 190, 105, 10, 10, {stroke: 'gray', lineWidth: 1, fill: '#f2fa6a', right: this.controlPanel.left - inset, top: this.controlPanel.top} );
+    var sensorPanel = new Rectangle( 0, 0, 190, 105, 10, 10, {stroke: 'gray', lineWidth: 1, fill: '#f2fa6a', right: this.toolsControlPanel.left - inset, top: this.toolsControlPanel.top} );
     this.addChild( sensorPanel );
 
     // add barometers within the sensor panel bounds

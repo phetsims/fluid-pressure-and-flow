@@ -39,7 +39,7 @@ define( function( require ) {
    * @param options
    * @constructor
    */
-  function ControlPanel( waterTowerModel, options ) {
+  function ToolsControlPanel( waterTowerModel, options ) {
 
     options = _.extend( {
       xMargin: 10,
@@ -115,5 +115,5 @@ define( function( require ) {
     return icon;
   };
 
-  return inherit( Panel, ControlPanel );
+  return inherit( Panel, ToolsControlPanel );
 } );
