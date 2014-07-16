@@ -32,6 +32,11 @@ define( function( require ) {
   var valueWithUnitsPattern = require( 'string!FLUID_PRESSURE_AND_FLOW/valueWithUnitsPattern' );
 
 
+  /**
+   * Constructor for the sim model.
+   * Origin is at the left bound on the ground. And y grows in the direction of sky from ground.
+   * @constructor
+   */
   function WaterTowerModel() {
 
     this.fluidDensityRange = new Range( Constants.GASOLINE_DENSITY, Constants.HONEY_DENSITY );
@@ -48,20 +53,18 @@ define( function( require ) {
         fluidDensity: Constants.WATER_DENSITY,
         rulerPosition: new Vector2( 300, 100 ), // px
         waterFlow: 'water',
-
         isSluiceOpen: false,
         faucetMode: 'manual', //manual or matchLeakage
         scale: 1, // scale coefficient
-
         //speed of the model, either 'normal' or 'slow'
         speed: 'normal'
-
       }
     );
 
     this.getStandardAirPressure = new LinearFunction( 0, 150, Constants.EARTH_AIR_PRESSURE, Constants.EARTH_AIR_PRESSURE_AT_500_FT );
 
-    this.waterTower = new WaterTower();
+    // position the tank frame at (1, 1.5). (0, 0) is the left most point on the ground.
+    this.waterTower = new WaterTower( { tankPosition: new Vector2( 1, 1.5 ) } );
 
     this.hose = new Hose( 1.5, Math.PI / 2 );
 
@@ -147,7 +150,7 @@ define( function( require ) {
 
     // Called by the animation loop.
     step: function( dt ) {
-      //prevent sudden dt bursts on slow devices or when the user comes back to the tab after a while
+      // prevent sudden dt bursts on slow devices or when the user comes back to the tab after a while
       dt = ( dt > 0.04 ) ? 0.04 : dt;
       if ( this.isPlay ) {
         if ( this.speed === "normal" ) {

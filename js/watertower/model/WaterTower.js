@@ -16,11 +16,12 @@ define( function( require ) {
     var waterTower = this;
 
     this.options = _.extend( {
-      initialFluidLevel: 0.8
+      initialFluidLevel: 0.8,
+      tankPosition: new Vector2( 0, 0 ) // tank frame bottom left, position in meters
     }, options );
 
-    this.TANK_RADIUS = 0.8;
-    this.TANK_HEIGHT = 1.6;
+    this.TANK_RADIUS = 0.8; // meters
+    this.TANK_HEIGHT = 1.6; // meters
 
     // Offset of the inlet (hole which receives water from the faucet) as measured from tank left
     this.INLET_X_OFFSET = 0.15;
@@ -31,7 +32,7 @@ define( function( require ) {
     PropertySet.call( this, {
       isHoleOpen: false,
       fluidVolume: this.TANK_VOLUME * this.options.initialFluidLevel,
-      tankPosition: new Vector2( 1, 1.5 ) //water tank bottom left
+      tankPosition: this.options.tankPosition //water tank bottom left
     } );
 
     // Size of the hole in meters
