@@ -1,7 +1,7 @@
 //  Copyright 2002-2014, University of Colorado Boulder
 
 /**
- * View for the 'Control Panel' node.
+ * Control panel that contains various tools (measuring tape, ruler, hose).
  *
  * @author Siddhartha Chinthapally (ActualConcepts)
  */
