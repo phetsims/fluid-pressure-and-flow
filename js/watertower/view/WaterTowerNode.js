@@ -77,8 +77,7 @@ define( function( require ) {
 
     this.addChild( this.waterTankFrame );
     //add the legs
-    var waterTowerLegsInitialHeight = modelViewTransform.modelToViewDeltaX( waterTower.tankPosition.y );
-    this.waterTowerLegs = new WaterTowerLegsNode( this.waterTankFrame.width, waterTowerLegsInitialHeight, {top: this.waterTankFrame.bottom}, waterTower.tankPositionProperty, modelViewTransform );
+    this.waterTowerLegs = new WaterTowerLegsNode( this.waterTankFrame.width, waterTower.tankPositionProperty, modelViewTransform, {top: this.waterTankFrame.bottom} );
     this.addChild( this.waterTowerLegs );
 
     //add the handle
