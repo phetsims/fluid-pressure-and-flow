@@ -11,7 +11,6 @@ define( function( require ) {
     var inherit = require( 'PHET_CORE/inherit' );
     var Path = require( 'SCENERY/nodes/Path' );
     var Shape = require( 'KITE/Shape' );
-    var Panel = require( 'SUN/Panel' );
     var Rectangle = require( 'SCENERY/nodes/Rectangle' );
     var ABSwitch = require( 'SUN/ABSwitch' );
     var WaterTowerLegsNode = require( 'FLUID_PRESSURE_AND_FLOW/watertower/view/WaterTowerLegsNode' );
@@ -77,9 +76,9 @@ define( function( require ) {
       openOptionNode.addChild( openWaterTowerLegs );
       openOptionNode.addChild( waterFlow );
 
-      Panel.call( this, new ABSwitch( isSluiceOpenProperty, false, closeOptionNode, true, openOptionNode, {left: inset, top: inset} ), options );
+      ABSwitch.call( this, isSluiceOpenProperty, false, closeOptionNode, true, openOptionNode, _.extend( {left: inset, top: inset}, options ) );
     }
 
-    return inherit( Panel, SluiceControlPanel );
+    return inherit( ABSwitch, SluiceControlPanel );
   }
 );

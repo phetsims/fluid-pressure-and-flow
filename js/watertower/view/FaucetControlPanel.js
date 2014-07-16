@@ -10,11 +10,9 @@ define( function( require ) {
   // modules
   var inherit = require( 'PHET_CORE/inherit' );
   var VBox = require( 'SCENERY/nodes/VBox' );
-  var Panel = require( 'SUN/Panel' );
   var AquaRadioButton = require( 'SUN/AquaRadioButton' );
   var Text = require( 'SCENERY/nodes/Text' );
   var PhetFont = require( 'SCENERY_PHET/PhetFont' );
-  var LinearGradient = require( 'SCENERY/util/LinearGradient' );
 
   // strings
   var manualString = require( 'string!FLUID_PRESSURE_AND_FLOW/manual' );
@@ -38,7 +36,7 @@ define( function( require ) {
       matchLeakageText = new Text( matchLeakageString, textOptions );
     }
 
-    var faucetModeNode = new VBox( {
+    VBox.call( this, {
       children: [
         new AquaRadioButton( faucetModeProperty, 'manual', manualText, {radius: 8} ),
         new AquaRadioButton( faucetModeProperty, 'matchLeakage', matchLeakageText, {radius: 8} )
@@ -47,14 +45,8 @@ define( function( require ) {
       align: 'left'
     } );
 
-    Panel.call( this, faucetModeNode, {
-      fill: new LinearGradient( 0, 0, 0, 50 ).addColorStop( 0, '#9FDDF6' ).addColorStop( 1.0, '#0EB2E9' ),
-      stroke: '#93BECD',
-      linewidth: 1,
-      cornerRadius: 5
-    } );
     this.mutate( options );
   }
 
-  return inherit( Panel, FaucetControlPanel );
+  return inherit( VBox, FaucetControlPanel );
 } );
