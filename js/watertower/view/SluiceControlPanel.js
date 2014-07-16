@@ -15,7 +15,11 @@ define( function( require ) {
     var Rectangle = require( 'SCENERY/nodes/Rectangle' );
     var ABSwitch = require( 'SUN/ABSwitch' );
     var WaterTowerLegsNode = require( 'FLUID_PRESSURE_AND_FLOW/watertower/view/WaterTowerLegsNode' );
+    var Vector2 = require( 'DOT/Vector2' );
+    var Property = require( 'AXON/Property' );
+    var ModelViewTransform2 = require( 'PHETCOMMON/view/ModelViewTransform2' );
 
+    // constants
     var optionWidth = 48;
     var optionHeight = 36;
     var inset = 10;
@@ -28,10 +32,14 @@ define( function( require ) {
      */
     function SluiceControlPanel( isSluiceOpenProperty, options ) {
 
-      // close option
       var tankDim = optionWidth * 0.33;
+      var tankPositionProperty = new Property( new Vector2( 0, -0.7 * tankDim ) );
+      var modelViewTransform = ModelViewTransform2.createIdentity();
+
+      // close option
       var closeOptionNode = new Rectangle( 0, 0, optionWidth, optionHeight, 5, 5, {stroke: 'black', lineWidth: 1, fill: 'white'} );
-      var closeWaterTowerLegs = new WaterTowerLegsNode( tankDim, tankDim * 0.7, {
+
+      var closeWaterTowerLegs = new WaterTowerLegsNode( tankDim, tankPositionProperty, modelViewTransform, {
         legWidth: 1,
         crossbeamWidth: 1,
         bottom: closeOptionNode.bottom,
@@ -52,7 +60,7 @@ define( function( require ) {
       // open option
       var openOptionNode = new Rectangle( 0, 0, optionWidth, optionHeight, 5, 5, {stroke: 'black', lineWidth: 1, fill: 'white'} );
 
-      var openWaterTowerLegs = new WaterTowerLegsNode( tankDim, 0.7 * tankDim, {
+      var openWaterTowerLegs = new WaterTowerLegsNode( tankDim, tankPositionProperty, modelViewTransform, {
         legWidth: 1,
         crossbeamWidth: 1,
         bottom: openOptionNode.bottom,
