@@ -58,7 +58,10 @@ define( function( require ) {
 
   return inherit( Node, WaterTowerLegsNode, {
 
-    //Update the shape of the water tower legs when the water tower has been raised or lowered.
+    /**
+     * Update the shape of the water tower legs when the water tower has been raised or lowered.
+     * @private
+     */
     updateShape: function() {
 
       var width = this.waterTowerWidth;

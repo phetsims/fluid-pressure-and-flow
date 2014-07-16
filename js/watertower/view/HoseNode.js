@@ -209,6 +209,11 @@ define( function( require ) {
   };
 
   return inherit( Node, HoseNode, {
+    /**
+     * Updates the hose height while ensuring that the nozzle does not go below the ground
+     * @param {Number} height to which the hose needs to be expanded or contracted.
+     * @private
+     */
     updateHoseHeight: function( height ) {
       //bound the hose to ground and 3.3 mtr above the ground
       height = height > this.tankPositionProperty.value.y + this.hose.H2 + this.nozzleHeight * Math.sin( this.hose.angle ) + 0.1 * Math.cos( this.hose.angle ) ? this.tankPositionProperty.value.y + this.hose.H2 + this.nozzleHeight * Math.sin( this.hose.angle ) + 0.1 * Math.cos( this.hose.angle ) :
@@ -217,6 +222,10 @@ define( function( require ) {
       this.hose.height = height;
     },
 
+    /**
+     * Updates the hose node with the latest height and angle.
+     * @private
+     */
     update: function() {
 
       if ( this.hose.elbowOuterY >= 0.2 * Math.cos( this.hose.angleWithVertical ) ) {
