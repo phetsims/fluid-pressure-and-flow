@@ -32,11 +32,11 @@ define( function( require ) {
    * @param {WaterTower} waterTower model
    * @param {FluidColorModel} fluidColorModel to change the color based on density
    * @param {ModelViewTransform2} modelViewTransform transform to convert between waterTower and view values
-   * @param {HoseView} hoseView
+   * @param {HoseView} hoseNode
    * @param options
    * @constructor
    */
-  function WaterTowerView( waterTower, fluidColorModel, modelViewTransform, hoseView, options ) {
+  function WaterTowerView( waterTower, fluidColorModel, modelViewTransform, hoseNode, options ) {
     var waterTowerView = this;
     options = _.extend( {
       towerFrameColor: 'black'
@@ -130,7 +130,7 @@ define( function( require ) {
       start: function( e ) {
         clickYOffset = waterTowerView.globalToParentPoint( e.pointer.point ).y;
         initialY = waterTower.tankPosition.y;
-        initialHeight = hoseView.hose.height;
+        initialHeight = hoseNode.hose.height;
       },
       drag: function( e ) {
         var deltaY = waterTowerView.globalToParentPoint( e.pointer.point ).y - clickYOffset;
@@ -141,8 +141,8 @@ define( function( require ) {
         deltaY = newY - initialY;
         waterTowerView.waterTower.tankPosition = new Vector2( waterTowerView.waterTower.tankPosition.x, newY );
 
-        hoseView.hose.height = initialHeight + deltaY;
-        hoseView.setTranslation( modelViewTransform.modelToViewX( 2.6 ), modelViewTransform.modelToViewY( waterTowerView.waterTower.tankPosition.y ) - 130 );
+        hoseNode.hose.height = initialHeight + deltaY;
+        hoseNode.setTranslation( modelViewTransform.modelToViewX( 2.6 ), modelViewTransform.modelToViewY( waterTowerView.waterTower.tankPosition.y ) - 130 );
       }
     } ) );
 
