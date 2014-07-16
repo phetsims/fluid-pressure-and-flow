@@ -82,6 +82,7 @@ define( function( require ) {
     } );
 
     this.addChild( this.spoutAndNozzle );
+    this.nozzleHeight = -this.modelViewTransform.viewToModelDeltaY( this.spoutAndNozzle.getHeight() );
 
     var startX;
     var startY;
@@ -117,6 +118,7 @@ define( function( require ) {
         var angleToUpdate = initialHoseAngle - angleMoved;
         angleToUpdate = angleToUpdate > 90 ? 90 : angleToUpdate < 0 ? 0 : angleToUpdate;
         hoseView.hose.angle = Math.PI * (angleToUpdate) / 180;
+        hoseView.updateHoseHeight( hoseView.hose.height );
       }
     } ) );
 
@@ -135,7 +137,7 @@ define( function( require ) {
   return inherit( Node, HoseView, {
     updateHoseHeight: function( height ) {
       //bound the hose to ground and 3.3 mtr above the ground
-      height = height > this.tankPositionProperty.value.y + 0.6 ? this.tankPositionProperty.value.y + 0.6 :
+      height = height > this.tankPositionProperty.value.y + this.hose.H2 + this.nozzleHeight * Math.sin( this.hose.angle ) + 0.1 * Math.cos( this.hose.angle ) ? this.tankPositionProperty.value.y + this.hose.H2 + this.nozzleHeight * Math.sin( this.hose.angle ) + 0.1 * Math.cos( this.hose.angle) :
                height < this.tankPositionProperty.value.y - 2.5 ? this.tankPositionProperty.value.y - 2.5 : height;
 
       this.hose.height = height;

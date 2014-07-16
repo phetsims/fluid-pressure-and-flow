@@ -24,8 +24,8 @@ define( function( require ) {
   function Hose( height, angle ) {
     //Layout parameters for the Hose
 
-    this.L1 = 0.6; // length of the horizontal portion of the hose from the tank hole
-    this.H2 = 0.6; // length of the vertical/horizontal portion of the hose attached to the spout and nozzle (not including spout/nozzle)
+    this.L1 = 0.9; // length of the horizontal portion of the hose from the tank hole
+    this.H2 = 0.3; // length of the vertical/horizontal portion of the hose attached to the spout and nozzle (not including spout/nozzle)
     this.width = 0.3; // diameter of the hose
     this.hoseLengthX = 2.5; //the total width of the hose node
 
@@ -35,12 +35,26 @@ define( function( require ) {
     this.angleWithVertical = Math.PI / 2 - angle;
 
     PropertySet.call( this, {
+      //height increases downwards, decreases when the hose goes up. It will be negative when the hose is above the hole
       height: height,
       angle: angle
     } );
 
+    this.update();
 
-    var update = function() {
+    Property.multilink( [this.heightProperty, this.angleProperty], function() {
+      this.update();
+    }.bind( this ) );
+
+  }
+
+  return inherit( PropertySet, Hose, {
+
+    /**
+     * @private
+     * Updates hose dependant variables
+     */
+    update: function() {
       this.angleWithVertical = Math.PI / 2 - this.angle;
       this.elbowOuterX = this.hoseLengthX - this.H2 * Math.cos( this.angle );
       this.elbowOuterY = -this.height + this.H2 - this.H2 * Math.sin( this.angle );
@@ -50,16 +64,7 @@ define( function( require ) {
       this.elbowInnerY = this.nozzleAttachmentInnerY - this.H2 * Math.sin( this.angle );
       this.elbowLowerX = this.elbowOuterX - this.width * Math.sin( this.angle );
       this.elbowLowerY = this.elbowOuterY - (this.width - this.width * Math.cos( this.angle ));
-    }.bind( this );
-
-    update();
-
-    Property.multilink( [this.heightProperty, this.angleProperty], function() {
-      update();
-    } );
-
-  }
-
-  return inherit( PropertySet, Hose );
+    }
+  } );
 } );
 

@@ -205,12 +205,12 @@ define( function( require ) {
         //Add hose waterDrops if the tank is open and there fluid in the tank and hose visible
         if ( this.isSluiceOpen && this.waterTower.fluidVolume > 0 && this.isHoseVisible ) {
           this.leakageVolume = 0;
-          var y = this.waterTower.tankPosition.y + this.hose.elbowOuterY + 1.2 * Math.sin( this.hose.angle ) + 0.25 * Math.cos( this.hose.angle );
+          var y = this.waterTower.tankPosition.y + this.hose.elbowOuterY + 0.9 * Math.sin( this.hose.angle ) + 0.25 * Math.cos( this.hose.angle );
           if ( y < this.waterTower.fluidLevel + this.waterTower.tankPosition.y ) {
             this.leakageVolume = 0.004;
             var velocityMagnitude = Math.sqrt( 2 * Constants.EARTH_GRAVITY * (this.waterTower.tankPosition.y + this.waterTower.fluidLevel - y) );
-            newHoseDrop = new WaterDrop( new Vector2( this.hose.elbowOuterX + this.waterTower.tankPosition.x + 2 * this.waterTower.TANK_RADIUS + 1.2 * Math.cos( this.hose.angle ) - 0.2 * Math.sin( this.hose.angle ) + Math.random() * 0.04 - 0.02,
-                  y + Math.random() * 0.04 - 0.02 ),
+            newHoseDrop = new WaterDrop( new Vector2( this.hose.elbowOuterX + this.waterTower.tankPosition.x + 2 * this.waterTower.TANK_RADIUS + 0.9 * Math.cos( this.hose.angle ) - 0.2 * Math.sin( this.hose.angle ) + Math.random() * 0.04 - 0.02,
+                y ),
               new Vector2( velocityMagnitude * Math.cos( this.hose.angle ), velocityMagnitude * Math.sin( this.hose.angle ) ), this.leakageVolume );
 
             this.hoseDrops.push( newHoseDrop );
@@ -267,7 +267,7 @@ define( function( require ) {
           this.hoseDrops.get( i ).step( dt );
         }
         //remove them as soon as they hit the ground
-        if ( this.hoseDrops.get( i ).position.y < this.hoseDrops.get( i ).radius ) {
+        if ( this.hoseDrops.get( i ).position.y < 0 ) {
           this.dropsToRemove.push( this.hoseDrops.get( i ) );
         }
       }
