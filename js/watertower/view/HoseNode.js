@@ -47,10 +47,10 @@ define( function( require ) {
 
     //When the hose is above
     if ( this.hose.elbowOuterY >= 0.2 * Math.cos( this.hose.angleWithVertical ) ) {
-      this.hoseShape = this.getTopShape();
+      this.hoseShape = createTopShape( this.hose, this.modelViewTransform );
     }
     else {
-      this.hoseShape = this.getBottomShape();
+      this.hoseShape = createBottomShape( this.hose, this.modelViewTransform );
     }
 
     this.hosePath = new Path( this.hoseShape, {top: 100, stroke: 'grey', fill: '#00FF00'} );
@@ -137,6 +137,77 @@ define( function( require ) {
     this.mutate( options );
   }
 
+  // creates the shape of the hose when the y-drag handle is above the top of the hole
+  var createTopShape = function( hose, modelViewTransform ) {
+    var shape = new Shape();
+    shape = shape.moveTo( modelViewTransform.modelToViewX( hose.elbowOuterX ), modelViewTransform.modelToViewY( hose.elbowOuterY ) )
+      .lineTo( modelViewTransform.modelToViewX( hose.hoseLengthX ), modelViewTransform.modelToViewY( -hose.height + hose.H2 ) )
+      .lineTo( modelViewTransform.modelToViewX( hose.nozzleAttachmentInnerX ), modelViewTransform.modelToViewY( hose.nozzleAttachmentInnerY ) )
+      .lineTo( modelViewTransform.modelToViewX( hose.elbowInnerX ), modelViewTransform.modelToViewY( hose.elbowInnerY ) - CORNER_RADIUS * Math.cos( hose.angleWithVertical ) )
+      .arc( modelViewTransform.modelToViewX( hose.elbowInnerX ) - CORNER_RADIUS, modelViewTransform.modelToViewY( hose.elbowInnerY ) - CORNER_RADIUS, CORNER_RADIUS, hose.angleWithVertical, Math.PI / 2, false )
+      .lineTo( modelViewTransform.modelToViewX( hose.L1 - hose.width ) + CORNER_RADIUS, modelViewTransform.modelToViewY( hose.elbowInnerY ) );
+
+    if ( hose.elbowInnerY - hose.width > 0.08 ) {
+      shape = shape.arc( modelViewTransform.modelToViewX( hose.L1 - hose.width ) + CORNER_RADIUS, modelViewTransform.modelToViewY( hose.elbowInnerY ) + CORNER_RADIUS, CORNER_RADIUS, -Math.PI / 2, Math.PI, true )
+        .lineTo( modelViewTransform.modelToViewX( hose.L1 - hose.width ), modelViewTransform.modelToViewY( hose.width ) - CORNER_RADIUS )
+        .arc( modelViewTransform.modelToViewX( hose.L1 - hose.width ) - CORNER_RADIUS, modelViewTransform.modelToViewY( hose.width ) - CORNER_RADIUS, CORNER_RADIUS, 0, Math.PI / 2, false );
+    }
+
+    shape = shape.lineTo( modelViewTransform.modelToViewX( 0 ), modelViewTransform.modelToViewY( hose.width ) )
+      .lineTo( modelViewTransform.modelToViewX( 0 ), modelViewTransform.modelToViewY( 0 ) );
+
+    if ( hose.elbowInnerY - hose.width > 0.08 ) {
+      shape = shape.lineTo( modelViewTransform.modelToViewX( hose.L1 ) - CORNER_RADIUS, modelViewTransform.modelToViewY( 0 ) )
+        .arc( modelViewTransform.modelToViewX( hose.L1 ) - CORNER_RADIUS, modelViewTransform.modelToViewY( 0 ) - CORNER_RADIUS, CORNER_RADIUS, Math.PI / 2, 0, true )
+        .lineTo( modelViewTransform.modelToViewX( hose.L1 ), modelViewTransform.modelToViewY( hose.elbowLowerY ) + CORNER_RADIUS )
+        .arc( modelViewTransform.modelToViewX( hose.L1 ) + CORNER_RADIUS, modelViewTransform.modelToViewY( hose.elbowLowerY ) + CORNER_RADIUS, CORNER_RADIUS, Math.PI, -Math.PI / 2, false );
+    }
+    else {
+      shape = shape.lineTo( modelViewTransform.modelToViewX( hose.L1 ), modelViewTransform.modelToViewY( hose.elbowLowerY ) );
+    }
+
+    shape = shape.lineTo( modelViewTransform.modelToViewX( hose.elbowLowerX ), modelViewTransform.modelToViewY( hose.elbowLowerY ) )
+      .arc( modelViewTransform.modelToViewX( hose.elbowInnerX ), modelViewTransform.modelToViewY( hose.elbowInnerY ), modelViewTransform.modelToViewDeltaX( hose.width ),
+        Math.PI / 2, hose.angleWithVertical, true );
+
+    return shape;
+  };
+
+  // creates the shape of the hose when the y-drag handle is below (not above) the top of the hole
+  var createBottomShape = function( hose, modelViewTransform ) {
+    var shape = new Shape();
+    shape = shape.moveTo( modelViewTransform.modelToViewX( hose.elbowOuterX ), modelViewTransform.modelToViewY( hose.elbowOuterY ) )
+      .lineTo( modelViewTransform.modelToViewX( hose.hoseLengthX ), modelViewTransform.modelToViewY( -hose.height + hose.H2 ) )
+      .lineTo( modelViewTransform.modelToViewX( hose.nozzleAttachmentInnerX ), modelViewTransform.modelToViewY( hose.nozzleAttachmentInnerY ) )
+      .lineTo( modelViewTransform.modelToViewX( hose.elbowInnerX ), modelViewTransform.modelToViewY( hose.elbowInnerY ) - CORNER_RADIUS * Math.cos( hose.angleWithVertical ) )
+      .arc( modelViewTransform.modelToViewX( hose.elbowInnerX ) - CORNER_RADIUS, modelViewTransform.modelToViewY( hose.elbowInnerY ) - CORNER_RADIUS, CORNER_RADIUS, hose.angleWithVertical, Math.PI / 2, false )
+      .lineTo( modelViewTransform.modelToViewX( hose.L1 ) + CORNER_RADIUS, modelViewTransform.modelToViewY( hose.elbowInnerY ) );
+
+    if ( -hose.elbowInnerY + hose.width > 0.08 ) {
+      shape = shape.arc( modelViewTransform.modelToViewX( hose.L1 ) + CORNER_RADIUS, modelViewTransform.modelToViewY( hose.elbowInnerY ) - CORNER_RADIUS, CORNER_RADIUS, Math.PI / 2, Math.PI, false )
+        .lineTo( modelViewTransform.modelToViewX( hose.L1 ), modelViewTransform.modelToViewY( hose.width ) + CORNER_RADIUS )
+        .arc( modelViewTransform.modelToViewX( hose.L1 ) - CORNER_RADIUS, modelViewTransform.modelToViewY( hose.width ) + CORNER_RADIUS, CORNER_RADIUS, 0, -Math.PI / 2, true );
+    }
+
+    shape = shape.lineTo( modelViewTransform.modelToViewX( 0 ), modelViewTransform.modelToViewY( hose.width ) )
+      .lineTo( modelViewTransform.modelToViewX( 0 ), modelViewTransform.modelToViewY( 0 ) );
+
+    if ( -hose.elbowInnerY + hose.width > 0.08 ) {
+      shape = shape.lineTo( modelViewTransform.modelToViewX( hose.L1 - hose.width ) - CORNER_RADIUS, modelViewTransform.modelToViewY( 0 ) )
+        .arc( modelViewTransform.modelToViewX( hose.L1 - hose.width ) - CORNER_RADIUS, modelViewTransform.modelToViewY( 0 ) + CORNER_RADIUS, CORNER_RADIUS, -Math.PI / 2, 0, false )
+        .lineTo( modelViewTransform.modelToViewX( hose.L1 - hose.width ), modelViewTransform.modelToViewY( hose.elbowLowerY ) - CORNER_RADIUS )
+        .arc( modelViewTransform.modelToViewX( hose.L1 - hose.width ) + CORNER_RADIUS, modelViewTransform.modelToViewY( hose.elbowLowerY ) - CORNER_RADIUS, CORNER_RADIUS, Math.PI, Math.PI / 2, true );
+    }
+    else {
+      shape = shape.lineTo( modelViewTransform.modelToViewX( hose.L1 - hose.width ), modelViewTransform.modelToViewY( hose.elbowLowerY ) );
+    }
+    shape = shape.lineTo( modelViewTransform.modelToViewX( hose.elbowLowerX ), modelViewTransform.modelToViewY( hose.elbowLowerY ) )
+      .arc( modelViewTransform.modelToViewX( hose.elbowInnerX ), modelViewTransform.modelToViewY( hose.elbowInnerY ), modelViewTransform.modelToViewDeltaX( hose.width ),
+        Math.PI / 2, hose.angleWithVertical, true );
+
+    return shape;
+  };
+
   return inherit( Node, HoseNode, {
     updateHoseHeight: function( height ) {
       //bound the hose to ground and 3.3 mtr above the ground
@@ -149,13 +220,13 @@ define( function( require ) {
     update: function() {
 
       if ( this.hose.elbowOuterY >= 0.2 * Math.cos( this.hose.angleWithVertical ) ) {
-        this.hosePath.setShape( this.getTopShape() );
+        this.hosePath.setShape( createTopShape( this.hose, this.modelViewTransform ) );
         this.handleNodeCenterX = (this.hose.elbowInnerX - this.hose.L1 ) / 2 + this.hose.L1;
         this.handleNode.centerX = this.modelViewTransform.modelToViewX( this.handleNodeCenterX );
         this.handleNode.y = this.modelViewTransform.modelToViewY( this.hose.elbowInnerY ) - 115 - 112;
       }
       else {
-        this.hosePath.setShape( this.getBottomShape() );
+        this.hosePath.setShape( createBottomShape( this.hose, this.modelViewTransform ) );
         this.handleNodeCenterX = (this.hose.elbowInnerX - (this.hose.L1)) / 2 + this.hose.L1;
         this.handleNode.centerX = this.modelViewTransform.modelToViewX( this.handleNodeCenterX );
         this.handleNode.y = this.hosePath.bottom + this.modelViewTransform.modelToViewDeltaY( this.hose.width );
@@ -169,84 +240,6 @@ define( function( require ) {
     reset: function() {
       this.setTranslation( this.hose.initialPosition );
       this.hose.reset();
-    },
-
-    /**
-     * @private
-     * @returns {Shape}
-     */
-    getTopShape: function() {
-      var shape = new Shape();
-      shape = shape.moveTo( this.modelViewTransform.modelToViewX( this.hose.elbowOuterX ), this.modelViewTransform.modelToViewY( this.hose.elbowOuterY ) )
-        .lineTo( this.modelViewTransform.modelToViewX( this.hose.hoseLengthX ), this.modelViewTransform.modelToViewY( -this.hose.height + this.hose.H2 ) )
-        .lineTo( this.modelViewTransform.modelToViewX( this.hose.nozzleAttachmentInnerX ), this.modelViewTransform.modelToViewY( this.hose.nozzleAttachmentInnerY ) )
-        .lineTo( this.modelViewTransform.modelToViewX( this.hose.elbowInnerX ), this.modelViewTransform.modelToViewY( this.hose.elbowInnerY ) - CORNER_RADIUS * Math.cos( this.hose.angleWithVertical ) )
-        .arc( this.modelViewTransform.modelToViewX( this.hose.elbowInnerX ) - CORNER_RADIUS, this.modelViewTransform.modelToViewY( this.hose.elbowInnerY ) - CORNER_RADIUS, CORNER_RADIUS, this.hose.angleWithVertical, Math.PI / 2, false )
-        .lineTo( this.modelViewTransform.modelToViewX( this.hose.L1 - this.hose.width ) + CORNER_RADIUS, this.modelViewTransform.modelToViewY( this.hose.elbowInnerY ) );
-
-      if ( this.hose.elbowInnerY - this.hose.width > 0.08 ) {
-        shape = shape.arc( this.modelViewTransform.modelToViewX( this.hose.L1 - this.hose.width ) + CORNER_RADIUS, this.modelViewTransform.modelToViewY( this.hose.elbowInnerY ) + CORNER_RADIUS, CORNER_RADIUS, -Math.PI / 2, Math.PI, true )
-          .lineTo( this.modelViewTransform.modelToViewX( this.hose.L1 - this.hose.width ), this.modelViewTransform.modelToViewY( this.hose.width ) - CORNER_RADIUS )
-          .arc( this.modelViewTransform.modelToViewX( this.hose.L1 - this.hose.width ) - CORNER_RADIUS, this.modelViewTransform.modelToViewY( this.hose.width ) - CORNER_RADIUS, CORNER_RADIUS, 0, Math.PI / 2, false );
-      }
-
-      shape = shape.lineTo( this.modelViewTransform.modelToViewX( 0 ), this.modelViewTransform.modelToViewY( this.hose.width ) )
-        .lineTo( this.modelViewTransform.modelToViewX( 0 ), this.modelViewTransform.modelToViewY( 0 ) );
-
-
-      if ( this.hose.elbowInnerY - this.hose.width > 0.08 ) {
-        shape = shape.lineTo( this.modelViewTransform.modelToViewX( this.hose.L1 ) - CORNER_RADIUS, this.modelViewTransform.modelToViewY( 0 ) )
-          .arc( this.modelViewTransform.modelToViewX( this.hose.L1 ) - CORNER_RADIUS, this.modelViewTransform.modelToViewY( 0 ) - CORNER_RADIUS, CORNER_RADIUS, Math.PI / 2, 0, true )
-          .lineTo( this.modelViewTransform.modelToViewX( this.hose.L1 ), this.modelViewTransform.modelToViewY( this.hose.elbowLowerY ) + CORNER_RADIUS )
-          .arc( this.modelViewTransform.modelToViewX( this.hose.L1 ) + CORNER_RADIUS, this.modelViewTransform.modelToViewY( this.hose.elbowLowerY ) + CORNER_RADIUS, CORNER_RADIUS, Math.PI, -Math.PI / 2, false );
-      }
-      else {
-        shape = shape.lineTo( this.modelViewTransform.modelToViewX( this.hose.L1 ), this.modelViewTransform.modelToViewY( this.hose.elbowLowerY ) );
-      }
-
-      shape = shape.lineTo( this.modelViewTransform.modelToViewX( this.hose.elbowLowerX ), this.modelViewTransform.modelToViewY( this.hose.elbowLowerY ) )
-        .arc( this.modelViewTransform.modelToViewX( this.hose.elbowInnerX ), this.modelViewTransform.modelToViewY( this.hose.elbowInnerY ), this.modelViewTransform.modelToViewDeltaX( this.hose.width ),
-          Math.PI / 2, this.hose.angleWithVertical, true );
-
-      return shape;
-    },
-
-    /**
-     * @private
-     * @returns {Shape}
-     */
-    getBottomShape: function() {
-      var shape = new Shape();
-      shape = shape.moveTo( this.modelViewTransform.modelToViewX( this.hose.elbowOuterX ), this.modelViewTransform.modelToViewY( this.hose.elbowOuterY ) )
-        .lineTo( this.modelViewTransform.modelToViewX( this.hose.hoseLengthX ), this.modelViewTransform.modelToViewY( -this.hose.height + this.hose.H2 ) )
-        .lineTo( this.modelViewTransform.modelToViewX( this.hose.nozzleAttachmentInnerX ), this.modelViewTransform.modelToViewY( this.hose.nozzleAttachmentInnerY ) )
-        .lineTo( this.modelViewTransform.modelToViewX( this.hose.elbowInnerX ), this.modelViewTransform.modelToViewY( this.hose.elbowInnerY ) - CORNER_RADIUS * Math.cos( this.hose.angleWithVertical ) )
-        .arc( this.modelViewTransform.modelToViewX( this.hose.elbowInnerX ) - CORNER_RADIUS, this.modelViewTransform.modelToViewY( this.hose.elbowInnerY ) - CORNER_RADIUS, CORNER_RADIUS, this.hose.angleWithVertical, Math.PI / 2, false )
-        .lineTo( this.modelViewTransform.modelToViewX( this.hose.L1 ) + CORNER_RADIUS, this.modelViewTransform.modelToViewY( this.hose.elbowInnerY ) );
-
-      if ( -this.hose.elbowInnerY + this.hose.width > 0.08 ) {
-        shape = shape.arc( this.modelViewTransform.modelToViewX( this.hose.L1 ) + CORNER_RADIUS, this.modelViewTransform.modelToViewY( this.hose.elbowInnerY ) - CORNER_RADIUS, CORNER_RADIUS, Math.PI / 2, Math.PI, false )
-          .lineTo( this.modelViewTransform.modelToViewX( this.hose.L1 ), this.modelViewTransform.modelToViewY( this.hose.width ) + CORNER_RADIUS )
-          .arc( this.modelViewTransform.modelToViewX( this.hose.L1 ) - CORNER_RADIUS, this.modelViewTransform.modelToViewY( this.hose.width ) + CORNER_RADIUS, CORNER_RADIUS, 0, -Math.PI / 2, true );
-      }
-
-      shape = shape.lineTo( this.modelViewTransform.modelToViewX( 0 ), this.modelViewTransform.modelToViewY( this.hose.width ) )
-        .lineTo( this.modelViewTransform.modelToViewX( 0 ), this.modelViewTransform.modelToViewY( 0 ) );
-
-      if ( -this.hose.elbowInnerY + this.hose.width > 0.08 ) {
-        shape = shape.lineTo( this.modelViewTransform.modelToViewX( this.hose.L1 - this.hose.width ) - CORNER_RADIUS, this.modelViewTransform.modelToViewY( 0 ) )
-          .arc( this.modelViewTransform.modelToViewX( this.hose.L1 - this.hose.width ) - CORNER_RADIUS, this.modelViewTransform.modelToViewY( 0 ) + CORNER_RADIUS, CORNER_RADIUS, -Math.PI / 2, 0, false )
-          .lineTo( this.modelViewTransform.modelToViewX( this.hose.L1 - this.hose.width ), this.modelViewTransform.modelToViewY( this.hose.elbowLowerY ) - CORNER_RADIUS )
-          .arc( this.modelViewTransform.modelToViewX( this.hose.L1 - this.hose.width ) + CORNER_RADIUS, this.modelViewTransform.modelToViewY( this.hose.elbowLowerY ) - CORNER_RADIUS, CORNER_RADIUS, Math.PI, Math.PI / 2, true );
-      }
-      else {
-        shape = shape.lineTo( this.modelViewTransform.modelToViewX( this.hose.L1 - this.hose.width ), this.modelViewTransform.modelToViewY( this.hose.elbowLowerY ) );
-      }
-      shape = shape.lineTo( this.modelViewTransform.modelToViewX( this.hose.elbowLowerX ), this.modelViewTransform.modelToViewY( this.hose.elbowLowerY ) )
-        .arc( this.modelViewTransform.modelToViewX( this.hose.elbowInnerX ), this.modelViewTransform.modelToViewY( this.hose.elbowInnerY ), this.modelViewTransform.modelToViewDeltaX( this.hose.width ),
-          Math.PI / 2, this.hose.angleWithVertical, true );
-
-      return shape;
     }
   } );
 
