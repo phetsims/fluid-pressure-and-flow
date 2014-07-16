@@ -64,6 +64,7 @@ define( function( require ) {
       this.elbowInnerY = this.nozzleAttachmentInnerY - this.H2 * Math.sin( this.angle );
       this.elbowLowerX = this.elbowOuterX - this.width * Math.sin( this.angle );
       this.elbowLowerY = this.elbowOuterY - (this.width - this.width * Math.cos( this.angle ));
+      this.trigger( 'updated' );
     }
   } );
 } );

@@ -127,7 +127,7 @@ define( function( require ) {
 
     hoseView.setTranslation( this.hose.initialPosition );
 
-    Property.multilink( [this.hose.heightProperty, this.hose.angleProperty], function() {
+    this.hose.on( 'updated', function() {
       hoseView.update();
     } );
 
