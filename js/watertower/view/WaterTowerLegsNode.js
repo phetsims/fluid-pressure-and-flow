@@ -20,9 +20,11 @@ define( function( require ) {
    * @param {Number} width between the right and left legs at the bottom
    * @param {Number} height of each leg
    * @param options
+   * @param {Property<Vector2>} tankPositionProperty which can be observed to change the legs height
+   * @param {ModelViewTransform2} modelViewTransform to convert between view and model values
    * @constructor
    */
-  function WaterTowerLegsNode( width, height, options ) {
+  function WaterTowerLegsNode( width, height, options, tankPositionProperty, modelViewTransform ) {
     Node.call( this );
     this.options = _.extend( {
       legWidth: 10,
@@ -42,6 +44,15 @@ define( function( require ) {
     this.crossbeam4Path = new Line( 0, 0, 0, 0, crossbeamPaintOptions );
     this.children = [ this.leftLegPath, this.rightLegPath, this.crossbeam1Path, this.crossbeam2Path, this.crossbeam3Path, this.crossbeam4Path ];
     this.updateShape();
+
+    if ( tankPositionProperty ) {
+      tankPositionProperty.link( function( tankPosition ) {
+        // update the legs
+        this.waterTowerHeight = -modelViewTransform.modelToViewDeltaY( tankPosition.y );
+        this.updateShape();
+      }.bind( this ) );
+    }
+
     this.mutate( this.options );
   }
 
