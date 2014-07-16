@@ -34,7 +34,7 @@ define( function( require ) {
    * @constructor
    */
   function HoseView( hose, tankPositionProperty, modelViewTransform, isHoseVisibleProperty, options ) {
-    var hoseView = this;
+    var hoseNode = this;
     Node.call( this );
 
     this.hose = hose;
@@ -61,12 +61,12 @@ define( function( require ) {
     var initialHeight;
     this.handleNode.addInputListener( new SimpleDragHandler( {
       start: function( e ) {
-        initialHeight = hoseView.hose.height;
-        clickYOffset = hoseView.globalToParentPoint( e.pointer.point ).y;
+        initialHeight = hoseNode.hose.height;
+        clickYOffset = hoseNode.globalToParentPoint( e.pointer.point ).y;
       },
       drag: function( e ) {
-        var deltaY = hoseView.globalToParentPoint( e.pointer.point ).y - clickYOffset;
-        hoseView.updateHoseHeight( -modelViewTransform.viewToModelDeltaY( deltaY ) + initialHeight );
+        var deltaY = hoseNode.globalToParentPoint( e.pointer.point ).y - clickYOffset;
+        hoseNode.updateHoseHeight( -modelViewTransform.viewToModelDeltaY( deltaY ) + initialHeight );
       }
     } ) );
 
@@ -89,14 +89,14 @@ define( function( require ) {
 
     this.spoutHandle.addInputListener( new SimpleDragHandler( {
       start: function( e ) {
-        startY = hoseView.globalToParentPoint( e.pointer.point ).y;
-        startX = hoseView.globalToParentPoint( e.pointer.point ).x;
-        initialHoseAngle = hoseView.hose.angle * 180 / Math.PI;
+        startY = hoseNode.globalToParentPoint( e.pointer.point ).y;
+        startX = hoseNode.globalToParentPoint( e.pointer.point ).x;
+        initialHoseAngle = hoseNode.hose.angle * 180 / Math.PI;
       },
       drag: function( e ) {
 
-        var endY = hoseView.globalToParentPoint( e.pointer.point ).y;
-        var endX = hoseView.globalToParentPoint( e.pointer.point ).x;
+        var endY = hoseNode.globalToParentPoint( e.pointer.point ).y;
+        var endX = hoseNode.globalToParentPoint( e.pointer.point ).x;
 
         //finding angle
         var deltaX = endX - startX + 40;
@@ -116,18 +116,18 @@ define( function( require ) {
 
         var angleToUpdate = initialHoseAngle - angleMoved;
         angleToUpdate = angleToUpdate > 90 ? 90 : angleToUpdate < 0 ? 0 : angleToUpdate;
-        hoseView.hose.angle = Math.PI * (angleToUpdate) / 180;
-        hoseView.updateHoseHeight( hoseView.hose.height );
+        hoseNode.hose.angle = Math.PI * (angleToUpdate) / 180;
+        hoseNode.updateHoseHeight( hoseNode.hose.height );
       }
     } ) );
 
     // add observers
     isHoseVisibleProperty.linkAttribute( this, 'visible' );
 
-    hoseView.setTranslation( this.hose.initialPosition );
+    hoseNode.setTranslation( this.hose.initialPosition );
 
     this.hose.on( 'updated', function() {
-      hoseView.update();
+      hoseNode.update();
     } );
 
     this.mutate( options );
