@@ -31,7 +31,7 @@ define( function( require ) {
   var ControlSlider = require( 'FLUID_PRESSURE_AND_FLOW/watertower/view/ControlSlider' );
   var ToolsControlPanel = require( 'FLUID_PRESSURE_AND_FLOW/watertower/view/ToolsControlPanel' );
   var MeasuringTape = require( 'FLUID_PRESSURE_AND_FLOW/watertower/view/MeasuringTape' );
-  var SluiceControl = require( 'FLUID_PRESSURE_AND_FLOW/watertower/view/SluiceControl' );
+  var SluiceControlPanel = require( 'FLUID_PRESSURE_AND_FLOW/watertower/view/SluiceControlPanel' );
   var UnitsControlPanel = require( 'FLUID_PRESSURE_AND_FLOW/watertower/view/UnitsControlPanel' );
   var WaterTowerRuler = require( 'FLUID_PRESSURE_AND_FLOW/watertower/view/WaterTowerRuler' );
   var WaterTowerView = require( 'FLUID_PRESSURE_AND_FLOW/watertower/view/WaterTowerView' );
@@ -146,8 +146,8 @@ define( function( require ) {
     this.addChild( controlSlider );
 
     // add the sluice control near bottom left
-    var sluiceControl = new SluiceControl( waterTowerModel.isSluiceOpenProperty, { right: waterTowerView.right + 36, bottom: this.layoutBounds.bottom - 70} );
-    this.addChild( sluiceControl );
+    var sluiceControlPanel = new SluiceControlPanel( waterTowerModel.isSluiceOpenProperty, { xMargin: 10, yMargin: 15, fill: '#1F5EFF', right: waterTowerView.right + 36, bottom: this.layoutBounds.bottom - 70} );
+    this.addChild( sluiceControlPanel );
 
     // add play pause button and step button
     var stepButton = new StepButton( function() {

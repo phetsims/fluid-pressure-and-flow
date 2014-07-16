@@ -11,7 +11,7 @@ define( function( require ) {
     var inherit = require( 'PHET_CORE/inherit' );
     var Path = require( 'SCENERY/nodes/Path' );
     var Shape = require( 'KITE/Shape' );
-    var Node = require( 'SCENERY/nodes/Node' );
+    var Panel = require( 'SUN/Panel' );
     var Rectangle = require( 'SCENERY/nodes/Rectangle' );
     var ABSwitch = require( 'SUN/ABSwitch' );
     var WaterTowerLegsNode = require( 'FLUID_PRESSURE_AND_FLOW/watertower/view/WaterTowerLegsNode' );
@@ -26,9 +26,7 @@ define( function( require ) {
      * @param options
      * @constructor
      */
-    function SluiceControl( isSluiceOpenProperty, options ) {
-
-      Node.call( this );
+    function SluiceControlPanel( isSluiceOpenProperty, options ) {
 
       // close option
       var tankDim = optionWidth * 0.33;
@@ -79,13 +77,9 @@ define( function( require ) {
       openOptionNode.addChild( openWaterTowerLegs );
       openOptionNode.addChild( waterFlow );
 
-      var sluicePanel = new Rectangle( 0, 0, 2 * optionWidth + 100, optionHeight + 2 * inset, 10, 10, {stroke: 'black', lineWidth: 1, fill: '#1F5EFF'} );
-      sluicePanel.addChild( new ABSwitch( isSluiceOpenProperty, false, closeOptionNode, true, openOptionNode, {left: sluicePanel.left + inset, top: sluicePanel.top + inset} ) );
-      this.addChild( sluicePanel );
-
-      this.mutate( options );
+      Panel.call( this, new ABSwitch( isSluiceOpenProperty, false, closeOptionNode, true, openOptionNode, {left: inset, top: inset} ), options );
     }
 
-    return inherit( Node, SluiceControl );
+    return inherit( Panel, SluiceControlPanel );
   }
 );
