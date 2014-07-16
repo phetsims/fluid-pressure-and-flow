@@ -10,7 +10,7 @@ define( function( require ) {
 
   // modules
   var WaterTowerModel = require( 'FLUID_PRESSURE_AND_FLOW/watertower/model/WaterTowerModel' );
-  var WaterTowerScreenView = require( 'FLUID_PRESSURE_AND_FLOW/watertower/view/WaterTowerScreenView' );
+  var WaterTowerView = require( 'FLUID_PRESSURE_AND_FLOW/watertower/view/WaterTowerView' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Screen = require( 'JOIST/Screen' );
 
@@ -20,7 +20,7 @@ define( function( require ) {
   function WaterTowerScreen() {
     Screen.call( this, waterTowerTitleString, null /* no icon, single-screen sim */,
       function() { return new WaterTowerModel(); },
-      function( model ) { return new WaterTowerScreenView( model ); },
+      function( model ) { return new WaterTowerView( model ); },
       { backgroundColor: 'white' }
     );
   }
