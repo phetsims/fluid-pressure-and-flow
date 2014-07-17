@@ -31,7 +31,7 @@ define( function( require ) {
 
     this.elbowOuterX = 0; //position of the elbow in model co-ordinates
     this.elbowOuterY = 0;
-    this.initialPosition = new Vector2( 182, 115 );
+    this.initialPosition = new Vector2( 2.6, 3.36 );
     this.angleWithVertical = Math.PI / 2 - angle;
 
     PropertySet.call( this, {

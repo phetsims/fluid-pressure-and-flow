@@ -128,7 +128,7 @@ define( function( require ) {
     // add observers
     isHoseVisibleProperty.linkAttribute( this, 'visible' );
 
-    hoseNode.setTranslation( this.hose.initialPosition );
+    hoseNode.setTranslation( modelViewTransform.modelToViewX( this.hose.initialPosition.x ), modelViewTransform.modelToViewY( this.hose.initialPosition.y ) );
 
     this.hose.on( 'updated', function() {
       hoseNode.update();
@@ -232,7 +232,7 @@ define( function( require ) {
         this.hosePath.setShape( createTopShape( this.hose, this.modelViewTransform ) );
         this.handleNodeCenterX = (this.hose.elbowInnerX - this.hose.L1 ) / 2 + this.hose.L1;
         this.handleNode.centerX = this.modelViewTransform.modelToViewX( this.handleNodeCenterX );
-        this.handleNode.y = this.modelViewTransform.modelToViewY( this.hose.elbowInnerY ) - 115 - 112;
+        this.handleNode.y = this.modelViewTransform.modelToViewY( this.hose.elbowInnerY ) - 115 - 113;
       }
       else {
         this.hosePath.setShape( createBottomShape( this.hose, this.modelViewTransform ) );
@@ -247,7 +247,7 @@ define( function( require ) {
     },
 
     reset: function() {
-      this.setTranslation( this.hose.initialPosition );
+      this.setTranslation( this.modelViewTransform.modelToViewX( this.hose.initialPosition.x ), this.modelViewTransform.modelToViewY( this.hose.initialPosition.y ) );
       this.hose.reset();
     }
   } );

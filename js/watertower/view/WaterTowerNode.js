@@ -141,7 +141,7 @@ define( function( require ) {
         waterTowerView.waterTower.tankPosition = new Vector2( waterTowerView.waterTower.tankPosition.x, newY );
 
         hoseNode.hose.height = initialHeight + deltaY;
-        hoseNode.setTranslation( modelViewTransform.modelToViewX( 2.6 ), modelViewTransform.modelToViewY( waterTowerView.waterTower.tankPosition.y ) - 130 );
+        hoseNode.setY( modelViewTransform.modelToViewY( waterTowerView.waterTower.tankPosition.y ) - 130 );
       }
     } ) );
 
