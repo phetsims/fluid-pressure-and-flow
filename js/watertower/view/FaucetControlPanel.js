@@ -28,13 +28,6 @@ define( function( require ) {
     var textOptions = {font: new PhetFont( 14 )};
     var manualText = new Text( manualString, textOptions );
     var matchLeakageText = new Text( matchLeakageString, textOptions );
-    var maxWidth = _.max( [manualText.width, matchLeakageText.width] );
-
-    if ( maxWidth > 100 ) {
-      textOptions = {font: new PhetFont( 10 )};
-      manualText = new Text( manualString, textOptions );
-      matchLeakageText = new Text( matchLeakageString, textOptions );
-    }
 
     VBox.call( this, {
       children: [
