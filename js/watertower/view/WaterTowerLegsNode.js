@@ -12,7 +12,7 @@ define( function( require ) {
   var Node = require( 'SCENERY/nodes/Node' );
   var Shape = require( 'KITE/Shape' );
   var Path = require( 'SCENERY/nodes/Path' );
-  var LinearFunction = require( 'DOT/LinearFunction' );
+  var Util = require( 'DOT/Util' );
   var Line = require( 'SCENERY/nodes/Line' );
 
   /**
@@ -70,8 +70,13 @@ define( function( require ) {
       var options = this.options;
 
       // use 1 instead of 0 when the height is 0. This is to prevent divide by zero and other problems.
-      var fLeftLegX = new LinearFunction( 0, height > 0 ? height : 1, leftLegTopX, 0 ); //y1, y2, x1, x2
-      var fRightLegX = new LinearFunction( 0, height > 0 ? height : 1, rightLegTopX, width );
+      var fLeftLegX = function( y ) {
+        return Util.linear( 0, height > 0 ? height : 1, leftLegTopX, 0, y ); //y1, y2, x1, x2
+      };
+
+      var fRightLegX = function( y ) {
+        return Util.linear( 0, height > 0 ? height : 1, rightLegTopX, width, y );
+      };
 
       //Left leg
       this.leftLegPath.setShape( new Shape().moveTo( fLeftLegX( 0 ), 0 )
