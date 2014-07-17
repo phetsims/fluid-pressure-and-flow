@@ -73,7 +73,7 @@ define( function( require ) {
     waterTowerModel.modelViewTransform = modelViewTransform;
 
     // add background -- sky
-    this.addChild( new SkyNode( this.layoutBounds.centerX - ((this.layoutBounds.width * 3) / 2), (groundY - this.layoutBounds.height), this.layoutBounds.width * 3, this.layoutBounds.height, this.layoutBounds.height, {skyGradientHeight: this.layoutBounds.height / 2} ) );
+    this.addChild( new SkyNode( -1000, 0, 2000, groundY, groundY ) );
 
     var hoseDropsLayer = new Node();
     waterTowerScreenView.addChild( hoseDropsLayer );
@@ -82,7 +82,7 @@ define( function( require ) {
     waterTowerScreenView.addChild( waterTowerDropsLayer );
 
     // add background -- earth
-    this.addChild( new GroundNode( this.layoutBounds.centerX - ( (this.layoutBounds.width * 3) / 2), groundY, this.layoutBounds.width * 3, this.layoutBounds.height, groundY + (this.layoutBounds.height / 2) ) );
+    this.addChild( new GroundNode( -1000, groundY, 2000, this.layoutBounds.height - groundY, this.layoutBounds.height ) );
 
     // add the hose
     this.hoseNode = new HoseNode( waterTowerModel.hose, waterTowerModel.waterTower.tankPositionProperty, modelViewTransform, waterTowerModel.isHoseVisibleProperty );
