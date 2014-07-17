@@ -66,7 +66,7 @@ define( function( require ) {
     // position the tank frame at (1, 1.5). (0, 0) is the left most point on the ground.
     this.waterTower = new WaterTower( { tankPosition: new Vector2( 1, 1.5 ) } );
 
-    this.hose = new Hose( 1.5, Math.PI / 2 );
+    this.hose = new Hose( 1, Math.PI / 2 );
 
     this.faucetPosition = new Vector2( 1.3, 3.8 ); //faucet right co-ordinates
     this.faucetDrops = new ObservableArray();
