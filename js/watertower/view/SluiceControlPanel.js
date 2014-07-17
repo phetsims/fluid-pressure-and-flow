@@ -31,9 +31,10 @@ define( function( require ) {
      */
     function SluiceControlPanel( isSluiceOpenProperty, options ) {
 
+      // these things are used to create WaterTowerLegsNode
+      var modelViewTransform = ModelViewTransform2.createSinglePointScaleInvertedYMapping( Vector2.ZERO, Vector2.ZERO, 1 ); // identity with y-axis inverted
       var tankDim = optionWidth * 0.33;
-      var tankPositionProperty = new Property( new Vector2( 0, -0.7 * tankDim ) );
-      var modelViewTransform = ModelViewTransform2.createIdentity();
+      var tankPositionProperty = new Property( new Vector2( 0, 0.7 * tankDim ) );
 
       // close option
       var closeOptionNode = new Rectangle( 0, 0, optionWidth, optionHeight, 5, 5, {stroke: 'black', lineWidth: 1, fill: 'white'} );
