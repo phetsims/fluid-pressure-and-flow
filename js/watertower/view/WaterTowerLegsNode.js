@@ -18,7 +18,7 @@ define( function( require ) {
   /**
    *
    * @param {Number} width between the right and left legs at the bottom
-   * @param {Property<Vector2>} tankPositionProperty which can be observed to change the height of the legs
+   * @param {Property<Vector2>} tankPositionProperty which can be observed to change the height of the legs. tankPosition.y forms the top bound of the waterTowerLegs w.r.t to the modelViewTransform used.
    * @param {ModelViewTransform2} modelViewTransform to convert between view and model values
    * @param {*} options
    * @constructor
