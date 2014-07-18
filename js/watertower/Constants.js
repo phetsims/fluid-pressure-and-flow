@@ -9,8 +9,8 @@ define( function() {
 
   return {
     EARTH_GRAVITY: 9.8,
-    MIN_PRESSURE: 80000,
-    MAX_PRESSURE: 130000,
+    MIN_PRESSURE: 50000,
+    MAX_PRESSURE: 250000,
 
     // density values of fluids in kg/cubic mt
     GASOLINE_DENSITY: 700,

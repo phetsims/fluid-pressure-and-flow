@@ -24,14 +24,14 @@ define( function( require ) {
   function Hose( height, angle ) {
     //Layout parameters for the Hose
 
-    this.L1 = 0.9; // length of the horizontal portion of the hose from the tank hole
-    this.H2 = 0.3; // length of the vertical/horizontal portion of the hose attached to the spout and nozzle (not including spout/nozzle)
-    this.width = 0.3; // diameter of the hose
-    this.hoseLengthX = 2.5; //the total width of the hose node
+    this.L1 = 6.3; // length of the horizontal portion of the hose from the tank hole
+    this.H2 = 2.1; // length of the vertical/horizontal portion of the hose attached to the spout and nozzle (not including spout/nozzle)
+    this.width = 2.1; // diameter of the hose
+    this.hoseLengthX = 17.5; //the total width of the hose node
 
     this.elbowOuterX = 0; //position of the elbow in model co-ordinates
     this.elbowOuterY = 0;
-    this.initialPosition = new Vector2( 2.6, 3.36 );
+    this.initialPosition = new Vector2( 17, 23.8 );
     this.angleWithVertical = Math.PI / 2 - angle;
 
     PropertySet.call( this, {

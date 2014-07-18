@@ -16,15 +16,15 @@ define( function( require ) {
     var waterTower = this;
 
     this.options = _.extend( {
-      initialFluidLevel: 0.8,
+      initialFluidLevel: 0.2,
       tankPosition: new Vector2( 0, 0 ) // tank frame bottom left, position in meters
     }, options );
 
-    this.TANK_RADIUS = 0.8; // meters
-    this.TANK_HEIGHT = 1.6; // meters
+    this.TANK_RADIUS = 5; // meters
+    this.TANK_HEIGHT = 10; // meters
 
     // Offset of the inlet (hole which receives water from the faucet) as measured from tank left
-    this.INLET_X_OFFSET = 0.15;
+    this.INLET_X_OFFSET = 1.6;
 
     // Assume the tank is a cylinder and compute the max volume
     this.TANK_VOLUME = Math.PI * this.TANK_RADIUS * this.TANK_RADIUS * this.TANK_HEIGHT;
@@ -36,7 +36,7 @@ define( function( require ) {
     } );
 
     // Size of the hole in meters
-    this.HOLE_SIZE = 0.3;
+    this.HOLE_SIZE = 1;
     this.addDerivedProperty( 'fluidLevel', ['fluidVolume'], function( fluidVolume ) {
       return fluidVolume / (Math.PI * waterTower.TANK_RADIUS * waterTower.TANK_RADIUS);
     } );

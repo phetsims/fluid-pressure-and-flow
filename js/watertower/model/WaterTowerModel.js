@@ -25,6 +25,7 @@ define( function( require ) {
   var Constants = require( 'FLUID_PRESSURE_AND_FLOW/watertower/Constants' );
   var Property = require( 'AXON/Property' );
   var Hose = require( 'FLUID_PRESSURE_AND_FLOW/watertower/model/Hose' );
+  var Util = require( 'DOT/Util' );
 
   // strings
   var densityUnitsEnglish = require( 'string!FLUID_PRESSURE_AND_FLOW/densityUnitsEnglish' );
@@ -51,7 +52,7 @@ define( function( require ) {
         isFaucetEnabled: true,
         measureUnits: 'metric', //metric, english
         fluidDensity: Constants.WATER_DENSITY,
-        rulerPosition: new Vector2( 300, 100 ), // px
+        rulerPosition: new Vector2( 300, 344 ), // px
         waterFlow: 'water',
         isSluiceOpen: false,
         faucetMode: 'manual', //manual or matchLeakage
@@ -64,11 +65,11 @@ define( function( require ) {
     this.getStandardAirPressure = new LinearFunction( 0, 150, Constants.EARTH_AIR_PRESSURE, Constants.EARTH_AIR_PRESSURE_AT_500_FT );
 
     // position the tank frame at (1, 1.5). (0, 0) is the left most point on the ground.
-    this.waterTower = new WaterTower( { tankPosition: new Vector2( 1, 1.5 ) } );
+    this.waterTower = new WaterTower( { tankPosition: new Vector2( 7, 11.1 ) } ); //INITIAL_Y is 15 in java
 
-    this.hose = new Hose( 1, Math.PI / 2 );
+    this.hose = new Hose( 7, Math.PI / 2 );
 
-    this.faucetPosition = new Vector2( 1.3, 3.8 ); //faucet right co-ordinates
+    this.faucetPosition = new Vector2( 9.1, 26.6 ); //faucet right co-ordinates
     this.faucetDrops = new ObservableArray();
     this.waterTowerDrops = new ObservableArray();
     this.hoseDrops = new ObservableArray();
@@ -179,8 +180,7 @@ define( function( require ) {
       while ( this.accumulatedDt > 0.016 ) {
         this.accumulatedDt -= 0.016;
         if ( (this.faucetMode === "manual" && this.isFaucetEnabled ) || (this.faucetMode === "matchLeakage" && this.isSluiceOpen && this.waterTower.fluidVolume > 0) ) {
-          newFaucetDrop = new WaterDrop( this.faucetPosition.copy().plus( new Vector2( Math.random() * 0.04 - 0.02, 0 ) ), new Vector2( 0, 0 ), this.faucetMode === "manual" ? this.faucetFlowRate * 0.016 : this.leakageVolume );
-
+          newFaucetDrop = new WaterDrop( this.faucetPosition.copy().plus( new Vector2( Math.random() * 0.2 - 0.1, 0 ) ), new Vector2( 0, 0 ), this.faucetMode === "manual" ? this.faucetFlowRate * 0.016 : this.leakageVolume );
           this.faucetDrops.push( newFaucetDrop );
           this.newFaucetDrops.push( newFaucetDrop );
           newFaucetDrop.step( this.accumulatedDt );
@@ -188,17 +188,21 @@ define( function( require ) {
 
         //Add watertower drops if the tank is open and there is fluid in the tank
         if ( this.isSluiceOpen && this.waterTower.fluidVolume > 0 && !this.isHoseVisible ) {
-          var radius = this.waterTower.HOLE_SIZE / 2 * 0.9;
 
-          // ensure that the waterdrops are smaller than the fluid level
-          if ( 2 * radius > this.waterTower.fluidLevel ) {
-            radius = this.waterTower.fluidLevel / 2;
+          this.velocityMagnitude = Math.sqrt( 2 * Constants.EARTH_GRAVITY * this.waterTower.fluidLevel );
+
+          var waterVolumeExpelled = this.velocityMagnitude * 2 * dt;
+          if ( this.speed !== "normal" ) {
+            waterVolumeExpelled *= 3;
           }
+          var remainingVolume = this.waterTower.fluidVolume;
+          this.leakageVolume = remainingVolume > waterVolumeExpelled ? waterVolumeExpelled : remainingVolume;
 
-          // ensure that the water drop is not too small
-          radius = radius < 0.05 ? 0.05 : radius;
-          this.leakageVolume = 4 * Math.PI * radius * radius * radius / 3;
-          newWaterDrop = new WaterDrop( this.waterTower.tankPosition.plus( new Vector2( 2 * this.waterTower.TANK_RADIUS + Math.random() * 0.03, 2 * radius + Math.random() * 0.06 - 0.03 ) ), new Vector2( Math.sqrt( 2 * Constants.EARTH_GRAVITY * this.waterTower.fluidLevel ), 0 ), this.leakageVolume );
+          var radius = Util.cubeRoot( (3 * this.leakageVolume) / (4 * Math.PI) );
+
+          radius = radius < 0.3 ? 0.3 : radius;
+
+          newWaterDrop = new WaterDrop( this.waterTower.tankPosition.plus( new Vector2( 2 * this.waterTower.TANK_RADIUS + Math.random() * 0.2, 2 * radius + 0.2 + Math.random() * 0.2 - 0.1 ) ), new Vector2( this.velocityMagnitude, 0 ), this.leakageVolume );
           this.waterTowerDrops.push( newWaterDrop );
           newWaterDrop.step( this.accumulatedDt );
           this.newWaterTowerDrops.push( newWaterDrop );
@@ -208,11 +212,11 @@ define( function( require ) {
         //Add hose waterDrops if the tank is open and there fluid in the tank and hose visible
         if ( this.isSluiceOpen && this.waterTower.fluidVolume > 0 && this.isHoseVisible ) {
           this.leakageVolume = 0;
-          var y = this.waterTower.tankPosition.y + this.hose.elbowOuterY + 0.9 * Math.sin( this.hose.angle ) + 0.25 * Math.cos( this.hose.angle );
+          var y = this.waterTower.tankPosition.y + this.hose.elbowOuterY + this.hose.L1 * Math.sin( this.hose.angle ) + 1.75 * Math.cos( this.hose.angle );
           if ( y < this.waterTower.fluidLevel + this.waterTower.tankPosition.y ) {
-            this.leakageVolume = 0.004;
+            this.leakageVolume = 1;
             var velocityMagnitude = Math.sqrt( 2 * Constants.EARTH_GRAVITY * (this.waterTower.tankPosition.y + this.waterTower.fluidLevel - y) );
-            newHoseDrop = new WaterDrop( new Vector2( this.hose.elbowOuterX + this.waterTower.tankPosition.x + 2 * this.waterTower.TANK_RADIUS + 0.9 * Math.cos( this.hose.angle ) - 0.2 * Math.sin( this.hose.angle ) + Math.random() * 0.04 - 0.02,
+            newHoseDrop = new WaterDrop( new Vector2( this.hose.elbowOuterX + this.waterTower.tankPosition.x + 2 * this.waterTower.TANK_RADIUS + this.hose.L1 * Math.cos( this.hose.angle ) - 1.4 * Math.sin( this.hose.angle ) + Math.random() * 0.3 - 0.15,
                 y ),
               new Vector2( velocityMagnitude * Math.cos( this.hose.angle ), velocityMagnitude * Math.sin( this.hose.angle ) ), this.leakageVolume );
 
@@ -284,7 +288,7 @@ define( function( require ) {
         }
 
         for ( k = 0; k < this.barometers.length; k++ ) {
-          this.barometers[k].value = this.getPressureAtCoords( this.modelViewTransform.viewToModelX( this.barometers[k].position.x ), this.modelViewTransform.viewToModelY( this.barometers[k].position.y + (60) ) );
+          this.barometers[k].value = this.getPressureAtCoords( this.modelViewTransform.viewToModelX( this.barometers[k].position.x ), this.modelViewTransform.viewToModelY( this.barometers[k].position.y + (65) ) );
         }
       }
     },

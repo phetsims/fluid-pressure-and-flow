@@ -91,25 +91,15 @@ define( function( require ) {
     this.addChild( innerTriangleShapeNode );
 
     // arrow shape
-    this.arrowShape = new Path( new ArrowShape( 0, 0, 0.3 * modelViewTransform.modelToViewDeltaX( velocitySensor.value.x ), 0.3 * modelViewTransform.modelToViewDeltaY( velocitySensor.value.y ) ), {fill: 'blue'} );
+    this.arrowShape = new Path( new ArrowShape( 0, 0, modelViewTransform.modelToViewDeltaX( velocitySensor.value.x ), modelViewTransform.modelToViewDeltaY( velocitySensor.value.y ) ), {fill: 'blue'} );
     this.addChild( this.arrowShape );
 
     velocitySensor.valueProperty.link( function( velocity ) {
-      this.arrowShape.setShape( new ArrowShape( 0, 0, 0.3 * this.modelViewTransform.modelToViewDeltaX( this.velocitySensor.value.x ), 0.3 * this.modelViewTransform.modelToViewDeltaY( this.velocitySensor.value.y ) ) );
-
+      this.arrowShape.setShape( new ArrowShape( 0, 0, this.modelViewTransform.modelToViewDeltaX( this.velocitySensor.value.x ), this.modelViewTransform.modelToViewDeltaY( this.velocitySensor.value.y ) ) );
       // set the arrowShape path position.
-      if ( velocity.y > 0 ) {
-        this.arrowShape.bottom = outerTriangleShapeNode.bottom;
-      }
-      else {
-        this.arrowShape.top = outerTriangleShapeNode.bottom;
-      }
-      if ( velocity.x > 0 ) {
-        this.arrowShape.left = outerRectangle.centerX;
-      }
-      else {
-        this.arrowShape.right = outerRectangle.centerX;
-      }
+      velocity.y > 0 ? this.arrowShape.bottom = outerTriangleShapeNode.bottom : this.arrowShape.top = outerTriangleShapeNode.bottom;
+      velocity.x > 0 ? this.arrowShape.left = outerRectangle.centerX : this.arrowShape.right = outerRectangle.centerX;
+
     }.bind( velocitySensorNode ) );
 
     velocitySensor.isArrowVisibleProperty.linkAttribute( this.arrowShape, 'visible' );
@@ -122,8 +112,6 @@ define( function( require ) {
           if ( containerBounds.intersectsBounds( velocitySensorNode.visibleBounds ) ) {
             velocitySensor.positionProperty.reset();
             velocitySensor.value = new Vector2( 0, 0 );
-            labelText.centerX = innerRectangle.centerX + 20;
-            labelText.text = '-';
           }
         }
       } ) );

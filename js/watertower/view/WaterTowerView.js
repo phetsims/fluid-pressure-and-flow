@@ -65,7 +65,7 @@ define( function( require ) {
     var modelViewTransform = ModelViewTransform2.createSinglePointScaleInvertedYMapping(
       Vector2.ZERO,
       new Vector2( 0, 350 ),
-      70 ); //1m = 70px, (0,0) - top left corner
+      10 ); //1m = 10px, (0,0) - top left corner
 
     var groundY = modelViewTransform.modelToViewY( 0 ) - 6;
 
@@ -95,8 +95,8 @@ define( function( require ) {
     waterTowerScreenView.addChild( faucetDropsLayer );
 
 
-    var faucetNode = new FaucetNode( 0.6, waterTowerModel.faucetFlowRateProperty, waterTowerModel.isFaucetEnabledProperty, {
-      horizontalPipeLength: 1000,
+    var faucetNode = new FaucetNode( 35, waterTowerModel.faucetFlowRateProperty, waterTowerModel.isFaucetEnabledProperty, {
+      horizontalPipeLength: 1500,
       right: modelViewTransform.modelToViewX( waterTowerModel.faucetPosition.x ) + 20,
       top: this.layoutBounds.top + inset,
       scale: 0.3, //size of the faucet,

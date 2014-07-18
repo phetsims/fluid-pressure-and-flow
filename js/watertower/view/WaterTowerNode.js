@@ -56,7 +56,7 @@ define( function( require ) {
       .moveTo( modelViewTransform.modelToViewX( waterTower.INLET_X_OFFSET ), modelViewTransform.modelToViewY( waterTower.TANK_HEIGHT ) )
       .lineTo( modelViewTransform.modelToViewX( 0 ), modelViewTransform.modelToViewY( waterTower.TANK_HEIGHT ) )
       .lineTo( modelViewTransform.modelToViewX( 0 ), modelViewTransform.modelToViewY( 0 ) );
-    this.waterTankFrame = new Path( modelTankShape, { top: 20, stroke: options.towerFrameColor, lineWidth: 1} );
+    this.waterTankFrame = new Path( modelTankShape, { top: 20, stroke: options.towerFrameColor, lineWidth: 2} );
 
     //added tank background shape
     var tankBackgroundShape = new Shape()
@@ -90,7 +90,7 @@ define( function( require ) {
     this.addChild( new Path( Shape.lineSegment( 0, this.waterTankFrame.height - modelViewTransform.modelToViewDeltaX( waterTower.HOLE_SIZE * 1.5 ), 0, 0 ), { right: wheelNode.right, top: wheelNode.bottom, lineWidth: 1, stroke: 'black'} ) );
 
     //add the gate at the end of the rope
-    this.sluiceGate = new Rectangle( 0, 0, 5, modelViewTransform.modelToViewDeltaX( waterTower.HOLE_SIZE * 1.5 ), {
+    this.sluiceGate = new Rectangle( 0, 0, 5, modelViewTransform.modelToViewDeltaX( waterTower.HOLE_SIZE * 2.5 ), {
       fill: new LinearGradient( 0, 0, 5, 0 )
         .addColorStop( 0, '#656570' )
         .addColorStop( 0.5, '#dee6f5' )
@@ -136,7 +136,7 @@ define( function( require ) {
         deltaY = modelViewTransform.viewToModelDeltaY( deltaY );
         var newY = initialY + deltaY;
         //restrict the tank bottom to be between 0.1 and 1.7 meters
-        newY = newY > 1.7 ? 1.7 : newY < 0 ? 0 : newY;
+        newY = newY > 13 ? 13 : newY < 0 ? 0 : newY;
         deltaY = newY - initialY;
         waterTowerView.waterTower.tankPosition = new Vector2( waterTowerView.waterTower.tankPosition.x, newY );
 
@@ -146,7 +146,7 @@ define( function( require ) {
     } ) );
 
     waterTower.tankPositionProperty.link( function( tankPosition ) {
-      waterTowerView.bottom = ( tankPosition.y > 0.23 ) ? modelViewTransform.modelToViewY( 0 ) - 6 : modelViewTransform.modelToViewY( tankPosition.y ) + 10;
+      waterTowerView.bottom = ( tankPosition.y > 1.6 ) ? modelViewTransform.modelToViewY( 0 ) - 6 : modelViewTransform.modelToViewY( tankPosition.y ) + 10;
     } );
 
     waterTower.fluidVolumeProperty.link( function() {

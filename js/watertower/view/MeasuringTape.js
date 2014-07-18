@@ -31,7 +31,16 @@ define( function( require ) {
   // constants
   var FONT = new PhetFont( 16 );
 
-  var defaultOptions = [
+  /**
+   * Constructor for the measuring tape
+   * @param {WaterTowerModel} waterTowerModel of the simulation
+   * @constructor
+   */
+  function MeasuringTape( waterTowerModel ) {
+    var measuringTape = this;
+    Node.call( this );
+    this.prevScale = 1;
+    this.options = [
       {
         x: 280,
         y: 344,
@@ -42,22 +51,7 @@ define( function( require ) {
         value: 50000,
         precision: 2
       }
-    ]
-    ;
-
-  /**
-   * Constructor for the measuring tape
-   * @param {WaterTowerModel} waterTowerModel of the simulation
-   * @constructor
-   */
-  function MeasuringTape( waterTowerModel ) {
-    var measuringTape = this;
-    Node.call( this );
-
-    this.mode = 0;
-    this.prevScale = 1;
-
-    this.options = defaultOptions;
+    ];
     this.init( waterTowerModel );
 
     // add base of tape and not base node
@@ -65,7 +59,6 @@ define( function( require ) {
     this.addChild( this.base );
     this.centerRotation = new Vector2( measuringTape.base.getWidth(), measuringTape.base.getHeight() );
     this.notBase = new Node();
-
     // init drag and drop for measuring tape
     var clickYOffset, clickXOffset, angle = 0, v, currentlyDragging = '';
     this.base.cursor = 'pointer';
@@ -75,10 +68,8 @@ define( function( require ) {
         var h,
           y0 = measuringTape.globalToParentPoint( e.pointer.point ).y - e.currentTarget.y,
           x0 = measuringTape.globalToParentPoint( e.pointer.point ).x - e.currentTarget.x;
-
         h = measuringTape.centerRotation.timesScalar( Math.cos( angle / 2 ) ).rotated( angle / 2 );
         v = measuringTape.centerRotation.plus( h.minus( measuringTape.centerRotation ).multiply( 2 ) );
-
         clickYOffset = y0 - v.y;
         clickXOffset = x0 - v.x;
       },
@@ -95,8 +86,6 @@ define( function( require ) {
     // add line
     this.line = new Path( new Shape().moveTo( 0, 0 ).lineTo( 0, 0 ), {stroke: 'black', lineWidth: 2} );
     this.notBase.addChild( this.line );
-    //measuring units
-
 
     // add center point
     var size = 5;
@@ -137,13 +126,7 @@ define( function( require ) {
 
     this.addChild( this.notBase );
     waterTowerModel.measureUnitsProperty.link( function( data ) {
-      var lengthValue = measuringTape.getText();
-      if ( data === "metric" ) {
-        measuringTape.text.setText( lengthValue + " " + metersString );
-      }
-      else {
-        measuringTape.text.setText( (lengthValue * 3.28).toFixed( measuringTape.options[measuringTape.mode].precision ) + " " + feetString );
-      }
+      data === "metric" ? measuringTape.text.setText( measuringTape.getText().toFixed( 2 ) + " " + metersString ) : measuringTape.text.setText( (measuringTape.getText() * 3.28).toFixed( 2 ) + " " + feetString );
     } );
 
     // add observers
@@ -165,7 +148,6 @@ define( function( require ) {
         el.valueDefault = el.value;//
         el.lengthDefault = el.length;
       } );
-
       this.model = model;
     },
 
@@ -179,8 +161,7 @@ define( function( require ) {
 
     // return text for current planet mode
     getText: function() {
-      var option = this.options[this.mode];
-      return (option.length / 70).toFixed( option.precision );
+      return  this.options[0].length.toFixed( 2 ) / 10;
     },
 
     rotate: function( angle ) {
@@ -188,35 +169,25 @@ define( function( require ) {
     },
 
     scale: function( scale ) {
-      this.options[this.mode].lengthDefault *= 1 / this.prevScale;
-      this.options[this.mode].lengthDefault *= scale;
-      this.setTip( this.options[this.mode].tipX / this.prevScale, this.options[this.mode].tipY / this.prevScale );
-      this.setTip( this.options[this.mode].tipX * scale, this.options[this.mode].tipY * scale );
+      this.options[0].lengthDefault *= 1 / this.prevScale;
+      this.options[0].lengthDefault *= scale;
+      this.setTip( this.options[0].tipX / this.prevScale, this.options[0].tipY / this.prevScale );
+      this.setTip( this.options[0].tipX * scale, this.options[0].tipY * scale );
       this.prevScale = scale;
     },
 
     setTip: function( x, y ) {
-      var option = this.options[this.mode];
-      option.length = Math.sqrt( Math.pow( x, 2 ) + Math.pow( y, 2 ) );
 
+      this.options[0].length = Math.sqrt( Math.pow( x, 2 ) + Math.pow( y, 2 ) );
       this.line.setShape( new Shape().moveTo( 0, 0 ).lineTo( x, y ) );
-      //this.text.setText( this.getText() );
-      var lengthValue = this.getText();
-
-      if ( this.model.measureUnits === "english" ) {
-        this.text.setText( (lengthValue * 3.28).toFixed( option.precision ) + " " + feetString );
-      }
-      else {
-        this.text.setText( lengthValue + " " + metersString );
-      }
+      this.model.measureUnits === 'english' ? this.text.setText( (this.getText() * 3.28).toFixed( this.options[0].precision ) + ' ' + feetString ) : this.text.setText( this.getText().toFixed( this.options[0].precision ) + " " + metersString );
       this.tip.setTranslation( x, y );
-      option.tipX = x;
-      option.tipY = y;
+      this.options[0].tipX = x;
+      this.options[0].tipY = y;
     },
 
     translate: function( x, y, v ) {
       this.notBase.setTranslation( x, y );
-
       v = v || new Vector2( 0, 0 );
       this.base.setTranslation( x - v.x, y - v.y );
     }

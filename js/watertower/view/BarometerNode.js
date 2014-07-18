@@ -94,14 +94,13 @@ define( function( require ) {
 
     //Update the value in the barometer value model by reading from the model.
     Property.multilink( [barometer.positionProperty, waterTowerModel.fluidDensityProperty], function( position, fluidDensity ) {
-      barometer.valueProperty.set( waterTowerModel.getPressureAtCoords( modelViewTransform.viewToModelX( position.x ), modelViewTransform.viewToModelY( position.y + (60) ) ) );
+      barometer.valueProperty.set( waterTowerModel.getPressureAtCoords( modelViewTransform.viewToModelX( position.x ), modelViewTransform.viewToModelY( position.y + (65) ) ) );
     } );
 
     //Update the text when the value or units changes.
     Property.multilink( [barometer.valueProperty, waterTowerModel.measureUnitsProperty], function( barometerValue, units ) {
       text.text = Units.getPressureString[units]( barometerValue );
       textBackground.setRect( 0, 0, text.width + 4, text.height + 2 );
-      textBackground.visible = (text.text !== '-');
       textBackground.center = underGaugeRectangle.center;
       text.center = textBackground.center;
     } );

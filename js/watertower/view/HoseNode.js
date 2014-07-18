@@ -58,7 +58,7 @@ define( function( require ) {
 
     this.handleNodeCenterX = (this.hose.elbowInnerX - (this.hose.L1 )) / 2 + this.hose.L1;
 
-    this.handleNode = new Image( handle, { rotation: Math.PI, cursor: 'pointer', scale: 0.3, y: this.hosePath.bottom + modelViewTransform.modelToViewDeltaY( 0.3 ), centerX: modelViewTransform.modelToViewX( this.handleNodeCenterX )} );
+    this.handleNode = new Image( handle, { rotation: Math.PI, cursor: 'pointer', scale: 0.3, y: this.hosePath.bottom + this.modelViewTransform.modelToViewDeltaY( this.hose.width ), centerX: modelViewTransform.modelToViewX( this.handleNodeCenterX )} );
     this.addChild( this.handleNode );
 
     var clickYOffset;
@@ -106,14 +106,14 @@ define( function( require ) {
         var deltaX = endX - startX + 40;
         var deltaY = endY - startY;
 
-        // drag bounds
-        if ( deltaX < 0 || deltaX > 180 ) {
-          return;
-        }
+        /* // drag bounds
+         if ( deltaX < 0 || deltaX > 180 ) {
+         return;
+         }
 
-        if ( Math.abs( deltaY ) > 100 ) {
-          return;
-        }
+         if ( Math.abs( deltaY ) > 100 ) {
+         return;
+         }*/
 
         var angleMoved = Math.atan2( deltaY, deltaX );
         angleMoved = (angleMoved * 180 / Math.PI);    //radians to degree conversion
@@ -147,7 +147,7 @@ define( function( require ) {
       .arc( modelViewTransform.modelToViewX( hose.elbowInnerX ) - CORNER_RADIUS, modelViewTransform.modelToViewY( hose.elbowInnerY ) - CORNER_RADIUS, CORNER_RADIUS, hose.angleWithVertical, Math.PI / 2, false )
       .lineTo( modelViewTransform.modelToViewX( hose.L1 - hose.width ) + CORNER_RADIUS, modelViewTransform.modelToViewY( hose.elbowInnerY ) );
 
-    if ( hose.elbowInnerY - hose.width > 0.08 ) {
+    if ( hose.elbowInnerY - hose.width > 0.56 ) {
       shape = shape.arc( modelViewTransform.modelToViewX( hose.L1 - hose.width ) + CORNER_RADIUS, modelViewTransform.modelToViewY( hose.elbowInnerY ) + CORNER_RADIUS, CORNER_RADIUS, -Math.PI / 2, Math.PI, true )
         .lineTo( modelViewTransform.modelToViewX( hose.L1 - hose.width ), modelViewTransform.modelToViewY( hose.width ) - CORNER_RADIUS )
         .arc( modelViewTransform.modelToViewX( hose.L1 - hose.width ) - CORNER_RADIUS, modelViewTransform.modelToViewY( hose.width ) - CORNER_RADIUS, CORNER_RADIUS, 0, Math.PI / 2, false );
@@ -156,7 +156,7 @@ define( function( require ) {
     shape = shape.lineTo( modelViewTransform.modelToViewX( 0 ), modelViewTransform.modelToViewY( hose.width ) )
       .lineTo( modelViewTransform.modelToViewX( 0 ), modelViewTransform.modelToViewY( 0 ) );
 
-    if ( hose.elbowInnerY - hose.width > 0.08 ) {
+    if ( hose.elbowInnerY - hose.width > 0.56 ) {
       shape = shape.lineTo( modelViewTransform.modelToViewX( hose.L1 ) - CORNER_RADIUS, modelViewTransform.modelToViewY( 0 ) )
         .arc( modelViewTransform.modelToViewX( hose.L1 ) - CORNER_RADIUS, modelViewTransform.modelToViewY( 0 ) - CORNER_RADIUS, CORNER_RADIUS, Math.PI / 2, 0, true )
         .lineTo( modelViewTransform.modelToViewX( hose.L1 ), modelViewTransform.modelToViewY( hose.elbowLowerY ) + CORNER_RADIUS )
@@ -183,7 +183,7 @@ define( function( require ) {
       .arc( modelViewTransform.modelToViewX( hose.elbowInnerX ) - CORNER_RADIUS, modelViewTransform.modelToViewY( hose.elbowInnerY ) - CORNER_RADIUS, CORNER_RADIUS, hose.angleWithVertical, Math.PI / 2, false )
       .lineTo( modelViewTransform.modelToViewX( hose.L1 ) + CORNER_RADIUS, modelViewTransform.modelToViewY( hose.elbowInnerY ) );
 
-    if ( -hose.elbowInnerY + hose.width > 0.08 ) {
+    if ( -hose.elbowInnerY + hose.width > 0.56 ) {
       shape = shape.arc( modelViewTransform.modelToViewX( hose.L1 ) + CORNER_RADIUS, modelViewTransform.modelToViewY( hose.elbowInnerY ) - CORNER_RADIUS, CORNER_RADIUS, Math.PI / 2, Math.PI, false )
         .lineTo( modelViewTransform.modelToViewX( hose.L1 ), modelViewTransform.modelToViewY( hose.width ) + CORNER_RADIUS )
         .arc( modelViewTransform.modelToViewX( hose.L1 ) - CORNER_RADIUS, modelViewTransform.modelToViewY( hose.width ) + CORNER_RADIUS, CORNER_RADIUS, 0, -Math.PI / 2, true );
@@ -192,7 +192,7 @@ define( function( require ) {
     shape = shape.lineTo( modelViewTransform.modelToViewX( 0 ), modelViewTransform.modelToViewY( hose.width ) )
       .lineTo( modelViewTransform.modelToViewX( 0 ), modelViewTransform.modelToViewY( 0 ) );
 
-    if ( -hose.elbowInnerY + hose.width > 0.08 ) {
+    if ( -hose.elbowInnerY + hose.width > 0.56 ) {
       shape = shape.lineTo( modelViewTransform.modelToViewX( hose.L1 - hose.width ) - CORNER_RADIUS, modelViewTransform.modelToViewY( 0 ) )
         .arc( modelViewTransform.modelToViewX( hose.L1 - hose.width ) - CORNER_RADIUS, modelViewTransform.modelToViewY( 0 ) + CORNER_RADIUS, CORNER_RADIUS, -Math.PI / 2, 0, false )
         .lineTo( modelViewTransform.modelToViewX( hose.L1 - hose.width ), modelViewTransform.modelToViewY( hose.elbowLowerY ) - CORNER_RADIUS )
@@ -216,8 +216,8 @@ define( function( require ) {
      */
     updateHoseHeight: function( height ) {
       //bound the hose to ground and 3.3 mtr above the ground
-      height = height > this.tankPositionProperty.value.y + this.hose.H2 + this.nozzleHeight * Math.sin( this.hose.angle ) + 0.1 * Math.cos( this.hose.angle ) ? this.tankPositionProperty.value.y + this.hose.H2 + this.nozzleHeight * Math.sin( this.hose.angle ) + 0.1 * Math.cos( this.hose.angle ) :
-               height < this.tankPositionProperty.value.y - 2.5 ? this.tankPositionProperty.value.y - 2.5 : height;
+      height = height > this.tankPositionProperty.value.y + this.hose.H2 + this.nozzleHeight * Math.sin( this.hose.angle ) + 0.7 * Math.cos( this.hose.angle ) ? this.tankPositionProperty.value.y + this.hose.H2 + this.nozzleHeight * Math.sin( this.hose.angle ) + 0.7 * Math.cos( this.hose.angle ) :
+               height < this.tankPositionProperty.value.y - 18 ? this.tankPositionProperty.value.y - 18 : height;
 
       this.hose.height = height;
     },
