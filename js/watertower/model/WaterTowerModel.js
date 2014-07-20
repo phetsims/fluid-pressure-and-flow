@@ -192,6 +192,7 @@ define( function( require ) {
           this.velocityMagnitude = Math.sqrt( 2 * Constants.EARTH_GRAVITY * this.waterTower.fluidLevel );
 
           var waterVolumeExpelled = this.velocityMagnitude * 2 * dt;
+
           if ( this.speed !== "normal" ) {
             waterVolumeExpelled *= 3;
           }
@@ -200,9 +201,7 @@ define( function( require ) {
 
           var radius = Util.cubeRoot( (3 * this.leakageVolume) / (4 * Math.PI) );
 
-          radius = radius < 0.3 ? 0.3 : radius;
-
-          newWaterDrop = new WaterDrop( this.waterTower.tankPosition.plus( new Vector2( 2 * this.waterTower.TANK_RADIUS + Math.random() * 0.2, 2 * radius + 0.2 + Math.random() * 0.2 - 0.1 ) ), new Vector2( this.velocityMagnitude, 0 ), this.leakageVolume );
+          newWaterDrop = new WaterDrop( this.waterTower.tankPosition.plus( new Vector2( 2 * this.waterTower.TANK_RADIUS + Math.random() * 0.2, 2 * radius + 0.3 ) ), new Vector2( this.velocityMagnitude, 0 ), this.leakageVolume );
           this.waterTowerDrops.push( newWaterDrop );
           newWaterDrop.step( this.accumulatedDt );
           this.newWaterTowerDrops.push( newWaterDrop );
@@ -230,13 +229,13 @@ define( function( require ) {
       }
 
       for ( var i = 0, numberOfDrops = this.faucetDrops.length; i < numberOfDrops; i++ ) {
-        //step only the 'old' drops
+        // step only the 'old' drops
         if ( this.newFaucetDrops.indexOf( this.faucetDrops.get( i ) ) === -1 ) {
           this.faucetDrops.get( i ).step( dt );
         }
 
-        //check if the faucetDrops hit the fluidLevel
-        if ( this.faucetDrops.get( i ).position.y < 0.03 + this.waterTower.tankPosition.y + this.waterTower.fluidLevel + this.faucetDrops.get( i ).radius ) {
+        // check if the faucetDrops hit the fluidLevel
+        if ( this.faucetDrops.get( i ).position.y < 0.2 + this.waterTower.tankPosition.y + ((this.waterTower.fluidLevel > this.faucetDrops.get( i ).radius) ? this.waterTower.fluidLevel + this.faucetDrops.get( i ).radius : 2 * this.faucetDrops.get( i ).radius) ) {
           this.dropsToRemove.push( this.faucetDrops.get( i ) );
 
           if ( this.waterTower.fluidVolume < this.waterTower.TANK_VOLUME ) {
