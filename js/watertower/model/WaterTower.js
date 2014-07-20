@@ -16,7 +16,7 @@ define( function( require ) {
     var waterTower = this;
 
     this.options = _.extend( {
-      initialFluidLevel: 0.2,
+      initialFluidLevel: 0.8,
       tankPosition: new Vector2( 0, 0 ) // tank frame bottom left, position in meters
     }, options );
 
