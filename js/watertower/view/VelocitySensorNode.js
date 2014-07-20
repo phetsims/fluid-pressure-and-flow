@@ -97,9 +97,20 @@ define( function( require ) {
     velocitySensor.valueProperty.link( function( velocity ) {
       this.arrowShape.setShape( new ArrowShape( 0, 0, this.modelViewTransform.modelToViewDeltaX( this.velocitySensor.value.x ), this.modelViewTransform.modelToViewDeltaY( this.velocitySensor.value.y ) ) );
       // set the arrowShape path position.
-      velocity.y > 0 ? this.arrowShape.bottom = outerTriangleShapeNode.bottom : this.arrowShape.top = outerTriangleShapeNode.bottom;
-      velocity.x > 0 ? this.arrowShape.left = outerRectangle.centerX : this.arrowShape.right = outerRectangle.centerX;
-
+      if ( this.arrowShape.bounds.isFinite() ) {
+        if ( velocity.y > 0 ) {
+          this.arrowShape.bottom = outerTriangleShapeNode.bottom;
+        }
+        else {
+          this.arrowShape.top = outerTriangleShapeNode.bottom;
+        }
+        if ( velocity.x > 0 ) {
+          this.arrowShape.left = outerRectangle.centerX;
+        }
+        else {
+          this.arrowShape.right = outerRectangle.centerX;
+        }
+      }
     }.bind( velocitySensorNode ) );
 
     velocitySensor.isArrowVisibleProperty.linkAttribute( this.arrowShape, 'visible' );
@@ -122,7 +133,7 @@ define( function( require ) {
       velocitySensor.value = waterTowerModel.getWaterDropVelocityAt( modelViewTransform.viewToModelX( position.x + 50 ), modelViewTransform.viewToModelY( position.y + 75 ) );
     } );
 
-    //Update the text when the value or units changes.
+    // Update the text when the value or units changes.
     Property.multilink( [velocitySensor.valueProperty, waterTowerModel.measureUnitsProperty], function( velocity, units ) {
       labelText.text = units === 'metric' ?
                        velocity.magnitude().toFixed( 2 ) + ' ' + mPerS :

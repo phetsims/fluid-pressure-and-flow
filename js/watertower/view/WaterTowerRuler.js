@@ -1,7 +1,7 @@
 // Copyright 2002-2013, University of Colorado Boulder
 
 /**
- * Model Ruler Node. Supports english and metric views of the ruler.
+ * Ruler Node. Supports english and metric views of the ruler.
  * @author Shakhov Vasily (Mlearner)
  */
 
@@ -56,11 +56,13 @@ define( function( require ) {
       }
     } );
     this.addChild( closeButton );
-    // scale in meters
-    var metersRuler = new RulerNode( rulerHeight, rulerWidth, meterMajorStickWidth, ['0', '5', '10', '15', '20', '25'], units_metersString, {minorTicksPerMajorTick: 4, unitsFont: scaleFont, majorTickFont: scaleFont, unitsSpacing: 50, rotation: -Math.PI / 2, insetsWidth: 0} );
+
+    // ruler in meters
+    var metersRuler = new RulerNode( rulerHeight, rulerWidth, meterMajorStickWidth, ['0', '5', '10', '15', '20', '25', '30'], units_metersString, {minorTicksPerMajorTick: 4, unitsFont: scaleFont, majorTickFont: scaleFont, unitsSpacing: 50, rotation: -Math.PI / 2, insetsWidth: 0} );
     this.addChild( metersRuler );
-    // scale in feet
-    var feetRuler = new RulerNode( rulerHeight, rulerWidth, feetMajorStickWidth, ['0', '10', '20', '30', '40', '50', '60', '70', '80', '90'], units_feetString, {minorTicksPerMajorTick: 4, unitsSpacing: 34, unitsFont: scaleFont, majorTickFont: scaleFont, insetsWidth: 0, rotation: -Math.PI / 2} );
+
+    // ruler in feet
+    var feetRuler = new RulerNode( rulerHeight, rulerWidth, feetMajorStickWidth, ['0', '10', '20', '30', '40', '50', '60', '70', '80', '90', '100'], units_feetString, {minorTicksPerMajorTick: 4, unitsSpacing: 34, unitsFont: scaleFont, majorTickFont: scaleFont, insetsWidth: 0, rotation: -Math.PI / 2} );
     this.addChild( feetRuler );
 
     isRulerVisibleProperty.linkAttribute( this, 'visible' );
@@ -74,7 +76,7 @@ define( function( require ) {
       closeButton.setTranslation( rulerPosition.x, rulerPosition.y - closeButton.height - rulerHeight );
     } );
 
-    //ruler drag handlers
+    // ruler drag handlers
     metersRuler.addInputListener( new MovableDragHandler( {locationProperty: rulerPositionProperty, dragBounds: dragBounds},
       ModelViewTransform2.createIdentity() ) );
     feetRuler.addInputListener( new MovableDragHandler( {locationProperty: rulerPositionProperty, dragBounds: dragBounds},
