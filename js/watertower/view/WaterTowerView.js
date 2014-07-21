@@ -224,7 +224,7 @@ define( function( require ) {
 
     waterTowerModel.isSluiceOpenProperty.link( function( isSluiceOpen ) {
       if ( isSluiceOpen ) {
-        waterTowerNode.sluiceGate.bottom = waterTowerNode.waterTankFrame.bottom + modelViewTransform.modelToViewDeltaY( waterTowerNode.waterTower.HOLE_SIZE );
+        waterTowerNode.sluiceGate.bottom = waterTowerNode.waterTankFrame.bottom + modelViewTransform.modelToViewDeltaY( waterTowerNode.waterTower.HOLE_SIZE ) - 1;
       }
       else {
         waterTowerNode.sluiceGate.bottom = waterTowerNode.waterTankFrame.bottom;
