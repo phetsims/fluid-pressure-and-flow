@@ -215,8 +215,8 @@ define( function( require ) {
           if ( y < this.waterTower.fluidLevel + this.waterTower.tankPosition.y ) {
             this.leakageVolume = 1;
             var velocityMagnitude = Math.sqrt( 2 * Constants.EARTH_GRAVITY * (this.waterTower.tankPosition.y + this.waterTower.fluidLevel - y) );
-            newHoseDrop = new WaterDrop( new Vector2( this.hose.rotationPivotX + this.waterTower.tankPosition.x + 2 * this.waterTower.TANK_RADIUS,
-                  y + 0.5 ),
+            newHoseDrop = new WaterDrop( new Vector2( this.hose.rotationPivotX + this.waterTower.tankPosition.x + 2 * this.waterTower.TANK_RADIUS + Math.random() * 0.4 - 0.2,
+                  y + 0.5 + Math.random() * 0.4 - 0.2 ),
               new Vector2( velocityMagnitude * Math.cos( this.hose.angle ), velocityMagnitude * Math.sin( this.hose.angle ) ), this.leakageVolume );
 
             this.hoseDrops.push( newHoseDrop );
