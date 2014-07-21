@@ -67,7 +67,7 @@ define( function( require ) {
     // position the tank frame at (1, 1.5). (0, 0) is the left most point on the ground.
     this.waterTower = new WaterTower( { tankPosition: new Vector2( 7, 11.1 ) } ); //INITIAL_Y is 15 in java
 
-    this.hose = new Hose( 7, Math.PI / 2 );
+    this.hose = new Hose( 4, Math.PI / 2 );
 
     this.faucetPosition = new Vector2( 9.1, 26.6 ); //faucet right co-ordinates
     this.faucetDrops = new ObservableArray();
@@ -211,12 +211,12 @@ define( function( require ) {
         //Add hose waterDrops if the tank is open and there fluid in the tank and hose visible
         if ( this.isSluiceOpen && this.waterTower.fluidVolume > 0 && this.isHoseVisible ) {
           this.leakageVolume = 0;
-          var y = this.waterTower.tankPosition.y + this.hose.elbowOuterY + this.hose.L1 * Math.sin( this.hose.angle ) + 1.75 * Math.cos( this.hose.angle );
+          var y = this.hose.rotationPivotY + this.waterTower.tankPosition.y;
           if ( y < this.waterTower.fluidLevel + this.waterTower.tankPosition.y ) {
             this.leakageVolume = 1;
             var velocityMagnitude = Math.sqrt( 2 * Constants.EARTH_GRAVITY * (this.waterTower.tankPosition.y + this.waterTower.fluidLevel - y) );
-            newHoseDrop = new WaterDrop( new Vector2( this.hose.elbowOuterX + this.waterTower.tankPosition.x + 2 * this.waterTower.TANK_RADIUS + this.hose.L1 * Math.cos( this.hose.angle ) - 1.4 * Math.sin( this.hose.angle ) + Math.random() * 0.3 - 0.15,
-                y ),
+            newHoseDrop = new WaterDrop( new Vector2( this.hose.rotationPivotX + this.waterTower.tankPosition.x + 2 * this.waterTower.TANK_RADIUS,
+                  y + 0.5 ),
               new Vector2( velocityMagnitude * Math.cos( this.hose.angle ), velocityMagnitude * Math.sin( this.hose.angle ) ), this.leakageVolume );
 
             this.hoseDrops.push( newHoseDrop );

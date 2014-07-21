@@ -34,6 +34,8 @@ define( function( require ) {
     this.initialPosition = new Vector2( 17, 23.8 );
     this.angleWithVertical = Math.PI / 2 - angle;
 
+    this.H3 = 4.3; // spout height
+
     PropertySet.call( this, {
       //height increases downwards, decreases when the hose goes up. It will be negative when the hose is above the hole
       height: height,
@@ -55,11 +57,16 @@ define( function( require ) {
      * Updates hose dependant variables
      */
     update: function() {
+
       this.angleWithVertical = Math.PI / 2 - this.angle;
-      this.elbowOuterX = this.hoseLengthX - this.H2 * Math.cos( this.angle );
-      this.elbowOuterY = -this.height + this.H2 - this.H2 * Math.sin( this.angle );
-      this.nozzleAttachmentInnerX = this.hoseLengthX - this.width * Math.sin( this.angle );
-      this.nozzleAttachmentInnerY = -this.height + this.H2 + this.width * Math.cos( this.angle );
+      this.rotationPivotX = this.hoseLengthX;
+      this.rotationPivotY = -this.height + this.H2;
+      this.nozzleAttachmentOuterX = this.rotationPivotX - this.H3 * Math.cos( this.angle ) + this.width / 2 * Math.sin( this.angle );
+      this.nozzleAttachmentOuterY = this.rotationPivotY - this.H3 * Math.sin( this.angle ) - this.width / 2 * Math.cos( this.angle );
+      this.elbowOuterX = this.nozzleAttachmentOuterX - this.H2 * Math.cos( this.angle );
+      this.elbowOuterY = this.nozzleAttachmentOuterY - this.H2 * Math.sin( this.angle );
+      this.nozzleAttachmentInnerX = this.nozzleAttachmentOuterX - this.width * Math.sin( this.angle );
+      this.nozzleAttachmentInnerY = this.nozzleAttachmentOuterY + this.width * Math.cos( this.angle );
       this.elbowInnerX = this.nozzleAttachmentInnerX - this.H2 * Math.cos( this.angle );
       this.elbowInnerY = this.nozzleAttachmentInnerY - this.H2 * Math.sin( this.angle );
       this.elbowLowerX = this.elbowOuterX - this.width * Math.sin( this.angle );

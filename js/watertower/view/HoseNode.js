@@ -79,8 +79,8 @@ define( function( require ) {
     this.spoutHandle = new Node( {children: [new Image( spoutHandleImg )], scale: 1.0, cursor: 'pointer', bottom: nozzle.bottom, left: nozzle.right - 4} );
 
     this.spoutAndNozzle = new Node( { children: [nozzle, this.spoutHandle],
-      bottom: this.modelViewTransform.modelToViewDeltaY( -this.hose.height + this.hose.H2 ) + 122 + 40 * Math.cos( this.hose.angle ),
-      left: this.modelViewTransform.modelToViewX( this.hose.hoseLengthX ) - 26 * Math.sin( this.hose.angle ),
+      bottom: this.modelViewTransform.modelToViewDeltaY( this.hose.nozzleAttachmentOuterY ) + 122 + 40 * Math.cos( this.hose.angle ),
+      left: this.modelViewTransform.modelToViewX( this.hose.nozzleAttachmentOuterX ) - 26 * Math.sin( this.hose.angle ),
       rotation: this.hose.angleWithVertical
     } );
 
@@ -121,7 +121,7 @@ define( function( require ) {
         var angleToUpdate = initialHoseAngle - angleMoved;
         angleToUpdate = angleToUpdate > 90 ? 90 : angleToUpdate < 0 ? 0 : angleToUpdate;
         hoseNode.hose.angle = Math.PI * (angleToUpdate) / 180;
-        hoseNode.updateHoseHeight( hoseNode.hose.height );
+
       }
     } ) );
 
@@ -141,7 +141,7 @@ define( function( require ) {
   var createTopShape = function( hose, modelViewTransform ) {
     var shape = new Shape();
     shape = shape.moveTo( modelViewTransform.modelToViewX( hose.elbowOuterX ), modelViewTransform.modelToViewY( hose.elbowOuterY ) )
-      .lineTo( modelViewTransform.modelToViewX( hose.hoseLengthX ), modelViewTransform.modelToViewY( -hose.height + hose.H2 ) )
+      .lineTo( modelViewTransform.modelToViewX( hose.nozzleAttachmentOuterX ), modelViewTransform.modelToViewY( hose.nozzleAttachmentOuterY ) )
       .lineTo( modelViewTransform.modelToViewX( hose.nozzleAttachmentInnerX ), modelViewTransform.modelToViewY( hose.nozzleAttachmentInnerY ) )
       .lineTo( modelViewTransform.modelToViewX( hose.elbowInnerX ), modelViewTransform.modelToViewY( hose.elbowInnerY ) - CORNER_RADIUS * Math.cos( hose.angleWithVertical ) )
       .arc( modelViewTransform.modelToViewX( hose.elbowInnerX ) - CORNER_RADIUS, modelViewTransform.modelToViewY( hose.elbowInnerY ) - CORNER_RADIUS, CORNER_RADIUS, hose.angleWithVertical, Math.PI / 2, false )
@@ -177,7 +177,7 @@ define( function( require ) {
   var createBottomShape = function( hose, modelViewTransform ) {
     var shape = new Shape();
     shape = shape.moveTo( modelViewTransform.modelToViewX( hose.elbowOuterX ), modelViewTransform.modelToViewY( hose.elbowOuterY ) )
-      .lineTo( modelViewTransform.modelToViewX( hose.hoseLengthX ), modelViewTransform.modelToViewY( -hose.height + hose.H2 ) )
+      .lineTo( modelViewTransform.modelToViewX( hose.nozzleAttachmentOuterX ), modelViewTransform.modelToViewY( hose.nozzleAttachmentOuterY ) )
       .lineTo( modelViewTransform.modelToViewX( hose.nozzleAttachmentInnerX ), modelViewTransform.modelToViewY( hose.nozzleAttachmentInnerY ) )
       .lineTo( modelViewTransform.modelToViewX( hose.elbowInnerX ), modelViewTransform.modelToViewY( hose.elbowInnerY ) - CORNER_RADIUS * Math.cos( hose.angleWithVertical ) )
       .arc( modelViewTransform.modelToViewX( hose.elbowInnerX ) - CORNER_RADIUS, modelViewTransform.modelToViewY( hose.elbowInnerY ) - CORNER_RADIUS, CORNER_RADIUS, hose.angleWithVertical, Math.PI / 2, false )
@@ -216,8 +216,8 @@ define( function( require ) {
      */
     updateHoseHeight: function( height ) {
       //bound the hose to ground and 3.3 mtr above the ground
-      height = height > this.tankPositionProperty.value.y + this.hose.H2 + this.nozzleHeight * Math.sin( this.hose.angle ) + 0.7 * Math.cos( this.hose.angle ) ? this.tankPositionProperty.value.y + this.hose.H2 + this.nozzleHeight * Math.sin( this.hose.angle ) + 0.7 * Math.cos( this.hose.angle ) :
-               height < this.tankPositionProperty.value.y - 18 ? this.tankPositionProperty.value.y - 18 : height;
+      height = height > this.tankPositionProperty.value.y + 2 ? this.tankPositionProperty.value.y + 2 :
+               height < this.tankPositionProperty.value.y - 25 ? this.tankPositionProperty.value.y - 25 : height;
 
       this.hose.height = height;
     },
@@ -242,8 +242,8 @@ define( function( require ) {
       }
 
       this.spoutAndNozzle.setRotation( this.hose.angleWithVertical );
-      this.spoutAndNozzle.bottom = this.modelViewTransform.modelToViewDeltaY( -this.hose.height + this.hose.H2 ) + 122 + 40 * Math.cos( this.hose.angle );
-      this.spoutAndNozzle.left = this.modelViewTransform.modelToViewX( this.hose.hoseLengthX ) - 26 * Math.sin( this.hose.angle );
+      this.spoutAndNozzle.bottom = this.modelViewTransform.modelToViewDeltaY( this.hose.nozzleAttachmentOuterY ) + 122 + 40 * Math.cos( this.hose.angle );
+      this.spoutAndNozzle.left = this.modelViewTransform.modelToViewX( this.hose.nozzleAttachmentOuterX ) - 26 * Math.sin( this.hose.angle );
     },
 
     reset: function() {
