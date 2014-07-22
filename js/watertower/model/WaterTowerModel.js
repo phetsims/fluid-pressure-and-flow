@@ -121,6 +121,9 @@ define( function( require ) {
         speedometer.reset();
       } );
       this.waterTower.reset();
+      this.faucetDrops.clear();
+      this.waterTowerDrops.clear();
+      this.hoseDrops.clear();
     },
 
     getAirPressure: function( height ) {
