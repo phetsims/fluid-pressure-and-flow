@@ -251,6 +251,11 @@ define( function( require ) {
         }
       }
 
+      // update the faucet flow rate
+      if ( this.faucetMode === "matchLeakage" ) {
+        this.faucetFlowRate = (this.isSluiceOpen) ? this.leakageVolume / dt : 0;
+      }
+
       this.faucetDrops.removeAll( this.dropsToRemove );
 
       this.dropsToRemove = [];
