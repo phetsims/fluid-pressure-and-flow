@@ -53,6 +53,7 @@ define( function( require ) {
         measureUnits: 'metric', //metric, english
         fluidDensity: Constants.WATER_DENSITY,
         rulerPosition: new Vector2( 300, 344 ), // px
+        measuringTapePosition: new Vector2( 150, 345 ), // px
         waterFlow: 'water',
         isSluiceOpen: false,
         faucetMode: 'manual', //manual or matchLeakage
@@ -302,7 +303,7 @@ define( function( require ) {
 
     getFluidDensityString: function() {
       if ( this.measureUnits === 'english' ) {
-        return StringUtils.format( valueWithUnitsPattern, Math.round( Units.FLUID_DENSITY_ENGLISH_PER_METRIC * this.fluidDensity ), densityUnitsEnglish );
+        return StringUtils.format( valueWithUnitsPattern, (Units.FLUID_DENSITY_ENGLISH_PER_METRIC * this.fluidDensity).toFixed( 2 ), densityUnitsEnglish );
       }
       else {
         return StringUtils.format( valueWithUnitsPattern, Math.round( this.fluidDensity ), densityUnitsMetric );

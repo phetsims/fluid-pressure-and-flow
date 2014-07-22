@@ -111,12 +111,14 @@ define( function( require ) {
     this.addChild( this.toolsControlPanel );
     this.addChild( new UnitsControlPanel( waterTowerModel.measureUnitsProperty, this.toolsControlPanel.width, {left: this.toolsControlPanel.left, top: this.toolsControlPanel.bottom + inset} ) );
 
+    var measuringTape = new MeasuringTape( waterTowerModel );
     // add reset button near the bottom right
     var resetAllButton = new ResetAllButton( {
       listener: function() {
         waterTowerModel.reset();
         controlSlider.reset();
         waterTowerScreenView.hoseNode.reset();
+        measuringTape.reset();
       },
       right: this.layoutBounds.right - inset,
       bottom: this.layoutBounds.bottom - inset
@@ -188,7 +190,7 @@ define( function( require ) {
     }.bind( this ) );
 
     this.addChild( new WaterTowerRuler( waterTowerModel.isRulerVisibleProperty, waterTowerModel.rulerPositionProperty, waterTowerModel.measureUnitsProperty, modelViewTransform, this.layoutBounds ) );
-    this.addChild( new MeasuringTape( waterTowerModel ) );
+    this.addChild( measuringTape );
 
     // add a waterdrop node to the view when a waterdrop is added to faucetdrops
     waterTowerModel.faucetDrops.addItemAddedListener( function( waterDrop ) {
