@@ -85,43 +85,43 @@ define( function( require ) {
     } );
 
     this.addChild( this.spoutAndNozzle );
-    this.nozzleHeight = -this.modelViewTransform.viewToModelDeltaY( this.spoutAndNozzle.getHeight() );
 
     var startX;
     var startY;
+    var startPointAngle;
     var initialHoseAngle;
-
     this.spoutHandle.addInputListener( new SimpleDragHandler( {
       start: function( e ) {
+
         startY = hoseNode.globalToParentPoint( e.pointer.point ).y;
         startX = hoseNode.globalToParentPoint( e.pointer.point ).x;
+
         initialHoseAngle = hoseNode.hose.angle * 180 / Math.PI;
+
+        var deltaY = hoseNode.modelViewTransform.modelToViewY( hoseNode.hose.rotationPivotY + hoseNode.tankPositionProperty.value.y ) - startY;
+        var deltaX = hoseNode.modelViewTransform.modelToViewX( hoseNode.hose.rotationPivotX + hoseNode.tankPositionProperty.value.x + 10 ) - startX;
+
+        startPointAngle = Math.atan2( deltaY, deltaX );
       },
+
       drag: function( e ) {
 
         var endY = hoseNode.globalToParentPoint( e.pointer.point ).y;
         var endX = hoseNode.globalToParentPoint( e.pointer.point ).x;
 
-        //finding angle
-        var deltaX = endX - startX + 40;
-        var deltaY = endY - startY;
+        var deltaY = hoseNode.modelViewTransform.modelToViewY( hoseNode.hose.rotationPivotY + hoseNode.tankPositionProperty.value.y ) - endY;
+        var deltaX = hoseNode.modelViewTransform.modelToViewX( hoseNode.hose.rotationPivotX + hoseNode.tankPositionProperty.value.x + 10 ) - endX;
 
-        /* // drag bounds
-         if ( deltaX < 0 || deltaX > 180 ) {
-         return;
-         }
+        if ( deltaY > 0 ) {
+          return;
+        }
 
-         if ( Math.abs( deltaY ) > 100 ) {
-         return;
-         }*/
-
-        var angleMoved = Math.atan2( deltaY, deltaX );
-        angleMoved = (angleMoved * 180 / Math.PI);    //radians to degree conversion
+        var finalPointAngle = Math.atan2( deltaY, deltaX );
+        var angleMoved = (finalPointAngle - startPointAngle) * 180 / Math.PI;
 
         var angleToUpdate = initialHoseAngle - angleMoved;
         angleToUpdate = angleToUpdate > 90 ? 90 : angleToUpdate < 0 ? 0 : angleToUpdate;
         hoseNode.hose.angle = Math.PI * (angleToUpdate) / 180;
-
       }
     } ) );
 
