@@ -212,7 +212,10 @@ define( function( require ) {
           this.waterTowerDrops.push( newWaterDrop );
           newWaterDrop.step( this.accumulatedDt );
           this.newWaterTowerDrops.push( newWaterDrop );
-          this.waterTower.fluidVolume = this.waterTower.fluidVolume - this.leakageVolume;
+
+          if ( (this.faucetMode === 'matchLeakage' && this.waterTower.fluidVolume < this.waterTower.TANK_VOLUME ) || this.faucetMode === 'manual' ) {
+            this.waterTower.fluidVolume = this.waterTower.fluidVolume - this.leakageVolume;
+          }
           this.accumulatedWaterExpelled += this.leakageVolume;
         }
 
@@ -230,7 +233,9 @@ define( function( require ) {
             this.hoseDrops.push( newHoseDrop );
             newHoseDrop.step( this.accumulatedDt );
             this.newHoseDrops.push( newHoseDrop );
-            this.waterTower.fluidVolume = this.waterTower.fluidVolume - this.leakageVolume;
+            if ( (this.faucetMode === 'matchLeakage' && this.waterTower.fluidVolume < this.waterTower.TANK_VOLUME ) || this.faucetMode === 'manual' ) {
+              this.waterTower.fluidVolume = this.waterTower.fluidVolume - this.leakageVolume;
+            }
           }
           this.accumulatedWaterExpelled += this.leakageVolume;
         }
