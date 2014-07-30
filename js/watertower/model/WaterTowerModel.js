@@ -311,13 +311,21 @@ define( function( require ) {
     },
 
     getWaterDropVelocityAt: function( x, y ) {
-      var waterDrops = (this.isHoseVisible) ? this.hoseDrops : this.waterTowerDrops;
+      var waterDrops = this.waterTowerDrops;
 
       for ( var i = 0, j = waterDrops.length; i < j; i++ ) {
         if ( waterDrops.get( i ).contains( new Vector2( x, y ) ) ) {
           return waterDrops.get( i ).velocity;
         }
       }
+
+      waterDrops = this.hoseDrops;
+      for ( i = 0, j = waterDrops.length; i < j; i++ ) {
+        if ( waterDrops.get( i ).contains( new Vector2( x, y ) ) ) {
+          return waterDrops.get( i ).velocity;
+        }
+      }
+
       return Vector2.ZERO;
     }
 
