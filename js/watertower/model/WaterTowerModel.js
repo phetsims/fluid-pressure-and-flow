@@ -288,9 +288,9 @@ define( function( require ) {
       }
       this.hoseDrops.removeAll( this.dropsToRemove );
 
-      // update sensor values only about 4 times per sec
-      if ( this.accumulatedDtForSensors > 0.25 ) {
-        this.accumulatedDtForSensors -= 0.25;
+      // update sensor values only about 10 times per sec
+      if ( this.accumulatedDtForSensors > 0.1 ) {
+        this.accumulatedDtForSensors -= 0.1;
         for ( var k = 0; k < this.speedometers.length; k++ ) {
           this.speedometers[k].value = this.getWaterDropVelocityAt( this.modelViewTransform.viewToModelX( this.speedometers[k].position.x + 50 ), this.modelViewTransform.viewToModelY( this.speedometers[k].position.y + 75 ) );
         }
