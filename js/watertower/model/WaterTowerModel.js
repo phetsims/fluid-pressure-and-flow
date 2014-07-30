@@ -77,12 +77,12 @@ define( function( require ) {
     this.fluidColorModel = new FluidColorModel( this );
 
     this.barometers = [];
-    for ( var i = 0; i < 4; i++ ) {
+    for ( var i = 0; i < 2; i++ ) {
       this.barometers.push( new Barometer( new Vector2( 0, 0 ), 101035 ) );
     }
 
     this.speedometers = [];
-    for ( var j = 0; j < 4; j++ ) {
+    for ( var j = 0; j < 2; j++ ) {
       this.speedometers.push( new VelocitySensor( new Vector2( 0, 0 ), new Vector2( 0, 0 ) ) );
     }
 
