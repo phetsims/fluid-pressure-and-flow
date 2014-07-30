@@ -102,6 +102,9 @@ define( function( require ) {
     this.dropsToRemove = [];
     this.accumulatedDt = 0;
     this.accumulatedDtForSensors = 0;
+
+    this.accumulatedDtForFlowRate = 0;
+    this.accumulatedWaterExpelled = 0;
     this.leakageVolume = 0;
     this.newFaucetDrops = [];
     this.newWaterTowerDrops = [];
@@ -172,6 +175,7 @@ define( function( require ) {
       // Ensure that water flow looks ok even on very low frame rates
       this.accumulatedDt += dt;
       this.accumulatedDtForSensors += dt;
+      this.accumulatedDtForFlowRate += dt;
 
       var newFaucetDrop;
       var newWaterDrop;
@@ -196,7 +200,6 @@ define( function( require ) {
           this.velocityMagnitude = Math.sqrt( 2 * Constants.EARTH_GRAVITY * this.waterTower.fluidLevel );
 
           var waterVolumeExpelled = this.velocityMagnitude * 2 * dt;
-
           if ( this.speed !== "normal" ) {
             waterVolumeExpelled *= 3;
           }
@@ -210,6 +213,7 @@ define( function( require ) {
           newWaterDrop.step( this.accumulatedDt );
           this.newWaterTowerDrops.push( newWaterDrop );
           this.waterTower.fluidVolume = this.waterTower.fluidVolume - this.leakageVolume;
+          this.accumulatedWaterExpelled += this.leakageVolume;
         }
 
         //Add hose waterDrops if the tank is open and there fluid in the tank and hose visible
@@ -228,6 +232,7 @@ define( function( require ) {
             this.newHoseDrops.push( newHoseDrop );
             this.waterTower.fluidVolume = this.waterTower.fluidVolume - this.leakageVolume;
           }
+          this.accumulatedWaterExpelled += this.leakageVolume;
         }
 
       }
@@ -252,9 +257,13 @@ define( function( require ) {
         }
       }
 
-      // update the faucet flow rate
-      if ( this.faucetMode === "matchLeakage" ) {
-        this.faucetFlowRate = (this.isSluiceOpen) ? this.leakageVolume / dt : 0;
+      // update the faucet flow rate every 2 seconds
+      if ( this.accumulatedDtForFlowRate > 2 ) {
+        if ( this.faucetMode === 'matchLeakage' ) {
+          this.faucetFlowRate = (this.isSluiceOpen) ? this.accumulatedWaterExpelled / 2 : 0;
+        }
+        this.accumulatedWaterExpelled = 0;
+        this.accumulatedDtForFlowRate = 0;
       }
 
       this.faucetDrops.removeAll( this.dropsToRemove );

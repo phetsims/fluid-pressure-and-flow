@@ -95,7 +95,7 @@ define( function( require ) {
     waterTowerScreenView.addChild( faucetDropsLayer );
 
 
-    var faucetNode = new FaucetNode( 35, waterTowerModel.faucetFlowRateProperty, waterTowerModel.isFaucetEnabledProperty, {
+    var faucetNode = new FaucetNode( 60, waterTowerModel.faucetFlowRateProperty, waterTowerModel.isFaucetEnabledProperty, {
       horizontalPipeLength: 1500,
       right: modelViewTransform.modelToViewX( waterTowerModel.faucetPosition.x ) + 20,
       top: this.layoutBounds.top + inset,
@@ -227,9 +227,15 @@ define( function( require ) {
     waterTowerModel.isSluiceOpenProperty.link( function( isSluiceOpen ) {
       if ( isSluiceOpen ) {
         waterTowerNode.sluiceGate.bottom = waterTowerNode.waterTankFrame.bottom + modelViewTransform.modelToViewDeltaY( waterTowerNode.waterTower.HOLE_SIZE ) - 1;
+        if ( waterTowerModel.faucetMode === 'matchLeakage' ) {
+          waterTowerModel.faucetFlowRate = waterTowerModel.leakageVolume / 0.016;
+        }
       }
       else {
         waterTowerNode.sluiceGate.bottom = waterTowerNode.waterTankFrame.bottom;
+        if ( waterTowerModel.faucetMode === 'matchLeakage' ) {
+          waterTowerModel.faucetFlowRate = 0;
+        }
       }
     } );
 
