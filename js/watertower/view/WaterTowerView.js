@@ -239,15 +239,8 @@ define( function( require ) {
       }
     } );
 
-    waterTowerModel.waterTower.fluidVolumeProperty.link( function( fluidVolume ) {
-      if ( waterTowerModel.isSluiceOpen && waterTowerModel.faucetMode === 'matchLeakage' ) {
-        // Disable the fill button if the tank is nearly full in match leakage mode to prevent fill button flickering.
-        // See https://github.com/phetsims/fluid-pressure-and-flow/issues/44
-        waterTowerNode.fillButton.enabled = fluidVolume < 0.99 * waterTowerModel.waterTower.TANK_VOLUME;
-      }
-      else {
-        waterTowerNode.fillButton.enabled = (fluidVolume < waterTowerModel.waterTower.TANK_VOLUME);
-      }
+    waterTowerModel.tankFullLevelDurationProperty.link( function( tankFullLevelDuration ) {
+      waterTowerNode.fillButton.enabled = (tankFullLevelDuration < 1);
     } );
 
   }

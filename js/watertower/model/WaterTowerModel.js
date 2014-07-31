@@ -59,7 +59,10 @@ define( function( require ) {
         faucetMode: 'manual', //manual or matchLeakage
         scale: 1, // scale coefficient
         //speed of the model, either 'normal' or 'slow'
-        speed: 'normal'
+        speed: 'normal',
+        // the number of seconds tank has been full for. This property is used to enable/disable the fill button.
+        // Fill button is disabled only when the tank has been full for at least 1 sec
+        tankFullLevelDuration: 0
       }
     );
 
@@ -213,7 +216,7 @@ define( function( require ) {
           newWaterDrop.step( this.accumulatedDt );
           this.newWaterTowerDrops.push( newWaterDrop );
 
-          if ( (this.faucetMode === 'matchLeakage' && this.waterTower.fluidVolume < this.waterTower.TANK_VOLUME ) || this.faucetMode === 'manual' ) {
+          if ( this.faucetMode === 'manual' ) {
             this.waterTower.fluidVolume = this.waterTower.fluidVolume - this.leakageVolume;
           }
           this.accumulatedWaterExpelled += this.leakageVolume;
@@ -233,7 +236,7 @@ define( function( require ) {
             this.hoseDrops.push( newHoseDrop );
             newHoseDrop.step( this.accumulatedDt );
             this.newHoseDrops.push( newHoseDrop );
-            if ( (this.faucetMode === 'matchLeakage' && this.waterTower.fluidVolume < this.waterTower.TANK_VOLUME ) || this.faucetMode === 'manual' ) {
+            if ( this.faucetMode === 'manual' ) {
               this.waterTower.fluidVolume = this.waterTower.fluidVolume - this.leakageVolume;
             }
           }
@@ -252,7 +255,7 @@ define( function( require ) {
         if ( this.faucetDrops.get( i ).position.y < 0.2 + this.waterTower.tankPosition.y + ((this.waterTower.fluidLevel > this.faucetDrops.get( i ).radius) ? this.waterTower.fluidLevel + this.faucetDrops.get( i ).radius : 2 * this.faucetDrops.get( i ).radius) ) {
           this.dropsToRemove.push( this.faucetDrops.get( i ) );
 
-          if ( this.waterTower.fluidVolume < this.waterTower.TANK_VOLUME ) {
+          if ( this.waterTower.fluidVolume < this.waterTower.TANK_VOLUME && this.faucetMode === 'manual' ) {
             this.waterTower.fluidVolume = this.waterTower.fluidVolume + this.faucetDrops.get( i ).volume;
           }
 
@@ -260,6 +263,17 @@ define( function( require ) {
             this.waterTower.fluidVolume = this.waterTower.TANK_VOLUME;
           }
         }
+      }
+
+      // update the value only when it is less than 1. We are only interested in the 1 sec boundary.
+      // Otherwise it will trigger too many updates.
+      if ( this.waterTower.fluidVolume >= this.waterTower.TANK_VOLUME ) {
+        if ( this.tankFullLevelDuration < 1 ) {
+          this.tankFullLevelDuration += dt;
+        }
+      }
+      else {
+        this.tankFullLevelDuration = 0;
       }
 
       // update the faucet flow rate every 2 seconds
@@ -302,9 +316,9 @@ define( function( require ) {
       }
       this.hoseDrops.removeAll( this.dropsToRemove );
 
-      // update sensor values only about 10 times per sec
-      if ( this.accumulatedDtForSensors > 0.1 ) {
-        this.accumulatedDtForSensors -= 0.1;
+      // update sensor values only about 20 times per sec
+      if ( this.accumulatedDtForSensors > 0.05 ) {
+        this.accumulatedDtForSensors -= 0.05;
         for ( var k = 0; k < this.speedometers.length; k++ ) {
           this.speedometers[k].value = this.getWaterDropVelocityAt( this.modelViewTransform.viewToModelX( this.speedometers[k].position.x + 50 ), this.modelViewTransform.viewToModelY( this.speedometers[k].position.y + 75 ) );
         }
