@@ -119,6 +119,9 @@ define( function( require ) {
     this.addInputListener( new MovableDragHandler( {locationProperty: velocitySensor.positionProperty, dragBounds: dragBounds},
       ModelViewTransform2.createIdentity(),
       {
+        startDrag: function() {
+          velocitySensorNode.moveToFront();
+        },
         endDrag: function() {
           if ( containerBounds.intersectsBounds( velocitySensorNode.visibleBounds ) ) {
             velocitySensor.positionProperty.reset();
@@ -136,8 +139,8 @@ define( function( require ) {
     // Update the text when the value or units changes.
     Property.multilink( [velocitySensor.valueProperty, waterTowerModel.measureUnitsProperty], function( velocity, units ) {
       labelText.text = units === 'metric' ?
-                       velocity.magnitude().toFixed( 2 ) + ' ' + mPerS :
-                       (velocity.magnitude() * 3.28).toFixed( 2 ) + ' ' + ftPerS;
+                       velocity.magnitude().toFixed( 1 ) + ' ' + mPerS :
+                       (velocity.magnitude() * 3.28).toFixed( 1 ) + ' ' + ftPerS;
       labelText.center = innerMostRectangle.center;
     } );
 

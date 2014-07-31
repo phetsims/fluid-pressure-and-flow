@@ -85,6 +85,9 @@ define( function( require ) {
     this.addInputListener( new MovableDragHandler( {locationProperty: barometer.positionProperty, dragBounds: dragBounds},
       ModelViewTransform2.createIdentity(),
       {
+        startDrag: function() {
+          barometerNode.moveToFront();
+        },
         endDrag: function() {
           if ( containerBounds.intersectsBounds( barometerNode.visibleBounds ) ) {
             barometer.positionProperty.reset();
