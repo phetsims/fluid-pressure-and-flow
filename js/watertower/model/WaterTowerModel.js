@@ -191,7 +191,7 @@ define( function( require ) {
       while ( this.accumulatedDt > 0.016 ) {
         this.accumulatedDt -= 0.016;
         if ( (this.faucetMode === "manual" && this.isFaucetEnabled ) || (this.faucetMode === "matchLeakage" && this.isSluiceOpen && this.waterTower.fluidVolume > 0) ) {
-          newFaucetDrop = new WaterDrop( this.faucetPosition.copy().plus( new Vector2( Math.random() * 0.2 - 0.1, 0.5 ) ), new Vector2( 0, 0 ), this.faucetMode === "manual" ? this.faucetFlowRate * 0.016 : this.leakageVolume );
+          newFaucetDrop = new WaterDrop( this.faucetPosition.copy().plus( new Vector2( Math.random() * 0.2 - 0.1, 1.5 ) ), new Vector2( 0, 0 ), this.faucetMode === "manual" ? this.faucetFlowRate * 0.016 : this.leakageVolume );
           this.faucetDrops.push( newFaucetDrop );
           this.newFaucetDrops.push( newFaucetDrop );
           newFaucetDrop.step( this.accumulatedDt );
@@ -208,10 +208,20 @@ define( function( require ) {
           }
           var remainingVolume = this.waterTower.fluidVolume;
           this.leakageVolume = remainingVolume > waterVolumeExpelled ? waterVolumeExpelled : remainingVolume;
-
+          var dropVolume = this.leakageVolume;
           var radius = Util.cubeRoot( (3 * this.leakageVolume) / (4 * Math.PI) );
 
-          newWaterDrop = new WaterDrop( this.waterTower.tankPosition.plus( new Vector2( 2 * this.waterTower.TANK_RADIUS + Math.random() * 0.2, 2 * radius + 0.3 ) ), new Vector2( this.velocityMagnitude, 0 ), this.leakageVolume );
+          // when the fluid level is less than the sluice hole, ensure that the water drops are not bigger than the fluid level
+          if ( this.waterTower.fluidLevel < this.waterTower.HOLE_SIZE && radius > this.waterTower.fluidLevel / 2 ) {
+            radius = this.waterTower.fluidLevel / 2;
+            // ensure a minimum radius so that the water drop is visible on the screen
+            if ( radius < 0.1 ) {
+              radius = 0.1;
+            }
+            dropVolume = 4 * Math.PI * radius * radius * radius / 3;
+          }
+
+          newWaterDrop = new WaterDrop( this.waterTower.tankPosition.plus( new Vector2( 2 * this.waterTower.TANK_RADIUS, 0.75 + radius ) ), new Vector2( this.velocityMagnitude, 0 ), dropVolume );
           this.waterTowerDrops.push( newWaterDrop );
           newWaterDrop.step( this.accumulatedDt );
           this.newWaterTowerDrops.push( newWaterDrop );
@@ -265,7 +275,7 @@ define( function( require ) {
         }
       }
 
-      // update the value only when it is less than 1. We are only interested in the 1 sec boundary.
+      // Update the value only when it is less than 1. We are only interested in the 1 sec boundary.
       // Otherwise it will trigger too many updates.
       if ( this.waterTower.fluidVolume >= this.waterTower.TANK_VOLUME ) {
         if ( this.tankFullLevelDuration < 1 ) {
@@ -283,6 +293,12 @@ define( function( require ) {
         }
         this.accumulatedWaterExpelled = 0;
         this.accumulatedDtForFlowRate = 0;
+      }
+
+      // If fluid volume is very low(the fluid level is less than 1 px height) then it doesn't show on the tower.
+      // At this point, set the fluid volume to 0, so that no water drops emerge from a seemingly empty tank.
+      if ( this.waterTower.fluidVolume <= 0.004 * this.waterTower.TANK_VOLUME ) {
+        this.waterTower.fluidVolume = 0;
       }
 
       this.faucetDrops.removeAll( this.dropsToRemove );
@@ -316,11 +332,11 @@ define( function( require ) {
       }
       this.hoseDrops.removeAll( this.dropsToRemove );
 
-      // update sensor values only about 20 times per sec
-      if ( this.accumulatedDtForSensors > 0.05 ) {
-        this.accumulatedDtForSensors -= 0.05;
+      // update sensor values only about 10 times per sec
+      if ( this.accumulatedDtForSensors > 0.1 ) {
+        this.accumulatedDtForSensors -= 0.1;
         for ( var k = 0; k < this.speedometers.length; k++ ) {
-          this.speedometers[k].value = this.getWaterDropVelocityAt( this.modelViewTransform.viewToModelX( this.speedometers[k].position.x + 50 ), this.modelViewTransform.viewToModelY( this.speedometers[k].position.y + 75 ) );
+          this.speedometers[k].value = this.getWaterDropVelocityAt( this.modelViewTransform.viewToModelX( this.speedometers[k].position.x + 50 ), this.modelViewTransform.viewToModelY( this.speedometers[k].position.y + 72 ) );
         }
 
         for ( k = 0; k < this.barometers.length; k++ ) {
