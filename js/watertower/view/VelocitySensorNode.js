@@ -97,18 +97,23 @@ define( function( require ) {
     velocitySensor.valueProperty.link( function( velocity ) {
       this.arrowShape.setShape( new ArrowShape( 0, 0, this.modelViewTransform.modelToViewDeltaX( this.velocitySensor.value.x ), this.modelViewTransform.modelToViewDeltaY( this.velocitySensor.value.y ) ) );
       // set the arrowShape path position.
+      // using approximate values (for better performance) instead of using exact values computed using sin, cos.
+      // Note: the arrow position could be off the center of the sensor tip by a pixel in some cases.
       if ( this.arrowShape.bounds.isFinite() ) {
-        if ( velocity.y > 0 ) {
-          this.arrowShape.bottom = outerTriangleShapeNode.bottom;
+        if ( velocity.y >= 0 ) {
+          this.arrowShape.bottom = outerTriangleShapeNode.bottom + 2;//3 * Math.cos( Math.abs( velocity.angle() ) );
         }
         else {
-          this.arrowShape.top = outerTriangleShapeNode.bottom;
+          this.arrowShape.top = outerTriangleShapeNode.bottom - 2;//3 * Math.cos( Math.abs( velocity.angle() ) );
         }
         if ( velocity.x > 0 ) {
-          this.arrowShape.left = outerRectangle.centerX;
+          this.arrowShape.left = outerRectangle.centerX - 1.5;//3  * Math.sin( Math.abs( velocity.angle() ) );
+        }
+        else if ( velocity.x === 0 ) {
+          this.arrowShape.left = outerRectangle.centerX - 5;
         }
         else {
-          this.arrowShape.right = outerRectangle.centerX;
+          this.arrowShape.right = outerRectangle.centerX + 1.5; //3 * Math.sin( Math.abs( velocity.angle() ) );
         }
       }
     }.bind( velocitySensorNode ) );
