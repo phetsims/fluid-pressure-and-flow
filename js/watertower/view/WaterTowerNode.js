@@ -72,7 +72,7 @@ define( function( require ) {
       .lineTo( modelViewTransform.modelToViewX( 2 * waterTower.TANK_RADIUS ), modelViewTransform.modelToViewY( 0 ) )
       .lineTo( modelViewTransform.modelToViewX( 2 * waterTower.TANK_RADIUS ), modelViewTransform.modelToViewY( waterTower.fluidLevel ) )
       .lineTo( modelViewTransform.modelToViewX( 0 ), modelViewTransform.modelToViewY( waterTower.fluidLevel ) ).close();
-    this.waterShapeNode = new Path( waterShape, { bottom: this.waterTankFrame.bottom - 1, fill: fluidColorModel.color} );
+    this.waterShapeNode = new Path( waterShape, { bottom: this.waterTankFrame.bottom - 2, fill: fluidColorModel.color} );
     this.addChild( this.waterShapeNode );
 
     this.addChild( this.waterTankFrame );
