@@ -226,7 +226,7 @@ define( function( require ) {
 
     waterTowerModel.isSluiceOpenProperty.link( function( isSluiceOpen ) {
       if ( isSluiceOpen ) {
-        waterTowerNode.sluiceGate.bottom = waterTowerNode.waterTankFrame.bottom + modelViewTransform.modelToViewDeltaY( waterTowerNode.waterTower.HOLE_SIZE ) - 1;
+        waterTowerNode.sluiceGate.bottom = waterTowerNode.waterTankFrame.bottom + modelViewTransform.modelToViewDeltaY( waterTowerNode.waterTower.HOLE_SIZE ) - 5;
         if ( waterTowerModel.faucetMode === 'matchLeakage' ) {
           waterTowerModel.faucetFlowRate = waterTowerModel.leakageVolume / 0.016;
         }
