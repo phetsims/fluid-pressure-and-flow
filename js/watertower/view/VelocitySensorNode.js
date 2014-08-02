@@ -21,6 +21,7 @@ define( function( require ) {
   var LinearGradient = require( 'SCENERY/util/LinearGradient' );
   var ArrowShape = require( 'SCENERY_PHET/ArrowShape' );
   var Vector2 = require( 'DOT/Vector2' );
+  var Bounds2 = require( 'DOT/Bounds2' );
 
 
   // strings
@@ -128,7 +129,9 @@ define( function( require ) {
           velocitySensorNode.moveToFront();
         },
         endDrag: function() {
-          if ( containerBounds.intersectsBounds( velocitySensorNode.visibleBounds ) ) {
+          // check intersection only with the outer rectangle.
+          // Add a 5px tolerance. See https://github.com/phetsims/fluid-pressure-and-flow/issues/105
+          if ( containerBounds.intersectsBounds( Bounds2.rect( velocitySensor.position.x, velocitySensor.position.y, rectangleWidth, rectangleHeight ).eroded( 5 ) ) ) {
             velocitySensor.positionProperty.reset();
             velocitySensor.value = new Vector2( 0, 0 );
           }
