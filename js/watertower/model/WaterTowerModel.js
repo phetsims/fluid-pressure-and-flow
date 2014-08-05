@@ -190,7 +190,7 @@ define( function( require ) {
 
       while ( this.accumulatedDt > 0.016 ) {
         this.accumulatedDt -= 0.016;
-        if ( (this.faucetMode === "manual" && this.isFaucetEnabled ) || (this.faucetMode === "matchLeakage" && this.isSluiceOpen && this.waterTower.fluidVolume > 0) ) {
+        if ( (this.faucetMode === "manual" && this.isFaucetEnabled && this.faucetFlowRate > 0) || (this.faucetMode === "matchLeakage" && this.isSluiceOpen && this.waterTower.fluidVolume > 0) ) {
           newFaucetDrop = new WaterDrop( this.faucetPosition.copy().plus( new Vector2( Math.random() * 0.2 - 0.1, 1.5 ) ), new Vector2( 0, 0 ), this.faucetMode === "manual" ? this.faucetFlowRate * 0.016 : this.leakageVolume );
           this.faucetDrops.push( newFaucetDrop );
           this.newFaucetDrops.push( newFaucetDrop );
@@ -301,7 +301,9 @@ define( function( require ) {
         this.waterTower.fluidVolume = 0;
       }
 
-      this.faucetDrops.removeAll( this.dropsToRemove );
+      if ( this.dropsToRemove.length > 0 ) {
+        this.faucetDrops.removeAll( this.dropsToRemove );
+      }
 
       this.dropsToRemove = [];
       for ( i = 0, numberOfDrops = this.waterTowerDrops.length; i < numberOfDrops; i++ ) {
@@ -315,7 +317,10 @@ define( function( require ) {
           this.dropsToRemove.push( this.waterTowerDrops.get( i ) );
         }
       }
-      this.waterTowerDrops.removeAll( this.dropsToRemove );
+
+      if ( this.dropsToRemove.length > 0 ) {
+        this.waterTowerDrops.removeAll( this.dropsToRemove );
+      }
 
       //hose
       this.dropsToRemove = [];
@@ -330,10 +335,14 @@ define( function( require ) {
           this.dropsToRemove.push( this.hoseDrops.get( i ) );
         }
       }
-      this.hoseDrops.removeAll( this.dropsToRemove );
+
+      if ( this.dropsToRemove.length > 0 ) {
+        this.hoseDrops.removeAll( this.dropsToRemove );
+      }
 
       // update sensor values only about 10 times per sec
-      if ( this.accumulatedDtForSensors > 0.1 ) {
+      // update the sensor values only when water is flowing
+      if ( this.accumulatedDtForSensors > 0.1 && (this.hoseDrops.length > 0 || this.waterTowerDrops.length > 0 || this.faucetDrops.length > 0)) {
         this.accumulatedDtForSensors -= 0.1;
         for ( var k = 0; k < this.speedometers.length; k++ ) {
           this.speedometers[k].value = this.getWaterDropVelocityAt( this.modelViewTransform.viewToModelX( this.speedometers[k].position.x + 50 ), this.modelViewTransform.viewToModelY( this.speedometers[k].position.y + 72 ) );
