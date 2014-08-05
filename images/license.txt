@@ -1,3 +1,12 @@
+handle-two-sided.png source=PhET author=gruneich
+handle-with-bar.png source=PhET author=gruneich
 handle.png source=PhET author=gruneich
+injector-bulb.png source=PhET author=gruneich
+measuring-tape.png source=PhET author=gruneich
 nozzle.png source=PhET author=gruneich
+pipe-left.png source=PhET author=gruneich
+pipe-right.png source=PhET author=gruneich
+pipe-segment.png source=PhET author=gruneich
+spout-handle.png source=PhET author=gruneich
+water-tower-mockup.png source=PhET author=gruneich
 wheel.png source=PhET author=gruneich
