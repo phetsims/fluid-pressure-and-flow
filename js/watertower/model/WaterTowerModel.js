@@ -297,7 +297,7 @@ define( function( require ) {
 
       // If fluid volume is very low(the fluid level is less than 1 px height) then it doesn't show on the tower.
       // At this point, set the fluid volume to 0, so that no water drops emerge from a seemingly empty tank.
-      if ( this.waterTower.fluidVolume <= 0.004 * this.waterTower.TANK_VOLUME ) {
+      if ( this.waterTower.fluidVolume <= 0.004 * this.waterTower.TANK_VOLUME && this.faucetFlowRate === 0 ) {
         this.waterTower.fluidVolume = 0;
       }
 
