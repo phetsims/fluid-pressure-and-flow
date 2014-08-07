@@ -71,6 +71,7 @@
   "fluidC": "Fluid C",
   "feet": "feet",
   "meters": "meters",
-  "speed" : "Speed",
-  "speedMeter": "speed meter"
+  "speed": "Speed",
+  "speedMeter": "speed meter",
+  "flowScreenTitle": "Flow"
 }
