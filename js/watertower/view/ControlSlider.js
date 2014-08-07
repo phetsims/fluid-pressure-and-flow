@@ -118,7 +118,6 @@ define( function( require ) {
       valueLabel.center = valueField.center; // keep the value centered in the field
       plusButton.setEnabled( value < trackRange.max );
       minusButton.setEnabled( value > trackRange.min );
-      waterTowerModel.fluidDensity = value;
     } );
 
     waterTowerModel.measureUnitsProperty.link( function() {
