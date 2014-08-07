@@ -12,13 +12,17 @@ define( function( require ) {
   var WaterTowerModel = require( 'FLUID_PRESSURE_AND_FLOW/watertower/model/WaterTowerModel' );
   var WaterTowerView = require( 'FLUID_PRESSURE_AND_FLOW/watertower/view/WaterTowerView' );
   var inherit = require( 'PHET_CORE/inherit' );
+  var Image = require( 'SCENERY/nodes/Image' );
   var Screen = require( 'JOIST/Screen' );
 
   // strings
   var waterTowerTitleString = require( 'string!FLUID_PRESSURE_AND_FLOW/waterTowerScreenTitle' );
 
+  // images
+  var waterTowerScreenIcon = require( 'image!FLUID_PRESSURE_AND_FLOW/water-tower-mockup.png' );
+
   function WaterTowerScreen() {
-    Screen.call( this, waterTowerTitleString, null /* no icon, single-screen sim */,
+    Screen.call( this, waterTowerTitleString, new Image( waterTowerScreenIcon ),
       function() { return new WaterTowerModel(); },
       function( model ) { return new WaterTowerView( model ); },
       { backgroundColor: 'white' }
