@@ -10,6 +10,7 @@ define( function( require ) {
 
   // modules
   var WaterTowerScreen = require( 'FLUID_PRESSURE_AND_FLOW/watertower/WaterTowerScreen' );
+  var FlowScreen = require( 'FLUID_PRESSURE_AND_FLOW/flow/FlowScreen' );
   var Sim = require( 'JOIST/Sim' );
   var SimLauncher = require( 'JOIST/SimLauncher' );
 
@@ -29,7 +30,7 @@ define( function( require ) {
   };
 
   SimLauncher.launch( function() {
-    var sim = new Sim( simTitle, [ new WaterTowerScreen() ], simOptions );
+    var sim = new Sim( simTitle, [ new WaterTowerScreen(), new FlowScreen() ], simOptions );
     sim.start();
   } );
 } );
