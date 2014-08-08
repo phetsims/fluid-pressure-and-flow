@@ -29,6 +29,8 @@ define( function( require ) {
       waterDropNode.setTranslation( modelViewTransform.modelToViewX( position.x ), modelViewTransform.modelToViewY( position.y ) );
     } );
 
+    fluidColorModel.colorProperty.linkAttribute( waterDropNode, 'fill' );
+
     this.mutate( options );
   }
 
