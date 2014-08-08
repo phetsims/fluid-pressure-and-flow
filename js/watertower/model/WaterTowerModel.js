@@ -366,6 +366,10 @@ define( function( require ) {
     getWaterDropVelocityAt: function( x, y ) {
       var waterDrops = this.waterTowerDrops;
 
+      if ( y < 0.4 ) {
+        return Vector2.ZERO;
+      }
+
       for ( var i = 0, j = waterDrops.length; i < j; i++ ) {
         if ( waterDrops.get( i ).contains( new Vector2( x, y ) ) ) {
           return waterDrops.get( i ).velocity;

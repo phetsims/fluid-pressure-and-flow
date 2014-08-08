@@ -141,7 +141,7 @@ define( function( require ) {
     velocitySensor.positionProperty.linkAttribute( velocitySensorNode, 'translation' );
 
     velocitySensor.positionProperty.link( function( position ) {
-      velocitySensor.value = waterTowerModel.getWaterDropVelocityAt( modelViewTransform.viewToModelX( position.x + 50 ), modelViewTransform.viewToModelY( position.y + 75 ) );
+      velocitySensor.value = waterTowerModel.getWaterDropVelocityAt( modelViewTransform.viewToModelX( position.x + 50 ), modelViewTransform.viewToModelY( position.y + 72 ) );
     } );
 
     // Update the text when the value or units changes.
