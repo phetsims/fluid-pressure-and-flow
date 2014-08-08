@@ -111,7 +111,7 @@ define( function( require ) {
     this.addChild( this.toolsControlPanel );
     this.addChild( new UnitsControlPanel( waterTowerModel.measureUnitsProperty, this.toolsControlPanel.width, {left: this.toolsControlPanel.left, top: this.toolsControlPanel.bottom + inset} ) );
 
-    var measuringTape = new MeasuringTape( waterTowerModel );
+    var measuringTape = new MeasuringTape( waterTowerModel, this.layoutBounds );
     // add reset button near the bottom right
     var resetAllButton = new ResetAllButton( {
       listener: function() {

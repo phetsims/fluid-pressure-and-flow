@@ -34,9 +34,10 @@ define( function( require ) {
   /**
    * Constructor for the measuring tape
    * @param {WaterTowerModel} waterTowerModel of the simulation
+   * @param {Bounds2} layoutBounds of the simulation
    * @constructor
    */
-  function MeasuringTape( waterTowerModel ) {
+  function MeasuringTape( waterTowerModel, layoutBounds ) {
     var measuringTape = this;
     Node.call( this );
     this.prevScale = 1;
@@ -81,6 +82,10 @@ define( function( require ) {
         }
         var x = measuringTape.globalToParentPoint( e.pointer.point ).x - clickXOffset;
         var y = measuringTape.globalToParentPoint( e.pointer.point ).y - clickYOffset;
+
+        x = (x < layoutBounds.left ) ? layoutBounds.left : (x > layoutBounds.right) ? layoutBounds.right : x;
+        y = (y < layoutBounds.top + 10) ? layoutBounds.top + 10 : (y > layoutBounds.bottom) ? layoutBounds.bottom : y;
+
         measuringTape.translate( x, y, v );
       }
     } ) );
