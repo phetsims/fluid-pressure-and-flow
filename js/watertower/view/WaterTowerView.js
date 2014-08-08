@@ -241,6 +241,7 @@ define( function( require ) {
 
     waterTowerModel.tankFullLevelDurationProperty.link( function( tankFullLevelDuration ) {
       waterTowerNode.fillButton.enabled = (tankFullLevelDuration < 1);
+      waterTowerModel.isFaucetEnabled = (tankFullLevelDuration < 1);
     } );
 
   }
