@@ -33,13 +33,14 @@ define( function( require ) {
    *
    * @param {WaterTowerModel} waterTowerModel of simulation
    * @param {ModelViewTransform2} modelViewTransform , Transform between model and view coordinate frames
-   * @param {Property} barometer - the barometer model
+   * @param {Barometer} barometer - the barometer model
+   * @param {Property[]} linkedProperties - the set of properties which affect the barometer value
    * @param {Bounds2} containerBounds - bounds of container for all barometers, needed to snap barometer to initial position when it in container
    * @param {Bounds2} dragBounds - bounds that define where the barometer may be dragged
    * @param {options} options that can be passed on to the underlying node
    * @constructor
    */
-  function BarometerNode( waterTowerModel, modelViewTransform, barometer, containerBounds, dragBounds, options ) {
+  function BarometerNode( waterTowerModel, modelViewTransform, barometer, linkedProperties, containerBounds, dragBounds, options ) {
     var barometerNode = this;
 
     Node.call( this, {cursor: 'pointer'} );
@@ -96,7 +97,7 @@ define( function( require ) {
       } ) );
 
     //Update the value in the barometer value model by reading from the model.
-    Property.multilink( [barometer.positionProperty, waterTowerModel.fluidDensityProperty], function( position, fluidDensity ) {
+    Property.multilink( [barometer.positionProperty].concat( linkedProperties ), function( position ) {
       barometer.valueProperty.set( waterTowerModel.getPressureAtCoords( modelViewTransform.viewToModelX( position.x ), modelViewTransform.viewToModelY( position.y + (65) ) ) );
     } );
 

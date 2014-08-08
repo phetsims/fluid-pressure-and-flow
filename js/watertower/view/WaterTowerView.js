@@ -179,7 +179,7 @@ define( function( require ) {
     _.each( waterTowerModel.barometers, function( barometer ) {
       barometer.positionProperty.storeInitialValue( new Vector2( sensorPanel.visibleBounds.centerX + 55, sensorPanel.visibleBounds.centerY - 15 ) );
       barometer.reset();
-      this.addChild( new BarometerNode( waterTowerModel, modelViewTransform, barometer, sensorPanel.visibleBounds, this.layoutBounds ) );
+      this.addChild( new BarometerNode( waterTowerModel, modelViewTransform, barometer, [waterTowerModel.fluidDensityProperty, waterTowerModel.waterTower.tankPositionProperty, waterTowerModel.waterTower.fluidVolumeProperty], sensorPanel.visibleBounds, this.layoutBounds ) );
     }.bind( this ) );
 
     // add speedometers within the sensor panel bounds
