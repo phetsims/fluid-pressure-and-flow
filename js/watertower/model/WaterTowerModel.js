@@ -183,6 +183,8 @@ define( function( require ) {
       var newFaucetDrop;
       var newWaterDrop;
       var newHoseDrop;
+      var remainingVolume;
+      var waterVolumeExpelled;
 
       this.newFaucetDrops = [];
       this.newWaterTowerDrops = [];
@@ -197,16 +199,15 @@ define( function( require ) {
           newFaucetDrop.step( this.accumulatedDt );
         }
 
-        //Add watertower drops if the tank is open and there is fluid in the tank
-        if ( this.isSluiceOpen && this.waterTower.fluidVolume > 0 && !this.isHoseVisible ) {
+        // Add watertower drops if the tank is open and there is enough fluid in the tank to be visible on the tower
+        // If fluid volume is very low (the fluid level is less than 1 px height) then it doesn't show on the tower.
+        if ( this.isSluiceOpen && this.waterTower.fluidVolume > 0.004 * this.waterTower.TANK_VOLUME && !this.isHoseVisible ) {
 
           this.velocityMagnitude = Math.sqrt( 2 * Constants.EARTH_GRAVITY * this.waterTower.fluidLevel );
 
-          var waterVolumeExpelled = this.velocityMagnitude * 2 * dt;
-          if ( this.speed !== "normal" ) {
-            waterVolumeExpelled *= 3;
-          }
-          var remainingVolume = this.waterTower.fluidVolume;
+          waterVolumeExpelled = this.velocityMagnitude * 2 * 0.016;
+
+          remainingVolume = this.waterTower.fluidVolume;
           this.leakageVolume = remainingVolume > waterVolumeExpelled ? waterVolumeExpelled : remainingVolume;
           var dropVolume = this.leakageVolume;
           var radius = Util.cubeRoot( (3 * this.leakageVolume) / (4 * Math.PI) );
@@ -232,16 +233,20 @@ define( function( require ) {
           this.accumulatedWaterExpelled += this.leakageVolume;
         }
 
-        //Add hose waterDrops if the tank is open and there fluid in the tank and hose visible
-        if ( this.isSluiceOpen && this.waterTower.fluidVolume > 0 && this.isHoseVisible ) {
+        // Add hose drops if the tank is open and there is enough fluid in the tank to be visible on the tower and the hose is visible
+        // If fluid volume is very low (the fluid level is less than 1px height) then it doesn't show on the tower.
+        if ( this.isSluiceOpen && this.waterTower.fluidVolume > 0.004 * this.waterTower.TANK_VOLUME && this.isHoseVisible ) {
           this.leakageVolume = 0;
           var y = this.hose.rotationPivotY + this.waterTower.tankPosition.y;
           if ( y < this.waterTower.fluidLevel + this.waterTower.tankPosition.y ) {
-            this.leakageVolume = 1;
-            var velocityMagnitude = Math.sqrt( 2 * Constants.EARTH_GRAVITY * (this.waterTower.tankPosition.y + this.waterTower.fluidLevel - y) );
-            newHoseDrop = new WaterDrop( new Vector2( this.hose.rotationPivotX + this.waterTower.tankPosition.x + 2 * this.waterTower.TANK_RADIUS + Math.random() * 0.4 - 0.2,
-                  y + 0.5 + Math.random() * 0.4 - 0.2 ),
-              new Vector2( velocityMagnitude * Math.cos( this.hose.angle ), velocityMagnitude * Math.sin( this.hose.angle ) ), this.leakageVolume );
+            this.velocityMagnitude = Math.sqrt( 2 * Constants.EARTH_GRAVITY * (this.waterTower.tankPosition.y + this.waterTower.fluidLevel - y) );
+            waterVolumeExpelled = this.velocityMagnitude * 2 * 0.016;
+            remainingVolume = this.waterTower.fluidVolume;
+            this.leakageVolume = remainingVolume > waterVolumeExpelled ? waterVolumeExpelled : remainingVolume;
+
+            newHoseDrop = new WaterDrop( new Vector2( this.hose.rotationPivotX + this.waterTower.tankPosition.x + 2 * this.waterTower.TANK_RADIUS + Math.random() * 0.2 - 0.1,
+                  y + 0.5 + Math.random() * 0.2 - 0.1 ),
+              new Vector2( this.velocityMagnitude * Math.cos( this.hose.angle ), this.velocityMagnitude * Math.sin( this.hose.angle ) ), this.leakageVolume );
 
             this.hoseDrops.push( newHoseDrop );
             newHoseDrop.step( this.accumulatedDt );
@@ -293,12 +298,6 @@ define( function( require ) {
         }
         this.accumulatedWaterExpelled = 0;
         this.accumulatedDtForFlowRate = 0;
-      }
-
-      // If fluid volume is very low(the fluid level is less than 1 px height) then it doesn't show on the tower.
-      // At this point, set the fluid volume to 0, so that no water drops emerge from a seemingly empty tank.
-      if ( this.waterTower.fluidVolume <= 0.004 * this.waterTower.TANK_VOLUME && this.faucetFlowRate === 0 ) {
-        this.waterTower.fluidVolume = 0;
       }
 
       if ( this.dropsToRemove.length > 0 ) {
