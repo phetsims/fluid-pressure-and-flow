@@ -98,7 +98,7 @@ define( function( require ) {
 
     //Update the value in the barometer value model by reading from the model.
     Property.multilink( [barometer.positionProperty].concat( linkedProperties ), function( position ) {
-      barometer.valueProperty.set( waterTowerModel.getPressureAtCoords( modelViewTransform.viewToModelX( position.x ), modelViewTransform.viewToModelY( position.y + (65) ) ) );
+      barometer.valueProperty.set( waterTowerModel.getPressureAtCoords( modelViewTransform.viewToModelX( position.x ), modelViewTransform.viewToModelY( position.y + (62) ) ) );
     } );
 
     //Update the text when the value or units changes.
