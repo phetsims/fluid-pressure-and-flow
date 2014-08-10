@@ -37,7 +37,7 @@ define( function( require ) {
    * @constructor
    */
   function WaterTowerNode( waterTower, fluidColorModel, modelViewTransform, hoseNode, options ) {
-    var waterTowerView = this;
+    var waterTowerNode = this;
     options = _.extend( {
       towerFrameColor: 'black'
     }, options );
@@ -127,26 +127,25 @@ define( function( require ) {
     var initialHeight;
     handleNode.addInputListener( new SimpleDragHandler( {
       start: function( e ) {
-        clickYOffset = waterTowerView.globalToParentPoint( e.pointer.point ).y;
+        clickYOffset = waterTowerNode.globalToParentPoint( e.pointer.point ).y;
         initialY = waterTower.tankPosition.y;
         initialHeight = hoseNode.hose.height;
       },
       drag: function( e ) {
-        var deltaY = waterTowerView.globalToParentPoint( e.pointer.point ).y - clickYOffset;
+        var deltaY = waterTowerNode.globalToParentPoint( e.pointer.point ).y - clickYOffset;
         deltaY = modelViewTransform.viewToModelDeltaY( deltaY );
         var newY = initialY + deltaY;
-        //restrict the tank bottom to be between 0.1 and 1.7 meters
         newY = newY > 13 ? 13 : newY < 0 ? 0 : newY;
         deltaY = newY - initialY;
-        waterTowerView.waterTower.tankPosition = new Vector2( waterTowerView.waterTower.tankPosition.x, newY );
+        waterTowerNode.waterTower.tankPosition = new Vector2( waterTowerNode.waterTower.tankPosition.x, newY );
 
         hoseNode.hose.height = initialHeight + deltaY;
-        hoseNode.setY( modelViewTransform.modelToViewY( waterTowerView.waterTower.tankPosition.y ) - 130 );
+        hoseNode.setY( modelViewTransform.modelToViewY( waterTowerNode.waterTower.tankPosition.y ) - 122 );
       }
     } ) );
 
     waterTower.tankPositionProperty.link( function( tankPosition ) {
-      waterTowerView.bottom = ( tankPosition.y > 1.6 ) ? modelViewTransform.modelToViewY( 0 ) - 6 : modelViewTransform.modelToViewY( tankPosition.y ) + 10;
+      waterTowerNode.bottom = ( tankPosition.y > 1.6 ) ? modelViewTransform.modelToViewY( 0 ) : modelViewTransform.modelToViewY( tankPosition.y - 1.6 );
     } );
 
     waterTower.fluidVolumeProperty.link( function() {
@@ -155,11 +154,11 @@ define( function( require ) {
         .lineTo( modelViewTransform.modelToViewX( 2 * waterTower.TANK_RADIUS ), modelViewTransform.modelToViewY( 0 ) )
         .lineTo( modelViewTransform.modelToViewX( 2 * waterTower.TANK_RADIUS ), modelViewTransform.modelToViewY( waterTower.fluidLevel ) )
         .lineTo( modelViewTransform.modelToViewX( 0 ), modelViewTransform.modelToViewY( waterTower.fluidLevel ) ).close();
-      waterTowerView.waterShapeNode.setShape( waterShape );
+      waterTowerNode.waterShapeNode.setShape( waterShape );
     } );
 
 
-    fluidColorModel.colorProperty.linkAttribute( waterTowerView.waterShapeNode, 'fill' );
+    fluidColorModel.colorProperty.linkAttribute( waterTowerNode.waterShapeNode, 'fill' );
 
     this.setTranslation( modelViewTransform.modelToViewDeltaX( waterTower.tankPosition.x ), -modelViewTransform.modelToViewDeltaY( waterTower.tankPosition.y ) );
 
