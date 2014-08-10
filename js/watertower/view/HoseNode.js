@@ -215,8 +215,7 @@ define( function( require ) {
      * @private
      */
     updateHoseHeight: function( height ) {
-      //bound the hose to ground and 3.3 mtr above the ground
-      height = height > this.tankPositionProperty.value.y + 2 ? this.tankPositionProperty.value.y + 2 :
+      height = height > this.tankPositionProperty.value.y + 2.1 ? this.tankPositionProperty.value.y + 2.1 :
                height < this.tankPositionProperty.value.y - 25 ? this.tankPositionProperty.value.y - 25 : height;
 
       this.hose.height = height;

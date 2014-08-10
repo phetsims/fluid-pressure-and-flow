@@ -67,7 +67,7 @@ define( function( require ) {
       new Vector2( 0, 350 ),
       10 ); //1m = 10px, (0,0) - top left corner
 
-    var groundY = modelViewTransform.modelToViewY( 0 ) - 6;
+    var groundY = modelViewTransform.modelToViewY( 0 );
 
     // TODO: find a way to not do this
     waterTowerModel.modelViewTransform = modelViewTransform;
@@ -89,6 +89,7 @@ define( function( require ) {
     this.addChild( this.hoseNode );
 
     var waterTowerNode = new WaterTowerNode( waterTowerModel.waterTower, waterTowerModel.fluidColorModel, modelViewTransform, this.hoseNode );
+    waterTowerNode.bottom = modelViewTransform.modelToViewY( 0 );
     this.addChild( waterTowerNode );
 
     var faucetDropsLayer = new Node();
@@ -227,6 +228,7 @@ define( function( require ) {
     waterTowerModel.isSluiceOpenProperty.link( function( isSluiceOpen ) {
       if ( isSluiceOpen ) {
         waterTowerNode.sluiceGate.bottom = waterTowerNode.waterTankFrame.bottom + modelViewTransform.modelToViewDeltaY( waterTowerNode.waterTower.HOLE_SIZE ) - 5;
+        // this is for the immediate position after the gate is opened. It will settle down to a constant value in 2 seconds
         if ( waterTowerModel.faucetMode === 'matchLeakage' ) {
           waterTowerModel.faucetFlowRate = waterTowerModel.leakageVolume / 0.016;
         }

@@ -31,7 +31,7 @@ define( function( require ) {
 
     this.elbowOuterX = 0; //position of the elbow in model co-ordinates
     this.elbowOuterY = 0;
-    this.initialPosition = new Vector2( 17, 23.8 );
+    this.initialPosition = new Vector2( 17, 23.3 );
     this.angleWithVertical = Math.PI / 2 - angle;
 
     this.H3 = 4.3; // spout height
