@@ -90,7 +90,7 @@ define( function( require ) {
     }
 
     Property.multilink( [this.waterTower.isFullProperty, this.faucetModeProperty], function( isFull, faucetMode ) {
-      if ( faucetMode === "manual" ) {
+      if ( faucetMode === 'manual' ) {
         this.isFaucetEnabled = !isFull;
         if ( isFull ) {
           this.faucetFlowRate = 0;
@@ -164,7 +164,7 @@ define( function( require ) {
       // prevent sudden dt bursts on slow devices or when the user comes back to the tab after a while
       dt = ( dt > 0.04 ) ? 0.04 : dt;
       if ( this.isPlay ) {
-        if ( this.speed === "normal" ) {
+        if ( this.speed === 'normal' ) {
           this.stepInternal( dt );
         }
         else {
@@ -192,8 +192,8 @@ define( function( require ) {
 
       while ( this.accumulatedDt > 0.016 ) {
         this.accumulatedDt -= 0.016;
-        if ( (this.faucetMode === "manual" && this.isFaucetEnabled && this.faucetFlowRate > 0) || (this.faucetMode === "matchLeakage" && this.isSluiceOpen && this.waterTower.fluidVolume > 0) ) {
-          newFaucetDrop = new WaterDrop( this.faucetPosition.copy().plus( new Vector2( Math.random() * 0.2 - 0.1, 1.5 ) ), new Vector2( 0, 0 ), this.faucetMode === "manual" ? this.faucetFlowRate * 0.016 : this.leakageVolume );
+        if ( (this.faucetMode === 'manual' && this.isFaucetEnabled && this.faucetFlowRate > 0) || (this.faucetMode === 'matchLeakage' && this.isSluiceOpen && this.waterTower.fluidVolume > 0) ) {
+          newFaucetDrop = new WaterDrop( this.faucetPosition.copy().plus( new Vector2( Math.random() * 0.2 - 0.1, 1.5 ) ), new Vector2( 0, 0 ), this.faucetMode === 'manual' ? this.faucetFlowRate * 0.016 : this.leakageVolume );
           this.faucetDrops.push( newFaucetDrop );
           this.newFaucetDrops.push( newFaucetDrop );
           newFaucetDrop.step( this.accumulatedDt );

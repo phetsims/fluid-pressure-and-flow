@@ -133,7 +133,7 @@ define( function( require ) {
 
     this.addChild( this.notBase );
     waterTowerModel.measureUnitsProperty.link( function( data ) {
-      data === "metric" ? measuringTape.text.setText( measuringTape.getText().toFixed( 2 ) + " " + metersString ) : measuringTape.text.setText( (measuringTape.getText() * 3.28).toFixed( 2 ) + " " + feetString );
+      data === 'metric' ? measuringTape.text.setText( measuringTape.getText().toFixed( 2 ) + ' ' + metersString ) : measuringTape.text.setText( (measuringTape.getText() * 3.28).toFixed( 2 ) + ' ' + feetString );
     } );
 
     // add observers
