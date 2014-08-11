@@ -50,7 +50,15 @@ define( function( require ) {
       trackSize: TRACK_SIZE,
       trackFill: new LinearGradient( 0, 0, TRACK_SIZE.width, 0 )
         .addColorStop( 0, '#fff' )
-        .addColorStop( 1, '#000' )
+        .addColorStop( 1, '#000' ),
+      endDrag: function() {
+        for ( var i = 0; i < options.ticks.length; i++ ) {
+          if ( Math.abs( options.ticks[i].value - trackProperty.value ) <= 0.05 * options.ticks[i].value ) {
+            trackProperty.value = options.ticks[i].value;
+            break;
+          }
+        }
+      }
     } );
 
     // nodes
