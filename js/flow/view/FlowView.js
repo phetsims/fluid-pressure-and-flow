@@ -28,6 +28,8 @@ define( function( require ) {
   var FlowRuler = require( 'FLUID_PRESSURE_AND_FLOW/flow/view/FlowRuler' );
 
   var ParticleNode = require( 'FLUID_PRESSURE_AND_FLOW/flow/view/ParticleNode' );
+  var PipeNode = require( 'FLUID_PRESSURE_AND_FLOW/flow/view/PipeNode' );
+  var FluxMeterNode = require( 'FLUID_PRESSURE_AND_FLOW/flow/view/FluxMeterNode' );
 
   //strings
   var fluidDensityString = require( 'string!FLUID_PRESSURE_AND_FLOW/fluidDensity' );
@@ -45,13 +47,14 @@ define( function( require ) {
     var flowView = this;
     ScreenView.call( this, {renderer: 'svg'} );
 
-    var modelViewTransform = ModelViewTransform2.createRectangleInvertedYMapping( new Bounds2( 0, 0, 5, 10 ), new Bounds2( 0, 0, 680, 1008 ) );
+    var modelViewTransform = ModelViewTransform2.createRectangleInvertedYMapping( new Bounds2( 0, 0, 5, 10 ), new Bounds2( 0, 0, 680, 66 ) );
 
     // add sky node
-    this.addChild( new SkyNode( -5000, 0, 10000, 200, 200 ) );
+    var skyNode = new SkyNode( -5000, 0, 10000, 150, 200 );
+    this.addChild( skyNode );
 
     // add ground node
-    var groundNode = new GroundNode( -5000, 200, 10000, 400, 400, {topColor: '#9D8B61', bottomColor: '#645A3C'} );
+    var groundNode = new GroundNode( -5000, 143, 10000, 400, 400, {topColor: '#9D8B61', bottomColor: '#645A3C'} );
     this.addChild( groundNode );
 
     //grass
@@ -68,9 +71,8 @@ define( function( require ) {
     this.toolsControlPanel = new ToolsControlPanel( flowModel, {right: this.layoutBounds.right - inset, top: inset} );
     this.addChild( this.toolsControlPanel );
 
-
     // units control panel
-    var unitsControlPanel = new UnitsControlPanel( flowModel.measureUnitsProperty, 50, {right: this.toolsControlPanel.left - inset, top: this.toolsControlPanel.top } );
+    var unitsControlPanel = new UnitsControlPanel( flowModel.measureUnitsProperty, 50, {yMargin: 18, right: this.toolsControlPanel.left - inset, top: this.toolsControlPanel.top } );
     this.addChild( unitsControlPanel );
 
 
@@ -105,9 +107,6 @@ define( function( require ) {
     } );
     this.addChild( flowRateSlider );
 
-    // add pipe node
-    // var pipeNode = new PipeNode(flowModel, modelViewTransform, this.layoutBounds, {x: 0, y: 220});
-
     var resetAllButton = new ResetAllButton( {
       listener: function() {
         flowModel.reset();
@@ -121,22 +120,22 @@ define( function( require ) {
     } );
     this.addChild( resetAllButton );
 
+    //adding pipe Node
+    var pipeNode = new PipeNode( flowModel, flowModel.pipeFlowLine, modelViewTransform, this.layoutBounds, {top: skyNode.bottom - 160} );
+    flowModel.pipeFlowLine.reset();
+    this.addChild( pipeNode );
+
+
     // add the sensors panel
-    var sensorPanel = new Rectangle( 0, 0, 190, 105, 10, 10, {stroke: 'gray', lineWidth: 1, fill: '#f2fa6a', right: unitsControlPanel.left - inset, top: this.toolsControlPanel.top} );
-    this.addChild( sensorPanel );
-
-
-    /*var lowerTrackNode = new TrackNode(flowModel, flowModel.lowerTrack, modelViewTransform, {x: 0, y: 300, lineColor: '#00335B', imageRotation: 0});
-     flowView.addChild(lowerTrackNode);
-
-     flowModel.lowerTrack.reset();//TODO :find solution(in TrackNode) not to do this.
-
-
-     this.addChild(pipeNode);*/
+    var sensorPanel = new Rectangle( 0, 0, 190, 95, 10, 10, {stroke: 'gray', lineWidth: 1, fill: '#f2fa6a', right: unitsControlPanel.left - inset, top: this.toolsControlPanel.top} );
+    this.addChild( sensorPanel);
 
     // add particle layer
     var particleLayer = new Node();
     flowView.addChild( particleLayer );
+
+    var fluxMeterNode = new FluxMeterNode( flowModel, modelViewTransform, {stroke: 'blue'} );
+    flowView.addChild( fluxMeterNode);
 
     // add speedometers within the sensor panel bounds
     _.each( flowModel.speedometers, function( velocitySensor ) {
