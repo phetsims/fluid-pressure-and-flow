@@ -19,9 +19,15 @@ define( function( require ) {
   var Text = require( 'SCENERY/nodes/Text' );
   var PhetFont = require( 'SCENERY_PHET/PhetFont' );
   var RulerNode = require( 'SCENERY_PHET/RulerNode' );
+  var Circle = require( 'SCENERY/nodes/Circle' );
+  var Node = require( 'SCENERY/nodes/Node' );
+
 
   // strings
   var rulerString = require( 'string!FLUID_PRESSURE_AND_FLOW/ruler' );
+  var frictionString = require( 'string!FLUID_PRESSURE_AND_FLOW/friction' );
+  var fluxMeterString = require( 'string!FLUID_PRESSURE_AND_FLOW/fluxMeter' );
+  var dotString = require( 'string!FLUID_PRESSURE_AND_FLOW/dots' );
 
   /**
    *
@@ -39,15 +45,19 @@ define( function( require ) {
       lineWidth: 1
     }, options );
 
-    var textOptions = {font: new PhetFont( 14 )};
+    var textOptions = {font: new PhetFont( 12 )};
 
-    //TODO: Remove the width calculation
     // itemSpec describes the pieces that make up an item in the control panel, conforms to the contract: { label: {Node}, icon: {Node} }
     var ruler = { label: new Text( rulerString, textOptions ), icon: createRulerIcon() };
+    var friction = [new Text( frictionString, textOptions )];
+    var fluxMeter = [new Text( fluxMeterString, textOptions )];
+    var dots = { label: new Text( dotString, textOptions ), icon: createDotsIcon()};
 
 
     // compute the maximum item width
-    var widestItemSpec = _.max( [ ruler], function( item ) { return item.label.width + item.icon.width; } );
+    var widestItemSpec = _.max( [ ruler], function( item ) {
+      return item.label.width + item.icon.width;
+    } );
     var maxWidth = widestItemSpec.label.width + widestItemSpec.icon.width;
 
     // pad inserts a spacing node (HStrut) so that the text, space and image together occupy a certain fixed width.
@@ -57,19 +67,22 @@ define( function( require ) {
     };
 
     var checkBoxOptions = {
-      boxWidth: 18,
-      spacing: 5
+      boxWidth: 15,
+      spacing: 1
     };
 
     // pad all the rows so the text nodes are left aligned and the icons is right aligned
     var checkBoxChildren = [
-      new CheckBox( createItem( ruler ), flowModel.isRulerVisibleProperty, checkBoxOptions )
-
+      new CheckBox( createItem( ruler ), flowModel.isRulerVisibleProperty, checkBoxOptions ),
+      new CheckBox( new HBox( {children: ( friction )} ), flowModel.isFrictionEnabledProperty, checkBoxOptions ),
+      new CheckBox( new HBox( {children: ( fluxMeter )} ), flowModel.isFluxMeterVisibleProperty, checkBoxOptions ),
+      new CheckBox( createItem( dots ), flowModel.isDotsVisibleProperty, checkBoxOptions )
     ];
-    var checkBoxes = new VBox( {align: 'left', spacing: 10, children: checkBoxChildren} );
+
+    var checkBoxes = new VBox( {align: 'left', spacing: 2, children: checkBoxChildren} );
 
     var content = new VBox( {
-      spacing: 10,
+      spacing: 1,
       children: [checkBoxes],
       align: 'left'
     } );
@@ -87,6 +100,12 @@ define( function( require ) {
     } );
   };
 
+  //Create an icon for the dots check box
+  var createDotsIcon = function() {
+    var dot1 = new Circle( 4, {fill: 'red' } );
+    var dot2 = new Circle( 4, {fill: 'red', left: dot1.right + 4 } );
+    return new Node( {children: [dot1, dot2]} );
+  };
 
   return inherit( Panel, ToolsControlPanel );
 } );

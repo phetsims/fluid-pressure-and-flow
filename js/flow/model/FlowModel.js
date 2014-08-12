@@ -17,12 +17,13 @@ define( function( require ) {
   var StringUtils = require( 'PHETCOMMON/util/StringUtils' );
   var VelocitySensor = require( 'FLUID_PRESSURE_AND_FLOW/watertower/model/VelocitySensor' );
   var Barometer = require( 'FLUID_PRESSURE_AND_FLOW/watertower/model/Barometer' );
-  // var PipeControlPoint = require('FLUID_PRESSURE_AND_FLOW/flow/model/PipeControlPoint');
+  // var PipeControlPoint = require( 'FLUID_PRESSURE_AND_FLOW/flow/model/PipeControlPoint' );
   // var Particle = require('FLUID_PRESSURE_AND_FLOW/flow/model/Particle');
   var ObservableArray = require( 'AXON/ObservableArray' );
   var FluidColorModel = require( 'FLUID_PRESSURE_AND_FLOW/watertower/model/FluidColorModel' );
   var Units = require( 'FLUID_PRESSURE_AND_FLOW/flow/model/Units' );
   var LinearFunction = require( 'DOT/LinearFunction' );
+  //var Pipe = require( 'FLUID_PRESSURE_AND_FLOW/flow/model/Pipe' );
 
   // strings
   var densityUnitsEnglish = require( 'string!FLUID_PRESSURE_AND_FLOW/densityUnitsEnglish' );
@@ -43,10 +44,14 @@ define( function( require ) {
 
     PropertySet.call( this, {
         isRulerVisible: false,
+        isFluxMeterVisible: false,
+        isDotsVisible: true,
+        isFrictionEnabled: false,
         isPlay: true,//Whether the sim is paused or running
         measureUnits: 'metric', //metric, english
         fluidDensity: Constants.WATER_DENSITY,
         fluidFlowRate: 5000,
+        fluxMeterPosition: new Vector2( 300, 110 ),
         rulerPosition: new Vector2( 300, 344 ), // px
         scale: 1, // scale coefficient
         speed: 'normal'//speed of the model, either 'normal' or 'slow'
@@ -63,12 +68,14 @@ define( function( require ) {
     for ( var j = 0; j < 2; j++ ) {
       this.speedometers.push( new VelocitySensor( new Vector2( 0, 0 ), new Vector2( 0, 0 ) ) );
     }
-    // this.pipe = new Pipe(this);
     this.fluidColorModel = new FluidColorModel( this );
 
-    // control points of tracks.
-    // this.lowerTrackControlPoints = [new ControlPoint(0.2, 9.5), new ControlPoint(1, 9.5), new ControlPoint(2, 9.5), new ControlPoint(3, 9.5), new ControlPoint(4, 9.5),new ControlPoint(5,9.5), new ControlPoint(6, 9.5), new ControlPoint(7, 10), new ControlPoint(6, 10.5),new ControlPoint(5,10.5), new ControlPoint(4, 10.5), new ControlPoint(3, 10.5), new ControlPoint(2, 10.5), new ControlPoint(1, 10.5), new ControlPoint(0.2, 10.5) ];
-    // this.lowerTrack = new Track(this.lowerTrackControlPoints);
+    // control points of pipe Flow line.
+    /*  this.lowerPipeControlPionts = [new PipeControlPoint( 0.25, 14 ), new PipeControlPoint( 1, 14 ), new PipeControlPoint( 2, 0 ), new PipeControlPoint( 3, 14 ), new PipeControlPoint( 4, 14 ), new PipeControlPoint( 5, 15 ), new PipeControlPoint( 5.6, 20 ) ];
+     this.upperPipeControlPoints = [new PipeControlPoint( -0.25, 20 ), new PipeControlPoint( 0.05, 30 ), new PipeControlPoint( 1, 31 ), new PipeControlPoint( 2, 31 ), new PipeControlPoint( 3, 31 ), new PipeControlPoint( 4, 31 ), new PipeControlPoint( 5.2, 31 )];
+
+     this.pipeControlPoints = [new PipeControlPoint( -0.25, 9 ), new PipeControlPoint( 0.05, 9 ), new PipeControlPoint( 0.8, 9 ), new PipeControlPoint( 1.6, 9 ), new PipeControlPoint( 2.4, 9 ), new PipeControlPoint( 3.2, 9 ), new PipeControlPoint( 4, 9 ), new PipeControlPoint( 5.2, 9 ), new PipeControlPoint( 5.6, 1 ), new PipeControlPoint( 5.2, -10 ), new PipeControlPoint( 4, -10 ), new PipeControlPoint( 3.2, -10 ), new PipeControlPoint( 2.4, -10 ), new PipeControlPoint( 1.6, -10 ), new PipeControlPoint( 0.8, -10 ), new PipeControlPoint( 0.05, 1 ) ];
+     this.pipeFlowLine = new Pipe( this.pipeControlPoints );*/
     this.flowParticles = new ObservableArray();
 
   }
@@ -85,7 +92,7 @@ define( function( require ) {
       _.each( this.speedometers, function( speedometer ) {
         speedometer.reset();
       } );
-      //this.lowerTrack.reset();
+      //this.pipeFlowLine.reset();
       this.flowParticles.clear();
 
     },
