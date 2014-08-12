@@ -26,7 +26,7 @@ define( function( require ) {
   var handle = require( 'image!FLUID_PRESSURE_AND_FLOW/handle.png' );
 
   // view constants
-  var CORNER_RADIUS = 4; //px
+  var CORNER_RADIUS = 3; //px
 
   /**
    * HoseNode constructor
@@ -147,7 +147,7 @@ define( function( require ) {
       .arc( modelViewTransform.modelToViewX( hose.elbowInnerX ) - CORNER_RADIUS, modelViewTransform.modelToViewY( hose.elbowInnerY ) - CORNER_RADIUS, CORNER_RADIUS, hose.angleWithVertical, Math.PI / 2, false )
       .lineTo( modelViewTransform.modelToViewX( hose.L1 - hose.width ) + CORNER_RADIUS, modelViewTransform.modelToViewY( hose.elbowInnerY ) );
 
-    if ( hose.elbowInnerY - hose.width > 0.56 ) {
+    if ( hose.elbowInnerY - hose.width > 0.6 ) {
       shape = shape.arc( modelViewTransform.modelToViewX( hose.L1 - hose.width ) + CORNER_RADIUS, modelViewTransform.modelToViewY( hose.elbowInnerY ) + CORNER_RADIUS, CORNER_RADIUS, -Math.PI / 2, Math.PI, true )
         .lineTo( modelViewTransform.modelToViewX( hose.L1 - hose.width ), modelViewTransform.modelToViewY( hose.width ) - CORNER_RADIUS )
         .arc( modelViewTransform.modelToViewX( hose.L1 - hose.width ) - CORNER_RADIUS, modelViewTransform.modelToViewY( hose.width ) - CORNER_RADIUS, CORNER_RADIUS, 0, Math.PI / 2, false );
@@ -156,7 +156,7 @@ define( function( require ) {
     shape = shape.lineTo( modelViewTransform.modelToViewX( 0 ), modelViewTransform.modelToViewY( hose.width ) )
       .lineTo( modelViewTransform.modelToViewX( 0 ), modelViewTransform.modelToViewY( 0 ) );
 
-    if ( hose.elbowInnerY - hose.width > 0.56 ) {
+    if ( hose.elbowInnerY - hose.width > 0.6 ) {
       shape = shape.lineTo( modelViewTransform.modelToViewX( hose.L1 ) - CORNER_RADIUS, modelViewTransform.modelToViewY( 0 ) )
         .arc( modelViewTransform.modelToViewX( hose.L1 ) - CORNER_RADIUS, modelViewTransform.modelToViewY( 0 ) - CORNER_RADIUS, CORNER_RADIUS, Math.PI / 2, 0, true )
         .lineTo( modelViewTransform.modelToViewX( hose.L1 ), modelViewTransform.modelToViewY( hose.elbowLowerY ) + CORNER_RADIUS )
@@ -183,7 +183,7 @@ define( function( require ) {
       .arc( modelViewTransform.modelToViewX( hose.elbowInnerX ) - CORNER_RADIUS, modelViewTransform.modelToViewY( hose.elbowInnerY ) - CORNER_RADIUS, CORNER_RADIUS, hose.angleWithVertical, Math.PI / 2, false )
       .lineTo( modelViewTransform.modelToViewX( hose.L1 ) + CORNER_RADIUS, modelViewTransform.modelToViewY( hose.elbowInnerY ) );
 
-    if ( -hose.elbowInnerY + hose.width > 0.56 ) {
+    if ( -hose.elbowInnerY + hose.width > 0.6 ) {
       shape = shape.arc( modelViewTransform.modelToViewX( hose.L1 ) + CORNER_RADIUS, modelViewTransform.modelToViewY( hose.elbowInnerY ) - CORNER_RADIUS, CORNER_RADIUS, Math.PI / 2, Math.PI, false )
         .lineTo( modelViewTransform.modelToViewX( hose.L1 ), modelViewTransform.modelToViewY( hose.width ) + CORNER_RADIUS )
         .arc( modelViewTransform.modelToViewX( hose.L1 ) - CORNER_RADIUS, modelViewTransform.modelToViewY( hose.width ) + CORNER_RADIUS, CORNER_RADIUS, 0, -Math.PI / 2, true );
@@ -192,7 +192,7 @@ define( function( require ) {
     shape = shape.lineTo( modelViewTransform.modelToViewX( 0 ), modelViewTransform.modelToViewY( hose.width ) )
       .lineTo( modelViewTransform.modelToViewX( 0 ), modelViewTransform.modelToViewY( 0 ) );
 
-    if ( -hose.elbowInnerY + hose.width > 0.56 ) {
+    if ( -hose.elbowInnerY + hose.width > 0.6 ) {
       shape = shape.lineTo( modelViewTransform.modelToViewX( hose.L1 - hose.width ) - CORNER_RADIUS, modelViewTransform.modelToViewY( 0 ) )
         .arc( modelViewTransform.modelToViewX( hose.L1 - hose.width ) - CORNER_RADIUS, modelViewTransform.modelToViewY( 0 ) + CORNER_RADIUS, CORNER_RADIUS, -Math.PI / 2, 0, false )
         .lineTo( modelViewTransform.modelToViewX( hose.L1 - hose.width ), modelViewTransform.modelToViewY( hose.elbowLowerY ) - CORNER_RADIUS )
