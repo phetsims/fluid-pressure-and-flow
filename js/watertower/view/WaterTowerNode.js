@@ -83,6 +83,7 @@ define( function( require ) {
     //add the handle
     var handleNode = new Image( handleImage, { cursor: 'pointer', scale: 0.3, top: this.waterTankFrame.bottom, centerX: this.waterTankFrame.centerX} );
     this.addChild( handleNode );
+    handleNode.touchArea = handleNode.localBounds.dilatedXY( 20, 20 );
 
     //add the wheel and rope
     var wheelNode = new Image( wheelImage, { cursor: 'pointer', scale: 0.4, bottom: this.waterTankFrame.top, right: this.waterTankFrame.right + 3} );

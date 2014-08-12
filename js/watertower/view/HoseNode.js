@@ -60,6 +60,7 @@ define( function( require ) {
 
     this.handleNode = new Image( handle, { rotation: Math.PI, cursor: 'pointer', scale: 0.3, y: this.hosePath.bottom + this.modelViewTransform.modelToViewDeltaY( this.hose.width ), centerX: modelViewTransform.modelToViewX( this.handleNodeCenterX )} );
     this.addChild( this.handleNode );
+    this.handleNode.touchArea = this.handleNode.localBounds.dilatedXY( 20, 20 );
 
     var clickYOffset;
     var initialHeight;
@@ -77,6 +78,7 @@ define( function( require ) {
     var nozzle = new Node( {children: [new Image( nozzleImg )], scale: 1.0 } );
 
     this.spoutHandle = new Node( {children: [new Image( spoutHandleImg )], scale: 1.0, cursor: 'pointer', bottom: nozzle.bottom, left: nozzle.right - 4} );
+    this.spoutHandle.touchArea = this.spoutHandle.localBounds.dilatedXY( 10, 10 );
 
     this.spoutAndNozzle = new Node( { children: [nozzle, this.spoutHandle],
       bottom: this.modelViewTransform.modelToViewDeltaY( this.hose.nozzleAttachmentOuterY ) + 122 + 40 * Math.cos( this.hose.angle ),

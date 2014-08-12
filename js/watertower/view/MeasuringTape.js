@@ -102,6 +102,7 @@ define( function( require ) {
     // add tip
     this.tip = new Node( {children: [new Circle( 8, {fill: 'black'} ), new Path( new Shape().moveTo( -size, 0 ).lineTo( size, 0 ).moveTo( 0, -size ).lineTo( 0, size ), {stroke: '#E05F20', lineWidth: 2} )]} );
     this.tip.cursor = 'pointer';
+    this.tip.touchArea = this.tip.localBounds.dilatedXY( 10, 10 );
     this.notBase.addChild( this.tip );
 
     // init drag and drop for tip
