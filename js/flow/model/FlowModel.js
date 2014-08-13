@@ -17,7 +17,6 @@ define( function( require ) {
   var StringUtils = require( 'PHETCOMMON/util/StringUtils' );
   var VelocitySensor = require( 'FLUID_PRESSURE_AND_FLOW/watertower/model/VelocitySensor' );
   var Barometer = require( 'FLUID_PRESSURE_AND_FLOW/watertower/model/Barometer' );
-  var PipeControlPoint = require( 'FLUID_PRESSURE_AND_FLOW/flow/model/PipeControlPoint' );
 //  var Particle = require( 'FLUID_PRESSURE_AND_FLOW/flow/model/Particle' );
   var ObservableArray = require( 'AXON/ObservableArray' );
   var FluidColorModel = require( 'FLUID_PRESSURE_AND_FLOW/watertower/model/FluidColorModel' );
@@ -70,9 +69,7 @@ define( function( require ) {
     }
     this.fluidColorModel = new FluidColorModel( this );
 
-    // control points of pipe Flow line.
-    this.pipeControlPoints = [new PipeControlPoint( -0.25, 9 ), new PipeControlPoint( 0.05, 9 ), new PipeControlPoint( 0.8, 9 ), new PipeControlPoint( 1.6, 9 ), new PipeControlPoint( 2.4, 9 ), new PipeControlPoint( 3.2, 9 ), new PipeControlPoint( 4, 9 ), new PipeControlPoint( 5.2, 9 ), new PipeControlPoint( 5.6, 1 ), new PipeControlPoint( 5.2, -10 ), new PipeControlPoint( 4, -10 ), new PipeControlPoint( 3.2, -10 ), new PipeControlPoint( 2.4, -10 ), new PipeControlPoint( 1.6, -10 ), new PipeControlPoint( 0.8, -10 ), new PipeControlPoint( 0.05, 1 ) ];
-    this.pipeFlowLine = new Pipe( this.pipeControlPoints );
+    this.pipeFlowLine = new Pipe();
 
     this.flowParticles = new ObservableArray();
   }

@@ -27,6 +27,13 @@ define( function( require ) {
   var BarometerNode = require( 'FLUID_PRESSURE_AND_FLOW/watertower/view/BarometerNode' );
   var FlowRuler = require( 'FLUID_PRESSURE_AND_FLOW/flow/view/FlowRuler' );
 
+  var VBox = require( 'SCENERY/nodes/VBox' );
+  var PlayPauseButton = require( 'SCENERY_PHET/PlayPauseButton' );
+  var StepButton = require( 'SCENERY_PHET/StepButton' );
+  var AquaRadioButton = require( 'SUN/AquaRadioButton' );
+  var PhetFont = require( 'SCENERY_PHET/PhetFont' );
+  var Text = require( 'SCENERY/nodes/Text' );
+
   var ParticleNode = require( 'FLUID_PRESSURE_AND_FLOW/flow/view/ParticleNode' );
   var PipeNode = require( 'FLUID_PRESSURE_AND_FLOW/flow/view/PipeNode' );
   var FluxMeterNode = require( 'FLUID_PRESSURE_AND_FLOW/flow/view/FluxMeterNode' );
@@ -37,6 +44,8 @@ define( function( require ) {
   var waterString = require( 'string!FLUID_PRESSURE_AND_FLOW/water' );
   var honeyString = require( 'string!FLUID_PRESSURE_AND_FLOW/honey' );
   var flowRateString = require( 'string!FLUID_PRESSURE_AND_FLOW/flowRate' );
+  var normalString = require( 'string!FLUID_PRESSURE_AND_FLOW/normal' );
+  var slowMotionString = require( 'string!FLUID_PRESSURE_AND_FLOW/slowMotion' );
 
   //images
   var grassImg = require( 'image!FLUID_PRESSURE_AND_FLOW/images/grass-texture.png' );
@@ -45,11 +54,15 @@ define( function( require ) {
 
   function FlowView( flowModel ) {
     var flowView = this;
+    var textOptions = {font: new PhetFont( 14 )};
+
     ScreenView.call( this, {renderer: 'svg'} );
 
     var modelViewTransform = ModelViewTransform2.createRectangleInvertedYMapping( new Bounds2( 0, 0, 5, 10 ), new Bounds2( 0, 0, 680, 66 ) );
 
     // add sky node
+    this.addChild( new Rectangle( -5000, -1000, 10000, 1000, {stroke: '#01ACE4', fill: '#01ACE4'} ) );
+
     var skyNode = new SkyNode( -5000, 0, 10000, 150, 200 );
     this.addChild( skyNode );
 
@@ -128,14 +141,35 @@ define( function( require ) {
 
     // add the sensors panel
     var sensorPanel = new Rectangle( 0, 0, 190, 95, 10, 10, {stroke: 'gray', lineWidth: 1, fill: '#f2fa6a', right: unitsControlPanel.left - inset, top: this.toolsControlPanel.top} );
-    this.addChild( sensorPanel);
+    this.addChild( sensorPanel );
 
     // add particle layer
     var particleLayer = new Node();
     flowView.addChild( particleLayer );
 
+    // add play pause button and step button
+    var stepButton = new StepButton( function() {
+      flowModel.stepInternal( 0.016 );
+    }, flowModel.isPlayProperty, { stroke: 'black', fill: '#005566', right: controlSlider.left - inset, bottom: controlSlider.bottom - inset} );
+
+    this.addChild( stepButton );
+
+    var playPauseButton = new PlayPauseButton( flowModel.isPlayProperty, { stroke: 'black', fill: '#005566', y: stepButton.centerY, right: stepButton.left - inset } );
+    this.addChild( playPauseButton );
+
+
+    var speedControl = new VBox( {
+      align: 'left',
+      spacing: 5,
+      children: [
+        new AquaRadioButton( flowModel.speedProperty, 'normal', new Text( normalString, textOptions ), {radius: 6} ),
+        new AquaRadioButton( flowModel.speedProperty, 'slow', new Text( slowMotionString, textOptions ), {radius: 6} )
+      ]} );
+    this.addChild( speedControl.mutate( {right: playPauseButton.left - inset, bottom: playPauseButton.bottom} ) );
+
+
     var fluxMeterNode = new FluxMeterNode( flowModel, modelViewTransform, {stroke: 'blue'} );
-    flowView.addChild( fluxMeterNode);
+    flowView.addChild( fluxMeterNode );
 
     // add speedometers within the sensor panel bounds
     _.each( flowModel.speedometers, function( velocitySensor ) {

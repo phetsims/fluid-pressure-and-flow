@@ -50,27 +50,23 @@ define( function( require ) {
     var leftPipe = new Image( leftPipeImage, { scale: options.pipeScale} );
     var leftPipeMiddle = [];
     leftPipeMiddle[0] = new Image( pipeMiddleImage, { right: leftPipe.left + 20, scale: options.pipeScale} );
-    for ( var j = 1; j < 14; j++ ) {
+    for ( var j = 1; j < 40; j++ ) {
       leftPipeMiddle[j] = new Image( pipeMiddleImage, { right: leftPipeMiddle[j - 1].left + 1, scale: options.pipeScale} );
     }
     this.leftPipeNode = new Node( {children: [leftPipe], left: layBounds.minX - 40, scale: options.pipeScale} );
-
-    for ( j = 0; j < 14; j++ ) {
+    for ( j = 0; j < 40; j++ ) {
       this.leftPipeNode.addChild( leftPipeMiddle[j] );
     }
-
-
     var pipeFlowLine = new Path( null, {stroke: options.lineColor, top: this.leftPipeNode.bottom, lineWidth: '6', fill: flowModel.fluidColorModel.color} );
-
     // right side pipe image.
     var rightPipe = new Image( rightSidePipeImage, { scale: options.pipeScale} );
     var rightPipeMiddle = [];
     rightPipeMiddle[0] = new Image( pipeMiddleImage, { right: rightPipe.right - 1, scale: options.pipeScale} );
-    for ( j = 1; j < 14; j++ ) {
+    for ( j = 1; j < 40; j++ ) {
       rightPipeMiddle[j] = new Image( pipeMiddleImage, { left: rightPipeMiddle[j - 1].right - 1, scale: options.pipeScale} );
     }
     this.rightPipeNode = new Node( {children: [rightPipe], bottom: this.leftPipeNode.bottom, left: layBounds.maxX - 80, scale: options.pipeScale } );
-    for ( j = 0; j < 14; j++ ) {
+    for ( j = 0; j < 40; j++ ) {
       this.rightPipeNode.addChild( rightPipeMiddle[j] );
     }
 
@@ -118,7 +114,7 @@ define( function( require ) {
         var controlPoint = pipe.controlPoints[i];
 
         var leftSpace = 20;
-        if ( pipe.controlPoints[i].position.y < 30 ) {
+        if ( pipe.controlPoints[i].position.y < 9 ) {
           options.imageRotation = 0;
           leftSpace = 0;
         }
@@ -138,16 +134,10 @@ define( function( require ) {
             drag: function( event ) {
               var globalPoint = controlPointNode.globalToParentPoint( event.pointer.point );
               var pt = modelViewTransform.viewToModelPosition( globalPoint );
-              pt.x = flowModel.pipeControlPoints[i].position.x;
-              pt.y > 35 ? pt.y = 35 : pt.y < -20 ? pt.y = -20 : pt.y;
-              if ( i === 2 || i === 1 ) {
-                pipeNode.gridParticleButton.setTranslation( modelViewTransform.modelToViewX( flowModel.pipeControlPoints[2].position.x ) - 100, modelViewTransform.modelToViewY( flowModel.pipeControlPoints[i].position.y ) );
-                controlPoint.sourcePosition = pt;
-              }
-              else {
-                controlPoint.sourcePosition = pt;
-              }
+              pt.x = pipe.controlPoints[i].position.x;
 
+              pt.y > 14 ? pt.y = 14 : pt.y < -20 ? pt.y = -20 : pt.y;
+              controlPoint.sourcePosition = pt;
               // When a control point is dragged, update the pipe flow line shape and the node shape
               pipe.updateSplines();
               pipeNode.updatePipeFlowLineShape();

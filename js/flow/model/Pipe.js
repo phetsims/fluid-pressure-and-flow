@@ -10,20 +10,36 @@ define( function( require ) {
 
   var inherit = require( 'PHET_CORE/inherit' );
   var PropertySet = require( 'AXON/PropertySet' );
+  var PipeControlPoint = require( 'FLUID_PRESSURE_AND_FLOW/flow/model/PipeControlPoint' );
 
   /**
    * Model for a pipe, which has a fixed number of points.
-   * @param {Array<PipeControlPoint>} controlPoints that define the shape of the pipe
    * @constructor
    */
 
-  function Pipe( controlPoints ) {
+  function Pipe() {
     var pipe = this;
     PropertySet.call( this, {
       scale: 0.5
     } );
 
-    this.controlPoints = controlPoints;
+    this.controlPoints = [
+      new PipeControlPoint( -0.25, 3 ),
+      new PipeControlPoint( 0.2, 8 ),
+      new PipeControlPoint( 0.8, 9 ),
+      new PipeControlPoint( 1.6, 9 ),
+      new PipeControlPoint( 2.4, 9 ),
+      new PipeControlPoint( 3.2, 9 ),
+      new PipeControlPoint( 4, 9 ),
+      new PipeControlPoint( 5.2, 8 ),
+      /* new PipeControlPoint(5.6, 1),*/ new PipeControlPoint( 5.2, -8 ),
+      new PipeControlPoint( 4, -10 ),
+      new PipeControlPoint( 3.2, -10 ),
+      new PipeControlPoint( 2.4, -10 ),
+      new PipeControlPoint( 1.6, -10 ),
+      new PipeControlPoint( 0.8, -10 ),
+      new PipeControlPoint( 0.2, -8 )
+    ];
 
     this.u = new Array( pipe.controlPoints.length );
     this.x = new Array( pipe.controlPoints.length );
@@ -40,16 +56,6 @@ define( function( require ) {
       pipe.xSpline = numeric.spline( pipe.u, pipe.x );
       pipe.ySpline = numeric.spline( pipe.u, pipe.y );
 
-      //Mark search points as dirty
-      pipe.xSearchPoints = null;
-      pipe.ySearchPoints = null;
-
-      //Mark derivatives as dirty
-      pipe.xSplineDiff = null;
-      pipe.ySplineDiff = null;
-
-      pipe.xSplineDiffDiff = null;
-      pipe.ySplineDiffDiff = null;
     };
 
     this.updateSplines();

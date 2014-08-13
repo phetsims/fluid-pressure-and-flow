@@ -16,7 +16,6 @@ define( function( require ) {
   function PipeControlPoint( x, y ) {
 
     PropertySet.call( this, {
-      //Where it would be if it hadn't snapped to another point during dragging
       sourcePosition: new Vector2( x, y )
     } );
     this.addDerivedProperty( 'position', ['sourcePosition'], function( sourcePosition ) {
