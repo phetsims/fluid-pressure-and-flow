@@ -24,7 +24,7 @@ define( function( require ) {
     this.TANK_HEIGHT = 10; // meters
 
     // Offset of the inlet (hole which receives water from the faucet) as measured from tank left
-    this.INLET_X_OFFSET = 1.6;
+    this.INLET_X_OFFSET = 1.4;
 
     // Assume the tank is a cylinder and compute the max volume
     this.TANK_VOLUME = Math.PI * this.TANK_RADIUS * this.TANK_RADIUS * this.TANK_HEIGHT;
