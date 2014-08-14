@@ -29,21 +29,22 @@ define( function( require ) {
 
     getPressureString: {
 
-      metric: function( pressure ) {
+      metric: function( pressure, abbreviated ) {
+
         if ( pressure === '' ) {
           return '-';
         }
         else {
-          return Util.toFixed( pressure / 1000, 3 ) + ' ' + kPaString;
+          return Util.toFixed( pressure / 1000, abbreviated ? 1 : 3 ) + ' ' + kPaString;
         }
       },
 
-      english: function( pressure ) {
+      english: function( pressure, abbreviated ) {
         if ( pressure === '' ) {
           return '-';
         }
         else {
-          return  Util.toFixed( pressure * PSI_PER_PASCAL, 4 ) + ' ' + psiString;
+          return  Util.toFixed( pressure * PSI_PER_PASCAL, abbreviated ? 2 : 4 ) + ' ' + psiString;
         }
       }
     }

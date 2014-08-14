@@ -149,14 +149,18 @@ define( function( require ) {
 
       var pressure = this.getAirPressure( y );
 
-      //add the fluid pressure if the point is in the water tank
-      if ( x > this.waterTower.tankPosition.x && x < this.waterTower.tankPosition.x + 2 * this.waterTower.TANK_RADIUS &&
-           y > this.waterTower.tankPosition.y && y < this.waterTower.tankPosition.y + this.waterTower.fluidLevel ) {
+      //add the fluid pressure if the point is inside the fluid in the tank
+      if ( this.isPointInWater( x, y ) ) {
         pressure = this.getAirPressure( this.waterTower.tankPosition.y + this.waterTower.fluidLevel ) +
                    this.getFluidPressure( this.waterTower.tankPosition.y + this.waterTower.fluidLevel - y );
       }
 
       return pressure;
+    },
+
+    isPointInWater: function( x, y ) {
+      return (x > this.waterTower.tankPosition.x && x < this.waterTower.tankPosition.x + 2 * this.waterTower.TANK_RADIUS &&
+              y > this.waterTower.tankPosition.y && y < this.waterTower.tankPosition.y + this.waterTower.fluidLevel);
     },
 
     // Called by the animation loop.
@@ -294,7 +298,7 @@ define( function( require ) {
       // update the faucet flow rate every 2 seconds
       if ( this.accumulatedDtForFlowRate > 2 ) {
         if ( this.faucetMode === 'matchLeakage' ) {
-          this.faucetFlowRate = (this.isSluiceOpen) ? this.accumulatedWaterExpelled / 2 : 0;
+          this.faucetFlowRate = (this.isSluiceOpen) ? this.accumulatedWaterExpelled / 0.1 : 0;
         }
         this.accumulatedWaterExpelled = 0;
         this.accumulatedDtForFlowRate = 0;

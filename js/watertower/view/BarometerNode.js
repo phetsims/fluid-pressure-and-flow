@@ -103,7 +103,7 @@ define( function( require ) {
 
     //Update the text when the value or units changes.
     Property.multilink( [barometer.valueProperty, waterTowerModel.measureUnitsProperty], function( barometerValue, units ) {
-      text.text = Units.getPressureString[units]( barometerValue );
+      text.text = Units.getPressureString[units]( barometerValue, waterTowerModel.isPointInWater && waterTowerModel.isPointInWater( modelViewTransform.viewToModelX( barometer.position.x ), modelViewTransform.viewToModelY( barometer.position.y + (62) ) ) );
       textBackground.setRect( 0, 0, text.width + 4, text.height + 2 );
       textBackground.center = underGaugeRectangle.center;
       text.center = textBackground.center;
