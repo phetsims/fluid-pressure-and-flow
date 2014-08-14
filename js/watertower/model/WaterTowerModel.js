@@ -345,14 +345,10 @@ define( function( require ) {
 
       // update sensor values only about 10 times per sec
       // update the sensor values only when water is flowing
-      if ( this.accumulatedDtForSensors > 0.1 && (this.hoseDrops.length > 0 || this.waterTowerDrops.length > 0 || this.faucetDrops.length > 0)) {
+      if ( this.accumulatedDtForSensors > 0.1 && (this.hoseDrops.length > 0 || this.waterTowerDrops.length > 0 || this.faucetDrops.length > 0) ) {
         this.accumulatedDtForSensors -= 0.1;
         for ( var k = 0; k < this.speedometers.length; k++ ) {
           this.speedometers[k].value = this.getWaterDropVelocityAt( this.modelViewTransform.viewToModelX( this.speedometers[k].position.x + 50 ), this.modelViewTransform.viewToModelY( this.speedometers[k].position.y + 72 ) );
-        }
-
-        for ( k = 0; k < this.barometers.length; k++ ) {
-          this.barometers[k].value = this.getPressureAtCoords( this.modelViewTransform.viewToModelX( this.barometers[k].position.x ), this.modelViewTransform.viewToModelY( this.barometers[k].position.y + (62) ) );
         }
       }
     },
