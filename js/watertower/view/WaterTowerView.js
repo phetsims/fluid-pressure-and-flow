@@ -104,7 +104,10 @@ define( function( require ) {
       right: modelViewTransform.modelToViewX( waterTowerModel.faucetPosition.x ) + 20,
       top: this.layoutBounds.top + inset,
       scale: 0.3, //size of the faucet,
-      closeOnRelease: false
+      closeOnRelease: false,
+
+      // When in "match leakage" show the faucet as non-editable, see #132
+      autoProperty: waterTowerModel.faucetModeProperty.valueEquals( 'matchLeakage' )
     } );
     this.addChild( faucetNode );
 
