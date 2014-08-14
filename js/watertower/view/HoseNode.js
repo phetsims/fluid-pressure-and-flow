@@ -217,7 +217,7 @@ define( function( require ) {
      * @private
      */
     updateHoseHeight: function( height ) {
-      height = height > this.tankPositionProperty.value.y + 2.1 ? this.tankPositionProperty.value.y + 2.1 :
+      height = height > this.tankPositionProperty.value.y + 2 ? this.tankPositionProperty.value.y + 2 :
                height < this.tankPositionProperty.value.y - 25 ? this.tankPositionProperty.value.y - 25 : height;
 
       this.hose.height = height;
