@@ -13,11 +13,14 @@ define( function( require ) {
   var ScreenView = require( 'JOIST/ScreenView' );
   var ModelViewTransform2 = require( 'PHETCOMMON/view/ModelViewTransform2' );
   var Vector2 = require( 'DOT/Vector2' );
+  var Bounds2 = require( 'DOT/Bounds2' );
+
   var SkyNode = require( 'SCENERY_PHET/SkyNode' );
   var GroundNode = require( 'SCENERY_PHET/GroundNode' );
+  var WaterDropsCanvasNode = require( 'FLUID_PRESSURE_AND_FLOW/watertower/view/WaterDropsCanvasNode' );
   var ResetAllButton = require( 'SCENERY_PHET/ResetAllButton' );
   var Rectangle = require( 'SCENERY/nodes/Rectangle' );
-  var Node = require( 'SCENERY/nodes/Node' );
+  // var Node = require( 'SCENERY/nodes/Node' );
   var VBox = require( 'SCENERY/nodes/VBox' );
 
   var PlayPauseButton = require( 'SCENERY_PHET/PlayPauseButton' );
@@ -35,7 +38,7 @@ define( function( require ) {
   var UnitsControlPanel = require( 'FLUID_PRESSURE_AND_FLOW/watertower/view/UnitsControlPanel' );
   var WaterTowerRuler = require( 'FLUID_PRESSURE_AND_FLOW/watertower/view/WaterTowerRuler' );
   var WaterTowerNode = require( 'FLUID_PRESSURE_AND_FLOW/watertower/view/WaterTowerNode' );
-  var WaterDropNode = require( 'FLUID_PRESSURE_AND_FLOW/watertower/view/WaterDropNode' );
+  // var WaterDropNode = require( 'FLUID_PRESSURE_AND_FLOW/watertower/view/WaterDropNode' );
   var HoseNode = require( 'FLUID_PRESSURE_AND_FLOW/watertower/view/HoseNode' );
   var VelocitySensorNode = require( 'FLUID_PRESSURE_AND_FLOW/watertower/view/VelocitySensorNode' );
   var FaucetControlPanel = require( 'FLUID_PRESSURE_AND_FLOW/watertower/view/FaucetControlPanel' );
@@ -78,12 +81,16 @@ define( function( require ) {
     // gradient background skynode between y = 0 and y = groundY
     this.addChild( new SkyNode( -5000, 0, 10000, groundY, groundY ) );
 
-    var hoseDropsLayer = new Node();
-    waterTowerScreenView.addChild( hoseDropsLayer );
+    this.hoseDropsLayer = new WaterDropsCanvasNode( waterTowerModel.hoseDrops, waterTowerModel.fluidColorModel, waterTowerModel.modelViewTransform, {
+      canvasBounds: new Bounds2( 0, 0, 850, 350 )
+    } );
 
-    var waterTowerDropsLayer = new Node();
-    waterTowerScreenView.addChild( waterTowerDropsLayer );
+    waterTowerScreenView.addChild( this.hoseDropsLayer );
 
+    this.waterTowerDropsLayer = new WaterDropsCanvasNode( waterTowerModel.waterTowerDrops, waterTowerModel.fluidColorModel, waterTowerModel.modelViewTransform, {
+      canvasBounds: new Bounds2( 0, 0, 500, 350 )
+    } );
+    waterTowerScreenView.addChild( this.waterTowerDropsLayer );
     // add background -- earth
     this.addChild( new GroundNode( -5000, groundY, 10000, 10000, this.layoutBounds.height ) );
 
@@ -95,9 +102,10 @@ define( function( require ) {
     waterTowerNode.bottom = modelViewTransform.modelToViewY( 0 );
     this.addChild( waterTowerNode );
 
-    var faucetDropsLayer = new Node();
-    waterTowerScreenView.addChild( faucetDropsLayer );
-
+    this.faucetDropsLayer = new WaterDropsCanvasNode( waterTowerModel.faucetDrops, waterTowerModel.fluidColorModel, waterTowerModel.modelViewTransform, {
+      canvasBounds: new Bounds2( 50, 0, 150, 350 )
+    } );
+    waterTowerScreenView.addChild( this.faucetDropsLayer );
 
     var faucetNode = new FaucetNode( 60, waterTowerModel.faucetFlowRateProperty, waterTowerModel.isFaucetEnabledProperty, {
       horizontalPipeLength: 1500,
@@ -199,38 +207,6 @@ define( function( require ) {
     this.addChild( new WaterTowerRuler( waterTowerModel.isRulerVisibleProperty, waterTowerModel.rulerPositionProperty, waterTowerModel.measureUnitsProperty, modelViewTransform, this.layoutBounds ) );
     this.addChild( measuringTape );
 
-    // add a waterdrop node to the view when a waterdrop is added to faucetdrops
-    waterTowerModel.faucetDrops.addItemAddedListener( function( waterDrop ) {
-      var waterDropNode = new WaterDropNode( waterDrop, waterTowerModel.fluidColorModel, modelViewTransform );
-      faucetDropsLayer.addChild( waterDropNode );
-      waterDrop.node = waterDropNode;
-    } );
-
-    // remove the waterdrop node linked to the faucet drop that was removed from faucetdrops
-    waterTowerModel.faucetDrops.addItemRemovedListener( function( removedDrop ) {
-      faucetDropsLayer.removeChild( removedDrop.node );
-    } );
-
-    waterTowerModel.waterTowerDrops.addItemAddedListener( function( waterDrop ) {
-      var waterDropNode = new WaterDropNode( waterDrop, waterTowerModel.fluidColorModel, modelViewTransform );
-      waterTowerDropsLayer.addChild( waterDropNode );
-      waterDrop.node = waterDropNode;
-    } );
-
-    waterTowerModel.waterTowerDrops.addItemRemovedListener( function( removedDrop ) {
-      waterTowerDropsLayer.removeChild( removedDrop.node );
-    } );
-
-    waterTowerModel.hoseDrops.addItemAddedListener( function( waterDrop ) {
-      var waterDropNode = new WaterDropNode( waterDrop, waterTowerModel.fluidColorModel, modelViewTransform );
-      hoseDropsLayer.addChild( waterDropNode );
-      waterDrop.node = waterDropNode;
-    } );
-
-    waterTowerModel.hoseDrops.addItemRemovedListener( function( removedDrop ) {
-      hoseDropsLayer.removeChild( removedDrop.node );
-    } );
-
     waterTowerModel.isSluiceOpenProperty.link( function( isSluiceOpen ) {
       if ( isSluiceOpen ) {
         waterTowerNode.sluiceGate.bottom = waterTowerNode.waterTankFrame.bottom + modelViewTransform.modelToViewDeltaY( waterTowerNode.waterTower.HOLE_SIZE ) - 5;
@@ -254,5 +230,11 @@ define( function( require ) {
 
   }
 
-  return inherit( ScreenView, WaterTowerView );
+  return inherit( ScreenView, WaterTowerView, {
+    step: function( dt ) {
+      this.waterTowerDropsLayer.step( dt );
+      this.hoseDropsLayer.step( dt );
+      this.faucetDropsLayer.step( dt );
+    }
+  } );
 } );
