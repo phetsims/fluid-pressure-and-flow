@@ -205,7 +205,7 @@ define( function( require ) {
 
           this.velocityMagnitude = Math.sqrt( 2 * Constants.EARTH_GRAVITY * this.waterTower.fluidLevel );
 
-          waterVolumeExpelled = this.velocityMagnitude * 2 * 0.016;
+          waterVolumeExpelled = this.velocityMagnitude * 2.8 * 0.016;
 
           remainingVolume = this.waterTower.fluidVolume;
           this.leakageVolume = remainingVolume > waterVolumeExpelled ? waterVolumeExpelled : remainingVolume;
@@ -237,14 +237,14 @@ define( function( require ) {
         // Note: If fluid volume is very low (the fluid level is less than 1px height) then sometimes it doesn't show on the tower, but is visible with a magnifier
         if ( this.isSluiceOpen && this.waterTower.fluidVolume > 0 && this.isHoseVisible ) {
           this.leakageVolume = 0;
-          var y = this.hose.rotationPivotY + this.waterTower.tankPosition.y;
+          var y = this.hose.rotationPivotY + this.waterTower.tankPosition.y + 0.1;
           if ( y < this.waterTower.fluidLevel + this.waterTower.tankPosition.y ) {
             this.velocityMagnitude = Math.sqrt( 2 * Constants.EARTH_GRAVITY * (this.waterTower.tankPosition.y + this.waterTower.fluidLevel - y) );
-            waterVolumeExpelled = this.velocityMagnitude * 2 * 0.016;
+            waterVolumeExpelled = this.velocityMagnitude * 2.8 * 0.016;
             remainingVolume = this.waterTower.fluidVolume;
             this.leakageVolume = remainingVolume > waterVolumeExpelled ? waterVolumeExpelled : remainingVolume;
 
-            newHoseDrop = new WaterDrop( new Vector2( this.hose.rotationPivotX + this.waterTower.tankPosition.x + 2 * this.waterTower.TANK_RADIUS + Math.random() * 0.2 - 0.1,
+            newHoseDrop = new WaterDrop( new Vector2( this.hose.rotationPivotX + this.waterTower.tankPosition.x + 2 * this.waterTower.TANK_RADIUS - 0.1 + Math.random() * 0.2 - 0.1,
                   y + Math.random() * 0.2 - 0.1 ),
               new Vector2( this.velocityMagnitude * Math.cos( this.hose.angle ), this.velocityMagnitude * Math.sin( this.hose.angle ) ), this.leakageVolume );
 

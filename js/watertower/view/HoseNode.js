@@ -75,14 +75,14 @@ define( function( require ) {
       }
     } ) );
 
-    var nozzle = new Node( {children: [new Image( nozzleImg )], scale: 1.0 } );
+    var nozzle = new Node( {children: [new Image( nozzleImg )], scale: 0.75 } );
 
-    this.spoutHandle = new Node( {children: [new Image( spoutHandleImg )], scale: 1.0, cursor: 'pointer', bottom: nozzle.bottom, left: nozzle.right - 4} );
+    this.spoutHandle = new Node( {children: [new Image( spoutHandleImg )], scale: 0.75, cursor: 'pointer', bottom: nozzle.bottom, left: nozzle.right - 4} );
     this.spoutHandle.touchArea = this.spoutHandle.localBounds.dilatedXY( 10, 10 );
 
     this.spoutAndNozzle = new Node( { children: [nozzle, this.spoutHandle],
-      bottom: this.modelViewTransform.modelToViewDeltaY( this.hose.nozzleAttachmentOuterY ) + 122 + 40 * Math.cos( this.hose.angle ),
-      left: this.modelViewTransform.modelToViewX( this.hose.nozzleAttachmentOuterX ) - 26 * Math.sin( this.hose.angle ),
+      bottom: this.modelViewTransform.modelToViewDeltaY( this.hose.nozzleAttachmentOuterY ) + 116 + 40 * Math.cos( this.hose.angle ),
+      left: this.modelViewTransform.modelToViewX( this.hose.nozzleAttachmentOuterX ) - 19 * Math.sin( this.hose.angle ),
       rotation: this.hose.angleWithVertical
     } );
 
@@ -233,7 +233,7 @@ define( function( require ) {
         this.hosePath.setShape( createTopShape( this.hose, this.modelViewTransform ) );
         this.handleNodeCenterX = (this.hose.elbowInnerX - this.hose.L1 ) / 2 + this.hose.L1;
         this.handleNode.centerX = this.modelViewTransform.modelToViewX( this.handleNodeCenterX );
-        this.handleNode.y = this.modelViewTransform.modelToViewY( this.hose.elbowInnerY ) - 115 - 113;
+        this.handleNode.y = this.modelViewTransform.modelToViewY( this.hose.elbowInnerY ) - 115 - 119;
       }
       else {
         this.hosePath.setShape( createBottomShape( this.hose, this.modelViewTransform ) );
@@ -243,8 +243,8 @@ define( function( require ) {
       }
 
       this.spoutAndNozzle.setRotation( this.hose.angleWithVertical );
-      this.spoutAndNozzle.bottom = this.modelViewTransform.modelToViewDeltaY( this.hose.nozzleAttachmentOuterY ) + 122 + 40 * Math.cos( this.hose.angle );
-      this.spoutAndNozzle.left = this.modelViewTransform.modelToViewX( this.hose.nozzleAttachmentOuterX ) - 26 * Math.sin( this.hose.angle );
+      this.spoutAndNozzle.bottom = this.modelViewTransform.modelToViewDeltaY( this.hose.nozzleAttachmentOuterY ) + 116 + 29 * Math.cos( this.hose.angle );
+      this.spoutAndNozzle.left = this.modelViewTransform.modelToViewX( this.hose.nozzleAttachmentOuterX ) - 19 * Math.sin( this.hose.angle );
     },
 
     reset: function() {
