@@ -107,7 +107,7 @@ define( function( require ) {
     } );
     waterTowerScreenView.addChild( this.faucetDropsLayer );
 
-    var faucetNode = new FaucetNode( 60, waterTowerModel.faucetFlowRateProperty, waterTowerModel.isFaucetEnabledProperty, {
+    var faucetNode = new FaucetNode( 30, waterTowerModel.faucetFlowRateProperty, waterTowerModel.isFaucetEnabledProperty, {
       horizontalPipeLength: 1500,
       right: modelViewTransform.modelToViewX( waterTowerModel.faucetPosition.x ) + 20,
       top: this.layoutBounds.top + inset,
