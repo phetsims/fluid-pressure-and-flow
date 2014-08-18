@@ -76,9 +76,9 @@ define( function( require ) {
 
     // add background -- sky
     // rectangle with uniform sky color for y < 0
-    this.addChild( new Rectangle( -5000, -1000, 10000, 1000, {stroke: '#01ACE4', fill: '#01ACE4'} ) );
+    this.addChild( new Rectangle( -5000, -1000, 10000, 1000 + groundY - 200, {stroke: '#01ACE4', fill: '#01ACE4'} ) );
     // gradient background skynode between y = 0 and y = groundY
-    this.addChild( new SkyNode( -5000, 0, 10000, groundY, groundY ) );
+    this.addChild( new SkyNode( -5000, groundY - 200, 10000, 200, groundY ) );
 
     this.hoseDropsLayer = new WaterDropsCanvasNode( waterTowerModel.hoseDrops, waterTowerModel.fluidColorModel, waterTowerModel.modelViewTransform, {
       canvasBounds: new Bounds2( 0, 0, 850, 350 )
@@ -91,7 +91,7 @@ define( function( require ) {
     } );
     waterTowerScreenView.addChild( this.waterTowerDropsLayer );
     // add background -- earth
-    this.addChild( new GroundNode( -5000, groundY, 10000, 10000, this.layoutBounds.height ) );
+    this.addChild( new GroundNode( -5000, groundY, 10000, 10000, groundY + 50 ) );
 
     // add the hose
     this.hoseNode = new HoseNode( waterTowerModel.hose, waterTowerModel.waterTower.tankPositionProperty, modelViewTransform, waterTowerModel.isHoseVisibleProperty );
@@ -193,7 +193,7 @@ define( function( require ) {
     _.each( waterTowerModel.barometers, function( barometer ) {
       barometer.positionProperty.storeInitialValue( new Vector2( sensorPanel.visibleBounds.centerX + 55, sensorPanel.visibleBounds.centerY - 15 ) );
       barometer.reset();
-      this.addChild( new BarometerNode( waterTowerModel, modelViewTransform, barometer, [waterTowerModel.fluidDensityProperty, waterTowerModel.waterTower.tankPositionProperty, waterTowerModel.waterTower.fluidVolumeProperty], sensorPanel.visibleBounds, this.layoutBounds.withMaxY( this.layoutBounds.maxY - 62 ) ) );
+      this.addChild( new BarometerNode( waterTowerModel, modelViewTransform, barometer, [waterTowerModel.fluidDensityProperty, waterTowerModel.waterTower.tankPositionProperty, waterTowerModel.waterTower.fluidLevelProperty], sensorPanel.visibleBounds, this.layoutBounds.withMaxY( this.layoutBounds.maxY - 62 ) ) );
     }.bind( this ) );
 
     // add speedometers within the sensor panel bounds
