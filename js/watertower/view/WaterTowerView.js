@@ -75,9 +75,9 @@ define( function( require ) {
     waterTowerModel.modelViewTransform = modelViewTransform;
 
     // add background -- sky
-    // rectangle with uniform sky color for y < 0
+    // rectangle with uniform sky color for y < groundY - 200
     this.addChild( new Rectangle( -5000, -1000, 10000, 1000 + groundY - 200, {stroke: '#01ACE4', fill: '#01ACE4'} ) );
-    // gradient background skynode between y = 0 and y = groundY
+    // gradient background skynode between y = groundY - 200 and y = groundY
     this.addChild( new SkyNode( -5000, groundY - 200, 10000, 200, groundY ) );
 
     this.hoseDropsLayer = new WaterDropsCanvasNode( waterTowerModel.hoseDrops, waterTowerModel.fluidColorModel, waterTowerModel.modelViewTransform, {
