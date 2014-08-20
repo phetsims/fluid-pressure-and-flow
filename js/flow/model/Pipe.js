@@ -96,7 +96,7 @@ define( function( require ) {
       //draw the shape of flow lines.//return getShape( getSplineCrossSections() );
     },
 
-    //Creates the set of interpolated cross section samples from the control cross sections.
+    // Creates the set of interpolated cross section samples from the control cross sections.
     createSpline: function() {
       var pipePositions = new ObservableArray();//new ArrayList<PipeCrossSection>();
       var dx = 0.2;//extend water flow so it looks like it enters the pipe cutaway
@@ -105,9 +105,11 @@ define( function( require ) {
       pipePositions.add( new PipeCrossSection( null, this.getMaxX() + dx, this.getBottomRight().getY(), this.getTopRight().getY() ) );
       return this.spline( pipePositions );
     },
-    //Interpolates the specified control points to obtain a smooth set of cross sections
-    /*
-     *param@<PipeCrossSection> controlPoints[]
+
+    /**
+     * Interpolates the specified control points to obtain a smooth set of cross sections
+     * @param {PipeCrossSection[]} controlPoints that define the shape of the pipe
+     * @returns {ObservableArray}
      */
     spline: function( controlPoints ) {
       var spline = new ObservableArray();// array of pipe cross section.
