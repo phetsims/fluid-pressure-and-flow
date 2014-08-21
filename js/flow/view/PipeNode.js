@@ -72,7 +72,7 @@ define( function( require ) {
 
 
     var injector = new Image( injectorBulbImage, {scale: 0.3, left: leftPipe.right - 130, bottom: leftPipe.top + 20} );
-    var redButton = new RoundStickyToggleButton( 0, 23, flowModel.isFluxMeterVisibleProperty, {radius: 20, center: injector.center, top: injector.top + 25, baseColor: 'red', stroke: 'red', fill: 'red'} );
+    var redButton = new RoundStickyToggleButton( false, true, flowModel.isGridParticleVisibleProperty, {radius: 20, center: injector.center, top: injector.top + 25, baseColor: 'red', stroke: 'red', fill: 'red'} );
     this.gridParticleButton = new Node( {children: [injector, redButton]} );
     pipeNode.addChild( this.gridParticleButton );
     this.addChild( pipeFlowLine );
