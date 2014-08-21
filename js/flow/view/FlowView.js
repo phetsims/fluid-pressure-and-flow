@@ -9,7 +9,6 @@ define( function( require ) {
 
   // modules
   var inherit = require( 'PHET_CORE/inherit' );
-  var Node = require( 'SCENERY/nodes/Node' );
   var ScreenView = require( 'JOIST/ScreenView' );
   var ModelViewTransform2 = require( 'PHETCOMMON/view/ModelViewTransform2' );
   var Vector2 = require( 'DOT/Vector2' );
@@ -34,7 +33,6 @@ define( function( require ) {
   var PhetFont = require( 'SCENERY_PHET/PhetFont' );
   var Text = require( 'SCENERY/nodes/Text' );
 
-  var ParticleNode = require( 'FLUID_PRESSURE_AND_FLOW/flow/view/ParticleNode' );
   var PipeNode = require( 'FLUID_PRESSURE_AND_FLOW/flow/view/PipeNode' );
   var FluxMeterNode = require( 'FLUID_PRESSURE_AND_FLOW/flow/view/FluxMeterNode' );
   var ParticleCanvasNode = require( 'FLUID_PRESSURE_AND_FLOW/flow/view/ParticleCanvasNode' );
@@ -159,7 +157,7 @@ define( function( require ) {
     flowModel.isGridParticleVisibleProperty.link( function( value ) {
       if ( value ) {
         flowModel.injectGridParticles();
-        setTimeout( function() {
+        window.setTimeout( function() {
           flowModel.isGridParticleVisible = false;
         }, 5000 );
       }
