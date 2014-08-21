@@ -38,13 +38,11 @@ define( function( require ) {
     Node.call( this );
     options = _.extend( {
       lineColor: '#613705',
-      x: 0,
-      y: 300,
       pipeScale: 0.6,
       imageRotation: Math.PI
     }, options );
     this.modelViewTransform = modelViewTransform;
-
+    this.pipe = pipe;
 
     //left side pipe image.
     var leftPipe = new Image( leftPipeImage, { scale: options.pipeScale} );
@@ -91,30 +89,28 @@ define( function( require ) {
     this.updatePipeFlowLineShape = function() {
       var i;
       //Compute points for lineTo
-      var xPoints = SplineEvaluation.atArray( pipe.xSpline, linSpace );
-      var yPoints = SplineEvaluation.atArray( pipe.ySpline, linSpace );
-
-      var shape = new Shape().moveTo( modelViewTransform.modelToViewX( xPoints[0] ), modelViewTransform.modelToViewY( yPoints[0] ) );
+      var xPointsBottom = SplineEvaluation.atArray( pipe.xSplineBottom, linSpace );
+      var yPointsBottom = SplineEvaluation.atArray( pipe.ySplineBottom, linSpace );
+      var xPointsTop = SplineEvaluation.atArray( pipe.xSplineTop, linSpace );
+      var yPointsTop = SplineEvaluation.atArray( pipe.ySplineTop, linSpace );
+      var shape = new Shape().moveTo( modelViewTransform.modelToViewX( xPointsBottom[0] ), modelViewTransform.modelToViewY( yPointsBottom[0] ) );
       //Show the pipe flow line at reduced resolution while dragging so it will be smooth and responsive while dragging
-      for ( i = 1; i < xPoints.length; i = i + 1 ) {
-        shape.lineTo( modelViewTransform.modelToViewX( xPoints[i] ), modelViewTransform.modelToViewY( yPoints[i] ) );
+      for ( i = 1; i < xPointsBottom.length; i = i + 1 ) {
+        shape.lineTo( modelViewTransform.modelToViewX( xPointsBottom[i] ), modelViewTransform.modelToViewY( yPointsBottom[i] ) );
       }
-      //If at reduced resolution, still make sure we draw to the end point
-      if ( i !== xPoints.length - 1 ) {
-        i = xPoints.length - 1;
-        shape.lineTo( modelViewTransform.modelToViewX( xPoints[i] ), modelViewTransform.modelToViewY( yPoints[i] ) );
+      for ( i = xPointsTop.length - 1; i > 0; i = i - 1 ) {
+        shape.lineTo( modelViewTransform.modelToViewX( xPointsTop[i] ), modelViewTransform.modelToViewY( yPointsTop[i] ) );
       }
       pipeFlowLine.shape = shape;
 
     };
-
+    var controlPointNode = [];
     // control points dragging
     for ( var i = 0; i < pipe.controlPoints.length; i++ ) {
       (function( i ) {
         var controlPoint = pipe.controlPoints[i];
-
         var leftSpace = 20;
-        if ( pipe.controlPoints[i].position.y < 9 ) {
+        if ( pipe.controlPoints[i].position.y < 8 ) {
           options.imageRotation = 0;
           leftSpace = 0;
         }
@@ -122,33 +118,33 @@ define( function( require ) {
           options.imageRotation = Math.PI;
           leftSpace = 30;
         }
+
         var handleNode = new Image( handleImage, {bottom: 25, left: leftSpace, cursor: 'pointer', scale: 0.3} );
         handleNode.setRotation( options.imageRotation );
-        var controlPointNode = new Node( {children: [handleNode ], translation: modelViewTransform.modelToViewPosition( controlPoint.position )} );
+        controlPointNode[i] = new Node( {children: [handleNode ], translation: modelViewTransform.modelToViewPosition( controlPoint.position )} );
         controlPoint.positionProperty.link( function( position ) {
-          controlPointNode.translation = modelViewTransform.modelToViewPosition( position );
+          controlPointNode[i].translation = modelViewTransform.modelToViewPosition( position );
         } );
 
-        controlPointNode.addInputListener( new SimpleDragHandler(
+        controlPointNode[i].addInputListener( new SimpleDragHandler(
           {
             drag: function( event ) {
-              var globalPoint = controlPointNode.globalToParentPoint( event.pointer.point );
+              var globalPoint = controlPointNode[i].globalToParentPoint( event.pointer.point );
               var pt = modelViewTransform.viewToModelPosition( globalPoint );
               pt.x = pipe.pipeControlPoints[i].position.x;
-
               pt.y > 14 ? pt.y = 14 : pt.y < -20 ? pt.y = -20 : pt.y;
               controlPoint.sourcePosition = pt;
               // When a control point is dragged, update the pipe flow line shape and the node shape
-              pipe.updateSplines();
+              pipe.createSpline();
               pipeNode.updatePipeFlowLineShape();
             }
-
           } ) );
-        pipeNode.addChild( controlPointNode );
+        pipeNode.addChild( controlPointNode[i] );
       })( i );
     }
 
     //Init the PipeFlow Line shape
+    pipe.createSpline();
     this.updatePipeFlowLineShape();
     pipe.on( 'reset', pipeNode.updatePipeFlowLineShape );
     this.mutate( options );
@@ -157,7 +153,8 @@ define( function( require ) {
   return inherit( Node, PipeNode,
     {
       reset: function() {
-        this.gridParticleButton.reset();
+        this.pipe.createSpline();
+        this.updatePipeFlowLineShape();
       }
     } );
 } );

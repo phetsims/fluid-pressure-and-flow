@@ -123,7 +123,7 @@ define( function( require ) {
       listener: function() {
         flowModel.reset();
         controlSlider.reset();
-        // pipeNode.reset();
+        pipeNode.reset();
 
       },
       bottom: this.layoutBounds.bottom - inset,
