@@ -220,6 +220,13 @@ define( function( require ) {
       waterTowerModel.isFaucetEnabled = (tankFullLevelDuration < 1);
     } );
 
+    // if the sim is paused, disable the fill button as soon as the tank is filled
+    waterTowerModel.waterTower.fluidVolumeProperty.valueEquals(waterTowerModel.waterTower.TANK_VOLUME ).link(function() {
+      if (!waterTowerModel.isPlay) {
+        waterTowerNode.fillButton.enabled = false;
+      }
+    });
+
   }
 
   return inherit( ScreenView, WaterTowerView, {
