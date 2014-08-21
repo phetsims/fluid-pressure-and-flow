@@ -157,8 +157,10 @@ define( function( require ) {
     flowModel.isGridParticleVisibleProperty.link( function( value ) {
       if ( value ) {
         flowModel.injectGridParticles();
+        pipeNode.redButton.enabled = false;
         window.setTimeout( function() {
           flowModel.isGridParticleVisible = false;
+          pipeNode.redButton.enabled = true;
         }, 5000 );
       }
     } );
