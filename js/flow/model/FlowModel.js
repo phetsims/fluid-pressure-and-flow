@@ -23,6 +23,7 @@ define( function( require ) {
   var Units = require( 'FLUID_PRESSURE_AND_FLOW/flow/model/Units' );
   var LinearFunction = require( 'DOT/LinearFunction' );
   var Pipe = require( 'FLUID_PRESSURE_AND_FLOW/flow/model/Pipe' );
+  var Particle = require( 'FLUID_PRESSURE_AND_FLOW/flow/model/Particle' );
 
   // strings
   var densityUnitsEnglish = require( 'string!FLUID_PRESSURE_AND_FLOW/densityUnitsEnglish' );
@@ -44,6 +45,7 @@ define( function( require ) {
     PropertySet.call( this, {
         isRulerVisible: false,
         isFluxMeterVisible: false,
+        isGridParticleVisible: false,
         isDotsVisible: true,
         isFrictionEnabled: false,
         isPlay: true,//Whether the sim is paused or running
@@ -63,15 +65,24 @@ define( function( require ) {
     for ( var i = 0; i < 2; i++ ) {
       this.barometers.push( new Barometer( new Vector2( 0, 0 ), 101035 ) );
     }
+
     this.speedometers = [];
     for ( var j = 0; j < 2; j++ ) {
       this.speedometers.push( new VelocitySensor( new Vector2( 0, 0 ), new Vector2( 0, 0 ) ) );
     }
+
     this.fluidColorModel = new FluidColorModel( this );
 
     this.pipeFlowLine = new Pipe();
 
     this.flowParticles = new ObservableArray();
+    this.gridParticles = new ObservableArray();
+
+    this.particlesToRemove = [];
+    this.gridParticlesToRemove = [];
+    this.accumulatedDt = 0;
+    this.newParticles = [];
+    this.newGridParticles = [];
   }
 
   return inherit( PropertySet, FlowModel, {
@@ -88,8 +99,9 @@ define( function( require ) {
       } );
       this.pipeFlowLine.reset();
       this.flowParticles.clear();
-
+      this.gridParticles.clear();
     },
+
     getAirPressure: function( height ) {
       return this.getStandardAirPressure( height );
     },
@@ -109,10 +121,87 @@ define( function( require ) {
 
     // Called by the animation loop.
     step: function( dt ) {
+      if ( this.isPlay ) {
+        if ( this.speed === 'normal' ) {
+          this.stepInternal( dt );
+        }
+        else {
+          this.stepInternal( 0.33 * dt );
+        }
+      }
     },
 
     stepInternal: function( dt ) {
 
+      this.accumulatedDt += dt;
+
+      var x2;
+      var particle;
+      var newParticle;
+
+      this.newParticles = [];
+
+      while ( this.accumulatedDt > 0.2 ) {
+        this.accumulatedDt -= 0.2;
+        if ( this.isDotsVisible ) {
+          /*var min = 0.1;
+           var max = 1 - min;
+           var range = max - min;*/
+          var min = -27;
+          var max = -17;
+          var range = Math.abs( max - min );
+          //TODO: get minX for the pipe
+          newParticle = new Particle( new Vector2( 0.4/*this.pipeFlowLine.getMinX()*/, Math.random() * range + min ), 0.1, this.pipeFlowLine, 0.04, "red", false );
+          this.flowParticles.push( newParticle );
+          this.newParticles.push( newParticle );
+          newParticle.step( this.accumulatedDt );
+        }
+      }
+
+      for ( var i = 0, k = this.flowParticles.length; i < k; i++ ) {
+        if ( this.newParticles.indexOf( this.flowParticles.get( i ) ) === -1 ) {
+          this.flowParticles.get( i ).step( dt );
+        }
+        particle = this.flowParticles.get( i );
+        //Todo: get the velocity from the pipe and update the position
+        x2 = particle.getX() + /*particle.container.getTweakedVx( particle.getX(), particle.getY() )*/0.7 * dt;
+
+        // check if the particle hit the maxX
+        //TODO: get maxX for the pipe
+        if ( x2 >= /* this.pipeFlowLine.getMaxX()*/ 5 ) {
+          this.particlesToRemove.push( particle );
+        }
+        else {
+          particle.setX( x2 );
+        }
+      }
+
+      for ( var j = 0, numberOfParticles = this.gridParticles.length; j < numberOfParticles; j++ ) {
+        if ( this.newGridParticles.indexOf( this.gridParticles.get( j ) ) === -1 ) {
+          this.gridParticles.get( j ).step( dt );
+        }
+        particle = this.gridParticles.get( j );
+        //Todo: get the velocity from the pipe and update the position
+        x2 = particle.getX() + /*particle.container.getTweakedVx( particle.getX(), particle.getY() )*/0.7 * dt;
+
+        // check if the particle hit the maxX
+        //TODO: get maxX for the pipe
+        if ( x2 >= /* this.pipeFlowLine.getMaxX*/ 5 ) {
+          this.gridParticlesToRemove.push( particle );
+        }
+        else {
+          particle.setX( x2 );
+        }
+      }
+
+
+      if ( this.gridParticlesToRemove.length > 0 ) {
+        this.gridParticles.removeAll( this.gridParticlesToRemove );
+      }
+
+      if ( this.particlesToRemove.length > 0 ) {
+        this.flowParticles.removeAll( this.particlesToRemove );
+      }
     },
 
     getFluidDensityString: function() {
@@ -133,14 +222,35 @@ define( function( require ) {
     },
 
     getWaterDropVelocityAt: function( x, y ) {
-      var particles = this.flowParticles;
+      //TODO: velocity can be measured at any position in the pipe. Not only on the particles
+      /*var particles = this.flowParticles;
 
-      for ( var i = 0, j = particles.length; i < j; i++ ) {
-        if ( particles.get( i ).contains( new Vector2( x, y ) ) ) {
-          return particles.get( i ).velocity;
+       for ( var i = 0, j = particles.length; i < j; i++ ) {
+       if ( particles.get( i ).contains( new Vector2( x, y ) ) ) {
+       return particles.get( i ).velocity;
+       }
+       }*/
+      return Vector2.ZERO;
+    },
+
+    injectGridParticles: function() {
+      //Todo: getMinX from pipe
+      var x0 = /*pipe.getMinX()*/0.4 + 1E-6;
+      var width = 0.75 / 2;
+
+      //Todo: Use fraction like in the java version
+      var yMin = -29;
+      var yMax = -16;
+
+      var delta = 0.1;
+      var newGridParticle;
+      for ( var x = x0; x <= x0 + width; x += delta ) {
+        for ( var y = yMin + delta; y <= yMax - delta; y += delta * 14 ) {
+          newGridParticle = new Particle( new Vector2( x, y ), 0.5, this.pipeFlowLine, 0.02, "black", true );
+          this.gridParticles.push( newGridParticle );
+          this.newGridParticles.push( newGridParticle );
         }
       }
-      return Vector2.ZERO;
     }
   } );
 } );
