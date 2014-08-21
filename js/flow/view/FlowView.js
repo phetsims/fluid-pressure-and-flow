@@ -2,7 +2,7 @@
 
 /**
  * FlowView
- * @author Siddhartha Chinthapally (Actual Concepts) on 8/7/2014.
+ * @author Siddhartha Chinthapally (Actual Concepts).
  */
 define( function( require ) {
   'use strict';
@@ -37,6 +37,7 @@ define( function( require ) {
   var ParticleNode = require( 'FLUID_PRESSURE_AND_FLOW/flow/view/ParticleNode' );
   var PipeNode = require( 'FLUID_PRESSURE_AND_FLOW/flow/view/PipeNode' );
   var FluxMeterNode = require( 'FLUID_PRESSURE_AND_FLOW/flow/view/FluxMeterNode' );
+  var ParticleCanvasNode = require( 'FLUID_PRESSURE_AND_FLOW/flow/view/ParticleCanvasNode' );
 
   //strings
   var fluidDensityString = require( 'string!FLUID_PRESSURE_AND_FLOW/fluidDensity' );
@@ -143,9 +144,27 @@ define( function( require ) {
     var sensorPanel = new Rectangle( 0, 0, 190, 95, 10, 10, {stroke: 'gray', lineWidth: 1, fill: '#f2fa6a', right: unitsControlPanel.left - inset, top: this.toolsControlPanel.top} );
     this.addChild( sensorPanel );
 
-    // add particle layer
-    var particleLayer = new Node();
-    flowView.addChild( particleLayer );
+
+    this.particlesLayer = new ParticleCanvasNode( flowModel.flowParticles, "red", modelViewTransform, {
+      canvasBounds: new Bounds2( 40, 120, 700, 250 )
+    } );
+    flowView.addChild( this.particlesLayer );
+
+
+    this.gridParticlesLayer = new ParticleCanvasNode( flowModel.gridParticles, "black", modelViewTransform, {
+      canvasBounds: new Bounds2( 40, 120, 700, 200 )
+    } );
+    flowView.addChild( this.gridParticlesLayer );
+
+    flowModel.isGridParticleVisibleProperty.link( function( value ) {
+      if ( value ) {
+        flowModel.injectGridParticles();
+        setTimeout( function() {
+          flowModel.isGridParticleVisible = false;
+        }, 5000 );
+      }
+    } );
+
 
     // add play pause button and step button
     var stepButton = new StepButton( function() {
@@ -188,19 +207,12 @@ define( function( require ) {
     this.addChild( new FlowRuler( flowModel.isRulerVisibleProperty, flowModel.rulerPositionProperty, flowModel.measureUnitsProperty, modelViewTransform, this.layoutBounds ) );
 
 
-    flowModel.flowParticles.addItemAddedListener( function( particle ) {
-      var particleNode = new ParticleNode( particle, flowModel.fluidColorModel, modelViewTransform );
-      particleLayer.addChild( particleNode );
-      particle.node = particleNode;
-    } );
-
-
-    flowModel.flowParticles.addItemRemovedListener( function( removedDrop ) {
-      particleLayer.removeChild( removedDrop.node );
-    } );
-
-
   }
 
-  return inherit( ScreenView, FlowView );
+  return inherit( ScreenView, FlowView, {
+    step: function( dt ) {
+      this.particlesLayer.step( dt );
+      this.gridParticlesLayer.step( dt );
+    }
+  } );
 } );
