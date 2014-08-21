@@ -217,8 +217,8 @@ define( function( require ) {
     } );
 
     waterTowerModel.tankFullLevelDurationProperty.link( function( tankFullLevelDuration ) {
-      waterTowerNode.fillButton.enabled = (tankFullLevelDuration < 1);
-      waterTowerModel.isFaucetEnabled = (tankFullLevelDuration < 1);
+      waterTowerNode.fillButton.enabled = (tankFullLevelDuration < 0.2);
+      waterTowerModel.isFaucetEnabled = (tankFullLevelDuration < 0.2);
     } );
 
     // if the sim is paused, disable the fill button as soon as the tank is filled
