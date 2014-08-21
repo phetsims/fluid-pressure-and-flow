@@ -133,6 +133,7 @@ define( function( require ) {
         controlSlider.reset();
         waterTowerScreenView.hoseNode.reset();
         measuringTape.reset();
+        waterTowerNode.fillButton.enabled = true;
       },
       right: this.layoutBounds.right - inset,
       bottom: this.layoutBounds.bottom - inset
@@ -224,6 +225,18 @@ define( function( require ) {
     waterTowerModel.waterTower.fluidVolumeProperty.valueEquals(waterTowerModel.waterTower.TANK_VOLUME ).link(function() {
       if (!waterTowerModel.isPlay) {
         waterTowerNode.fillButton.enabled = false;
+        waterTowerModel.tankFullLevelDuration = 1;
+      }
+    });
+
+    // Handles the case when switching from play to pause or viceversa
+    waterTowerModel.isPlayProperty.link(function(isPlay) {
+      if (waterTowerModel.waterTower.fluidVolume >= waterTowerModel.waterTower.TANK_VOLUME) {
+        waterTowerModel.tankFullLevelDuration = 1;
+        if (!isPlay) {
+          // disable the fill button if the tank is full and switching from play to pause
+          waterTowerNode.fillButton.enabled = false;
+        }
       }
     });
 
