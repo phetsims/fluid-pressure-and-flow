@@ -10,11 +10,7 @@ define(function (require) {
 
   // modules
   var PropertySet = require('AXON/PropertySet');
-  var Util = require('DOT/Util');
   var inherit = require('PHET_CORE/inherit');
-
-  // constants
-  var Constants = require('FLUID_PRESSURE_AND_FLOW/flow/Constants');
 
   /**
    *
@@ -30,8 +26,8 @@ define(function (require) {
 
     PropertySet.call(this, {
       position: position
-
     });
+
     this.fractionUpPipe = fractionUpPipe;
     this.container = container;
     this.radius = radius;
