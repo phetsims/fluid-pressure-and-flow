@@ -17,7 +17,6 @@ define( function( require ) {
   var StringUtils = require( 'PHETCOMMON/util/StringUtils' );
   var VelocitySensor = require( 'FLUID_PRESSURE_AND_FLOW/watertower/model/VelocitySensor' );
   var Barometer = require( 'FLUID_PRESSURE_AND_FLOW/watertower/model/Barometer' );
-//  var Particle = require( 'FLUID_PRESSURE_AND_FLOW/flow/model/Particle' );
   var ObservableArray = require( 'AXON/ObservableArray' );
   var FluidColorModel = require( 'FLUID_PRESSURE_AND_FLOW/watertower/model/FluidColorModel' );
   var Units = require( 'FLUID_PRESSURE_AND_FLOW/flow/model/Units' );
@@ -52,7 +51,7 @@ define( function( require ) {
         measureUnits: 'metric', //metric, english
         fluidDensity: Constants.WATER_DENSITY,
         fluidFlowRate: 5000,
-        fluxMeterPosition: new Vector2( 300, 110 ),
+        fluxMeterPosition: new Vector2( 300, 220 ),
         rulerPosition: new Vector2( 300, 344 ), // px
         scale: 1, // scale coefficient
         speed: 'normal'//speed of the model, either 'normal' or 'slow'
@@ -147,28 +146,34 @@ define( function( require ) {
           /*var min = 0.1;
            var max = 1 - min;
            var range = max - min;*/
-          var min = -27;
-          var max = -17;
+          var min = -35;
+          var max = -23;
           var range = Math.abs( max - min );
+          var y = Math.random() * range + min;
+
           //TODO: get minX for the pipe
-          newParticle = new Particle( new Vector2( 0.4/*this.pipe.getMinX()*/, Math.random() * range + min ), 0.1, this.pipe, 0.04, "red", false );
+          newParticle = new Particle( new Vector2( 0.4/*this.pipe.getMinX()*/, y ), (y - min) / range, this.pipe, 0.04, 'red', false );
           this.flowParticles.push( newParticle );
           this.newParticles.push( newParticle );
           newParticle.step( this.accumulatedDt );
         }
       }
 
+
       for ( var i = 0, k = this.flowParticles.length; i < k; i++ ) {
+
         if ( this.newParticles.indexOf( this.flowParticles.get( i ) ) === -1 ) {
           this.flowParticles.get( i ).step( dt );
         }
+
         particle = this.flowParticles.get( i );
         //Todo: get the velocity from the pipe and update the position
-        x2 = particle.getX() + /*particle.container.getTweakedVx( particle.getX(), particle.getY() )*/0.7 * dt;
+        x2 = particle.getX() + particle.container.getTweakedVx( particle.getX(), particle.getY() ) * dt;
+
 
         // check if the particle hit the maxX
         //TODO: get maxX for the pipe
-        if ( x2 >= /* this.pipe.getMaxX()*/ 5 ) {
+        if ( x2 >= this.pipe.getMaxX() ) {
           this.particlesToRemove.push( particle );
         }
         else {
@@ -182,11 +187,11 @@ define( function( require ) {
         }
         particle = this.gridParticles.get( j );
         //Todo: get the velocity from the pipe and update the position
-        x2 = particle.getX() + /*particle.container.getTweakedVx( particle.getX(), particle.getY() )*/0.7 * dt;
+        x2 = particle.getX() + particle.container.getTweakedVx( particle.getX(), particle.getY() ) * dt;
 
         // check if the particle hit the maxX
         //TODO: get maxX for the pipe
-        if ( x2 >= /* this.pipe.getMaxX*/ 5 ) {
+        if ( x2 >= this.pipe.getMaxX() ) {
           this.gridParticlesToRemove.push( particle );
         }
         else {
@@ -222,7 +227,6 @@ define( function( require ) {
     },
 
     getWaterDropVelocityAt: function( x, y ) {
-
       //TODO: velocity can be measured at any position in the pipe. Not only on the particles
       /*var particles = this.flowParticles;
 
@@ -240,14 +244,14 @@ define( function( require ) {
       var width = 0.75 / 2;
 
       //Todo: Use fraction like in the java version
-      var yMin = -29;
-      var yMax = -16;
+      var yMin = -34;
+      var yMax = -22;
 
       var delta = 0.1;
       var newGridParticle;
       for ( var x = x0; x <= x0 + width; x += delta ) {
         for ( var y = yMin + delta; y <= yMax - delta; y += delta * 14 ) {
-          newGridParticle = new Particle( new Vector2( x, y ), 0.5, this.pipe, 0.02, "black", true );
+          newGridParticle = new Particle( new Vector2( x, y ), 0.5, this.pipe, 0.02, 'black', true );
           this.gridParticles.push( newGridParticle );
           this.newGridParticles.push( newGridParticle );
         }

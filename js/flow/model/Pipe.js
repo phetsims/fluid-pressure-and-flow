@@ -25,7 +25,7 @@ define( function( require ) {
     var pipe = this;
     PropertySet.call( this, {
       //Rate of fluid flow in volume (m^3) per second
-      flowRate: 5.0,
+      flowRate: 50.0,
       //Flag indicating whether friction should slow particles near the edges
       friction: false
 
@@ -152,9 +152,9 @@ define( function( require ) {
       var xPointsTop = SplineEvaluation.atArray( this.xSplineTop, linSpace );
       var yPointsTop = SplineEvaluation.atArray( this.ySplineTop, linSpace );
 
-      for ( var alpha = 0; alpha <= 70; alpha++ ) {
-        var topPt = new Vector2( xPointsTop[alpha * 3], yPointsTop[alpha * 3] );//topSpline.evaluate( alpha );
-        var bottomPt = new Vector2( xPointsBottom[alpha * 3], yPointsBottom[alpha * 3] );// bottomSpline.evaluate( alpha );
+      for ( var alpha = 0; alpha < xPointsTop.length; alpha++ ) {
+        var topPt = new Vector2( xPointsTop[alpha ], yPointsTop[alpha ] );//topSpline.evaluate( alpha );
+        var bottomPt = new Vector2( xPointsBottom[alpha], yPointsBottom[alpha] );// bottomSpline.evaluate( alpha );
         //make sure pipe top doesn't go below pipe bottom
         //Note that when the velocity becomes too high, Bernoulli's equation gives a negative pressure.
         //The pressure doesn't really go negative then, it just means Bernoulli's equation is inapplicable in that situation
@@ -170,7 +170,7 @@ define( function( require ) {
         pipeControlCrossSections.push( new PipeCrossSection( (topPt.x + bottomPt.x ) / 2, bottomY, topY ) );
       }
       spline.addAll( pipeControlCrossSections );
-
+      console.log( spline );
       return spline;
     },
 
@@ -327,7 +327,7 @@ define( function( require ) {
     //Find the y-value for the specified x-value and fraction (0=bottom, 1=top) of the pipe
     fractionToLocation: function( x, fraction ) {
       var position = this.getCrossSection( x );
-      return Util.Linear( 0, 1, position.getBottom().y, position.getTop().y, fraction );
+      return Util.linear( 0, 1, position.getBottom().y, position.getTop().y, fraction );
     },
 
 

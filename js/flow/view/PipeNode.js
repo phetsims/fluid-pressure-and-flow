@@ -22,7 +22,6 @@ define( function( require ) {
   var leftPipeImage = require( 'image!FLUID_PRESSURE_AND_FLOW/pipe-left.png' );
   var pipeMiddleImage = require( 'image!FLUID_PRESSURE_AND_FLOW/pipe-segment.png' );
   var rightSidePipeImage = require( 'image!FLUID_PRESSURE_AND_FLOW/pipe-right.png' );
-  var injectorBulbImage = require( 'image!FLUID_PRESSURE_AND_FLOW/injector-bulb.png' );
 
   /*
    * Constructor for PipeNode
@@ -68,11 +67,6 @@ define( function( require ) {
       this.rightPipeNode.addChild( rightPipeMiddle[j] );
     }
 
-
-    var injector = new Image( injectorBulbImage, {scale: 0.3, left: leftPipe.right - 130, bottom: leftPipe.top + 20} );
-    this.redButton = new RoundStickyToggleButton( false, true, flowModel.isGridParticleVisibleProperty, {radius: 20, center: injector.center, top: injector.top + 25, baseColor: 'red', disabledBaseColor: 'red', stroke: 'red', fill: 'red'} );
-    this.gridParticleButton = new Node( {children: [injector, this.redButton]} );
-    pipeNode.addChild( this.gridParticleButton );
     this.addChild( pipeFlowLine );
 
     this.addChild( this.rightPipeNode );
@@ -94,6 +88,7 @@ define( function( require ) {
       var xPointsTop = SplineEvaluation.atArray( pipe.xSplineTop, linSpace );
       var yPointsTop = SplineEvaluation.atArray( pipe.ySplineTop, linSpace );
       var shape = new Shape().moveTo( modelViewTransform.modelToViewX( xPointsBottom[0] ), modelViewTransform.modelToViewY( yPointsBottom[0] ) );
+
       //Show the pipe flow line at reduced resolution while dragging so it will be smooth and responsive while dragging
       for ( i = 1; i < xPointsBottom.length; i = i + 1 ) {
         shape.lineTo( modelViewTransform.modelToViewX( xPointsBottom[i] ), modelViewTransform.modelToViewY( yPointsBottom[i] ) );
@@ -102,8 +97,8 @@ define( function( require ) {
         shape.lineTo( modelViewTransform.modelToViewX( xPointsTop[i] ), modelViewTransform.modelToViewY( yPointsTop[i] ) );
       }
       pipeFlowLine.shape = shape;
-
     };
+
     var controlPointNode = [];
     // control points dragging
     for ( var i = 0; i < pipe.controlPoints.length; i++ ) {

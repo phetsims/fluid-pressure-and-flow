@@ -1,9 +1,3 @@
-// Copyright (c) 2002 - 2014. University of Colorado Boulder
-
-/**
- * FlowView
- * @author Siddhartha Chinthapally (Actual Concepts).
- */
 define( function( require ) {
   'use strict';
 
@@ -18,7 +12,7 @@ define( function( require ) {
   var GroundNode = require( 'SCENERY_PHET/GroundNode' );
   var Pattern = require( 'SCENERY/util/Pattern' );
   var Matrix3 = require( 'DOT/Matrix3' );
-  var Bounds2 = require( "DOT/Bounds2" );
+  var Bounds2 = require( 'DOT/Bounds2' );
   var ToolsControlPanel = require( 'FLUID_PRESSURE_AND_FLOW/flow/view/ToolsControlPanel' );
   var UnitsControlPanel = require( 'FLUID_PRESSURE_AND_FLOW/watertower/view/UnitsControlPanel' );
   var ControlSlider = require( 'FLUID_PRESSURE_AND_FLOW/watertower/view/ControlSlider' );
@@ -32,9 +26,11 @@ define( function( require ) {
   var AquaRadioButton = require( 'SUN/AquaRadioButton' );
   var PhetFont = require( 'SCENERY_PHET/PhetFont' );
   var Text = require( 'SCENERY/nodes/Text' );
+  var Color = require( 'SCENERY/util/Color' );
 
   var PipeNode = require( 'FLUID_PRESSURE_AND_FLOW/flow/view/PipeNode' );
   var FluxMeterNode = require( 'FLUID_PRESSURE_AND_FLOW/flow/view/FluxMeterNode' );
+  var GridInjectorNode = require( 'FLUID_PRESSURE_AND_FLOW/flow/view/GridInjectorNode' );
   var ParticleCanvasNode = require( 'FLUID_PRESSURE_AND_FLOW/flow/view/ParticleCanvasNode' );
 
   //strings
@@ -62,11 +58,15 @@ define( function( require ) {
     // add sky node
     this.addChild( new Rectangle( -5000, -1000, 10000, 1000, {stroke: '#01ACE4', fill: '#01ACE4'} ) );
 
-    var skyNode = new SkyNode( -5000, 0, 10000, 150, 200 );
+    var skyNode = new SkyNode( -5000, 0, 10000, 142, 200 );
     this.addChild( skyNode );
 
+    // Injector which generates grid particles
+    this.gridInjectorNode = new GridInjectorNode( flowModel, {bottom: skyNode.bottom + 78, left: 50 } );
+    this.addChild( this.gridInjectorNode );
+
     // add ground node
-    var groundNode = new GroundNode( -5000, 143, 10000, 400, 400, {topColor: '#9D8B61', bottomColor: '#645A3C'} );
+    var groundNode = new GroundNode( -5000, 143, 10000, 400, 400, {topColor: /*'#9D8B61'*/  new Color( 157, 139, 97, 0.8 ), bottomColor: '#645A3C'} );
     this.addChild( groundNode );
 
     //grass
@@ -133,23 +133,22 @@ define( function( require ) {
     this.addChild( resetAllButton );
 
     //adding pipe Node
-    var pipeNode = new PipeNode( flowModel, flowModel.pipe, modelViewTransform, this.layoutBounds, {top: skyNode.bottom - 160} );
+    var pipeNode = new PipeNode( flowModel, flowModel.pipe, modelViewTransform, this.layoutBounds, {top: groundNode.top + 30} );
     flowModel.pipe.reset();
     this.addChild( pipeNode );
-
 
     // add the sensors panel
     var sensorPanel = new Rectangle( 0, 0, 190, 95, 10, 10, {stroke: 'gray', lineWidth: 1, fill: '#f2fa6a', right: unitsControlPanel.left - inset, top: this.toolsControlPanel.top} );
     this.addChild( sensorPanel );
 
 
-    this.particlesLayer = new ParticleCanvasNode( flowModel.flowParticles, "red", modelViewTransform, {
-      canvasBounds: new Bounds2( 40, 120, 700, 250 )
+    this.particlesLayer = new ParticleCanvasNode( flowModel.flowParticles, 'red', modelViewTransform, {
+      canvasBounds: new Bounds2( 40, 120, 700, 300 )
     } );
     flowView.addChild( this.particlesLayer );
 
 
-    this.gridParticlesLayer = new ParticleCanvasNode( flowModel.gridParticles, "black", modelViewTransform, {
+    this.gridParticlesLayer = new ParticleCanvasNode( flowModel.gridParticles, 'black', modelViewTransform, {
       canvasBounds: new Bounds2( 40, 120, 700, 200 )
     } );
     flowView.addChild( this.gridParticlesLayer );
@@ -157,10 +156,10 @@ define( function( require ) {
     flowModel.isGridParticleVisibleProperty.link( function( value ) {
       if ( value ) {
         flowModel.injectGridParticles();
-        pipeNode.redButton.enabled = false;
+        flowView.gridInjectorNode.redButton.enabled = false;
         window.setTimeout( function() {
+          flowView.gridInjectorNode.redButton.enabled = true;
           flowModel.isGridParticleVisible = false;
-          pipeNode.redButton.enabled = true;
         }, 5000 );
       }
     } );
@@ -187,7 +186,7 @@ define( function( require ) {
     this.addChild( speedControl.mutate( {right: playPauseButton.left - inset, bottom: playPauseButton.bottom} ) );
 
 
-    var fluxMeterNode = new FluxMeterNode( flowModel, modelViewTransform, {stroke: 'blue'} );
+    var fluxMeterNode = new FluxMeterNode( flowModel, modelViewTransform, {stroke: 'blue', left: 50, top: 100} );
     flowView.addChild( fluxMeterNode );
 
     // add speedometers within the sensor panel bounds

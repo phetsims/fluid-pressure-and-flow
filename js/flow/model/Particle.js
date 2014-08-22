@@ -45,8 +45,7 @@ define(function (require) {
     },
 
     getY: function () {
-      // return this.container.fractionToLocation(this.getX(), this.fractionUpPipe);
-      return 0.5;
+      return this.container.fractionToLocation( this.getX(), this.fractionUpPipe );
     },
 
     setX: function (x) {
