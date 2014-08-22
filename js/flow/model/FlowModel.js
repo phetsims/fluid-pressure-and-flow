@@ -23,6 +23,7 @@ define( function( require ) {
   var LinearFunction = require( 'DOT/LinearFunction' );
   var Pipe = require( 'FLUID_PRESSURE_AND_FLOW/flow/model/Pipe' );
   var Particle = require( 'FLUID_PRESSURE_AND_FLOW/flow/model/Particle' );
+  var EventTimer = require( 'PHET_CORE/EventTimer' );
 
   // strings
   var densityUnitsEnglish = require( 'string!FLUID_PRESSURE_AND_FLOW/densityUnitsEnglish' );
@@ -37,6 +38,7 @@ define( function( require ) {
    * @constructor
    */
   function FlowModel() {
+    var flowModel = this;
 
     this.fluidDensityRange = new Range( Constants.GASOLINE_DENSITY, Constants.HONEY_DENSITY );
     this.flowRateRange = new Range( Constants.MIN_FLOW_RATE, Constants.MAX_FLOW_RATE );
@@ -82,6 +84,11 @@ define( function( require ) {
     this.accumulatedDt = 0;
     this.newParticles = [];
     this.newGridParticles = [];
+
+    // call stepInternal at a rate of 3 times per second
+    this.timer = new EventTimer( new EventTimer.ConstantEventModel( 3 ), function( timeElapsed ) {
+      flowModel.createParticles( timeElapsed );
+    } );
   }
 
   return inherit( PropertySet, FlowModel, {
@@ -122,43 +129,49 @@ define( function( require ) {
     step: function( dt ) {
       if ( this.isPlay ) {
         if ( this.speed === 'normal' ) {
-          this.stepInternal( dt );
+          this.timer.step( dt );
+          this.propagateParticles( dt);
         }
         else {
-          this.stepInternal( 0.33 * dt );
+          this.timer.step( 0.33 * dt );
+          this.propagateParticles( 0.33 * dt);
         }
       }
     },
 
-    stepInternal: function( dt ) {
+    createParticles: function(dt) {
 
-      this.accumulatedDt += dt;
-
-      var x2;
-      var particle;
       var newParticle;
+
 
       this.newParticles = [];
 
-      while ( this.accumulatedDt > 0.2 ) {
-        this.accumulatedDt -= 0.2;
-        if ( this.isDotsVisible ) {
-          /*var min = 0.1;
-           var max = 1 - min;
-           var range = max - min;*/
-          var min = -35;
-          var max = -23;
-          var range = Math.abs( max - min );
-          var y = Math.random() * range + min;
+//      while ( this.accumulatedDt > 0.2 ) {
+      //       this.accumulatedDt -= 0.2;
+      if ( this.isDotsVisible ) {
+        /*var min = 0.1;
+         var max = 1 - min;
+         var range = max - min;*/
+        var min = -35;
+        var max = -23;
+        var range = Math.abs( max - min );
+        var y = Math.random() * range + min;
 
-          //TODO: get minX for the pipe
-          newParticle = new Particle( new Vector2( 0.4/*this.pipe.getMinX()*/, y ), (y - min) / range, this.pipe, 0.04, 'red', false );
-          this.flowParticles.push( newParticle );
-          this.newParticles.push( newParticle );
-          newParticle.step( this.accumulatedDt );
-        }
+        //TODO: get minX for the pipe
+        newParticle = new Particle( new Vector2( 0.4, y ), (y - min) / range, this.pipe, 0.04, 'red', false );
+        this.flowParticles.push( newParticle );
+        this.newParticles.push( newParticle );
+        newParticle.step( dt );
       }
 
+
+    },
+
+    propagateParticles: function( dt ) {
+
+      var x2;
+
+      var particle;
 
       for ( var i = 0, k = this.flowParticles.length; i < k; i++ ) {
 
@@ -198,7 +211,6 @@ define( function( require ) {
           particle.setX( x2 );
         }
       }
-
 
       if ( this.gridParticlesToRemove.length > 0 ) {
         this.gridParticles.removeAll( this.gridParticlesToRemove );
