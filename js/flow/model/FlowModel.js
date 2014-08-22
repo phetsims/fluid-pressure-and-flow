@@ -73,7 +73,7 @@ define( function( require ) {
 
     this.fluidColorModel = new FluidColorModel( this );
 
-    this.pipeFlowLine = new Pipe();
+    this.pipe = new Pipe();
 
     this.flowParticles = new ObservableArray();
     this.gridParticles = new ObservableArray();
@@ -97,7 +97,7 @@ define( function( require ) {
       _.each( this.speedometers, function( speedometer ) {
         speedometer.reset();
       } );
-      this.pipeFlowLine.reset();
+      this.pipe.reset();
       this.flowParticles.clear();
       this.gridParticles.clear();
     },
@@ -151,7 +151,7 @@ define( function( require ) {
           var max = -17;
           var range = Math.abs( max - min );
           //TODO: get minX for the pipe
-          newParticle = new Particle( new Vector2( 0.4/*this.pipeFlowLine.getMinX()*/, Math.random() * range + min ), 0.1, this.pipeFlowLine, 0.04, "red", false );
+          newParticle = new Particle( new Vector2( 0.4/*this.pipe.getMinX()*/, Math.random() * range + min ), 0.1, this.pipe, 0.04, "red", false );
           this.flowParticles.push( newParticle );
           this.newParticles.push( newParticle );
           newParticle.step( this.accumulatedDt );
@@ -168,7 +168,7 @@ define( function( require ) {
 
         // check if the particle hit the maxX
         //TODO: get maxX for the pipe
-        if ( x2 >= /* this.pipeFlowLine.getMaxX()*/ 5 ) {
+        if ( x2 >= /* this.pipe.getMaxX()*/ 5 ) {
           this.particlesToRemove.push( particle );
         }
         else {
@@ -186,7 +186,7 @@ define( function( require ) {
 
         // check if the particle hit the maxX
         //TODO: get maxX for the pipe
-        if ( x2 >= /* this.pipeFlowLine.getMaxX*/ 5 ) {
+        if ( x2 >= /* this.pipe.getMaxX*/ 5 ) {
           this.gridParticlesToRemove.push( particle );
         }
         else {
@@ -222,6 +222,7 @@ define( function( require ) {
     },
 
     getWaterDropVelocityAt: function( x, y ) {
+
       //TODO: velocity can be measured at any position in the pipe. Not only on the particles
       /*var particles = this.flowParticles;
 
@@ -230,7 +231,7 @@ define( function( require ) {
        return particles.get( i ).velocity;
        }
        }*/
-      return Vector2.ZERO;
+      return this.pipe.getTweakedVelocity(x,y);
     },
 
     injectGridParticles: function() {
@@ -246,7 +247,7 @@ define( function( require ) {
       var newGridParticle;
       for ( var x = x0; x <= x0 + width; x += delta ) {
         for ( var y = yMin + delta; y <= yMax - delta; y += delta * 14 ) {
-          newGridParticle = new Particle( new Vector2( x, y ), 0.5, this.pipeFlowLine, 0.02, "black", true );
+          newGridParticle = new Particle( new Vector2( x, y ), 0.5, this.pipe, 0.02, "black", true );
           this.gridParticles.push( newGridParticle );
           this.newGridParticles.push( newGridParticle );
         }

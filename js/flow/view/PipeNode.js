@@ -131,7 +131,7 @@ define( function( require ) {
             drag: function( event ) {
               var globalPoint = controlPointNode[i].globalToParentPoint( event.pointer.point );
               var pt = modelViewTransform.viewToModelPosition( globalPoint );
-              pt.x = pipe.pipeControlPoints[i].position.x;
+              pt.x = pipe.controlPoints[i].position.x;
               pt.y > 14 ? pt.y = 14 : pt.y < -20 ? pt.y = -20 : pt.y;
               controlPoint.sourcePosition = pt;
               // When a control point is dragged, update the pipe flow line shape and the node shape

@@ -133,8 +133,8 @@ define( function( require ) {
     this.addChild( resetAllButton );
 
     //adding pipe Node
-    var pipeNode = new PipeNode( flowModel, flowModel.pipeFlowLine, modelViewTransform, this.layoutBounds, {top: skyNode.bottom - 160} );
-    flowModel.pipeFlowLine.reset();
+    var pipeNode = new PipeNode( flowModel, flowModel.pipe, modelViewTransform, this.layoutBounds, {top: skyNode.bottom - 160} );
+    flowModel.pipe.reset();
     this.addChild( pipeNode );
 
 
