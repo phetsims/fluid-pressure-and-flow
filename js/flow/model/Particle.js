@@ -5,12 +5,12 @@
  * @author Siddhartha Chinthapally (Actual Concepts)
  */
 
-define(function (require) {
+define( function( require ) {
   'use strict';
 
   // modules
-  var PropertySet = require('AXON/PropertySet');
-  var inherit = require('PHET_CORE/inherit');
+  var PropertySet = require( 'AXON/PropertySet' );
+  var inherit = require( 'PHET_CORE/inherit' );
 
   /**
    *
@@ -22,12 +22,12 @@ define(function (require) {
    * @param {boolean} gridParticle whether a grid particle or a regular particle
    * @constructor
    */
-  function Particle(position, fractionUpPipe, container, radius, color, gridParticle) {
+  function Particle( position, fractionUpPipe, container, radius, color, gridParticle ) {
 
-    PropertySet.call(this, {
-      position: position
-    });
+    PropertySet.call( this, {
+    } );
 
+    this.position = position;
     this.fractionUpPipe = fractionUpPipe;
     this.container = container;
     this.radius = radius;
@@ -35,29 +35,29 @@ define(function (require) {
     this.gridPracticle = gridParticle;
   }
 
-  return inherit(PropertySet, Particle, {
+  return inherit( PropertySet, Particle, {
 
     step: function( dt ) {
     },
 
-    getX: function () {
+    getX: function() {
       return this.position.x;
     },
 
-    getY: function () {
+    getY: function() {
       return this.container.fractionToLocation( this.getX(), this.fractionUpPipe );
     },
 
-    setX: function (x) {
+    setX: function( x ) {
       this.position.x = x;
     },
 
-    getPosition: function () {
+    getPosition: function() {
       return this.position;
     },
 
-    getRadius: function () {
+    getRadius: function() {
       return this.radius;
     }
-  });
-});
+  } );
+} );

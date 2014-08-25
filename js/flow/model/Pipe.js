@@ -33,13 +33,13 @@ define( function( require ) {
 
     // Cross sections that the user can manipulate to deform the pipe.
     this.controlCrossSections = []; // ArrayList<PipeCrossSection>();
-    this.controlCrossSections[0] = new PipeCrossSection( 0.25, 8, -8 );
-    this.controlCrossSections[1] = new PipeCrossSection( 0.8, 8, -8 );
-    this.controlCrossSections[2] = new PipeCrossSection( 1.6, 8, -8 );
-    this.controlCrossSections[3] = new PipeCrossSection( 2.4, 8, -8 );
-    this.controlCrossSections[4] = new PipeCrossSection( 3.2, 8, -8 );
-    this.controlCrossSections[5] = new PipeCrossSection( 4.2, 8, -8 );
-    this.controlCrossSections[6] = new PipeCrossSection( 5.05, 8, -8 );
+    this.controlCrossSections[0] = new PipeCrossSection( 0.8, -4, -1 );
+    this.controlCrossSections[1] = new PipeCrossSection( 3, -4, -1 );
+    this.controlCrossSections[2] = new PipeCrossSection( 6, -4, -1 );
+    this.controlCrossSections[3] = new PipeCrossSection( 9, -4, -1 );
+    this.controlCrossSections[4] = new PipeCrossSection( 12, -4, -1 );
+    this.controlCrossSections[5] = new PipeCrossSection( 14, -4, -1 );
+    this.controlCrossSections[6] = new PipeCrossSection( 17.2, -4, -1 );
 
     // Nonlinear interpolation of the control sections for particle motion and determining the velocity field
     this.splineCrossSections = new ObservableArray();//ArrayList<PipeCrossSection>
@@ -216,8 +216,8 @@ define( function( require ) {
       var pipeCrossSection;
       var i;
       // Assuming the crossSections are sorted in ascending x. TODO: Verify this
-      for ( i = crossSections.length - 1; i >=0; i-- ) {
-        pipeCrossSection = crossSections.get(i);
+      for ( i = crossSections.length - 1; i >= 0; i-- ) {
+        pipeCrossSection = crossSections.get( i );
         if ( pipeCrossSection.getX() < x ) {
           return pipeCrossSection;
         }
@@ -235,7 +235,7 @@ define( function( require ) {
       var i;
       // Assuming the crossSections are sorted in ascending x. TODO: Verify this
       for ( i = 0; i < crossSections.length; i++ ) {
-        pipeCrossSection = crossSections.get(i);
+        pipeCrossSection = crossSections.get( i );
         if ( pipeCrossSection.getX() > x ) {
           return pipeCrossSection;
         }

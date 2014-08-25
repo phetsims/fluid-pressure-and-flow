@@ -67,14 +67,10 @@ define( function( require ) {
 
     // todo: center will be the cetner of the cross section
     // radiusY == crossSection height/2. radiusX = 10
-    this.ellipse = new Path( new Shape()
-        .ellipticalArc( 50, 40, 50, 10, Math.PI / 2, 0, Math.PI, false )
-      , {lineWidth: '3', stroke: 'blue'} );
+    this.ellipse = new Path( new Shape().ellipticalArc( 50, 40, 50, 10, Math.PI / 2, 0, Math.PI, false ), {lineWidth: '3', stroke: 'blue'} );
     this.addChild( this.ellipse );
 
-    this.ellipse2 = new Path( new Shape()
-        .ellipticalArc( 50, 40, 50, 10, Math.PI / 2, Math.PI, 0, false )
-      , {lineWidth: '3', stroke: new Color( 0, 0, 255, 0.5 )} );
+    this.ellipse2 = new Path( new Shape().ellipticalArc( 50, 40, 50, 10, Math.PI / 2, Math.PI, 0, false ), {lineWidth: '3', stroke: new Color( 0, 0, 255, 0.5 )} );
     this.addChild( this.ellipse2 );
 
 
@@ -109,7 +105,6 @@ define( function( require ) {
     } );
 
     var clickXOffset = 0;
-    var delta = 0;
 
     this.handle.addInputListener( new SimpleDragHandler( {
       start: function( e ) {
@@ -120,10 +115,8 @@ define( function( require ) {
         var x = fluxMeterNode.globalToParentPoint( e.pointer.point ).x;
         x = x < 0 ? 0 : x > 650 ? 650 : x;
         fluxMeterNode.setTranslation( x, flowModel.fluxMeterPosition.y );
-        var newEllipse1 = new Shape()
-          .ellipticalArc( 50, 40, 50, 10, Math.PI / 2, 0, Math.PI, false );
-        var newEllipse2 = new Shape()
-          .ellipticalArc( 50, 40, 50, 10, Math.PI / 2, Math.PI, 0, false );
+        var newEllipse1 = new Shape().ellipticalArc( 50, 40, 50, 10, Math.PI / 2, 0, Math.PI, false );
+        var newEllipse2 = new Shape().ellipticalArc( 50, 40, 50, 10, Math.PI / 2, Math.PI, 0, false );
 
         fluxMeterNode.ellipse.setShape( newEllipse1 );
         fluxMeterNode.ellipse2.setShape( newEllipse2 );

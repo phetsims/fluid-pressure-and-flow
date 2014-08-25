@@ -5,7 +5,6 @@
  * @author Shakhov Vasily (Mlearner)
  * @author Siddhartha Chinthapally (Actual Concepts).
  */
-
 define( function( require ) {
   'use strict';
 
@@ -38,9 +37,11 @@ define( function( require ) {
     Node.call( this, {cursor: 'pointer'} );
     var closeIconRadius = 4;
     var rulerWidth = 40;
-    var rulerHeight = modelViewTransform.modelToViewX( 2 );
-    var meterMajorStickWidth = modelViewTransform.modelToViewX( 0.2 );
-    var feetMajorStickWidth = modelViewTransform.modelToViewX( 0.1 );
+    var rulerHeight = Math.abs( modelViewTransform.modelToViewDeltaY( 5 ) );
+
+    var meterMajorStickWidth = Math.abs( modelViewTransform.modelToViewDeltaY( 1 ) );
+
+    var feetMajorStickWidth = Math.abs( modelViewTransform.modelToViewDeltaY( 0.33 ) );
     var scaleFont = new PhetFont( 12 );
     var xIcon = new Path( new Shape()
       .moveTo( -closeIconRadius, -closeIconRadius )
@@ -59,7 +60,7 @@ define( function( require ) {
     this.addChild( closeButton );
 
     // ruler in meters
-    var metersRuler = new RulerNode( rulerHeight, rulerWidth, meterMajorStickWidth, ['0', '1', '2', '3', '4'], units_metersString, {minorTicksPerMajorTick: 4, unitsFont: scaleFont, majorTickFont: scaleFont, unitsSpacing: 50, rotation: -Math.PI / 2, insetsWidth: 0} );
+    var metersRuler = new RulerNode( rulerHeight, rulerWidth, meterMajorStickWidth, ['0', '1', '2', '3', '4', '5'], units_metersString, {minorTicksPerMajorTick: 4, unitsFont: scaleFont, majorTickFont: scaleFont, unitsSpacing: 10, rotation: -Math.PI / 2, insetsWidth: 0} );
     this.addChild( metersRuler );
 
     // ruler in feet

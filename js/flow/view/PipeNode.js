@@ -12,7 +12,6 @@ define( function( require ) {
   var Node = require( 'SCENERY/nodes/Node' );
   var Path = require( 'SCENERY/nodes/Path' );
   var Image = require( 'SCENERY/nodes/Image' );
-  var RoundStickyToggleButton = require( 'SUN/Buttons/RoundStickyToggleButton' );
   var SimpleDragHandler = require( 'SCENERY/input/SimpleDragHandler' );
   var Shape = require( 'KITE/Shape' );
   var SplineEvaluation = require( 'FLUID_PRESSURE_AND_FLOW/flow/model/SplineEvaluation' );
@@ -42,7 +41,6 @@ define( function( require ) {
     }, options );
     this.modelViewTransform = modelViewTransform;
     this.pipe = pipe;
-
     //left side pipe image.
     var leftPipe = new Image( leftPipeImage, { scale: options.pipeScale} );
     var leftPipeMiddle = [];
@@ -50,11 +48,12 @@ define( function( require ) {
     for ( var j = 1; j < 40; j++ ) {
       leftPipeMiddle[j] = new Image( pipeMiddleImage, { right: leftPipeMiddle[j - 1].left + 1, scale: options.pipeScale} );
     }
-    this.leftPipeNode = new Node( {children: [leftPipe], left: layBounds.minX - 40, scale: options.pipeScale} );
+    this.leftPipeNode = new Node( {children: [leftPipe], top: 143 + 30, left: layBounds.minX - 40, scale: options.pipeScale} );
     for ( j = 0; j < 40; j++ ) {
       this.leftPipeNode.addChild( leftPipeMiddle[j] );
     }
-    var pipeFlowLine = new Path( null, {stroke: options.lineColor, top: this.leftPipeNode.bottom, lineWidth: '6', fill: flowModel.fluidColorModel.color} );
+    //console.log(this.leftPipeNode.bottom);
+    this.pipeFlowLine = new Path( null, {stroke: options.lineColor, left: this.leftPipeNode.right, lineWidth: '6', fill: flowModel.fluidColorModel.color} );
     // right side pipe image.
     var rightPipe = new Image( rightSidePipeImage, { scale: options.pipeScale} );
     var rightPipeMiddle = [];
@@ -67,13 +66,13 @@ define( function( require ) {
       this.rightPipeNode.addChild( rightPipeMiddle[j] );
     }
 
-    this.addChild( pipeFlowLine );
+    this.addChild( this.pipeFlowLine );
 
     this.addChild( this.rightPipeNode );
     this.addChild( this.leftPipeNode );
 
 
-    flowModel.fluidColorModel.colorProperty.linkAttribute( pipeFlowLine, 'fill' );
+    flowModel.fluidColorModel.colorProperty.linkAttribute( this.pipeFlowLine, 'fill' );
 
     // for line smoothness
     var lastPt = (pipe.controlPoints.length - 1) / pipe.controlPoints.length;
@@ -89,14 +88,14 @@ define( function( require ) {
       var yPointsTop = SplineEvaluation.atArray( pipe.ySplineTop, linSpace );
       var shape = new Shape().moveTo( modelViewTransform.modelToViewX( xPointsBottom[0] ), modelViewTransform.modelToViewY( yPointsBottom[0] ) );
 
-      //Show the pipe flow line at reduced resolution while dragging so it will be smooth and responsive while dragging
+      // Show the pipe flow line at reduced resolution while dragging so it will be smooth and responsive while dragging
       for ( i = 1; i < xPointsBottom.length; i = i + 1 ) {
         shape.lineTo( modelViewTransform.modelToViewX( xPointsBottom[i] ), modelViewTransform.modelToViewY( yPointsBottom[i] ) );
       }
       for ( i = xPointsTop.length - 1; i > 0; i = i - 1 ) {
         shape.lineTo( modelViewTransform.modelToViewX( xPointsTop[i] ), modelViewTransform.modelToViewY( yPointsTop[i] ) );
       }
-      pipeFlowLine.shape = shape;
+      this.pipeFlowLine.shape = shape;
     };
 
     var controlPointNode = [];
@@ -105,7 +104,7 @@ define( function( require ) {
       (function( i ) {
         var controlPoint = pipe.controlPoints[i];
         var leftSpace = 20;
-        if ( pipe.controlPoints[i].position.y < 8 ) {
+        if ( pipe.controlPoints[i].position.y < -2 ) {
           options.imageRotation = 0;
           leftSpace = 0;
         }
@@ -114,11 +113,11 @@ define( function( require ) {
           leftSpace = 30;
         }
 
-        var handleNode = new Image( handleImage, {bottom: 25, left: leftSpace, cursor: 'pointer', scale: 0.3} );
+        var handleNode = new Image( handleImage, {left: leftSpace, cursor: 'pointer', scale: 0.3} );
         handleNode.setRotation( options.imageRotation );
-        controlPointNode[i] = new Node( {children: [handleNode ], translation: modelViewTransform.modelToViewPosition( controlPoint.position )} );
+        controlPointNode[i] = new Node( {children: [handleNode ]} );
         controlPoint.positionProperty.link( function( position ) {
-          controlPointNode[i].translation = modelViewTransform.modelToViewPosition( position );
+          controlPointNode[i].setTranslation( modelViewTransform.modelToViewX( position.x ), modelViewTransform.modelToViewY( position.y ) );
         } );
 
         controlPointNode[i].addInputListener( new SimpleDragHandler(

@@ -8,8 +8,8 @@ define( function( require ) {
   'use strict';
 
   // modules
-  var inherit = require('PHET_CORE/inherit');
-  var CanvasNode = require('SCENERY/nodes/CanvasNode');
+  var inherit = require( 'PHET_CORE/inherit' );
+  var CanvasNode = require( 'SCENERY/nodes/CanvasNode' );
 
   /**
    * A particle layer rendered on canvas
@@ -19,7 +19,7 @@ define( function( require ) {
    * @param options
    * @constructor
    */
-  function ParticleCanvasNode( particles, color,  modelViewTransform, options ) {
+  function ParticleCanvasNode( particles, color, modelViewTransform, options ) {
 
     this.particles = particles;
     this.color = color;
@@ -50,5 +50,5 @@ define( function( require ) {
       this.invalidatePaint();
     }
 
-  });
-});
+  } );
+} );

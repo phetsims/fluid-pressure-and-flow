@@ -130,16 +130,16 @@ define( function( require ) {
       if ( this.isPlay ) {
         if ( this.speed === 'normal' ) {
           this.timer.step( dt );
-          this.propagateParticles( dt);
+          this.propagateParticles( dt );
         }
         else {
           this.timer.step( 0.33 * dt );
-          this.propagateParticles( 0.33 * dt);
+          this.propagateParticles( 0.33 * dt );
         }
       }
     },
 
-    createParticles: function(dt) {
+    createParticles: function( dt ) {
 
       var newParticle;
 
@@ -152,13 +152,13 @@ define( function( require ) {
         /*var min = 0.1;
          var max = 1 - min;
          var range = max - min;*/
-        var min = -35;
-        var max = -23;
+        var min = -3;
+        var max = -1.2;
         var range = Math.abs( max - min );
         var y = Math.random() * range + min;
 
         //TODO: get minX for the pipe
-        newParticle = new Particle( new Vector2( 0.4, y ), (y - min) / range, this.pipe, 0.04, 'red', false );
+        newParticle = new Particle( new Vector2( 1.5, y ), (y - min) / range, this.pipe, 0.1, 'red', false );
         this.flowParticles.push( newParticle );
         this.newParticles.push( newParticle );
         newParticle.step( dt );
@@ -181,7 +181,7 @@ define( function( require ) {
 
         particle = this.flowParticles.get( i );
         //Todo: get the velocity from the pipe and update the position
-        x2 = particle.getX() + particle.container.getTweakedVx( particle.getX(), particle.getY() ) * dt;
+        x2 = particle.getX() + /*particle.container.getTweakedVx( particle.getX(), particle.getY() )*/ 0.7 * dt;
 
 
         // check if the particle hit the maxX
@@ -200,7 +200,7 @@ define( function( require ) {
         }
         particle = this.gridParticles.get( j );
         //Todo: get the velocity from the pipe and update the position
-        x2 = particle.getX() + particle.container.getTweakedVx( particle.getX(), particle.getY() ) * dt;
+        x2 = particle.getX() + /*particle.container.getTweakedVx( particle.getX(), particle.getY() ) */ 0.7 * dt;
 
         // check if the particle hit the maxX
         //TODO: get maxX for the pipe
@@ -247,23 +247,24 @@ define( function( require ) {
        return particles.get( i ).velocity;
        }
        }*/
-      return this.pipe.getTweakedVelocity(x,y);
+
+      return Vector2.ZERO;//this.pipe.getTweakedVelocity(x,y);
     },
 
     injectGridParticles: function() {
       //Todo: getMinX from pipe
-      var x0 = /*pipe.getMinX()*/0.4 + 1E-6;
-      var width = 0.75 / 2;
+      var x0 = this.pipe.getMinX() + 1;
+      var width = 1;
 
       //Todo: Use fraction like in the java version
-      var yMin = -34;
-      var yMax = -22;
+      var yMin = -3;
+      var yMax = -1;
 
       var delta = 0.1;
       var newGridParticle;
-      for ( var x = x0; x <= x0 + width; x += delta ) {
-        for ( var y = yMin + delta; y <= yMax - delta; y += delta * 14 ) {
-          newGridParticle = new Particle( new Vector2( x, y ), 0.5, this.pipe, 0.02, 'black', true );
+      for ( var x = x0; x <= x0 + width; x += delta * 3 ) {
+        for ( var y = yMin + delta; y <= yMax - delta; y += delta * 2 ) {
+          newGridParticle = new Particle( new Vector2( x, y ), 0.5, this.pipe, 0.08, 'black', true );
           this.gridParticles.push( newGridParticle );
           this.newGridParticles.push( newGridParticle );
         }
@@ -271,3 +272,4 @@ define( function( require ) {
     }
   } );
 } );
+

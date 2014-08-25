@@ -53,8 +53,10 @@ define( function( require ) {
 
     ScreenView.call( this, {renderer: 'svg'} );
 
-    var modelViewTransform = ModelViewTransform2.createRectangleInvertedYMapping( new Bounds2( 0, 0, 5, 10 ), new Bounds2( 0, 0, 680, 66 ) );
-
+    var modelViewTransform = ModelViewTransform2.createSinglePointScaleInvertedYMapping(
+      Vector2.ZERO,
+      new Vector2( 0, 140 ),
+      40 ); //1m = 40 px, (0,0) - top left corner
     // add sky node
     this.addChild( new Rectangle( -5000, -1000, 10000, 1000, {stroke: '#01ACE4', fill: '#01ACE4'} ) );
 
@@ -133,7 +135,7 @@ define( function( require ) {
     this.addChild( resetAllButton );
 
     //adding pipe Node
-    var pipeNode = new PipeNode( flowModel, flowModel.pipe, modelViewTransform, this.layoutBounds, {top: groundNode.top + 30} );
+    var pipeNode = new PipeNode( flowModel, flowModel.pipe, modelViewTransform, this.layoutBounds );
     flowModel.pipe.reset();
     this.addChild( pipeNode );
 

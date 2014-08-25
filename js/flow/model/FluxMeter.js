@@ -5,20 +5,20 @@
  * @author Siddhartha Chinthapally (Actual Concepts)
  */
 
-define(function (require) {
+define( function( require ) {
   'use strict';
 
-  var inherit = require('PHET_CORE/inherit');
-  var PropertySet = require('AXON/PropertySet');
+  var inherit = require( 'PHET_CORE/inherit' );
+  var PropertySet = require( 'AXON/PropertySet' );
 
-  function FluxMeter(pipe) {
+  function FluxMeter( pipe ) {
     var fluxMeter = this;
-    PropertySet.call(this, {
+    PropertySet.call( this, {
       visible: false,//flag that indicates whether the flux meter is visible
       x: 0,
       area: 0,
       flux: 0
-    });
+    } );
 
     // Compute the area as the pi * r * r of the pipe, and make sure it updates when the user drags the cross section or deforms the pipe
     this.area = pipe.getCrossSectionalArea( fluxMeter.x );
@@ -28,15 +28,15 @@ define(function (require) {
     //flux = rate / area, so rate = flux * area
     this.flux = pipe.flowRate / this.area;
 
-/*
-    this.getTop = function() {
-      return pipe.getPoint( this.x.get(), 1 );
-    };
+    /*
+     this.getTop = function() {
+     return pipe.getPoint( this.x.get(), 1 );
+     };
 
-    this.getBottom=function() {
-      return pipe.getPoint( this.x.get(), 0 );
-    }*/
+     this.getBottom=function() {
+     return pipe.getPoint( this.x.get(), 0 );
+     }*/
   }
 
-  return inherit(PropertySet, FluxMeter);
-});
+  return inherit( PropertySet, FluxMeter );
+} );
