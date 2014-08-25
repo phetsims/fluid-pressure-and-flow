@@ -126,9 +126,10 @@ define( function( require ) {
               var globalPoint = controlPointNode[i].globalToParentPoint( event.pointer.point );
               var pt = modelViewTransform.viewToModelPosition( globalPoint );
               pt.x = pipe.controlPoints[i].position.x;
-              pt.y > 14 ? pt.y = 14 : pt.y < -20 ? pt.y = -20 : pt.y;
+              pt.y > 0 ? pt.y = 0 : pt.y < -6 ? pt.y = -6 : pt.y;
               controlPoint.sourcePosition = pt;
               // When a control point is dragged, update the pipe flow line shape and the node shape
+              pipe.dirty = true;
               pipe.createSpline();
               pipeNode.updatePipeFlowLineShape();
             }
@@ -140,7 +141,6 @@ define( function( require ) {
     //Init the PipeFlow Line shape
     pipe.createSpline();
     this.updatePipeFlowLineShape();
-    pipe.on( 'reset', pipeNode.updatePipeFlowLineShape );
     this.mutate( options );
   }
 

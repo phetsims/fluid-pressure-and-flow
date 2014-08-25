@@ -53,10 +53,12 @@ define( function( require ) {
 
     ScreenView.call( this, {renderer: 'svg'} );
 
-    var modelViewTransform = ModelViewTransform2.createSinglePointScaleInvertedYMapping(
+    var modelViewTransform = ModelViewTransform2.createSinglePointXYScaleMapping(
       Vector2.ZERO,
       new Vector2( 0, 140 ),
-      40 ); //1m = 40 px, (0,0) - top left corner
+      136,
+      -50 );
+
     // add sky node
     this.addChild( new Rectangle( -5000, -1000, 10000, 1000, {stroke: '#01ACE4', fill: '#01ACE4'} ) );
 
@@ -145,7 +147,7 @@ define( function( require ) {
 
 
     this.particlesLayer = new ParticleCanvasNode( flowModel.flowParticles, 'red', modelViewTransform, {
-      canvasBounds: new Bounds2( 40, 120, 700, 300 )
+      canvasBounds: new Bounds2( 40, 120, 700, 600 )
     } );
     flowView.addChild( this.particlesLayer );
 
@@ -169,7 +171,7 @@ define( function( require ) {
 
     // add play pause button and step button
     var stepButton = new StepButton( function() {
-      flowModel.stepInternal( 0.016 );
+      flowModel.propagateParticles( 0.016 );
     }, flowModel.isPlayProperty, { stroke: 'black', fill: '#005566', right: controlSlider.left - inset, bottom: controlSlider.bottom - inset} );
 
     this.addChild( stepButton );

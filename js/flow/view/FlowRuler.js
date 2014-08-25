@@ -41,8 +41,8 @@ define( function( require ) {
 
     var meterMajorStickWidth = Math.abs( modelViewTransform.modelToViewDeltaY( 1 ) );
 
-    var feetMajorStickWidth = Math.abs( modelViewTransform.modelToViewDeltaY( 0.33 ) );
-    var scaleFont = new PhetFont( 12 );
+    var feetMajorStickWidth = Math.abs( modelViewTransform.modelToViewDeltaY( 0.3 ) );
+    var scaleFont = new PhetFont( 10 );
     var xIcon = new Path( new Shape()
       .moveTo( -closeIconRadius, -closeIconRadius )
       .lineTo( closeIconRadius, closeIconRadius )
@@ -60,11 +60,11 @@ define( function( require ) {
     this.addChild( closeButton );
 
     // ruler in meters
-    var metersRuler = new RulerNode( rulerHeight, rulerWidth, meterMajorStickWidth, ['0', '1', '2', '3', '4', '5'], units_metersString, {minorTicksPerMajorTick: 4, unitsFont: scaleFont, majorTickFont: scaleFont, unitsSpacing: 10, rotation: -Math.PI / 2, insetsWidth: 0} );
+    var metersRuler = new RulerNode( rulerHeight, rulerWidth, meterMajorStickWidth, ['0', '1', '2', '3', '4', '5'], units_metersString, {minorTicksPerMajorTick: 4, unitsFont: scaleFont, majorTickFont: scaleFont, unitsSpacing: 54, rotation: -Math.PI / 2, insetsWidth: 0} );
     this.addChild( metersRuler );
 
     // ruler in feet
-    var feetRuler = new RulerNode( rulerHeight, rulerWidth, feetMajorStickWidth, ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'], units_feetString, {minorTicksPerMajorTick: 4, unitsSpacing: 34, unitsFont: scaleFont, majorTickFont: scaleFont, insetsWidth: 0, rotation: -Math.PI / 2} );
+    var feetRuler = new RulerNode( rulerHeight, rulerWidth, feetMajorStickWidth, ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14', '15', '16'], units_feetString, {minorTicksPerMajorTick: 4, unitsSpacing: 14, unitsFont: scaleFont, majorTickFont: scaleFont, insetsWidth: 0, rotation: -Math.PI / 2} );
     this.addChild( feetRuler );
 
     isRulerVisibleProperty.linkAttribute( this, 'visible' );

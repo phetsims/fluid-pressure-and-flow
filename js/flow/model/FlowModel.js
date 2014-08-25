@@ -140,57 +140,37 @@ define( function( require ) {
     },
 
     createParticles: function( dt ) {
-
       var newParticle;
-
-
       this.newParticles = [];
 
-//      while ( this.accumulatedDt > 0.2 ) {
-      //       this.accumulatedDt -= 0.2;
       if ( this.isDotsVisible ) {
-        /*var min = 0.1;
-         var max = 1 - min;
-         var range = max - min;*/
-        var min = -3;
-        var max = -1.2;
-        var range = Math.abs( max - min );
-        var y = Math.random() * range + min;
-
-        //TODO: get minX for the pipe
-        newParticle = new Particle( new Vector2( 1.5, y ), (y - min) / range, this.pipe, 0.1, 'red', false );
+        var fraction = Math.random();
+        newParticle = new Particle( new Vector2( this.pipe.getMinX(), 0 ), fraction, this.pipe, 0.05, 'red', false );
         this.flowParticles.push( newParticle );
         this.newParticles.push( newParticle );
         newParticle.step( dt );
       }
-
-
     },
 
     propagateParticles: function( dt ) {
-
       var x2;
-
       var particle;
 
       for ( var i = 0, k = this.flowParticles.length; i < k; i++ ) {
-
         if ( this.newParticles.indexOf( this.flowParticles.get( i ) ) === -1 ) {
           this.flowParticles.get( i ).step( dt );
         }
 
         particle = this.flowParticles.get( i );
-        //Todo: get the velocity from the pipe and update the position
-        x2 = particle.getX() + /*particle.container.getTweakedVx( particle.getX(), particle.getY() )*/ 0.7 * dt;
-
+        x2 = particle.getX() + particle.container.getTweakedVx( particle.getX(), particle.getY() ) * dt;
 
         // check if the particle hit the maxX
-        //TODO: get maxX for the pipe
         if ( x2 >= this.pipe.getMaxX() ) {
           this.particlesToRemove.push( particle );
         }
         else {
           particle.setX( x2 );
+          particle.position.y = particle.getY();
         }
       }
 
@@ -199,16 +179,15 @@ define( function( require ) {
           this.gridParticles.get( j ).step( dt );
         }
         particle = this.gridParticles.get( j );
-        //Todo: get the velocity from the pipe and update the position
-        x2 = particle.getX() + /*particle.container.getTweakedVx( particle.getX(), particle.getY() ) */ 0.7 * dt;
+        x2 = particle.getX() + particle.container.getTweakedVx( particle.getX(), particle.getY() ) * dt;
 
         // check if the particle hit the maxX
-        //TODO: get maxX for the pipe
         if ( x2 >= this.pipe.getMaxX() ) {
           this.gridParticlesToRemove.push( particle );
         }
         else {
           particle.setX( x2 );
+          particle.position.y = particle.getY();
         }
       }
 
@@ -252,19 +231,15 @@ define( function( require ) {
     },
 
     injectGridParticles: function() {
-      //Todo: getMinX from pipe
-      var x0 = this.pipe.getMinX() + 1;
-      var width = 1;
-
-      //Todo: Use fraction like in the java version
-      var yMin = -3;
-      var yMax = -1;
-
-      var delta = 0.1;
+      var x0 = this.pipe.getMinX();
       var newGridParticle;
-      for ( var x = x0; x <= x0 + width; x += delta * 3 ) {
-        for ( var y = yMin + delta; y <= yMax - delta; y += delta * 2 ) {
-          newGridParticle = new Particle( new Vector2( x, y ), 0.5, this.pipe, 0.08, 'black', true );
+      var x;
+      var fraction;
+      for ( var i = 0; i < 4; i++ ) {
+        x = x0 + i * 0.1;
+        for ( var j = 0; j < 9; j++ ) {
+          fraction = 0.1 * (j + 1);
+          newGridParticle = new Particle( new Vector2( x, 0 ), fraction, this.pipe, 0.02, 'black', true );
           this.gridParticles.push( newGridParticle );
           this.newGridParticles.push( newGridParticle );
         }

@@ -25,7 +25,7 @@ define( function( require ) {
     var pipe = this;
     PropertySet.call( this, {
       //Rate of fluid flow in volume (m^3) per second
-      flowRate: 50.0,
+      flowRate: 2,
       //Flag indicating whether friction should slow particles near the edges
       friction: false
 
@@ -33,13 +33,13 @@ define( function( require ) {
 
     // Cross sections that the user can manipulate to deform the pipe.
     this.controlCrossSections = []; // ArrayList<PipeCrossSection>();
-    this.controlCrossSections[0] = new PipeCrossSection( 0.8, -4, -1 );
-    this.controlCrossSections[1] = new PipeCrossSection( 3, -4, -1 );
-    this.controlCrossSections[2] = new PipeCrossSection( 6, -4, -1 );
-    this.controlCrossSections[3] = new PipeCrossSection( 9, -4, -1 );
-    this.controlCrossSections[4] = new PipeCrossSection( 12, -4, -1 );
-    this.controlCrossSections[5] = new PipeCrossSection( 14, -4, -1 );
-    this.controlCrossSections[6] = new PipeCrossSection( 17.2, -4, -1 );
+    this.controlCrossSections[0] = new PipeCrossSection( 0.2, -3, -1 );
+    this.controlCrossSections[1] = new PipeCrossSection( 0.8, -3, -1 );
+    this.controlCrossSections[2] = new PipeCrossSection( 1.6, -3, -1 );
+    this.controlCrossSections[3] = new PipeCrossSection( 2.4, -3, -1 );
+    this.controlCrossSections[4] = new PipeCrossSection( 3.2, -3, -1 );
+    this.controlCrossSections[5] = new PipeCrossSection( 4.2, -3, -1 );
+    this.controlCrossSections[6] = new PipeCrossSection( 5.1, -3, -1 );
 
     // Nonlinear interpolation of the control sections for particle motion and determining the velocity field
     this.splineCrossSections = new ObservableArray();//ArrayList<PipeCrossSection>
@@ -94,13 +94,13 @@ define( function( require ) {
 
     //Creates the set of interpolated cross section samples from the control cross sections.
     createSpline: function() {
-      this.controlCrossSections[0] = new PipeCrossSection( this.controlPoints[0].position.x, this.controlPoints[0].position.y, this.controlPoints[13].position.y );
-      this.controlCrossSections[1] = new PipeCrossSection( this.controlPoints[1].position.x, this.controlPoints[1].position.y, this.controlPoints[12].position.y );
-      this.controlCrossSections[2] = new PipeCrossSection( this.controlPoints[2].position.x, this.controlPoints[2].position.y, this.controlPoints[11].position.y );
-      this.controlCrossSections[3] = new PipeCrossSection( this.controlPoints[3].position.x, this.controlPoints[3].position.y, this.controlPoints[10].position.y );
-      this.controlCrossSections[4] = new PipeCrossSection( this.controlPoints[4].position.x, this.controlPoints[4].position.y, this.controlPoints[9].position.y );
-      this.controlCrossSections[5] = new PipeCrossSection( this.controlPoints[5].position.x, this.controlPoints[5].position.y, this.controlPoints[8].position.y );
-      this.controlCrossSections[6] = new PipeCrossSection( this.controlPoints[6].position.x, this.controlPoints[6].position.y, this.controlPoints[7].position.y );
+      this.controlCrossSections[0] = new PipeCrossSection( this.controlPoints[0].position.x, this.controlPoints[13].position.y, this.controlPoints[0].position.y );
+      this.controlCrossSections[1] = new PipeCrossSection( this.controlPoints[1].position.x, this.controlPoints[12].position.y, this.controlPoints[1].position.y );
+      this.controlCrossSections[2] = new PipeCrossSection( this.controlPoints[2].position.x, this.controlPoints[11].position.y, this.controlPoints[2].position.y );
+      this.controlCrossSections[3] = new PipeCrossSection( this.controlPoints[3].position.x, this.controlPoints[10].position.y, this.controlPoints[3].position.y );
+      this.controlCrossSections[4] = new PipeCrossSection( this.controlPoints[4].position.x, this.controlPoints[9].position.y, this.controlPoints[4].position.y );
+      this.controlCrossSections[5] = new PipeCrossSection( this.controlPoints[5].position.x, this.controlPoints[8].position.y, this.controlPoints[5].position.y );
+      this.controlCrossSections[6] = new PipeCrossSection( this.controlPoints[6].position.x, this.controlPoints[7].position.y, this.controlPoints[6].position.y );
       var pipePositions = new ObservableArray();//new ArrayList<PipeCrossSection>();
       var dx = 0.2;//extend water flow so it looks like it enters the pipe cutaway
       pipePositions.add( new PipeCrossSection( this.getMinX(), this.getBottomLeft().y, this.getTopLeft().y ) );
