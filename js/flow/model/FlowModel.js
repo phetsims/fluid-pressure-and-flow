@@ -48,7 +48,6 @@ define( function( require ) {
         isFluxMeterVisible: false,
         isGridParticleVisible: false,
         isDotsVisible: true,
-        isFrictionEnabled: false,
         isPlay: true,//Whether the sim is paused or running
         measureUnits: 'metric', //metric, english
         fluidDensity: Constants.WATER_DENSITY,
