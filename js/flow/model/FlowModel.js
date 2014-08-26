@@ -139,8 +139,8 @@ define( function( require ) {
       var newParticle;
 
       if ( this.isDotsVisible ) {
-        var fraction = Math.random();
-        newParticle = new Particle( new Vector2( this.pipe.getMinX(), 0 ), fraction, this.pipe, 0.05, 'red', false );
+        var fraction = 0.1 + Math.random() * 0.8;
+        newParticle = new Particle( new Vector2( this.pipe.getMinX() + 0.15, 0 ), fraction, this.pipe, 0.05, 'red', false );
         this.flowParticles.push( newParticle );
       }
     },
@@ -155,7 +155,7 @@ define( function( require ) {
         x2 = particle.getX() + particle.container.getTweakedVx( particle.getX(), particle.getY() ) * dt;
 
         // check if the particle hit the maxX
-        if ( x2 >= this.pipe.getMaxX() ) {
+        if ( x2 >= this.pipe.getMaxX() - 0.08 ) {
           this.particlesToRemove.push( particle );
         }
         else {
@@ -170,7 +170,7 @@ define( function( require ) {
         x2 = particle.getX() + particle.container.getTweakedVx( particle.getX(), particle.getY() ) * dt;
 
         // check if the particle hit the maxX
-        if ( x2 >= this.pipe.getMaxX() ) {
+        if ( x2 >= this.pipe.getMaxX() - 0.08 ) {
           this.gridParticlesToRemove.push( particle );
         }
         else {
