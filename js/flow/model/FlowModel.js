@@ -108,17 +108,23 @@ define( function( require ) {
       return this.getStandardAirPressure( height );
     },
 
-    getFluidPressure: function( height ) {
-      return height * 9.8 * this.fluidDensity;
+    getFluidPressure: function( x, y ) {
+      if (x <= this.pipe.getMinX() || x >= this.pipe.getMaxX()) {
+        return 0;
+      }
+
+      var crossSection = this.pipe.getCrossSection(x);
+
+      if (y > crossSection.getBottom().y && y < crossSection.getTop().y) {
+        var vSquared = this.pipe.getVelocity(x, y ).magnitudeSquared();
+        return this.getAirPressure(0)  - y * 9.8 * this.fluidDensity - 0.5 * this.fluidDensity * vSquared ;
+      }
+      return 0;
     },
 
 
     getPressureAtCoords: function( x, y ) {
-      //
-      if ( y < 0 ) {
-        return 0;
-      }
-      return this.getAirPressure( y );
+      return (y > 0) ? this.getAirPressure( y ) : this.getFluidPressure(x, y);
     },
 
     // Called by the animation loop.
