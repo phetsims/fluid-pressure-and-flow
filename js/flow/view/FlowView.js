@@ -1,3 +1,9 @@
+// Copyright (c) 2002 - 2014. University of Colorado Boulder
+
+/**
+ * FlowView.
+ * @author Siddhartha Chinthapally (Actual Concepts).
+ */
 define( function( require ) {
   'use strict';
 
@@ -47,6 +53,11 @@ define( function( require ) {
   //View layout related constants
   var inset = 10;
 
+  /**
+   * Main view of the flow sim.
+   * @param {FlowModel} flowModel of the simulation
+   * @constructor
+   */
   function FlowView( flowModel ) {
     var flowView = this;
     var textOptions = {font: new PhetFont( 14 )};
@@ -122,6 +133,11 @@ define( function( require ) {
       title: flowRateString
     } );
     this.addChild( flowRateSlider );
+
+    // convert between m3/sec and liter/sec
+    flowModel.fluidFlowRateProperty.link(function(flowRate) {
+      flowModel.pipe.flowRate = flowRate * 0.001;
+    });
 
     var resetAllButton = new ResetAllButton( {
       listener: function() {
