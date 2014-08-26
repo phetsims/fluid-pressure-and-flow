@@ -187,6 +187,7 @@ define( function( require ) {
 
     // add play pause button and step button
     var stepButton = new StepButton( function() {
+      flowModel.timer.step(0.016);
       flowModel.propagateParticles( 0.016 );
     }, flowModel.isPlayProperty, { stroke: 'black', fill: '#005566', right: controlSlider.left - inset, bottom: controlSlider.bottom - inset} );
 
