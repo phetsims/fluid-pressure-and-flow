@@ -153,7 +153,7 @@ define( function( require ) {
       var xPointsTop = SplineEvaluation.atArray( this.xSplineTop, linSpace );
       var yPointsTop = SplineEvaluation.atArray( this.ySplineTop, linSpace );
 
-      for ( var alpha = 0; alpha < xPointsTop.length; alpha++ ) {
+      for ( var alpha = 0; alpha < xPointsTop.length; alpha += 5 ) {
         var topPt = new Vector2( xPointsTop[alpha ], yPointsTop[alpha ] );//topSpline.evaluate( alpha );
         var bottomPt = new Vector2( xPointsBottom[alpha], yPointsBottom[alpha] );// bottomSpline.evaluate( alpha );
         //make sure pipe top doesn't go below pipe bottom
