@@ -82,7 +82,7 @@ define( function( require ) {
     this.gridParticlesToRemove = [];
 
     // call stepInternal at a rate of 3 times per second
-    this.timer = new EventTimer( new EventTimer.ConstantEventModel( 3 ), function( timeElapsed ) {
+    this.timer = new EventTimer( new EventTimer.ConstantEventModel( 5 ), function( timeElapsed ) {
       flowModel.createParticles( timeElapsed );
     } );
   }
