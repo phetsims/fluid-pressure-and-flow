@@ -74,7 +74,7 @@ define( function( require ) {
     // pad all the rows so the text nodes are left aligned and the icons is right aligned
     var checkBoxChildren = [
       new CheckBox( createItem( ruler ), flowModel.isRulerVisibleProperty, checkBoxOptions ),
-      new CheckBox( new HBox( {children: ( friction )} ), flowModel.isFrictionEnabledProperty, checkBoxOptions ),
+      new CheckBox( new HBox( {children: ( friction )} ), flowModel.pipe.frictionProperty, checkBoxOptions ),
       new CheckBox( new HBox( {children: ( fluxMeter )} ), flowModel.isFluxMeterVisibleProperty, checkBoxOptions ),
       new CheckBox( createItem( dots ), flowModel.isDotsVisibleProperty, checkBoxOptions )
     ];
