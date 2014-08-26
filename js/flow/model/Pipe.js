@@ -89,6 +89,7 @@ define( function( require ) {
       for ( var i = 0; i < this.controlPoints.length; i++ ) {
         this.controlPoints[i].reset();
       }
+      this.dirty = true;
     },
 
 
