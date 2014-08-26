@@ -206,16 +206,15 @@ define( function( require ) {
     },
 
     getWaterDropVelocityAt: function( x, y ) {
-      //TODO: velocity can be measured at any position in the pipe. Not only on the particles
-      /*var particles = this.flowParticles;
+      if (x <= this.pipe.getMinX() || x >= this.pipe.getMaxX()) {
+        return Vector2.ZERO;
+      }
 
-       for ( var i = 0, j = particles.length; i < j; i++ ) {
-       if ( particles.get( i ).contains( new Vector2( x, y ) ) ) {
-       return particles.get( i ).velocity;
-       }
-       }*/
-
-      return Vector2.ZERO;//this.pipe.getTweakedVelocity(x,y);
+      var crossSection = this.pipe.getCrossSection(x);
+      if (y > crossSection.getBottom().y && y < crossSection.getTop().y) {
+        return this.pipe.getTweakedVelocity(x,y);
+      }
+      return Vector2.ZERO;
     },
 
     injectGridParticles: function() {
