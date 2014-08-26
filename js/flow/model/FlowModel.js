@@ -80,9 +80,6 @@ define( function( require ) {
 
     this.particlesToRemove = [];
     this.gridParticlesToRemove = [];
-    this.accumulatedDt = 0;
-    this.newParticles = [];
-    this.newGridParticles = [];
 
     // call stepInternal at a rate of 3 times per second
     this.timer = new EventTimer( new EventTimer.ConstantEventModel( 3 ), function( timeElapsed ) {
@@ -140,14 +137,11 @@ define( function( require ) {
 
     createParticles: function( dt ) {
       var newParticle;
-      this.newParticles = [];
 
       if ( this.isDotsVisible ) {
         var fraction = Math.random();
         newParticle = new Particle( new Vector2( this.pipe.getMinX(), 0 ), fraction, this.pipe, 0.05, 'red', false );
         this.flowParticles.push( newParticle );
-        this.newParticles.push( newParticle );
-        newParticle.step( dt );
       }
     },
 
@@ -156,9 +150,6 @@ define( function( require ) {
       var particle;
 
       for ( var i = 0, k = this.flowParticles.length; i < k; i++ ) {
-        if ( this.newParticles.indexOf( this.flowParticles.get( i ) ) === -1 ) {
-          this.flowParticles.get( i ).step( dt );
-        }
 
         particle = this.flowParticles.get( i );
         x2 = particle.getX() + particle.container.getTweakedVx( particle.getX(), particle.getY() ) * dt;
@@ -174,9 +165,7 @@ define( function( require ) {
       }
 
       for ( var j = 0, numberOfParticles = this.gridParticles.length; j < numberOfParticles; j++ ) {
-        if ( this.newGridParticles.indexOf( this.gridParticles.get( j ) ) === -1 ) {
-          this.gridParticles.get( j ).step( dt );
-        }
+
         particle = this.gridParticles.get( j );
         x2 = particle.getX() + particle.container.getTweakedVx( particle.getX(), particle.getY() ) * dt;
 
@@ -231,16 +220,13 @@ define( function( require ) {
 
     injectGridParticles: function() {
       var x0 = this.pipe.getMinX();
-      var newGridParticle;
       var x;
       var fraction;
       for ( var i = 0; i < 4; i++ ) {
         x = x0 + i * 0.1;
         for ( var j = 0; j < 9; j++ ) {
           fraction = 0.1 * (j + 1);
-          newGridParticle = new Particle( new Vector2( x, 0 ), fraction, this.pipe, 0.02, 'black', true );
-          this.gridParticles.push( newGridParticle );
-          this.newGridParticles.push( newGridParticle );
+          this.gridParticles.push( new Particle( new Vector2( x, 0 ), fraction, this.pipe, 0.02, 'black', true ) );
         }
       }
     }
