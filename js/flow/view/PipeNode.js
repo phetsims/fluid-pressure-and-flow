@@ -99,22 +99,23 @@ define( function( require ) {
     };
 
     var controlPointNode = [];
+    var numControlPoints = pipe.controlPoints.length;
     // control points dragging
-    for ( var i = 0; i < pipe.controlPoints.length; i++ ) {
+    for ( var i = 0; i < numControlPoints; i++ ) {
       (function( i ) {
         var controlPoint = pipe.controlPoints[i];
-        var leftSpace = 20;
+        var leftSpace = 0;
+        var imageRotation = 0;
         if ( pipe.controlPoints[i].position.y < -2 ) {
-          options.imageRotation = 0;
-          leftSpace = 0;
+          leftSpace = -15;
         }
         else {
-          options.imageRotation = Math.PI;
-          leftSpace = 30;
+          imageRotation = Math.PI;
+          leftSpace = 15;
         }
 
         var handleNode = new Image( handleImage, {left: leftSpace, cursor: 'pointer', scale: 0.3} );
-        handleNode.setRotation( options.imageRotation );
+        handleNode.setRotation( imageRotation );
         controlPointNode[i] = new Node( {children: [handleNode ]} );
         controlPoint.positionProperty.link( function( position ) {
           controlPointNode[i].setTranslation( modelViewTransform.modelToViewX( position.x ), modelViewTransform.modelToViewY( position.y ) );
@@ -122,17 +123,26 @@ define( function( require ) {
 
         controlPointNode[i].addInputListener( new SimpleDragHandler(
           {
+
             drag: function( event ) {
               var globalPoint = controlPointNode[i].globalToParentPoint( event.pointer.point );
               var pt = modelViewTransform.viewToModelPosition( globalPoint );
               pt.x = pipe.controlPoints[i].position.x;
-              pt.y > 0 ? pt.y = 0 : pt.y < -6 ? pt.y = -6 : pt.y;
-              controlPoint.sourcePosition = pt;
-              // When a control point is dragged, update the pipe flow line shape and the node shape
-              pipe.dirty = true;
-              pipe.createSpline();
-              pipeNode.updatePipeFlowLineShape();
+              pt.y  = (pt.y > 0 ? 0 : ( pt.y < -4 ? -4 : pt.y));
+              if ( (i < numControlPoints / 2 && pt.y < pipe.controlPoints[numControlPoints - (i + 1)].position.y) || (i >= numControlPoints / 2 && pt.y > pipe.controlPoints[numControlPoints - (i + 1)].position.y) ) {
+                return;
+              }
+
+              var yDiff = Math.abs( (pipe.controlPoints[numControlPoints - (i + 1)].position.y) - pt.y );
+              if ( yDiff > 1 ) {
+                controlPoint.sourcePosition = pt;
+                // When a control point is dragged, update the pipe flow line shape and the node shape
+                pipe.dirty = true;
+                pipe.createSpline();
+                pipeNode.updatePipeFlowLineShape();
+              }
             }
+
           } ) );
         pipeNode.addChild( controlPointNode[i] );
       })( i );
