@@ -24,14 +24,14 @@ define( function( require ) {
 
   /*
    * Constructor for PipeNode
-   * @param {flowModel} the entire model.
-   * @param {pipe} the pipe model  for this pipe node
-   * @param {modelViewTransform }the model view transform for the view
-   * @param {layBounds}
-   *  @param {options}
+   * @param {FlowModel} flowModel of the simulation.
+   * @param {Pipe} pipe model for this pipe node
+   * @param {ModelViewTransform2} modelViewTransform to convert between model and view co-ordinate frames
+   * @param {Bounds2} layoutBounds of the simulation
+   * @param {options}
    * @constructor
    */
-  function PipeNode( flowModel, pipe, modelViewTransform, layBounds, options ) {
+  function PipeNode( flowModel, pipe, modelViewTransform, layoutBounds, options ) {
     var pipeNode = this;
     Node.call( this );
     options = _.extend( {
@@ -48,7 +48,7 @@ define( function( require ) {
     for ( var j = 1; j < 40; j++ ) {
       leftPipeMiddle[j] = new Image( pipeMiddleImage, { right: leftPipeMiddle[j - 1].left + 1, scale: options.pipeScale} );
     }
-    this.leftPipeNode = new Node( {children: [leftPipe], top: 143 + 30, left: layBounds.minX - 40, scale: options.pipeScale} );
+    this.leftPipeNode = new Node( {children: [leftPipe], top: 143 + 30, left: layoutBounds.minX - 40, scale: options.pipeScale} );
     for ( j = 0; j < 40; j++ ) {
       this.leftPipeNode.addChild( leftPipeMiddle[j] );
     }
@@ -61,7 +61,7 @@ define( function( require ) {
     for ( j = 1; j < 40; j++ ) {
       rightPipeMiddle[j] = new Image( pipeMiddleImage, { left: rightPipeMiddle[j - 1].right - 1, scale: options.pipeScale} );
     }
-    this.rightPipeNode = new Node( {children: [rightPipe], bottom: this.leftPipeNode.bottom, left: layBounds.maxX - 80, scale: options.pipeScale } );
+    this.rightPipeNode = new Node( {children: [rightPipe], bottom: this.leftPipeNode.bottom, left: layoutBounds.maxX - 80, scale: options.pipeScale } );
     for ( j = 0; j < 40; j++ ) {
       this.rightPipeNode.addChild( rightPipeMiddle[j] );
     }
