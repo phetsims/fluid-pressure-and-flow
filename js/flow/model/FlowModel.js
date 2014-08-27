@@ -146,7 +146,7 @@ define( function( require ) {
 
       if ( this.isDotsVisible ) {
         var fraction = 0.1 + Math.random() * 0.8;
-        newParticle = new Particle( new Vector2( this.pipe.getMinX() + 0.15, 0 ), fraction, this.pipe, 0.05, 'red', false );
+        newParticle = new Particle( new Vector2( this.pipe.getMinX() + 0.15, 0 ), fraction, this.pipe, 0.05, 'red');
         this.flowParticles.push( newParticle );
       }
     },
@@ -231,7 +231,7 @@ define( function( require ) {
         x = x0 + i * 0.1;
         for ( var j = 0; j < 9; j++ ) {
           fraction = 0.1 * (j + 1);
-          this.gridParticles.push( new Particle( new Vector2( x, 0 ), fraction, this.pipe, 0.02, 'black', true ) );
+          this.gridParticles.push( new Particle( new Vector2( x, 0 ), fraction, this.pipe, 0.02, 'black') );
         }
       }
     }
