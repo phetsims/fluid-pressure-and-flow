@@ -128,12 +128,27 @@ define( function( require ) {
               var globalPoint = controlPointNode[i].globalToParentPoint( event.pointer.point );
               var pt = modelViewTransform.viewToModelPosition( globalPoint );
               pt.x = pipe.controlPoints[i].position.x;
-              pt.y  = (pt.y > 0 ? 0 : ( pt.y < -4 ? -4 : pt.y));
+              pt.y = (pt.y > 0 ? 0 : ( pt.y < -4 ? -4 : pt.y));
               if ( (i < numControlPoints / 2 && pt.y < pipe.controlPoints[numControlPoints - (i + 1)].position.y) || (i >= numControlPoints / 2 && pt.y > pipe.controlPoints[numControlPoints - (i + 1)].position.y) ) {
                 return;
               }
 
               var yDiff = Math.abs( (pipe.controlPoints[numControlPoints - (i + 1)].position.y) - pt.y );
+
+              if ( !flowModel.isPlay ) {
+                var particle;
+
+                for ( var k = 0; k < flowModel.flowParticles.length; k++ ) {
+                  particle = flowModel.flowParticles.get( k );
+                  particle.position.y = particle.getY();
+                }
+
+                for ( k = 0; k < flowModel.gridParticles.length; k++ ) {
+                  particle = flowModel.gridParticles.get( k );
+                  particle.position.y = particle.getY();
+                }
+              }
+
               if ( yDiff > 1 ) {
                 controlPoint.position = pt;
                 // When a control point is dragged, update the pipe flow line shape and the node shape
