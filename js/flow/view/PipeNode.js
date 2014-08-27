@@ -15,6 +15,9 @@ define( function( require ) {
   var SimpleDragHandler = require( 'SCENERY/input/SimpleDragHandler' );
   var Shape = require( 'KITE/Shape' );
   var SplineEvaluation = require( 'FLUID_PRESSURE_AND_FLOW/flow/model/SplineEvaluation' );
+  var LinearFunction = require( 'DOT/LinearFunction' );
+  var Matrix3 = require( 'DOT/Matrix3' );
+  var Vector2 = require( 'DOT/Vector2' );
 
   // images
   var handleImage = require( 'image!FLUID_PRESSURE_AND_FLOW/handle-with-bar.png' );
@@ -22,6 +25,9 @@ define( function( require ) {
   var pipeMiddleImage = require( 'image!FLUID_PRESSURE_AND_FLOW/pipe-segment.png' );
   var rightSidePipeImage = require( 'image!FLUID_PRESSURE_AND_FLOW/pipe-right.png' );
 
+  // functions for determining image scaling
+  var upToDownScale = new LinearFunction( 0, 1, 0.9, 0.5 );
+  var downToUpScale = new LinearFunction( 2, 4, 0.6, 0.9 );
   /*
    * Constructor for PipeNode
    * @param {FlowModel} flowModel of the simulation.
@@ -36,11 +42,11 @@ define( function( require ) {
     Node.call( this );
     options = _.extend( {
       lineColor: '#613705',
-      pipeScale: 0.6,
-      imageRotation: Math.PI
+      pipeScale: 0.6
     }, options );
     this.modelViewTransform = modelViewTransform;
     this.pipe = pipe;
+
     //left side pipe image.
     var leftPipe = new Image( leftPipeImage, { scale: options.pipeScale} );
     var leftPipeMiddle = [];
@@ -52,8 +58,9 @@ define( function( require ) {
     for ( j = 0; j < 40; j++ ) {
       this.leftPipeNode.addChild( leftPipeMiddle[j] );
     }
-    //console.log(this.leftPipeNode.bottom);
+
     this.pipeFlowLine = new Path( null, {stroke: options.lineColor, left: this.leftPipeNode.right, lineWidth: '6', fill: flowModel.fluidColorModel.color} );
+
     // right side pipe image.
     var rightPipe = new Image( rightSidePipeImage, { scale: options.pipeScale} );
     var rightPipeMiddle = [];
@@ -67,10 +74,16 @@ define( function( require ) {
     }
 
     this.addChild( this.pipeFlowLine );
-
     this.addChild( this.rightPipeNode );
     this.addChild( this.leftPipeNode );
 
+    // add handles to drag the pipe
+    this.leftPipeMainHandleNode = new Image( handleImage, { top: this.leftPipeNode.top + 60, right: 20, cursor: 'pointer', scale: 0.3} );
+    this.addChild( this.leftPipeMainHandleNode );
+    this.rightPipeMainHandleNode = new Image( handleImage, {top: this.rightPipeNode.top + 60, left: layoutBounds.maxX - 50, cursor: 'pointer', scale: 0.3} );
+    this.addChild( this.rightPipeMainHandleNode );
+
+    this.layoutBounds = layoutBounds;
 
     flowModel.fluidColorModel.colorProperty.linkAttribute( this.pipeFlowLine, 'fill' );
 
@@ -100,6 +113,7 @@ define( function( require ) {
 
     var controlPointNode = [];
     var numControlPoints = pipe.controlPoints.length;
+
     // control points dragging
     for ( var i = 0; i < numControlPoints; i++ ) {
       (function( i ) {
@@ -133,8 +147,40 @@ define( function( require ) {
                 return;
               }
 
-              var yDiff = Math.abs( (pipe.controlPoints[numControlPoints - (i + 1)].position.y) - pt.y );
 
+              var pipeScale = 0.4;
+              var matrix;
+              if ( i === numControlPoints - 1 || i === 0 ) {
+                pipeScale = (i === numControlPoints - 1 ? downToUpScale( Math.abs( pt.y ) ) : upToDownScale( Math.abs( pt.y ) ));
+                pipeScale = pipeScale < 0.4 ? 0.4 : pipeScale;
+                matrix = Matrix3.translation( layoutBounds.minX, modelViewTransform.modelToViewY( pipe.controlPoints[i].position.y ) );
+                pipeNode.leftPipeNode.setMatrix( matrix );
+                pipeNode.leftPipeNode.scale( 0.3, pipeScale, false );
+                if ( i === 0 ) {
+                  pipeNode.leftPipeNode.top = modelViewTransform.modelToViewY( pipe.controlPoints[i].position.y );
+                  pipeNode.leftPipeMainHandleNode.setTranslation( pipeNode.layoutBounds.minX - 10, modelViewTransform.modelToViewY( pipe.controlPoints[i].position.y ) + 60 );
+                }
+                else {
+                  pipeNode.leftPipeNode.bottom = modelViewTransform.modelToViewY( pipe.controlPoints[i].position.y );
+                  pipeNode.leftPipeMainHandleNode.setTranslation( pipeNode.layoutBounds.minX - 10, modelViewTransform.modelToViewY( pipe.controlPoints[i].position.y ) - 60 );
+                }
+              }
+              if ( i === numControlPoints / 2 || i === (numControlPoints / 2 - 1) ) {
+                pipeScale = (i === numControlPoints / 2 ? downToUpScale( Math.abs( pt.y ) ) : upToDownScale( Math.abs( pt.y ) ));
+                pipeScale = pipeScale < 0.4 ? 0.4 : pipeScale;
+                console.log( modelViewTransform.modelToViewY( pipe.controlPoints[i].position.y ) + " pipe node y position" );
+                matrix = Matrix3.translation( layoutBounds.maxX - 80, modelViewTransform.modelToViewY( pipe.controlPoints[i].position.y ) );
+                pipeNode.rightPipeNode.setMatrix( matrix );
+                pipeNode.rightPipeNode.scale( 0.5, pipeScale, false );
+                if ( i === (numControlPoints / 2 - 1) ) {
+                  pipeNode.rightPipeNode.top = modelViewTransform.modelToViewY( pipe.controlPoints[i].position.y );
+                  pipeNode.rightPipeMainHandleNode.setTranslation( layoutBounds.maxX - 50, modelViewTransform.modelToViewY( pipe.controlPoints[i].position.y ) + 60 );
+                }
+                else {
+                  pipeNode.rightPipeNode.bottom = modelViewTransform.modelToViewY( pipe.controlPoints[i].position.y );
+                  pipeNode.rightPipeMainHandleNode.setTranslation( layoutBounds.maxX - 50, modelViewTransform.modelToViewY( pipe.controlPoints[i].position.y ) - 60 );
+                }
+              }
               if ( !flowModel.isPlay ) {
                 var particle;
 
@@ -148,6 +194,7 @@ define( function( require ) {
                   particle.position.y = particle.getY();
                 }
               }
+              var yDiff = Math.abs( (pipe.controlPoints[numControlPoints - (i + 1)].position.y) - pt.y );
 
               if ( yDiff > 1 ) {
                 controlPoint.position = pt;
@@ -165,7 +212,49 @@ define( function( require ) {
       })( i );
     }
 
-    //Init the PipeFlow Line shape
+    var pipeMainDragHandles = [];
+    pipeMainDragHandles.push( this.leftPipeMainHandleNode );
+    pipeMainDragHandles.push( this.rightPipeMainHandleNode );
+
+    // left and right side of pipe main handles dragging
+    for ( j = 0; j < pipeMainDragHandles.length; j++ ) {
+      (function( j ) {
+        pipeMainDragHandles[j].addInputListener( new SimpleDragHandler( {
+          drag: function( e ) {
+            var y = pipeMainDragHandles[j].globalToParentPoint( e.pointer.point ).y;
+            var pt = modelViewTransform.viewToModelPosition( pipeMainDragHandles[j].globalToParentPoint( e.pointer.point ) );
+            var index = j === 0 ? 0 : numControlPoints / 2;
+            var x = pipe.controlPoints[index].position.x;
+            var yUp = pt.y + 1;
+            var yLow = pt.y - 1;
+            if ( pt.y > -1 || pt.y < -3 ) {
+              return;
+            }
+            y < 192 ? y = 192 : y > 290 ? y = 290 : y;
+
+            if ( j === 0 ) {
+              // left pipe handle
+              pipe.controlPoints[0].position = new Vector2( x, yUp );
+              pipe.controlPoints[numControlPoints - 1].position = new Vector2( x, yLow );
+              pipeMainDragHandles[j].setTranslation( layoutBounds.minX - 10, y );
+              pipeNode.leftPipeNode.setTranslation( layoutBounds.minX - 40, y - 60 );
+            }
+            else {
+              // right pipe handle
+              pipe.controlPoints[numControlPoints / 2 - 1].position = new Vector2( x, yUp );
+              pipe.controlPoints[numControlPoints / 2].position = new Vector2( x, yLow );
+              pipeMainDragHandles[j].setTranslation( layoutBounds.maxX - 50, y );
+              pipeNode.rightPipeNode.setTranslation( layoutBounds.maxX - 80, y - 60 );
+            }
+            pipe.dirty = true;
+            pipe.createSpline();
+            pipeNode.updatePipeFlowLineShape();
+          }
+        } ) );
+      })( j );
+    }
+
+    // Init the PipeFlow Line shape
     pipe.createSpline();
     this.updatePipeFlowLineShape();
     this.mutate( options );
@@ -174,6 +263,12 @@ define( function( require ) {
   return inherit( Node, PipeNode,
     {
       reset: function() {
+        this.leftPipeNode.setTranslation( this.layoutBounds.minX - 40, this.modelViewTransform.modelToViewY( 0 ) + 33 );
+        this.rightPipeNode.setTranslation( this.layoutBounds.maxX - 80, this.modelViewTransform.modelToViewY( 0 ) + 33 );
+        this.leftPipeMainHandleNode.setTranslation( this.layoutBounds.minX - 10, this.modelViewTransform.modelToViewY( 0 ) + 33 + 60 );
+        this.rightPipeMainHandleNode.setTranslation( this.layoutBounds.maxX - 50, this.modelViewTransform.modelToViewY( 0 ) + 33 + 60 );
+        // for getting new spline cross sections
+        this.pipe.dirty = true;
         this.pipe.createSpline();
         this.updatePipeFlowLineShape();
       }
