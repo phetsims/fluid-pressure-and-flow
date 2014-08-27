@@ -155,6 +155,9 @@ define( function( require ) {
       var x2;
       var particle;
 
+      this.particlesToRemove = [];
+      this.gridParticlesToRemove = [];
+
       for ( var i = 0, k = this.flowParticles.length; i < k; i++ ) {
 
         particle = this.flowParticles.get( i );
