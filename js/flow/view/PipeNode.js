@@ -203,8 +203,7 @@ define( function( require ) {
                 pipe.createSpline();
                 pipeNode.updatePipeFlowLineShape();
               }
-              //todo: find a better way. This is to trigger an update on the fluxMeter
-              flowModel.fluxMeter.xPosition += 1E-9;
+              flowModel.fluxMeter.trigger( 'update' );
             }
 
           } ) );

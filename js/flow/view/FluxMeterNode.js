@@ -124,6 +124,11 @@ define( function( require ) {
         flowModel.fluxMeter.xPosition = modelViewTransform.viewToModelX( x );
       }
     } ) );
+
+    flowModel.fluxMeter.on( 'update', function() {
+      fluxMeterNode.updateFluxMeter();
+    } );
+
     this.mutate( options );
   }
 
