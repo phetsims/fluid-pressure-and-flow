@@ -9,7 +9,6 @@ define( function( require ) {
   'use strict';
 
   // modules
-  var PropertySet = require( 'AXON/PropertySet' );
   var inherit = require( 'PHET_CORE/inherit' );
 
   /**
@@ -19,26 +18,17 @@ define( function( require ) {
    * @param {Pipe} container holding the particle
    * @param {Number} radius of the particle
    * @param {string} color of the particle
-   * @param {boolean} gridParticle whether a grid particle or a regular particle
    * @constructor
    */
-  function Particle( position, fractionUpPipe, container, radius, color, gridParticle ) {
-
-    PropertySet.call( this, {
-    } );
-
+  function Particle( position, fractionUpPipe, container, radius, color ) {
     this.position = position;
     this.fractionUpPipe = fractionUpPipe;
     this.container = container;
     this.radius = radius;
     this.color = color;
-    this.gridPracticle = gridParticle;
   }
 
-  return inherit( PropertySet, Particle, {
-
-    step: function( dt ) {
-    },
+  return inherit( Object, Particle, {
 
     getX: function() {
       return this.position.x;
