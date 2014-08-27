@@ -28,7 +28,7 @@ define( function( require ) {
 
     var injector = new Image( injectorBulbImage, {scale: 0.3} );
 
-    this.redButton = new RoundStickyToggleButton( false, true, flowModel.isGridParticleVisibleProperty, {radius: 20, center: injector.center, top: injector.top + 25, baseColor: 'red', disabledBaseColor: 'red', stroke: 'red', fill: 'red'} );
+    this.redButton = new RoundStickyToggleButton( false, true, flowModel.isGridInjectorPressedProperty, {radius: 20, center: injector.center, top: injector.top + 25, baseColor: 'red', disabledBaseColor: 'red', stroke: 'red', fill: 'red'} );
 
     this.gridParticleButton = new Node( {children: [injector, this.redButton]} );
     gridInjectorNode.addChild( this.gridParticleButton );
