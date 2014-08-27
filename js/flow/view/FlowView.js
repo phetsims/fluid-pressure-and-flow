@@ -135,16 +135,16 @@ define( function( require ) {
     this.addChild( flowRateSlider );
 
     // convert between m3/sec and liter/sec
-    flowModel.fluidFlowRateProperty.link(function(flowRate) {
+    flowModel.fluidFlowRateProperty.link( function( flowRate ) {
       flowModel.pipe.flowRate = flowRate * 0.001;
-    });
+    } );
 
     var resetAllButton = new ResetAllButton( {
       listener: function() {
         flowModel.reset();
         controlSlider.reset();
+        flowRateSlider.reset();
         pipeNode.reset();
-
       },
       bottom: this.layoutBounds.bottom - inset,
       right: this.layoutBounds.right - inset
@@ -183,7 +183,7 @@ define( function( require ) {
 
     // add play pause button and step button
     var stepButton = new StepButton( function() {
-      flowModel.timer.step(0.016);
+      flowModel.timer.step( 0.016 );
       flowModel.propagateParticles( 0.016 );
     }, flowModel.isPlayProperty, { stroke: 'black', fill: '#005566', right: controlSlider.left - inset, bottom: controlSlider.bottom - inset} );
 
