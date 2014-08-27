@@ -203,9 +203,6 @@ define( function( require ) {
     this.addChild( speedControl.mutate( {right: playPauseButton.left - inset, bottom: playPauseButton.bottom} ) );
 
 
-    var fluxMeterNode = new FluxMeterNode( flowModel, modelViewTransform, {stroke: 'blue', left: 50, top: 100} );
-    flowView.addChild( fluxMeterNode );
-
     // add speedometers within the sensor panel bounds
     _.each( flowModel.speedometers, function( velocitySensor ) {
       velocitySensor.positionProperty.storeInitialValue( new Vector2( sensorPanel.visibleBounds.centerX - 85, sensorPanel.visibleBounds.centerY - 35 ) );
@@ -220,9 +217,10 @@ define( function( require ) {
       this.addChild( new BarometerNode( flowModel, modelViewTransform, barometer, [flowModel.fluidDensityProperty, flowModel.fluidFlowRateProperty], sensorPanel.visibleBounds, this.layoutBounds ) );
     }.bind( this ) );
 
+    var fluxMeterNode = new FluxMeterNode( flowModel, modelViewTransform, {stroke: 'blue'} );
+    flowView.addChild( fluxMeterNode );
+
     this.addChild( new FlowRuler( flowModel.isRulerVisibleProperty, flowModel.rulerPositionProperty, flowModel.measureUnitsProperty, modelViewTransform, this.layoutBounds ) );
-
-
   }
 
   return inherit( ScreenView, FlowView, {

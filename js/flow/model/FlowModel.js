@@ -24,6 +24,7 @@ define( function( require ) {
   var Pipe = require( 'FLUID_PRESSURE_AND_FLOW/flow/model/Pipe' );
   var Particle = require( 'FLUID_PRESSURE_AND_FLOW/flow/model/Particle' );
   var EventTimer = require( 'PHET_CORE/EventTimer' );
+  var FluxMeter = require( 'FLUID_PRESSURE_AND_FLOW/flow/model/FluxMeter' );
 
   // strings
   var densityUnitsEnglish = require( 'string!FLUID_PRESSURE_AND_FLOW/densityUnitsEnglish' );
@@ -52,7 +53,6 @@ define( function( require ) {
         measureUnits: 'metric', //metric, english
         fluidDensity: Constants.WATER_DENSITY,
         fluidFlowRate: 5000,
-        fluxMeterPosition: new Vector2( 300, 220 ),
         rulerPosition: new Vector2( 300, 344 ), // px
         scale: 1, // scale coefficient
         speed: 'normal'//speed of the model, either 'normal' or 'slow'
@@ -74,6 +74,7 @@ define( function( require ) {
     this.fluidColorModel = new FluidColorModel( this );
 
     this.pipe = new Pipe();
+    this.fluxMeter = new FluxMeter( this.pipe );
 
     this.flowParticles = new ObservableArray();
     this.gridParticles = new ObservableArray();
@@ -102,6 +103,7 @@ define( function( require ) {
       this.pipe.reset();
       this.flowParticles.clear();
       this.gridParticles.clear();
+      this.fluxMeter.reset();
     },
 
     getAirPressure: function( height ) {
@@ -109,22 +111,22 @@ define( function( require ) {
     },
 
     getFluidPressure: function( x, y ) {
-      if (x <= this.pipe.getMinX() || x >= this.pipe.getMaxX()) {
+      if ( x <= this.pipe.getMinX() || x >= this.pipe.getMaxX() ) {
         return 0;
       }
 
-      var crossSection = this.pipe.getCrossSection(x);
+      var crossSection = this.pipe.getCrossSection( x );
 
-      if (y > crossSection.getBottom().y && y < crossSection.getTop().y) {
-        var vSquared = this.pipe.getVelocity(x, y ).magnitudeSquared();
-        return this.getAirPressure(0)  - y * 9.8 * this.fluidDensity - 0.5 * this.fluidDensity * vSquared ;
+      if ( y > crossSection.getBottom().y && y < crossSection.getTop().y ) {
+        var vSquared = this.pipe.getVelocity( x, y ).magnitudeSquared();
+        return this.getAirPressure( 0 ) - y * 9.8 * this.fluidDensity - 0.5 * this.fluidDensity * vSquared;
       }
       return 0;
     },
 
 
     getPressureAtCoords: function( x, y ) {
-      return (y > 0) ? this.getAirPressure( y ) : this.getFluidPressure(x, y);
+      return (y > 0) ? this.getAirPressure( y ) : this.getFluidPressure( x, y );
     },
 
     // Called by the animation loop.
@@ -146,7 +148,7 @@ define( function( require ) {
 
       if ( this.isDotsVisible ) {
         var fraction = 0.1 + Math.random() * 0.8;
-        newParticle = new Particle( new Vector2( this.pipe.getMinX() + 0.15, 0 ), fraction, this.pipe, 0.05, 'red');
+        newParticle = new Particle( new Vector2( this.pipe.getMinX() + 0.15, 0 ), fraction, this.pipe, 0.05, 'red' );
         this.flowParticles.push( newParticle );
       }
     },
@@ -215,13 +217,13 @@ define( function( require ) {
     },
 
     getWaterDropVelocityAt: function( x, y ) {
-      if (x <= this.pipe.getMinX() || x >= this.pipe.getMaxX()) {
+      if ( x <= this.pipe.getMinX() || x >= this.pipe.getMaxX() ) {
         return Vector2.ZERO;
       }
 
-      var crossSection = this.pipe.getCrossSection(x);
-      if (y > crossSection.getBottom().y && y < crossSection.getTop().y) {
-        return this.pipe.getTweakedVelocity(x,y);
+      var crossSection = this.pipe.getCrossSection( x );
+      if ( y > crossSection.getBottom().y && y < crossSection.getTop().y ) {
+        return this.pipe.getTweakedVelocity( x, y );
       }
       return Vector2.ZERO;
     },
@@ -234,7 +236,7 @@ define( function( require ) {
         x = x0 + i * 0.1;
         for ( var j = 0; j < 9; j++ ) {
           fraction = 0.1 * (j + 1);
-          this.gridParticles.push( new Particle( new Vector2( x, 0 ), fraction, this.pipe, 0.02, 'black') );
+          this.gridParticles.push( new Particle( new Vector2( x, 0 ), fraction, this.pipe, 0.02, 'black' ) );
         }
       }
     }
