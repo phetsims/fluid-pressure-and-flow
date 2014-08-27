@@ -117,7 +117,7 @@ define( function( require ) {
 
       var crossSection = this.pipe.getCrossSection( x );
 
-      if ( y > crossSection.getBottom().y && y < crossSection.getTop().y ) {
+      if ( y > crossSection.yBottom && y < crossSection.yTop ) {
         var vSquared = this.pipe.getVelocity( x, y ).magnitudeSquared();
         return this.getAirPressure( 0 ) - y * 9.8 * this.fluidDensity - 0.5 * this.fluidDensity * vSquared;
       }
@@ -222,7 +222,7 @@ define( function( require ) {
       }
 
       var crossSection = this.pipe.getCrossSection( x );
-      if ( y > crossSection.getBottom().y && y < crossSection.getTop().y ) {
+      if ( y > crossSection.yBottom && y < crossSection.yTop ) {
         return this.pipe.getTweakedVelocity( x, y );
       }
       return Vector2.ZERO;

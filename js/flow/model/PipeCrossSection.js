@@ -20,49 +20,42 @@ define( function( require ) {
    * @constructor
    */
   function PipeCrossSection( x, yBottom, yTop ) {
-
-    PropertySet.call( this, {
-      top: new Vector2( x, yTop ),
-      bottom: new Vector2( x, yBottom )
-    } );
+    this.x = x;
+    this.yBottom = yBottom;
+    this.yTop = yTop;
   }
 
-  return inherit( PropertySet, PipeCrossSection, {
-    getTop: function() {
-      return this.top;
-    },
-    getBottom: function() {
-      return this.bottom;
-    },
+  return inherit( Object, PipeCrossSection, {
 
-    translateTop: function( dx, dy ) {
-      this.top.set( this.top.x + dx, this.getTop().y + dy );
-    },
+    /* translateTop: function( dx, dy ) {
+     this.top.set( this.top.x + dx, this.getTop().y + dy );
+     },
 
     translateBottom: function( dx, dy ) {
       this.bottom.set( this.bottom.x + dx, this.getBottom().y + dy );
-    },
+     },*/
 
     getX: function() {
-      return this.top.x;
+      return this.x;
     },
 
     getHeight: function() {
-      return this.getTop().y - this.getBottom().y;
-    },
-    reset: function() {
-      this.top.reset();
-      this.bottom.reset();
+      return this.yTop - this.yBottom;
     },
 
+    /* reset: function() {
+      this.top.reset();
+      this.bottom.reset();
+     },*/
+
     getCenterY: function() {
-      return ( this.top.y + this.bottom.y ) / 2;
-    },
+      return ( this.yTop + this.yBottom ) / 2;
+    }
     //Translate both top and bottom parts of the pipe
-    translate: function( dx, dy ) {
+    /*translate: function( dx, dy ) {
       this.translateTop( dx, dy );
       this.translateBottom( dx, dy );
-    }
+     }*/
   } );
 } );
 

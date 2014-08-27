@@ -49,10 +49,10 @@ define( function( require ) {
     this.controlPoints = [];
 
     for ( var m = 0; m < pipe.controlCrossSections.length; m++ ) {
-      pipe.controlPoints.push( new PipeControlPoint( pipe.controlCrossSections[m].getTop().x, pipe.controlCrossSections[m].getTop().y ) );
+      pipe.controlPoints.push( new PipeControlPoint( pipe.controlCrossSections[m].x, pipe.controlCrossSections[m].yTop ) );
     }
     for ( m = pipe.controlCrossSections.length - 1; m >= 0; m-- ) {
-      pipe.controlPoints.push( new PipeControlPoint( pipe.controlCrossSections[m].getBottom().x, this.controlCrossSections[m].getBottom().y ) );
+      pipe.controlPoints.push( new PipeControlPoint( pipe.controlCrossSections[m].x, this.controlCrossSections[m].yBottom ) );
     }
 
     this.u = new Array( pipe.controlPoints.length / 2 );
@@ -114,17 +114,17 @@ define( function( require ) {
     /*
      *param@<PipeCrossSection> controlPoints[]
      */
-    spline: function( controlPoints ) {
+    spline: function( controlCrossSections ) {
       var spline = new ObservableArray();// array of pipe cross section.
       var pipeControlCrossSections = [];
       this.top = [];
       var i;
-      for ( i = 0; i < controlPoints.length; i++ ) {
-        this.top.push( new PipeControlPoint( controlPoints.get( i ).getTop().x, controlPoints.get( i ).getTop().y ) );
+      for ( i = 0; i < controlCrossSections.length; i++ ) {
+        this.top.push( new PipeControlPoint( controlCrossSections.get( i ).x, controlCrossSections.get( i ).yTop ) );
       }
       this.bottom = [];
-      for ( i = 0; i < controlPoints.length; i++ ) {
-        this.bottom.push( new PipeControlPoint( controlPoints.get( i ).getBottom().x, controlPoints.get( i ).getBottom().y ) );
+      for ( i = 0; i < controlCrossSections.length; i++ ) {
+        this.bottom.push( new PipeControlPoint( controlCrossSections.get( i ).x, controlCrossSections.get( i ).yBottom ) );
       }
       for ( i = 0; i < this.top.length; i++ ) {
         this.u[i] = i / this.top.length;
@@ -198,15 +198,15 @@ define( function( require ) {
     //Given a global y-position, determine the fraction to the top (point at bottom = 0, point halfway up = 0.5, etc.)
     getFractionToTop: function( x, y ) {
       var position = this.getCrossSection( x );
-      return Util.linear( position.getBottom().y, position.getTop().y, 0, 1, y );
+      return Util.linear( position.yBottom, position.yTop, 0, 1, y );
     },
 
     //Determines the cross section for a given x-coordinate by linear interpolation between the nearest nonlinear samples.
     getCrossSection: function( x ) {
       var previous = this.getPipePositionBefore( x );
       var next = this.getPipePositionAfter( x );
-      var top = Util.linear( previous.getTop().x, next.getTop().x, previous.getTop().y, next.getTop().y, x );
-      var bottom = Util.linear( previous.getBottom().x, next.getBottom().x, previous.getBottom().y, next.getBottom().y, x );
+      var top = Util.linear( previous.x, next.x, previous.yTop, next.yTop, x );
+      var bottom = Util.linear( previous.x, next.x, previous.yBottom, next.yBottom, x );
       return new PipeCrossSection( x, bottom, top ); //return pipe cross section
     },
 
@@ -247,21 +247,21 @@ define( function( require ) {
     },
 
     getTopLeft: function() {
-      return new Vector2( this.getMinX(), this.controlCrossSections[0].getTop().y );
+      return new Vector2( this.getMinX(), this.controlCrossSections[0].yTop );
     },
 
     getBottomLeft: function() {
-      return new Vector2( this.getMinX(), this.controlCrossSections[0].getBottom().y );
+      return new Vector2( this.getMinX(), this.controlCrossSections[0].yBottom );
     },
 
     getTopRight: function() {
       var controlCrossSections = this.controlCrossSections;
-      return new Vector2( this.getMaxX(), controlCrossSections[controlCrossSections.length - 1].getTop().y );
+      return new Vector2( this.getMaxX(), controlCrossSections[controlCrossSections.length - 1].yTop );
     },
 
     getBottomRight: function() {
       var controlCrossSections = this.controlCrossSections;
-      return new Vector2( this.getMaxX(), controlCrossSections[controlCrossSections.length - 1].getBottom().y );
+      return new Vector2( this.getMaxX(), controlCrossSections[controlCrossSections.length - 1].yBottom );
     },
 
     // Get the speed at the specified x-location.  This is before friction and vertical effects are accounted for
@@ -292,9 +292,9 @@ define( function( require ) {
       var post = this.getCrossSection( x + 1E-7 );// pipe cross section
 
       var x0 = pre.getX();
-      var y0 = Util.linear( 0, 1, pre.getBottom().y, pre.getTop().y, fraction );
+      var y0 = Util.linear( 0, 1, pre.yBottom, pre.yTop, fraction );
       var x1 = post.getX();
-      var y1 = Util.linear( 0, 1, post.getBottom().y, post.getTop().y, fraction );
+      var y1 = Util.linear( 0, 1, post.yBottom, post.yTop, fraction );
       var velocity = new Vector2( x1 - x0, y1 - y0 );
       return velocity.setMagnitude( speed );
     },
@@ -327,7 +327,7 @@ define( function( require ) {
     //Find the y-value for the specified x-value and fraction (0=bottom, 1=top) of the pipe
     fractionToLocation: function( x, fraction ) {
       var position = this.getCrossSection( x );
-      return Util.linear( 0, 1, position.getBottom().y, position.getTop().y, fraction );
+      return Util.linear( 0, 1, position.yBottom, position.yTop, fraction );
     },
 
 
