@@ -16,10 +16,7 @@ define( function( require ) {
   function PipeControlPoint( x, y ) {
 
     PropertySet.call( this, {
-      sourcePosition: new Vector2( x, y )
-    } );
-    this.addDerivedProperty( 'position', ['sourcePosition'], function( sourcePosition ) {
-      return  sourcePosition;
+      position: new Vector2( x, y )
     } );
   }
 

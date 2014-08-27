@@ -135,7 +135,7 @@ define( function( require ) {
 
               var yDiff = Math.abs( (pipe.controlPoints[numControlPoints - (i + 1)].position.y) - pt.y );
               if ( yDiff > 1 ) {
-                controlPoint.sourcePosition = pt;
+                controlPoint.position = pt;
                 // When a control point is dragged, update the pipe flow line shape and the node shape
                 pipe.dirty = true;
                 pipe.createSpline();
