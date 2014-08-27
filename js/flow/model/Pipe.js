@@ -184,7 +184,6 @@ define( function( require ) {
 
     getMaxX: function() {
       var sortedPipePositions = this.getPipePositionsSortedByX();
-      // this.getPipePositionsSortedByX();//get pipe cross section list
       return  sortedPipePositions[ sortedPipePositions.length - 1 ].getX();
     },
 
@@ -302,10 +301,21 @@ define( function( require ) {
     //Gets the x-velocity of a particle, incorporating vertical effects.
     //If this effect is ignored, then when there is a large slope in the pipe, particles closer to the edge move much faster (which is physically incorrect).
     getTweakedVx: function( x, y ) {
-      var velocity = this.getVelocity( x, y );
-      var xVelocity = new Vector2( velocity.x, 0 );
-      var vx = this.getSpeed( x ) / ( velocity.magnitude() / xVelocity.magnitude() );
 
+      var fraction = this.getFractionToTop( x, y );
+      var speed = this.getSpeed( x );
+
+      var pre = this.getCrossSection( x - 1E-7 );// pipe cross section
+      var post = this.getCrossSection( x + 1E-7 );// pipe cross section
+
+      var x0 = pre.getX();
+      var y0 = Util.linear( 0, 1, pre.yBottom, pre.yTop, fraction );
+      var x1 = post.getX();
+      var y1 = Util.linear( 0, 1, post.yBottom, post.yTop, fraction );
+
+      var deltaX = (x1 - x0);
+      var deltaY = (y1 - y0);
+      var vx = (deltaX / Math.sqrt( deltaX * deltaX + deltaY * deltaY )) * speed;
       //If friction is enabled, then scale down quadratically (like a parabola) as you get further from the center of the pipe.
       //But instead of reaching zero velocity at the edge of the pipe (which could cause particles to pile up indefinitely), extend the region
       //a small epsilon past the (0..1) pipe range
