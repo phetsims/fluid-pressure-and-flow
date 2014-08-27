@@ -162,24 +162,20 @@ define( function( require ) {
     this.addChild( sensorPanel );
 
 
-    this.particlesLayer = new ParticleCanvasNode( flowModel.flowParticles, 'red', modelViewTransform, {
+    this.particlesLayer = new ParticleCanvasNode( flowModel.flowParticles, flowModel.gridParticles, modelViewTransform, {
       canvasBounds: new Bounds2( 40, 120, 700, 600 )
     } );
     flowView.addChild( this.particlesLayer );
 
-
-    this.gridParticlesLayer = new ParticleCanvasNode( flowModel.gridParticles, 'black', modelViewTransform, {
-      canvasBounds: new Bounds2( 40, 120, 700, 200 )
-    } );
-    flowView.addChild( this.gridParticlesLayer );
-
-    flowModel.isGridParticleVisibleProperty.link( function( value ) {
-      if ( value ) {
+    flowModel.isGridInjectorPressedProperty.link( function( isGridInjectorPressed ) {
+      if ( isGridInjectorPressed ) {
         flowModel.injectGridParticles();
         flowView.gridInjectorNode.redButton.enabled = false;
+
+        // todo: use sim time instead of wall time
         window.setTimeout( function() {
           flowView.gridInjectorNode.redButton.enabled = true;
-          flowModel.isGridParticleVisible = false;
+          flowModel.isGridInjectorPressed = false;
         }, 5000 );
       }
     } );
@@ -232,7 +228,6 @@ define( function( require ) {
   return inherit( ScreenView, FlowView, {
     step: function( dt ) {
       this.particlesLayer.step( dt );
-      this.gridParticlesLayer.step( dt );
     }
   } );
 } );

@@ -46,7 +46,7 @@ define( function( require ) {
     PropertySet.call( this, {
         isRulerVisible: false,
         isFluxMeterVisible: false,
-        isGridParticleVisible: false,
+        isGridInjectorPressed: false,
         isDotsVisible: true,
         isPlay: true,//Whether the sim is paused or running
         measureUnits: 'metric', //metric, english
