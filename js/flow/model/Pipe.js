@@ -171,7 +171,6 @@ define( function( require ) {
         pipeControlCrossSections.push( new PipeCrossSection( (topPt.x + bottomPt.x ) / 2, bottomY, topY ) );
       }
       spline.addAll( pipeControlCrossSections );
-      console.log( spline );
       return spline;
     },
 
