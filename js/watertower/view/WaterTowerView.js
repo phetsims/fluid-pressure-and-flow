@@ -201,7 +201,7 @@ define( function( require ) {
     _.each( waterTowerModel.speedometers, function( velocitySensor ) {
       velocitySensor.positionProperty.storeInitialValue( new Vector2( sensorPanel.visibleBounds.centerX - 85, sensorPanel.visibleBounds.centerY - 35 ) );
       velocitySensor.positionProperty.reset();
-      this.addChild( new VelocitySensorNode( waterTowerModel, modelViewTransform, velocitySensor, sensorPanel.visibleBounds, this.layoutBounds.withMaxY( this.layoutBounds.maxY - 72 ) ) );
+      this.addChild( new VelocitySensorNode( waterTowerModel, modelViewTransform, velocitySensor, [], sensorPanel.visibleBounds, this.layoutBounds.withMaxY( this.layoutBounds.maxY - 72 ) ) );
     }.bind( this ) );
 
     this.addChild( new WaterTowerRuler( waterTowerModel.isRulerVisibleProperty, waterTowerModel.rulerPositionProperty, waterTowerModel.measureUnitsProperty, modelViewTransform, this.layoutBounds ) );
