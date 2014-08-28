@@ -161,6 +161,14 @@ define( function( require ) {
     var sensorPanel = new Rectangle( 0, 0, 190, 95, 10, 10, {stroke: 'gray', lineWidth: 1, fill: '#f2fa6a', right: unitsControlPanel.left - inset, top: this.toolsControlPanel.top} );
     this.addChild( sensorPanel );
 
+    var fluxMeterNode = new FluxMeterNode( flowModel, modelViewTransform, {stroke: 'blue'} );
+
+    flowModel.isFluxMeterVisibleProperty.link( function( value ) {
+      fluxMeterNode.ellipse2.visible = value;
+    } );
+
+    // add the back ellipse of the fluxMeter before the particle layer
+    this.addChild( fluxMeterNode.ellipse2 );
 
     this.particlesLayer = new ParticleCanvasNode( flowModel.flowParticles, flowModel.gridParticles, modelViewTransform, {
       canvasBounds: new Bounds2( 40, 120, 700, 600 )
@@ -217,7 +225,6 @@ define( function( require ) {
       this.addChild( new BarometerNode( flowModel, modelViewTransform, barometer, [flowModel.fluidDensityProperty, flowModel.fluidFlowRateProperty], sensorPanel.visibleBounds, this.layoutBounds ) );
     }.bind( this ) );
 
-    var fluxMeterNode = new FluxMeterNode( flowModel, modelViewTransform, {stroke: 'blue'} );
     flowView.addChild( fluxMeterNode );
 
     this.addChild( new FlowRuler( flowModel.isRulerVisibleProperty, flowModel.rulerPositionProperty, flowModel.measureUnitsProperty, modelViewTransform, this.layoutBounds ) );

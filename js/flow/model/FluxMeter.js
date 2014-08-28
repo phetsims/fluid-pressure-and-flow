@@ -24,10 +24,15 @@ define( function( require ) {
       return this.pipe.getCrossSectionalArea( this.xPosition );
     },
 
+    // To get the flow rate
+    getFlowRate: function() {
+      return this.pipe.flowRate * 1000;
+    },
+
     //Assume incompressible fluid (like water), so the flow rate must remain constant throughout the pipe
     //flux = rate / area
     getFlux: function() {
-      return this.pipe.flowRate * 1000 / this.getArea();
+      return this.getFlowRate() / this.getArea();
     }
   } );
 } );
