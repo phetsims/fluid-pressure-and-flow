@@ -203,7 +203,12 @@ define( function( require ) {
                 pipe.createSpline();
                 pipeNode.updatePipeFlowLineShape();
               }
+              // update the flux meter
               flowModel.fluxMeter.trigger( 'update' );
+
+              // update the velocity sensors
+              flowModel.speedometers[0].trigger( 'update' );
+              flowModel.speedometers[1].trigger( 'update' );
             }
 
           } ) );

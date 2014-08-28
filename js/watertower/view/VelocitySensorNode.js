@@ -153,6 +153,10 @@ define( function( require ) {
       labelText.center = innerMostRectangle.center;
     } );
 
+    velocitySensor.on( 'update', function() {
+      velocitySensor.value = waterTowerModel.getWaterDropVelocityAt( modelViewTransform.viewToModelX( velocitySensor.position.x + 50 ), modelViewTransform.viewToModelY( velocitySensor.position.y + 72 ) );
+    } );
+
   }
 
   return inherit( Node, VelocitySensorNode );
