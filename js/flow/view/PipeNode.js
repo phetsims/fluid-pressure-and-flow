@@ -79,8 +79,10 @@ define( function( require ) {
 
     // add handles to drag the pipe
     this.leftPipeMainHandleNode = new Image( handleImage, { top: this.leftPipeNode.top + 60, right: 20, cursor: 'pointer', scale: 0.3} );
+    this.leftPipeMainHandleNode.touchArea = this.leftPipeMainHandleNode.localBounds.dilatedXY( 20, 20 );
     this.addChild( this.leftPipeMainHandleNode );
     this.rightPipeMainHandleNode = new Image( handleImage, {top: this.rightPipeNode.top + 60, left: layoutBounds.maxX - 50, cursor: 'pointer', scale: 0.3} );
+    this.rightPipeMainHandleNode.touchArea = this.rightPipeMainHandleNode.localBounds.dilatedXY( 20, 20 );
     this.addChild( this.rightPipeMainHandleNode );
 
     this.layoutBounds = layoutBounds;
@@ -129,6 +131,7 @@ define( function( require ) {
         }
 
         var handleNode = new Image( handleImage, {left: leftSpace, cursor: 'pointer', scale: 0.3} );
+        handleNode.touchArea = handleNode.localBounds.dilatedXY( 20, 20 );
         handleNode.setRotation( imageRotation );
         controlPointNode[i] = new Node( {children: [handleNode ]} );
         controlPoint.positionProperty.link( function( position ) {
