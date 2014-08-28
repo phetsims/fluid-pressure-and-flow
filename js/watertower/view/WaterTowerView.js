@@ -113,8 +113,8 @@ define( function( require ) {
       scale: 0.3, //size of the faucet,
       closeOnRelease: false,
 
-      // When in "match leakage" show the faucet as non-editable, see #132
-      autoProperty: waterTowerModel.faucetModeProperty.valueEquals( 'matchLeakage' )
+      // Faucet is interactive in manual mode, non-interactive in 'matchLeakage' mode, see #132
+      interactiveProperty: waterTowerModel.faucetModeProperty.valueEquals( 'manual' )
     } );
     this.addChild( faucetNode );
 
