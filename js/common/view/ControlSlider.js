@@ -92,7 +92,7 @@ define( function( require ) {
         fill: options.fill,
         stroke: 'gray',
         font: new PhetFont( { size: 19 } ),
-        initiallyOpen: true,
+        initiallyExpanded: true,
         minWidth: 270,
         contentAlign: 'center',
         titleAlign: 'left',
