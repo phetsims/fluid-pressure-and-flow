@@ -88,10 +88,9 @@ define( function( require ) {
 
     var accordionBox = new AccordionBox( this.accordionContent,
       {
-        title: options.title,
+        titleNode: new Text( options.title, { font: new PhetFont( { size: 19 } ) } ),
         fill: options.fill,
         stroke: 'gray',
-        font: new PhetFont( { size: 19 } ),
         initiallyExpanded: true,
         minWidth: 270,
         contentAlign: 'center',
