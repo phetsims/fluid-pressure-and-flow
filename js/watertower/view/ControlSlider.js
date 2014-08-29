@@ -115,7 +115,7 @@ define( function( require ) {
         buttonPosition: 'left',
         scale: scale,
         cornerRadius: 10,
-        controlButtonInsetX: 8,
+        controlButtonXMargin: 8,
         controlButtonYMargin: 8
       } );
     this.addChild( this.accordionBox );
