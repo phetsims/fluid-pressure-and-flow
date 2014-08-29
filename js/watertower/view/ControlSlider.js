@@ -20,6 +20,7 @@ define( function( require ) {
   var AccordionBox = require( 'SUN/AccordionBox' );
   var LinearGradient = require( 'SCENERY/util/LinearGradient' );
   var Util = require( 'DOT/Util' );
+  var Property = require( 'AXON/Property' );
 
   // constants
   var TRACK_SIZE = new Dimension2( 190, 10 );
@@ -102,13 +103,14 @@ define( function( require ) {
     this.accordionContent = new Node();
     this.accordionContent.addChild( this.content );
 
+    this.expandedProperty = new Property( false ); // @private
     this.accordionBox = new AccordionBox( this.accordionContent,
       {
         title: options.title,
         fill: options.fill,
         stroke: 'gray',
         font: new PhetFont( { size: 19 } ),
-        initiallyExpanded: false,
+        expandedProperty: this.expandedProperty,
         minWidth: 270,
         contentAlign: 'center',
         titleAlign: 'left',
@@ -143,7 +145,7 @@ define( function( require ) {
       this.content.visible = true;
     },
     reset: function() {
-      this.accordionBox.expandedProperty.set( false );
+      this.expandedProperty.reset();
     }
   } );
 
