@@ -110,13 +110,13 @@ define( function( require ) {
         font: new PhetFont( { size: 19 } ),
         initiallyOpen: false,
         minWidth: 270,
-        contentPosition: 'center',
-        titlePosition: 'left',
-        buttonPosition: 'left',
+        contentAlign: 'center',
+        titleAlign: 'left',
+        buttonAlign: 'left',
         scale: scale,
         cornerRadius: 10,
-        controlButtonXMargin: 8,
-        controlButtonYMargin: 8
+        buttonXMargin: 8,
+        buttonYMargin: 8
       } );
     this.addChild( this.accordionBox );
 
