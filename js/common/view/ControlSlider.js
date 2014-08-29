@@ -94,12 +94,12 @@ define( function( require ) {
         font: new PhetFont( { size: 19 } ),
         initiallyOpen: true,
         minWidth: 270,
-        contentPosition: 'center',
-        titlePosition: 'left',
-        buttonPosition: 'left',
+        contentAlign: 'center',
+        titleAlign: 'left',
+        buttonAlign: 'left',
         scale: scale,
         cornerRadius: 10,
-        controlButtonXMargin: 8
+        buttonXMargin: 8
       } );
     this.addChild( accordionBox );
 
