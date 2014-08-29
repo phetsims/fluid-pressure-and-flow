@@ -108,7 +108,7 @@ define( function( require ) {
         fill: options.fill,
         stroke: 'gray',
         font: new PhetFont( { size: 19 } ),
-        initiallyOpen: false,
+        initiallyExpanded: false,
         minWidth: 270,
         contentAlign: 'center',
         titleAlign: 'left',
@@ -143,7 +143,7 @@ define( function( require ) {
       this.content.visible = true;
     },
     reset: function() {
-      this.accordionBox.open.set( false );
+      this.accordionBox.expandedProperty.set( false );
     }
   } );
 
