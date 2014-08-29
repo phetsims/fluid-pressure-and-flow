@@ -106,10 +106,9 @@ define( function( require ) {
     this.expandedProperty = new Property( false ); // @private
     this.accordionBox = new AccordionBox( this.accordionContent,
       {
-        title: options.title,
+        titleNode: new Text( options.title, { font: new PhetFont( { size: 19 } ) } ),
         fill: options.fill,
         stroke: 'gray',
-        font: new PhetFont( { size: 19 } ),
         expandedProperty: this.expandedProperty,
         minWidth: 270,
         contentAlign: 'center',
