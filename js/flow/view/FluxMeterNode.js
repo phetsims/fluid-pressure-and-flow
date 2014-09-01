@@ -56,27 +56,31 @@ define( function( require ) {
 
     this.flowModel = flowModel;
     this.modelViewTransform = modelViewTransform;
-    var textOptions = {font: new PhetFont( 12 )};
+    var textOptions = {font: new PhetFont( 10 )};
 
     var flowRateText = new Text( flowRateString, textOptions );
     var area = new Text( areaString, textOptions );
     var flux = new Text( fluxString, textOptions );
 
-    this.flowRateValue = new SubSupText( '', { font: new PhetFont( 14 ), pickable: false } );
-    this.areaValue = new SubSupText( '', { font: new PhetFont( 14 ), pickable: false } );
-    this.fluxValue = new SubSupText( '', { font: new PhetFont( 14 ), pickable: false } );
+    this.flowRateValue = new SubSupText( '', { font: new PhetFont( 10 ), pickable: false } );
+    this.areaValue = new SubSupText( '', { font: new PhetFont( 10 ), pickable: false } );
+    this.fluxValue = new SubSupText( '', { font: new PhetFont( 10 ), pickable: false } );
 
     var content = new VBox( {
-      spacing: 2,
+      spacing: 0,
       children: [
-        new HBox( {spacing: 2, children: [new HStrut( 2 ), flowRateText, new HStrut( 5 ), this.flowRateValue]} ),
-        new HBox( {spacing: 2, children: [new HStrut( 30 ), area, new HStrut( 15 ), this.areaValue]} ),
-        new HBox( {spacing: 2, children: [new HStrut( 30 ), flux, this.fluxValue]} )
+        new HBox( {spacing: 0, children: [new HStrut( 2 ), flowRateText, new HStrut( 5 ), this.flowRateValue]} ),
+        new HBox( {spacing: 0, children: [new HStrut( 30 ), area, new HStrut( 15 ), this.areaValue]} ),
+        new HBox( {spacing: 0, children: [new HStrut( 30 ), flux, new HStrut( 3 ),this.fluxValue]} )
       ],
       align: 'left'
     } );
 
-    this.displayPanel = new Panel( content, options );
+    this.displayPanel = new Panel( content, {xMargin: 10,
+      yMargin: 10,
+      fill: '#f2fa6a ',
+      stroke: 'blue',
+      lineWidth: 2} );
 
 
     var yTop = modelViewTransform.modelToViewY( flowModel.pipe.fractionToLocation( flowModel.fluxMeter.xPosition, 1 ) );
@@ -84,8 +88,8 @@ define( function( require ) {
     var centerY = ( yTop + yBottom ) / 2;
     var radiusY = ( yBottom - yTop ) / 2;
 
-    this.ellipse = new Path( new Shape().ellipticalArc( 60, centerY, radiusY, 10, Math.PI / 2, 0, Math.PI, false ), {lineWidth: '3', stroke: 'blue'} );
-    this.ellipse2 = new Path( new Shape().ellipticalArc( 60, centerY, radiusY, 10, Math.PI / 2, Math.PI, 0, false ), {lineWidth: '3', stroke: new Color( 0, 0, 255, 0.5 )} );
+    this.ellipse = new Path( new Shape().ellipticalArc( 60, centerY, radiusY, 5, Math.PI / 2, 0, Math.PI, false ), {lineWidth: '5', stroke: 'blue'} );
+    this.ellipse2 = new Path( new Shape().ellipticalArc( 60, centerY, radiusY, 5, Math.PI / 2, Math.PI, 0, false ), {lineWidth: '5', stroke: new Color( 0, 0, 255, 0.5 )} );
 
     this.addChild( this.ellipse );
 
@@ -108,7 +112,7 @@ define( function( require ) {
 
     var handleImage = new Image( twoSideHandleImage );
     handleImage.touchArea = handleImage.localBounds.dilatedXY( 5, 5 );
-    this.handle = new Node( {children: [handleImage], top: this.lowerLine.bottom, left: this.lowerLine.right - 25, scale: 0.5} );
+    this.handle = new Node( {children: [handleImage], cursor: 'pointer', top: this.lowerLine.bottom, left: this.lowerLine.right - 16, scale: 0.3} );
 
     this.addChild( this.handle );
 
@@ -151,8 +155,8 @@ define( function( require ) {
       var centerY = ( yTop + yBottom ) / 2;
       var radiusY = ( yBottom - yTop ) / 2;
 
-      var newEllipse1 = new Shape().ellipticalArc( centerX, centerY, radiusY, 10, Math.PI / 2, 0, Math.PI, false );
-      var newEllipse2 = new Shape().ellipticalArc( centerX, centerY, radiusY, 10, Math.PI / 2, Math.PI, 0, false );
+      var newEllipse1 = new Shape().ellipticalArc( centerX, centerY, radiusY, 5, Math.PI / 2, 0, Math.PI, false );
+      var newEllipse2 = new Shape().ellipticalArc( centerX, centerY, radiusY, 5, Math.PI / 2, Math.PI, 0, false );
 
       this.ellipse.setShape( newEllipse1 );
       this.ellipse2.setShape( newEllipse2 );
@@ -163,8 +167,8 @@ define( function( require ) {
       this.displayPanel.left = this.upperLine.left - 50;
       this.lowerLine.top = this.ellipse2.bottom;
       this.lowerLine.left = this.ellipse.right - 1;
-      this.handle.top = this.lowerLine.bottom;
-      this.handle.left = this.lowerLine.right - 25;
+      this.handle.top = this.lowerLine.bottom-3;
+      this.handle.left = this.lowerLine.right - 16;
 
       this.updateFluxMeterValues( this.flowModel.measureUnits );
 
