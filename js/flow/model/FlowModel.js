@@ -79,8 +79,10 @@ define( function( require ) {
     this.flowParticles = new ObservableArray();
     this.gridParticles = new ObservableArray();
 
+
     this.particlesToRemove = [];
     this.gridParticlesToRemove = [];
+    this.gridInjectorElapsedTimeInPressedMode = 0;
 
     // call stepInternal at a rate of 3 times per second
     this.timer = new EventTimer( new EventTimer.ConstantEventModel( 5 ), function( timeElapsed ) {
@@ -135,10 +137,20 @@ define( function( require ) {
         if ( this.speed === 'normal' ) {
           this.timer.step( dt );
           this.propagateParticles( dt );
+          if(this.isGridInjectorPressed) {
+            this.gridInjectorElapsedTimeInPressedMode += dt;
+          }
         }
         else {
           this.timer.step( 0.33 * dt );
           this.propagateParticles( 0.33 * dt );
+          if(this.isGridInjectorPressed) {
+            this.gridInjectorElapsedTimeInPressedMode += 0.33 * dt;
+          }
+        }
+        if(this.gridInjectorElapsedTimeInPressedMode > 5 ){
+          this.isGridInjectorPressed = false;
+          this.gridInjectorElapsedTimeInPressedMode = 0 ;
         }
       }
     },

@@ -179,12 +179,8 @@ define( function( require ) {
       if ( isGridInjectorPressed ) {
         flowModel.injectGridParticles();
         flowView.gridInjectorNode.redButton.enabled = false;
-
-        // todo: use sim time instead of wall time
-        window.setTimeout( function() {
-          flowView.gridInjectorNode.redButton.enabled = true;
-          flowModel.isGridInjectorPressed = false;
-        }, 5000 );
+      } else {
+        flowView.gridInjectorNode.redButton.enabled = true;
       }
     } );
 
