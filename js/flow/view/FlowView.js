@@ -163,9 +163,7 @@ define( function( require ) {
 
     var fluxMeterNode = new FluxMeterNode( flowModel, modelViewTransform, {stroke: 'blue'} );
 
-    flowModel.isFluxMeterVisibleProperty.link( function( value ) {
-      fluxMeterNode.ellipse2.visible = value;
-    } );
+    flowModel.isFluxMeterVisibleProperty.linkAttribute(fluxMeterNode.ellipse2, 'visible');
 
     // add the back ellipse of the fluxMeter before the particle layer
     this.addChild( fluxMeterNode.ellipse2 );
