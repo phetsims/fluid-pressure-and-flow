@@ -33,14 +33,13 @@ define( function( require ) {
 
     // Cross sections that the user can manipulate to deform the pipe.
     this.controlCrossSections = []; // ArrayList<PipeCrossSection>();
-    this.controlCrossSections[0] = new PipeCrossSection( 0.2, -3, -1 );
-    this.controlCrossSections[1] = new PipeCrossSection( 0.8, -3, -1 );
-    this.controlCrossSections[2] = new PipeCrossSection( 1.6, -3, -1 );
-    this.controlCrossSections[3] = new PipeCrossSection( 2.4, -3, -1 );
-    this.controlCrossSections[4] = new PipeCrossSection( 3.2, -3, -1 );
-    this.controlCrossSections[5] = new PipeCrossSection( 4.2, -3, -1 );
-    this.controlCrossSections[6] = new PipeCrossSection( 5.1, -3, -1 );
-
+    this.controlCrossSections[0] = new PipeCrossSection( 0.35, -3.2, -1.2 );
+    this.controlCrossSections[1] = new PipeCrossSection( 0.8, -3.2, -1.2 );
+    this.controlCrossSections[2] = new PipeCrossSection( 1.6, -3.2, -1.2 );
+    this.controlCrossSections[3] = new PipeCrossSection( 2.4, -3.2, -1.2 );
+    this.controlCrossSections[4] = new PipeCrossSection( 3.2, -3.2, -1.2 );
+    this.controlCrossSections[5] = new PipeCrossSection( 4.2, -3.2, -1.2 );
+    this.controlCrossSections[6] = new PipeCrossSection( 5.15, -3.2, -1.2 );
     // Nonlinear interpolation of the control sections for particle motion and determining the velocity field
     this.splineCrossSections = new ObservableArray();//ArrayList<PipeCrossSection>
 
@@ -86,6 +85,7 @@ define( function( require ) {
 
   return inherit( PropertySet, Pipe, {
     reset: function() {
+      PropertySet.prototype.reset.call( this );
       for ( var i = 0; i < this.controlPoints.length; i++ ) {
         this.controlPoints[i].reset();
       }

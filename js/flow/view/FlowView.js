@@ -60,7 +60,6 @@ define( function( require ) {
    */
   function FlowView( flowModel ) {
     var flowView = this;
-    var textOptions = {font: new PhetFont( 14 )};
 
     ScreenView.call( this, {renderer: 'svg'} );
 
@@ -81,7 +80,7 @@ define( function( require ) {
     this.addChild( this.gridInjectorNode );
 
     // add ground node
-    var groundNode = new GroundNode( -5000, 143, 10000, 400, 400, {topColor: /*'#9D8B61'*/  new Color( 157, 139, 97, 0.8 ), bottomColor: '#645A3C'} );
+    var groundNode = new GroundNode( -5000, 143, 10000, 10000, 400, {topColor: /*'#9D8B61'*/  new Color( 157, 139, 97, 0.8 ), bottomColor: '#645A3C'} );
     this.addChild( groundNode );
 
     //grass
@@ -163,9 +162,7 @@ define( function( require ) {
 
     var fluxMeterNode = new FluxMeterNode( flowModel, modelViewTransform, {stroke: 'blue'} );
 
-    flowModel.isFluxMeterVisibleProperty.link( function( value ) {
-      fluxMeterNode.ellipse2.visible = value;
-    } );
+    flowModel.isFluxMeterVisibleProperty.linkAttribute( fluxMeterNode.ellipse2, 'visible' );
 
     // add the back ellipse of the fluxMeter before the particle layer
     this.addChild( fluxMeterNode.ellipse2 );
@@ -179,12 +176,9 @@ define( function( require ) {
       if ( isGridInjectorPressed ) {
         flowModel.injectGridParticles();
         flowView.gridInjectorNode.redButton.enabled = false;
-
-        // todo: use sim time instead of wall time
-        window.setTimeout( function() {
-          flowView.gridInjectorNode.redButton.enabled = true;
-          flowModel.isGridInjectorPressed = false;
-        }, 5000 );
+      }
+      else {
+        flowView.gridInjectorNode.redButton.enabled = true;
       }
     } );
 
@@ -193,20 +187,19 @@ define( function( require ) {
     var stepButton = new StepButton( function() {
       flowModel.timer.step( 0.016 );
       flowModel.propagateParticles( 0.016 );
-    }, flowModel.isPlayProperty, { stroke: 'black', fill: '#005566', right: controlSlider.left - inset, bottom: controlSlider.bottom - inset} );
+    }, flowModel.isPlayProperty, { radius: 15, stroke: 'black', fill: '#005566', right: controlSlider.left - inset, bottom: controlSlider.bottom - inset} );
 
     this.addChild( stepButton );
 
-    var playPauseButton = new PlayPauseButton( flowModel.isPlayProperty, { stroke: 'black', fill: '#005566', y: stepButton.centerY, right: stepButton.left - inset } );
+    var playPauseButton = new PlayPauseButton( flowModel.isPlayProperty, { radius: 20, stroke: 'black', fill: '#005566', y: stepButton.centerY, right: stepButton.left - inset } );
     this.addChild( playPauseButton );
-
 
     var speedControl = new VBox( {
       align: 'left',
       spacing: 5,
       children: [
-        new AquaRadioButton( flowModel.speedProperty, 'normal', new Text( normalString, textOptions ), {radius: 6} ),
-        new AquaRadioButton( flowModel.speedProperty, 'slow', new Text( slowMotionString, textOptions ), {radius: 6} )
+        new AquaRadioButton( flowModel.speedProperty, 'slow', new Text( slowMotionString, {font: new PhetFont( 12 )} ), {radius: 8} ),
+        new AquaRadioButton( flowModel.speedProperty, 'normal', new Text( normalString, {font: new PhetFont( 12 )} ), {radius: 8} )
       ]} );
     this.addChild( speedControl.mutate( {right: playPauseButton.left - inset, bottom: playPauseButton.bottom} ) );
 
@@ -215,14 +208,14 @@ define( function( require ) {
     _.each( flowModel.speedometers, function( velocitySensor ) {
       velocitySensor.positionProperty.storeInitialValue( new Vector2( sensorPanel.visibleBounds.centerX - 85, sensorPanel.visibleBounds.centerY - 35 ) );
       velocitySensor.positionProperty.reset();
-      this.addChild( new VelocitySensorNode( flowModel, modelViewTransform, velocitySensor, [flowModel.fluidFlowRateProperty], sensorPanel.visibleBounds, this.layoutBounds ) );
+      this.addChild( new VelocitySensorNode( flowModel, modelViewTransform, velocitySensor, [flowModel.fluidFlowRateProperty, flowModel.pipe.frictionProperty], sensorPanel.visibleBounds, this.layoutBounds ) );
     }.bind( this ) );
 
     // add barometers within the sensor panel bounds
     _.each( flowModel.barometers, function( barometer ) {
       barometer.positionProperty.storeInitialValue( new Vector2( sensorPanel.visibleBounds.centerX + 55, sensorPanel.visibleBounds.centerY - 15 ) );
       barometer.reset();
-      this.addChild( new BarometerNode( flowModel, modelViewTransform, barometer, [flowModel.fluidDensityProperty, flowModel.fluidFlowRateProperty], sensorPanel.visibleBounds, this.layoutBounds ) );
+      this.addChild( new BarometerNode( flowModel, modelViewTransform, barometer, [flowModel.fluidDensityProperty, flowModel.fluidFlowRateProperty, flowModel.pipe.frictionProperty], sensorPanel.visibleBounds, this.layoutBounds ) );
     }.bind( this ) );
 
     flowView.addChild( fluxMeterNode );
