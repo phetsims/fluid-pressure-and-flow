@@ -51,12 +51,12 @@ define( function( require ) {
     for ( var j = 1; j < 40; j++ ) {
       leftPipeMiddle[j] = new Image( pipeMiddleImage, { right: leftPipeMiddle[j - 1].left + 1, scale: options.pipeScale} );
     }
-    this.leftPipeNode = new Node( {children: [leftPipe], top: this.skyNodegroundY + 33, left: layoutBounds.minX - 40, scale: options.pipeScale} );
+    this.leftPipeNode = new Node( {children: [leftPipe], top: this.skyNodegroundY + 43, left: layoutBounds.minX - 40, scale: options.pipeScale} );
     for ( j = 0; j < 40; j++ ) {
       this.leftPipeNode.addChild( leftPipeMiddle[j] );
     }
 
-    this.pipeFlowLine = new Path( null, {stroke: options.lineColor, left: this.leftPipeNode.right, lineWidth: '6', fill: flowModel.fluidColorModel.color} );
+    this.pipeFlowLine = new Path( null, {stroke: options.lineColor, left: this.leftPipeNode.right, lineWidth: '6', fill: flowModel.fluidColorModel.color.setAlpha(0.5)} );
 
     // right side pipe image.
     var rightPipe = new Image( rightSidePipeImage, { scale: options.pipeScale} );
@@ -84,7 +84,9 @@ define( function( require ) {
 
     this.layoutBounds = layoutBounds;
 
-    flowModel.fluidColorModel.colorProperty.linkAttribute( this.pipeFlowLine, 'fill' );
+    flowModel.fluidColorModel.colorProperty.link( function(color){
+      pipeNode.pipeFlowLine.fill =  color.setAlpha(0.6);
+    } );
 
     // for line smoothness
     var lastPt = (pipe.controlPoints.length - 1) / pipe.controlPoints.length;
@@ -134,6 +136,12 @@ define( function( require ) {
         controlPoint.positionProperty.link( function( position ) {
           controlPointNode[i].setTranslation( modelViewTransform.modelToViewX( position.x ), modelViewTransform.modelToViewY( position.y ) );
         } );
+
+        if ( i === 0 || i ===  (numControlPoints / 2 - 1) ) {
+          controlPointNode[i].bottom -= 10;
+        }else if(i === numControlPoints - 1 || i === numControlPoints / 2 ){
+          controlPointNode[i].bottom += 10;
+        }
 
         controlPointNode[i].addInputListener( new SimpleDragHandler(
           {
@@ -277,10 +285,10 @@ define( function( require ) {
   return inherit( Node, PipeNode,
     {
       reset: function() {
-        this.leftPipeNode.setMatrix( Matrix3.translation( this.layoutBounds.minX - 40, this.skyNodegroundY + 33 ) );
+        this.leftPipeNode.setMatrix( Matrix3.translation( this.layoutBounds.minX - 40, this.skyNodegroundY + 43 ) );
         this.leftPipeNode.scale( 0.6, 0.6, false );
 
-        this.rightPipeNode.setMatrix( Matrix3.translation( this.layoutBounds.maxX - 80, this.skyNodegroundY + 33 ) );
+        this.rightPipeNode.setMatrix( Matrix3.translation( this.layoutBounds.maxX - 80, this.skyNodegroundY + 43 ) );
         this.rightPipeNode.scale( 0.6, 0.6, false );
 
         this.leftPipeMainHandleNode.setTranslation( this.layoutBounds.minX - 10, this.leftPipeNode.getCenterY() );
