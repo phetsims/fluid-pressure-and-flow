@@ -163,7 +163,7 @@ define( function( require ) {
 
     var fluxMeterNode = new FluxMeterNode( flowModel, modelViewTransform, {stroke: 'blue'} );
 
-    flowModel.isFluxMeterVisibleProperty.linkAttribute(fluxMeterNode.ellipse2, 'visible');
+    flowModel.isFluxMeterVisibleProperty.linkAttribute( fluxMeterNode.ellipse2, 'visible' );
 
     // add the back ellipse of the fluxMeter before the particle layer
     this.addChild( fluxMeterNode.ellipse2 );
@@ -177,7 +177,8 @@ define( function( require ) {
       if ( isGridInjectorPressed ) {
         flowModel.injectGridParticles();
         flowView.gridInjectorNode.redButton.enabled = false;
-      } else {
+      }
+      else {
         flowView.gridInjectorNode.redButton.enabled = true;
       }
     } );
@@ -187,20 +188,19 @@ define( function( require ) {
     var stepButton = new StepButton( function() {
       flowModel.timer.step( 0.016 );
       flowModel.propagateParticles( 0.016 );
-    }, flowModel.isPlayProperty, { stroke: 'black', fill: '#005566', right: controlSlider.left - inset, bottom: controlSlider.bottom - inset} );
+    }, flowModel.isPlayProperty, { radius: 15, stroke: 'black', fill: '#005566', right: controlSlider.left - inset, bottom: controlSlider.bottom - inset} );
 
     this.addChild( stepButton );
 
-    var playPauseButton = new PlayPauseButton( flowModel.isPlayProperty, { stroke: 'black', fill: '#005566', y: stepButton.centerY, right: stepButton.left - inset } );
+    var playPauseButton = new PlayPauseButton( flowModel.isPlayProperty, { radius: 20, stroke: 'black', fill: '#005566', y: stepButton.centerY, right: stepButton.left - inset } );
     this.addChild( playPauseButton );
-
 
     var speedControl = new VBox( {
       align: 'left',
       spacing: 5,
       children: [
-        new AquaRadioButton( flowModel.speedProperty, 'normal', new Text( normalString, textOptions ), {radius: 6} ),
-        new AquaRadioButton( flowModel.speedProperty, 'slow', new Text( slowMotionString, textOptions ), {radius: 6} )
+        new AquaRadioButton( flowModel.speedProperty, 'slow', new Text( slowMotionString, {font: new PhetFont( 12 )} ), {radius: 8} ),
+        new AquaRadioButton( flowModel.speedProperty, 'normal', new Text( normalString, {font: new PhetFont( 12 )} ), {radius: 8} )
       ]} );
     this.addChild( speedControl.mutate( {right: playPauseButton.left - inset, bottom: playPauseButton.bottom} ) );
 
