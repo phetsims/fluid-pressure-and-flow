@@ -60,7 +60,6 @@ define( function( require ) {
    */
   function FlowView( flowModel ) {
     var flowView = this;
-    var textOptions = {font: new PhetFont( 14 )};
 
     ScreenView.call( this, {renderer: 'svg'} );
 
