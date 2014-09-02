@@ -62,9 +62,9 @@ define( function( require ) {
     var area = new Text( areaString, textOptions );
     var flux = new Text( fluxString, textOptions );
 
-    this.flowRateValue = new SubSupText( '', { font: new PhetFont( 10 ), pickable: false } );
-    this.areaValue = new SubSupText( '', { font: new PhetFont( 10 ), pickable: false } );
-    this.fluxValue = new SubSupText( '', { font: new PhetFont( 10 ), pickable: false } );
+    this.flowRateValue = new SubSupText( 'dummy', { font: new PhetFont( 10 ), pickable: false } );
+    this.areaValue = new SubSupText( 'dummy', { font: new PhetFont( 10 ), pickable: false } );
+    this.fluxValue = new SubSupText( 'dummy', { font: new PhetFont( 10 ), pickable: false } );
 
     var content = new VBox( {
       spacing: 0,

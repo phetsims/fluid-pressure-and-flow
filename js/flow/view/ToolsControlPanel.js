@@ -92,7 +92,7 @@ define( function( require ) {
 
   //Create an icon for the ruler check box
   var createRulerIcon = function() {
-    return new RulerNode( 13, 8, 15, ['0', '1'], '', {
+    return new RulerNode( 13, 8, 12, ['0', '1'], '', {
       insetsWidth: 7,
       minorTicksPerMajorTick: 4,
       majorTickFont: new PhetFont( 5 ),

@@ -59,7 +59,7 @@ define( function( require ) {
       this.leftPipeNode.addChild( leftPipeMiddle[j] );
     }
 
-    this.pipeFlowLine = new Path( null, {stroke: options.lineColor, left: this.leftPipeNode.right, lineWidth: '6', fill: flowModel.fluidColorModel.color.setAlpha( 0.5 )} );
+    this.pipeFlowLine = new Path( null, {stroke: options.lineColor, lineWidth: '6', fill: flowModel.fluidColorModel.color.setAlpha( 0.5 )} );
 
     // right side pipe image.
     var rightPipe = new Image( rightSidePipeImage, { scale: options.pipeScale} );
