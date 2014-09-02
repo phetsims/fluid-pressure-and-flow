@@ -103,7 +103,7 @@ define( function( require ) {
       this.controlCrossSections[5] = new PipeCrossSection( this.controlPoints[5].position.x, this.controlPoints[8].position.y, this.controlPoints[5].position.y );
       this.controlCrossSections[6] = new PipeCrossSection( this.controlPoints[6].position.x, this.controlPoints[7].position.y, this.controlPoints[6].position.y );
       var pipePositions = new ObservableArray();//new ArrayList<PipeCrossSection>();
-      var dx = 0.2;//extend water flow so it looks like it enters the pipe cutaway
+      var dx = 0.3;//extend water flow so it looks like it enters the pipe cutaway
       pipePositions.add( new PipeCrossSection( this.getMinX(), this.getBottomLeft().y, this.getTopLeft().y ) );
       pipePositions.addAll( this.controlCrossSections );
       pipePositions.add( new PipeCrossSection( this.getMaxX() + dx, this.getBottomRight().y, this.getTopRight().y ) );
