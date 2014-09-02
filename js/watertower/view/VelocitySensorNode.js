@@ -38,9 +38,10 @@ define( function( require ) {
    * @param {Property[]} linkedProperties - the set of properties which affect the sensor value
    * @param {Bounds2} containerBounds - bounds of container for all velocity sensors, needed to reset to initial position
    * @param {Bounds2} dragBounds - bounds that define where the sensor may be dragged
+   * @param options
    * @constructor
    */
-  function VelocitySensorNode( waterTowerModel, modelViewTransform, velocitySensor, linkedProperties, containerBounds, dragBounds ) {
+  function VelocitySensorNode( waterTowerModel, modelViewTransform, velocitySensor, linkedProperties, containerBounds, dragBounds, options ) {
     var velocitySensorNode = this;
     Node.call( this, {cursor: 'pointer', pickable: true} );
 
@@ -157,6 +158,7 @@ define( function( require ) {
       velocitySensor.value = waterTowerModel.getWaterDropVelocityAt( modelViewTransform.viewToModelX( velocitySensor.position.x + 50 ), modelViewTransform.viewToModelY( velocitySensor.position.y + 72 ) );
     } );
 
+    this.mutate(options);
   }
 
   return inherit( Node, VelocitySensorNode );

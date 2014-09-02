@@ -20,7 +20,7 @@ define( function( require ) {
   var Matrix3 = require( 'DOT/Matrix3' );
   var Bounds2 = require( 'DOT/Bounds2' );
   var ToolsControlPanel = require( 'FLUID_PRESSURE_AND_FLOW/flow/view/ToolsControlPanel' );
-  var UnitsControlPanel = require( 'FLUID_PRESSURE_AND_FLOW/watertower/view/UnitsControlPanel' );
+  var UnitsControlPanel = require( 'FLUID_PRESSURE_AND_FLOW/flow/view/UnitsControlPanel' );
   var ControlSlider = require( 'FLUID_PRESSURE_AND_FLOW/watertower/view/ControlSlider' );
   var VelocitySensorNode = require( 'FLUID_PRESSURE_AND_FLOW/watertower/view/VelocitySensorNode' );
   var BarometerNode = require( 'FLUID_PRESSURE_AND_FLOW/watertower/view/BarometerNode' );
@@ -38,6 +38,7 @@ define( function( require ) {
   var FluxMeterNode = require( 'FLUID_PRESSURE_AND_FLOW/flow/view/FluxMeterNode' );
   var GridInjectorNode = require( 'FLUID_PRESSURE_AND_FLOW/flow/view/GridInjectorNode' );
   var ParticleCanvasNode = require( 'FLUID_PRESSURE_AND_FLOW/flow/view/ParticleCanvasNode' );
+//  var Image = require( 'SCENERY/nodes/Image' );
 
   //strings
   var fluidDensityString = require( 'string!FLUID_PRESSURE_AND_FLOW/fluidDensity' );
@@ -50,6 +51,8 @@ define( function( require ) {
 
   //images
   var grassImg = require( 'image!FLUID_PRESSURE_AND_FLOW/images/grass-texture.png' );
+ // var flowMockupImg = require( 'image!FLUID_PRESSURE_AND_FLOW/images/flow-mockup.png' );
+
   //View layout related constants
   var inset = 10;
 
@@ -62,6 +65,10 @@ define( function( require ) {
     var flowView = this;
 
     ScreenView.call( this, {renderer: 'svg'} );
+   /* ScreenView.call( this, {
+      renderer: 'svg',
+      layoutBounds: ScreenView.UPDATED_LAYOUT_BOUNDS
+    } );*/
 
     var modelViewTransform = ModelViewTransform2.createSinglePointXYScaleMapping(
       Vector2.ZERO,
@@ -76,7 +83,7 @@ define( function( require ) {
     this.addChild( skyNode );
 
     // Injector which generates grid particles
-    this.gridInjectorNode = new GridInjectorNode( flowModel, {bottom: skyNode.bottom + 78, left: 50 } );
+    this.gridInjectorNode = new GridInjectorNode( flowModel, {bottom: skyNode.bottom + 78+13, left: 52 } );
     this.addChild( this.gridInjectorNode );
 
     // add ground node
@@ -94,18 +101,18 @@ define( function( require ) {
     } ) );
 
     // tools control panel
-    this.toolsControlPanel = new ToolsControlPanel( flowModel, {right: this.layoutBounds.right - inset, top: inset} );
+    this.toolsControlPanel = new ToolsControlPanel( flowModel, {right: this.layoutBounds.right - 7, top: 7} );
     this.addChild( this.toolsControlPanel );
 
     // units control panel
-    var unitsControlPanel = new UnitsControlPanel( flowModel.measureUnitsProperty, 50, {yMargin: 18, right: this.toolsControlPanel.left - inset, top: this.toolsControlPanel.top } );
+    var unitsControlPanel = new UnitsControlPanel( flowModel.measureUnitsProperty, 50, { right: this.toolsControlPanel.left - 7, top: this.toolsControlPanel.top } );
     this.addChild( unitsControlPanel );
 
 
     // add the fluid density control slider
     var controlSlider = new ControlSlider( flowModel, flowModel.fluidDensityProperty, flowModel.getFluidDensityString.bind( flowModel ), flowModel.fluidDensityRange, {
-      right: this.layoutBounds.right - 10 * inset,
-      bottom: this.layoutBounds.bottom - inset,
+      right: this.layoutBounds.right - 105,
+      bottom: this.layoutBounds.bottom - 7,
       title: fluidDensityString,
       ticks: [
         {
@@ -124,20 +131,6 @@ define( function( require ) {
     } );
     this.addChild( controlSlider );
 
-
-    //add flow rate panel
-    var flowRateSlider = new ControlSlider( flowModel, flowModel.fluidFlowRateProperty, flowModel.getFluidFlowRateString.bind( flowModel ), flowModel.flowRateRange, {
-      left: this.layoutBounds.left,
-      bottom: this.layoutBounds.bottom - inset,
-      title: flowRateString
-    } );
-    this.addChild( flowRateSlider );
-
-    // convert between m3/sec and liter/sec
-    flowModel.fluidFlowRateProperty.link( function( flowRate ) {
-      flowModel.pipe.flowRate = flowRate * 0.001;
-    } );
-
     var resetAllButton = new ResetAllButton( {
       listener: function() {
         flowModel.reset();
@@ -145,8 +138,9 @@ define( function( require ) {
         flowRateSlider.reset();
         pipeNode.reset();
       },
-      bottom: this.layoutBounds.bottom - inset,
-      right: this.layoutBounds.right - inset
+      radius : 18,
+      bottom: this.layoutBounds.bottom - 7,
+      right: this.layoutBounds.right - 13
 
     } );
     this.addChild( resetAllButton );
@@ -157,7 +151,7 @@ define( function( require ) {
     this.addChild( pipeNode );
 
     // add the sensors panel
-    var sensorPanel = new Rectangle( 0, 0, 190, 95, 10, 10, {stroke: 'gray', lineWidth: 1, fill: '#f2fa6a', right: unitsControlPanel.left - inset, top: this.toolsControlPanel.top} );
+    var sensorPanel = new Rectangle( 0, 0, 167, 85, 10, 10, {stroke: 'gray', lineWidth: 1, fill: '#f2fa6a', right: unitsControlPanel.left - 4, top: this.toolsControlPanel.top} );
     this.addChild( sensorPanel );
 
     var fluxMeterNode = new FluxMeterNode( flowModel, modelViewTransform, {stroke: 'blue'} );
@@ -187,11 +181,11 @@ define( function( require ) {
     var stepButton = new StepButton( function() {
       flowModel.timer.step( 0.016 );
       flowModel.propagateParticles( 0.016 );
-    }, flowModel.isPlayProperty, { radius: 15, stroke: 'black', fill: '#005566', right: controlSlider.left - inset, bottom: controlSlider.bottom - inset} );
+    }, flowModel.isPlayProperty, { radius: 12, stroke: 'black', fill: '#005566', right: controlSlider.left - 82, bottom: this.layoutBounds.bottom - 14 } );
 
     this.addChild( stepButton );
 
-    var playPauseButton = new PlayPauseButton( flowModel.isPlayProperty, { radius: 20, stroke: 'black', fill: '#005566', y: stepButton.centerY, right: stepButton.left - inset } );
+    var playPauseButton = new PlayPauseButton( flowModel.isPlayProperty, { radius: 18, stroke: 'black', fill: '#005566', y: stepButton.centerY, right: stepButton.left - inset } );
     this.addChild( playPauseButton );
 
     var speedControl = new VBox( {
@@ -201,26 +195,41 @@ define( function( require ) {
         new AquaRadioButton( flowModel.speedProperty, 'slow', new Text( slowMotionString, {font: new PhetFont( 12 )} ), {radius: 8} ),
         new AquaRadioButton( flowModel.speedProperty, 'normal', new Text( normalString, {font: new PhetFont( 12 )} ), {radius: 8} )
       ]} );
-    this.addChild( speedControl.mutate( {right: playPauseButton.left - inset, bottom: playPauseButton.bottom} ) );
+    this.addChild( speedControl.mutate( {right: playPauseButton.left - 8, bottom: playPauseButton.bottom} ) );
+
+    //add flow rate panel
+    var flowRateSlider = new ControlSlider( flowModel, flowModel.fluidFlowRateProperty, flowModel.getFluidFlowRateString.bind( flowModel ), flowModel.flowRateRange, {
+      right: speedControl.left - 20,
+      bottom: this.layoutBounds.bottom - 7,
+      title: flowRateString
+    } );
+    this.addChild( flowRateSlider );
+
+    // convert between m3/sec and liter/sec
+    flowModel.fluidFlowRateProperty.link( function( flowRate ) {
+      flowModel.pipe.flowRate = flowRate * 0.001;
+    } );
 
 
     // add speedometers within the sensor panel bounds
     _.each( flowModel.speedometers, function( velocitySensor ) {
-      velocitySensor.positionProperty.storeInitialValue( new Vector2( sensorPanel.visibleBounds.centerX - 85, sensorPanel.visibleBounds.centerY - 35 ) );
+      velocitySensor.positionProperty.storeInitialValue( new Vector2( sensorPanel.visibleBounds.centerX - 75, sensorPanel.visibleBounds.centerY - 30 ) );
       velocitySensor.positionProperty.reset();
-      this.addChild( new VelocitySensorNode( flowModel, modelViewTransform, velocitySensor, [flowModel.fluidFlowRateProperty, flowModel.pipe.frictionProperty], sensorPanel.visibleBounds, this.layoutBounds ) );
+      this.addChild( new VelocitySensorNode( flowModel, modelViewTransform, velocitySensor, [flowModel.fluidFlowRateProperty, flowModel.pipe.frictionProperty], sensorPanel.visibleBounds, this.layoutBounds ,{scale: 0.9}) );
     }.bind( this ) );
 
     // add barometers within the sensor panel bounds
     _.each( flowModel.barometers, function( barometer ) {
-      barometer.positionProperty.storeInitialValue( new Vector2( sensorPanel.visibleBounds.centerX + 55, sensorPanel.visibleBounds.centerY - 15 ) );
+      barometer.positionProperty.storeInitialValue( new Vector2( sensorPanel.visibleBounds.centerX + 50, sensorPanel.visibleBounds.centerY - 15 ) );
       barometer.reset();
-      this.addChild( new BarometerNode( flowModel, modelViewTransform, barometer, [flowModel.fluidDensityProperty, flowModel.fluidFlowRateProperty, flowModel.pipe.frictionProperty], sensorPanel.visibleBounds, this.layoutBounds ) );
+      this.addChild( new BarometerNode( flowModel, modelViewTransform, barometer, [flowModel.fluidDensityProperty, flowModel.fluidFlowRateProperty, flowModel.pipe.frictionProperty], sensorPanel.visibleBounds, this.layoutBounds,{scale: 0.9} ) );
     }.bind( this ) );
 
     flowView.addChild( fluxMeterNode );
 
     this.addChild( new FlowRuler( flowModel.isRulerVisibleProperty, flowModel.rulerPositionProperty, flowModel.measureUnitsProperty, modelViewTransform, this.layoutBounds ) );
+
+    //this.addChild( new Image( flowMockupImg, {opacity: 0.5} ) );
   }
 
   return inherit( ScreenView, FlowView, {
