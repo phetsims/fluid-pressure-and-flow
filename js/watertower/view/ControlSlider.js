@@ -41,7 +41,9 @@ define( function( require ) {
       xMargin: 15,
       yMargin: 5,
       decimals: 0,
-      ticks: []
+      thumbSize: new Dimension2(22, 45),
+      ticks: [],
+      ticksVisible: true
     }, options );
 
     Node.call( this );
@@ -49,6 +51,8 @@ define( function( require ) {
 
     var hSlider = new HSlider( trackProperty, trackRange, {
       trackSize: TRACK_SIZE,
+      thumbSize: options.thumbSize,
+      majorTickLineWidth: (options.ticksVisible ? 1 : 0),
       trackFill: new LinearGradient( 0, 0, TRACK_SIZE.width, 0 )
         .addColorStop( 0, '#fff' )
         .addColorStop( 1, '#000' ),
@@ -75,7 +79,7 @@ define( function( require ) {
     var labelFont = new PhetFont( 14 );
 
     options.ticks.forEach( function( tick ) {
-      hSlider.addMajorTick( tick.value, new Text( tick.title, { font: labelFont } ) );
+        hSlider.addMajorTick( tick.value, new Text( tick.title, { font: labelFont, visible: options.ticksVisible } ) );
     } );
 
     // rendering order

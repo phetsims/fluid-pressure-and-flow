@@ -33,12 +33,14 @@ define( function( require ) {
   var PhetFont = require( 'SCENERY_PHET/PhetFont' );
   var Text = require( 'SCENERY/nodes/Text' );
   var Color = require( 'SCENERY/util/Color' );
+  var HSlider = require( 'SUN/HSlider' );
+
 
   var PipeNode = require( 'FLUID_PRESSURE_AND_FLOW/flow/view/PipeNode' );
   var FluxMeterNode = require( 'FLUID_PRESSURE_AND_FLOW/flow/view/FluxMeterNode' );
   var GridInjectorNode = require( 'FLUID_PRESSURE_AND_FLOW/flow/view/GridInjectorNode' );
   var ParticleCanvasNode = require( 'FLUID_PRESSURE_AND_FLOW/flow/view/ParticleCanvasNode' );
-//  var Image = require( 'SCENERY/nodes/Image' );
+  var Image = require( 'SCENERY/nodes/Image' );
 
   //strings
   var fluidDensityString = require( 'string!FLUID_PRESSURE_AND_FLOW/fluidDensity' );
@@ -51,7 +53,7 @@ define( function( require ) {
 
   //images
   var grassImg = require( 'image!FLUID_PRESSURE_AND_FLOW/images/grass-texture.png' );
- // var flowMockupImg = require( 'image!FLUID_PRESSURE_AND_FLOW/images/flow-mockup.png' );
+  var flowMockupImg = require( 'image!FLUID_PRESSURE_AND_FLOW/images/flow-mockup.png' );
 
   //View layout related constants
   var inset = 10;
@@ -65,11 +67,11 @@ define( function( require ) {
     var flowView = this;
 
     ScreenView.call( this, {renderer: 'svg'} );
-   /* ScreenView.call( this, {
+    /*ScreenView.call( this, {
       renderer: 'svg',
       layoutBounds: ScreenView.UPDATED_LAYOUT_BOUNDS
-    } );*/
-
+    } );
+*/
     var modelViewTransform = ModelViewTransform2.createSinglePointXYScaleMapping(
       Vector2.ZERO,
       new Vector2( 0, 140 ),
@@ -201,7 +203,18 @@ define( function( require ) {
     var flowRateSlider = new ControlSlider( flowModel, flowModel.fluidFlowRateProperty, flowModel.getFluidFlowRateString.bind( flowModel ), flowModel.flowRateRange, {
       right: speedControl.left - 20,
       bottom: this.layoutBounds.bottom - 7,
-      title: flowRateString
+      title: flowRateString,
+      ticks: [
+        {
+          title: 'Min',
+          value: 1000
+        },
+        {
+          title: 'Max',
+          value: 10000
+        }
+      ],
+      ticksVisible: false
     } );
     this.addChild( flowRateSlider );
 
@@ -229,7 +242,11 @@ define( function( require ) {
 
     this.addChild( new FlowRuler( flowModel.isRulerVisibleProperty, flowModel.rulerPositionProperty, flowModel.measureUnitsProperty, modelViewTransform, this.layoutBounds ) );
 
-    //this.addChild( new Image( flowMockupImg, {opacity: 0.5} ) );
+/*
+    var mockupBackground = new Image( flowMockupImg, {opacity: 0.5} );
+    this.addChild( mockupBackground );
+    this.addChild( new HSlider(flowModel.opacityProperty, { min: 0,  max: 1 }));
+    flowModel.opacityProperty.linkAttribute( mockupBackground, 'opacity');*/
   }
 
   return inherit( ScreenView, FlowView, {
