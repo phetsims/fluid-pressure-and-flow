@@ -56,7 +56,7 @@ define( function( require ) {
 
     this.flowModel = flowModel;
     this.modelViewTransform = modelViewTransform;
-    var textOptions = {font: new PhetFont( 10 )};
+    var textOptions = {font: new PhetFont( 10 ),right : 30};
 
     var flowRateText = new Text( flowRateString, textOptions );
     var area = new Text( areaString, textOptions );
@@ -76,8 +76,8 @@ define( function( require ) {
       align: 'left'
     } );
 
-    this.displayPanel = new Panel( content, {xMargin: 10,
-      yMargin: 10,
+    this.displayPanel = new Panel( content, {xMargin: 7,
+      yMargin: 6,
       fill: '#f2fa6a ',
       stroke: 'blue',
       lineWidth: 2} );
@@ -88,8 +88,8 @@ define( function( require ) {
     var centerY = ( yTop + yBottom ) / 2;
     var radiusY = ( yBottom - yTop ) / 2;
 
-    this.ellipse = new Path( new Shape().ellipticalArc( 60, centerY, radiusY, 5, Math.PI / 2, 0, Math.PI, false ), {lineWidth: '5', stroke: 'blue'} );
-    this.ellipse2 = new Path( new Shape().ellipticalArc( 60, centerY, radiusY, 5, Math.PI / 2, Math.PI, 0, false ), {lineWidth: '5', stroke: new Color( 0, 0, 255, 0.5 )} );
+    this.ellipse = new Path( new Shape().ellipticalArc( 60, centerY, radiusY, 6, Math.PI / 2, 0, Math.PI, false ), {lineWidth: '5', stroke: 'blue'} );
+    this.ellipse2 = new Path( new Shape().ellipticalArc( 60, centerY, radiusY, 6, Math.PI / 2, Math.PI, 0, false ), {lineWidth: '5', stroke: new Color( 0, 0, 255, 0.5 )} );
 
     this.addChild( this.ellipse );
 
@@ -155,8 +155,8 @@ define( function( require ) {
       var centerY = ( yTop + yBottom ) / 2;
       var radiusY = ( yBottom - yTop ) / 2;
 
-      var newEllipse1 = new Shape().ellipticalArc( centerX, centerY, radiusY, 5, Math.PI / 2, 0, Math.PI, false );
-      var newEllipse2 = new Shape().ellipticalArc( centerX, centerY, radiusY, 5, Math.PI / 2, Math.PI, 0, false );
+      var newEllipse1 = new Shape().ellipticalArc( centerX, centerY, radiusY, 6, Math.PI / 2, 0, Math.PI, false );
+      var newEllipse2 = new Shape().ellipticalArc( centerX, centerY, radiusY, 6, Math.PI / 2, Math.PI, 0, false );
 
       this.ellipse.setShape( newEllipse1 );
       this.ellipse2.setShape( newEllipse2 );
