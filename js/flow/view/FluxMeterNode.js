@@ -133,7 +133,7 @@ define( function( require ) {
       drag: function( e ) {
         fluxMeterNode.moveToFront();
         var x = fluxMeterNode.globalToParentPoint( e.pointer.point ).x;
-        x = x < 60 ? 60 : x > 680 ? 680 : x;
+        x = x < 55 ? 55 : x > 680 ? 680 : x;
         flowModel.fluxMeter.xPosition = modelViewTransform.viewToModelX( x );
       }
     } ) );
