@@ -43,7 +43,8 @@ define( function( require ) {
       decimals: 0,
       thumbSize: new Dimension2(22, 45),
       ticks: [],
-      ticksVisible: true
+      ticksVisible: true,
+      titleAlign: 'left'
     }, options );
 
     Node.call( this );
@@ -104,19 +105,17 @@ define( function( require ) {
     minusButton.centerY = valueField.centerY;
 
     var scale = 0.65;
-    this.accordionContent = new Node();
-    this.accordionContent.addChild( this.content );
 
     this.expandedProperty = new Property( false ); // @private
-    this.accordionBox = new AccordionBox( this.accordionContent,
+    this.accordionBox = new AccordionBox( this.content,
       {
-        titleNode: new Text( options.title, { font: new PhetFont( { size: 19 } ) } ),
+        titleNode: new Text( options.title, { font: new PhetFont( { size: 19 } )} ),
         fill: options.fill,
         stroke: 'gray',
         expandedProperty: this.expandedProperty,
         minWidth: 270,
         contentAlign: 'center',
-        titleAlign: 'left',
+        titleAlign: options.titleAlign,
         buttonAlign: 'left',
         scale: scale,
         cornerRadius: 10,
