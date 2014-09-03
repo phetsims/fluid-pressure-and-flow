@@ -260,7 +260,9 @@ define( function( require ) {
             var x = pipe.controlPoints[index].position.x;
             var yUp;
             var yLow;
-
+            if ( pt.y >= 0 || pt.y < -4 ) {
+              return;
+            }
             if ( j === 0 ) {
               yUp = modelViewTransform.viewToModelY( pipeNode.leftPipeNode.getTop() ) - 0.4;
               yLow = modelViewTransform.viewToModelY( pipeNode.leftPipeNode.getBottom() ) + 0.4;
@@ -284,10 +286,20 @@ define( function( require ) {
               pipeNode.rightPipeNode.setTranslation( layoutBounds.maxX - 75, y - 60 );
 
             }
-            if ( pt.y >= 0 || pt.y < -4 ) {
-              return;
-            }
 
+            if ( !flowModel.isPlay ) {
+              var particle;
+
+              for ( var k = 0; k < flowModel.flowParticles.length; k++ ) {
+                particle = flowModel.flowParticles.get( k );
+                particle.position.y = particle.getY();
+              }
+
+              for ( k = 0; k < flowModel.gridParticles.length; k++ ) {
+                particle = flowModel.gridParticles.get( k );
+                particle.position.y = particle.getY();
+              }
+            }
 
             pipe.dirty = true;
             pipe.createSpline();
