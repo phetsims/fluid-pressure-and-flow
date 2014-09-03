@@ -14,7 +14,7 @@ define( function( require ) {
   function FluxMeter( pipe ) {
     this.pipe = pipe;
     PropertySet.call( this, {
-      xPosition: 0.4
+      xPosition: -6.5
     } );
   }
 

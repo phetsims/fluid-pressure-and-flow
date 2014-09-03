@@ -25,7 +25,7 @@ define( function( require ) {
     var pipe = this;
     PropertySet.call( this, {
       //Rate of fluid flow in volume (m^3) per second
-      flowRate: 2,
+      flowRate: 5,
       //Flag indicating whether friction should slow particles near the edges
       friction: false
 
@@ -33,13 +33,13 @@ define( function( require ) {
 
     // Cross sections that the user can manipulate to deform the pipe.
     this.controlCrossSections = []; // ArrayList<PipeCrossSection>();
-    this.controlCrossSections[0] = new PipeCrossSection( 0.35, -3.2, -1.2 );
-    this.controlCrossSections[1] = new PipeCrossSection( 0.8, -3.2, -1.2 );
-    this.controlCrossSections[2] = new PipeCrossSection( 1.6, -3.2, -1.2 );
-    this.controlCrossSections[3] = new PipeCrossSection( 2.4, -3.2, -1.2 );
-    this.controlCrossSections[4] = new PipeCrossSection( 3.2, -3.2, -1.2 );
-    this.controlCrossSections[5] = new PipeCrossSection( 4.2, -3.2, -1.2 );
-    this.controlCrossSections[6] = new PipeCrossSection( 5.15, -3.2, -1.2 );
+    this.controlCrossSections[0] = new PipeCrossSection( -6.7, -3, -1 );
+    this.controlCrossSections[1] = new PipeCrossSection( -4.6, -3, -1 );
+    this.controlCrossSections[2] = new PipeCrossSection( -2.3, -3, -1 );
+    this.controlCrossSections[3] = new PipeCrossSection( -0, -3, -1 );
+    this.controlCrossSections[4] = new PipeCrossSection( 2.3, -3, -1 );
+    this.controlCrossSections[5] = new PipeCrossSection( 4.6, -3, -1 );
+    this.controlCrossSections[6] = new PipeCrossSection( 6.7, -3, -1 );
     // Nonlinear interpolation of the control sections for particle motion and determining the velocity field
     this.splineCrossSections = new ObservableArray();//ArrayList<PipeCrossSection>
 
@@ -214,7 +214,7 @@ define( function( require ) {
       var crossSections = this.getCrossSections();
       var pipeCrossSection;
       var i;
-      // Assuming the crossSections are sorted in ascending x. TODO: Verify this
+      // The crossSections are sorted in ascending x.
       for ( i = crossSections.length - 1; i >= 0; i-- ) {
         pipeCrossSection = crossSections.get( i );
         if ( pipeCrossSection.getX() < x ) {
@@ -232,7 +232,7 @@ define( function( require ) {
       var crossSections = this.getCrossSections();
       var pipeCrossSection;
       var i;
-      // Assuming the crossSections are sorted in ascending x. TODO: Verify this
+      // The crossSections are sorted in ascending x.
       for ( i = 0; i < crossSections.length; i++ ) {
         pipeCrossSection = crossSections.get( i );
         if ( pipeCrossSection.getX() > x ) {

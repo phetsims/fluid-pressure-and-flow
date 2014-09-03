@@ -119,7 +119,7 @@ define( function( require ) {
 
       var crossSection = this.pipe.getCrossSection( x );
 
-      if ( y > crossSection.yBottom && y < crossSection.yTop ) {
+      if ( y > crossSection.yBottom - 0.1 && y < crossSection.yTop - 0.25 ) {
         var vSquared = this.pipe.getVelocity( x, y ).magnitudeSquared();
         return this.getAirPressure( 0 ) - y * 9.8 * this.fluidDensity - 0.5 * this.fluidDensity * vSquared;
       }
@@ -160,7 +160,7 @@ define( function( require ) {
 
       if ( this.isDotsVisible ) {
         var fraction = 0.1 + Math.random() * 0.8;
-        newParticle = new Particle( new Vector2( this.pipe.getMinX() + 0.15, 0 ), fraction, this.pipe, 0.05, 'red' );
+        newParticle = new Particle( new Vector2( this.pipe.getMinX() , 0 ), fraction, this.pipe, 0.1, 'red' );
         this.flowParticles.push( newParticle );
       }
     },
@@ -178,7 +178,7 @@ define( function( require ) {
         x2 = particle.getX() + particle.container.getTweakedVx( particle.getX(), particle.getY() ) * dt;
 
         // check if the particle hit the maxX
-        if ( x2 >= this.pipe.getMaxX() - 0.08 ) {
+        if ( x2 >= this.pipe.getMaxX()  ) {
           this.particlesToRemove.push( particle );
         }
         else {
@@ -193,7 +193,7 @@ define( function( require ) {
         x2 = particle.getX() + particle.container.getTweakedVx( particle.getX(), particle.getY() ) * dt;
 
         // check if the particle hit the maxX
-        if ( x2 >= this.pipe.getMaxX() - 0.08 ) {
+        if ( x2 >= this.pipe.getMaxX()) {
           this.gridParticlesToRemove.push( particle );
         }
         else {
@@ -234,7 +234,7 @@ define( function( require ) {
       }
 
       var crossSection = this.pipe.getCrossSection( x );
-      if ( y > crossSection.yBottom && y < crossSection.yTop ) {
+      if ( y > crossSection.yBottom - 0.1 && y < crossSection.yTop - 0.25 ) {
         return this.pipe.getTweakedVelocity( x, y );
       }
       return Vector2.ZERO;
@@ -245,10 +245,10 @@ define( function( require ) {
       var x;
       var fraction;
       for ( var i = 0; i < 4; i++ ) {
-        x = x0 + i * 0.1;
+        x = x0 + i * 0.3;
         for ( var j = 0; j < 9; j++ ) {
           fraction = 0.1 * (j + 1);
-          this.gridParticles.push( new Particle( new Vector2( x, 0 ), fraction, this.pipe, 0.02, 'black' ) );
+          this.gridParticles.push( new Particle( new Vector2( x, 0 ), fraction, this.pipe, 0.06, 'black' ) );
         }
       }
     }

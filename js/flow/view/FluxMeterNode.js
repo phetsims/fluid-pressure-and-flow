@@ -27,7 +27,7 @@ define( function( require ) {
   var SubSupText = require( 'SCENERY_PHET/SubSupText' );
 
   // strings
-  var flowRateString = require( 'string!FLUID_PRESSURE_AND_FLOW/flowRate' );
+  var flowRateString = require( 'string!FLUID_PRESSURE_AND_FLOW/flowRateWithColon' );
   var areaString = require( 'string!FLUID_PRESSURE_AND_FLOW/area' );
   var fluxString = require( 'string!FLUID_PRESSURE_AND_FLOW/flux' );
   var rateUnitsMetric = require( 'string!FLUID_PRESSURE_AND_FLOW/rateUnitsMetric' );
@@ -112,7 +112,7 @@ define( function( require ) {
 
     var handleImage = new Image( twoSideHandleImage );
     handleImage.touchArea = handleImage.localBounds.dilatedXY( 5, 5 );
-    this.handle = new Node( {children: [handleImage], cursor: 'pointer', top: this.lowerLine.bottom, left: this.lowerLine.right - 16, scale: 0.3} );
+    this.handle = new Node( {children: [handleImage], cursor: 'pointer', top: this.lowerLine.bottom, left: this.lowerLine.right - 16, scale: 0.35} );
 
     this.addChild( this.handle );
 
@@ -133,7 +133,7 @@ define( function( require ) {
       drag: function( e ) {
         fluxMeterNode.moveToFront();
         var x = fluxMeterNode.globalToParentPoint( e.pointer.point ).x;
-        x = x < 55 ? 55 : x > 680 ? 680 : x;
+        x = x < 47 ? 47 : x > 698 ? 698 : x;
         flowModel.fluxMeter.xPosition = modelViewTransform.viewToModelX( x );
       }
     } ) );
