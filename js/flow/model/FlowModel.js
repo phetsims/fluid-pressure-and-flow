@@ -85,8 +85,8 @@ define( function( require ) {
     this.gridParticlesToRemove = [];
     this.gridInjectorElapsedTimeInPressedMode = 0;
 
-    // call stepInternal at a rate of 5 times per second
-    this.timer = new EventTimer( new EventTimer.ConstantEventModel( 5 ), function( timeElapsed ) {
+    // call stepInternal at a rate of 10 times per second
+    this.timer = new EventTimer( new EventTimer.UniformEventModel( 10, Math.random ), function( timeElapsed ) {
       flowModel.createParticle( timeElapsed );
     } );
   }
