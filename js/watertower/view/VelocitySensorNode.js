@@ -20,7 +20,6 @@ define( function( require ) {
   var Path = require( 'SCENERY/nodes/Path' );
   var LinearGradient = require( 'SCENERY/util/LinearGradient' );
   var ArrowShape = require( 'SCENERY_PHET/ArrowShape' );
-  var Vector2 = require( 'DOT/Vector2' );
   var Bounds2 = require( 'DOT/Bounds2' );
 
 
@@ -148,7 +147,7 @@ define( function( require ) {
     // Update the text when the value or units changes.
     Property.multilink( [velocitySensor.valueProperty, waterTowerModel.measureUnitsProperty, velocitySensor.positionProperty], function( velocity, units ) {
 
-      if ( velocitySensor.positionProperty.initialValue == velocitySensor.position ) {
+      if ( velocitySensor.positionProperty.initialValue === velocitySensor.position ) {
         labelText.text = '-';
       }
       else {

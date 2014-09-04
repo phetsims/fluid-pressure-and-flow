@@ -31,13 +31,9 @@ define( function( require ) {
   var AquaRadioButton = require( 'SUN/AquaRadioButton' );
   var PhetFont = require( 'SCENERY_PHET/PhetFont' );
   var Text = require( 'SCENERY/nodes/Text' );
-  var Color = require( 'SCENERY/util/Color' );
-  var HSlider = require( 'SUN/HSlider' );
-
 
   var PipeNode = require( 'FLUID_PRESSURE_AND_FLOW/flow/view/PipeNode' );
   var FluxMeterNode = require( 'FLUID_PRESSURE_AND_FLOW/flow/view/FluxMeterNode' );
-  var Image = require( 'SCENERY/nodes/Image' );
 
   //strings
   var fluidDensityString = require( 'string!FLUID_PRESSURE_AND_FLOW/fluidDensity' );
@@ -50,7 +46,6 @@ define( function( require ) {
 
   //images
   var grassImg = require( 'image!FLUID_PRESSURE_AND_FLOW/images/grass-texture.png' );
-  var flowMockupImg = require( 'image!FLUID_PRESSURE_AND_FLOW/images/flow-mockup.jpg' );
 
   //View layout related constants
   var inset = 10;
@@ -64,14 +59,11 @@ define( function( require ) {
     var flowView = this;
 
     ScreenView.call( this, {renderer: 'svg'} );
-    /*  ScreenView.call( this, {
-     renderer: 'svg',
-     layoutBounds: ScreenView.UPDATED_LAYOUT_BOUNDS
-     } );*/
+
     var modelViewTransform = ModelViewTransform2.createSinglePointScaleInvertedYMapping(
       Vector2.ZERO,
       new Vector2( 370, 140 ),
-      50 ); //1m = 50Px, (0,0) - top left corner
+      50 ); //1m = 50Px
 
     // add sky node
     this.addChild( new Rectangle( -5000, -1000, 10000, 1002, {stroke: '#01ACE4', fill: '#01ACE4'} ) );
@@ -231,10 +223,6 @@ define( function( require ) {
     // add the rule node
     this.addChild( new FlowRuler( flowModel.isRulerVisibleProperty, flowModel.rulerPositionProperty, flowModel.measureUnitsProperty, modelViewTransform, this.layoutBounds ) );
 
-    /*var mockupBackground = new Image( flowMockupImg, {opacity: 0.5} );
-     this.addChild( mockupBackground );
-     this.addChild( new HSlider(flowModel.opacityProperty, { min: 0,  max: 1 }));
-     flowModel.opacityProperty.linkAttribute( mockupBackground, 'opacity');*/
   }
 
   return inherit( ScreenView, FlowView, {

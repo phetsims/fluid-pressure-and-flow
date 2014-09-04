@@ -55,8 +55,7 @@ define( function( require ) {
         fluidFlowRate: 5000,
         rulerPosition: new Vector2( 300, 344 ), // px
         scale: 1, // scale coefficient
-        speed: 'normal',//speed of the model, either 'normal' or 'slow',
-        opacity: 0.2
+        speed: 'normal' //speed of the model, either 'normal' or 'slow'
       }
     );
 

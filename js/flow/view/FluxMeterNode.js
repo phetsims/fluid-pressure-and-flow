@@ -35,7 +35,6 @@ define( function( require ) {
   var rateUnitsEnglish = require( 'string!FLUID_PRESSURE_AND_FLOW/rateUnitsEnglish' );
   var areaUnitsEnglish = require( 'string!FLUID_PRESSURE_AND_FLOW/areaUnitsEnglish' );
   var fluxUnitsEnglish = require( 'string!FLUID_PRESSURE_AND_FLOW/fluxUnitsEnglish' );
-  var valueWithUnitsPattern = require( 'string!FLUID_PRESSURE_AND_FLOW/valueWithUnitsPattern' );
 
   // images
   var twoSideHandleImage = require( 'image!FLUID_PRESSURE_AND_FLOW/images/handle-two-sided.png' );
