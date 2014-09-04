@@ -158,6 +158,8 @@ define( function( require ) {
       velocitySensor.value = waterTowerModel.getWaterDropVelocityAt( modelViewTransform.viewToModelX( velocitySensor.position.x + 50 ), modelViewTransform.viewToModelY( velocitySensor.position.y + 72 ) );
     } );
 
+    velocitySensorNode.touchArea = velocitySensorNode.localBounds.dilatedXY( 0, 0 );
+
     this.mutate(options);
   }
 
