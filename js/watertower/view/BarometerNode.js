@@ -111,6 +111,8 @@ define( function( require ) {
 
     barometer.positionProperty.linkAttribute( barometerNode, 'translation' );
 
+    barometerNode.touchArea = barometerNode.localBounds.dilatedXY( 0, 0 );
+
     this.mutate( options );
   }
 
