@@ -18,7 +18,9 @@ define( function( require ) {
   var Matrix3 = require( 'DOT/Matrix3' );
   var Vector2 = require( 'DOT/Vector2' );
   var ParticleCanvasNode = require( 'FLUID_PRESSURE_AND_FLOW/flow/view/ParticleCanvasNode' );
+  var GridInjectorNode = require( 'FLUID_PRESSURE_AND_FLOW/flow/view/GridInjectorNode' );
   var Bounds2 = require( 'DOT/Bounds2' );
+
   // images
   var handleImage = require( 'image!FLUID_PRESSURE_AND_FLOW/handle-with-bar.png' );
   var leftPipeImage = require( 'image!FLUID_PRESSURE_AND_FLOW/pipe-left-front.png' );
@@ -88,6 +90,12 @@ define( function( require ) {
     for ( j = 0; j < 40; j++ ) {
       this.rightPipeNode.addChild( rightPipeMiddle[j] );
     }
+
+    // Injector which generates grid particles
+    this.gridInjectorNode = new GridInjectorNode( flowModel );
+    this.addChild( this.gridInjectorNode );
+    this.gridInjectorNode.setTranslation( modelViewTransform.modelToViewX( -6 ) - 60, modelViewTransform.modelToViewY( this.pipe.getCrossSection( -6 ).yTop ) - 150 );
+
     this.addChild( this.leftPipeBackNode );
     this.addChild( this.pipeFlowLine );
 
@@ -186,6 +194,8 @@ define( function( require ) {
                 return;
               }
 
+              pipeNode.gridInjectorNode.setTranslation( modelViewTransform.modelToViewX( -6 ) - 60, modelViewTransform.modelToViewY( pipeNode.pipe.getCrossSection( -6 ).yTop ) - 150 );
+
               var pipeScale = 0.35;
               var matrix;
               if ( i === numControlPoints - 1 || i === 0 ) {
@@ -229,7 +239,7 @@ define( function( require ) {
                   pipeNode.rightPipeMainHandleNode.setTranslation( layoutBounds.maxX - 50, pipeNode.rightPipeNode.getCenterY() );
                 }
                 rightTopScaleHandleYDiffWithDragHandle = modelViewTransform.viewToModelY( pipeNode.rightPipeMainHandleNode.getCenterY() ) - pipe.controlPoints[numControlPoints / 2 - 1].position.y;
-                rightBottomScaleHandleYDiffWithDragHandle = modelViewTransform.viewToModelY( pipeNode.rightPipeMainHandleNode.getCenterY() ) - pipe.controlPoints[numControlPoints / 2].position.y
+                rightBottomScaleHandleYDiffWithDragHandle = modelViewTransform.viewToModelY( pipeNode.rightPipeMainHandleNode.getCenterY() ) - pipe.controlPoints[numControlPoints / 2].position.y;
 
                 pipeNode.isRightPipeScaled = true;
               }
@@ -309,6 +319,8 @@ define( function( require ) {
 
             }
 
+            pipeNode.gridInjectorNode.setTranslation( modelViewTransform.modelToViewX( -6 ) - 60, modelViewTransform.modelToViewY( pipeNode.pipe.getCrossSection( -6 ).yTop ) - 150 );
+
             if ( !flowModel.isPlay ) {
               var particle;
 
@@ -367,7 +379,7 @@ define( function( require ) {
         this.isRightPipeScaled = false;
         this.leftMainHandleYOffset = 60;
         this.rightMainHandleYOffset = 60;
-
+        this.gridInjectorNode.setTranslation( this.modelViewTransform.modelToViewX( -6 ) - 60, this.modelViewTransform.modelToViewY( this.pipe.getCrossSection( -6 ).yTop ) - 150 );
       }
     } );
 } );

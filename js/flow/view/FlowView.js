@@ -37,7 +37,6 @@ define( function( require ) {
 
   var PipeNode = require( 'FLUID_PRESSURE_AND_FLOW/flow/view/PipeNode' );
   var FluxMeterNode = require( 'FLUID_PRESSURE_AND_FLOW/flow/view/FluxMeterNode' );
-  var GridInjectorNode = require( 'FLUID_PRESSURE_AND_FLOW/flow/view/GridInjectorNode' );
   var Image = require( 'SCENERY/nodes/Image' );
 
   //strings
@@ -79,10 +78,6 @@ define( function( require ) {
 
     var skyNode = new SkyNode( -5000, 0, 10000, 140, 140 );
     this.addChild( skyNode );
-
-    // Injector which generates grid particles
-    this.gridInjectorNode = new GridInjectorNode( flowModel, {bottom: skyNode.bottom + 78 + 13, left: 22 } );
-    this.addChild( this.gridInjectorNode );
 
     // add ground node
     var groundNode = new GroundNode( -5000, 140, 10000, 10000, 400, {topColor: '#9D8B61', bottomColor: '#645A3C'} );
@@ -165,10 +160,10 @@ define( function( require ) {
     flowModel.isGridInjectorPressedProperty.link( function( isGridInjectorPressed ) {
       if ( isGridInjectorPressed ) {
         flowModel.injectGridParticles();
-        flowView.gridInjectorNode.redButton.enabled = false;
+        flowView.pipeNode.gridInjectorNode.redButton.enabled = false;
       }
       else {
-        flowView.gridInjectorNode.redButton.enabled = true;
+        flowView.pipeNode.gridInjectorNode.redButton.enabled = true;
       }
     } );
 
