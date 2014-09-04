@@ -160,7 +160,7 @@ define( function( require ) {
       if ( this.isDotsVisible ) {
         // create particles so that they don't touch the pipe
         var fraction = 0.15 + Math.random() * 0.7;
-        this.flowParticles.push( new Particle( new Vector2( this.pipe.getMinX(), 0 ), fraction, this.pipe, 0.1, 'red' ) );
+        this.flowParticles.push( new Particle( this.pipe.getMinX(), fraction, this.pipe, 0.1, 'red' ) );
       }
     },
 
@@ -182,7 +182,6 @@ define( function( require ) {
         }
         else {
           particle.setX( x2 );
-          particle.position.y = particle.getY();
         }
       }
 
@@ -197,7 +196,6 @@ define( function( require ) {
         }
         else {
           particle.setX( x2 );
-          particle.position.y = particle.getY();
         }
       }
 
@@ -250,7 +248,7 @@ define( function( require ) {
         x = x0 + i * 0.3;
         for ( var j = 0; j < 9; j++ ) {
           fraction = 0.1 * (j + 1);
-          this.gridParticles.push( new Particle( new Vector2( x, 0 ), fraction, this.pipe, 0.06, 'black' ) );
+          this.gridParticles.push( new Particle( x, fraction, this.pipe, 0.06, 'black' ) );
         }
       }
     }

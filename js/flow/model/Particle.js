@@ -13,15 +13,15 @@ define( function( require ) {
 
   /**
    *
-   * @param {Vector2} position of the particle
+   * @param {Number} xPosition of the particle
    * @param {Number} fractionUpPipe
    * @param {Pipe} container holding the particle
    * @param {Number} radius of the particle
    * @param {string} color of the particle
    * @constructor
    */
-  function Particle( position, fractionUpPipe, container, radius, color ) {
-    this.position = position;
+  function Particle( xPosition, fractionUpPipe, container, radius, color ) {
+    this.xPosition = xPosition;
     this.fractionUpPipe = fractionUpPipe;
     this.container = container;
     this.radius = radius;
@@ -31,19 +31,15 @@ define( function( require ) {
   return inherit( Object, Particle, {
 
     getX: function() {
-      return this.position.x;
+      return this.xPosition;
     },
 
     getY: function() {
-      return this.container.fractionToLocation( this.getX(), this.fractionUpPipe );
+      return this.container.fractionToLocation( this.xPosition, this.fractionUpPipe );
     },
 
     setX: function( x ) {
-      this.position.x = x;
-    },
-
-    getPosition: function() {
-      return this.position;
+      this.xPosition = x;
     },
 
     getRadius: function() {
