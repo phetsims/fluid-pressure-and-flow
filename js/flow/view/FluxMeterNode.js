@@ -22,7 +22,6 @@ define( function( require ) {
   var Path = require( 'SCENERY/nodes/Path' );
   var Shape = require( 'KITE/Shape' );
   var Color = require( 'SCENERY/util/Color' );
-  var StringUtils = require( 'PHETCOMMON/util/StringUtils' );
   var SimpleDragHandler = require( 'SCENERY/input/SimpleDragHandler' );
   var SubSupText = require( 'SCENERY_PHET/SubSupText' );
 
