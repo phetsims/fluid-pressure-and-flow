@@ -98,11 +98,12 @@ define( function( require ) {
 
   //Create an icon for the ruler check box
   var createRulerIcon = function() {
-    return new RulerNode( 13, 8, 12, ['0', '1'], '', {
-      insetsWidth: 7,
+    return new RulerNode( 13, 10, 12, ['0', '1'], '', {
+      insetsWidth: 5,
       minorTicksPerMajorTick: 4,
       majorTickFont: new PhetFont( 5 ),
-      clipArea: Shape.rect( -1, -1, 44, 22 )
+      clipArea: Shape.rect( -1, -1, 44, 22 ),
+      backgroundLineWidth: 0.5
     } );
   };
 
