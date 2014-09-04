@@ -35,7 +35,7 @@ define( function( require ) {
 
   /**
    * Constructor for the sim model.
-   * Origin is at the left bound on the ground. And y grows in the direction of sky from ground.
+   * Origin is at the center on the ground. And y grows in the direction of sky from ground.
    * @constructor
    */
   function FlowModel() {
@@ -55,7 +55,8 @@ define( function( require ) {
         fluidFlowRate: 5000,
         rulerPosition: new Vector2( 300, 344 ), // px
         scale: 1, // scale coefficient
-        speed: 'normal'//speed of the model, either 'normal' or 'slow'
+        speed: 'normal',//speed of the model, either 'normal' or 'slow',
+        opacity: 0.2
       }
     );
 
@@ -84,9 +85,9 @@ define( function( require ) {
     this.gridParticlesToRemove = [];
     this.gridInjectorElapsedTimeInPressedMode = 0;
 
-    // call stepInternal at a rate of 3 times per second
+    // call stepInternal at a rate of 5 times per second
     this.timer = new EventTimer( new EventTimer.ConstantEventModel( 5 ), function( timeElapsed ) {
-      flowModel.createParticles( timeElapsed );
+      flowModel.createParticle( timeElapsed );
     } );
   }
 
@@ -137,31 +138,28 @@ define( function( require ) {
         if ( this.speed === 'normal' ) {
           this.timer.step( dt );
           this.propagateParticles( dt );
-          if(this.isGridInjectorPressed) {
+          if ( this.isGridInjectorPressed ) {
             this.gridInjectorElapsedTimeInPressedMode += dt;
           }
         }
         else {
           this.timer.step( 0.33 * dt );
           this.propagateParticles( 0.33 * dt );
-          if(this.isGridInjectorPressed) {
+          if ( this.isGridInjectorPressed ) {
             this.gridInjectorElapsedTimeInPressedMode += 0.33 * dt;
           }
         }
-        if(this.gridInjectorElapsedTimeInPressedMode > 5 ){
+        if ( this.gridInjectorElapsedTimeInPressedMode > 5 ) {
           this.isGridInjectorPressed = false;
-          this.gridInjectorElapsedTimeInPressedMode = 0 ;
+          this.gridInjectorElapsedTimeInPressedMode = 0;
         }
       }
     },
 
-    createParticles: function( dt ) {
-      var newParticle;
-
+    createParticle: function( dt ) {
       if ( this.isDotsVisible ) {
         var fraction = 0.1 + Math.random() * 0.8;
-        newParticle = new Particle( new Vector2( this.pipe.getMinX() , 0 ), fraction, this.pipe, 0.1, 'red' );
-        this.flowParticles.push( newParticle );
+        this.flowParticles.push( new Particle( new Vector2( this.pipe.getMinX(), 0 ), fraction, this.pipe, 0.1, 'red' ) );
       }
     },
 
@@ -178,7 +176,7 @@ define( function( require ) {
         x2 = particle.getX() + particle.container.getTweakedVx( particle.getX(), particle.getY() ) * dt;
 
         // check if the particle hit the maxX
-        if ( x2 >= this.pipe.getMaxX()  ) {
+        if ( x2 >= this.pipe.getMaxX() ) {
           this.particlesToRemove.push( particle );
         }
         else {
@@ -193,7 +191,7 @@ define( function( require ) {
         x2 = particle.getX() + particle.container.getTweakedVx( particle.getX(), particle.getY() ) * dt;
 
         // check if the particle hit the maxX
-        if ( x2 >= this.pipe.getMaxX()) {
+        if ( x2 >= this.pipe.getMaxX() ) {
           this.gridParticlesToRemove.push( particle );
         }
         else {
@@ -240,6 +238,9 @@ define( function( require ) {
       return Vector2.ZERO;
     },
 
+    /**
+     * Injects a grid of particles with 9 rows and 4 columns
+     */
     injectGridParticles: function() {
       var x0 = this.pipe.getMinX();
       var x;

@@ -266,7 +266,7 @@ define( function( require ) {
     // Get the speed at the specified x-location.  This is before friction and vertical effects are accounted for
     getSpeed: function( x ) {
       //Continuity equation: a1*v1 = a2*v2
-      //treat pipes as if they are cylindrical cross sections?
+      //treat pipes as if they are cylindrical cross sections
       var crossSectionDiameter = this.getCrossSection( x ).getHeight();
       var crossSectionRadius = crossSectionDiameter / 2;
       var crossSectionArea = Math.PI * crossSectionRadius * crossSectionRadius;

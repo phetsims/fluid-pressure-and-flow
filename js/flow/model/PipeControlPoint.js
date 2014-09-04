@@ -13,6 +13,12 @@ define( function( require ) {
   var PropertySet = require( 'AXON/PropertySet' );
   var Vector2 = require( 'DOT/Vector2' );
 
+  /**
+   * A control point that can be dragged around to change the shape of the pipe
+   * @param {Number} x position of the control point
+   * @param {Number} y position of the control point
+   * @constructor
+   */
   function PipeControlPoint( x, y ) {
 
     PropertySet.call( this, {
@@ -20,7 +26,5 @@ define( function( require ) {
     } );
   }
 
-  return inherit( PropertySet, PipeControlPoint, {
-    copy: function() { return new PipeControlPoint( this.position.x, this.position.y ); }
-  } );
+  return inherit( PropertySet, PipeControlPoint );
 } );

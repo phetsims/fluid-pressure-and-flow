@@ -332,12 +332,13 @@ define( function( require ) {
         this.pipe.createSpline();
         this.updatePipeFlowLineShape();
         var numControlPoints =  this.pipe.controlPoints.length;
-        for (var i = 0; i < numControlPoints; i++ )
-        if ( i === 0 || i === (numControlPoints / 2 - 1) ) {
-          this.controlPointNodes[i].bottom = this.scaleControlPointYPositions[i];
-        }
-        else if ( i === numControlPoints - 1 || i === numControlPoints / 2 ) {
-          this.controlPointNodes[i].bottom = this.scaleControlPointYPositions[i];
+        for ( var i = 0; i < numControlPoints; i++ ) {
+          if ( i === 0 || i === (numControlPoints / 2 - 1) ) {
+            this.controlPointNodes[i].bottom = this.scaleControlPointYPositions[i];
+          }
+          else if ( i === numControlPoints - 1 || i === numControlPoints / 2 ) {
+            this.controlPointNodes[i].bottom = this.scaleControlPointYPositions[i];
+          }
         }
       }
     } );
