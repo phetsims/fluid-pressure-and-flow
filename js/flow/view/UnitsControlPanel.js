@@ -17,6 +17,7 @@ define( function( require ) {
   var VBox = require( 'SCENERY/nodes/VBox' );
   var HBox = require( 'SCENERY/nodes/HBox' );
   var HStrut = require( 'SUN/HStrut' );
+  var Bounds2 = require( 'DOT/Bounds2' );
 
   // strings
   var metricString = require( 'string!FLUID_PRESSURE_AND_FLOW/metric' );
@@ -50,6 +51,10 @@ define( function( require ) {
 
     //dummy text for height
     var dummyText = new Text( '', {font: new PhetFont( 3 )} );
+
+    // touch areas
+    metricRadio.touchArea = new Bounds2( metricRadio.localBounds.minX - 5, metricRadio.localBounds.minY, metricRadio.localBounds.maxX + 18, metricRadio.localBounds.maxY );
+    englishRadio.touchArea = new Bounds2( englishRadio.localBounds.minX - 5, englishRadio.localBounds.minY, englishRadio.localBounds.maxX + 8, englishRadio.localBounds.maxY );
 
     // center the title by adding space before and after. Also ensures that the panel's width is 'width'
     var createTitle = function( item ) {
