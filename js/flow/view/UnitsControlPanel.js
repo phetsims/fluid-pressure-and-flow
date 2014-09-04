@@ -54,14 +54,13 @@ define( function( require ) {
     // center the title by adding space before and after. Also ensures that the panel's width is 'width'
     var createTitle = function( item ) {
       var strutWidth = (width - item.width) / 2;
-      return new HBox( { children: [ new HStrut( strutWidth+12 ), item, new HStrut( strutWidth )] } );
+      return new HBox( { children: [ new HStrut( strutWidth + 12 ), item, new HStrut( strutWidth )] } );
     };
-
 
 
     var content = new VBox( {
       spacing: 11,
-      children: [createTitle( titleText ), metricRadio, englishRadio,createTitle( dummyText )],
+      children: [createTitle( titleText ), metricRadio, englishRadio, createTitle( dummyText )],
       align: 'left'
     } );
     Panel.call( this, content, options );

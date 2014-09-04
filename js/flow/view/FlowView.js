@@ -65,11 +65,10 @@ define( function( require ) {
     var flowView = this;
 
     ScreenView.call( this, {renderer: 'svg'} );
-    /*ScreenView.call( this, {
-      renderer: 'svg',
-      layoutBounds: ScreenView.UPDATED_LAYOUT_BOUNDS
-    } );
-*/
+    /*  ScreenView.call( this, {
+     renderer: 'svg',
+     layoutBounds: ScreenView.UPDATED_LAYOUT_BOUNDS
+     } );*/
     var modelViewTransform = ModelViewTransform2.createSinglePointScaleInvertedYMapping(
       Vector2.ZERO,
       new Vector2( 370, 160 ),
@@ -240,11 +239,10 @@ define( function( require ) {
 
     this.addChild( new FlowRuler( flowModel.isRulerVisibleProperty, flowModel.rulerPositionProperty, flowModel.measureUnitsProperty, modelViewTransform, this.layoutBounds ) );
 
-/*
-    var mockupBackground = new Image( flowMockupImg, {opacity: 0.5} );
-    this.addChild( mockupBackground );
-    this.addChild( new HSlider(flowModel.opacityProperty, { min: 0,  max: 1 }));
-    flowModel.opacityProperty.linkAttribute( mockupBackground, 'opacity');*/
+    /*var mockupBackground = new Image( flowMockupImg, {opacity: 0.5} );
+     this.addChild( mockupBackground );
+     this.addChild( new HSlider(flowModel.opacityProperty, { min: 0,  max: 1 }));
+     flowModel.opacityProperty.linkAttribute( mockupBackground, 'opacity');*/
   }
 
   return inherit( ScreenView, FlowView, {

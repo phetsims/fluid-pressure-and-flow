@@ -56,7 +56,7 @@ define( function( require ) {
 
     this.flowModel = flowModel;
     this.modelViewTransform = modelViewTransform;
-    var textOptions = {font: new PhetFont( 10 ),right : 30};
+    var textOptions = {font: new PhetFont( 10 ), right: 30};
 
     var flowRateText = new Text( flowRateString, textOptions );
     var area = new Text( areaString, textOptions );
@@ -71,7 +71,7 @@ define( function( require ) {
       children: [
         new HBox( {spacing: 0, children: [new HStrut( 2 ), flowRateText, new HStrut( 5 ), this.flowRateValue]} ),
         new HBox( {spacing: 0, children: [new HStrut( 30 ), area, new HStrut( 15 ), this.areaValue]} ),
-        new HBox( {spacing: 0, children: [new HStrut( 30 ), flux, new HStrut( 3 ),this.fluxValue]} )
+        new HBox( {spacing: 0, children: [new HStrut( 30 ), flux, new HStrut( 3 ), this.fluxValue]} )
       ],
       align: 'left'
     } );
@@ -167,7 +167,7 @@ define( function( require ) {
       this.displayPanel.left = this.upperLine.left - 50;
       this.lowerLine.top = this.ellipse2.bottom;
       this.lowerLine.left = this.ellipse.right - 1;
-      this.handle.top = this.lowerLine.bottom-3;
+      this.handle.top = this.lowerLine.bottom - 3;
       this.handle.left = this.lowerLine.right - 16;
 
       this.updateFluxMeterValues( this.flowModel.measureUnits );

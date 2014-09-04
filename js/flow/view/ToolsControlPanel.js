@@ -22,7 +22,6 @@ define( function( require ) {
   var Circle = require( 'SCENERY/nodes/Circle' );
   var Node = require( 'SCENERY/nodes/Node' );
 
-
   // strings
   var rulerString = require( 'string!FLUID_PRESSURE_AND_FLOW/ruler' );
   var frictionString = require( 'string!FLUID_PRESSURE_AND_FLOW/friction' );
@@ -63,7 +62,7 @@ define( function( require ) {
     // pad inserts a spacing node (HStrut) so that the text, space and image together occupy a certain fixed width.
     var createItem = function( itemSpec ) {
       var strutWidth = maxWidth - itemSpec.label.width - itemSpec.icon.width + 5;
-      return new HBox( { children: [ itemSpec.label, new HStrut( strutWidth ),new HStrut( 12 ), itemSpec.icon ] } );
+      return new HBox( { children: [ itemSpec.label, new HStrut( strutWidth ), new HStrut( 12 ), itemSpec.icon ] } );
     };
 
     var checkBoxOptions = {

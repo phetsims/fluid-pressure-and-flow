@@ -29,8 +29,8 @@ define( function( require ) {
      this.top.set( this.top.x + dx, this.getTop().y + dy );
      },
 
-    translateBottom: function( dx, dy ) {
-      this.bottom.set( this.bottom.x + dx, this.getBottom().y + dy );
+     translateBottom: function( dx, dy ) {
+     this.bottom.set( this.bottom.x + dx, this.getBottom().y + dy );
      },*/
 
     getX: function() {
@@ -42,8 +42,8 @@ define( function( require ) {
     },
 
     /* reset: function() {
-      this.top.reset();
-      this.bottom.reset();
+     this.top.reset();
+     this.bottom.reset();
      },*/
 
     getCenterY: function() {
@@ -51,8 +51,8 @@ define( function( require ) {
     }
     //Translate both top and bottom parts of the pipe
     /*translate: function( dx, dy ) {
-      this.translateTop( dx, dy );
-      this.translateBottom( dx, dy );
+     this.translateTop( dx, dy );
+     this.translateBottom( dx, dy );
      }*/
   } );
 } );
