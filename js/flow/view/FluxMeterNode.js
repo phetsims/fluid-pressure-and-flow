@@ -56,22 +56,31 @@ define( function( require ) {
 
     this.flowModel = flowModel;
     this.modelViewTransform = modelViewTransform;
-    var textOptions = {font: new PhetFont( 10 ), right: 30};
+    var textOptions = {font: new PhetFont( 10 )};
 
     var flowRateText = new Text( flowRateString, textOptions );
     var area = new Text( areaString, textOptions );
     var flux = new Text( fluxString, textOptions );
 
-    this.flowRateValue = new SubSupText( 'dummy', { font: new PhetFont( 10 ), pickable: false } );
-    this.areaValue = new SubSupText( 'dummy', { font: new PhetFont( 10 ), pickable: false } );
-    this.fluxValue = new SubSupText( 'dummy', { font: new PhetFont( 10 ), pickable: false } );
 
-    var content = new VBox( {
+    this.flowRateValue = new Text( '', textOptions );
+    this.areaValue = new Text( '', textOptions );
+    this.fluxValue = new Text( '', textOptions );
+
+    this.flowRateUnit = new SubSupText( 'dummy', textOptions );
+    this.areaUnit = new SubSupText( 'dummy', textOptions );
+    this.fluxUnit = new SubSupText( 'dummy', textOptions );
+
+
+    var content = new HBox( {
       spacing: 0,
       children: [
-        new HBox( {spacing: 0, children: [new HStrut( 2 ), flowRateText, new HStrut( 5 ), this.flowRateValue]} ),
-        new HBox( {spacing: 0, children: [new HStrut( 30 ), area, new HStrut( 15 ), this.areaValue]} ),
-        new HBox( {spacing: 0, children: [new HStrut( 30 ), flux, new HStrut( 3 ), this.fluxValue]} )
+        new VBox( { align: 'right', children: [new HBox( { children: [ new HStrut( 4 ), flowRateText]} ), new HBox( { children: [new HStrut( 4 ), area]} ),
+          new HBox( { children: [new HStrut( 4 ), flux ]} )]} ),
+        new VBox( {align: 'right', children: [new HBox( { children: [ new HStrut( 4 ), this.flowRateValue]} ), new HBox( { children: [ new HStrut( 4 ), this.areaValue]} ),
+          new HBox( { children: [ new HStrut( 4 ), this.fluxValue]} )]} ),
+        new VBox( {align: 'left', children: [new HBox( { children: [ new HStrut( 8 ), this.flowRateUnit]} ), new HBox( { children: [ new HStrut( 8 ), this.areaUnit]} ),
+          new HBox( { children: [ new HStrut( 8 ), this.fluxUnit]} )]} )
       ],
       align: 'left'
     } );
@@ -122,6 +131,7 @@ define( function( require ) {
 
 
     Property.multilink( [flowModel.fluidFlowRateProperty , flowModel.measureUnitsProperty], function( flowRate, units ) {
+      flowModel.pipe.flowRate = flowRate * 0.001;
       fluxMeterNode.updateFluxMeterValues( units );
     } );
 
@@ -177,9 +187,14 @@ define( function( require ) {
     updateFluxMeterValues: function( units ) {
 
       if ( units === 'metric' ) {
-        this.areaValue.text = StringUtils.format( valueWithUnitsPattern, this.flowModel.fluxMeter.getArea().toFixed( 1 ), areaUnitsMetric );
-        this.flowRateValue.text = StringUtils.format( valueWithUnitsPattern, this.flowModel.fluxMeter.getFlowRate().toFixed( 1 ), rateUnitsMetric );
-        this.fluxValue.text = StringUtils.format( valueWithUnitsPattern, this.flowModel.fluxMeter.getFlux().toFixed( 1 ), fluxUnitsMetric );
+
+        this.flowRateValue.text = this.flowModel.fluxMeter.getFlowRate().toFixed( 1 );
+        this.areaValue.text = this.flowModel.fluxMeter.getArea().toFixed( 1 );
+        this.fluxValue.text = this.flowModel.fluxMeter.getFlux().toFixed( 1 );
+
+        this.areaUnit.text = areaUnitsMetric;
+        this.flowRateUnit.text = rateUnitsMetric;
+        this.fluxUnit.text = fluxUnitsMetric;
 
       }
       else {
@@ -187,9 +202,13 @@ define( function( require ) {
         var flowRate = this.flowModel.fluxMeter.getFlowRate() * 0.0353146;
         var flux = this.flowModel.fluxMeter.getFlux() * 0.00328;
 
-        this.areaValue.text = StringUtils.format( valueWithUnitsPattern, area.toFixed( 1 ), areaUnitsEnglish );
-        this.flowRateValue.text = StringUtils.format( valueWithUnitsPattern, flowRate.toFixed( 1 ), rateUnitsEnglish );
-        this.fluxValue.text = StringUtils.format( valueWithUnitsPattern, flux.toFixed( 1 ), fluxUnitsEnglish );
+        this.flowRateValue.text = flowRate.toFixed( 1 );
+        this.areaValue.text = area.toFixed( 1 );
+        this.fluxValue.text = flux.toFixed( 1 );
+
+        this.areaUnit.text = areaUnitsEnglish;
+        this.flowRateUnit.text = rateUnitsEnglish;
+        this.fluxUnit.text = fluxUnitsEnglish;
 
       }
     }
