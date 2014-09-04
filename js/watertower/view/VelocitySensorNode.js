@@ -135,7 +135,6 @@ define( function( require ) {
           // Add a 5px tolerance. See https://github.com/phetsims/fluid-pressure-and-flow/issues/105
           if ( containerBounds.intersectsBounds( Bounds2.rect( velocitySensor.position.x, velocitySensor.position.y, rectangleWidth, rectangleHeight ).eroded( 5 ) ) ) {
             velocitySensor.positionProperty.reset();
-            velocitySensor.value = new Vector2( 0, 0 );
           }
         }
       } ) );
@@ -147,10 +146,16 @@ define( function( require ) {
     } );
 
     // Update the text when the value or units changes.
-    Property.multilink( [velocitySensor.valueProperty, waterTowerModel.measureUnitsProperty], function( velocity, units ) {
-      labelText.text = units === 'metric' ?
-                       velocity.magnitude().toFixed( 1 ) + ' ' + mPerS :
-                       (velocity.magnitude() * 3.28).toFixed( 1 ) + ' ' + ftPerS;
+    Property.multilink( [velocitySensor.valueProperty, waterTowerModel.measureUnitsProperty, velocitySensor.positionProperty], function( velocity, units ) {
+
+      if ( velocitySensor.positionProperty.initialValue == velocitySensor.position ) {
+        labelText.text = '-';
+      }
+      else {
+        labelText.text = units === 'metric' ?
+                         velocity.magnitude().toFixed( 1 ) + ' ' + mPerS :
+                         (velocity.magnitude() * 3.28).toFixed( 1 ) + ' ' + ftPerS;
+      }
       labelText.center = innerMostRectangle.center;
     } );
 
