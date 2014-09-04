@@ -158,7 +158,8 @@ define( function( require ) {
 
     createParticle: function( dt ) {
       if ( this.isDotsVisible ) {
-        var fraction = 0.1 + Math.random() * 0.8;
+        // create particles so that they don't touch the pipe
+        var fraction = 0.15 + Math.random() * 0.7;
         this.flowParticles.push( new Particle( new Vector2( this.pipe.getMinX(), 0 ), fraction, this.pipe, 0.1, 'red' ) );
       }
     },
