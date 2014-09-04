@@ -12,6 +12,7 @@ define( function( require ) {
   var ScreenView = require( 'JOIST/ScreenView' );
   var ModelViewTransform2 = require( 'PHETCOMMON/view/ModelViewTransform2' );
   var Vector2 = require( 'DOT/Vector2' );
+  var Bounds2 = require( 'DOT/Bounds2' );
   var ResetAllButton = require( 'SCENERY_PHET/ResetAllButton' );
   var Rectangle = require( 'SCENERY/nodes/Rectangle' );
   var SkyNode = require( 'SCENERY_PHET/SkyNode' );
@@ -170,13 +171,16 @@ define( function( require ) {
     var playPauseButton = new PlayPauseButton( flowModel.isPlayProperty, { radius: 18, stroke: 'black', fill: '#005566', y: stepButton.centerY, right: stepButton.left - inset } );
     this.addChild( playPauseButton );
 
+    var slowMotionRadioBox = new AquaRadioButton( flowModel.speedProperty, 'slow', new Text( slowMotionString, {font: new PhetFont( 12 )} ), {radius: 8} );
+    var normalMotionRadioBox = new AquaRadioButton( flowModel.speedProperty, 'normal', new Text( normalString, {font: new PhetFont( 12 )} ), {radius: 8} );
+
+    slowMotionRadioBox.touchArea = slowMotionRadioBox.localBounds.dilatedXY( 0, 0 );
+    normalMotionRadioBox.touchArea = new Bounds2( normalMotionRadioBox.localBounds.minX, normalMotionRadioBox.localBounds.minY, normalMotionRadioBox.localBounds.maxX + 25, normalMotionRadioBox.localBounds.maxY );
+
     var speedControl = new VBox( {
       align: 'left',
       spacing: 5,
-      children: [
-        new AquaRadioButton( flowModel.speedProperty, 'slow', new Text( slowMotionString, {font: new PhetFont( 12 )} ), {radius: 8} ),
-        new AquaRadioButton( flowModel.speedProperty, 'normal', new Text( normalString, {font: new PhetFont( 12 )} ), {radius: 8} )
-      ]} );
+      children: [ slowMotionRadioBox, normalMotionRadioBox ]} );
     this.addChild( speedControl.mutate( {right: playPauseButton.left - 8, bottom: playPauseButton.bottom} ) );
 
     //add flow rate panel

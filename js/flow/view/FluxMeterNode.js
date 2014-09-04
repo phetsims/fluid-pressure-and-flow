@@ -118,7 +118,7 @@ define( function( require ) {
     this.addChild( this.lowerLine );
 
     var handleImage = new Image( twoSideHandleImage );
-    handleImage.touchArea = handleImage.localBounds.dilatedXY( 5, 5 );
+    handleImage.touchArea = handleImage.localBounds.dilatedXY( 20, 20 );
     this.handle = new Node( {children: [handleImage], cursor: 'pointer', top: this.lowerLine.bottom, left: this.lowerLine.right - 16, scale: 0.35} );
 
     this.addChild( this.handle );
