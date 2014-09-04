@@ -109,11 +109,13 @@ define( function( require ) {
 
     // add handles to drag the pipe
     this.leftPipeMainHandleNode = new Image( handleImage, { top: this.leftPipeNode.top + 60, right: 20, cursor: 'pointer', scale: 0.32} );
-    this.leftPipeMainHandleNode.touchArea = this.leftPipeMainHandleNode.localBounds.dilatedXY( 20, 20 );
+    this.leftPipeMainHandleNode.touchArea = new Bounds2( this.leftPipeMainHandleNode.localBounds.minX - 20, this.leftPipeMainHandleNode.localBounds.minY + 25,
+        this.leftPipeMainHandleNode.localBounds.maxX + 20, this.leftPipeMainHandleNode.localBounds.maxY + 30 );
     this.addChild( this.leftPipeMainHandleNode );
 
-    this.rightPipeMainHandleNode = new Image( handleImage, {top: this.rightPipeNode.top + 60, left: layoutBounds.maxX - 50, cursor: 'pointer', scale: 0.32} );
-    this.rightPipeMainHandleNode.touchArea = this.rightPipeMainHandleNode.localBounds.dilatedXY( 20, 20 );
+    this.rightPipeMainHandleNode = new Image( handleImage, {top: this.rightPipeNode.top + 60, left: layoutBounds.maxX - 50, cursor: 'pointer', scale: 0.35} );
+    this.rightPipeMainHandleNode.touchArea = new Bounds2( this.rightPipeMainHandleNode.localBounds.minX - 20, this.rightPipeMainHandleNode.localBounds.minY + 25,
+        this.rightPipeMainHandleNode.localBounds.maxX + 20, this.rightPipeMainHandleNode.localBounds.maxY + 30 );
     this.addChild( this.rightPipeMainHandleNode );
 
     flowModel.fluidColorModel.colorProperty.linkAttribute( pipeNode.pipeFlowLine, 'fill' );
@@ -167,7 +169,14 @@ define( function( require ) {
         }
 
         var handleNode = new Image( handleImage, {left: leftSpace, cursor: 'pointer', scale: 0.32} );
-        handleNode.touchArea = handleNode.localBounds.dilatedXY( 20, 20 );
+        if ( i < numControlPoints / 2 ) {
+          handleNode.touchArea = new Bounds2( handleNode.localBounds.minX - 30, handleNode.localBounds.minY,
+              handleNode.localBounds.maxX + 30, handleNode.localBounds.maxY + 30 );
+        }
+        else {
+          handleNode.touchArea = new Bounds2( handleNode.localBounds.minX - 30, handleNode.localBounds.minY + 30,
+              handleNode.localBounds.maxX + 30, handleNode.localBounds.maxY + 30 );
+        }
         handleNode.setRotation( imageRotation );
         pipeNode.controlPointNodes[i] = new Node( {children: [handleNode ]} );
         controlPoint.positionProperty.link( function( position ) {

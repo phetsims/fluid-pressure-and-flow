@@ -21,6 +21,8 @@ define( function( require ) {
   var LinearGradient = require( 'SCENERY/util/LinearGradient' );
   var Util = require( 'DOT/Util' );
   var Property = require( 'AXON/Property' );
+  var Bounds2 = require( 'DOT/Bounds2' );
+
 
   // constants
   var TRACK_SIZE = new Dimension2( 190, 10 );
@@ -41,7 +43,7 @@ define( function( require ) {
       xMargin: 15,
       yMargin: 5,
       decimals: 0,
-      thumbSize: new Dimension2(22, 45),
+      thumbSize: new Dimension2( 22, 45 ),
       ticks: [],
       ticksVisible: true,
       titleAlign: 'left'
@@ -72,15 +74,20 @@ define( function( require ) {
     var plusButton = new ArrowButton( 'right', function propertyPlus() {
       trackProperty.set( Util.toFixed( parseFloat( Math.min( trackProperty.get() ) + 1 / Math.pow( 10, options.decimals ), trackRange.max ), options.decimals ) );
     } );
+    plusButton.touchArea = new Bounds2( plusButton.localBounds.minX - 20, plusButton.localBounds.minY - 5,
+        plusButton.localBounds.maxX + 20, plusButton.localBounds.maxY + 20 );
     var minusButton = new ArrowButton( 'left', function propertyMinus() {
       trackProperty.set( Util.toFixed( parseFloat( Math.max( trackProperty.get() ) - 1 / Math.pow( 10, options.decimals ), trackRange.min ), options.decimals ) );
     } );
+    minusButton.touchArea = new Bounds2( minusButton.localBounds.minX - 20, minusButton.localBounds.minY - 5,
+        minusButton.localBounds.maxX + 20, minusButton.localBounds.maxY + 20 );
+
     var valueLabel = new SubSupText( '', { font: new PhetFont( 18 ), pickable: false } );
     var valueField = new Rectangle( 0, 0, 100, 30, 3, 3, { fill: '#FFF', stroke: 'black', lineWidth: 1, pickable: false } );
     var labelFont = new PhetFont( 14 );
 
     options.ticks.forEach( function( tick ) {
-        hSlider.addMajorTick( tick.value, new Text( tick.title, { font: labelFont, visible: options.ticksVisible } ) );
+      hSlider.addMajorTick( tick.value, new Text( tick.title, { font: labelFont, visible: options.ticksVisible } ) );
     } );
 
     // rendering order
