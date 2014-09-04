@@ -21,6 +21,7 @@ define( function( require ) {
   var RulerNode = require( 'SCENERY_PHET/RulerNode' );
   var Circle = require( 'SCENERY/nodes/Circle' );
   var Node = require( 'SCENERY/nodes/Node' );
+  var Bounds2 = require( 'DOT/Bounds2' );
 
   // strings
   var rulerString = require( 'string!FLUID_PRESSURE_AND_FLOW/ruler' );
@@ -70,13 +71,19 @@ define( function( require ) {
       spacing: 2
     };
 
+    var rulerCheckBox = new CheckBox( createItem( ruler ), flowModel.isRulerVisibleProperty, checkBoxOptions );
+    var frictionCheckBox = new CheckBox( new HBox( {children: ( friction )} ), flowModel.pipe.frictionProperty, checkBoxOptions );
+    var fluxMeterCheckBox = new CheckBox( new HBox( {children: ( fluxMeter )} ), flowModel.isFluxMeterVisibleProperty, checkBoxOptions );
+    var dotsCheckBox = new CheckBox( createItem( dots ), flowModel.isDotsVisibleProperty, checkBoxOptions );
+
+    //touch Areas
+    rulerCheckBox.touchArea = new Bounds2( rulerCheckBox.localBounds.minX - 5, rulerCheckBox.localBounds.minY, rulerCheckBox.localBounds.maxX + 8, rulerCheckBox.localBounds.maxY );
+    frictionCheckBox.touchArea = new Bounds2( frictionCheckBox.localBounds.minX - 5, frictionCheckBox.localBounds.minY, frictionCheckBox.localBounds.maxX + 43, frictionCheckBox.localBounds.maxY );
+    fluxMeterCheckBox.touchArea = new Bounds2( fluxMeterCheckBox.localBounds.minX - 5, fluxMeterCheckBox.localBounds.minY, fluxMeterCheckBox.localBounds.maxX + 29, fluxMeterCheckBox.localBounds.maxY );
+    dotsCheckBox.touchArea = new Bounds2( dotsCheckBox.localBounds.minX - 5, dotsCheckBox.localBounds.minY, dotsCheckBox.localBounds.maxX + 8, dotsCheckBox.localBounds.maxY );
+
     // pad all the rows so the text nodes are left aligned and the icons is right aligned
-    var checkBoxChildren = [
-      new CheckBox( createItem( ruler ), flowModel.isRulerVisibleProperty, checkBoxOptions ),
-      new CheckBox( new HBox( {children: ( friction )} ), flowModel.pipe.frictionProperty, checkBoxOptions ),
-      new CheckBox( new HBox( {children: ( fluxMeter )} ), flowModel.isFluxMeterVisibleProperty, checkBoxOptions ),
-      new CheckBox( createItem( dots ), flowModel.isDotsVisibleProperty, checkBoxOptions )
-    ];
+    var checkBoxChildren = [ rulerCheckBox , frictionCheckBox, fluxMeterCheckBox , dotsCheckBox ];
 
     var checkBoxes = new VBox( {align: 'left', spacing: 4, children: checkBoxChildren} );
 
