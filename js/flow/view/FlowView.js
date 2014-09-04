@@ -130,11 +130,10 @@ define( function( require ) {
       titleAlign: 'center'
     } );
     this.addChild( controlSlider );
+
     var fluxMeterNode = new FluxMeterNode( flowModel, modelViewTransform, {stroke: 'blue'} );
-
     flowModel.isFluxMeterVisibleProperty.linkAttribute( fluxMeterNode.ellipse2, 'visible' );
-
-    // add the back ellipse of the fluxMeter before the particle layer
+    // add the back ellipse of the fluxMeter before adding the particle layer
     this.addChild( fluxMeterNode.ellipse2 );
 
     //adding pipe Node
@@ -142,8 +141,10 @@ define( function( require ) {
     flowModel.pipe.reset();
     this.addChild( this.pipeNode );
 
+    // now add the front part of the fluxMeter
     this.addChild( fluxMeterNode );
 
+    // add the reset button
     var resetAllButton = new ResetAllButton( {
       listener: function() {
         flowModel.reset();
@@ -154,15 +155,12 @@ define( function( require ) {
       radius: 18,
       bottom: this.layoutBounds.bottom - 7,
       right: this.layoutBounds.right - 13
-
     } );
     this.addChild( resetAllButton );
-
 
     // add the sensors panel
     var sensorPanel = new Rectangle( 0, 0, 167, 85, 10, 10, {stroke: 'gray', lineWidth: 1, fill: '#f2fa6a', right: unitsControlPanel.left - 4, top: this.toolsControlPanel.top} );
     this.addChild( sensorPanel );
-
 
     flowModel.isGridInjectorPressedProperty.link( function( isGridInjectorPressed ) {
       if ( isGridInjectorPressed ) {
@@ -173,7 +171,6 @@ define( function( require ) {
         flowView.gridInjectorNode.redButton.enabled = true;
       }
     } );
-
 
     // add play pause button and step button
     var stepButton = new StepButton( function() {
@@ -236,7 +233,7 @@ define( function( require ) {
       this.addChild( new BarometerNode( flowModel, modelViewTransform, barometer, [flowModel.fluidDensityProperty, flowModel.fluidFlowRateProperty, flowModel.pipe.frictionProperty], sensorPanel.visibleBounds, this.layoutBounds, {scale: 0.9} ) );
     }.bind( this ) );
 
-
+    // add the rule node
     this.addChild( new FlowRuler( flowModel.isRulerVisibleProperty, flowModel.rulerPositionProperty, flowModel.measureUnitsProperty, modelViewTransform, this.layoutBounds ) );
 
     /*var mockupBackground = new Image( flowMockupImg, {opacity: 0.5} );
