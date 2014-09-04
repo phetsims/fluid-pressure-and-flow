@@ -75,9 +75,9 @@ define( function( require ) {
       50 ); //1m = 50Px, (0,0) - top left corner
 
     // add sky node
-    this.addChild( new Rectangle( -5000, -1000, 10000, 1000, {stroke: '#01ACE4', fill: '#01ACE4'} ) );
+    this.addChild( new Rectangle( -5000, -1000, 10000, 1002, {stroke: '#01ACE4', fill: '#01ACE4'} ) );
 
-    var skyNode = new SkyNode( -5000, 0, 10000, 142, 200 );
+    var skyNode = new SkyNode( -5000, 0, 10000, 140, 140 );
     this.addChild( skyNode );
 
     // Injector which generates grid particles
