@@ -45,22 +45,23 @@ define( function( require ) {
     this.modelViewTransform = modelViewTransform;
     this.pipe = pipe;
     this.skyNodegroundY = this.modelViewTransform.modelToViewY( 0 );
+    this.pipeNodeYOffset = 57;
     var PIPE_INITIAL_HEIGHT = 2.4;
     //left side pipe image.
     var leftPipe = new Image( leftPipeImage, { scale: options.pipeScale} );
     var leftPipeMiddle = [];
-    this.leftPipeBackNode = new Node( {children: [new Image( leftPipeBackImage, { scale: options.pipeScale} )], top: this.skyNodegroundY + 33, left: layoutBounds.minX - 50, scale: options.pipeScale} );
+    this.leftPipeBackNode = new Node( {children: [new Image( leftPipeBackImage, { scale: options.pipeScale} )], top: this.skyNodegroundY + this.pipeNodeYOffset, left: layoutBounds.minX - 50, scale: options.pipeScale} );
 
     leftPipeMiddle[0] = new Image( pipeMiddleImage, { right: leftPipe.left + 20, scale: options.pipeScale} );
     for ( var j = 1; j < 40; j++ ) {
       leftPipeMiddle[j] = new Image( pipeMiddleImage, { right: leftPipeMiddle[j - 1].left + 1, scale: options.pipeScale} );
     }
-    this.leftPipeNode = new Node( {children: [leftPipe], top: this.skyNodegroundY + 33, left: layoutBounds.minX - 50, scale: options.pipeScale} );
+    this.leftPipeNode = new Node( {children: [leftPipe], top: this.skyNodegroundY + this.pipeNodeYOffset, left: layoutBounds.minX - 50, scale: options.pipeScale} );
     for ( j = 0; j < 40; j++ ) {
       this.leftPipeNode.addChild( leftPipeMiddle[j] );
     }
 
-    this.pipeFlowLine = new Path( null, {stroke: options.lineColor, lineWidth: '6', fill: flowModel.fluidColorModel.color} );
+    this.pipeFlowLine = new Path( null, {stroke: options.lineColor, lineWidth: '6', fill: flowModel.fluidColorModel.color } );
 
     // right side pipe image.
     var rightPipe = new Image( rightSidePipeImage, { scale: options.pipeScale} );
@@ -317,11 +318,11 @@ define( function( require ) {
   return inherit( Node, PipeNode,
     {
       reset: function() {
-        this.leftPipeNode.setMatrix( Matrix3.translation( this.layoutBounds.minX - 50, this.skyNodegroundY + 33 ) );
+        this.leftPipeNode.setMatrix( Matrix3.translation( this.layoutBounds.minX - 50, this.skyNodegroundY + this.pipeNodeYOffset ) );
         this.leftPipeNode.scale( 0.6, 0.6, false );
-        this.leftPipeBackNode.setMatrix( Matrix3.translation( this.layoutBounds.minX - 50, this.skyNodegroundY + 33 ) );
+        this.leftPipeBackNode.setMatrix( Matrix3.translation( this.layoutBounds.minX - 50, this.skyNodegroundY + this.pipeNodeYOffset ) );
         this.leftPipeBackNode.scale( 0.6, 0.6, false );
-        this.rightPipeNode.setMatrix( Matrix3.translation( this.layoutBounds.maxX - 75, this.skyNodegroundY + 33 ) );
+        this.rightPipeNode.setMatrix( Matrix3.translation( this.layoutBounds.maxX - 75, this.skyNodegroundY + this.pipeNodeYOffset ) );
         this.rightPipeNode.scale( 0.6, 0.6, false );
         this.leftPipeMainHandleNode.setTranslation( this.layoutBounds.minX - 10, this.leftPipeNode.getCenterY() );
         this.rightPipeMainHandleNode.setTranslation( this.layoutBounds.maxX - 50, this.rightPipeNode.getCenterY() );

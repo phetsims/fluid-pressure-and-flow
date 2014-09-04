@@ -233,7 +233,7 @@ define( function( require ) {
       }
 
       var crossSection = this.pipe.getCrossSection( x );
-      if ( y > crossSection.yBottom - 0.1 && y < crossSection.yTop - 0.25 ) {
+      if ( y > crossSection.yBottom - 0.1 && y < crossSection.yTop - 0.2 ) {
         return this.pipe.getTweakedVelocity( x, y );
       }
       return Vector2.ZERO;

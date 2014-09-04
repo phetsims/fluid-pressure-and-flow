@@ -71,7 +71,7 @@ define( function( require ) {
      } );*/
     var modelViewTransform = ModelViewTransform2.createSinglePointScaleInvertedYMapping(
       Vector2.ZERO,
-      new Vector2( 370, 160 ),
+      new Vector2( 370, 140 ),
       50 ); //1m = 50Px, (0,0) - top left corner
 
     // add sky node
@@ -85,7 +85,7 @@ define( function( require ) {
     this.addChild( this.gridInjectorNode );
 
     // add ground node
-    var groundNode = new GroundNode( -5000, 143, 10000, 10000, 400, {topColor: /*'#9D8B61'*/  new Color( 157, 139, 97, 0.8 ), bottomColor: '#645A3C'} );
+    var groundNode = new GroundNode( -5000, 140, 10000, 10000, 400, {topColor: /*'#9D8B61'*/  new Color( 157, 139, 97, 0.8 ), bottomColor: '#645A3C'} );
     this.addChild( groundNode );
 
     //grass

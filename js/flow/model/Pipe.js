@@ -33,13 +33,13 @@ define( function( require ) {
 
     // Cross sections that the user can manipulate to deform the pipe.
     this.controlCrossSections = []; // ArrayList<PipeCrossSection>();
-    this.controlCrossSections[0] = new PipeCrossSection( -6.7, -3, -1 );
-    this.controlCrossSections[1] = new PipeCrossSection( -4.6, -3, -1 );
-    this.controlCrossSections[2] = new PipeCrossSection( -2.3, -3, -1 );
-    this.controlCrossSections[3] = new PipeCrossSection( -0, -3, -1 );
-    this.controlCrossSections[4] = new PipeCrossSection( 2.3, -3, -1 );
-    this.controlCrossSections[5] = new PipeCrossSection( 4.6, -3, -1 );
-    this.controlCrossSections[6] = new PipeCrossSection( 6.7, -3, -1 );
+    this.controlCrossSections[0] = new PipeCrossSection( -6.7, -3.5, -1.4 );
+    this.controlCrossSections[1] = new PipeCrossSection( -4.6, -3.5, -1.4 );
+    this.controlCrossSections[2] = new PipeCrossSection( -2.3, -3.5, -1.4 );
+    this.controlCrossSections[3] = new PipeCrossSection( -0, -3.5, -1.4 );
+    this.controlCrossSections[4] = new PipeCrossSection( 2.3, -3.5, -1.4 );
+    this.controlCrossSections[5] = new PipeCrossSection( 4.6, -3.5, -1.4 );
+    this.controlCrossSections[6] = new PipeCrossSection( 6.7, -3.5, -1.4 );
     // Nonlinear interpolation of the control sections for particle motion and determining the velocity field
     this.splineCrossSections = new ObservableArray();//ArrayList<PipeCrossSection>
 
@@ -153,7 +153,7 @@ define( function( require ) {
       var xPointsTop = SplineEvaluation.atArray( this.xSplineTop, linSpace );
       var yPointsTop = SplineEvaluation.atArray( this.ySplineTop, linSpace );
 
-      for ( var alpha = 0; alpha < xPointsTop.length; alpha += 3 ) {
+      for ( var alpha = 0; alpha < xPointsTop.length; alpha++ ) {
         var topPt = new Vector2( xPointsTop[alpha ], yPointsTop[alpha ] );//topSpline.evaluate( alpha );
         var bottomPt = new Vector2( xPointsBottom[alpha], yPointsBottom[alpha] );// bottomSpline.evaluate( alpha );
         //make sure pipe top doesn't go below pipe bottom
