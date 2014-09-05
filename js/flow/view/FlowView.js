@@ -121,13 +121,14 @@ define( function( require ) {
 
     var fluxMeterNode = new FluxMeterNode( flowModel, modelViewTransform, {stroke: 'blue'} );
     flowModel.isFluxMeterVisibleProperty.linkAttribute( fluxMeterNode.ellipse2, 'visible' );
-    // add the back ellipse of the fluxMeter before adding the particle layer
-    this.addChild( fluxMeterNode.ellipse2 );
 
     //adding pipe Node
     this.pipeNode = new PipeNode( flowModel, flowModel.pipe, modelViewTransform, this.layoutBounds );
     flowModel.pipe.reset();
     this.addChild( this.pipeNode );
+
+    // add the back ellipse of the fluxMeter before adding the particle layer
+    this.pipeNode.preParticleLayer.addChild( fluxMeterNode.ellipse2 );
 
     // now add the front part of the fluxMeter
     this.addChild( fluxMeterNode );

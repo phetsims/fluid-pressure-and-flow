@@ -99,6 +99,9 @@ define( function( require ) {
     this.addChild( this.leftPipeBackNode );
     this.addChild( this.pipeFlowLine );
 
+    this.preParticleLayer = new Node();
+    this.addChild( this.preParticleLayer );
+
     this.particlesLayer = new ParticleCanvasNode( flowModel.flowParticles, flowModel.gridParticles, modelViewTransform, {
       canvasBounds: new Bounds2( 40, 120, 700, 600 )
     } );
