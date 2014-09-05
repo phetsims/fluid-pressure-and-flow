@@ -24,6 +24,10 @@ define( function( require ) {
 
     FLUID_DENSITY_ENGLISH_PER_METRIC: 62.4 / 1000.0,
     FLUID_FlOW_RATE_ENGLISH_PER_METRIC: 35.3 / 1000,
+    SQUARE_FEET_PER_SQUARE_METER: 10.7639,
+    FEET_CUBE_PER_LITER: 0.0353146,
+    FEET_PER_CENTIMETER: 0.0328,
+
 
     feetToMeters: function( feet ) {
       return feet / FEET_PER_METER;
