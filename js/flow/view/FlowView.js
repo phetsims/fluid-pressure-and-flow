@@ -127,7 +127,7 @@ define( function( require ) {
     flowModel.pipe.reset();
     this.addChild( this.pipeNode );
 
-    // add the back ellipse of the fluxMeter before adding the particle layer
+    // add the back ellipse of the fluxMeter to the pipe node's pre-particle layer
     this.pipeNode.preParticleLayer.addChild( fluxMeterNode.ellipse2 );
 
     // now add the front part of the fluxMeter
