@@ -62,7 +62,7 @@ define( function( require ) {
 
     this.groundY = this.modelViewTransform.modelToViewY( 0 );
     this.pipeNodeYOffset = 57; // w.r.t to ground
-    var PIPE_INITIAL_HEIGHT = 2.4;
+    var PIPE_INITIAL_HEIGHT = 2.1;
     //left side pipe image.
     var leftPipe = new Image( leftPipeImage, { scale: options.pipeScale} );
     var leftPipeMiddle = [];
@@ -252,8 +252,8 @@ define( function( require ) {
                   pipeNode.leftPipeBackNode.top = pipeTop;
                 }
 
-                pipeScale = (Math.abs( pipe.controlPoints[numControlPoints - 1].position.y - pipe.controlPoints[leftTopControlPointIndex].position.y )) / PIPE_INITIAL_HEIGHT;
-                pipeScale = pipeScale < 0.5 ? 0.5 : pipeScale;
+                pipeScale = (pipe.getCrossSection( pipe.controlPoints[leftTopControlPointIndex].position.x + 0.3 ).getHeight()) / PIPE_INITIAL_HEIGHT;
+                pipeScale = pipeScale < 0.45 ? 0.45 : pipeScale;
 
                 pipeNode.leftPipeNode.setScaleMagnitude( 0.6, pipeScale * 0.6 );
                 pipeNode.leftPipeBackNode.setScaleMagnitude( 0.6, pipeScale * 0.6 );
@@ -279,7 +279,8 @@ define( function( require ) {
                   pipeNode.rightPipeNode.top = pipeTop;
                 }
 
-                pipeScale = (Math.abs( pipe.controlPoints[rightBottomControlPointIndex].position.y - pipe.controlPoints[rightTopControlPointIndex].position.y )) / PIPE_INITIAL_HEIGHT;
+                pipeScale = (pipe.getCrossSection( pipe.controlPoints[rightTopControlPointIndex].position.x - 0.3 ).getHeight()) / PIPE_INITIAL_HEIGHT;
+
                 pipeScale = pipeScale < 0.45 ? 0.45 : pipeScale;
 
                 pipeNode.rightPipeNode.setScaleMagnitude( 0.6, pipeScale * 0.6 );
