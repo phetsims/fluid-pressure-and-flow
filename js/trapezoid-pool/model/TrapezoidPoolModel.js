@@ -14,11 +14,11 @@ define( function( require ) {
   var LinearFunction = require( 'DOT/LinearFunction' );
 
   function TrapezoidPoolModel( globalModel ) {
-    var model = this;
+    var self = this;
 
     //constants, from java model
     this.MAX_HEIGHT = 3; // meters
-    this.MAX_VOLUME = model.MAX_HEIGHT; // Liters
+    this.MAX_VOLUME = self.MAX_HEIGHT; // Liters
     var WIDTHATTOP = 0.785; //meters,
     var WIDTHATBOTTOM = 3.57; //meters,
     var LEFTCHAMBERTOPCENTER = 3; //meters,
@@ -34,44 +34,44 @@ define( function( require ) {
         centerTop: LEFTCHAMBERTOPCENTER,
         widthTop: WIDTHATTOP,
         widthBottom: WIDTHATBOTTOM,
-        y: model.globalModel.skyGroundBoundY,
-        height: model.MAX_HEIGHT,
-        leftBorderFunction: new LinearFunction( 0, model.MAX_HEIGHT, LEFTCHAMBERTOPCENTER - WIDTHATBOTTOM / 2, LEFTCHAMBERTOPCENTER - WIDTHATTOP / 2 ),
-        rightBorderFunction: new LinearFunction( 0, model.MAX_HEIGHT, LEFTCHAMBERTOPCENTER + WIDTHATBOTTOM / 2, LEFTCHAMBERTOPCENTER + WIDTHATTOP / 2 )
+        y: self.globalModel.skyGroundBoundY,
+        height: self.MAX_HEIGHT,
+        leftBorderFunction: new LinearFunction( 0, self.MAX_HEIGHT, LEFTCHAMBERTOPCENTER - WIDTHATBOTTOM / 2, LEFTCHAMBERTOPCENTER - WIDTHATTOP / 2 ),
+        rightBorderFunction: new LinearFunction( 0, self.MAX_HEIGHT, LEFTCHAMBERTOPCENTER + WIDTHATBOTTOM / 2, LEFTCHAMBERTOPCENTER + WIDTHATTOP / 2 )
       },
       rightChamber: {
         centerTop: LEFTCHAMBERTOPCENTER + SEPARATION,
         widthTop: WIDTHATBOTTOM,
         widthBottom: WIDTHATTOP,
-        y: model.globalModel.skyGroundBoundY,
-        height: model.MAX_HEIGHT,
-        leftBorderFunction: new LinearFunction( 0, model.MAX_HEIGHT, LEFTCHAMBERTOPCENTER + SEPARATION - WIDTHATTOP / 2, LEFTCHAMBERTOPCENTER + SEPARATION - WIDTHATBOTTOM / 2 ),
-        rightBorderFunction: new LinearFunction( 0, model.MAX_HEIGHT, LEFTCHAMBERTOPCENTER + SEPARATION + WIDTHATTOP / 2, LEFTCHAMBERTOPCENTER + SEPARATION + WIDTHATBOTTOM / 2 )
+        y: self.globalModel.skyGroundBoundY,
+        height: self.MAX_HEIGHT,
+        leftBorderFunction: new LinearFunction( 0, self.MAX_HEIGHT, LEFTCHAMBERTOPCENTER + SEPARATION - WIDTHATTOP / 2, LEFTCHAMBERTOPCENTER + SEPARATION - WIDTHATBOTTOM / 2 ),
+        rightBorderFunction: new LinearFunction( 0, self.MAX_HEIGHT, LEFTCHAMBERTOPCENTER + SEPARATION + WIDTHATTOP / 2, LEFTCHAMBERTOPCENTER + SEPARATION + WIDTHATBOTTOM / 2 )
       },
       bottomChamber: {
         x1: LEFTCHAMBERTOPCENTER + WIDTHATBOTTOM / 2,
-        y1: model.globalModel.skyGroundBoundY + model.MAX_HEIGHT - 0.21,
+        y1: self.globalModel.skyGroundBoundY + self.MAX_HEIGHT - 0.21,
         x2: LEFTCHAMBERTOPCENTER + SEPARATION - WIDTHATTOP / 2,
-        y2: model.globalModel.skyGroundBoundY + model.MAX_HEIGHT
+        y2: self.globalModel.skyGroundBoundY + self.MAX_HEIGHT
       }
     };
 
     //key coordinates of complex figure
     this.verticles = {
-      x1top: model.poolDimensions.leftChamber.centerTop - model.poolDimensions.leftChamber.widthTop / 2,
-      x2top: model.poolDimensions.leftChamber.centerTop + model.poolDimensions.leftChamber.widthTop / 2,
-      x3top: model.poolDimensions.rightChamber.centerTop - model.poolDimensions.rightChamber.widthTop / 2,
-      x4top: model.poolDimensions.rightChamber.centerTop + model.poolDimensions.rightChamber.widthTop / 2,
+      x1top: self.poolDimensions.leftChamber.centerTop - self.poolDimensions.leftChamber.widthTop / 2,
+      x2top: self.poolDimensions.leftChamber.centerTop + self.poolDimensions.leftChamber.widthTop / 2,
+      x3top: self.poolDimensions.rightChamber.centerTop - self.poolDimensions.rightChamber.widthTop / 2,
+      x4top: self.poolDimensions.rightChamber.centerTop + self.poolDimensions.rightChamber.widthTop / 2,
 
-      x1middle: model.poolDimensions.leftChamber.rightBorderFunction( model.poolDimensions.bottomChamber.y2 - model.poolDimensions.bottomChamber.y1 ),
-      x2middle: model.poolDimensions.rightChamber.leftBorderFunction( model.poolDimensions.bottomChamber.y2 - model.poolDimensions.bottomChamber.y1 ),
+      x1middle: self.poolDimensions.leftChamber.rightBorderFunction( self.poolDimensions.bottomChamber.y2 - self.poolDimensions.bottomChamber.y1 ),
+      x2middle: self.poolDimensions.rightChamber.leftBorderFunction( self.poolDimensions.bottomChamber.y2 - self.poolDimensions.bottomChamber.y1 ),
 
-      x1bottom: model.poolDimensions.leftChamber.centerTop - model.poolDimensions.leftChamber.widthBottom / 2,
-      x2bottom: model.poolDimensions.leftChamber.centerTop + model.poolDimensions.leftChamber.widthBottom / 2,
-      x3bottom: model.poolDimensions.rightChamber.centerTop - model.poolDimensions.rightChamber.widthBottom / 2,
-      x4bottom: model.poolDimensions.rightChamber.centerTop + model.poolDimensions.rightChamber.widthBottom / 2,
+      x1bottom: self.poolDimensions.leftChamber.centerTop - self.poolDimensions.leftChamber.widthBottom / 2,
+      x2bottom: self.poolDimensions.leftChamber.centerTop + self.poolDimensions.leftChamber.widthBottom / 2,
+      x3bottom: self.poolDimensions.rightChamber.centerTop - self.poolDimensions.rightChamber.widthBottom / 2,
+      x4bottom: self.poolDimensions.rightChamber.centerTop + self.poolDimensions.rightChamber.widthBottom / 2,
 
-      ymiddle: model.poolDimensions.bottomChamber.y1
+      ymiddle: self.poolDimensions.bottomChamber.y1
     };
 
     PoolWithFaucetsModel.call( this, globalModel );
