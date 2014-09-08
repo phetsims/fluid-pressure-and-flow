@@ -38,11 +38,6 @@ define( function( require ) {
     } );
   }
 
-  return inherit( PropertySet, FaucetModel, {
-    reset: function() {
-      this.flowRateProperty.reset();
-      this.enabledProperty.reset();
-    }
-  } );
+  return inherit( PropertySet, FaucetModel );
 } );
 
