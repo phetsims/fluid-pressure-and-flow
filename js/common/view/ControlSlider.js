@@ -1,7 +1,7 @@
 // Copyright 2002-2013, University of Colorado Boulder
 
 /**
- * Slider and button for changing fluid density and gravitation.
+ * Slider and button for changing fluid density and gravity.
  * @author Anton Ulyanov, Vasily Shakhov (Mlearner)
  */
 define( function( require ) {
@@ -109,7 +109,7 @@ define( function( require ) {
     this.questionMark.top = this.content.top;
     this.accordionContent.addChild( this.questionMark );
 
-    trackProperty.link( function ( value ) {
+    trackProperty.link( function( value ) {
       valueLabel.text = getPropertyStringFunction();
       valueLabel.center = valueField.center; // keep the value centered in the field
       plusButton.setEnabled( value < trackRange.max );
