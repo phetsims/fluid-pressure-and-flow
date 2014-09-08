@@ -47,7 +47,7 @@ define( function( require ) {
     PropertySet.call( this, {
         isRulerVisible: false,
         isFluxMeterVisible: false,
-        isGridInjectorPressed: false,
+        isGridInjectorPressed: false,//The grid injector can only be fired every so often, in order to prevent too many black particles in the pipe
         isDotsVisible: true,
         isPlay: true,//Whether the sim is paused or running
         measureUnits: 'metric', //metric, english
@@ -148,6 +148,8 @@ define( function( require ) {
             this.gridInjectorElapsedTimeInPressedMode += 0.33 * dt;
           }
         }
+
+        //The grid injector can only be fired every so often, in order to prevent too many black particles in the pipe
         if ( this.gridInjectorElapsedTimeInPressedMode > 5 ) {
           this.isGridInjectorPressed = false;
           this.gridInjectorElapsedTimeInPressedMode = 0;
