@@ -1,8 +1,7 @@
 // Copyright 2002-2013, University of Colorado Boulder
 
 /**
- * Faucet model
- * location, flowRate
+ * Model for the faucet, which is user controlled and allows fluid to flow in from the top left of the screen or down through the bottom of the pool.
  * @author Chris Malley (PixelZoom, Inc.), Vasily Shakhov (Mlearner)
  */
 define( function( require ) {
