@@ -84,7 +84,9 @@ define( function( require ) {
           self.moveToFront();
         },
         endDrag: function() {
-          if ( containerBounds.intersectsBounds( self.visibleBounds ) ) {
+
+          //Return the barometer to the toolbox if its center is within the toolbox bounds, see #57
+          if ( containerBounds.containsPoint( self.visibleBounds.center ) ) {
             barometerPositionProperty.reset();
           }
         }
