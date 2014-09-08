@@ -31,10 +31,8 @@ define( function( require ) {
     } );
 
     // when disabled, turn off the faucet.
-    thisFaucet.enabledProperty.link( function( enabled ) {
-      if ( !enabled ) {
-        thisFaucet.flowRate = 0;
-      }
+    thisFaucet.enabledProperty.onValue( false, function() {
+      thisFaucet.flowRate = 0;
     } );
   }
 
