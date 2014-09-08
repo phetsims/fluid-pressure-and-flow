@@ -35,7 +35,7 @@ define( function( require ) {
     MysteryPoolView: require( 'UNDER_PRESSURE/mystery-pool/view/MysteryPoolView' )
   };
 
-  function UnderPressureView( model ) {
+  function UnderPressureView( underPressureModel ) {
     var self = this;
     ScreenView.call( this, { renderer: 'svg' } );
 
@@ -45,24 +45,24 @@ define( function( require ) {
       70 ); //1m = 70px, (0,0) - top left corner
 
     //sky, earth and controls
-    var backgroundNode = new BackgroundNode( model, mvt );
+    var backgroundNode = new BackgroundNode( underPressureModel, mvt );
     this.addChild( backgroundNode );
     backgroundNode.moveToBack();
 
     var scenes = {};
-    model.scenes.forEach( function( name ) {
-      scenes[name] = new SceneView[name + 'PoolView']( model.sceneModels[name], mvt, self.layoutBounds );
+    underPressureModel.scenes.forEach( function( name ) {
+      scenes[name] = new SceneView[name + 'PoolView']( underPressureModel.sceneModels[name], mvt, self.layoutBounds );
       scenes[name].visible = false;
       self.addChild( scenes[name] );
     } );
 
 
     //control panel
-    this.controlPanel = new ControlPanel( model, 625, 5 );
+    this.controlPanel = new ControlPanel( underPressureModel, 625, 5 );
     this.addChild( this.controlPanel );
 
     //control sliders
-    this.fluidDensitySlider = new ControlSlider( model, model.fluidDensityProperty, model.units.getFluidDensityString, model.fluidDensityRange, {
+    this.fluidDensitySlider = new ControlSlider( underPressureModel, underPressureModel.fluidDensityProperty, underPressureModel.units.getFluidDensityString, underPressureModel.fluidDensityRange, {
       x: 585,
       y: 250,
       title: fluidDensityString,
@@ -73,17 +73,17 @@ define( function( require ) {
         },
         {
           title: GasolineString,
-          value: model.fluidDensityRange.min
+          value: underPressureModel.fluidDensityRange.min
         },
         {
           title: HoneyString,
-          value: model.fluidDensityRange.max
+          value: underPressureModel.fluidDensityRange.max
         }
       ]
     } );
     this.addChild( this.fluidDensitySlider );
 
-    this.gravitySlider = new ControlSlider( model, model.gravityProperty, model.units.getGravityString, model.gravityRange, {
+    this.gravitySlider = new ControlSlider( underPressureModel, underPressureModel.gravityProperty, underPressureModel.units.getGravityString, underPressureModel.gravityRange, {
       x: 585,
       y: 360,
       title: gravityString,
@@ -95,18 +95,18 @@ define( function( require ) {
         },
         {
           title: MarsString,
-          value: model.gravityRange.min
+          value: underPressureModel.gravityRange.min
         },
         {
           title: JupiterString,
-          value: model.gravityRange.max
+          value: underPressureModel.gravityRange.max
         }
       ]
     } );
     this.addChild( this.gravitySlider );
 
-    model.mysteryChoiceProperty.link( function( choice, oldChoice ) {
-      if ( model.currentScene === 'Mystery' ) {
+    underPressureModel.mysteryChoiceProperty.link( function( choice, oldChoice ) {
+      if ( underPressureModel.currentScene === 'Mystery' ) {
         self[choice + 'Slider'].disable();
         if ( oldChoice ) {
           self[oldChoice + 'Slider'].enable();
@@ -114,9 +114,9 @@ define( function( require ) {
       }
     } );
 
-    model.currentSceneProperty.link( function( currentScene ) {
+    underPressureModel.currentSceneProperty.link( function( currentScene ) {
       if ( currentScene === 'Mystery' ) {
-        self[model.mysteryChoice + 'Slider'].disable();
+        self[underPressureModel.mysteryChoice + 'Slider'].disable();
       }
       else {
         self.gravitySlider.enable();
@@ -126,14 +126,14 @@ define( function( require ) {
 
     // add reset button
     this.addChild( new ResetAllButton( {
-      listener: function() { model.reset(); },
-      scale: 0.66, x: 745, y: model.height - 25
+      listener: function() { underPressureModel.reset(); },
+      scale: 0.66, x: 745, y: underPressureModel.height - 25
     } ) );
 
     this.barometersContainer = new Rectangle( 0, 0, 100, 130, 10, 10, {stroke: 'gray', lineWidth: 1, fill: '#f2fa6a', x: 520, y: 5} );
     this.addChild( this.barometersContainer );
 
-    this.addChild( new SceneChoiceNode( model, 10, 260 ) );
+    this.addChild( new SceneChoiceNode( underPressureModel, 10, 260 ) );
 
     //resize control panels
     var panels = [this.controlPanel, scenes.Mystery.mysteryPoolControls.choicePanel],
@@ -148,17 +148,17 @@ define( function( require ) {
     this.barometersContainer.x = this.controlPanel.x - 10 - this.barometersContainer.width;
 
 
-    model.currentSceneProperty.link( function( value, oldValue ) {
+    underPressureModel.currentSceneProperty.link( function( value, oldValue ) {
       scenes[value].visible = true;
       if ( oldValue ) {
         scenes[oldValue].visible = false;
       }
     } );
 
-    this.addChild( new UnderPressureRuler( model, mvt, self.layoutBounds ) );
+    this.addChild( new UnderPressureRuler( underPressureModel, mvt, self.layoutBounds ) );
 
     //barometers
-    this.addChild( new BarometersContainer( model, mvt, this.barometersContainer.visibleBounds, self.layoutBounds ) );
+    this.addChild( new BarometersContainer( underPressureModel, mvt, this.barometersContainer.visibleBounds, self.layoutBounds ) );
   }
 
   return inherit( ScreenView, UnderPressureView );
