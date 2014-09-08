@@ -13,15 +13,15 @@ define( function( require ) {
   var Path = require( 'SCENERY/nodes/Path' );
   var Vector2 = require( 'DOT/Vector2' );
 
-  function MassStackNode( model, mvt ) {
+  function MassStackNode( model, modelViewTransform ) {
     var self = this;
     Node.call( this, {
-      x: mvt.modelToViewX( model.poolDimensions.leftOpening.x1 )
+      x: modelViewTransform.modelToViewX( model.poolDimensions.leftOpening.x1 )
     } );
 
     var totalHeight = 0; //height of all masses
 
-    var placementRectWidth = mvt.modelToViewX( model.poolDimensions.leftOpening.x2 - model.poolDimensions.leftOpening.x1 );
+    var placementRectWidth = modelViewTransform.modelToViewX( model.poolDimensions.leftOpening.x2 - model.poolDimensions.leftOpening.x1 );
 
     var placementRect = new Rectangle( 0, 0, placementRectWidth, 0 );
     var placementRectBorder = new Path( new Shape(),
@@ -55,14 +55,14 @@ define( function( require ) {
     };
 
     model.globalModel.leftDisplacementProperty.link( function( displacement ) {
-      self.bottom = mvt.modelToViewY( model.poolDimensions.leftOpening.y2 - model.LEFT_WATER_HEIGHT + displacement );
+      self.bottom = modelViewTransform.modelToViewY( model.poolDimensions.leftOpening.y2 - model.LEFT_WATER_HEIGHT + displacement );
     } );
 
     model.masses.forEach( function( massModel ) {
       massModel.isDraggingProperty.link( function( isDragging ) {
         if ( isDragging ) {
-          var placementrectHeight = mvt.modelToViewY( massModel.height );
-          var placementrectY1 = -placementrectHeight - mvt.modelToViewY( totalHeight );
+          var placementrectHeight = modelViewTransform.modelToViewY( massModel.height );
+          var placementrectY1 = -placementrectHeight - modelViewTransform.modelToViewY( totalHeight );
           var newBorder = new Shape().moveTo( 0, placementrectY1 )
             .lineTo( 0, placementrectY1 + placementrectHeight )
             .lineTo( placementRectWidth, placementrectY1 + placementrectHeight )

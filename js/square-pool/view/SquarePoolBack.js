@@ -19,28 +19,28 @@ define( function( require ) {
   var grassImg = require( 'image!UNDER_PRESSURE/images/grass-texture.png' );
   var cementImg = require( 'image!UNDER_PRESSURE/images/cement-texture-dark.jpg' );
 
-  function SquarePoolBack( model, mvt ) {
+  function SquarePoolBack( model, modelViewTransform ) {
     Node.call( this );
 
     //grass
     var grassPattern = new Pattern( grassImg ).setTransformMatrix( Matrix3.scale( 0.25 ) );
     var grassRectYOffset = 1;
     var grassRectHeight = 10;
-    this.addChild( new Rectangle( -1000, grassRectYOffset, 1000 + mvt.modelToViewX( model.poolDimensions.x1 ), grassRectHeight, {
+    this.addChild( new Rectangle( -1000, grassRectYOffset, 1000 + modelViewTransform.modelToViewX( model.poolDimensions.x1 ), grassRectHeight, {
       fill: grassPattern,
-      y: mvt.modelToViewY( model.globalModel.skyGroundBoundY ) - grassRectHeight
+      y: modelViewTransform.modelToViewY( model.globalModel.skyGroundBoundY ) - grassRectHeight
     } ) );
-    this.addChild( new Rectangle( mvt.modelToViewX( model.poolDimensions.x2 ), grassRectYOffset, 2000, grassRectHeight, {
+    this.addChild( new Rectangle( modelViewTransform.modelToViewX( model.poolDimensions.x2 ), grassRectYOffset, 2000, grassRectHeight, {
       fill: grassPattern,
-      y: mvt.modelToViewY( model.globalModel.skyGroundBoundY ) - grassRectHeight
+      y: modelViewTransform.modelToViewY( model.globalModel.skyGroundBoundY ) - grassRectHeight
     } ) );
 
     //cement border
     var shape = new Shape()
-      .moveTo( mvt.modelToViewX( model.poolDimensions.x1 ) - 2, mvt.modelToViewY( model.poolDimensions.y1 ) )
-      .lineTo( mvt.modelToViewX( model.poolDimensions.x1 ) - 2, mvt.modelToViewY( model.poolDimensions.y2 ) + 2 )
-      .lineTo( mvt.modelToViewX( model.poolDimensions.x2 ) + 2, mvt.modelToViewY( model.poolDimensions.y2 ) + 2 )
-      .lineTo( mvt.modelToViewX( model.poolDimensions.x2 ) + 2, mvt.modelToViewY( model.poolDimensions.y1 ) );
+      .moveTo( modelViewTransform.modelToViewX( model.poolDimensions.x1 ) - 2, modelViewTransform.modelToViewY( model.poolDimensions.y1 ) )
+      .lineTo( modelViewTransform.modelToViewX( model.poolDimensions.x1 ) - 2, modelViewTransform.modelToViewY( model.poolDimensions.y2 ) + 2 )
+      .lineTo( modelViewTransform.modelToViewX( model.poolDimensions.x2 ) + 2, modelViewTransform.modelToViewY( model.poolDimensions.y2 ) + 2 )
+      .lineTo( modelViewTransform.modelToViewX( model.poolDimensions.x2 ) + 2, modelViewTransform.modelToViewY( model.poolDimensions.y1 ) );
 
     this.addChild( new Path( shape, {
       stroke: new Pattern( cementImg ),
@@ -48,14 +48,14 @@ define( function( require ) {
       lineJoin: 'round'
     } ) );
 
-    this.addChild( new UPFaucetNode( model.outputFaucet, 150, mvt ) );
+    this.addChild( new UPFaucetNode( model.outputFaucet, 150, modelViewTransform ) );
 
     //white background for pool
-    this.addChild( new Rectangle( mvt.modelToViewX( model.poolDimensions.x1 ), mvt.modelToViewY( model.poolDimensions.y1 ) - 1, mvt.modelToViewX( model.poolDimensions.x2 - model.poolDimensions.x1 ), mvt.modelToViewY( model.poolDimensions.y2 - model.poolDimensions.y1 ) + 1, {
+    this.addChild( new Rectangle( modelViewTransform.modelToViewX( model.poolDimensions.x1 ), modelViewTransform.modelToViewY( model.poolDimensions.y1 ) - 1, modelViewTransform.modelToViewX( model.poolDimensions.x2 - model.poolDimensions.x1 ), modelViewTransform.modelToViewY( model.poolDimensions.y2 - model.poolDimensions.y1 ) + 1, {
       fill: '#f3f0e9'
     } ) );
 
-    this.addChild( new UPFaucetNode( model.inputFaucet, 3000, mvt ) );
+    this.addChild( new UPFaucetNode( model.inputFaucet, 3000, modelViewTransform ) );
   }
 
   return inherit( Node, SquarePoolBack );

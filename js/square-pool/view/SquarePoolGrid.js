@@ -16,7 +16,7 @@ define( function( require ) {
   var metersStringPattern = require( 'string!UNDER_PRESSURE/readoutMeters' );
   var feetStringPattern = require( 'string!UNDER_PRESSURE/readoutFeet' );
 
-  function SquarePoolGrid( model, mvt ) {
+  function SquarePoolGrid( model, modelViewTransform ) {
     var self = this;
     Node.call( this );
 
@@ -25,21 +25,21 @@ define( function( require ) {
       fontWeight: 'bold'
     };
 
-    this.addChild( new GridLinesNode( model.globalModel, mvt, model.poolDimensions.x1, model.poolDimensions.y1, model.poolDimensions.x2, model.poolDimensions.y2 + 0.3 ) );
+    this.addChild( new GridLinesNode( model.globalModel, modelViewTransform, model.poolDimensions.x1, model.poolDimensions.y1, model.poolDimensions.x2, model.poolDimensions.y2 + 0.3 ) );
 
     var metersLabels = new Node();
     for ( var i = 0; i < 4; i++ ) {
       metersLabels.addChild( new Text( StringUtils.format( metersStringPattern, i ), _.extend( {
-        right: mvt.modelToViewX( model.poolDimensions.x1 ) - 8,
-        centerY: mvt.modelToViewY( model.globalModel.skyGroundBoundY + i )
+        right: modelViewTransform.modelToViewX( model.poolDimensions.x1 ) - 8,
+        centerY: modelViewTransform.modelToViewY( model.globalModel.skyGroundBoundY + i )
       }, fontOptions ) ) );
     }
 
     var feetLabels = new Node();
     for ( i = 0; i < 11; i++ ) {
       feetLabels.addChild( new Text( StringUtils.format( feetStringPattern, i ), _.extend( {
-        right: mvt.modelToViewX( model.poolDimensions.x1 ) - 8,
-        centerY: mvt.modelToViewY( model.globalModel.skyGroundBoundY + model.globalModel.units.feetToMeters( i ) )
+        right: modelViewTransform.modelToViewX( model.poolDimensions.x1 ) - 8,
+        centerY: modelViewTransform.modelToViewY( model.globalModel.skyGroundBoundY + model.globalModel.units.feetToMeters( i ) )
       }, fontOptions ) ) );
     }
 

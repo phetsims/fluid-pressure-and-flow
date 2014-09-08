@@ -12,17 +12,17 @@ define( function( require ) {
   var LinearGradient = require( 'SCENERY/util/LinearGradient' );
   var Rectangle = require( 'SCENERY/nodes/Rectangle' );
 
-  function BackgroundNode( model, mvt ) {
+  function BackgroundNode( model, modelViewTransform ) {
     Node.call( this );
 
     //sky
-    var sky = new Rectangle( -2000, -1000, 5000, 1000 + mvt.modelToViewY( model.skyGroundBoundY ) );
+    var sky = new Rectangle( -2000, -1000, 5000, 1000 + modelViewTransform.modelToViewY( model.skyGroundBoundY ) );
 
     this.addChild( sky );
 
     model.isAtmosphereProperty.link( function( isAtmosphere ) {
       if ( isAtmosphere ) {
-        sky.fill = new LinearGradient( 0, 0, 0, mvt.modelToViewY( model.skyGroundBoundY ) )
+        sky.fill = new LinearGradient( 0, 0, 0, modelViewTransform.modelToViewY( model.skyGroundBoundY ) )
           .addColorStop( 0, '#c4e6f5' )
           .addColorStop( 1, '#daedfa' );
       }
@@ -32,7 +32,7 @@ define( function( require ) {
     } );
 
     //earth
-    this.addChild( new Rectangle( -2000, mvt.modelToViewY( model.skyGroundBoundY ), 5000, model.height - mvt.modelToViewY( model.skyGroundBoundY ) + 1000, {
+    this.addChild( new Rectangle( -2000, modelViewTransform.modelToViewY( model.skyGroundBoundY ), 5000, model.height - modelViewTransform.modelToViewY( model.skyGroundBoundY ) + 1000, {
       fill: '#93774c'
     } ) );
 

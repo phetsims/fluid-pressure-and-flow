@@ -18,7 +18,7 @@ define( function( require ) {
   var grassImg = require( 'image!UNDER_PRESSURE/images/grass-texture.png' );
   var cementImg = require( 'image!UNDER_PRESSURE/images/cement-texture-dark.jpg' );
 
-  function ChamberPoolBack( model, mvt ) {
+  function ChamberPoolBack( model, modelViewTransform ) {
     Node.call( this );
 
     //grass
@@ -26,35 +26,35 @@ define( function( require ) {
     var grassRectYOffset = 1;
     var grassRectHeight = 10;
 
-    this.addChild( new Rectangle( -1000, grassRectYOffset, 1000 + mvt.modelToViewX( model.poolDimensions.leftOpening.x1 ), grassRectHeight, {
+    this.addChild( new Rectangle( -1000, grassRectYOffset, 1000 + modelViewTransform.modelToViewX( model.poolDimensions.leftOpening.x1 ), grassRectHeight, {
       fill: grassPattern,
-      y: mvt.modelToViewY( model.globalModel.skyGroundBoundY ) - grassRectHeight
+      y: modelViewTransform.modelToViewY( model.globalModel.skyGroundBoundY ) - grassRectHeight
     } ) );
 
-    this.addChild( new Rectangle( mvt.modelToViewX( model.poolDimensions.leftOpening.x2 ), grassRectYOffset, mvt.modelToViewX( model.poolDimensions.rightOpening.x1 - model.poolDimensions.leftOpening.x2 ), grassRectHeight, {
+    this.addChild( new Rectangle( modelViewTransform.modelToViewX( model.poolDimensions.leftOpening.x2 ), grassRectYOffset, modelViewTransform.modelToViewX( model.poolDimensions.rightOpening.x1 - model.poolDimensions.leftOpening.x2 ), grassRectHeight, {
       fill: grassPattern,
-      y: mvt.modelToViewY( model.globalModel.skyGroundBoundY ) - grassRectHeight
+      y: modelViewTransform.modelToViewY( model.globalModel.skyGroundBoundY ) - grassRectHeight
     } ) );
 
-    this.addChild( new Rectangle( mvt.modelToViewX( model.poolDimensions.rightOpening.x2 ), grassRectYOffset, 1000, grassRectHeight, {
+    this.addChild( new Rectangle( modelViewTransform.modelToViewX( model.poolDimensions.rightOpening.x2 ), grassRectYOffset, 1000, grassRectHeight, {
       fill: grassPattern,
-      y: mvt.modelToViewY( model.globalModel.skyGroundBoundY ) - grassRectHeight
+      y: modelViewTransform.modelToViewY( model.globalModel.skyGroundBoundY ) - grassRectHeight
     } ) );
 
     //calculated view coordinates for water
-    var leftOpeningX1 = mvt.modelToViewX( model.poolDimensions.leftOpening.x1 ),
-      leftOpeningX2 = mvt.modelToViewX( model.poolDimensions.leftOpening.x2 ),
-      leftChamberX1 = mvt.modelToViewX( model.poolDimensions.leftChamber.x1 ),
-      leftChamberX2 = mvt.modelToViewX( model.poolDimensions.leftChamber.x2 ),
-      rightChamberX1 = mvt.modelToViewX( model.poolDimensions.rightChamber.x1 ),
-      rightChamberX2 = mvt.modelToViewX( model.poolDimensions.rightChamber.x2 ),
-      rightOpeningX1 = mvt.modelToViewX( model.poolDimensions.rightOpening.x1 ),
-      rightOpeningX2 = mvt.modelToViewX( model.poolDimensions.rightOpening.x2 ),
-      leftOpeningY1 = mvt.modelToViewY( model.poolDimensions.leftOpening.y1 ),
-      leftOpeningY2 = mvt.modelToViewY( model.poolDimensions.leftOpening.y2 ),
-      leftChamberY2 = mvt.modelToViewY( model.poolDimensions.leftChamber.y2 ),
-      passageY1 = mvt.modelToViewY( model.poolDimensions.horizontalPassage.y1 ),
-      passageY2 = mvt.modelToViewY( model.poolDimensions.horizontalPassage.y2 );
+    var leftOpeningX1 = modelViewTransform.modelToViewX( model.poolDimensions.leftOpening.x1 ),
+      leftOpeningX2 = modelViewTransform.modelToViewX( model.poolDimensions.leftOpening.x2 ),
+      leftChamberX1 = modelViewTransform.modelToViewX( model.poolDimensions.leftChamber.x1 ),
+      leftChamberX2 = modelViewTransform.modelToViewX( model.poolDimensions.leftChamber.x2 ),
+      rightChamberX1 = modelViewTransform.modelToViewX( model.poolDimensions.rightChamber.x1 ),
+      rightChamberX2 = modelViewTransform.modelToViewX( model.poolDimensions.rightChamber.x2 ),
+      rightOpeningX1 = modelViewTransform.modelToViewX( model.poolDimensions.rightOpening.x1 ),
+      rightOpeningX2 = modelViewTransform.modelToViewX( model.poolDimensions.rightOpening.x2 ),
+      leftOpeningY1 = modelViewTransform.modelToViewY( model.poolDimensions.leftOpening.y1 ),
+      leftOpeningY2 = modelViewTransform.modelToViewY( model.poolDimensions.leftOpening.y2 ),
+      leftChamberY2 = modelViewTransform.modelToViewY( model.poolDimensions.leftChamber.y2 ),
+      passageY1 = modelViewTransform.modelToViewY( model.poolDimensions.horizontalPassage.y1 ),
+      passageY2 = modelViewTransform.modelToViewY( model.poolDimensions.horizontalPassage.y2 );
 
     //cement border
     var shape = new Shape()

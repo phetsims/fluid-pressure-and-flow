@@ -11,8 +11,8 @@ define( function( require ) {
   var SquarePoolView = require( 'UNDER_PRESSURE/square-pool/view/SquarePoolView' );
   var MysteryPoolControls = require( 'UNDER_PRESSURE/mystery-pool/view/MysteryPoolControls' );
 
-  function MysteryPoolView( model, mvt ) {
-    SquarePoolView.call( this, model, mvt );
+  function MysteryPoolView( model, modelViewTransform ) {
+    SquarePoolView.call( this, model, modelViewTransform );
 
     this.mysteryPoolControls = new MysteryPoolControls( model );
     this.addChild( this.mysteryPoolControls );

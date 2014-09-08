@@ -12,34 +12,34 @@ define( function( require ) {
   var Path = require( 'SCENERY/nodes/Path' );
   var LinearGradient = require( 'SCENERY/util/LinearGradient' );
 
-  function ChamberPoolWaterNode( model, mvt ) {
+  function ChamberPoolWaterNode( model, modelViewTransform ) {
     Node.call( this );
 
     var waterShape = new Shape(),
       waterPath = new Path();
 
-    var maxHeight = mvt.modelToViewY( model.MAX_HEIGHT ),
-      yMax = mvt.modelToViewY( model.globalModel.skyGroundBoundY + model.MAX_HEIGHT );
+    var maxHeight = modelViewTransform.modelToViewY( model.MAX_HEIGHT ),
+      yMax = modelViewTransform.modelToViewY( model.globalModel.skyGroundBoundY + model.MAX_HEIGHT );
 
     //calculated view coordinates for water
-    var leftOpeningX1 = mvt.modelToViewX( model.poolDimensions.leftOpening.x1 ),
-      leftOpeningX2 = mvt.modelToViewX( model.poolDimensions.leftOpening.x2 ),
-      leftChamberX1 = mvt.modelToViewX( model.poolDimensions.leftChamber.x1 ),
-      leftChamberX2 = mvt.modelToViewX( model.poolDimensions.leftChamber.x2 ),
-      rightChamberX1 = mvt.modelToViewX( model.poolDimensions.rightChamber.x1 ),
-      rightChamberX2 = mvt.modelToViewX( model.poolDimensions.rightChamber.x2 ),
-      rightOpeningX1 = mvt.modelToViewX( model.poolDimensions.rightOpening.x1 ),
-      rightOpeningX2 = mvt.modelToViewX( model.poolDimensions.rightOpening.x2 ),
-      leftOpeningY2 = mvt.modelToViewY( model.poolDimensions.leftOpening.y2 ),
-      leftChamberY2 = mvt.modelToViewY( model.poolDimensions.leftChamber.y2 ),
-      passageY1 = mvt.modelToViewY( model.poolDimensions.horizontalPassage.y1 ),
-      passageY2 = mvt.modelToViewY( model.poolDimensions.horizontalPassage.y2 );
+    var leftOpeningX1 = modelViewTransform.modelToViewX( model.poolDimensions.leftOpening.x1 ),
+      leftOpeningX2 = modelViewTransform.modelToViewX( model.poolDimensions.leftOpening.x2 ),
+      leftChamberX1 = modelViewTransform.modelToViewX( model.poolDimensions.leftChamber.x1 ),
+      leftChamberX2 = modelViewTransform.modelToViewX( model.poolDimensions.leftChamber.x2 ),
+      rightChamberX1 = modelViewTransform.modelToViewX( model.poolDimensions.rightChamber.x1 ),
+      rightChamberX2 = modelViewTransform.modelToViewX( model.poolDimensions.rightChamber.x2 ),
+      rightOpeningX1 = modelViewTransform.modelToViewX( model.poolDimensions.rightOpening.x1 ),
+      rightOpeningX2 = modelViewTransform.modelToViewX( model.poolDimensions.rightOpening.x2 ),
+      leftOpeningY2 = modelViewTransform.modelToViewY( model.poolDimensions.leftOpening.y2 ),
+      leftChamberY2 = modelViewTransform.modelToViewY( model.poolDimensions.leftChamber.y2 ),
+      passageY1 = modelViewTransform.modelToViewY( model.poolDimensions.horizontalPassage.y1 ),
+      passageY2 = modelViewTransform.modelToViewY( model.poolDimensions.horizontalPassage.y2 );
 
     model.globalModel.leftDisplacementProperty.link( function( displacement ) {
 
       //new left and right levels of water
-      var leftY = mvt.modelToViewY( model.poolDimensions.leftOpening.y2 - model.LEFT_WATER_HEIGHT + displacement ),
-        rightY = mvt.modelToViewY( model.poolDimensions.rightOpening.y2 - model.LEFT_WATER_HEIGHT - displacement / model.LENGTH_RATIO );
+      var leftY = modelViewTransform.modelToViewY( model.poolDimensions.leftOpening.y2 - model.LEFT_WATER_HEIGHT + displacement ),
+        rightY = modelViewTransform.modelToViewY( model.poolDimensions.rightOpening.y2 - model.LEFT_WATER_HEIGHT - displacement / model.LENGTH_RATIO );
 
       waterShape = new Shape()
         .moveTo( leftOpeningX1, leftY )

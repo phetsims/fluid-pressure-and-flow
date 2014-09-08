@@ -23,7 +23,7 @@ define( function( require ) {
   var units_metersString = require( 'string!UNDER_PRESSURE/m' );
   var units_feetString = require( 'string!UNDER_PRESSURE/ft' );
 
-  function UnderPressureRuler( model, mvt, dragBounds ) {
+  function UnderPressureRuler( model, modelViewTransform, dragBounds ) {
     var self = this;
     Node.call( this, { cursor: 'pointer', renderer: 'svg', cssTransform: true } );
 
@@ -48,10 +48,10 @@ define( function( require ) {
     } ) );
     this.addChild( closeButton );
 
-    var MetersRuler = new RulerNode( mvt.modelToViewX( 5 ), 50, mvt.modelToViewX( 1 ), ['0', '1', '2', '3', '4', '5'], units_metersString, {minorTicksPerMajorTick: 4, unitsFont: '12px Arial', rotation: Math.PI / 2 } );
+    var MetersRuler = new RulerNode( modelViewTransform.modelToViewX( 5 ), 50, modelViewTransform.modelToViewX( 1 ), ['0', '1', '2', '3', '4', '5'], units_metersString, {minorTicksPerMajorTick: 4, unitsFont: '12px Arial', rotation: Math.PI / 2 } );
     this.addChild( MetersRuler );
 
-    var FeetRuler = new RulerNode( mvt.modelToViewX( model.units.feetToMeters( 10 ) ), 50, mvt.modelToViewX( model.units.feetToMeters( 1 ) ), ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10'], units_feetString, {minorTicksPerMajorTick: 4, unitsFont: '12px Arial', rotation: Math.PI / 2 } );
+    var FeetRuler = new RulerNode( modelViewTransform.modelToViewX( model.units.feetToMeters( 10 ) ), 50, modelViewTransform.modelToViewX( model.units.feetToMeters( 1 ) ), ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10'], units_feetString, {minorTicksPerMajorTick: 4, unitsFont: '12px Arial', rotation: Math.PI / 2 } );
     this.addChild( FeetRuler );
 
     closeButton.translation = new Vector2( -this.width + closeButton.width, -closeButton.height );
@@ -76,7 +76,7 @@ define( function( require ) {
     } );
 
     //handlers
-    this.addInputListener( new MovableDragHandler( { locationProperty: model.rulerPositionProperty, dragBounds: dragBounds.shifted(this.width / 2, -this.height / 2 ) },
+    this.addInputListener( new MovableDragHandler( { locationProperty: model.rulerPositionProperty, dragBounds: dragBounds.shifted( this.width / 2, -this.height / 2 ) },
       ModelViewTransform2.createIdentity() ) );
 
   }

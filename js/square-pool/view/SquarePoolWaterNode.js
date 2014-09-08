@@ -10,17 +10,17 @@ define( function( require ) {
   var Rectangle = require( 'SCENERY/nodes/Rectangle' );
   var LinearGradient = require( 'SCENERY/util/LinearGradient' );
 
-  function SquarePoolWaterNode( model, mvt ) {
+  function SquarePoolWaterNode( model, modelViewTransform ) {
     var self = this;
     Rectangle.call( this, 0, 0, 1, 1, { lineWidth: 1 } );
 
     //height of water, px
     var viewHeight;
 
-    var viewWidth = mvt.modelToViewX( model.poolDimensions.x2 - model.poolDimensions.x1 ),//width of pool, px
-      maxHeight = mvt.modelToViewY( model.MAX_HEIGHT ),//max height of water, px
-      xMin = mvt.modelToViewX( model.poolDimensions.x1 ),//left x point of pool, px
-      yMax = mvt.modelToViewY( model.poolDimensions.y2 );//bottom y point of pool, px
+    var viewWidth = modelViewTransform.modelToViewX( model.poolDimensions.x2 - model.poolDimensions.x1 ),//width of pool, px
+      maxHeight = modelViewTransform.modelToViewY( model.MAX_HEIGHT ),//max height of water, px
+      xMin = modelViewTransform.modelToViewX( model.poolDimensions.x1 ),//left x point of pool, px
+      yMax = modelViewTransform.modelToViewY( model.poolDimensions.y2 );//bottom y point of pool, px
 
     model.globalModel.waterColorModel.waterColorProperty.link( function() {
       self.fill = new LinearGradient( 0, yMax, 0, yMax - maxHeight )

@@ -13,21 +13,21 @@ define( function( require ) {
   var TrapezoidPoolWaterNode = require( 'trapezoid-pool/view/TrapezoidPoolWaterNode' );
   var TrapezoidPoolGrid = require( 'trapezoid-pool/view/TrapezoidPoolGrid' );
 
-  function TrapezoidPoolView( model, mvt ) {
+  function TrapezoidPoolView( model, modelViewTransform ) {
     Node.call( this, { renderer: 'svg' } );
 
     //pool
-    this.addChild( new TrapezoidPoolBack( model, mvt ) );
+    this.addChild( new TrapezoidPoolBack( model, modelViewTransform ) );
 
     //fluids
-    this.addChild( new FaucetFluidNode( model.inputFaucet, model, mvt, mvt.modelToViewY( model.poolDimensions.bottomChamber.y2 - model.inputFaucet.location.y ) ) );
-    this.addChild( new FaucetFluidNode( model.outputFaucet, model, mvt, 1000 ) );
+    this.addChild( new FaucetFluidNode( model.inputFaucet, model, modelViewTransform, modelViewTransform.modelToViewY( model.poolDimensions.bottomChamber.y2 - model.inputFaucet.location.y ) ) );
+    this.addChild( new FaucetFluidNode( model.outputFaucet, model, modelViewTransform, 1000 ) );
 
     //water
-    this.addChild( new TrapezoidPoolWaterNode( model, mvt ) );
+    this.addChild( new TrapezoidPoolWaterNode( model, modelViewTransform ) );
 
     //grid
-    this.addChild( new TrapezoidPoolGrid( model, mvt ) );
+    this.addChild( new TrapezoidPoolGrid( model, modelViewTransform ) );
   }
 
   return inherit( Node, TrapezoidPoolView );

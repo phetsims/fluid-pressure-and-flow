@@ -14,25 +14,25 @@ define( function( require ) {
   var MassStackNode = require( 'chamber-pool/view/MassStackNode' );
   var ChamberPoolGrid = require( 'chamber-pool/view/ChamberPoolGrid' );
 
-  function ChamberPoolView( model, mvt, dragBounds ) {
+  function ChamberPoolView( model, modelViewTransform, dragBounds ) {
     var self = this;
 
     Node.call( this, { renderer: 'svg' } );
 
     //pool
-    this.addChild( new ChamberPoolBack( model, mvt ) );
+    this.addChild( new ChamberPoolBack( model, modelViewTransform ) );
 
     //water
-    this.addChild( new ChamberPoolWaterNode( model, mvt ) );
+    this.addChild( new ChamberPoolWaterNode( model, modelViewTransform ) );
 
     model.masses.forEach( function( massModel ) {
-      self.addChild( new MassViewNode( massModel, model, mvt, dragBounds ) );
+      self.addChild( new MassViewNode( massModel, model, modelViewTransform, dragBounds ) );
     } );
 
-    this.addChild( new MassStackNode( model, mvt ) );
+    this.addChild( new MassStackNode( model, modelViewTransform ) );
 
     //grid
-    this.addChild( new ChamberPoolGrid( model, mvt ) );
+    this.addChild( new ChamberPoolGrid( model, modelViewTransform ) );
   }
 
   return inherit( Node, ChamberPoolView );

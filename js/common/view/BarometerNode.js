@@ -24,14 +24,14 @@ define( function( require ) {
 
   /**
    * @param {UnderPressureModel} model of simulation
-   * @param {ModelViewTransform2} mvt , Transform between model and view coordinate frames
+   * @param {ModelViewTransform2} modelViewTransform , Transform between model and view coordinate frames
    * @param {Property} barometerValueProperty - value {Pa}, associated with current barometer instance
    * @param {Property} barometerPositionProperty - position (Vector2), associated with current barometer instance
    * @param {Bounds2} containerBounds - bounds of container for all barometers, needed to snap barometer to initial position when it in container
    * @param {Bounds2} dragBounds - bounds that define where the barometer may be dragged
    */
 
-  function BarometerNode( model, mvt, barometerValueProperty, barometerPositionProperty, containerBounds, dragBounds ) {
+  function BarometerNode( model, modelViewTransform, barometerValueProperty, barometerPositionProperty, containerBounds, dragBounds ) {
     var self = this;
 
     Node.call( this, {cursor: 'pointer', pickable: true, x: barometerPositionProperty.get().x, y: barometerPositionProperty.get().y} );
@@ -92,7 +92,7 @@ define( function( require ) {
 
     this.addInputListener( barometerDragHandler );
 
-    barometerValueProperty.set( model.getPressureAtCoords( mvt.viewToModelX( self.centerX ), mvt.viewToModelY( self.bottom ) ) );
+    barometerValueProperty.set( model.getPressureAtCoords( modelViewTransform.viewToModelX( self.centerX ), modelViewTransform.viewToModelY( self.bottom ) ) );
 
     var setText = function() {
       text.text = model.units.getPressureString[model.measureUnits]( barometerValueProperty.get() );
@@ -104,27 +104,27 @@ define( function( require ) {
     var dy = barometerPositionProperty.get().y - self.bottom;
     //we can't use  self.centerX,self.bottom because these vars not updated yet
     barometerPositionProperty.link( function( position ) {
-      barometerValueProperty.set( model.getPressureAtCoords( mvt.viewToModelX( position.x ), mvt.viewToModelY( position.y - dy ) ) );
+      barometerValueProperty.set( model.getPressureAtCoords( modelViewTransform.viewToModelX( position.x ), modelViewTransform.viewToModelY( position.y - dy ) ) );
     } );
 
     model.currentSceneProperty.link( function() {
-      barometerValueProperty.set( model.getPressureAtCoords( mvt.viewToModelX( self.centerX ), mvt.viewToModelY( self.bottom ) ) );
+      barometerValueProperty.set( model.getPressureAtCoords( modelViewTransform.viewToModelX( self.centerX ), modelViewTransform.viewToModelY( self.bottom ) ) );
     } );
 
     model.gravityProperty.link( function() {
-      barometerValueProperty.set( model.getPressureAtCoords( mvt.viewToModelX( self.centerX ), mvt.viewToModelY( self.bottom ) ) );
+      barometerValueProperty.set( model.getPressureAtCoords( modelViewTransform.viewToModelX( self.centerX ), modelViewTransform.viewToModelY( self.bottom ) ) );
     } );
     model.fluidDensityProperty.link( function() {
-      barometerValueProperty.set( model.getPressureAtCoords( mvt.viewToModelX( self.centerX ), mvt.viewToModelY( self.bottom ) ) );
+      barometerValueProperty.set( model.getPressureAtCoords( modelViewTransform.viewToModelX( self.centerX ), modelViewTransform.viewToModelY( self.bottom ) ) );
     } );
     model.isAtmosphereProperty.link( function() {
-      barometerValueProperty.set( model.getPressureAtCoords( mvt.viewToModelX( self.centerX ), mvt.viewToModelY( self.bottom ) ) );
+      barometerValueProperty.set( model.getPressureAtCoords( modelViewTransform.viewToModelX( self.centerX ), modelViewTransform.viewToModelY( self.bottom ) ) );
     } );
     model.currentVolumeProperty.link( function() {
-      barometerValueProperty.set( model.getPressureAtCoords( mvt.viewToModelX( self.centerX ), mvt.viewToModelY( self.bottom ) ) );
+      barometerValueProperty.set( model.getPressureAtCoords( modelViewTransform.viewToModelX( self.centerX ), modelViewTransform.viewToModelY( self.bottom ) ) );
     } );
     model.leftDisplacementProperty.link( function() {
-      barometerValueProperty.set( model.getPressureAtCoords( mvt.viewToModelX( self.centerX ), mvt.viewToModelY( self.bottom ) ) );
+      barometerValueProperty.set( model.getPressureAtCoords( modelViewTransform.viewToModelX( self.centerX ), modelViewTransform.viewToModelY( self.bottom ) ) );
     } );
     barometerValueProperty.link( function() {
       setText();

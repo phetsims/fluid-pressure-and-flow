@@ -12,16 +12,16 @@ define( function( require ) {
   var Path = require( 'SCENERY/nodes/Path' );
   var LinearGradient = require( 'SCENERY/util/LinearGradient' );
 
-  function TrapezoidPoolWaterNode( model, mvt ) {
+  function TrapezoidPoolWaterNode( model, modelViewTransform ) {
     Node.call( this );
 
     var waterShape = new Shape(),
       waterPath = new Path();
 
-    var maxHeight = mvt.modelToViewY( model.MAX_HEIGHT ),//max water height, px
-      yMax = mvt.modelToViewY( model.poolDimensions.leftChamber.y + model.poolDimensions.leftChamber.height ),//bottom y coord of pool, px
-      x1 = mvt.modelToViewX( model.verticles.x1bottom ), //bottom left corner of the pool
-      x4 = mvt.modelToViewX( model.verticles.x4bottom ); //bottom right corner of the pool
+    var maxHeight = modelViewTransform.modelToViewY( model.MAX_HEIGHT ),//max water height, px
+      yMax = modelViewTransform.modelToViewY( model.poolDimensions.leftChamber.y + model.poolDimensions.leftChamber.height ),//bottom y coord of pool, px
+      x1 = modelViewTransform.modelToViewX( model.verticles.x1bottom ), //bottom left corner of the pool
+      x4 = modelViewTransform.modelToViewX( model.verticles.x4bottom ); //bottom right corner of the pool
 
     model.globalModel.waterColorModel.waterColorProperty.link( function() {
       waterPath.fill = new LinearGradient( 0, yMax, 0, yMax - maxHeight )
@@ -32,18 +32,18 @@ define( function( require ) {
     model.volumeProperty.link( function() {
       var viewHeight = model.MAX_HEIGHT * model.volume / model.MAX_VOLUME; //height of water
 
-      var topY = yMax - mvt.modelToViewY( viewHeight ), //y coord for top of the water
+      var topY = yMax - modelViewTransform.modelToViewY( viewHeight ), //y coord for top of the water
         h = Math.min( viewHeight, model.poolDimensions.bottomChamber.y2 - model.poolDimensions.bottomChamber.y1 ); //height in bottom passage
 
       waterShape = new Shape()
-        .moveTo( mvt.modelToViewX( model.poolDimensions.leftChamber.leftBorderFunction( viewHeight ) ), topY )
+        .moveTo( modelViewTransform.modelToViewX( model.poolDimensions.leftChamber.leftBorderFunction( viewHeight ) ), topY )
         .lineTo( x1, yMax )
         .lineTo( x4, yMax )
-        .lineTo( mvt.modelToViewX( model.poolDimensions.rightChamber.rightBorderFunction( viewHeight ) ), topY )
-        .lineTo( mvt.modelToViewX( model.poolDimensions.rightChamber.leftBorderFunction( viewHeight ) ), topY )
-        .lineTo( mvt.modelToViewX( model.poolDimensions.rightChamber.leftBorderFunction( h ) ), yMax - mvt.modelToViewY( h ) )
-        .lineTo( mvt.modelToViewX( model.poolDimensions.leftChamber.rightBorderFunction( h ) ), yMax - mvt.modelToViewY( h ) )
-        .lineTo( mvt.modelToViewX( model.poolDimensions.leftChamber.rightBorderFunction( viewHeight ) ), topY );
+        .lineTo( modelViewTransform.modelToViewX( model.poolDimensions.rightChamber.rightBorderFunction( viewHeight ) ), topY )
+        .lineTo( modelViewTransform.modelToViewX( model.poolDimensions.rightChamber.leftBorderFunction( viewHeight ) ), topY )
+        .lineTo( modelViewTransform.modelToViewX( model.poolDimensions.rightChamber.leftBorderFunction( h ) ), yMax - modelViewTransform.modelToViewY( h ) )
+        .lineTo( modelViewTransform.modelToViewX( model.poolDimensions.leftChamber.rightBorderFunction( h ) ), yMax - modelViewTransform.modelToViewY( h ) )
+        .lineTo( modelViewTransform.modelToViewX( model.poolDimensions.leftChamber.rightBorderFunction( viewHeight ) ), topY );
       waterPath.shape = waterShape;
     } );
 

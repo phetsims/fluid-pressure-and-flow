@@ -12,7 +12,7 @@ define( function( require ) {
   var Node = require( 'SCENERY/nodes/Node' );
   var Line = require( 'SCENERY/nodes/Line' );
 
-  function GridLinesNode( model, mvt, x1, y1, x2, y2, options ) {
+  function GridLinesNode( model, modelViewTransform, x1, y1, x2, y2, options ) {
     Node.call( this );
 
     options = _.extend( {
@@ -21,16 +21,16 @@ define( function( require ) {
     }, options );
 
     var addLine = function( node, y ) {
-      node.addChild( new Line( mvt.modelToViewX( x1 ), y, mvt.modelToViewX( x2 ), y, {stroke: 'RGB(192, 192, 192)', lineWidth: 1.5} ) );
-      node.addChild( new Line( mvt.modelToViewX( x1 ), y + 1, mvt.modelToViewX( x2 ), y + 1, {stroke: 'RGB(64, 64, 64)', lineWidth: 1} ) );
+      node.addChild( new Line( modelViewTransform.modelToViewX( x1 ), y, modelViewTransform.modelToViewX( x2 ), y, {stroke: 'RGB(192, 192, 192)', lineWidth: 1.5} ) );
+      node.addChild( new Line( modelViewTransform.modelToViewX( x1 ), y + 1, modelViewTransform.modelToViewX( x2 ), y + 1, {stroke: 'RGB(64, 64, 64)', lineWidth: 1} ) );
     };
 
     var metersGrid = new Node();
-    for ( var i = mvt.modelToViewY( y1 ); i <= mvt.modelToViewY( y2 ); i += mvt.modelToViewY( options.metersStep ) ) {
+    for ( var i = modelViewTransform.modelToViewY( y1 ); i <= modelViewTransform.modelToViewY( y2 ); i += modelViewTransform.modelToViewY( options.metersStep ) ) {
       addLine( metersGrid, i );
     }
     var feetGrid = new Node();
-    for ( i = mvt.modelToViewY( y1 ); i <= mvt.modelToViewY( y2 ); i += mvt.modelToViewY( model.units.feetToMeters( options.feetStep ) ) ) {
+    for ( i = modelViewTransform.modelToViewY( y1 ); i <= modelViewTransform.modelToViewY( y2 ); i += modelViewTransform.modelToViewY( model.units.feetToMeters( options.feetStep ) ) ) {
       addLine( feetGrid, i );
     }
 

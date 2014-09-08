@@ -23,20 +23,19 @@ define( function( require ) {
   /**
    * @param {MassModel} massModel of simulation
    * @param {ChamberPoolModel} model of simulation
-   * @param {ModelViewTransform2} mvt , Transform between model and view coordinate frames
+   * @param {ModelViewTransform2} modelViewTransform , Transform between model and view coordinate frames
    * @param {Bounds2} dragBounds - bounds that define where the barometer may be dragged
    * @constructor
    */
-
-  function MassViewNode( massModel, model, mvt, dragBounds ) {
+  function MassViewNode( massModel, model, modelViewTransform, dragBounds ) {
     var self = this;
 
     Node.call( this, {
       cursor: 'pointer'
     } );
 
-    var width = mvt.modelToViewX( massModel.width ),
-      height = mvt.modelToViewY( massModel.height );
+    var width = modelViewTransform.modelToViewX( massModel.width ),
+      height = modelViewTransform.modelToViewY( massModel.height );
 
     this.addChild( new Image( massImg, {
       clipArea: Shape.rect( 0, 0, width, height ),
@@ -64,8 +63,8 @@ define( function( require ) {
       },
       end: function() {
         var newPosition = self.translation;
-        newPosition.x = mvt.viewToModelX( newPosition.x );
-        newPosition.y = mvt.viewToModelY( newPosition.y );
+        newPosition.x = modelViewTransform.viewToModelX( newPosition.x );
+        newPosition.y = modelViewTransform.viewToModelY( newPosition.y );
         massModel.position = newPosition;
         massModel.isDragging = false;
       },
@@ -80,7 +79,7 @@ define( function( require ) {
 
     massModel.positionProperty.link( function( position ) {
       if ( !model.isDragging ) {
-        self.translation = new Vector2( mvt.modelToViewX( position.x ), mvt.modelToViewY( position.y ) );
+        self.translation = new Vector2( modelViewTransform.modelToViewX( position.x ), modelViewTransform.modelToViewY( position.y ) );
       }
     } );
   }

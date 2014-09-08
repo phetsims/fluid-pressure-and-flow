@@ -14,16 +14,16 @@ define( function( require ) {
   /**
    * @param {Faucet} faucet model
    * @param {Number} width of horizontal part of pipe
-   * @param {ModelViewTransform2} mvt , Transform between model and view coordinate frames
+   * @param {ModelViewTransform2} modelViewTransform , Transform between model and view coordinate frames
    * @constructor
    */
-  function UPFaucetNode( faucet, width, mvt ) {
+  function UPFaucetNode( faucet, width, modelViewTransform ) {
     FaucetNode.call( this, faucet.maxFlowRate, faucet.flowRateProperty, faucet.enabledProperty,
       {
         horizontalPipeLength: width,
         scale: faucet.scale,
-        x: mvt.modelToViewX( faucet.location.x ),
-        y: mvt.modelToViewY( faucet.location.y ),
+        x: modelViewTransform.modelToViewX( faucet.location.x ),
+        y: modelViewTransform.modelToViewY( faucet.location.y ),
         tapToDispenseInterval: 250
       } );
   }

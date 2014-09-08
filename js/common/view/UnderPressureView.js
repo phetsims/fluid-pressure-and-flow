@@ -39,19 +39,19 @@ define( function( require ) {
     var self = this;
     ScreenView.call( this, { renderer: 'svg' } );
 
-    var mvt = ModelViewTransform2.createSinglePointScaleMapping(
+    var modelViewTransform = ModelViewTransform2.createSinglePointScaleMapping(
       Vector2.ZERO,
       Vector2.ZERO,
       70 ); //1m = 70px, (0,0) - top left corner
 
     //sky, earth and controls
-    var backgroundNode = new BackgroundNode( underPressureModel, mvt );
+    var backgroundNode = new BackgroundNode( underPressureModel, modelViewTransform );
     this.addChild( backgroundNode );
     backgroundNode.moveToBack();
 
     var scenes = {};
     underPressureModel.scenes.forEach( function( name ) {
-      scenes[name] = new SceneView[name + 'PoolView']( underPressureModel.sceneModels[name], mvt, self.layoutBounds );
+      scenes[name] = new SceneView[name + 'PoolView']( underPressureModel.sceneModels[name], modelViewTransform, self.layoutBounds );
       scenes[name].visible = false;
       self.addChild( scenes[name] );
     } );
@@ -155,10 +155,10 @@ define( function( require ) {
       }
     } );
 
-    this.addChild( new UnderPressureRuler( underPressureModel, mvt, self.layoutBounds ) );
+    this.addChild( new UnderPressureRuler( underPressureModel, modelViewTransform, self.layoutBounds ) );
 
     //barometers
-    this.addChild( new BarometersContainer( underPressureModel, mvt, this.barometersContainer.visibleBounds, self.layoutBounds ) );
+    this.addChild( new BarometersContainer( underPressureModel, modelViewTransform, this.barometersContainer.visibleBounds, self.layoutBounds ) );
   }
 
   return inherit( ScreenView, UnderPressureView );

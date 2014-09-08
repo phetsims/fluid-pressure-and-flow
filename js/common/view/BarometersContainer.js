@@ -13,13 +13,13 @@ define( function( require ) {
     var BarometerNode = require( 'UNDER_PRESSURE/common/view/BarometerNode' );
     var Vector2 = require( 'DOT/Vector2' );
 
-    function BarometersContainer( model, mvt, barometersContainerBounds, layoutBounds ) {
+    function BarometersContainer( model, modelViewTransform, barometersContainerBounds, layoutBounds ) {
       var self = this;
       Node.call( this );
       model.barometers.forEach( function( barometer ) {
         barometer.position.storeInitialValue( new Vector2( barometersContainerBounds.centerX, barometersContainerBounds.centerY - 15 ) );
         barometer.position.reset();
-        self.addChild( new BarometerNode( model, mvt, barometer.value, barometer.position, barometersContainerBounds, layoutBounds ) );
+        self.addChild( new BarometerNode( model, modelViewTransform, barometer.value, barometer.position, barometersContainerBounds, layoutBounds ) );
       } );
     }
 

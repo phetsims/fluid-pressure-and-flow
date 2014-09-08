@@ -16,7 +16,7 @@ define( function( require ) {
   var metersString = require( 'string!UNDER_PRESSURE/m' );
   var feetString = require( 'string!UNDER_PRESSURE/ft' );
 
-  function ChamberPoolGrid( model, mvt ) {
+  function ChamberPoolGrid( model, modelViewTransform ) {
     var self = this;
     Node.call( this );
 
@@ -24,11 +24,11 @@ define( function( require ) {
       font: new PhetFont( 12 )
     };
 
-    this.addChild( new GridLinesNode( model.globalModel, mvt, model.poolDimensions.leftChamber.x1, model.poolDimensions.leftOpening.y1,
+    this.addChild( new GridLinesNode( model.globalModel, modelViewTransform, model.poolDimensions.leftChamber.x1, model.poolDimensions.leftOpening.y1,
       model.poolDimensions.rightOpening.x2, model.poolDimensions.leftChamber.y2 + 0.3 ) );
 
     // Add the labels for meters
-    var labelPosX = mvt.modelToViewX( ( model.poolDimensions.leftChamber.x2 + model.poolDimensions.rightOpening.x1 ) / 2 );
+    var labelPosX = modelViewTransform.modelToViewX( ( model.poolDimensions.leftChamber.x2 + model.poolDimensions.rightOpening.x1 ) / 2 );
     var depthLabelsMeters = new Node();
     for ( var depthMeters = 0; depthMeters <= model.poolDimensions.leftChamber.y2 - model.globalModel.skyGroundBoundY; depthMeters++ ) {
       var metersText = new Text( depthMeters + ' ' + metersString, fontOptions );
@@ -36,7 +36,7 @@ define( function( require ) {
       metersText.center = metersLabelRect.center;
       metersLabelRect.addChild( metersText );
       metersLabelRect.centerX = labelPosX;
-      metersLabelRect.centerY = mvt.modelToViewY( depthMeters + model.globalModel.skyGroundBoundY );
+      metersLabelRect.centerY = modelViewTransform.modelToViewY( depthMeters + model.globalModel.skyGroundBoundY );
       depthLabelsMeters.addChild( metersLabelRect );
     }
 
@@ -48,7 +48,7 @@ define( function( require ) {
       feetText.center = feetLabelRect.center;
       feetLabelRect.addChild( feetText );
       feetLabelRect.centerX = labelPosX;
-      feetLabelRect.centerY = mvt.modelToViewY( depthFeet / 3.3 + model.globalModel.skyGroundBoundY );
+      feetLabelRect.centerY = modelViewTransform.modelToViewY( depthFeet / 3.3 + model.globalModel.skyGroundBoundY );
       depthLabelsFeet.addChild( feetLabelRect );
     }
 
