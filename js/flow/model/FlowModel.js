@@ -33,6 +33,10 @@ define( function( require ) {
   var flowRateUnitsMetric = require( 'string!FLUID_PRESSURE_AND_FLOW/rateUnitsMetric' );
   var flowRateUnitsEnglish = require( 'string!FLUID_PRESSURE_AND_FLOW/rateUnitsEnglish' );
 
+  // constants
+  var NUMBER_BAROMETERS = 2;
+  var NUMBER_VELOCITY_SENSORS = 2;
+
   /**
    * Constructor for the sim model.
    * Origin is at the center on the ground. And y grows in the direction of sky from ground.
@@ -62,12 +66,12 @@ define( function( require ) {
     this.getStandardAirPressure = new LinearFunction( 0, 150, Constants.EARTH_AIR_PRESSURE, Constants.EARTH_AIR_PRESSURE_AT_500_FT );
 
     this.barometers = [];
-    for ( var i = 0; i < 2; i++ ) {
+    for ( var i = 0; i < NUMBER_BAROMETERS; i++ ) {
       this.barometers.push( new Barometer( new Vector2( 0, 0 ), 101035 ) );
     }
 
     this.speedometers = [];
-    for ( var j = 0; j < 2; j++ ) {
+    for ( var j = 0; j < NUMBER_VELOCITY_SENSORS; j++ ) {
       this.speedometers.push( new VelocitySensor( new Vector2( 0, 0 ), new Vector2( 0, 0 ) ) );
     }
 
@@ -134,19 +138,11 @@ define( function( require ) {
     // Called by the animation loop.
     step: function( dt ) {
       if ( this.isPlay ) {
-        if ( this.speed === 'normal' ) {
-          this.timer.step( dt );
-          this.propagateParticles( dt );
-          if ( this.isGridInjectorPressed ) {
-            this.gridInjectorElapsedTimeInPressedMode += dt;
-          }
-        }
-        else {
-          this.timer.step( 0.33 * dt );
-          this.propagateParticles( 0.33 * dt );
-          if ( this.isGridInjectorPressed ) {
-            this.gridInjectorElapsedTimeInPressedMode += 0.33 * dt;
-          }
+        var adjustedDT = this.speed === 'normal' ? dt : dt * 0.33;
+        this.timer.step( adjustedDT );
+        this.propagateParticles( adjustedDT );
+        if ( this.isGridInjectorPressed ) {
+          this.gridInjectorElapsedTimeInPressedMode += adjustedDT;
         }
 
         //The grid injector can only be fired every so often, in order to prevent too many black particles in the pipe
