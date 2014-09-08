@@ -47,7 +47,7 @@ define( function( require ) {
     PropertySet.call( this, {
         isRulerVisible: false,
         isFluxMeterVisible: false,
-        isGridInjectorPressed: false,//The grid injector can only be fired every so often, in order to prevent too many black particles in the pipe
+        isGridInjectorPressed: false,
         isDotsVisible: true,
         isPlay: true,//Whether the sim is paused or running
         measureUnits: 'metric', //metric, english
