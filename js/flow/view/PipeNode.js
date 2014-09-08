@@ -111,7 +111,7 @@ define( function( require ) {
     this.addChild( this.leftPipeNode );
 
     // add handles to drag the pipe
-    this.leftPipeMainHandleNode = new Image( handleImage, { top: this.leftPipeNode.top + 60, right: 20, cursor: 'pointer', scale: 0.32} );
+    this.leftPipeMainHandleNode = new Image( handleImage, { y: this.leftPipeNode.centerY, x: pipeNode.layoutBounds.minX - 10, cursor: 'pointer', scale: 0.32} );
     this.leftPipeMainHandleNode.touchArea = new Bounds2( this.leftPipeMainHandleNode.localBounds.minX - 20, this.leftPipeMainHandleNode.localBounds.minY + 25,
         this.leftPipeMainHandleNode.localBounds.maxX + 20, this.leftPipeMainHandleNode.localBounds.maxY + 30 );
     this.addChild( this.leftPipeMainHandleNode );
@@ -155,7 +155,7 @@ define( function( require ) {
     };
 
     this.controlHandleNodes = [];
-    this.scaleControlPointYPositions = {};
+
     var numControlPoints = pipe.controlPoints.length;
     var leftTopControlPointIndex = 0;
     var leftBottomControlPointIndex = numControlPoints - 1;
@@ -195,14 +195,6 @@ define( function( require ) {
           pipeNode.controlHandleNodes[i].setTranslation( modelViewTransform.modelToViewX( position.x ), modelViewTransform.modelToViewY( position.y ) );
         } );
 
-        if ( i === leftTopControlPointIndex || i === (rightTopControlPointIndex) ) {
-          pipeNode.controlHandleNodes[i].bottom -= 10;
-          pipeNode.scaleControlPointYPositions[i] = pipeNode.controlHandleNodes[i].bottom;
-        }
-        else if ( i === leftBottomControlPointIndex || i === rightBottomControlPointIndex ) {
-          pipeNode.controlHandleNodes[i].bottom += 10;
-          pipeNode.scaleControlPointYPositions[i] = pipeNode.controlHandleNodes[i].bottom;
-        }
 
         var dragStartY;
         var pipeTop;
@@ -331,6 +323,10 @@ define( function( require ) {
                 // reposition the grid injector
                 pipeNode.gridInjectorNode.setTranslation( modelViewTransform.modelToViewX( -6 ) - 60, modelViewTransform.modelToViewY( pipeNode.pipe.getCrossSection( -6 ).yTop ) - 150 );
               }
+              pipeNode.controlHandleNodes[leftTopControlPointIndex].bottom = pipeNode.leftPipeNode.top;
+              pipeNode.controlHandleNodes[leftBottomControlPointIndex].top = pipeNode.leftPipeNode.bottom;
+              pipeNode.controlHandleNodes[rightTopControlPointIndex].bottom = pipeNode.rightPipeNode.top;
+              pipeNode.controlHandleNodes[rightBottomControlPointIndex].top = pipeNode.rightPipeNode.bottom;
 
               // update the flux meter
               flowModel.fluxMeter.trigger( 'update' );
@@ -380,6 +376,8 @@ define( function( require ) {
               pipeNode.leftPipeNode.setTranslation( layoutBounds.minX - 50, y - pipeNode.leftMainHandleYOffset );
               pipeNode.leftPipeBackNode.setTranslation( layoutBounds.minX - 50, y - pipeNode.leftMainHandleYOffset );
               pipeMainDragHandles[j].setTranslation( layoutBounds.minX - 10, y );
+              pipeNode.controlHandleNodes[leftTopControlPointIndex].bottom = pipeNode.leftPipeNode.top;
+              pipeNode.controlHandleNodes[leftBottomControlPointIndex].top = pipeNode.leftPipeNode.bottom;
 
             }
             else {
@@ -390,9 +388,9 @@ define( function( require ) {
               pipe.controlPoints[rightBottomControlPointIndex].position = new Vector2( x, yLow );
               pipeMainDragHandles[j].setTranslation( layoutBounds.maxX - 50, y );
               pipeNode.rightPipeNode.setTranslation( layoutBounds.maxX - 75, y - (pipeNode.rightMainHandleYOffset) );
+              pipeNode.controlHandleNodes[rightTopControlPointIndex].bottom = pipeNode.rightPipeNode.top;
+              pipeNode.controlHandleNodes[rightBottomControlPointIndex].top = pipeNode.rightPipeNode.bottom;
 
-              pipeNode.controlHandleNodes[leftTopControlPointIndex].bottom = pipeNode.leftPipeNode.top;
-              pipeNode.controlHandleNodes[leftBottomControlPointIndex].top = pipeNode.leftPipeNode.bottom;
             }
 
             // reposition the particles when the sim is paused and the handle is dragged
@@ -447,14 +445,12 @@ define( function( require ) {
         this.flowModel.fluxMeter.trigger( 'update' );
         var numControlPoints = this.pipe.controlPoints.length;
 
-        for ( var i = 0; i < numControlPoints; i++ ) {
-          if ( i === 0 || i === (numControlPoints / 2 - 1) ) {
-            this.controlHandleNodes[i].bottom = this.scaleControlPointYPositions[i];
-          }
-          else if ( i === numControlPoints - 1 || i === numControlPoints / 2 ) {
-            this.controlHandleNodes[i].bottom = this.scaleControlPointYPositions[i];
-          }
-        }
+        // reset the handle positions
+        this.controlHandleNodes[numControlPoints / 2 - 1].bottom = this.rightPipeNode.top;
+        this.controlHandleNodes[numControlPoints / 2 ].top = this.rightPipeNode.bottom;
+        this.controlHandleNodes[0].bottom = this.leftPipeNode.top;
+        this.controlHandleNodes[numControlPoints - 1 ].top = this.leftPipeNode.bottom;
+
         this.isLeftPipeScaled = false;
         this.isRightPipeScaled = false;
         this.leftMainHandleYOffset = 60;
