@@ -20,10 +20,10 @@ define( function( require ) {
   function FaucetModel( location, maxFlowRate, scale ) {
     var thisFaucet = this;
 
-    thisFaucet.location = location;
-    thisFaucet.maxFlowRate = maxFlowRate;
-    thisFaucet.scale = scale;
-    thisFaucet.spoutWidth = 1.35 * scale;
+    this.location = location;
+    this.maxFlowRate = maxFlowRate;
+    this.scale = scale;
+    this.spoutWidth = 1.35 * scale;
 
     PropertySet.call( this, {
       flowRate: 0,
@@ -31,7 +31,7 @@ define( function( require ) {
     } );
 
     // when disabled, turn off the faucet.
-    thisFaucet.enabledProperty.onValue( false, function() {
+    this.enabledProperty.onValue( false, function() {
       thisFaucet.flowRate = 0;
     } );
   }
