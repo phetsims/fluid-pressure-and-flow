@@ -78,6 +78,11 @@ define( function( require ) {
     var barometerDragHandler = new MovableDragHandler( { locationProperty: barometerPositionProperty, dragBounds: dragBounds },
       ModelViewTransform2.createIdentity(),
       {
+        startDrag: function() {
+
+          //Move the barometer in front of other barometers when the user starts dragging it, see #59
+          self.moveToFront();
+        },
         endDrag: function() {
           if ( containerBounds.intersectsBounds( self.visibleBounds ) ) {
             barometerPositionProperty.reset();
