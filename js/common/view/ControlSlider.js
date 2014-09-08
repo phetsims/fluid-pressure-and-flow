@@ -122,7 +122,7 @@ define( function( require ) {
     } );
   }
 
-  inherit( Node, ControlSlider, {
+  return inherit( Node, ControlSlider, {
     disable: function() {
       this.content.visible = false;
       this.questionMark.visible = true;
@@ -132,6 +132,4 @@ define( function( require ) {
       this.questionMark.visible = false;
     }
   } );
-
-  return ControlSlider;
 } );

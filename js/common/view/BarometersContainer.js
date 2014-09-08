@@ -23,8 +23,6 @@ define( function( require ) {
       } );
     }
 
-    inherit( Node, BarometersContainer );
-
-    return BarometersContainer;
+    return inherit( Node, BarometersContainer );
   }
 );

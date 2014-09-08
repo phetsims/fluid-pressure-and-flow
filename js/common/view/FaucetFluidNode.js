@@ -46,8 +46,5 @@ define( function( require ) {
     } );
   }
 
-  inherit( Rectangle, FaucetFluidNode );
-
-  return FaucetFluidNode;
-
+  return inherit( Rectangle, FaucetFluidNode );
 } );

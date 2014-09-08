@@ -44,7 +44,5 @@ define( function( require ) {
     } );
   }
 
-  inherit( Node, GridLinesNode );
-
-  return GridLinesNode;
+  return inherit( Node, GridLinesNode );
 } );
