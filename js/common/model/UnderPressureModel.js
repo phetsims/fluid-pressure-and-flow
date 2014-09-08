@@ -66,7 +66,9 @@ define( function( require ) {
         currentScene: self.scenes[0],
         currentVolume: 0, //L, volume of liquid in currentScene
         rulerPosition: new Vector2( 195, 245 ), // px
-        mysteryChoice: 'fluidDensity' //for mystery-pool, gravity of fluidDensity
+        mysteryChoice: 'fluidDensity', //for mystery-pool, gravity of fluidDensity
+        fluidDensityControlExpanded: true,//For the accordion box
+        gravityControlExpanded: true //For the accordion box
       }
     );
 

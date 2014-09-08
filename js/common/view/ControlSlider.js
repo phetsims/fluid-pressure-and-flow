@@ -24,7 +24,7 @@ define( function( require ) {
   // Constants
   var TRACK_SIZE = new Dimension2( 190, 10 );
 
-  function ControlSlider( model, trackProperty, getPropertyStringFunction, trackRange, options ) {
+  function ControlSlider( model, trackProperty, getPropertyStringFunction, trackRange, expandedProperty, options ) {
     options = _.extend( {
       scale: 0.6,
       fill: '#f2fa6a',
@@ -91,14 +91,14 @@ define( function( require ) {
         titleNode: new Text( options.title, { font: new PhetFont( { size: 19 } ) } ),
         fill: options.fill,
         stroke: 'gray',
-        initiallyExpanded: true,
         minWidth: 270,
         contentAlign: 'center',
         titleAlign: 'left',
         buttonAlign: 'left',
         scale: scale,
         cornerRadius: 10,
-        buttonXMargin: 8
+        buttonXMargin: 8,
+        expandedProperty: expandedProperty
       } );
     this.addChild( accordionBox );
 

@@ -62,7 +62,7 @@ define( function( require ) {
     this.addChild( this.controlPanel );
 
     //control sliders
-    this.fluidDensitySlider = new ControlSlider( underPressureModel, underPressureModel.fluidDensityProperty, underPressureModel.units.getFluidDensityString, underPressureModel.fluidDensityRange, {
+    this.fluidDensitySlider = new ControlSlider( underPressureModel, underPressureModel.fluidDensityProperty, underPressureModel.units.getFluidDensityString, underPressureModel.fluidDensityRange, underPressureModel.fluidDensityControlExpandedProperty, {
       x: 585,
       y: 250,
       title: fluidDensityString,
@@ -83,7 +83,7 @@ define( function( require ) {
     } );
     this.addChild( this.fluidDensitySlider );
 
-    this.gravitySlider = new ControlSlider( underPressureModel, underPressureModel.gravityProperty, underPressureModel.units.getGravityString, underPressureModel.gravityRange, {
+    this.gravitySlider = new ControlSlider( underPressureModel, underPressureModel.gravityProperty, underPressureModel.units.getGravityString, underPressureModel.gravityRange, underPressureModel.gravityControlExpandedProperty, {
       x: 585,
       y: 360,
       title: gravityString,
