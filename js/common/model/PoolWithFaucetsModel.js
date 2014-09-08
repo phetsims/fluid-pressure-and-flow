@@ -12,7 +12,7 @@ define( function( require ) {
   var PropertySet = require( 'AXON/PropertySet' );
   var inherit = require( 'PHET_CORE/inherit' );
 
-  function PoolWithFaucetsModel( globalModel ) {
+  function PoolWithFaucetsModel( underPressureModel ) {
     var self = this;
 
     PropertySet.call( this, {
@@ -23,7 +23,7 @@ define( function( require ) {
     this.volumeProperty.link( function( volume ) {
       self.inputFaucet.enabled = ( volume < self.MAX_VOLUME );
       self.outputFaucet.enabled = ( volume > 0 );
-      globalModel.currentVolume = volume;
+      underPressureModel.currentVolume = volume;
     } );
   }
 
