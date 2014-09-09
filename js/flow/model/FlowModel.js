@@ -52,7 +52,7 @@ define( function( require ) {
         isRulerVisible: false,
         isFluxMeterVisible: false,
         isGridInjectorPressed: false,
-        gridInjectorElapsedTimeInPressedMode: 0, // elapsed sim time for which the gridInjector remained pressed
+        gridInjectorElapsedTimeInPressedMode: 0, // elapsed sim time (in seconds) for which the gridInjector remained pressed
         isDotsVisible: true,
         isPlay: true,// Whether the sim is paused or running
         measureUnits: 'metric', //metric, english
