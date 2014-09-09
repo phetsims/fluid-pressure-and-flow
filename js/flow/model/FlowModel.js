@@ -52,6 +52,7 @@ define( function( require ) {
         isRulerVisible: false,
         isFluxMeterVisible: false,
         isGridInjectorPressed: false,
+        gridInjectorElapsedTimeInPressedMode: 0, // elapsed sim time for which the gridInjector remained pressed
         isDotsVisible: true,
         isPlay: true,// Whether the sim is paused or running
         measureUnits: 'metric', //metric, english
@@ -82,11 +83,19 @@ define( function( require ) {
     this.flowParticles = new ObservableArray();
     this.gridParticles = new ObservableArray();
 
-    this.gridInjectorElapsedTimeInPressedMode = 0;
+    //this.gridInjectorElapsedTimeInPressedMode = 0;
 
     // variables used in propagateParticles function. Declaring here to avoid gc
     this.particlesToRemove = [];
     this.gridParticlesToRemove = [];
+
+    this.gridInjectorElapsedTimeInPressedModeProperty.link( function() {
+      //The grid injector can only be fired every so often, in order to prevent too many black particles in the pipe
+      if ( flowModel.gridInjectorElapsedTimeInPressedMode > 5 ) {
+        flowModel.isGridInjectorPressed = false;
+        flowModel.gridInjectorElapsedTimeInPressedMode = 0;
+      }
+    });
 
     // call stepInternal at a rate of 10 times per second
     this.timer = new EventTimer( new EventTimer.UniformEventModel( 10, Math.random ), function( timeElapsed ) {
@@ -143,12 +152,6 @@ define( function( require ) {
         this.propagateParticles( adjustedDT );
         if ( this.isGridInjectorPressed ) {
           this.gridInjectorElapsedTimeInPressedMode += adjustedDT;
-        }
-
-        //The grid injector can only be fired every so often, in order to prevent too many black particles in the pipe
-        if ( this.gridInjectorElapsedTimeInPressedMode > 5 ) {
-          this.isGridInjectorPressed = false;
-          this.gridInjectorElapsedTimeInPressedMode = 0;
         }
       }
     },
