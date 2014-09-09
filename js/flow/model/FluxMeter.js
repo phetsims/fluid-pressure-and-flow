@@ -14,17 +14,18 @@ define( function( require ) {
   function FluxMeter( pipe ) {
     this.pipe = pipe;
     PropertySet.call( this, {
-      xPosition: -6.5
+      xPosition: -6.5 //m
     } );
   }
 
   return inherit( PropertySet, FluxMeter, {
-    // Compute the area as the pi * r * r of the pipe, and make sure it updates when the user drags the cross section or deforms the pipe
+    // Compute the area as the pi * r * r of the pipe at the crosssection where the flux meter is currently positioned
+    // Returns the area in meters squared
     getArea: function() {
       return this.pipe.getCrossSectionalArea( this.xPosition );
     },
 
-    // To get the flow rate
+    // Returns the flow rate in liters per sec (L/s)
     getFlowRate: function() {
       return this.pipe.flowRate * 1000;
     },

@@ -53,10 +53,10 @@ define( function( require ) {
         isFluxMeterVisible: false,
         isGridInjectorPressed: false,
         isDotsVisible: true,
-        isPlay: true,//Whether the sim is paused or running
+        isPlay: true,// Whether the sim is paused or running
         measureUnits: 'metric', //metric, english
         fluidDensity: Constants.WATER_DENSITY,
-        fluidFlowRate: 5000,
+        fluidFlowRate: 5000, // Rate of fluid flow in Liter per second (L/s)
         rulerPosition: new Vector2( 300, 344 ), // px
         speed: 'normal' //speed of the model, either 'normal' or 'slow'
       }

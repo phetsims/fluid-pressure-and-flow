@@ -13,8 +13,8 @@ define( function( require ) {
 
   /**
    *
-   * @param {Number} xPosition of the particle
-   * @param {Number} fractionUpPipe
+   * @param {Number} xPosition of the particle in meters
+   * @param {Number} fractionUpPipe represents the fractional position w.r.t to the cross section height. Takes a value between (0,1).
    * @param {Pipe} container holding the particle
    * @param {Number} radius of the particle
    * @param {string} color of the particle
