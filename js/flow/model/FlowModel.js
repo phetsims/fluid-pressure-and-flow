@@ -82,10 +82,11 @@ define( function( require ) {
     this.flowParticles = new ObservableArray();
     this.gridParticles = new ObservableArray();
 
+    this.gridInjectorElapsedTimeInPressedMode = 0;
 
+    // variables used in propagateParticles function. Declaring here to avoid gc
     this.particlesToRemove = [];
     this.gridParticlesToRemove = [];
-    this.gridInjectorElapsedTimeInPressedMode = 0;
 
     // call stepInternal at a rate of 10 times per second
     this.timer = new EventTimer( new EventTimer.UniformEventModel( 10, Math.random ), function( timeElapsed ) {
