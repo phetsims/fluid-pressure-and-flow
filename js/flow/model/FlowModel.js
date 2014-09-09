@@ -20,7 +20,7 @@ define( function( require ) {
   var ObservableArray = require( 'AXON/ObservableArray' );
   var FluidColorModel = require( 'FLUID_PRESSURE_AND_FLOW/watertower/model/FluidColorModel' );
   var Units = require( 'FLUID_PRESSURE_AND_FLOW/flow/model/Units' );
-  var LinearFunction = require( 'DOT/LinearFunction' );
+  var Util = require( 'DOT/Util' );
   var Pipe = require( 'FLUID_PRESSURE_AND_FLOW/flow/model/Pipe' );
   var Particle = require( 'FLUID_PRESSURE_AND_FLOW/flow/model/Particle' );
   var EventTimer = require( 'PHET_CORE/EventTimer' );
@@ -62,8 +62,6 @@ define( function( require ) {
         speed: 'normal' //speed of the model, either 'normal' or 'slow'
       }
     );
-
-    this.getStandardAirPressure = new LinearFunction( 0, 150, Constants.EARTH_AIR_PRESSURE, Constants.EARTH_AIR_PRESSURE_AT_500_FT );
 
     this.barometers = [];
     for ( var i = 0; i < NUMBER_BAROMETERS; i++ ) {
@@ -119,8 +117,14 @@ define( function( require ) {
       this.fluxMeter.reset();
     },
 
+    /**
+     * Calculates the standard air pressure by linearly extrapolating the known values for height = 0m and height = 150m
+     * @param {Number} height (in meters) at which the air pressure needs to be calculated
+     * @returns {Number} standard air pressure at the specified height from ground
+     */
     getAirPressure: function( height ) {
-      return this.getStandardAirPressure( height );
+      //Note: 150 meters is 500 feet
+      return Util.linear( 0, 150, Constants.EARTH_AIR_PRESSURE, Constants.EARTH_AIR_PRESSURE_AT_500_FT, height );
     },
 
     getFluidPressure: function( x, y ) {
