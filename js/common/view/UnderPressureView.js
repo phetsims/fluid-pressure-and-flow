@@ -13,6 +13,7 @@ define( function( require ) {
   var UnderPressureRuler = require( 'UNDER_PRESSURE/common/view/UnderPressureRuler' );
   var ModelViewTransform2 = require( 'PHETCOMMON/view/ModelViewTransform2' );
   var Vector2 = require( 'DOT/Vector2' );
+  var Bounds2 = require( 'DOT/Bounds2' );
   var ControlPanel = require( 'UNDER_PRESSURE/common/view/ControlPanel' );
   var ControlSlider = require( 'UNDER_PRESSURE/common/view/ControlSlider' );
   var SceneChoiceNode = require( 'UNDER_PRESSURE/common/view/SceneChoiceNode' );
@@ -37,7 +38,7 @@ define( function( require ) {
 
   function UnderPressureView( underPressureModel ) {
     var self = this;
-    ScreenView.call( this, { renderer: 'svg' } );
+    ScreenView.call( this, { renderer: 'svg', layoutBounds: new Bounds2( 0, 0, underPressureModel.width, underPressureModel.height )} );
 
     var modelViewTransform = ModelViewTransform2.createSinglePointScaleMapping(
       Vector2.ZERO,
