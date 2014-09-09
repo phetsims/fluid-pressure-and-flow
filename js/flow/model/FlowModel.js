@@ -81,10 +81,6 @@ define( function( require ) {
     this.flowParticles = new ObservableArray();
     this.gridParticles = new ObservableArray();
 
-    // variables used in propagateParticles function. Declaring here to avoid gc
-    this.particlesToRemove = [];
-    this.gridParticlesToRemove = [];
-
     this.gridInjectorElapsedTimeInPressedModeProperty.link( function() {
       //The grid injector can only be fired every so often, in order to prevent too many black particles in the pipe
       if ( flowModel.gridInjectorElapsedTimeInPressedMode > 5 ) {
@@ -170,8 +166,8 @@ define( function( require ) {
       var x2;
       var particle;
 
-      this.particlesToRemove = [];
-      this.gridParticlesToRemove = [];
+      var particlesToRemove = [];
+      var gridParticlesToRemove = [];
 
       for ( var i = 0, k = this.flowParticles.length; i < k; i++ ) {
 
@@ -180,7 +176,7 @@ define( function( require ) {
 
         // check if the particle hit the maxX
         if ( x2 >= this.pipe.getMaxX() ) {
-          this.particlesToRemove.push( particle );
+          particlesToRemove.push( particle );
         }
         else {
           particle.setX( x2 );
@@ -194,19 +190,19 @@ define( function( require ) {
 
         // check if the particle hit the maxX
         if ( x2 >= this.pipe.getMaxX() ) {
-          this.gridParticlesToRemove.push( particle );
+          gridParticlesToRemove.push( particle );
         }
         else {
           particle.setX( x2 );
         }
       }
 
-      if ( this.gridParticlesToRemove.length > 0 ) {
-        this.gridParticles.removeAll( this.gridParticlesToRemove );
+      if ( gridParticlesToRemove.length > 0 ) {
+        this.gridParticles.removeAll( gridParticlesToRemove );
       }
 
-      if ( this.particlesToRemove.length > 0 ) {
-        this.flowParticles.removeAll( this.particlesToRemove );
+      if ( particlesToRemove.length > 0 ) {
+        this.flowParticles.removeAll( particlesToRemove );
       }
     },
 
