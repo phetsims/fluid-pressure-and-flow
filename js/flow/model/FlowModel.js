@@ -87,11 +87,11 @@ define( function( require ) {
         flowModel.isGridInjectorPressed = false;
         flowModel.gridInjectorElapsedTimeInPressedMode = 0;
       }
-    });
+    } );
 
     // call stepInternal at a rate of 10 times per second
     this.timer = new EventTimer( new EventTimer.UniformEventModel( 10, Math.random ), function( timeElapsed ) {
-      flowModel.createParticle( timeElapsed );
+      flowModel.createParticle();
     } );
   }
 
@@ -154,7 +154,7 @@ define( function( require ) {
       }
     },
 
-    createParticle: function( dt ) {
+    createParticle: function() {
       if ( this.isDotsVisible ) {
         // create particles so that they don't touch the pipe
         var fraction = 0.15 + Math.random() * 0.7;
