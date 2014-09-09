@@ -83,8 +83,6 @@ define( function( require ) {
     this.flowParticles = new ObservableArray();
     this.gridParticles = new ObservableArray();
 
-    //this.gridInjectorElapsedTimeInPressedMode = 0;
-
     // variables used in propagateParticles function. Declaring here to avoid gc
     this.particlesToRemove = [];
     this.gridParticlesToRemove = [];
