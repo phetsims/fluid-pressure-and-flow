@@ -63,7 +63,7 @@ define( function( require ) {
   return inherit( PropertySet, MassModel, {
     step: function( dt ) {
       var acceleration;
-      if ( this.isDropping ) {
+      if ( this.isDropping && !this.isDragging ) {
         acceleration = this.model.globalModel.gravity;
         this.velocity = this.velocity + acceleration * dt;
         this.position = new Vector2( this.position.x, this.velocity * dt + this.position.y );
