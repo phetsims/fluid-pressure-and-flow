@@ -145,6 +145,9 @@ define( function( require ) {
 
     // Called by the animation loop.
     step: function( dt ) {
+      // prevent sudden dt bursts when the user comes back to the tab after a while
+      dt = ( dt > 0.04 ) ? 0.04 : dt;
+
       if ( this.isPlay ) {
         var adjustedDT = this.speed === 'normal' ? dt : dt * 0.33;
         this.timer.step( adjustedDT );
