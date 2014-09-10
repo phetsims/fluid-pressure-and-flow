@@ -96,6 +96,7 @@ define( function( require ) {
   }
 
   return inherit( PropertySet, FlowModel, {
+
     // Resets all model elements
     reset: function() {
       PropertySet.prototype.reset.call( this );
@@ -240,12 +241,13 @@ define( function( require ) {
      */
     injectGridParticles: function() {
       var x0 = this.pipe.getMinX();
-      var x;
-      var fraction;
+
       for ( var i = 0; i < 4; i++ ) {
-        x = x0 + i * 0.3;
+        // space the columns 0.3 m apart
+        var x = x0 + i * 0.3;
         for ( var j = 0; j < 9; j++ ) {
-          fraction = 0.1 * (j + 1);
+          // ensure the particle's y fraction is between [0.1, 0.9]
+          var fraction = 0.1 * (j + 1);
           this.gridParticles.push( new Particle( x, fraction, this.pipe, 0.06, 'black' ) );
         }
       }
