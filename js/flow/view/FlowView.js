@@ -96,7 +96,7 @@ define( function( require ) {
 
 
     // add the fluid density control slider
-    var controlSlider = new ControlSlider( flowModel, flowModel.fluidDensityProperty, flowModel.getFluidDensityString.bind( flowModel ), flowModel.fluidDensityRange, {
+    var fluidDensityControlNode = new ControlSlider( flowModel, flowModel.fluidDensityProperty, flowModel.getFluidDensityString.bind( flowModel ), flowModel.fluidDensityRange, {
       right: this.layoutBounds.right - 105,
       bottom: this.layoutBounds.bottom - 7,
       title: fluidDensityString,
@@ -117,7 +117,7 @@ define( function( require ) {
       scale: 0.9,
       titleAlign: 'center'
     } );
-    this.addChild( controlSlider );
+    this.addChild( fluidDensityControlNode );
 
     var fluxMeterNode = new FluxMeterNode( flowModel, modelViewTransform, {stroke: 'blue'} );
     flowModel.isFluxMeterVisibleProperty.linkAttribute( fluxMeterNode.ellipse2, 'visible' );
@@ -137,8 +137,8 @@ define( function( require ) {
     var resetAllButton = new ResetAllButton( {
       listener: function() {
         flowModel.reset();
-        controlSlider.reset();
-        flowRateSlider.reset();
+        fluidDensityControlNode.reset();
+        flowRateControlNode.reset();
         flowView.pipeNode.reset();
       },
       radius: 18,
@@ -165,7 +165,7 @@ define( function( require ) {
     var stepButton = new StepButton( function() {
       flowModel.timer.step( 0.016 );
       flowModel.propagateParticles( 0.016 );
-    }, flowModel.isPlayProperty, { radius: 12, stroke: 'black', fill: '#005566', right: controlSlider.left - 82, bottom: this.layoutBounds.bottom - 14 } );
+    }, flowModel.isPlayProperty, { radius: 12, stroke: 'black', fill: '#005566', right: fluidDensityControlNode.left - 82, bottom: this.layoutBounds.bottom - 14 } );
 
     this.addChild( stepButton );
 
@@ -185,7 +185,7 @@ define( function( require ) {
     this.addChild( speedControl.mutate( {right: playPauseButton.left - 8, bottom: playPauseButton.bottom} ) );
 
     //add flow rate panel
-    var flowRateSlider = new ControlSlider( flowModel, flowModel.fluidFlowRateProperty, flowModel.getFluidFlowRateString.bind( flowModel ), flowModel.flowRateRange, {
+    var flowRateControlNode = new ControlSlider( flowModel, flowModel.fluidFlowRateProperty, flowModel.getFluidFlowRateString.bind( flowModel ), flowModel.flowRateRange, {
       right: speedControl.left - 20,
       bottom: this.layoutBounds.bottom - 7,
       title: flowRateString,
@@ -203,7 +203,7 @@ define( function( require ) {
       titleAlign: 'center',
       scale: 0.9
     } );
-    this.addChild( flowRateSlider );
+    this.addChild( flowRateControlNode );
 
     // convert between m3/sec and liter/sec
     flowModel.fluidFlowRateProperty.link( function( flowRate ) {
