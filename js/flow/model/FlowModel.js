@@ -90,7 +90,7 @@ define( function( require ) {
     } );
 
     // call stepInternal at a rate of 10 times per second
-    this.timer = new EventTimer( new EventTimer.UniformEventModel( 10, Math.random ), function( timeElapsed ) {
+    this.timer = new EventTimer( new EventTimer.UniformEventModel( 10, Math.random ), function() {
       flowModel.createParticle();
     } );
   }
@@ -155,6 +155,7 @@ define( function( require ) {
       }
     },
 
+    // creates a red particle at the left most pipe location and a random y fraction between [0.15, 0.85) within the pipe
     createParticle: function() {
       if ( this.isDotsVisible ) {
         // create particles so that they don't touch the pipe
@@ -163,6 +164,7 @@ define( function( require ) {
       }
     },
 
+    // propagates the particles in the pipe as per their velocity. Removes any particles that cross the pipe right end.
     propagateParticles: function( dt ) {
       var x2;
       var particle;
@@ -207,6 +209,11 @@ define( function( require ) {
       }
     },
 
+    /**
+     * Returns the formatted density string. For measurement in 'english' units the precision is 2 decimals.
+     * For measurement in other units ('metric') the value is rounded off to the nearest integer.
+     * @returns {string} with value and units
+     */
     getFluidDensityString: function() {
       if ( this.measureUnits === 'english' ) {
         return StringUtils.format( valueWithUnitsPattern, (Units.FLUID_DENSITY_ENGLISH_PER_METRIC * this.fluidDensity).toFixed( 2 ), densityUnitsEnglish );
@@ -215,6 +222,12 @@ define( function( require ) {
         return StringUtils.format( valueWithUnitsPattern, Math.round( this.fluidDensity ), densityUnitsMetric );
       }
     },
+
+    /**
+     * Returns the formatted flow rate string. For measurement in 'english' units the precision is 2 decimals.
+     * For measurement in other units ('metric') the value is rounded off to the nearest integer.
+     * @returns {string} with value and units
+     */
     getFluidFlowRateString: function() {
       if ( this.measureUnits === 'english' ) {
         return StringUtils.format( valueWithUnitsPattern, (Units.FLUID_FlOW_RATE_ENGLISH_PER_METRIC * this.fluidFlowRate).toFixed( 2 ), flowRateUnitsEnglish );
@@ -224,6 +237,12 @@ define( function( require ) {
       }
     },
 
+    /**
+     * Returns the velocity at the specified point in the pipe. Returns a zero vector if the point is outside the pipe.
+     * @param {Number} x position in meters
+     * @param {Number} y position in meters
+     * @returns {Number} velocity at the position x, y
+     */
     getWaterDropVelocityAt: function( x, y ) {
       if ( x <= this.pipe.getMinX() || x >= this.pipe.getMaxX() ) {
         return Vector2.ZERO;
