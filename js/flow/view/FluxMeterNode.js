@@ -151,12 +151,11 @@ define( function( require ) {
 
     flowModel.isFluxMeterVisibleProperty.linkAttribute( this, 'visible' );
 
-    Property.multilink( [flowModel.fluidFlowRateProperty , flowModel.measureUnitsProperty], function( flowRate, units ) {
-      flowModel.pipe.flowRate = flowRate * 0.001;
+    Property.multilink( [flowModel.pipe.flowRateProperty , flowModel.measureUnitsProperty], function( flowRate, units ) {
       fluxMeterNode.updateDisplayPanel( units );
     } );
 
-    flowModel.fluxMeter.xPositionProperty.link( function( value ) {
+    flowModel.fluxMeter.xPositionProperty.link( function() {
       fluxMeterNode.updateFluxMeter();
     } );
 

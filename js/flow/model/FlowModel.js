@@ -57,7 +57,6 @@ define( function( require ) {
         isPlay: true,// Whether the sim is paused or running
         measureUnits: 'metric', //metric, english
         fluidDensity: Constants.WATER_DENSITY,
-        fluidFlowRate: 5000, // Rate of fluid flow in Liter per second (L/s)
         rulerPosition: new Vector2( 300, 344 ), // px
         speed: 'normal' //speed of the model, either 'normal' or 'slow'
       }
@@ -233,10 +232,10 @@ define( function( require ) {
      */
     getFluidFlowRateString: function() {
       if ( this.measureUnits === 'english' ) {
-        return StringUtils.format( valueWithUnitsPattern, (Units.FLUID_FlOW_RATE_ENGLISH_PER_METRIC * this.fluidFlowRate).toFixed( 2 ), flowRateUnitsEnglish );
+        return StringUtils.format( valueWithUnitsPattern, (Units.FLUID_FlOW_RATE_ENGLISH_PER_METRIC * this.pipe.flowRate).toFixed( 2 ), flowRateUnitsEnglish );
       }
       else {
-        return StringUtils.format( valueWithUnitsPattern, Math.round( this.fluidFlowRate ), flowRateUnitsMetric );
+        return StringUtils.format( valueWithUnitsPattern, Math.round( this.pipe.flowRate ), flowRateUnitsMetric );
       }
     },
 

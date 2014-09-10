@@ -12,7 +12,6 @@ define( function( require ) {
   var PropertySet = require( 'AXON/PropertySet' );
   var Util = require( 'DOT/Util' );
   var Vector2 = require( 'DOT/Vector2' );
-  var ObservableArray = require( 'AXON/ObservableArray' );
   var PipeControlPoint = require( 'FLUID_PRESSURE_AND_FLOW/flow/model/PipeControlPoint' );
   var PipeCrossSection = require( 'FLUID_PRESSURE_AND_FLOW/flow/model/PipeCrossSection' );
   var SplineEvaluation = require( 'FLUID_PRESSURE_AND_FLOW/flow/model/SplineEvaluation' );
@@ -24,34 +23,33 @@ define( function( require ) {
   function Pipe() {
     var pipe = this;
     PropertySet.call( this, {
-      //Rate of fluid flow in volume (m^3) per second
-      flowRate: 5,
+      flowRate: 5000,// Rate of fluid flow in Liter per second (L/s)
       //Flag indicating whether friction should slow particles near the edges
       friction: false
 
     } );
 
     // Cross sections that the user can manipulate to deform the pipe.
-    this.controlCrossSections = []; // ArrayList<PipeCrossSection>();
-    this.controlCrossSections[0] = new PipeCrossSection( -6.7, -3.5, -1.4 );
-    this.controlCrossSections[1] = new PipeCrossSection( -4.6, -3.5, -1.4 );
-    this.controlCrossSections[2] = new PipeCrossSection( -2.3, -3.5, -1.4 );
-    this.controlCrossSections[3] = new PipeCrossSection( -0, -3.5, -1.4 );
-    this.controlCrossSections[4] = new PipeCrossSection( 2.3, -3.5, -1.4 );
-    this.controlCrossSections[5] = new PipeCrossSection( 4.6, -3.5, -1.4 );
-    this.controlCrossSections[6] = new PipeCrossSection( 6.7, -3.5, -1.4 );
+    this.controlCrossSections = [];
+    this.controlCrossSections[ 0 ] = new PipeCrossSection( -6.7, -3.5, -1.4 );
+    this.controlCrossSections[ 1 ] = new PipeCrossSection( -4.6, -3.5, -1.4 );
+    this.controlCrossSections[ 2 ] = new PipeCrossSection( -2.3, -3.5, -1.4 );
+    this.controlCrossSections[ 3 ] = new PipeCrossSection( -0, -3.5, -1.4 );
+    this.controlCrossSections[ 4 ] = new PipeCrossSection( 2.3, -3.5, -1.4 );
+    this.controlCrossSections[ 5 ] = new PipeCrossSection( 4.6, -3.5, -1.4 );
+    this.controlCrossSections[ 6 ] = new PipeCrossSection( 6.7, -3.5, -1.4 );
     // Nonlinear interpolation of the control sections for particle motion and determining the velocity field
-    this.splineCrossSections = new ObservableArray();//ArrayList<PipeCrossSection>
+    this.splineCrossSections = [];
 
     // Flag to improve performance
     this.dirty = true;
     this.controlPoints = [];
 
     for ( var m = 0; m < pipe.controlCrossSections.length; m++ ) {
-      pipe.controlPoints.push( new PipeControlPoint( pipe.controlCrossSections[m].x, pipe.controlCrossSections[m].yTop ) );
+      pipe.controlPoints.push( new PipeControlPoint( pipe.controlCrossSections[ m ].x, pipe.controlCrossSections[ m ].yTop ) );
     }
     for ( m = pipe.controlCrossSections.length - 1; m >= 0; m-- ) {
-      pipe.controlPoints.push( new PipeControlPoint( pipe.controlCrossSections[m].x, this.controlCrossSections[m].yBottom ) );
+      pipe.controlPoints.push( new PipeControlPoint( pipe.controlCrossSections[ m ].x, this.controlCrossSections[ m ].yBottom ) );
     }
 
     this.u = new Array( pipe.controlPoints.length / 2 );
@@ -65,9 +63,9 @@ define( function( require ) {
 
     //Arrays are fixed length, so just overwrite values.
     for ( var i = pipe.controlPoints.length / 2; i < pipe.controlPoints.length; i++ ) {
-      pipe.u[j] = j / (pipe.controlPoints.length / 2);
-      pipe.xBottom[j] = pipe.controlPoints[i].position.x;
-      pipe.yBottom[j] = pipe.controlPoints[i].position.y;
+      pipe.u[ j ] = j / (pipe.controlPoints.length / 2);
+      pipe.xBottom[ j ] = pipe.controlPoints[ i ].position.x;
+      pipe.yBottom[ j ] = pipe.controlPoints[ i ].position.y;
       j++;
     }
     this.xSplineBottom = numeric.spline( pipe.u, pipe.xBottom );
@@ -75,38 +73,37 @@ define( function( require ) {
 
     //Arrays are fixed length, so just overwrite values
     for ( i = 0; i < pipe.controlPoints.length / 2; i++ ) {
-      pipe.u[i] = i / (pipe.controlPoints.length / 2);
-      pipe.xTop[i] = pipe.controlPoints[i].position.x;
-      pipe.yTop[i] = pipe.controlPoints[i].position.y;
+      pipe.u[ i ] = i / (pipe.controlPoints.length / 2);
+      pipe.xTop[ i ] = pipe.controlPoints[ i ].position.x;
+      pipe.yTop[ i ] = pipe.controlPoints[ i ].position.y;
     }
     this.xSplineTop = numeric.spline( pipe.u, pipe.xTop );
     this.ySplineTop = numeric.spline( pipe.u, pipe.yTop );
   }
 
   return inherit( PropertySet, Pipe, {
+
     reset: function() {
       PropertySet.prototype.reset.call( this );
       for ( var i = 0; i < this.controlPoints.length; i++ ) {
-        this.controlPoints[i].reset();
+        this.controlPoints[ i ].reset();
       }
       this.dirty = true;
     },
 
-
     //Creates the set of interpolated cross section samples from the control cross sections.
     createSpline: function() {
-      this.controlCrossSections[0] = new PipeCrossSection( this.controlPoints[0].position.x, this.controlPoints[13].position.y, this.controlPoints[0].position.y );
-      this.controlCrossSections[1] = new PipeCrossSection( this.controlPoints[1].position.x, this.controlPoints[12].position.y, this.controlPoints[1].position.y );
-      this.controlCrossSections[2] = new PipeCrossSection( this.controlPoints[2].position.x, this.controlPoints[11].position.y, this.controlPoints[2].position.y );
-      this.controlCrossSections[3] = new PipeCrossSection( this.controlPoints[3].position.x, this.controlPoints[10].position.y, this.controlPoints[3].position.y );
-      this.controlCrossSections[4] = new PipeCrossSection( this.controlPoints[4].position.x, this.controlPoints[9].position.y, this.controlPoints[4].position.y );
-      this.controlCrossSections[5] = new PipeCrossSection( this.controlPoints[5].position.x, this.controlPoints[8].position.y, this.controlPoints[5].position.y );
-      this.controlCrossSections[6] = new PipeCrossSection( this.controlPoints[6].position.x, this.controlPoints[7].position.y, this.controlPoints[6].position.y );
-      var pipePositions = new ObservableArray();//new ArrayList<PipeCrossSection>();
+      this.controlCrossSections[ 0 ] = new PipeCrossSection( this.controlPoints[ 0 ].position.x, this.controlPoints[ 13 ].position.y, this.controlPoints[ 0 ].position.y );
+      this.controlCrossSections[ 1 ] = new PipeCrossSection( this.controlPoints[ 1 ].position.x, this.controlPoints[ 12 ].position.y, this.controlPoints[ 1 ].position.y );
+      this.controlCrossSections[ 2 ] = new PipeCrossSection( this.controlPoints[ 2 ].position.x, this.controlPoints[ 11 ].position.y, this.controlPoints[ 2 ].position.y );
+      this.controlCrossSections[ 3 ] = new PipeCrossSection( this.controlPoints[ 3 ].position.x, this.controlPoints[ 10 ].position.y, this.controlPoints[ 3 ].position.y );
+      this.controlCrossSections[ 4 ] = new PipeCrossSection( this.controlPoints[ 4 ].position.x, this.controlPoints[ 9 ].position.y, this.controlPoints[ 4 ].position.y );
+      this.controlCrossSections[ 5 ] = new PipeCrossSection( this.controlPoints[ 5 ].position.x, this.controlPoints[ 8 ].position.y, this.controlPoints[ 5 ].position.y );
+      this.controlCrossSections[ 6 ] = new PipeCrossSection( this.controlPoints[ 6 ].position.x, this.controlPoints[ 7 ].position.y, this.controlPoints[ 6 ].position.y );
+
+      var pipePositions = [new PipeCrossSection( this.getMinX(), this.getBottomLeft().y, this.getTopLeft().y )].concat( this.controlCrossSections );
       var dx = 0.3;//extend water flow so it looks like it enters the pipe cutaway
-      pipePositions.add( new PipeCrossSection( this.getMinX(), this.getBottomLeft().y, this.getTopLeft().y ) );
-      pipePositions.addAll( this.controlCrossSections );
-      pipePositions.add( new PipeCrossSection( this.getMaxX() + dx, this.getBottomRight().y, this.getTopRight().y ) );
+      pipePositions.push( new PipeCrossSection( this.getMaxX() + dx, this.getBottomRight().y, this.getTopRight().y ) );
       return this.spline( pipePositions );
     },
 
@@ -115,29 +112,28 @@ define( function( require ) {
      *param@<PipeCrossSection> controlPoints[]
      */
     spline: function( controlCrossSections ) {
-      var spline = new ObservableArray();// array of pipe cross section.
-      var pipeControlCrossSections = [];
+      var spline = [];// array of pipe cross section.
       this.top = [];
       var i;
       for ( i = 0; i < controlCrossSections.length; i++ ) {
-        this.top.push( new PipeControlPoint( controlCrossSections.get( i ).x, controlCrossSections.get( i ).yTop ) );
+        this.top.push( new PipeControlPoint( controlCrossSections[ i ].x, controlCrossSections[ i ].yTop ) );
       }
       this.bottom = [];
       for ( i = 0; i < controlCrossSections.length; i++ ) {
-        this.bottom.push( new PipeControlPoint( controlCrossSections.get( i ).x, controlCrossSections.get( i ).yBottom ) );
+        this.bottom.push( new PipeControlPoint( controlCrossSections[ i ].x, controlCrossSections[ i ].yBottom ) );
       }
       for ( i = 0; i < this.top.length; i++ ) {
-        this.u[i] = i / this.top.length;
-        this.xTop[i] = this.top[i].position.x;
-        this.yTop[i] = this.top[i].position.y;
+        this.u[ i ] = i / this.top.length;
+        this.xTop[ i ] = this.top[ i ].position.x;
+        this.yTop[ i ] = this.top[ i ].position.y;
       }
       this.xSplineTop = numeric.spline( this.u, this.xTop );
       this.ySplineTop = numeric.spline( this.u, this.yTop );
 
       for ( i = 0; i < this.bottom.length; i++ ) {
-        this.u[i] = i / this.bottom.length;
-        this.xBottom[i] = this.bottom[i].position.x;
-        this.yBottom[i] = this.bottom[i].position.y;
+        this.u[ i ] = i / this.bottom.length;
+        this.xBottom[ i ] = this.bottom[ i ].position.x;
+        this.yBottom[ i ] = this.bottom[ i ].position.y;
 
       }
       this.xSplineBottom = numeric.spline( this.u, this.xBottom );
@@ -154,13 +150,14 @@ define( function( require ) {
       var yPointsTop = SplineEvaluation.atArray( this.ySplineTop, linSpace );
 
       for ( var alpha = 0; alpha < xPointsTop.length; alpha++ ) {
-        var topPt = new Vector2( xPointsTop[alpha ], yPointsTop[alpha ] );//topSpline.evaluate( alpha );
-        var bottomPt = new Vector2( xPointsBottom[alpha], yPointsBottom[alpha] );// bottomSpline.evaluate( alpha );
+        var topPt = new Vector2( xPointsTop[ alpha ], yPointsTop[ alpha ] );
+        var bottomPt = new Vector2( xPointsBottom[ alpha ], yPointsBottom[ alpha ] );
         //make sure pipe top doesn't go below pipe bottom
         //Note that when the velocity becomes too high, Bernoulli's equation gives a negative pressure.
         //The pressure doesn't really go negative then, it just means Bernoulli's equation is inapplicable in that situation
         //So we have to make sure the distance threshold is high enough that Bernoulli's equation never gives a negative pressure
-        var min = 1;//PipeCrossSectionControl.DISTANCE_THRESHOLD;
+
+        var min = 1;// maintaining a minimum pipe cross section of dia 1;
         var bottomY = bottomPt.y;
         var topY = topPt.y;
         if ( topY - bottomY < min ) {
@@ -168,9 +165,9 @@ define( function( require ) {
           topY = center + min / 2;
           bottomY = center - min / 2;
         }
-        pipeControlCrossSections.push( new PipeCrossSection( (topPt.x + bottomPt.x ) / 2, bottomY, topY ) );
+
+        spline.push( new PipeCrossSection( (topPt.x + bottomPt.x ) / 2, bottomY, topY ) );
       }
-      spline.addAll( pipeControlCrossSections );
       return spline;
     },
 
@@ -188,7 +185,7 @@ define( function( require ) {
     },
 
     getMinX: function() {
-      return this.getPipePositionsSortedByX()[0].getX();
+      return this.getPipePositionsSortedByX()[ 0 ].getX();
     },
     getPipePositionsSortedByX: function() {
       return this.controlCrossSections;
@@ -216,7 +213,7 @@ define( function( require ) {
       var i;
       // The crossSections are sorted in ascending x.
       for ( i = crossSections.length - 1; i >= 0; i-- ) {
-        pipeCrossSection = crossSections.get( i );
+        pipeCrossSection = crossSections[ i ];
         if ( pipeCrossSection.getX() < x ) {
           return pipeCrossSection;
         }
@@ -234,7 +231,7 @@ define( function( require ) {
       var i;
       // The crossSections are sorted in ascending x.
       for ( i = 0; i < crossSections.length; i++ ) {
-        pipeCrossSection = crossSections.get( i );
+        pipeCrossSection = crossSections[ i ];
         if ( pipeCrossSection.getX() > x ) {
           return pipeCrossSection;
         }
@@ -246,21 +243,21 @@ define( function( require ) {
     },
 
     getTopLeft: function() {
-      return new Vector2( this.getMinX(), this.controlCrossSections[0].yTop );
+      return new Vector2( this.getMinX(), this.controlCrossSections[ 0 ].yTop );
     },
 
     getBottomLeft: function() {
-      return new Vector2( this.getMinX(), this.controlCrossSections[0].yBottom );
+      return new Vector2( this.getMinX(), this.controlCrossSections[ 0 ].yBottom );
     },
 
     getTopRight: function() {
       var controlCrossSections = this.controlCrossSections;
-      return new Vector2( this.getMaxX(), controlCrossSections[controlCrossSections.length - 1].yTop );
+      return new Vector2( this.getMaxX(), controlCrossSections[ controlCrossSections.length - 1 ].yTop );
     },
 
     getBottomRight: function() {
       var controlCrossSections = this.controlCrossSections;
-      return new Vector2( this.getMaxX(), controlCrossSections[controlCrossSections.length - 1].yBottom );
+      return new Vector2( this.getMaxX(), controlCrossSections[ controlCrossSections.length - 1 ].yBottom );
     },
 
     // Get the speed at the specified x-location.  This is before friction and vertical effects are accounted for
@@ -270,7 +267,8 @@ define( function( require ) {
       var crossSectionDiameter = this.getCrossSection( x ).getHeight();
       var crossSectionRadius = crossSectionDiameter / 2;
       var crossSectionArea = Math.PI * crossSectionRadius * crossSectionRadius;
-      return this.flowRate / crossSectionArea;
+      // use rate of fluid flow in volume (m^3) per second
+      return  ( this.flowRate / 1000 ) / crossSectionArea;
     },
 
     //I was told that the fluid flow rate falls off quadratically, so use lagrange interpolation so that at the center of the pipe
