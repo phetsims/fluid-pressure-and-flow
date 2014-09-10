@@ -301,12 +301,10 @@ define( function( require ) {
 
                 for ( var k = 0; k < flowModel.flowParticles.length; k++ ) {
                   particle = flowModel.flowParticles.get( k );
-                  particle.position.y = particle.getY();
                 }
 
                 for ( k = 0; k < flowModel.gridParticles.length; k++ ) {
                   particle = flowModel.gridParticles.get( k );
-                  particle.position.y = particle.getY();
                 }
               }
 
@@ -399,12 +397,10 @@ define( function( require ) {
 
               for ( var k = 0; k < flowModel.flowParticles.length; k++ ) {
                 particle = flowModel.flowParticles.get( k );
-                particle.position.y = particle.getY();
               }
 
               for ( k = 0; k < flowModel.gridParticles.length; k++ ) {
                 particle = flowModel.gridParticles.get( k );
-                particle.position.y = particle.getY();
               }
             }
 
