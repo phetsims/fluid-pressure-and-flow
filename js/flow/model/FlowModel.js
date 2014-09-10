@@ -52,7 +52,7 @@ define( function( require ) {
         isRulerVisible: false,
         isFluxMeterVisible: false,
         isGridInjectorPressed: false,
-        gridInjectorElapsedTimeInPressedMode: 0, // elapsed sim time (in seconds) for which the gridInjector remained pressed
+        gridInjectorElapsedTimeInPressedMode: 0, // elapsed sim time (in sec) for which the injector remained pressed
         isDotsVisible: true,
         isPlay: true,// Whether the sim is paused or running
         measureUnits: 'metric', //metric, english
@@ -115,7 +115,7 @@ define( function( require ) {
     },
 
     /**
-     * Calculates the standard air pressure by linearly extrapolating the known values for height = 0m and height = 150m
+     * Calculates the standard air pressure by linearly extrapolating the known values for height = 0m & height = 150m
      * @param {Number} height (in meters) at which the air pressure needs to be calculated
      * @returns {Number} standard air pressure at the specified height from ground
      */
@@ -230,6 +230,8 @@ define( function( require ) {
       }
 
       var crossSection = this.pipe.getCrossSection( x );
+      // the top pipe's width is drawn inside the cross section while for the bottom pipe the width is outside the
+      // cross section.
       if ( y > crossSection.yBottom - 0.1 && y < crossSection.yTop - 0.2 ) {
         return this.pipe.getTweakedVelocity( x, y );
       }
@@ -241,10 +243,10 @@ define( function( require ) {
      */
     injectGridParticles: function() {
       var x0 = this.pipe.getMinX();
+      var COLUMN_SPACING = 0.3; // initial distance between two successive columns in the particle grid
 
       for ( var i = 0; i < 4; i++ ) {
-        // space the columns 0.3 m apart
-        var x = x0 + i * 0.3;
+        var x = x0 + i * COLUMN_SPACING;
         for ( var j = 0; j < 9; j++ ) {
           // ensure the particle's y fraction is between [0.1, 0.9]
           var fraction = 0.1 * (j + 1);
