@@ -175,8 +175,9 @@ define( function( require ) {
     var slowMotionRadioBox = new AquaRadioButton( flowModel.speedProperty, 'slow', new Text( slowMotionString, {font: new PhetFont( 12 )} ), {radius: 8} );
     var normalMotionRadioBox = new AquaRadioButton( flowModel.speedProperty, 'normal', new Text( normalString, {font: new PhetFont( 12 )} ), {radius: 8} );
 
-    slowMotionRadioBox.touchArea = slowMotionRadioBox.localBounds.dilatedXY( 0, 0 );
-    normalMotionRadioBox.touchArea = new Bounds2( normalMotionRadioBox.localBounds.minX, normalMotionRadioBox.localBounds.minY, normalMotionRadioBox.localBounds.maxX + 25, normalMotionRadioBox.localBounds.maxY );
+    var speedControlMaxWidth = (slowMotionRadioBox.width > normalMotionRadioBox.width) ? slowMotionRadioBox.width : normalMotionRadioBox.width;
+    slowMotionRadioBox.touchArea = new Bounds2( slowMotionRadioBox.localBounds.minX, slowMotionRadioBox.localBounds.minY, slowMotionRadioBox.localBounds.minX + speedControlMaxWidth, slowMotionRadioBox.localBounds.maxY );
+    normalMotionRadioBox.touchArea = new Bounds2( normalMotionRadioBox.localBounds.minX, normalMotionRadioBox.localBounds.minY, normalMotionRadioBox.localBounds.minX + speedControlMaxWidth, normalMotionRadioBox.localBounds.maxY );
 
     var speedControl = new VBox( {
       align: 'left',
