@@ -13,7 +13,7 @@ define( function( require ) {
   var Image = require( 'SCENERY/nodes/Image' );
 
   // images
-  var injectorBulbImage = require( 'image!FLUID_PRESSURE_AND_FLOW/injector-bulb.png' );
+  var injectorBulbImage = require( 'image!FLUID_PRESSURE_AND_FLOW/injector-bulb-cropped.png' );
 
   /**
    * Node that injects the grid dots
