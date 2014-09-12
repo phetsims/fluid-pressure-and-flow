@@ -47,23 +47,28 @@ define( function( require ) {
 
     var textOptions = {font: new PhetFont( 10 )};
 
-    // itemSpec describes the pieces that make up an item in the control panel, conforms to the contract: { label: {Node}, icon: {Node} }
+    // itemSpec describes the pieces that make up an item in the control panel,
+    // conforms to the contract: { label: {Node}, icon: {Node} (optional) }
     var ruler = { label: new Text( rulerString, textOptions ), icon: createRulerIcon() };
-    var friction = [new Text( frictionString, textOptions )];
-    var fluxMeter = [new Text( fluxMeterString, textOptions )];
+    var friction = { label: new Text( frictionString, textOptions )};
+    var fluxMeter = { label: new Text( fluxMeterString, textOptions )};
     var dots = { label: new Text( dotString, textOptions ), icon: createDotsIcon()};
 
-
     // compute the maximum item width
-    var widestItemSpec = _.max( [ ruler], function( item ) {
-      return item.label.width + item.icon.width;
+    var widestItemSpec = _.max( [ ruler, friction, fluxMeter, dots ], function( item ) {
+      return item.label.width + ((item.icon) ? item.icon.width : 0);
     } );
-    var maxWidth = widestItemSpec.label.width + widestItemSpec.icon.width;
+    var maxWidth = widestItemSpec.label.width + ((widestItemSpec.icon) ? widestItemSpec.icon.width : 0);
 
     // pad inserts a spacing node (HStrut) so that the text, space and image together occupy a certain fixed width.
     var createItem = function( itemSpec ) {
-      var strutWidth = maxWidth - itemSpec.label.width - itemSpec.icon.width + 5;
-      return new HBox( { children: [ itemSpec.label, new HStrut( strutWidth ), new HStrut( 12 ), itemSpec.icon ] } );
+      if ( itemSpec.icon ) {
+        var strutWidth = maxWidth - itemSpec.label.width - itemSpec.icon.width + 17;
+        return new HBox( { children: [ itemSpec.label, new HStrut( strutWidth ), itemSpec.icon ] } );
+      }
+      else {
+        return new HBox( { children: [ itemSpec.label] } );
+      }
     };
 
     var checkBoxOptions = {
@@ -72,15 +77,19 @@ define( function( require ) {
     };
 
     var rulerCheckBox = new CheckBox( createItem( ruler ), flowModel.isRulerVisibleProperty, checkBoxOptions );
-    var frictionCheckBox = new CheckBox( new HBox( {children: ( friction )} ), flowModel.pipe.frictionProperty, checkBoxOptions );
-    var fluxMeterCheckBox = new CheckBox( new HBox( {children: ( fluxMeter )} ), flowModel.isFluxMeterVisibleProperty, checkBoxOptions );
+    var frictionCheckBox = new CheckBox( createItem( friction ), flowModel.pipe.frictionProperty, checkBoxOptions );
+    var fluxMeterCheckBox = new CheckBox( createItem( fluxMeter ), flowModel.isFluxMeterVisibleProperty, checkBoxOptions );
     var dotsCheckBox = new CheckBox( createItem( dots ), flowModel.isDotsVisibleProperty, checkBoxOptions );
 
+    var maxCheckBoxWidth = _.max( [ rulerCheckBox, frictionCheckBox, fluxMeterCheckBox, dotsCheckBox ], function( item ) {
+      return item.width;
+    } ).width + 5;
+
     //touch Areas
-    rulerCheckBox.touchArea = new Bounds2( rulerCheckBox.localBounds.minX - 5, rulerCheckBox.localBounds.minY, rulerCheckBox.localBounds.maxX + 8, rulerCheckBox.localBounds.maxY );
-    frictionCheckBox.touchArea = new Bounds2( frictionCheckBox.localBounds.minX - 5, frictionCheckBox.localBounds.minY, frictionCheckBox.localBounds.maxX + 43, frictionCheckBox.localBounds.maxY );
-    fluxMeterCheckBox.touchArea = new Bounds2( fluxMeterCheckBox.localBounds.minX - 5, fluxMeterCheckBox.localBounds.minY, fluxMeterCheckBox.localBounds.maxX + 29, fluxMeterCheckBox.localBounds.maxY );
-    dotsCheckBox.touchArea = new Bounds2( dotsCheckBox.localBounds.minX - 5, dotsCheckBox.localBounds.minY, dotsCheckBox.localBounds.maxX + 8, dotsCheckBox.localBounds.maxY );
+    rulerCheckBox.touchArea = new Bounds2( rulerCheckBox.localBounds.minX - 5, rulerCheckBox.localBounds.minY, rulerCheckBox.localBounds.minX + maxCheckBoxWidth, rulerCheckBox.localBounds.maxY );
+    frictionCheckBox.touchArea = new Bounds2( frictionCheckBox.localBounds.minX - 5, frictionCheckBox.localBounds.minY, frictionCheckBox.localBounds.minX + maxCheckBoxWidth, frictionCheckBox.localBounds.maxY );
+    fluxMeterCheckBox.touchArea = new Bounds2( fluxMeterCheckBox.localBounds.minX - 5, fluxMeterCheckBox.localBounds.minY, fluxMeterCheckBox.localBounds.minX + maxCheckBoxWidth, fluxMeterCheckBox.localBounds.maxY );
+    dotsCheckBox.touchArea = new Bounds2( dotsCheckBox.localBounds.minX - 5, dotsCheckBox.localBounds.minY, dotsCheckBox.localBounds.minX + maxCheckBoxWidth, dotsCheckBox.localBounds.maxY );
 
     // pad all the rows so the text nodes are left aligned and the icons is right aligned
     var checkBoxChildren = [ rulerCheckBox , frictionCheckBox, fluxMeterCheckBox , dotsCheckBox ];
