@@ -49,15 +49,16 @@ define( function( require ) {
     var gaugeNode = new GaugeNode( barometer.valueProperty, pressureString, {min: Constants.MIN_PRESSURE, max: Constants.MAX_PRESSURE}, {scale: 0.4} );
     this.addChild( gaugeNode );
 
-    var underGaugeRectangleWidth = 25;
-    var underGaugeRectangleHeight = 25;
-    var underGaugeRectangle = new Rectangle( gaugeNode.centerX - underGaugeRectangleWidth / 2, gaugeNode.bottom - 3, underGaugeRectangleWidth, underGaugeRectangleHeight, 5, 5, {
+    var underGaugeRectangleWidth = 18;
+    var underGaugeRectangleHeight = 15;
+    var underGaugeRectangle = new Rectangle( gaugeNode.centerX - underGaugeRectangleWidth / 2, gaugeNode.bottom - 3, underGaugeRectangleWidth, underGaugeRectangleHeight, 1, 1, {
       fill: new LinearGradient( gaugeNode.centerX - underGaugeRectangleWidth / 2, 0, gaugeNode.centerX + underGaugeRectangleWidth / 2, 0 )
         .addColorStop( 0, '#656570' )
         .addColorStop( 0.2, '#bdc3cf' )
         .addColorStop( 0.5, '#dee6f5' )
         .addColorStop( 0.8, '#bdc3cf' )
-        .addColorStop( 1, '#656570' )
+        .addColorStop( 1, '#656570' ),
+      top: gaugeNode.bottom - 2
     } );
     this.addChild( underGaugeRectangle );
 
@@ -78,7 +79,8 @@ define( function( require ) {
       fill: new LinearGradient( gaugeNode.centerX - bottomTriangleShapeWidth / 2, 0, gaugeNode.centerX + bottomTriangleShapeWidth / 2, 0 )
         .addColorStop( 0, '#656570' )
         .addColorStop( 0.5, '#dee6f5' )
-        .addColorStop( 1, '#656570' )
+        .addColorStop( 1, '#656570' ),
+      top: underGaugeRectangle.bottom - 1
     } ) );
 
     // Add an input listener so the BarometerNode can be dragged
@@ -98,14 +100,15 @@ define( function( require ) {
 
     //Update the value in the barometer value model by reading from the model.
     Property.multilink( [barometer.positionProperty].concat( linkedProperties ), function( position ) {
-      barometer.valueProperty.set( waterTowerModel.getPressureAtCoords( modelViewTransform.viewToModelX( position.x ), modelViewTransform.viewToModelY( position.y + (62) ) ) );
+      barometer.valueProperty.set( waterTowerModel.getPressureAtCoords( modelViewTransform.viewToModelX( position.x ), modelViewTransform.viewToModelY( position.y + (53) ) ) );
     } );
 
     //Update the text when the value or units changes.
     Property.multilink( [barometer.valueProperty, waterTowerModel.measureUnitsProperty], function( barometerValue, units ) {
-      text.text = Units.getPressureString[units]( barometerValue, waterTowerModel.isPointInWater && waterTowerModel.isPointInWater( modelViewTransform.viewToModelX( barometer.position.x ), modelViewTransform.viewToModelY( barometer.position.y + (62) ) ) );
+      text.text = Units.getPressureString[units]( barometerValue, waterTowerModel.isPointInWater && waterTowerModel.isPointInWater( modelViewTransform.viewToModelX( barometer.position.x ), modelViewTransform.viewToModelY( barometer.position.y + (53) ) ) );
       textBackground.setRect( 0, 0, text.width + 4, text.height + 2 );
-      textBackground.center = underGaugeRectangle.center;
+      textBackground.centerX = gaugeNode.centerX;
+      textBackground.bottom = gaugeNode.bottom - 4;
       text.center = textBackground.center;
     } );
 
