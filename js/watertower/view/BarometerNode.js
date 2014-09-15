@@ -37,7 +37,7 @@ define( function( require ) {
    * @param {Property[]} linkedProperties - the set of properties which affect the barometer value
    * @param {Bounds2} containerBounds - bounds of container for all barometers, needed to snap barometer to initial position when it in container
    * @param {Bounds2} dragBounds - bounds that define where the barometer may be dragged
-   * @param {options} options that can be passed on to the underlying node
+   * @param {Object} [options] that can be passed on to the underlying node
    * @constructor
    */
   function BarometerNode( waterTowerModel, modelViewTransform, barometer, linkedProperties, containerBounds, dragBounds, options ) {
