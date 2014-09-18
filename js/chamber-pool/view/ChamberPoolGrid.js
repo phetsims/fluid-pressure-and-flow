@@ -61,8 +61,10 @@ define( function( require ) {
     this.addChild( depthLabelsFeet );
 
 
-    chamberPoolModel.globalModel.measureUnitsProperty.valueEquals( 'english' ).linkAttribute( depthLabelsFeet, 'visible' );
-    chamberPoolModel.globalModel.measureUnitsProperty.valueEquals( 'metric' ).linkAttribute( depthLabelsMeters, 'visible' );
+    chamberPoolModel.globalModel.measureUnitsProperty.link( function( measureUnits ) {
+      depthLabelsFeet.visible = (measureUnits === 'english');
+      depthLabelsMeters.visible = (measureUnits !== 'english');
+    } );
 
     chamberPoolModel.globalModel.isGridVisibleProperty.linkAttribute( this, 'visible' );
 

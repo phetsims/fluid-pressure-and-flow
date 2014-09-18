@@ -51,8 +51,10 @@ define( function( require ) {
     this.addChild( metersLabels );
     this.addChild( feetLabels );
 
-    squarePoolModel.globalModel.measureUnitsProperty.valueEquals( 'english' ).linkAttribute( feetLabels, 'visible' );
-    squarePoolModel.globalModel.measureUnitsProperty.valueEquals( 'metric' ).linkAttribute( metersLabels, 'visible' );
+    squarePoolModel.globalModel.measureUnitsProperty.link( function( measureUnits ) {
+      feetLabels.visible = (measureUnits === 'english');
+      metersLabels.visible = (measureUnits !== 'english');
+    } );
 
     squarePoolModel.globalModel.isGridVisibleProperty.linkAttribute( this, 'visible' );
   }
