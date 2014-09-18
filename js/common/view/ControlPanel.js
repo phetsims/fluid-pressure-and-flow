@@ -14,85 +14,94 @@ define( function( require ) {
   var Shape = require( 'KITE/Shape' );
   var Rectangle = require( 'SCENERY/nodes/Rectangle' );
   var Panel = require( 'SUN/Panel' );
+  var HStrut = require( 'SUN/HStrut' );
+
   var CheckBox = require( 'SUN/CheckBox' );
   var AquaRadioButton = require( 'SUN/AquaRadioButton' );
   var Text = require( 'SCENERY/nodes/Text' );
   var PhetFont = require( 'SCENERY_PHET/PhetFont' );
   var NodeWithBorderAndTitle = require( 'UNDER_PRESSURE/common/view/NodeWithBorderAndTitle' );
   var RulerNode = require( 'SCENERY_PHET/RulerNode' );
+  var Bounds2 = require( 'DOT/Bounds2' );
 
   var gridString = require( 'string!UNDER_PRESSURE/grid' );
   var rulerString = require( 'string!UNDER_PRESSURE/ruler' );
   var onString = require( 'string!UNDER_PRESSURE/on' );
   var offString = require( 'string!UNDER_PRESSURE/off' );
 
-  var metricString = require( 'string!UNDER_PRESSURE/metric' );
-  var atmospheresString = require( 'string!UNDER_PRESSURE/atmospheres' );
   var atmosphereString = require( 'string!UNDER_PRESSURE/atmosphere' );
-  var englishString = require( 'string!UNDER_PRESSURE/english' );
-  var unitsString = require( 'string!UNDER_PRESSURE/units' );
 
-  function ControlPanel( model, x, y ) {
+  function ControlPanel( model, options ) {
+
+    options = _.extend( {
+      xMargin: 10,
+      yMargin: 10,
+      fill: '#f2fa6a ',
+      stroke: 'gray',
+      lineWidth: 1,
+      resize: false,
+      scale: 0.8
+    }, options );
+
+
     var textOptions = {font: new PhetFont( 14 )};
 
     var rulerSet = [new Text( rulerString, textOptions ), this.createRulerIcon()];
     var grid = [new Text( gridString, textOptions )];
 
+    var atmosphereTrue = new AquaRadioButton( model.isAtmosphereProperty, true, new Text( onString, textOptions ), {radius: 8} );
+    var atmosphereFalse = new AquaRadioButton( model.isAtmosphereProperty, false, new Text( offString, textOptions ), {radius: 8} );
+
+    //touch areas
+    atmosphereTrue.touchArea = atmosphereTrue.localBounds.dilatedXY( 0, 0 );
+    atmosphereFalse.touchArea = atmosphereFalse.localBounds.dilatedXY( 0, 0 );
+
     var atmosphere = new NodeWithBorderAndTitle( new HBox( {
-      children: [
-        new AquaRadioButton( model.isAtmosphereProperty, true, new Text( onString, textOptions ), {radius: 8} ),
-        new AquaRadioButton( model.isAtmosphereProperty, false, new Text( offString, textOptions ), {radius: 8} )
-      ],
+      children: [ atmosphereTrue, atmosphereFalse ],
       spacing: 10,
       align: 'left'
     } ), atmosphereString );
 
-    var metrics = new NodeWithBorderAndTitle( new VBox( {
-      children: [
-        new AquaRadioButton( model.measureUnitsProperty, 'metric', new Text( metricString, textOptions ), {radius: 8} ),
-        new AquaRadioButton( model.measureUnitsProperty, 'atmosphere', new Text( atmospheresString, textOptions ), {radius: 8} ),
-        new AquaRadioButton( model.measureUnitsProperty, 'english', new Text( englishString, textOptions ), {radius: 8} )
-      ],
-      spacing: 5,
-      align: 'left'
-    } ), unitsString );
-
-    var options = {
+    var alignOptions = {
       boxWidth: 18,
       spacing: 5
     };
 
-    var maxWidth = _.max( [atmosphere, metrics],function( item ) { return item.width; } ).width;
+    var expandedWidth = atmosphere.width + 40;
 
     //align ruler icon right
-    var padWidth = maxWidth - rulerSet[0].width - rulerSet[1].width - options.boxWidth - options.spacing * 2;
-    var ruler = [rulerSet[0], new Rectangle( 0, 0, padWidth, 20 ), rulerSet[1]];
+    var padWidth = expandedWidth - rulerSet[0].width - rulerSet[1].width - alignOptions.boxWidth - alignOptions.spacing * 2;
+    var ruler = [rulerSet[0], new HStrut( padWidth ), rulerSet[1]];
 
     //resize boxes to fit max
-    atmosphere.updateWidth( maxWidth );
-    metrics.updateWidth( maxWidth );
+    atmosphere.updateWidth( expandedWidth );
 
-    var checkBoxChildren = [
-      new CheckBox( new HBox( {children: ( ruler )} ), model.isRulerVisibleProperty, options ),
-      new CheckBox( new HBox( {children: ( grid )} ), model.isGridVisibleProperty, options )
-    ];
+    var rulerCheckBox = new CheckBox( new HBox( {children: ( ruler )} ), model.isRulerVisibleProperty, alignOptions );
+    var gridCheckBox = new CheckBox( new HBox( {children: ( grid )} ), model.isGridVisibleProperty, alignOptions );
+
+    var maxCheckBoxWidth = _.max( [ rulerCheckBox, gridCheckBox ], function( item ) {
+      return item.width;
+    } ).width + 5;
+
+    //touch Areas
+    rulerCheckBox.touchArea = new Bounds2( rulerCheckBox.localBounds.minX - 5, rulerCheckBox.localBounds.minY, rulerCheckBox.localBounds.minX + maxCheckBoxWidth, rulerCheckBox.localBounds.maxY );
+    gridCheckBox.touchArea = new Bounds2( gridCheckBox.localBounds.minX - 5, gridCheckBox.localBounds.minY, gridCheckBox.localBounds.minX + maxCheckBoxWidth, gridCheckBox.localBounds.maxY );
+
+    var checkBoxChildren = [ rulerCheckBox , gridCheckBox ];
+
     var checkBoxes = new VBox( {align: 'left', spacing: 5, children: checkBoxChildren} );
 
     var content = new VBox( {
       spacing: 5,
-      children: [checkBoxes, atmosphere, metrics],
+      children: [checkBoxes, atmosphere],
       align: 'left'
     } );
 
-    this.resizeWidth = function( maxWidth ) {
-      atmosphere.updateWidth( maxWidth );
-      metrics.updateWidth( maxWidth );
-    };
+    Panel.call( this, content, options );
 
-    Panel.call( this, content, { xMargin: 10, yMargin: 10, fill: '#f2fa6a ', stroke: 'gray', lineWidth: 1, resize: false, x: x, y: y, scale: 0.8 } );
   }
 
-  return inherit( Node, ControlPanel, {
+  return inherit( Panel, ControlPanel, {
     //Create an icon for the ruler check box
     createRulerIcon: function() {
       return new RulerNode( 30, 20, 15, ['0', '1', '2'], '', {
