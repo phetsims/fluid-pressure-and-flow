@@ -34,6 +34,8 @@ define( function( require ) {
    * @constructor
    */
   function FlowRuler( isRulerVisibleProperty, rulerPositionProperty, measureUnitsProperty, modelViewTransform, dragBounds, options ) {
+    var flowRuler = this;
+
     Node.call( this, {cursor: 'pointer'} );
     var closeIconRadius = 4;
     var rulerWidth = 40;
@@ -75,6 +77,7 @@ define( function( require ) {
     rulerPositionProperty.linkAttribute( metersRuler, 'translation' );
     rulerPositionProperty.linkAttribute( feetRuler, 'translation' );
     rulerPositionProperty.link( function( rulerPosition ) {
+      flowRuler.moveToFront();
       closeButton.setTranslation( rulerPosition.x, rulerPosition.y - closeButton.height - rulerHeight );
     } );
 
