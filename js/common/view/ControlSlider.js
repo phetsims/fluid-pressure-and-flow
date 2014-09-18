@@ -26,7 +26,7 @@ define( function( require ) {
 
   function ControlSlider( model, trackProperty, getPropertyStringFunction, trackRange, expandedProperty, options ) {
     options = _.extend( {
-      scale: 0.6,
+      scale: 1.0,
       fill: '#f2fa6a',
       xMargin: 15,
       yMargin: 5,
@@ -44,7 +44,15 @@ define( function( require ) {
       trackSize: TRACK_SIZE,
       trackFill: new LinearGradient( 0, 0, TRACK_SIZE.width, 0 )
         .addColorStop( 0, '#fff' )
-        .addColorStop( 1, '#000' )
+        .addColorStop( 1, '#000' ),
+      endDrag: function() {
+        for ( var i = 0; i < options.ticks.length; i++ ) {
+          if ( Math.abs( options.ticks[i].value - trackProperty.value ) <= 0.05 * options.ticks[i].value ) {
+            trackProperty.value = options.ticks[i].value;
+            break;
+          }
+        }
+      }
     } );
 
     // nodes
@@ -75,14 +83,17 @@ define( function( require ) {
     valueField.bottom = hSlider.top - 5;
     valueLabel.centerX = valueField.centerX;
     valueLabel.centerY = valueField.centerY - 3;
+
     // plus button to the right of the value
     plusButton.left = valueField.right + 10;
     plusButton.centerY = valueField.centerY;
+
     // minus button to the left of the value
     minusButton.right = valueField.left - 10;
     minusButton.centerY = valueField.centerY;
 
     var scale = 0.65;
+
     this.accordionContent = new Node();
     this.accordionContent.addChild( this.content );
 
@@ -120,6 +131,8 @@ define( function( require ) {
       valueLabel.text = getPropertyStringFunction();
       valueLabel.center = valueField.center; // keep the value centered in the field
     } );
+
+    this.mutate( options );
   }
 
   return inherit( Node, ControlSlider, {
