@@ -16,8 +16,13 @@ define( function( require ) {
   var metersStringPattern = require( 'string!UNDER_PRESSURE/readoutMeters' );
   var feetStringPattern = require( 'string!UNDER_PRESSURE/readoutFeet' );
 
-  function SquarePoolGrid( model, modelViewTransform ) {
-    var self = this;
+  /**
+   * View for the grid inside square pool
+   * @param {SquarePoolModel} squarePoolModel
+   * @param {ModelViewTransform2} modelViewTransform
+   * @constructor
+   */
+  function SquarePoolGrid( squarePoolModel, modelViewTransform ) {
     Node.call( this );
 
     var fontOptions = {
@@ -25,36 +30,31 @@ define( function( require ) {
       fontWeight: 'bold'
     };
 
-    this.addChild( new GridLinesNode( model.globalModel, modelViewTransform, model.poolDimensions.x1, model.poolDimensions.y1, model.poolDimensions.x2, model.poolDimensions.y2 + 0.3 ) );
+    this.addChild( new GridLinesNode( squarePoolModel.globalModel, modelViewTransform, squarePoolModel.poolDimensions.x1, squarePoolModel.poolDimensions.y1, squarePoolModel.poolDimensions.x2, squarePoolModel.poolDimensions.y2 + 0.3 ) );
 
     var metersLabels = new Node();
     for ( var i = 0; i < 4; i++ ) {
       metersLabels.addChild( new Text( StringUtils.format( metersStringPattern, i ), _.extend( {
-        right: modelViewTransform.modelToViewX( model.poolDimensions.x1 ) - 8,
-        centerY: modelViewTransform.modelToViewY( model.globalModel.skyGroundBoundY + i )
+        right: modelViewTransform.modelToViewX( squarePoolModel.poolDimensions.x1 ) - 8,
+        centerY: modelViewTransform.modelToViewY( squarePoolModel.globalModel.skyGroundBoundY + i )
       }, fontOptions ) ) );
     }
 
     var feetLabels = new Node();
     for ( i = 0; i < 11; i++ ) {
       feetLabels.addChild( new Text( StringUtils.format( feetStringPattern, i ), _.extend( {
-        right: modelViewTransform.modelToViewX( model.poolDimensions.x1 ) - 8,
-        centerY: modelViewTransform.modelToViewY( model.globalModel.skyGroundBoundY + model.globalModel.units.feetToMeters( i ) )
+        right: modelViewTransform.modelToViewX( squarePoolModel.poolDimensions.x1 ) - 8,
+        centerY: modelViewTransform.modelToViewY( squarePoolModel.globalModel.skyGroundBoundY + squarePoolModel.globalModel.units.feetToMeters( i ) )
       }, fontOptions ) ) );
     }
 
     this.addChild( metersLabels );
     this.addChild( feetLabels );
 
-    model.globalModel.measureUnitsProperty.link( function( value ) {
-      var metersVisible = (value !== 'english');
-      metersLabels.visible = metersVisible;
-      feetLabels.visible = !metersVisible;
-    } );
+    squarePoolModel.globalModel.measureUnitsProperty.valueEquals( 'english' ).linkAttribute( feetLabels, 'visible' );
+    squarePoolModel.globalModel.measureUnitsProperty.valueEquals( 'metric' ).linkAttribute( metersLabels, 'visible' );
 
-    model.globalModel.isGridVisibleProperty.link( function( value ) {
-      self.visible = value;
-    } );
+    squarePoolModel.globalModel.isGridVisibleProperty.linkAttribute( this, 'visible' );
   }
 
   return inherit( Node, SquarePoolGrid );
