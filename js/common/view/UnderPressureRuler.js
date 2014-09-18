@@ -1,14 +1,14 @@
 // Copyright 2002-2013, University of Colorado Boulder
 
 /**
- * Model Ruler Node.
+ * A simple ruler which shows units in english and metric units
  * @author Shakhov Vasily (Mlearner)
  */
 
 define( function( require ) {
   'use strict';
 
-  // Imports
+  // modules
   var Node = require( 'SCENERY/nodes/Node' );
   var inherit = require( 'PHET_CORE/inherit' );
   var RulerNode = require( 'SCENERY_PHET/RulerNode' );
@@ -18,65 +18,90 @@ define( function( require ) {
   var Vector2 = require( 'DOT/Vector2' );
   var MovableDragHandler = require( 'SCENERY_PHET/input/MovableDragHandler' );
   var ModelViewTransform2 = require( 'PHETCOMMON/view/ModelViewTransform2' );
+  var RectangularPushButton = require( 'SUN/buttons/RectangularPushButton' );
+  var PhetFont = require( 'SCENERY_PHET/PhetFont' );
 
-  // Resources
+  // strings
   var units_metersString = require( 'string!UNDER_PRESSURE/m' );
   var units_feetString = require( 'string!UNDER_PRESSURE/ft' );
 
-  function UnderPressureRuler( model, modelViewTransform, dragBounds ) {
-    var self = this;
+  /**
+   * Constructor for the under pressure ruler.
+   * @param {UnderPressureModel} underPressureModel
+   * @param {ModelViewTransform2} modelViewTransform to convert between model and view co-ordinates
+   * @param {Bounds2} dragBounds to limit the ruler dragging
+   * @constructor
+   */
+  function UnderPressureRuler( underPressureModel, modelViewTransform, dragBounds ) {
+
     Node.call( this, { cursor: 'pointer', renderer: 'svg', cssTransform: true } );
 
+    var closeIconRadius = 4;
+    var scaleFont = new PhetFont( 12 );
+
+
+    var xIcon = new Path( new Shape()
+      .moveTo( -closeIconRadius, -closeIconRadius )
+      .lineTo( closeIconRadius, closeIconRadius )
+      .moveTo( closeIconRadius, -closeIconRadius )
+      .lineTo( -closeIconRadius, closeIconRadius ), {stroke: 'white', lineWidth: 2} );
+
     //close button
-    var closeButton = new Node( {cursor: 'pointer'} );
-
-    // configure the button shape
-    var buttonShape = new Path( Shape.roundRectangle( 0, 0, 15, 15, 1.5, 1.5 ), { fill: 'rgb(255, 85, 0 )', stroke: 'black', lineWidth: 0.5 } );
-    closeButton.addChild( buttonShape );
-    var thisButton = new Path( new Shape()
-      .moveTo( -4, -4 )
-      .lineTo( 4, 4 )
-      .moveTo( 4, -4 )
-      .lineTo( -4, 4 ), {stroke: 'white', centerX: closeButton.centerX, centerY: closeButton.centerY, lineWidth: 2} );
-    // click to toggle
-
-    closeButton.addChild( thisButton );
-    closeButton.addInputListener( new ButtonListener( {
-      fire: function() {
-        model.isRulerVisible = false;
+    var closeButton = new RectangularPushButton( {
+      baseColor: 'red',
+      content: xIcon,
+      // click to toggle
+      listener: function() {
+        underPressureModel.isRulerVisible = false;
       }
-    } ) );
+    } );
     this.addChild( closeButton );
 
-    var MetersRuler = new RulerNode( modelViewTransform.modelToViewX( 5 ), 50, modelViewTransform.modelToViewX( 1 ), ['0', '1', '2', '3', '4', '5'], units_metersString, {minorTicksPerMajorTick: 4, unitsFont: '12px Arial', rotation: Math.PI / 2 } );
-    this.addChild( MetersRuler );
+    var metersRuler = new RulerNode( modelViewTransform.modelToViewX( 5 ), 50, modelViewTransform.modelToViewX( 1 ), ['0', '1', '2', '3', '4', '5'],
+      units_metersString, {
+        minorTicksPerMajorTick: 4,
+        unitsSpacing: 4,
+        unitsFont: scaleFont,
+        majorTickFont: scaleFont,
+        rotation: Math.PI / 2
+      }
+    );
+    this.addChild( metersRuler );
 
-    var FeetRuler = new RulerNode( modelViewTransform.modelToViewX( model.units.feetToMeters( 10 ) ), 50, modelViewTransform.modelToViewX( model.units.feetToMeters( 1 ) ), ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10'], units_feetString, {minorTicksPerMajorTick: 4, unitsFont: '12px Arial', rotation: Math.PI / 2 } );
-    this.addChild( FeetRuler );
+    var feetRuler = new RulerNode( modelViewTransform.modelToViewX( underPressureModel.units.feetToMeters( 10 ) ), 50,
+      modelViewTransform.modelToViewX( underPressureModel.units.feetToMeters( 1 ) ),
+      ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10'], units_feetString, {
+        minorTicksPerMajorTick: 4,
+        unitsSpacing: 4,
+        unitsFont: scaleFont,
+        majorTickFont: scaleFont,
+        rotation: Math.PI / 2
+      }
+    );
+    this.addChild( feetRuler );
 
     closeButton.translation = new Vector2( -this.width + closeButton.width, -closeButton.height );
 
-    model.isRulerVisibleProperty.link( function( isVisible ) {
-      self.visible = isVisible;
+    underPressureModel.isRulerVisibleProperty.linkAttribute( this, 'visible' );
+
+    // show feetRuler for 'english' and metersRuler for 'metric' and 'atmosphere'
+    underPressureModel.measureUnitsProperty.link( function( measureUnits ) {
+      feetRuler.visible = (measureUnits === 'english');
+      metersRuler.visible = (measureUnits !== 'english');
     } );
 
-    model.measureUnitsProperty.link( function( unit ) {
-      if ( unit === 'english' ) {
-        MetersRuler.visible = false;
-        FeetRuler.visible = true;
-      }
-      else {
-        MetersRuler.visible = true;
-        FeetRuler.visible = false;
-      }
+    underPressureModel.rulerPositionProperty.linkAttribute( metersRuler, 'translation' );
+    underPressureModel.rulerPositionProperty.linkAttribute( feetRuler, 'translation' );
+
+    underPressureModel.rulerPositionProperty.link( function( rulerPosition ) {
+      closeButton.setTranslation( rulerPosition.x - 50, rulerPosition.y - closeButton.height );
     } );
 
-    model.rulerPositionProperty.link( function updateRulerLocation( value ) {
-      self.translation = value;
-    } );
+    // drag handlers
+    metersRuler.addInputListener( new MovableDragHandler( { locationProperty: underPressureModel.rulerPositionProperty, dragBounds: dragBounds },
+      ModelViewTransform2.createIdentity() ) );
 
-    //handlers
-    this.addInputListener( new MovableDragHandler( { locationProperty: model.rulerPositionProperty, dragBounds: dragBounds.shifted( this.width / 2, -this.height / 2 ) },
+    feetRuler.addInputListener( new MovableDragHandler( { locationProperty: underPressureModel.rulerPositionProperty, dragBounds: dragBounds },
       ModelViewTransform2.createIdentity() ) );
 
   }
