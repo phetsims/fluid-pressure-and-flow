@@ -1,7 +1,8 @@
 // Copyright (c) 2002 - 2014. University of Colorado Boulder
 
 /**
- * Particle model. Modified from watertower's WaterDrop
+ * Model for a simple spherical particle (Modified from watertower's WaterDrop). The red dots and black grid dots
+ * in flow sim are modelled as Particles. Model contains properties for radius, color, position etc
  * @author Siddhartha Chinthapally (Actual Concepts)
  */
 

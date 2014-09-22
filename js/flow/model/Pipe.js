@@ -1,7 +1,8 @@
 // Copyright (c) 2002 - 2014. University of Colorado Boulder
 
 /**
- * Model for a pipe, which has a fixed number of points.
+ * Model for a flexible cylindrical pipe which can be modified using a fixed number of control points.
+ * Also models the flow of particles in the pipe (with and without friction).
  * @author Siddhartha Chinthapally (Actual Concepts).
  */
 
@@ -26,7 +27,6 @@ define( function( require ) {
       flowRate: 5000,// Rate of fluid flow in Liter per second (L/s)
       //Flag indicating whether friction should slow particles near the edges
       friction: false
-
     } );
 
     // Cross sections that the user can manipulate to deform the pipe.
@@ -38,10 +38,10 @@ define( function( require ) {
     this.controlCrossSections[ 4 ] = new PipeCrossSection( 2.3, -3.5, -1.4 );
     this.controlCrossSections[ 5 ] = new PipeCrossSection( 4.6, -3.5, -1.4 );
     this.controlCrossSections[ 6 ] = new PipeCrossSection( 6.7, -3.5, -1.4 );
-    // Nonlinear interpolation of the control sections for particle motion and determining the velocity field
+    // nonlinear interpolation of the control sections for particle motion and determining the velocity field
     this.splineCrossSections = [];
 
-    // Flag to improve performance
+    // flag to improve performance
     this.dirty = true;
     this.controlPoints = [];
 
@@ -58,9 +58,7 @@ define( function( require ) {
     this.xTop = new Array( pipe.controlPoints.length / 2 );
     this.yTop = new Array( pipe.controlPoints.length / 2 );
 
-
     var j = 0;
-
     //Arrays are fixed length, so just overwrite values.
     for ( var i = pipe.controlPoints.length / 2; i < pipe.controlPoints.length; i++ ) {
       pipe.u[ j ] = j / (pipe.controlPoints.length / 2);
@@ -107,9 +105,10 @@ define( function( require ) {
       return this.spline( pipePositions );
     },
 
-    //Interpolates the specified control points to obtain a smooth set of cross sections
-    /*
-     *param@<PipeCrossSection> controlPoints[]
+    /**
+     * Interpolates the specified control points to obtain a smooth set of cross sections
+     * @param {PipeCrossSection[]} controlCrossSections that are used to generate the spline
+     * @returns {PipeCrossSection[]} array of interpolated cross-sections
      */
     spline: function( controlCrossSections ) {
       var spline = [];// array of pipe cross section.
@@ -179,14 +178,17 @@ define( function( require ) {
       return this.splineCrossSections;
     },
 
+    // return the xPosition of the right most cross section
     getMaxX: function() {
       var sortedPipePositions = this.getPipePositionsSortedByX();
       return  sortedPipePositions[ sortedPipePositions.length - 1 ].getX();
     },
 
+    // return the xPosition of the left most cross section
     getMinX: function() {
       return this.getPipePositionsSortedByX()[ 0 ].getX();
     },
+
     getPipePositionsSortedByX: function() {
       return this.controlCrossSections;
     },

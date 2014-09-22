@@ -1,7 +1,8 @@
 // Copyright (c) 2002 - 2014. University of Colorado Boulder
 
 /**
- * PipeCrossSection
+ * Model for a vertical cross section of pipe including the horizontal position, the bottom and top position.
+ * All units in meters.
  * @author Siddhartha Chinthapally (Actual Concepts)
  */
 
@@ -25,14 +26,6 @@ define( function( require ) {
 
   return inherit( Object, PipeCrossSection, {
 
-    /* translateTop: function( dx, dy ) {
-     this.top.set( this.top.x + dx, this.getTop().y + dy );
-     },
-
-     translateBottom: function( dx, dy ) {
-     this.bottom.set( this.bottom.x + dx, this.getBottom().y + dy );
-     },*/
-
     getX: function() {
       return this.x;
     },
@@ -41,19 +34,9 @@ define( function( require ) {
       return this.yTop - this.yBottom;
     },
 
-    /* reset: function() {
-     this.top.reset();
-     this.bottom.reset();
-     },*/
-
     getCenterY: function() {
       return ( this.yTop + this.yBottom ) / 2;
     }
-    //Translate both top and bottom parts of the pipe
-    /*translate: function( dx, dy ) {
-     this.translateTop( dx, dy );
-     this.translateBottom( dx, dy );
-     }*/
   } );
 } );
 

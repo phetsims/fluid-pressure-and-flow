@@ -1,7 +1,8 @@
 // Copyright (c) 2002 - 2014. University of Colorado Boulder
 
 /**
- * FluxMeter
+ * Model for the flux meter tool in the flow tab of FPAF sim. Measures the flux at a given cross section
+ * using the cross section area and flow rate. All units are in metric.
  * @author Siddhartha Chinthapally (Actual Concepts)
  */
 
@@ -11,6 +12,11 @@ define( function( require ) {
   var inherit = require( 'PHET_CORE/inherit' );
   var PropertySet = require( 'AXON/PropertySet' );
 
+  /**
+   * Constructor for the flux meter.
+   * @param {Pipe} pipe for which the flux needs to be measured at a particular cross section.
+   * @constructor
+   */
   function FluxMeter( pipe ) {
     this.pipe = pipe;
     PropertySet.call( this, {
