@@ -1,7 +1,10 @@
 // Copyright (c) 2002 - 2014. University of Colorado Boulder
 
 /**
- * FlowModel
+ * Model for the Flow tab in Fluid Pressure and Flow (FPAF) simulation. The model includes values for various view settings
+ * like whether a ruler is visible, whether a grid injector is pressed and so on.
+ * Origin is at the center on the ground. And y grows in the direction of sky from ground.
+ *
  * @author Siddhartha Chinthapally (Actual Concepts)
  */
 
