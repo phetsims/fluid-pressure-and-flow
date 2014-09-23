@@ -66,8 +66,9 @@ define( function( require ) {
     );
 
     this.barometers = [];
+    var INITIAL_PRESSURE = 101035 ;
     for ( var i = 0; i < NUMBER_BAROMETERS; i++ ) {
-      this.barometers.push( new Barometer( new Vector2( 0, 0 ), 101035 ) );
+      this.barometers.push( new Barometer( new Vector2( 0, 0 ), INITIAL_PRESSURE ) );
     }
 
     this.speedometers = [];
@@ -135,7 +136,7 @@ define( function( require ) {
 
       if ( y > crossSection.yBottom - 0.1 && y < crossSection.yTop - 0.25 ) {
         var vSquared = this.pipe.getVelocity( x, y ).magnitudeSquared();
-        return this.getAirPressure( 0 ) - y * 9.8 * this.fluidDensity - 0.5 * this.fluidDensity * vSquared;
+        return this.getAirPressure( 0 ) - y * Constants.EARTH_GRAVITY * this.fluidDensity - 0.5 * this.fluidDensity * vSquared;
       }
       return 0;
     },
@@ -163,7 +164,7 @@ define( function( require ) {
     // creates a red particle at the left most pipe location and a random y fraction between [0.15, 0.85) within the pipe
     createParticle: function() {
       if ( this.isDotsVisible ) {
-        // create particles so that they don't touch the pipe
+        // create particles in the [0.15, 0.85) range so that they don't touch the pipe
         var fraction = 0.15 + Math.random() * 0.7;
         this.flowParticles.push( new Particle( this.pipe.getMinX(), fraction, this.pipe, 0.1, 'red' ) );
       }
@@ -280,4 +281,3 @@ define( function( require ) {
     }
   } );
 } );
-
