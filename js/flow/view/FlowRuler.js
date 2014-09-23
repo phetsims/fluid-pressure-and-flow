@@ -40,16 +40,14 @@ define( function( require ) {
     var closeIconRadius = 4;
     var rulerWidth = 40;
     var rulerHeight = Math.abs( modelViewTransform.modelToViewDeltaY( 5 ) );
-
     var meterMajorStickWidth = Math.abs( modelViewTransform.modelToViewDeltaY( 1 ) );
-
     var feetMajorStickWidth = Math.abs( modelViewTransform.modelToViewDeltaY( 0.3 ) );
     var scaleFont = new PhetFont( 10 );
     var xIcon = new Path( new Shape()
       .moveTo( -closeIconRadius, -closeIconRadius )
       .lineTo( closeIconRadius, closeIconRadius )
       .moveTo( closeIconRadius, -closeIconRadius )
-      .lineTo( -closeIconRadius, closeIconRadius ), {stroke: 'white', lineWidth: 2} );
+      .lineTo( -closeIconRadius, closeIconRadius ), { stroke: 'white', lineWidth: 2 } );
     //close button
     var closeButton = new RectangularPushButton( {
       baseColor: 'red',
@@ -82,9 +80,9 @@ define( function( require ) {
     } );
 
     // ruler drag handlers
-    metersRuler.addInputListener( new MovableDragHandler( {locationProperty: rulerPositionProperty, dragBounds: dragBounds},
+    metersRuler.addInputListener( new MovableDragHandler( { locationProperty: rulerPositionProperty, dragBounds: dragBounds },
       ModelViewTransform2.createIdentity() ) );
-    feetRuler.addInputListener( new MovableDragHandler( {locationProperty: rulerPositionProperty, dragBounds: dragBounds},
+    feetRuler.addInputListener( new MovableDragHandler( { locationProperty: rulerPositionProperty, dragBounds: dragBounds },
       ModelViewTransform2.createIdentity() ) );
 
     this.mutate( options );

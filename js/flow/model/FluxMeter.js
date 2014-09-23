@@ -18,6 +18,8 @@ define( function( require ) {
    * @constructor
    */
   function FluxMeter( pipe ) {
+
+    // pipe that the flux meter attaches to and measures
     this.pipe = pipe;
     PropertySet.call( this, {
       xPosition: -6.5 //m

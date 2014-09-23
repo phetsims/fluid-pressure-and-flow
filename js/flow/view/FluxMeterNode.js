@@ -1,7 +1,8 @@
 // Copyright (c) 2002 - 2014. University of Colorado Boulder
 
 /**
- * FluxMeterNode
+ * View for the flux meter tool. Looks like a ring around the pipe with a display panel at the top and a drag handle
+ * at the bottom. The ring is rendered in two layers so that particles can pass through the ring.
  * @author Siddhartha Chinthapally (Actual Concepts)
  */
 define( function( require ) {
@@ -62,41 +63,43 @@ define( function( require ) {
 
     this.flowModel = flowModel;
     this.modelViewTransform = modelViewTransform;
-    var textOptions = {font: new PhetFont( 10 )};
+    var textOptions = { font: new PhetFont( 10 ) };
 
+    // flowRate  row
     var flowRateText = new Text( flowRateString, textOptions );
-    var area = new Text( areaString, textOptions );
-    var flux = new Text( fluxString, textOptions );
-
     this.flowRateValue = new Text( '', textOptions );
-    this.areaValue = new Text( '', textOptions );
-    this.fluxValue = new Text( '', textOptions );
-
     this.flowRateUnit = new SubSupText( 'dummy', textOptions );
+
+    // area row
+    var area = new Text( areaString, textOptions );
+    this.areaValue = new Text( '', textOptions );
     this.areaUnit = new SubSupText( 'dummy', textOptions );
+
+    // flux row
+    var flux = new Text( fluxString, textOptions );
+    this.fluxValue = new Text( '', textOptions );
     this.fluxUnit = new SubSupText( 'dummy', textOptions );
 
     // Split the content into 3 vboxes. First vbox holds the right aligned title,
-    // second the right aligned value and
-    // the third vbox hold the left aligned units text
+    // second the right aligned value and the third vbox holds the left aligned units text
     var content = new HBox( {
       spacing: 0,
       children: [
         new VBox( { align: 'right', children: [
-          new HBox( { children: [ new HStrut( 4 ), flowRateText]} ),
-          new HBox( { children: [new HStrut( 4 ), area]} ),
-          new HBox( { children: [new HStrut( 4 ), flux ]} )
-        ]} ),
+          new HBox( { children: [ new HStrut( 4 ), flowRateText ] } ),
+          new HBox( { children: [ new HStrut( 4 ), area ] } ),
+          new HBox( { children: [ new HStrut( 4 ), flux ] } )
+        ] } ),
         new VBox( { align: 'right', children: [
-          new HBox( { children: [ new HStrut( 4 ), this.flowRateValue]} ),
-          new HBox( { children: [ new HStrut( 4 ), this.areaValue]} ),
+          new HBox( { children: [ new HStrut( 4 ), this.flowRateValue ] } ),
+          new HBox( { children: [ new HStrut( 4 ), this.areaValue ] } ),
           new HBox( { children: [ new HStrut( 4 ), this.fluxValue ] } )
-        ]} ),
+        ] } ),
         new VBox( { align: 'left', children: [
-          new HBox( { children: [ new HStrut( 8 ), this.flowRateUnit]} ),
-          new HBox( { children: [ new HStrut( 8 ), this.areaUnit]} ),
-          new HBox( { children: [ new HStrut( 8 ), this.fluxUnit ]} )
-        ]} )
+          new HBox( { children: [ new HStrut( 8 ), this.flowRateUnit ] } ),
+          new HBox( { children: [ new HStrut( 8 ), this.areaUnit ] } ),
+          new HBox( { children: [ new HStrut( 8 ), this.fluxUnit ] } )
+        ] } )
       ],
       align: 'left'
     } );
@@ -116,10 +119,10 @@ define( function( require ) {
     var radiusY = ( yBottom - yTop ) / 2;
 
     // split the ring into two ellipses
-    this.ellipse = new Path( new Shape().ellipticalArc( 60, centerY, radiusY, 6, Math.PI / 2, 0, Math.PI, false ), {lineWidth: '5', stroke: 'blue'} );
-    this.ellipse2 = new Path( new Shape().ellipticalArc( 60, centerY, radiusY, 6, Math.PI / 2, Math.PI, 0, false ), {lineWidth: '5', stroke: new Color( 0, 0, 255, 0.5 )} );
+    this.ellipse = new Path( new Shape().ellipticalArc( 60, centerY, radiusY, 6, Math.PI / 2, 0, Math.PI, false ), { lineWidth: '5', stroke: 'blue' } );
+    this.ellipse2 = new Path( new Shape().ellipticalArc( 60, centerY, radiusY, 6, Math.PI / 2, Math.PI, 0, false ), { lineWidth: '5', stroke: new Color( 0, 0, 255, 0.5 ) } );
 
-    // add only the first ellipse. The second ellipse is added by the particle node.
+    // add only the first ellipse. The second ellipse is added by the pipe node.
     this.addChild( this.ellipse );
 
     // the line connecting the ring and the display panel
@@ -127,7 +130,7 @@ define( function( require ) {
       moveTo( this.ellipse2.centerX - 3, this.ellipse2.centerY - 20 ).
       lineTo( this.ellipse2.right, this.ellipse2.top );
 
-    this.upperLine = new Path( upperLineShape, {stroke: 'blue', lineWidth: 3, left: this.ellipse.right - 1, bottom: this.ellipse2.top + 3 } );
+    this.upperLine = new Path( upperLineShape, { stroke: 'blue', lineWidth: 3, left: this.ellipse.right - 1, bottom: this.ellipse2.top + 3 } );
 
     this.addChild( this.upperLine );
     this.displayPanel.bottom = this.upperLine.top;
@@ -138,7 +141,7 @@ define( function( require ) {
       moveTo( this.ellipse2.centerX - 3, this.ellipse2.centerY + 20 ).
       lineTo( this.ellipse2.centerX - 3, this.ellipse2.centerY + 60 );
 
-    this.lowerLine = new Path( lowerLineShape, {stroke: 'blue', lineWidth: 2, top: this.ellipse2.bottom, left: this.ellipse.right - 1} );
+    this.lowerLine = new Path( lowerLineShape, { stroke: 'blue', lineWidth: 2, top: this.ellipse2.bottom, left: this.ellipse.right - 1 } );
     this.addChild( this.lowerLine );
 
     var handleImage = new Image( twoSidedHandleImage );
@@ -151,7 +154,7 @@ define( function( require ) {
 
     flowModel.isFluxMeterVisibleProperty.linkAttribute( this, 'visible' );
 
-    Property.multilink( [flowModel.pipe.flowRateProperty , flowModel.measureUnitsProperty], function( flowRate, units ) {
+    Property.multilink( [ flowModel.pipe.flowRateProperty , flowModel.measureUnitsProperty ], function( flowRate, units ) {
       fluxMeterNode.updateDisplayPanel( units );
     } );
 
@@ -159,11 +162,12 @@ define( function( require ) {
       fluxMeterNode.updateFluxMeter();
     } );
 
+    // flux meter drag handle
     this.handle.addInputListener( new SimpleDragHandler( {
       drag: function( e ) {
         fluxMeterNode.moveToFront();
         var x = fluxMeterNode.globalToParentPoint( e.pointer.point ).x;
-        x = x < 47 ? 47 : x > 698 ? 698 : x;
+        x = x < 47 ? 47 : x > 698 ? 698 : x; // min, max view values (emperically determined)
         flowModel.fluxMeter.xPosition = modelViewTransform.viewToModelX( x );
       }
     } ) );
@@ -216,24 +220,25 @@ define( function( require ) {
 
       if ( units === 'metric' ) {
         this.flowRateValue.text = this.flowModel.fluxMeter.getFlowRate().toFixed( 1 );
-        this.areaValue.text = this.flowModel.fluxMeter.getArea().toFixed( 1 );
-        this.fluxValue.text = this.flowModel.fluxMeter.getFlux().toFixed( 1 );
-
-        this.areaUnit.text = areaUnitsMetric;
         this.flowRateUnit.text = rateUnitsMetric;
+
+        this.areaValue.text = this.flowModel.fluxMeter.getArea().toFixed( 1 );
+        this.areaUnit.text = areaUnitsMetric;
+
+        this.fluxValue.text = this.flowModel.fluxMeter.getFlux().toFixed( 1 );
         this.fluxUnit.text = fluxUnitsMetric;
       }
       else {
-        var area = this.flowModel.fluxMeter.getArea() * Units.SQUARE_FEET_PER_SQUARE_METER;
         var flowRate = this.flowModel.fluxMeter.getFlowRate() * Units.FEET_CUBE_PER_LITER;
-        var flux = this.flowModel.fluxMeter.getFlux() * Units.FEET_PER_CENTIMETER;
-
         this.flowRateValue.text = flowRate.toFixed( 1 );
-        this.areaValue.text = area.toFixed( 1 );
-        this.fluxValue.text = flux.toFixed( 1 );
-
-        this.areaUnit.text = areaUnitsEnglish;
         this.flowRateUnit.text = rateUnitsEnglish;
+
+        var area = this.flowModel.fluxMeter.getArea() * Units.SQUARE_FEET_PER_SQUARE_METER;
+        this.areaValue.text = area.toFixed( 1 );
+        this.areaUnit.text = areaUnitsEnglish;
+
+        var flux = this.flowModel.fluxMeter.getFlux() * Units.FEET_PER_CENTIMETER;
+        this.fluxValue.text = flux.toFixed( 1 );
         this.fluxUnit.text = fluxUnitsEnglish;
 
       }

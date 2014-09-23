@@ -1,7 +1,8 @@
 // Copyright (c) 2002 - 2014. University of Colorado Boulder
 
 /**
- * FlowView.
+ * View for the Fluid Pressure and Flow sim's Flow tab. The view contains a flexible pipe that can be dragged
+ * and scaled using handles, particles to show the fluid flow and tools to measure flux, area, length, velocity etc.
  * @author Siddhartha Chinthapally (Actual Concepts).
  */
 define( function( require ) {
@@ -59,7 +60,7 @@ define( function( require ) {
   function FlowView( flowModel ) {
     var flowView = this;
 
-    ScreenView.call( this, {renderer: 'svg'} );
+    ScreenView.call( this, { renderer: 'svg' } );
 
     var modelViewTransform = ModelViewTransform2.createSinglePointScaleInvertedYMapping(
       Vector2.ZERO,
@@ -67,16 +68,16 @@ define( function( require ) {
       50 ); //1m = 50Px
 
     // add sky node
-    this.addChild( new Rectangle( -5000, -1000, 10000, 1002, {stroke: '#01ACE4', fill: '#01ACE4'} ) );
+    this.addChild( new Rectangle( -5000, -1000, 10000, 1002, { stroke: '#01ACE4', fill: '#01ACE4' } ) );
 
     var skyNode = new SkyNode( -5000, 0, 10000, 140, 140 );
     this.addChild( skyNode );
 
     // add ground node
-    var groundNode = new GroundNode( -5000, 140, 10000, 10000, 400, {topColor: '#9D8B61', bottomColor: '#645A3C'} );
+    var groundNode = new GroundNode( -5000, 140, 10000, 10000, 400, { topColor: '#9D8B61', bottomColor: '#645A3C' } );
     this.addChild( groundNode );
 
-    //grass
+    // grass
     var grassPattern = new Pattern( grassImg ).setTransformMatrix( Matrix3.scale( 0.25 ) );
     var grassRectYOffset = 1;
     var grassRectHeight = 10;
@@ -87,7 +88,7 @@ define( function( require ) {
     } ) );
 
     // tools control panel
-    this.toolsControlPanel = new ToolsControlPanel( flowModel, {right: this.layoutBounds.right - 7, top: 7} );
+    this.toolsControlPanel = new ToolsControlPanel( flowModel, { right: this.layoutBounds.right - 7, top: 7 } );
     this.addChild( this.toolsControlPanel );
 
     // units control panel
@@ -119,7 +120,7 @@ define( function( require ) {
     } );
     this.addChild( fluidDensityControlNode );
 
-    var fluxMeterNode = new FluxMeterNode( flowModel, modelViewTransform, {stroke: 'blue'} );
+    var fluxMeterNode = new FluxMeterNode( flowModel, modelViewTransform, { stroke: 'blue' } );
     flowModel.isFluxMeterVisibleProperty.linkAttribute( fluxMeterNode.ellipse2, 'visible' );
 
     //adding pipe Node
@@ -148,7 +149,7 @@ define( function( require ) {
     this.addChild( resetAllButton );
 
     // add the sensors panel
-    var sensorPanel = new Rectangle( 0, 0, 167, 85, 10, 10, {stroke: 'gray', lineWidth: 1, fill: '#f2fa6a', right: unitsControlPanel.left - 4, top: this.toolsControlPanel.top} );
+    var sensorPanel = new Rectangle( 0, 0, 167, 85, 10, 10, { stroke: 'gray', lineWidth: 1, fill: '#f2fa6a', right: unitsControlPanel.left - 4, top: this.toolsControlPanel.top } );
     this.addChild( sensorPanel );
 
     flowModel.isGridInjectorPressedProperty.link( function( isGridInjectorPressed ) {
@@ -172,20 +173,20 @@ define( function( require ) {
     var playPauseButton = new PlayPauseButton( flowModel.isPlayProperty, { radius: 18, stroke: 'black', fill: '#005566', y: stepButton.centerY, right: stepButton.left - inset } );
     this.addChild( playPauseButton );
 
-    var slowMotionRadioBox = new AquaRadioButton( flowModel.speedProperty, 'slow', new Text( slowMotionString, {font: new PhetFont( 12 )} ), {radius: 8} );
-    var normalMotionRadioBox = new AquaRadioButton( flowModel.speedProperty, 'normal', new Text( normalString, {font: new PhetFont( 12 )} ), {radius: 8} );
-
-    var speedControlMaxWidth = (slowMotionRadioBox.width > normalMotionRadioBox.width) ? slowMotionRadioBox.width : normalMotionRadioBox.width;
+    // add sim speed controls
+    var slowMotionRadioBox = new AquaRadioButton( flowModel.speedProperty, 'slow', new Text( slowMotionString, { font: new PhetFont( 12 ) } ), { radius: 8 } );
+    var normalMotionRadioBox = new AquaRadioButton( flowModel.speedProperty, 'normal', new Text( normalString, { font: new PhetFont( 12 ) } ), { radius: 8 } );
+    var speedControlMaxWidth = ( slowMotionRadioBox.width > normalMotionRadioBox.width) ? slowMotionRadioBox.width : normalMotionRadioBox.width;
     slowMotionRadioBox.touchArea = new Bounds2( slowMotionRadioBox.localBounds.minX, slowMotionRadioBox.localBounds.minY, slowMotionRadioBox.localBounds.minX + speedControlMaxWidth, slowMotionRadioBox.localBounds.maxY );
     normalMotionRadioBox.touchArea = new Bounds2( normalMotionRadioBox.localBounds.minX, normalMotionRadioBox.localBounds.minY, normalMotionRadioBox.localBounds.minX + speedControlMaxWidth, normalMotionRadioBox.localBounds.maxY );
 
     var speedControl = new VBox( {
       align: 'left',
       spacing: 5,
-      children: [ slowMotionRadioBox, normalMotionRadioBox ]} );
-    this.addChild( speedControl.mutate( {right: playPauseButton.left - 8, bottom: playPauseButton.bottom} ) );
+      children: [ slowMotionRadioBox, normalMotionRadioBox ] } );
+    this.addChild( speedControl.mutate( { right: playPauseButton.left - 8, bottom: playPauseButton.bottom } ) );
 
-    //add flow rate panel
+    // add flow rate panel
     var flowRateControlNode = new ControlSlider( flowModel, flowModel.pipe.flowRateProperty, flowModel.getFluidFlowRateString.bind( flowModel ), flowModel.flowRateRange, {
       right: speedControl.left - 20,
       bottom: this.layoutBounds.bottom - 7,
@@ -210,14 +211,14 @@ define( function( require ) {
     _.each( flowModel.speedometers, function( velocitySensor ) {
       velocitySensor.positionProperty.storeInitialValue( new Vector2( sensorPanel.visibleBounds.centerX - 75, sensorPanel.visibleBounds.centerY - 30 ) );
       velocitySensor.positionProperty.reset();
-      this.addChild( new VelocitySensorNode( flowModel, modelViewTransform, velocitySensor, [flowModel.pipe.flowRateProperty, flowModel.pipe.frictionProperty], sensorPanel.visibleBounds, this.layoutBounds, {scale: 0.9} ) );
+      this.addChild( new VelocitySensorNode( flowModel, modelViewTransform, velocitySensor, [ flowModel.pipe.flowRateProperty, flowModel.pipe.frictionProperty ], sensorPanel.visibleBounds, this.layoutBounds, { scale: 0.9 } ) );
     }.bind( this ) );
 
     // add barometers within the sensor panel bounds
     _.each( flowModel.barometers, function( barometer ) {
       barometer.positionProperty.storeInitialValue( new Vector2( sensorPanel.visibleBounds.centerX + 50, sensorPanel.visibleBounds.centerY - 15 ) );
       barometer.reset();
-      this.addChild( new BarometerNode( flowModel, modelViewTransform, barometer, [flowModel.fluidDensityProperty, flowModel.pipe.flowRateProperty, flowModel.pipe.frictionProperty], sensorPanel.visibleBounds, this.layoutBounds, {scale: 0.9} ) );
+      this.addChild( new BarometerNode( flowModel, modelViewTransform, barometer, [ flowModel.fluidDensityProperty, flowModel.pipe.flowRateProperty, flowModel.pipe.frictionProperty ], sensorPanel.visibleBounds, this.layoutBounds, { scale: 0.9 } ) );
     }.bind( this ) );
 
     // add the rule node

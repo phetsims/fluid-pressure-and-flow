@@ -6,7 +6,7 @@
  * @author Siddhartha Chinthapally (Actual Concepts)
  */
 
-define( function( require ) {
+define(function ( require ) {
   'use strict';
 
   var inherit = require( 'PHET_CORE/inherit' );
@@ -26,18 +26,18 @@ define( function( require ) {
 
   return inherit( Object, PipeCrossSection, {
 
-    getX: function() {
+    getX: function () {
       return this.x;
     },
 
-    getHeight: function() {
+    getHeight: function () {
       return this.yTop - this.yBottom;
     },
 
-    getCenterY: function() {
+    getCenterY: function () {
       return ( this.yTop + this.yBottom ) / 2;
     }
-  } );
-} );
+  });
+});
 
 
