@@ -22,29 +22,31 @@ define( function( require ) {
    * @constructor
    */
   function Particle( xPosition, fractionUpPipe, container, radius, color ) {
+    // position along the pipe's horizontal axis.
     this.xPosition = xPosition;
+    // how far up the pipe, 0 = bottom, 1 = top
     this.fractionUpPipe = fractionUpPipe;
+    // the pipe within which the particle travels
     this.container = container;
-    this.radius = radius;
+
+    this.radius = radius; // in meters
     this.color = color;
   }
 
   return inherit( Object, Particle, {
-
+    // get particle x position
     getX: function() {
       return this.xPosition;
     },
 
+    // get particle Y position
     getY: function() {
       return this.container.fractionToLocation( this.xPosition, this.fractionUpPipe );
     },
 
+    // set particle x position
     setX: function( x ) {
       this.xPosition = x;
-    },
-
-    getRadius: function() {
-      return this.radius;
     }
   } );
 } );
