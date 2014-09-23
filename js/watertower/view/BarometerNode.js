@@ -100,13 +100,25 @@ define( function( require ) {
 
     //Update the value in the barometer value model by reading from the model.
     Property.multilink( [barometer.positionProperty].concat( linkedProperties ), function( position ) {
-      barometer.valueProperty.set( waterTowerModel.getPressureAtCoords( modelViewTransform.viewToModelX( position.x ), modelViewTransform.viewToModelY( position.y + (53) ) ) );
+      if ( barometer.positionProperty.initialValue === position ) {
+        barometer.value = null; // in the initial position barometer has no reading. Not even 0.
+      }
+      else {
+        barometer.value = waterTowerModel.getPressureAtCoords( modelViewTransform.viewToModelX( position.x ), modelViewTransform.viewToModelY( position.y + (53) ) );
+      }
     } );
 
     //Update the text when the value or units changes.
     Property.multilink( [barometer.valueProperty, waterTowerModel.measureUnitsProperty], function( barometerValue, units ) {
-      text.text = Units.getPressureString[units]( barometerValue, waterTowerModel.isPointInWater && waterTowerModel.isPointInWater( modelViewTransform.viewToModelX( barometer.position.x ), modelViewTransform.viewToModelY( barometer.position.y + (53) ) ) );
-      textBackground.setRect( 0, 0, text.width + 4, text.height + 2 );
+      if ( typeof( barometerValue ) !== 'number' ) {
+        text.text = '-';
+        textBackground.setRect( 0, 0, text.width + 50, text.height + 2 );
+      }
+      else {
+        text.text = Units.getPressureString[units]( barometerValue, waterTowerModel.isPointInWater && waterTowerModel.isPointInWater( modelViewTransform.viewToModelX( barometer.position.x ), modelViewTransform.viewToModelY( barometer.position.y + (53) ) ) );
+        textBackground.setRect( 0, 0, text.width + 4, text.height + 2 );
+      }
+
       textBackground.centerX = gaugeNode.centerX;
       textBackground.bottom = gaugeNode.bottom - 4;
       text.center = textBackground.center;

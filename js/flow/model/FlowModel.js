@@ -66,9 +66,8 @@ define( function( require ) {
     );
 
     this.barometers = [];
-    var INITIAL_PRESSURE = 101035;
     for ( var i = 0; i < NUMBER_BAROMETERS; i++ ) {
-      this.barometers.push( new Barometer( new Vector2( 0, 0 ), INITIAL_PRESSURE ) );
+      this.barometers.push( new Barometer( new Vector2( 0, 0 ), null ) );
     }
 
     this.speedometers = [];

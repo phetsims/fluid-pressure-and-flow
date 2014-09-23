@@ -192,7 +192,7 @@ define( function( require ) {
 
     // add barometers within the sensor panel bounds
     _.each( waterTowerModel.barometers, function( barometer ) {
-      barometer.positionProperty.storeInitialValue( new Vector2( sensorPanel.visibleBounds.centerX + 55, sensorPanel.visibleBounds.centerY - 15 ) );
+      barometer.positionProperty.storeInitialValue( new Vector2( sensorPanel.visibleBounds.centerX + 55, sensorPanel.visibleBounds.centerY - 10 ) );
       barometer.reset();
       this.addChild( new BarometerNode( waterTowerModel, modelViewTransform, barometer, [waterTowerModel.fluidDensityProperty, waterTowerModel.waterTower.tankPositionProperty, waterTowerModel.waterTower.fluidLevelProperty], sensorPanel.visibleBounds, this.layoutBounds.withMaxY( this.layoutBounds.maxY - 62 ) ) );
     }.bind( this ) );
@@ -222,23 +222,23 @@ define( function( require ) {
     } );
 
     // if the sim is paused, disable the fill button as soon as the tank is filled
-    waterTowerModel.waterTower.fluidVolumeProperty.valueEquals(waterTowerModel.waterTower.TANK_VOLUME ).link(function() {
-      if (!waterTowerModel.isPlay) {
+    waterTowerModel.waterTower.fluidVolumeProperty.valueEquals( waterTowerModel.waterTower.TANK_VOLUME ).link( function() {
+      if ( !waterTowerModel.isPlay ) {
         waterTowerNode.fillButton.enabled = false;
         waterTowerModel.tankFullLevelDuration = 1;
       }
-    });
+    } );
 
     // Handles the case when switching from play to pause or viceversa
-    waterTowerModel.isPlayProperty.link(function(isPlay) {
-      if (waterTowerModel.waterTower.fluidVolume >= waterTowerModel.waterTower.TANK_VOLUME) {
+    waterTowerModel.isPlayProperty.link( function( isPlay ) {
+      if ( waterTowerModel.waterTower.fluidVolume >= waterTowerModel.waterTower.TANK_VOLUME ) {
         waterTowerModel.tankFullLevelDuration = 1;
-        if (!isPlay) {
+        if ( !isPlay ) {
           // disable the fill button if the tank is full and switching from play to pause
           waterTowerNode.fillButton.enabled = false;
         }
       }
-    });
+    } );
 
   }
 

@@ -81,7 +81,7 @@ define( function( require ) {
 
     this.barometers = [];
     for ( var i = 0; i < 2; i++ ) {
-      this.barometers.push( new Barometer( new Vector2( 0, 0 ), 101035 ) );
+      this.barometers.push( new Barometer( new Vector2( 0, 0 ), null ) );
     }
 
     this.speedometers = [];
