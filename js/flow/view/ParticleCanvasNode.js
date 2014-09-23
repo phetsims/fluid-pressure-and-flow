@@ -32,10 +32,15 @@ define( function( require ) {
 
   return inherit( CanvasNode, ParticleCanvasNode, {
 
-    // @param {CanvasContextWrapper} wrapper
+    /**
+     * Paints the particles on the canvas node.
+     * @param {CanvasContextWrapper} wrapper
+     */
     paintCanvas: function( wrapper ) {
       var context = wrapper.context;
       var particle;
+
+      // paint the regular particles
       for ( var i = 0; i < this.particles.length; i++ ) {
         particle = this.particles.get( i );
         context.fillStyle = particle.color;
@@ -44,6 +49,7 @@ define( function( require ) {
         context.fill();
       }
 
+      // paint the grid particles
       for ( i = 0; i < this.gridParticles.length; i++ ) {
         particle = this.gridParticles.get( i );
         context.fillStyle = particle.color;
@@ -54,7 +60,7 @@ define( function( require ) {
 
     },
 
-    step: function( dt ) {
+    step: function() {
       this.invalidatePaint();
     }
 

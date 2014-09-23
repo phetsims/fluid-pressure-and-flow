@@ -1,7 +1,7 @@
 //  Copyright 2002-2014, University of Colorado Boulder
 
 /**
- * View for the 'Units Control Panel' node.
+ * View for the 'Units Control Panel' node for selecting between metric and english modes.
  *
  * @author Siddhartha Chinthapally (ActualConcepts)
  */
@@ -25,10 +25,10 @@ define( function( require ) {
   var unitsString = require( 'string!FLUID_PRESSURE_AND_FLOW/units' );
 
   /**
-   *
+   * Constructor for the UnitsControlPanel.
    * @param {Property<string>} measureUnitsProperty can take values 'english' or 'metric'
    * @param {Number} width -- fixed width that the panel is supposed to take
-   * @param options
+   * @param {Object} options for various panel display properties.
    * @constructor
    */
   function UnitsControlPanel( measureUnitsProperty, width, options ) {
@@ -70,8 +70,8 @@ define( function( require ) {
       children: [createTitle( titleText ), metricRadio, englishRadio, createTitle( dummyText )],
       align: 'left'
     } );
-    Panel.call( this, content, options );
 
+    Panel.call( this, content, options );
   }
 
   return inherit( Panel, UnitsControlPanel );
