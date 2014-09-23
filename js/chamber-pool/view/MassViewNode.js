@@ -61,13 +61,13 @@ define( function( require ) {
       //When dragging across it in a mobile device, pick it up
       allowTouchSnag: true,
       start: function( event ) {
-        massClickOffset.x = self.globalToParentPoint( event.pointer.point ).x - event.currentTarget.x;
-        massClickOffset.y = self.globalToParentPoint( event.pointer.point ).y - event.currentTarget.y;
+        massClickOffset.x = massViewNode.globalToParentPoint( event.pointer.point ).x - event.currentTarget.x;
+        massClickOffset.y = massViewNode.globalToParentPoint( event.pointer.point ).y - event.currentTarget.y;
         massViewNode.moveToFront();
         massModel.isDragging = true;
       },
       end: function() {
-        var newPosition = self.translation;
+        var newPosition = massViewNode.translation;
         newPosition.x = modelViewTransform.viewToModelX( newPosition.x );
         newPosition.y = modelViewTransform.viewToModelY( newPosition.y );
         massModel.position = newPosition;
@@ -75,7 +75,7 @@ define( function( require ) {
       },
       //Translate on drag events
       drag: function( event ) {
-        var point = self.globalToParentPoint( event.pointer.point ).subtract( massClickOffset );
+        var point = massViewNode.globalToParentPoint( event.pointer.point ).subtract( massClickOffset );
         massViewNode.translation = dragBounds.getClosestPoint( point.x, point.y );
       }
     } );
