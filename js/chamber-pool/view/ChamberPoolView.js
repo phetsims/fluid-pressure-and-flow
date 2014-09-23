@@ -11,7 +11,7 @@ define( function( require ) {
   var Node = require( 'SCENERY/nodes/Node' );
   var ChamberPoolBack = require( 'chamber-pool/view/ChamberPoolBack' );
   var ChamberPoolWaterNode = require( 'chamber-pool/view/ChamberPoolWaterNode' );
-  var MassViewNode = require( 'chamber-pool/view/MassViewNode' );
+  var MassNode = require( 'chamber-pool/view/MassNode' );
   var MassStackNode = require( 'chamber-pool/view/MassStackNode' );
   var ChamberPoolGrid = require( 'chamber-pool/view/ChamberPoolGrid' );
 
@@ -35,7 +35,7 @@ define( function( require ) {
 
     // add masses
     chamberPoolModel.masses.forEach( function( massModel ) {
-      chamberPoolView.addChild( new MassViewNode( massModel, chamberPoolModel, modelViewTransform, dragBounds ) );
+      chamberPoolView.addChild( new MassNode( massModel, chamberPoolModel, modelViewTransform, dragBounds ) );
     } );
 
     this.addChild( new MassStackNode( chamberPoolModel, modelViewTransform ) );

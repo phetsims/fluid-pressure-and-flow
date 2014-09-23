@@ -32,8 +32,8 @@ define( function( require ) {
    * @param {Bounds2} dragBounds - bounds that define where the node may be dragged
    * @constructor
    */
-  function MassViewNode( massModel, chamberPoolModel, modelViewTransform, dragBounds ) {
-    var massViewNode = this;
+  function MassNode( massModel, chamberPoolModel, modelViewTransform, dragBounds ) {
+    var massNode = this;
 
     Node.call( this, {
       cursor: 'pointer'
@@ -61,13 +61,13 @@ define( function( require ) {
       //When dragging across it in a mobile device, pick it up
       allowTouchSnag: true,
       start: function( event ) {
-        massClickOffset.x = massViewNode.globalToParentPoint( event.pointer.point ).x - event.currentTarget.x;
-        massClickOffset.y = massViewNode.globalToParentPoint( event.pointer.point ).y - event.currentTarget.y;
-        massViewNode.moveToFront();
+        massClickOffset.x = massNode.globalToParentPoint( event.pointer.point ).x - event.currentTarget.x;
+        massClickOffset.y = massNode.globalToParentPoint( event.pointer.point ).y - event.currentTarget.y;
+        massNode.moveToFront();
         massModel.isDragging = true;
       },
       end: function() {
-        var newPosition = massViewNode.translation;
+        var newPosition = massNode.translation;
         newPosition.x = modelViewTransform.viewToModelX( newPosition.x );
         newPosition.y = modelViewTransform.viewToModelY( newPosition.y );
         massModel.position = newPosition;
@@ -75,8 +75,8 @@ define( function( require ) {
       },
       //Translate on drag events
       drag: function( event ) {
-        var point = massViewNode.globalToParentPoint( event.pointer.point ).subtract( massClickOffset );
-        massViewNode.translation = dragBounds.getClosestPoint( point.x, point.y );
+        var point = massNode.globalToParentPoint( event.pointer.point ).subtract( massClickOffset );
+        massNode.translation = dragBounds.getClosestPoint( point.x, point.y );
       }
     } );
 
@@ -84,10 +84,10 @@ define( function( require ) {
 
     massModel.positionProperty.link( function( position ) {
       if ( !chamberPoolModel.isDragging ) {
-        massViewNode.translation = new Vector2( modelViewTransform.modelToViewX( position.x ), modelViewTransform.modelToViewY( position.y ) );
+        massNode.translation = new Vector2( modelViewTransform.modelToViewX( position.x ), modelViewTransform.modelToViewY( position.y ) );
       }
     } );
   }
 
-  return inherit( Node, MassViewNode );
+  return inherit( Node, MassNode );
 } );
