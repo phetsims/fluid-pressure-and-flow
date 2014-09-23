@@ -1,7 +1,8 @@
 // Copyright 2002-2013, University of Colorado Boulder
 
 /**
- * main view container for chamber pool.
+ * View for the chamber pool. Chamber pool is a connected pool with two openings on the ground.
+ * All the corner angles are 90 degrees.
  * @author Vasily Shakhov (Mlearner)
  */
 define( function( require ) {
@@ -14,25 +15,33 @@ define( function( require ) {
   var MassStackNode = require( 'chamber-pool/view/MassStackNode' );
   var ChamberPoolGrid = require( 'chamber-pool/view/ChamberPoolGrid' );
 
-  function ChamberPoolView( model, modelViewTransform, dragBounds ) {
-    var self = this;
+  /**
+   * Constructor for the chamber pool.
+   * @param {ChamberPoolModel} chamberPoolModel
+   * @param {ModelViewTransform2} modelViewTransform for transforming between model and view co-ordinates
+   * @param {Bounds2} dragBounds - bounds for limiting the dragging of mass nodes.
+   * @constructor
+   */
+  function ChamberPoolView( chamberPoolModel, modelViewTransform, dragBounds ) {
 
+    var chamberPoolView = this;
     Node.call( this, { renderer: 'svg' } );
 
-    //pool
-    this.addChild( new ChamberPoolBack( model, modelViewTransform ) );
+    // add pool
+    this.addChild( new ChamberPoolBack( chamberPoolModel, modelViewTransform ) );
 
-    //water
-    this.addChild( new ChamberPoolWaterNode( model, modelViewTransform ) );
+    // add water
+    this.addChild( new ChamberPoolWaterNode( chamberPoolModel, modelViewTransform ) );
 
-    model.masses.forEach( function( massModel ) {
-      self.addChild( new MassViewNode( massModel, model, modelViewTransform, dragBounds ) );
+    // add masses
+    chamberPoolModel.masses.forEach( function( massModel ) {
+      chamberPoolView.addChild( new MassViewNode( massModel, chamberPoolModel, modelViewTransform, dragBounds ) );
     } );
 
-    this.addChild( new MassStackNode( model, modelViewTransform ) );
+    this.addChild( new MassStackNode( chamberPoolModel, modelViewTransform ) );
 
     //grid
-    this.addChild( new ChamberPoolGrid( model, modelViewTransform ) );
+    this.addChild( new ChamberPoolGrid( chamberPoolModel, modelViewTransform ) );
   }
 
   return inherit( Node, ChamberPoolView );

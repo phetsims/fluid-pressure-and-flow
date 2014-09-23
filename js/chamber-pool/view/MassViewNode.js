@@ -1,11 +1,13 @@
 // Copyright 2002-2013, University of Colorado Boulder
 
 /**
- * view for single mass
+ * View for a single mass
  * @author Vasily Shakhov (Mlearner)
  */
 define( function( require ) {
   'use strict';
+
+  // modules
   var inherit = require( 'PHET_CORE/inherit' );
   var Rectangle = require( 'SCENERY/nodes/Rectangle' );
   var Node = require( 'SCENERY/nodes/Node' );
@@ -17,18 +19,21 @@ define( function( require ) {
   var StringUtils = require( 'PHETCOMMON/util/StringUtils' );
   var PhetFont = require( 'SCENERY_PHET/PhetFont' );
 
+  // images
   var massImg = require( 'image!UNDER_PRESSURE/images/mass.png' );
+
+  // strings
   var massLabelPattern = require( 'string!UNDER_PRESSURE/massLabelPattern' );
 
   /**
    * @param {MassModel} massModel of simulation
-   * @param {ChamberPoolModel} model of simulation
+   * @param {ChamberPoolModel} chamberPoolModel
    * @param {ModelViewTransform2} modelViewTransform , Transform between model and view coordinate frames
-   * @param {Bounds2} dragBounds - bounds that define where the barometer may be dragged
+   * @param {Bounds2} dragBounds - bounds that define where the node may be dragged
    * @constructor
    */
-  function MassViewNode( massModel, model, modelViewTransform, dragBounds ) {
-    var self = this;
+  function MassViewNode( massModel, chamberPoolModel, modelViewTransform, dragBounds ) {
+    var massViewNode = this;
 
     Node.call( this, {
       cursor: 'pointer'
@@ -37,7 +42,7 @@ define( function( require ) {
     var width = modelViewTransform.modelToViewX( massModel.width ),
       height = modelViewTransform.modelToViewY( massModel.height );
 
-    this.addChild( new Image( massImg, {
+    this.addChild( new Image( massImg, { /*scale :0.9*/
       clipArea: Shape.rect( 0, 0, width, height ),
       x: -width / 2,
       y: -height / 2
@@ -58,7 +63,7 @@ define( function( require ) {
       start: function( event ) {
         massClickOffset.x = self.globalToParentPoint( event.pointer.point ).x - event.currentTarget.x;
         massClickOffset.y = self.globalToParentPoint( event.pointer.point ).y - event.currentTarget.y;
-        self.moveToFront();
+        massViewNode.moveToFront();
         massModel.isDragging = true;
       },
       end: function() {
@@ -71,15 +76,15 @@ define( function( require ) {
       //Translate on drag events
       drag: function( event ) {
         var point = self.globalToParentPoint( event.pointer.point ).subtract( massClickOffset );
-        self.translation = dragBounds.getClosestPoint( point.x, point.y );
+        massViewNode.translation = dragBounds.getClosestPoint( point.x, point.y );
       }
     } );
 
     this.addInputListener( massDragHandler );
 
     massModel.positionProperty.link( function( position ) {
-      if ( !model.isDragging ) {
-        self.translation = new Vector2( modelViewTransform.modelToViewX( position.x ), modelViewTransform.modelToViewY( position.y ) );
+      if ( !chamberPoolModel.isDragging ) {
+        massViewNode.translation = new Vector2( modelViewTransform.modelToViewX( position.x ), modelViewTransform.modelToViewY( position.y ) );
       }
     } );
   }

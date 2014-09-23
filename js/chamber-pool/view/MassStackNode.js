@@ -1,11 +1,13 @@
 // Copyright 2002-2013, University of Colorado Boulder
 
 /**
- * view for mass stack on top of water
+ * View for mass stack on top of water. Masses don't stack on ground.
  * @author Vasily Shakhov (Mlearner)
  */
 define( function( require ) {
   'use strict';
+
+  // modules
   var inherit = require( 'PHET_CORE/inherit' );
   var Rectangle = require( 'SCENERY/nodes/Rectangle' );
   var Node = require( 'SCENERY/nodes/Node' );
@@ -13,62 +15,46 @@ define( function( require ) {
   var Path = require( 'SCENERY/nodes/Path' );
   var Vector2 = require( 'DOT/Vector2' );
 
-  function MassStackNode( model, modelViewTransform ) {
-    var self = this;
+  /**
+   * @param {ChamberPoolModel} chamberPoolModel
+   * @param {ModelViewTransform2} modelViewTransform for transforming between model and view co-ordinates
+   * @constructor
+   */
+
+  function MassStackNode( chamberPoolModel, modelViewTransform ) {
+    var massStackNode = this;
+
+    this.chamberPoolModel = chamberPoolModel;
     Node.call( this, {
-      x: modelViewTransform.modelToViewX( model.poolDimensions.leftOpening.x1 )
+      x: modelViewTransform.modelToViewX( chamberPoolModel.poolDimensions.leftOpening.x1 )
     } );
 
-    var totalHeight = 0; //height of all masses
+    this.totalHeight = 0; //height of all masses
 
-    var placementRectWidth = modelViewTransform.modelToViewX( model.poolDimensions.leftOpening.x2 - model.poolDimensions.leftOpening.x1 );
+    var placementRectWidth = modelViewTransform.modelToViewX( chamberPoolModel.poolDimensions.leftOpening.x2 - chamberPoolModel.poolDimensions.leftOpening.x1 );
 
     var placementRect = new Rectangle( 0, 0, placementRectWidth, 0 );
-    var placementRectBorder = new Path( new Shape(),
-      {
-        stroke: '#000',
-        lineWidth: 2,
-        lineDash: [ 10, 5 ],
-        fill: '#ffdcf0'
-      } );
+    var placementRectBorder = new Path( new Shape(), {  stroke: '#000', lineWidth: 2, lineDash: [ 10, 5 ], fill: '#ffdcf0' } );
 
     this.addChild( placementRect );
     this.addChild( placementRectBorder );
 
-    var controlMassStackPosition = function() {
-      var dy = 0;
-      model.stack.forEach( function( massModel ) {
-        massModel.position = new Vector2( model.poolDimensions.leftOpening.x1 + massModel.width / 2, (model.poolDimensions.leftOpening.y2 - model.LEFT_WATER_HEIGHT + model.globalModel.leftDisplacement) - dy - massModel.height / 2 );
-        dy += massModel.height;
-      } );
-    };
-
-    var changeMassStack = function() {
-      var totHeight = 0;
-      model.stack.forEach( function( massModel ) {
-        if ( massModel ) {
-          totHeight += massModel.height;
-        }
-      } );
-      totalHeight = totHeight;
-      controlMassStackPosition();
-    };
-
-    model.globalModel.leftDisplacementProperty.link( function( displacement ) {
-      self.bottom = modelViewTransform.modelToViewY( model.poolDimensions.leftOpening.y2 - model.LEFT_WATER_HEIGHT + displacement );
+    chamberPoolModel.underPressureModel.leftDisplacementProperty.link( function( displacement ) {
+      massStackNode.bottom = modelViewTransform.modelToViewY( chamberPoolModel.poolDimensions.leftOpening.y2 - chamberPoolModel.LEFT_WATER_HEIGHT + displacement );
     } );
 
-    model.masses.forEach( function( massModel ) {
+    chamberPoolModel.masses.forEach( function( massModel ) {
       massModel.isDraggingProperty.link( function( isDragging ) {
         if ( isDragging ) {
-          var placementrectHeight = modelViewTransform.modelToViewY( massModel.height );
-          var placementrectY1 = -placementrectHeight - modelViewTransform.modelToViewY( totalHeight );
-          var newBorder = new Shape().moveTo( 0, placementrectY1 )
-            .lineTo( 0, placementrectY1 + placementrectHeight )
-            .lineTo( placementRectWidth, placementrectY1 + placementrectHeight )
-            .lineTo( placementRectWidth, placementrectY1 )
-            .lineTo( 0, placementrectY1 );
-          placementRectBorder.shape = newBorder;
+          var placementRectHeight = modelViewTransform.modelToViewY( massModel.height );
+          var placementRectY1 = -placementRectHeight - modelViewTransform.modelToViewY( massStackNode.totalHeight );
+
+          placementRectBorder.shape = new Shape().moveTo( 0, placementRectY1 )
+            .lineTo( 0, placementRectY1 + placementRectHeight )
+            .lineTo( placementRectWidth, placementRectY1 + placementRectHeight )
+            .lineTo( placementRectWidth, placementRectY1 )
+            .lineTo( 0, placementRectY1 );
+
           placementRectBorder.visible = true;
         }
         else {
@@ -77,13 +63,36 @@ define( function( require ) {
       } );
     } );
 
-    model.stack.addListeners( function() {
-      changeMassStack();
+    chamberPoolModel.stack.addListeners( function() {
+      massStackNode.updateMassStack();
     }, function() {
-      changeMassStack();
+      massStackNode.updateMassStack();
     } );
   }
 
-  return inherit( Node, MassStackNode );
+  return inherit( Node, MassStackNode, {
+
+    updateMassPositions: function() {
+      var dy = 0;
+      var chamberPoolModel = this.chamberPoolModel;
+      chamberPoolModel.stack.forEach( function( massModel ) {
+        massModel.position = new Vector2( chamberPoolModel.poolDimensions.leftOpening.x1 + massModel.width / 2, ( chamberPoolModel.poolDimensions.leftOpening.y2 - chamberPoolModel.LEFT_WATER_HEIGHT + chamberPoolModel.underPressureModel.leftDisplacement) - dy - massModel.height / 2 );
+        dy += massModel.height;
+      } );
+    },
+
+    updateMassStack: function() {
+      var totHeight = 0;
+
+      this.chamberPoolModel.stack.forEach( function( massModel ) {
+        if ( massModel ) {
+          totHeight += massModel.height;
+        }
+      } );
+      this.totalHeight = totHeight;
+      this.updateMassPositions();
+    }
+
+  } );
 } )
 ;

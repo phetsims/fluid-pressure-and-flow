@@ -1,12 +1,14 @@
 // Copyright 2002-2013, University of Colorado Boulder
 
 /**
- * specific background view for chamber pool
+ * View for the chamber pool background containing grass, cement etc
  * grass, cement container
  * @author Vasily Shakhov (Mlearner)
  */
 define( function( require ) {
   'use strict';
+
+  // modules
   var Node = require( 'SCENERY/nodes/Node' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Pattern = require( 'SCENERY/util/Pattern' );
@@ -15,10 +17,18 @@ define( function( require ) {
   var Shape = require( 'KITE/Shape' );
   var Path = require( 'SCENERY/nodes/Path' );
 
+  // images
   var grassImg = require( 'image!UNDER_PRESSURE/images/grass-texture.png' );
   var cementImg = require( 'image!UNDER_PRESSURE/images/cement-texture-dark.jpg' );
 
-  function ChamberPoolBack( model, modelViewTransform ) {
+
+  /**
+   * @param {ChamberPoolModel} chamberPoolModel of the simulation
+   * @param {ModelViewTransform2} modelViewTransform to convert between model and view co-ordinates
+   * @constructor
+   */
+  function ChamberPoolBack( chamberPoolModel, modelViewTransform ) {
+
     Node.call( this );
 
     //grass
@@ -26,35 +36,29 @@ define( function( require ) {
     var grassRectYOffset = 1;
     var grassRectHeight = 10;
 
-    this.addChild( new Rectangle( -1000, grassRectYOffset, 1000 + modelViewTransform.modelToViewX( model.poolDimensions.leftOpening.x1 ), grassRectHeight, {
-      fill: grassPattern,
-      y: modelViewTransform.modelToViewY( model.globalModel.skyGroundBoundY ) - grassRectHeight
-    } ) );
+    this.addChild( new Rectangle( -1000, grassRectYOffset, 1000 + modelViewTransform.modelToViewX( chamberPoolModel.poolDimensions.leftOpening.x1 ), grassRectHeight, {
+      fill: grassPattern, y: modelViewTransform.modelToViewY( chamberPoolModel.underPressureModel.skyGroundBoundY ) - grassRectHeight } ) );
 
-    this.addChild( new Rectangle( modelViewTransform.modelToViewX( model.poolDimensions.leftOpening.x2 ), grassRectYOffset, modelViewTransform.modelToViewX( model.poolDimensions.rightOpening.x1 - model.poolDimensions.leftOpening.x2 ), grassRectHeight, {
-      fill: grassPattern,
-      y: modelViewTransform.modelToViewY( model.globalModel.skyGroundBoundY ) - grassRectHeight
-    } ) );
+    this.addChild( new Rectangle( modelViewTransform.modelToViewX( chamberPoolModel.poolDimensions.leftOpening.x2 ), grassRectYOffset, modelViewTransform.modelToViewX( chamberPoolModel.poolDimensions.rightOpening.x1 - chamberPoolModel.poolDimensions.leftOpening.x2 ), grassRectHeight, {
+      fill: grassPattern, y: modelViewTransform.modelToViewY( chamberPoolModel.underPressureModel.skyGroundBoundY ) - grassRectHeight } ) );
 
-    this.addChild( new Rectangle( modelViewTransform.modelToViewX( model.poolDimensions.rightOpening.x2 ), grassRectYOffset, 1000, grassRectHeight, {
-      fill: grassPattern,
-      y: modelViewTransform.modelToViewY( model.globalModel.skyGroundBoundY ) - grassRectHeight
-    } ) );
+    this.addChild( new Rectangle( modelViewTransform.modelToViewX( chamberPoolModel.poolDimensions.rightOpening.x2 ), grassRectYOffset, 1000, grassRectHeight, {
+      fill: grassPattern, y: modelViewTransform.modelToViewY( chamberPoolModel.underPressureModel.skyGroundBoundY ) - grassRectHeight } ) );
 
     //calculated view coordinates for water
-    var leftOpeningX1 = modelViewTransform.modelToViewX( model.poolDimensions.leftOpening.x1 ),
-      leftOpeningX2 = modelViewTransform.modelToViewX( model.poolDimensions.leftOpening.x2 ),
-      leftChamberX1 = modelViewTransform.modelToViewX( model.poolDimensions.leftChamber.x1 ),
-      leftChamberX2 = modelViewTransform.modelToViewX( model.poolDimensions.leftChamber.x2 ),
-      rightChamberX1 = modelViewTransform.modelToViewX( model.poolDimensions.rightChamber.x1 ),
-      rightChamberX2 = modelViewTransform.modelToViewX( model.poolDimensions.rightChamber.x2 ),
-      rightOpeningX1 = modelViewTransform.modelToViewX( model.poolDimensions.rightOpening.x1 ),
-      rightOpeningX2 = modelViewTransform.modelToViewX( model.poolDimensions.rightOpening.x2 ),
-      leftOpeningY1 = modelViewTransform.modelToViewY( model.poolDimensions.leftOpening.y1 ),
-      leftOpeningY2 = modelViewTransform.modelToViewY( model.poolDimensions.leftOpening.y2 ),
-      leftChamberY2 = modelViewTransform.modelToViewY( model.poolDimensions.leftChamber.y2 ),
-      passageY1 = modelViewTransform.modelToViewY( model.poolDimensions.horizontalPassage.y1 ),
-      passageY2 = modelViewTransform.modelToViewY( model.poolDimensions.horizontalPassage.y2 );
+    var leftOpeningX1 = modelViewTransform.modelToViewX( chamberPoolModel.poolDimensions.leftOpening.x1 );
+    var leftOpeningX2 = modelViewTransform.modelToViewX( chamberPoolModel.poolDimensions.leftOpening.x2 );
+    var leftChamberX1 = modelViewTransform.modelToViewX( chamberPoolModel.poolDimensions.leftChamber.x1 );
+    var leftChamberX2 = modelViewTransform.modelToViewX( chamberPoolModel.poolDimensions.leftChamber.x2 );
+    var rightChamberX1 = modelViewTransform.modelToViewX( chamberPoolModel.poolDimensions.rightChamber.x1 );
+    var rightChamberX2 = modelViewTransform.modelToViewX( chamberPoolModel.poolDimensions.rightChamber.x2 );
+    var rightOpeningX1 = modelViewTransform.modelToViewX( chamberPoolModel.poolDimensions.rightOpening.x1 );
+    var rightOpeningX2 = modelViewTransform.modelToViewX( chamberPoolModel.poolDimensions.rightOpening.x2 );
+    var leftOpeningY1 = modelViewTransform.modelToViewY( chamberPoolModel.poolDimensions.leftOpening.y1 );
+    var leftOpeningY2 = modelViewTransform.modelToViewY( chamberPoolModel.poolDimensions.leftOpening.y2 );
+    var leftChamberY2 = modelViewTransform.modelToViewY( chamberPoolModel.poolDimensions.leftChamber.y2 );
+    var passageY1 = modelViewTransform.modelToViewY( chamberPoolModel.poolDimensions.horizontalPassage.y1 );
+    var passageY2 = modelViewTransform.modelToViewY( chamberPoolModel.poolDimensions.horizontalPassage.y2 );
 
     //cement border
     var shape = new Shape()
@@ -79,11 +83,7 @@ define( function( require ) {
       .lineTo( rightOpeningX1 - 2, leftOpeningY2 + 2 )
       .lineTo( rightOpeningX1 - 2, leftOpeningY1 );
 
-    this.addChild( new Path( shape, {
-      stroke: new Pattern( cementImg ),
-      lineWidth: 4,
-      lineJoin: 'round'
-    } ) );
+    this.addChild( new Path( shape, { stroke: new Pattern( cementImg ), lineWidth: 4, lineJoin: 'round' } ) );
 
     //white background for pool
     this.addChild( new Path( new Shape()

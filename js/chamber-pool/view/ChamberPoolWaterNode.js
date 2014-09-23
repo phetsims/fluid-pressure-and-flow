@@ -1,47 +1,53 @@
 // Copyright 2002-2013, University of Colorado Boulder
 
 /**
- * view for water in chamber pool
+ * View for water in Chamber Pool
  * @author Vasily Shakhov (Mlearner)
  */
 define( function( require ) {
   'use strict';
+
+  // modules
   var inherit = require( 'PHET_CORE/inherit' );
   var Node = require( 'SCENERY/nodes/Node' );
   var Shape = require( 'KITE/Shape' );
   var Path = require( 'SCENERY/nodes/Path' );
   var LinearGradient = require( 'SCENERY/util/LinearGradient' );
 
-  function ChamberPoolWaterNode( model, modelViewTransform ) {
+  /**
+   * @param {ChamberPoolModel} chamberPoolModel
+   * @param {ModelViewTransform2} modelViewTransform for transforming between model and view co-ordinates
+   * @constructor
+   */
+  function ChamberPoolWaterNode( chamberPoolModel, modelViewTransform ) {
     Node.call( this );
 
-    var waterShape = new Shape(),
-      waterPath = new Path();
+    var waterPath = new Path();
 
-    var maxHeight = modelViewTransform.modelToViewY( model.MAX_HEIGHT ),
-      yMax = modelViewTransform.modelToViewY( model.globalModel.skyGroundBoundY + model.MAX_HEIGHT );
+    var maxHeight = modelViewTransform.modelToViewY( chamberPoolModel.MAX_HEIGHT );
+    var yMax = modelViewTransform.modelToViewY( chamberPoolModel.underPressureModel.skyGroundBoundY + chamberPoolModel.MAX_HEIGHT );
 
     //calculated view coordinates for water
-    var leftOpeningX1 = modelViewTransform.modelToViewX( model.poolDimensions.leftOpening.x1 ),
-      leftOpeningX2 = modelViewTransform.modelToViewX( model.poolDimensions.leftOpening.x2 ),
-      leftChamberX1 = modelViewTransform.modelToViewX( model.poolDimensions.leftChamber.x1 ),
-      leftChamberX2 = modelViewTransform.modelToViewX( model.poolDimensions.leftChamber.x2 ),
-      rightChamberX1 = modelViewTransform.modelToViewX( model.poolDimensions.rightChamber.x1 ),
-      rightChamberX2 = modelViewTransform.modelToViewX( model.poolDimensions.rightChamber.x2 ),
-      rightOpeningX1 = modelViewTransform.modelToViewX( model.poolDimensions.rightOpening.x1 ),
-      rightOpeningX2 = modelViewTransform.modelToViewX( model.poolDimensions.rightOpening.x2 ),
-      leftOpeningY2 = modelViewTransform.modelToViewY( model.poolDimensions.leftOpening.y2 ),
-      leftChamberY2 = modelViewTransform.modelToViewY( model.poolDimensions.leftChamber.y2 ),
-      passageY1 = modelViewTransform.modelToViewY( model.poolDimensions.horizontalPassage.y1 ),
-      passageY2 = modelViewTransform.modelToViewY( model.poolDimensions.horizontalPassage.y2 );
+    var leftOpeningX1 = modelViewTransform.modelToViewX( chamberPoolModel.poolDimensions.leftOpening.x1 );
+    var leftOpeningX2 = modelViewTransform.modelToViewX( chamberPoolModel.poolDimensions.leftOpening.x2 );
+    var leftChamberX1 = modelViewTransform.modelToViewX( chamberPoolModel.poolDimensions.leftChamber.x1 );
+    var leftChamberX2 = modelViewTransform.modelToViewX( chamberPoolModel.poolDimensions.leftChamber.x2 );
+    var rightChamberX1 = modelViewTransform.modelToViewX( chamberPoolModel.poolDimensions.rightChamber.x1 );
+    var rightChamberX2 = modelViewTransform.modelToViewX( chamberPoolModel.poolDimensions.rightChamber.x2 );
+    var rightOpeningX1 = modelViewTransform.modelToViewX( chamberPoolModel.poolDimensions.rightOpening.x1 );
+    var rightOpeningX2 = modelViewTransform.modelToViewX( chamberPoolModel.poolDimensions.rightOpening.x2 );
+    var leftOpeningY2 = modelViewTransform.modelToViewY( chamberPoolModel.poolDimensions.leftOpening.y2 );
+    var leftChamberY2 = modelViewTransform.modelToViewY( chamberPoolModel.poolDimensions.leftChamber.y2 );
+    var passageY1 = modelViewTransform.modelToViewY( chamberPoolModel.poolDimensions.horizontalPassage.y1 );
+    var passageY2 = modelViewTransform.modelToViewY( chamberPoolModel.poolDimensions.horizontalPassage.y2 );
 
-    model.globalModel.leftDisplacementProperty.link( function( displacement ) {
+    chamberPoolModel.underPressureModel.leftDisplacementProperty.link( function( displacement ) {
 
       //new left and right levels of water
-      var leftY = modelViewTransform.modelToViewY( model.poolDimensions.leftOpening.y2 - model.LEFT_WATER_HEIGHT + displacement ),
-        rightY = modelViewTransform.modelToViewY( model.poolDimensions.rightOpening.y2 - model.LEFT_WATER_HEIGHT - displacement / model.LENGTH_RATIO );
+      var leftY = modelViewTransform.modelToViewY( chamberPoolModel.poolDimensions.leftOpening.y2 - chamberPoolModel.LEFT_WATER_HEIGHT + displacement );
+      var rightY = modelViewTransform.modelToViewY( chamberPoolModel.poolDimensions.rightOpening.y2 - chamberPoolModel.LEFT_WATER_HEIGHT - displacement / chamberPoolModel.LENGTH_RATIO );
 
-      waterShape = new Shape()
+      waterPath.shape = new Shape()
         .moveTo( leftOpeningX1, leftY )
         .lineTo( leftOpeningX1, leftOpeningY2 )
         .lineTo( leftChamberX1, leftOpeningY2 )
@@ -62,13 +68,13 @@ define( function( require ) {
         .lineTo( leftChamberX2, leftOpeningY2 )
         .lineTo( leftOpeningX2, leftOpeningY2 )
         .lineTo( leftOpeningX2, leftY );
-      waterPath.shape = waterShape;
     } );
 
-    model.globalModel.waterColorModel.waterColorProperty.link( function() {
+    // todo: can use linkAttribute once we remove the gradient fill.
+    chamberPoolModel.underPressureModel.waterColorModel.waterColorProperty.link( function() {
       waterPath.fill = new LinearGradient( 0, yMax, 0, yMax - maxHeight )
-        .addColorStop( 0, model.globalModel.waterColorModel.bottomColor )
-        .addColorStop( 1, model.globalModel.waterColorModel.topColor );
+        .addColorStop( 0, chamberPoolModel.underPressureModel.waterColorModel.bottomColor )
+        .addColorStop( 1, chamberPoolModel.underPressureModel.waterColorModel.topColor );
     } );
 
     this.addChild( waterPath );
