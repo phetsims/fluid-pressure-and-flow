@@ -1,13 +1,16 @@
 // Copyright 2002-2013, University of Colorado Boulder
 
 /**
- * main Model container for chamber pool screen.
+ * Model for the Chamber Pool screen of Under Pressure sim.
+ * Models the chamber shape and stack of masses that can be dropped in the chamber.
  *
  * @author Vasily Shakhov (Mlearner)
+ * @author Siddhartha Chinthapally (Actual Concepts)
  */
 define( function( require ) {
   'use strict';
 
+  // modules
   var PropertySet = require( 'AXON/PropertySet' );
   var ObservableArray = require( 'AXON/ObservableArray' );
   var inherit = require( 'PHET_CORE/inherit' );
@@ -15,11 +18,16 @@ define( function( require ) {
 
   var lastDt = 0;//to filter dt in step.
 
-  function ChamberPoolModel( globalModel ) {
-    var self = this;
+  /**
+   * @param {UnderPressureModel} underPressureModel of the sim.
+   * @constructor
+   */
+  function ChamberPoolModel( underPressureModel ) {
+
+    var chamberPoolModel = this;
     PropertySet.call( this, {stackMass: 0} );
 
-    this.globalModel = globalModel;
+    this.underPressureModel = underPressureModel;
 
     //constants, from java model
     //The entire apparatus is this tall
@@ -52,10 +60,10 @@ define( function( require ) {
     var RIGHT_CHAMBER_WIDTH = 1.25;
 
     //default left opening water height
-    this.LEFT_WATER_HEIGHT = this.DEFAULT_HEIGHT-CHAMBER_HEIGHT;
+    this.LEFT_WATER_HEIGHT = this.DEFAULT_HEIGHT - CHAMBER_HEIGHT;
 
     //masses can't have y-coord more that this, sky height - grass height
-    this.MAX_Y = self.globalModel.skyGroundBoundY - 0.05;
+    this.MAX_Y = chamberPoolModel.underPressureModel.skyGroundBoundY - 0.05;
 
     var massOffset = 1.1; // start x-coordinate of first mass
     var separation = 0.03; //separation between masses
@@ -63,33 +71,33 @@ define( function( require ) {
     this.poolDimensions = {
       leftChamber: {
         x1: LEFT_CHAMBER_X,
-        y1: self.globalModel.skyGroundBoundY + self.MAX_HEIGHT - CHAMBER_HEIGHT,
+        y1: chamberPoolModel.underPressureModel.skyGroundBoundY + chamberPoolModel.MAX_HEIGHT - CHAMBER_HEIGHT,
         x2: LEFT_CHAMBER_X + LEFT_CHAMBER_WIDTH,
-        y2: self.globalModel.skyGroundBoundY + self.MAX_HEIGHT
+        y2: chamberPoolModel.underPressureModel.skyGroundBoundY + chamberPoolModel.MAX_HEIGHT
       },
       rightChamber: {
         x1: RIGHT_CHAMBER_X,
-        y1: self.globalModel.skyGroundBoundY + self.MAX_HEIGHT - CHAMBER_HEIGHT,
+        y1: chamberPoolModel.underPressureModel.skyGroundBoundY + chamberPoolModel.MAX_HEIGHT - CHAMBER_HEIGHT,
         x2: RIGHT_CHAMBER_X + RIGHT_CHAMBER_WIDTH,
-        y2: self.globalModel.skyGroundBoundY + self.MAX_HEIGHT
+        y2: chamberPoolModel.underPressureModel.skyGroundBoundY + chamberPoolModel.MAX_HEIGHT
       },
       horizontalPassage: {
         x1: LEFT_CHAMBER_X + LEFT_CHAMBER_WIDTH,
-        y1: self.globalModel.skyGroundBoundY + self.MAX_HEIGHT - PASSAGE_SIZE * 3 / 2,
+        y1: chamberPoolModel.underPressureModel.skyGroundBoundY + chamberPoolModel.MAX_HEIGHT - PASSAGE_SIZE * 3 / 2,
         x2: RIGHT_CHAMBER_X,
-        y2: self.globalModel.skyGroundBoundY + self.MAX_HEIGHT - PASSAGE_SIZE / 2
+        y2: chamberPoolModel.underPressureModel.skyGroundBoundY + chamberPoolModel.MAX_HEIGHT - PASSAGE_SIZE / 2
       },
       leftOpening: {
         x1: LEFT_CHAMBER_X + LEFT_CHAMBER_WIDTH / 2 - LEFT_OPENING_WIDTH / 2,
-        y1: self.globalModel.skyGroundBoundY,
+        y1: chamberPoolModel.underPressureModel.skyGroundBoundY,
         x2: LEFT_CHAMBER_X + LEFT_CHAMBER_WIDTH / 2 + LEFT_OPENING_WIDTH / 2,
-        y2: self.globalModel.skyGroundBoundY + self.MAX_HEIGHT - CHAMBER_HEIGHT
+        y2: chamberPoolModel.underPressureModel.skyGroundBoundY + chamberPoolModel.MAX_HEIGHT - CHAMBER_HEIGHT
       },
       rightOpening: {
         x1: RIGHT_CHAMBER_X + RIGHT_CHAMBER_WIDTH / 2 - RIGHT_OPENING_WIDTH / 2,
-        y1: self.globalModel.skyGroundBoundY,
+        y1: chamberPoolModel.underPressureModel.skyGroundBoundY,
         x2: RIGHT_CHAMBER_X + RIGHT_CHAMBER_WIDTH / 2 + RIGHT_OPENING_WIDTH / 2,
-        y2: self.globalModel.skyGroundBoundY + self.MAX_HEIGHT - CHAMBER_HEIGHT
+        y2: chamberPoolModel.underPressureModel.skyGroundBoundY + chamberPoolModel.MAX_HEIGHT - CHAMBER_HEIGHT
       }
     };
 
@@ -97,37 +105,40 @@ define( function( require ) {
     this.stack = new ObservableArray();
 
     this.masses = [
-      new MassModel( self, 500, massOffset, self.MAX_Y - PASSAGE_SIZE / 2, PASSAGE_SIZE, PASSAGE_SIZE ),
-      new MassModel( self, 250, massOffset + PASSAGE_SIZE + separation, self.MAX_Y - PASSAGE_SIZE / 4, PASSAGE_SIZE, PASSAGE_SIZE / 2 ),
-      new MassModel( self, 250, massOffset + 2 * PASSAGE_SIZE + 2 * separation, self.MAX_Y - PASSAGE_SIZE / 4, PASSAGE_SIZE, PASSAGE_SIZE / 2 )
+      new MassModel( chamberPoolModel, 500, massOffset, chamberPoolModel.MAX_Y - PASSAGE_SIZE / 2, PASSAGE_SIZE, PASSAGE_SIZE ),
+      new MassModel( chamberPoolModel, 250, massOffset + PASSAGE_SIZE + separation, chamberPoolModel.MAX_Y - PASSAGE_SIZE / 4, PASSAGE_SIZE, PASSAGE_SIZE / 2 ),
+      new MassModel( chamberPoolModel, 250, massOffset + 2 * PASSAGE_SIZE + 2 * separation, chamberPoolModel.MAX_Y - PASSAGE_SIZE / 4, PASSAGE_SIZE, PASSAGE_SIZE / 2 )
     ];
 
     this.stack.addListeners(
       function( massModel ) {
-        self.stackMass = self.stackMass + massModel.mass;
+        chamberPoolModel.stackMass = chamberPoolModel.stackMass + massModel.mass;
         var maxVelocity = 0;
         //must equalize velocity of each mass
-        self.stack.forEach( function( mass ) {
+        chamberPoolModel.stack.forEach( function( mass ) {
           maxVelocity = Math.max( mass.velocity, maxVelocity );
         } );
-        self.stack.forEach( function( mass ) {
+        chamberPoolModel.stack.forEach( function( mass ) {
           mass.velocity = maxVelocity;
         } );
       },
       function( massModel ) {
-        self.stackMass = self.stackMass - massModel.mass;
+        chamberPoolModel.stackMass = chamberPoolModel.stackMass - massModel.mass;
       } );
   }
 
   return inherit( PropertySet, ChamberPoolModel, {
+
     reset: function() {
+      PropertySet.prototype.reset.call( this );
       this.stack.clear();
       this.masses.forEach( function( mass ) {
         mass.reset();
       } );
     },
+
     step: function( dt ) {
-      if ( !lastDt ) {lastDt = dt;} // init lastDt value
+      if ( !lastDt ) { lastDt = dt; } // init lastDt value
 
       if ( Math.abs( lastDt - dt ) > lastDt * 0.3 ) {
         dt = lastDt;
@@ -147,56 +158,50 @@ define( function( require ) {
         this.stack.forEach( function( massModel ) {
           maxY = Math.max( massModel.position.y + massModel.height / 2, maxY );
         } );
-        this.globalModel.leftDisplacement = maxY - (this.poolDimensions.leftOpening.y2 - this.LEFT_WATER_HEIGHT);
+        this.underPressureModel.leftDisplacement = maxY - (this.poolDimensions.leftOpening.y2 - this.LEFT_WATER_HEIGHT);
       }
       else {
         //no masses, water must get to equilibrium
         //move back toward zero displacement.  Note, this does not use correct newtonian dynamics, just a simple heuristic
-        if ( this.globalModel.leftDisplacement >= 0 ) {
-          this.globalModel.leftDisplacement -= this.globalModel.leftDisplacement / 10;
+        if ( this.underPressureModel.leftDisplacement >= 0 ) {
+          this.underPressureModel.leftDisplacement -= this.underPressureModel.leftDisplacement / 10;
         }
         else {
-          this.globalModel.leftDisplacement = 0;
+          this.underPressureModel.leftDisplacement = 0;
         }
       }
     },
+
     getPressureAtCoords: function( x, y ) {
       var pressure = '';
-
-      if ( y < this.globalModel.skyGroundBoundY ) {
-        pressure = this.globalModel.getAirPressure( y );
+      if ( y < this.underPressureModel.skyGroundBoundY ) {
+        pressure = this.underPressureModel.getAirPressure( y );
       }
       else if ( this.isPointInsidePool( x, y ) ) {
         //inside pool
         //if in left opening over masses, than air pressure
-        if ( this.poolDimensions.leftOpening.x1 < x && x < this.poolDimensions.leftOpening.x2 && y < this.poolDimensions.leftChamber.y2 - this.DEFAULT_HEIGHT + this.globalModel.leftDisplacement ) {
-          pressure = this.globalModel.getAirPressure( y );
+        if ( this.poolDimensions.leftOpening.x1 < x && x < this.poolDimensions.leftOpening.x2 && y < this.poolDimensions.leftChamber.y2 - this.DEFAULT_HEIGHT + this.underPressureModel.leftDisplacement ) {
+          pressure = this.underPressureModel.getAirPressure( y );
         }
         else {
           //other case
-          var waterHeight = y - (this.poolDimensions.leftChamber.y2 - this.DEFAULT_HEIGHT - this.globalModel.leftDisplacement / this.LENGTH_RATIO);// water height above barometer
-          if ( waterHeight <= 0 ) {
-            pressure = this.globalModel.getAirPressure( y );
-          }
-          else {
-            pressure = this.globalModel.getAirPressure( y - waterHeight ) + this.globalModel.getWaterPressure( waterHeight );
-          }
+          var waterHeight = y - (this.poolDimensions.leftChamber.y2 - this.DEFAULT_HEIGHT - this.underPressureModel.leftDisplacement / this.LENGTH_RATIO);// water height above barometer
+          pressure = waterHeight <= 0 ? this.underPressureModel.getAirPressure( y ) :
+                     this.underPressureModel.getAirPressure( y - waterHeight ) + this.underPressureModel.getWaterPressure( waterHeight );
+
         }
       }
-
       return pressure;
     },
-    isPointInsidePool: function( x, y ) {
-      var self = this;
-      var isInside = false;
 
+    isPointInsidePool: function( x, y ) {
       ['leftChamber', 'rightChamber', 'horizontalPassage', 'leftOpening', 'rightOpening'].forEach( function( name ) {
-        if ( x > self.poolDimensions[name].x1 && x < self.poolDimensions[name].x2 && y > self.poolDimensions[name].y1 && y < self.poolDimensions[name].y2 ) {
+        if ( x > this.poolDimensions[name].x1 && x < this.poolDimensions[name].x2 && y > this.poolDimensions[name].y1 && y < this.poolDimensions[name].y2 ) {
           //inside bottom chamber
-          isInside = true;
+          return  true;
         }
       } );
-      return isInside;
+      return false;
     }
   } );
 } );
