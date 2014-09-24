@@ -14,7 +14,7 @@ define( function( require ) {
   var Range = require( 'DOT/Range' );
   var LinearFunction = require( 'DOT/LinearFunction' );
   var Vector2 = require( 'DOT/Vector2' );
-  var Units = require( 'FLUID_PRESSURE_AND_FLOW/watertower/model/Units' );
+  var Units = require( 'UNDER_PRESSURE/common/model/Units' );
   var Barometer = require( 'FLUID_PRESSURE_AND_FLOW/watertower/model/Barometer' );
   var VelocitySensor = require( 'FLUID_PRESSURE_AND_FLOW/watertower/model/VelocitySensor' );
   var WaterTower = require( 'FLUID_PRESSURE_AND_FLOW/watertower/model/WaterTower' );

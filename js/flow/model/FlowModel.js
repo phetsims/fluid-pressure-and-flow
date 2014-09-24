@@ -22,7 +22,7 @@ define( function( require ) {
   var Barometer = require( 'FLUID_PRESSURE_AND_FLOW/watertower/model/Barometer' );
   var ObservableArray = require( 'AXON/ObservableArray' );
   var FluidColorModel = require( 'FLUID_PRESSURE_AND_FLOW/watertower/model/FluidColorModel' );
-  var Units = require( 'FLUID_PRESSURE_AND_FLOW/flow/model/Units' );
+  var Units = require( 'UNDER_PRESSURE/common/model/Units' );
   var Util = require( 'DOT/Util' );
   var Pipe = require( 'FLUID_PRESSURE_AND_FLOW/flow/model/Pipe' );
   var Particle = require( 'FLUID_PRESSURE_AND_FLOW/flow/model/Particle' );

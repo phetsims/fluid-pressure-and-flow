@@ -22,7 +22,7 @@ define( function( require ) {
   var MovableDragHandler = require( 'SCENERY_PHET/input/MovableDragHandler' );
   var ModelViewTransform2 = require( 'PHETCOMMON/view/ModelViewTransform2' );
   var Property = require( 'AXON/Property' );
-  var Units = require( 'FLUID_PRESSURE_AND_FLOW/watertower/model/Units' );
+  var Units = require( 'UNDER_PRESSURE/common/model/Units' );
   var Constants = require( 'FLUID_PRESSURE_AND_FLOW/watertower/Constants' );
 
   // strings
@@ -115,7 +115,7 @@ define( function( require ) {
         textBackground.setRect( 0, 0, text.width + 50, text.height + 2 );
       }
       else {
-        text.text = Units.getPressureString[units]( barometerValue, waterTowerModel.isPointInWater && waterTowerModel.isPointInWater( modelViewTransform.viewToModelX( barometer.position.x ), modelViewTransform.viewToModelY( barometer.position.y + (53) ) ) );
+        text.text = Units.getPressureString( barometerValue, units, waterTowerModel.isPointInWater && waterTowerModel.isPointInWater( modelViewTransform.viewToModelX( barometer.position.x ), modelViewTransform.viewToModelY( barometer.position.y + (53) ) ) );
         textBackground.setRect( 0, 0, text.width + 4, text.height + 2 );
       }
 
