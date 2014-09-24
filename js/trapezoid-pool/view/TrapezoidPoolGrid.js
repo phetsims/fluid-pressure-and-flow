@@ -3,9 +3,12 @@
 /**
  * specific grid view for trapezoid pool
  * @author Vasily Shakhov (Mlearner)
+ * @author Siddhartha Chinthapally (Actual Concepts)
  */
 define( function( require ) {
   'use strict';
+
+  // modules
   var Node = require( 'SCENERY/nodes/Node' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Text = require( 'SCENERY/nodes/Text' );
@@ -13,26 +16,23 @@ define( function( require ) {
   var PhetFont = require( 'SCENERY_PHET/PhetFont' );
   var Rectangle = require( 'SCENERY/nodes/Rectangle' );
 
+// strings
   var metersString = require( 'string!UNDER_PRESSURE/m' );
   var feetString = require( 'string!UNDER_PRESSURE/ft' );
 
   /**
    * Constructor for the grid view for trapezoid pool
    * @param {TrapezoidPoolModel} trapezoidPoolModel
-   * @param {ModelViewTransform2} modelViewTransform
+   * @param {ModelViewTransform2 } modelViewTransform to convert between model and view co-ordinates
    * @constructor
    */
   function TrapezoidPoolGrid( trapezoidPoolModel, modelViewTransform ) {
 
     Node.call( this );
-
-    var fontOptions = {
-      font: new PhetFont( 12 )
-    };
-
+    var fontOptions = {  font: new PhetFont( 12 ) };
     var leftEdgeOfGrid = trapezoidPoolModel.poolDimensions.leftChamber.centerTop - trapezoidPoolModel.poolDimensions.leftChamber.widthBottom / 2;
     var rightEdgeOfGrid = trapezoidPoolModel.poolDimensions.rightChamber.centerTop + trapezoidPoolModel.poolDimensions.rightChamber.widthTop / 2;
-    this.addChild( new GridLinesNode( trapezoidPoolModel.globalModel, modelViewTransform, leftEdgeOfGrid, trapezoidPoolModel.poolDimensions.leftChamber.y, rightEdgeOfGrid, trapezoidPoolModel.poolDimensions.leftChamber.y + trapezoidPoolModel.poolDimensions.leftChamber.height + 0.3 ) );
+    this.addChild( new GridLinesNode( trapezoidPoolModel.underPressureModel, modelViewTransform, leftEdgeOfGrid, trapezoidPoolModel.poolDimensions.leftChamber.y, rightEdgeOfGrid, trapezoidPoolModel.poolDimensions.leftChamber.y + trapezoidPoolModel.poolDimensions.leftChamber.height + 0.3 ) );
 
     // Add the labels for meters
     var labelPosX = modelViewTransform.modelToViewX( ( trapezoidPoolModel.poolDimensions.leftChamber.centerTop + trapezoidPoolModel.poolDimensions.leftChamber.widthTop / 2 + trapezoidPoolModel.poolDimensions.rightChamber.centerTop - trapezoidPoolModel.poolDimensions.rightChamber.widthTop / 2 ) / 2 );
@@ -44,7 +44,7 @@ define( function( require ) {
       metersText.center = metersLabelRect.center;
       metersLabelRect.addChild( metersText );
       metersLabelRect.centerX = labelPosX + modelViewTransform.modelToViewX( depthMeters * slantMultiplier );
-      metersLabelRect.centerY = modelViewTransform.modelToViewY( depthMeters + trapezoidPoolModel.globalModel.skyGroundBoundY );
+      metersLabelRect.centerY = modelViewTransform.modelToViewY( depthMeters + trapezoidPoolModel.underPressureModel.skyGroundBoundY );
       depthLabelsMeters.addChild( metersLabelRect );
     }
 
@@ -56,7 +56,7 @@ define( function( require ) {
       feetText.center = feetLabelRect.center;
       feetLabelRect.addChild( feetText );
       feetLabelRect.centerX = labelPosX + modelViewTransform.modelToViewX( depthFeet / 3.3 * slantMultiplier );
-      feetLabelRect.centerY = modelViewTransform.modelToViewY( depthFeet / 3.3 + trapezoidPoolModel.globalModel.skyGroundBoundY );
+      feetLabelRect.centerY = modelViewTransform.modelToViewY( depthFeet / 3.3 + trapezoidPoolModel.underPressureModel.skyGroundBoundY );
       depthLabelsFeet.addChild( feetLabelRect );
     }
 
@@ -64,12 +64,12 @@ define( function( require ) {
     this.addChild( depthLabelsFeet );
 
 
-    trapezoidPoolModel.globalModel.measureUnitsProperty.link( function( measureUnits ) {
+    trapezoidPoolModel.underPressureModel.measureUnitsProperty.link( function( measureUnits ) {
       depthLabelsFeet.visible = (measureUnits === 'english');
       depthLabelsMeters.visible = (measureUnits !== 'english');
     } );
 
-    trapezoidPoolModel.globalModel.isGridVisibleProperty.linkAttribute( this, 'visible' );
+    trapezoidPoolModel.underPressureModel.isGridVisibleProperty.linkAttribute( this, 'visible' );
   }
 
   return inherit( Node, TrapezoidPoolGrid );

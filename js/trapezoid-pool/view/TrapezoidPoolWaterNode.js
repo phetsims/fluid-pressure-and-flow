@@ -1,50 +1,57 @@
 // Copyright 2002-2013, University of Colorado Boulder
 
 /**
- * view for water in trapezoid pool
+ * View for water in trapezoid pool
  * @author Vasily Shakhov (Mlearner)
+ * @author Siddhartha Chinthapally (Actual Concepts)
  */
 define( function( require ) {
   'use strict';
+
+  // modules
   var inherit = require( 'PHET_CORE/inherit' );
   var Node = require( 'SCENERY/nodes/Node' );
   var Shape = require( 'KITE/Shape' );
   var Path = require( 'SCENERY/nodes/Path' );
   var LinearGradient = require( 'SCENERY/util/LinearGradient' );
 
-  function TrapezoidPoolWaterNode( model, modelViewTransform ) {
+  /**
+   * Constructor for the grid view for trapezoid pool
+   * @param {TrapezoidPoolModel} trapezoidPoolModel
+   * @param {ModelViewTransform2 } modelViewTransform to convert between model and view co-ordinates
+   * @constructor
+   */
+  function TrapezoidPoolWaterNode( trapezoidPoolModel, modelViewTransform ) {
+
     Node.call( this );
+    var waterPath = new Path();
 
-    var waterShape = new Shape(),
-      waterPath = new Path();
+    var maxHeight = modelViewTransform.modelToViewY( trapezoidPoolModel.MAX_HEIGHT );//max water height, px
+    var yMax = modelViewTransform.modelToViewY( trapezoidPoolModel.poolDimensions.leftChamber.y + trapezoidPoolModel.poolDimensions.leftChamber.height );//bottom y coord of pool, px
+    var x1 = modelViewTransform.modelToViewX( trapezoidPoolModel.verticles.x1bottom ); //bottom left corner of the pool
+    var x4 = modelViewTransform.modelToViewX( trapezoidPoolModel.verticles.x4bottom ); //bottom right corner of the pool
 
-    var maxHeight = modelViewTransform.modelToViewY( model.MAX_HEIGHT ),//max water height, px
-      yMax = modelViewTransform.modelToViewY( model.poolDimensions.leftChamber.y + model.poolDimensions.leftChamber.height ),//bottom y coord of pool, px
-      x1 = modelViewTransform.modelToViewX( model.verticles.x1bottom ), //bottom left corner of the pool
-      x4 = modelViewTransform.modelToViewX( model.verticles.x4bottom ); //bottom right corner of the pool
-
-    model.globalModel.waterColorModel.waterColorProperty.link( function() {
+    trapezoidPoolModel.underPressureModel.waterColorModel.waterColorProperty.link( function() {
       waterPath.fill = new LinearGradient( 0, yMax, 0, yMax - maxHeight )
-        .addColorStop( 0, model.globalModel.waterColorModel.bottomColor )
-        .addColorStop( 1, model.globalModel.waterColorModel.topColor );
+        .addColorStop( 0, trapezoidPoolModel.underPressureModel.waterColorModel.bottomColor )
+        .addColorStop( 1, trapezoidPoolModel.underPressureModel.waterColorModel.topColor );
     } );
 
-    model.volumeProperty.link( function() {
-      var viewHeight = model.MAX_HEIGHT * model.volume / model.MAX_VOLUME; //height of water
+    trapezoidPoolModel.volumeProperty.link( function() {
+      var viewHeight = trapezoidPoolModel.MAX_HEIGHT * trapezoidPoolModel.volume / trapezoidPoolModel.MAX_VOLUME; //height of water
+      var topY = yMax - modelViewTransform.modelToViewY( viewHeight ); //y coord for top of the water
+      var h = Math.min( viewHeight, trapezoidPoolModel.poolDimensions.bottomChamber.y2 - trapezoidPoolModel.poolDimensions.bottomChamber.y1 ); //height in bottom passage
 
-      var topY = yMax - modelViewTransform.modelToViewY( viewHeight ), //y coord for top of the water
-        h = Math.min( viewHeight, model.poolDimensions.bottomChamber.y2 - model.poolDimensions.bottomChamber.y1 ); //height in bottom passage
-
-      waterShape = new Shape()
-        .moveTo( modelViewTransform.modelToViewX( model.poolDimensions.leftChamber.leftBorderFunction( viewHeight ) ), topY )
+      waterPath.shape = new Shape()
+        .moveTo( modelViewTransform.modelToViewX( trapezoidPoolModel.poolDimensions.leftChamber.leftBorderFunction( viewHeight ) ), topY )
         .lineTo( x1, yMax )
         .lineTo( x4, yMax )
-        .lineTo( modelViewTransform.modelToViewX( model.poolDimensions.rightChamber.rightBorderFunction( viewHeight ) ), topY )
-        .lineTo( modelViewTransform.modelToViewX( model.poolDimensions.rightChamber.leftBorderFunction( viewHeight ) ), topY )
-        .lineTo( modelViewTransform.modelToViewX( model.poolDimensions.rightChamber.leftBorderFunction( h ) ), yMax - modelViewTransform.modelToViewY( h ) )
-        .lineTo( modelViewTransform.modelToViewX( model.poolDimensions.leftChamber.rightBorderFunction( h ) ), yMax - modelViewTransform.modelToViewY( h ) )
-        .lineTo( modelViewTransform.modelToViewX( model.poolDimensions.leftChamber.rightBorderFunction( viewHeight ) ), topY );
-      waterPath.shape = waterShape;
+        .lineTo( modelViewTransform.modelToViewX( trapezoidPoolModel.poolDimensions.rightChamber.rightBorderFunction( viewHeight ) ), topY )
+        .lineTo( modelViewTransform.modelToViewX( trapezoidPoolModel.poolDimensions.rightChamber.leftBorderFunction( viewHeight ) ), topY )
+        .lineTo( modelViewTransform.modelToViewX( trapezoidPoolModel.poolDimensions.rightChamber.leftBorderFunction( h ) ), yMax - modelViewTransform.modelToViewY( h ) )
+        .lineTo( modelViewTransform.modelToViewX( trapezoidPoolModel.poolDimensions.leftChamber.rightBorderFunction( h ) ), yMax - modelViewTransform.modelToViewY( h ) )
+        .lineTo( modelViewTransform.modelToViewX( trapezoidPoolModel.poolDimensions.leftChamber.rightBorderFunction( viewHeight ) ), topY );
+
     } );
 
     this.addChild( waterPath );

@@ -1,8 +1,10 @@
 // Copyright 2002-2013, University of Colorado Boulder
 
 /**
- * specific view for square pool grid
+ * View for the grid in Square Pool which shows horizontal lines along the pool indicating the depth.
+ * Supports both english and metric units.
  * @author Vasily Shakhov (Mlearner)
+ * @author Siddhartha Chinthapally (Actual Concepts)
  */
 define( function( require ) {
   'use strict';
@@ -16,50 +18,50 @@ define( function( require ) {
   var PhetFont = require( 'SCENERY_PHET/PhetFont' );
   var Units = require( 'UNDER_PRESSURE/common/model/Units' );
 
+  // strings
   var metersStringPattern = require( 'string!UNDER_PRESSURE/readoutMeters' );
   var feetStringPattern = require( 'string!UNDER_PRESSURE/readoutFeet' );
 
   /**
-   * View for the grid inside square pool
-   * @param {SquarePoolModel} squarePoolModel
-   * @param {ModelViewTransform2} modelViewTransform
+   * @param {SquarePoolModel} squarePoolModel of the simulation
+   * @param {ModelViewTransform2} modelViewTransform to convert between model and view co-ordinates
    * @constructor
    */
   function SquarePoolGrid( squarePoolModel, modelViewTransform ) {
+
     Node.call( this );
+    var fontOptions = { font: new PhetFont( 12 ), fontWeight: 'bold' };
 
-    var fontOptions = {
-      font: new PhetFont( 12 ),
-      fontWeight: 'bold'
-    };
+    // add grid lines
+    this.addChild( new GridLinesNode( squarePoolModel.underPressureModel, modelViewTransform, squarePoolModel.poolDimensions.x1, squarePoolModel.poolDimensions.y1, squarePoolModel.poolDimensions.x2, squarePoolModel.poolDimensions.y2 + 0.3 ) );
 
-    this.addChild( new GridLinesNode( squarePoolModel.globalModel, modelViewTransform, squarePoolModel.poolDimensions.x1, squarePoolModel.poolDimensions.y1, squarePoolModel.poolDimensions.x2, squarePoolModel.poolDimensions.y2 + 0.3 ) );
-
+    // meter labels
     var metersLabels = new Node();
     for ( var i = 0; i < 4; i++ ) {
       metersLabels.addChild( new Text( StringUtils.format( metersStringPattern, i ), _.extend( {
         right: modelViewTransform.modelToViewX( squarePoolModel.poolDimensions.x1 ) - 8,
-        centerY: modelViewTransform.modelToViewY( squarePoolModel.globalModel.skyGroundBoundY + i )
+        centerY: modelViewTransform.modelToViewY( squarePoolModel.underPressureModel.skyGroundBoundY + i )
       }, fontOptions ) ) );
     }
 
+    // feet labels
     var feetLabels = new Node();
     for ( i = 0; i < 11; i++ ) {
       feetLabels.addChild( new Text( StringUtils.format( feetStringPattern, i ), _.extend( {
         right: modelViewTransform.modelToViewX( squarePoolModel.poolDimensions.x1 ) - 8,
-        centerY: modelViewTransform.modelToViewY( squarePoolModel.globalModel.skyGroundBoundY + Units.feetToMeters( i ) )
+        centerY: modelViewTransform.modelToViewY( squarePoolModel.underPressureModel.skyGroundBoundY + Units.feetToMeters( i ) )
       }, fontOptions ) ) );
     }
 
     this.addChild( metersLabels );
     this.addChild( feetLabels );
 
-    squarePoolModel.globalModel.measureUnitsProperty.link( function( measureUnits ) {
+    squarePoolModel.underPressureModel.measureUnitsProperty.link( function( measureUnits ) {
       feetLabels.visible = (measureUnits === 'english');
       metersLabels.visible = (measureUnits !== 'english');
     } );
 
-    squarePoolModel.globalModel.isGridVisibleProperty.linkAttribute( this, 'visible' );
+    squarePoolModel.underPressureModel.isGridVisibleProperty.linkAttribute( this, 'visible' );
   }
 
   return inherit( Node, SquarePoolGrid );

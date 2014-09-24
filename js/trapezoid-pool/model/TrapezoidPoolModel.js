@@ -3,95 +3,103 @@
 /**
  * main Model for trapezoid pool screen.
  * @author Vasily Shakhov (Mlearner)
+ * @author Siddhartha Chinthapally (Actual Concepts)
  */
 define( function( require ) {
   'use strict';
-
+// modules
   var inherit = require( 'PHET_CORE/inherit' );
   var Vector2 = require( 'DOT/Vector2' );
   var PoolWithFaucetsModel = require( 'UNDER_PRESSURE/common/model/PoolWithFaucetsModel' );
   var FaucetModel = require( 'UNDER_PRESSURE/common/model/FaucetModel' );
   var LinearFunction = require( 'DOT/LinearFunction' );
 
-  function TrapezoidPoolModel( globalModel ) {
-    var self = this;
 
-    //constants, from java model
+  /**
+   * @param {UnderPressureModel} underPressureModel of the simulation
+   * @constructor
+   */
+  function TrapezoidPoolModel( underPressureModel ) {
+
+    var trapezoidPoolModel = this;
+
+    //constants
     this.MAX_HEIGHT = 3; // meters
-    this.MAX_VOLUME = self.MAX_HEIGHT; // Liters
+    this.MAX_VOLUME = trapezoidPoolModel.MAX_HEIGHT; // Liters
     var WIDTHATTOP = 0.785; //meters,
     var WIDTHATBOTTOM = 3.57; //meters,
     var LEFTCHAMBERTOPCENTER = 3; //meters,
     var SEPARATION = 3.5;//Between centers
 
-    this.inputFaucet = new FaucetModel( new Vector2( 3, globalModel.skyGroundBoundY - 0.44 ), 1, 0.42 );
-    this.outputFaucet = new FaucetModel( new Vector2( 7.7, globalModel.skyGroundBoundY + 3.45 ), 1, 0.3 );
+    this.inputFaucet = new FaucetModel( new Vector2( 3, underPressureModel.skyGroundBoundY - 0.44 ), 1, 0.42 );
+    this.outputFaucet = new FaucetModel( new Vector2( 7.7, underPressureModel.skyGroundBoundY + 3.45 ), 1, 0.3 );
 
-    this.globalModel = globalModel;
+    this.underPressureModel = underPressureModel;
 
     this.poolDimensions = {
       leftChamber: {
         centerTop: LEFTCHAMBERTOPCENTER,
         widthTop: WIDTHATTOP,
         widthBottom: WIDTHATBOTTOM,
-        y: self.globalModel.skyGroundBoundY,
-        height: self.MAX_HEIGHT,
-        leftBorderFunction: new LinearFunction( 0, self.MAX_HEIGHT, LEFTCHAMBERTOPCENTER - WIDTHATBOTTOM / 2, LEFTCHAMBERTOPCENTER - WIDTHATTOP / 2 ),
-        rightBorderFunction: new LinearFunction( 0, self.MAX_HEIGHT, LEFTCHAMBERTOPCENTER + WIDTHATBOTTOM / 2, LEFTCHAMBERTOPCENTER + WIDTHATTOP / 2 )
+        y: trapezoidPoolModel.underPressureModel.skyGroundBoundY,
+        height: trapezoidPoolModel.MAX_HEIGHT,
+        leftBorderFunction: new LinearFunction( 0, trapezoidPoolModel.MAX_HEIGHT, LEFTCHAMBERTOPCENTER - WIDTHATBOTTOM / 2, LEFTCHAMBERTOPCENTER - WIDTHATTOP / 2 ),
+        rightBorderFunction: new LinearFunction( 0, trapezoidPoolModel.MAX_HEIGHT, LEFTCHAMBERTOPCENTER + WIDTHATBOTTOM / 2, LEFTCHAMBERTOPCENTER + WIDTHATTOP / 2 )
       },
       rightChamber: {
         centerTop: LEFTCHAMBERTOPCENTER + SEPARATION,
         widthTop: WIDTHATBOTTOM,
         widthBottom: WIDTHATTOP,
-        y: self.globalModel.skyGroundBoundY,
-        height: self.MAX_HEIGHT,
-        leftBorderFunction: new LinearFunction( 0, self.MAX_HEIGHT, LEFTCHAMBERTOPCENTER + SEPARATION - WIDTHATTOP / 2, LEFTCHAMBERTOPCENTER + SEPARATION - WIDTHATBOTTOM / 2 ),
-        rightBorderFunction: new LinearFunction( 0, self.MAX_HEIGHT, LEFTCHAMBERTOPCENTER + SEPARATION + WIDTHATTOP / 2, LEFTCHAMBERTOPCENTER + SEPARATION + WIDTHATBOTTOM / 2 )
+        y: trapezoidPoolModel.underPressureModel.skyGroundBoundY,
+        height: trapezoidPoolModel.MAX_HEIGHT,
+        leftBorderFunction: new LinearFunction( 0, trapezoidPoolModel.MAX_HEIGHT, LEFTCHAMBERTOPCENTER + SEPARATION - WIDTHATTOP / 2, LEFTCHAMBERTOPCENTER + SEPARATION - WIDTHATBOTTOM / 2 ),
+        rightBorderFunction: new LinearFunction( 0, trapezoidPoolModel.MAX_HEIGHT, LEFTCHAMBERTOPCENTER + SEPARATION + WIDTHATTOP / 2, LEFTCHAMBERTOPCENTER + SEPARATION + WIDTHATBOTTOM / 2 )
       },
       bottomChamber: {
         x1: LEFTCHAMBERTOPCENTER + WIDTHATBOTTOM / 2,
-        y1: self.globalModel.skyGroundBoundY + self.MAX_HEIGHT - 0.21,
+        y1: trapezoidPoolModel.underPressureModel.skyGroundBoundY + trapezoidPoolModel.MAX_HEIGHT - 0.21,
         x2: LEFTCHAMBERTOPCENTER + SEPARATION - WIDTHATTOP / 2,
-        y2: self.globalModel.skyGroundBoundY + self.MAX_HEIGHT
+        y2: trapezoidPoolModel.underPressureModel.skyGroundBoundY + trapezoidPoolModel.MAX_HEIGHT
       }
     };
 
     //key coordinates of complex figure
     this.verticles = {
-      x1top: self.poolDimensions.leftChamber.centerTop - self.poolDimensions.leftChamber.widthTop / 2,
-      x2top: self.poolDimensions.leftChamber.centerTop + self.poolDimensions.leftChamber.widthTop / 2,
-      x3top: self.poolDimensions.rightChamber.centerTop - self.poolDimensions.rightChamber.widthTop / 2,
-      x4top: self.poolDimensions.rightChamber.centerTop + self.poolDimensions.rightChamber.widthTop / 2,
+      x1top: trapezoidPoolModel.poolDimensions.leftChamber.centerTop - trapezoidPoolModel.poolDimensions.leftChamber.widthTop / 2,
+      x2top: trapezoidPoolModel.poolDimensions.leftChamber.centerTop + trapezoidPoolModel.poolDimensions.leftChamber.widthTop / 2,
+      x3top: trapezoidPoolModel.poolDimensions.rightChamber.centerTop - trapezoidPoolModel.poolDimensions.rightChamber.widthTop / 2,
+      x4top: trapezoidPoolModel.poolDimensions.rightChamber.centerTop + trapezoidPoolModel.poolDimensions.rightChamber.widthTop / 2,
 
-      x1middle: self.poolDimensions.leftChamber.rightBorderFunction( self.poolDimensions.bottomChamber.y2 - self.poolDimensions.bottomChamber.y1 ),
-      x2middle: self.poolDimensions.rightChamber.leftBorderFunction( self.poolDimensions.bottomChamber.y2 - self.poolDimensions.bottomChamber.y1 ),
+      x1middle: trapezoidPoolModel.poolDimensions.leftChamber.rightBorderFunction( trapezoidPoolModel.poolDimensions.bottomChamber.y2 - trapezoidPoolModel.poolDimensions.bottomChamber.y1 ),
+      x2middle: trapezoidPoolModel.poolDimensions.rightChamber.leftBorderFunction( trapezoidPoolModel.poolDimensions.bottomChamber.y2 - trapezoidPoolModel.poolDimensions.bottomChamber.y1 ),
 
-      x1bottom: self.poolDimensions.leftChamber.centerTop - self.poolDimensions.leftChamber.widthBottom / 2,
-      x2bottom: self.poolDimensions.leftChamber.centerTop + self.poolDimensions.leftChamber.widthBottom / 2,
-      x3bottom: self.poolDimensions.rightChamber.centerTop - self.poolDimensions.rightChamber.widthBottom / 2,
-      x4bottom: self.poolDimensions.rightChamber.centerTop + self.poolDimensions.rightChamber.widthBottom / 2,
+      x1bottom: trapezoidPoolModel.poolDimensions.leftChamber.centerTop - trapezoidPoolModel.poolDimensions.leftChamber.widthBottom / 2,
+      x2bottom: trapezoidPoolModel.poolDimensions.leftChamber.centerTop + trapezoidPoolModel.poolDimensions.leftChamber.widthBottom / 2,
+      x3bottom: trapezoidPoolModel.poolDimensions.rightChamber.centerTop - trapezoidPoolModel.poolDimensions.rightChamber.widthBottom / 2,
+      x4bottom: trapezoidPoolModel.poolDimensions.rightChamber.centerTop + trapezoidPoolModel.poolDimensions.rightChamber.widthBottom / 2,
 
-      ymiddle: self.poolDimensions.bottomChamber.y1
+      ymiddle: trapezoidPoolModel.poolDimensions.bottomChamber.y1
     };
 
-    PoolWithFaucetsModel.call( this, globalModel );
+    PoolWithFaucetsModel.call( this, underPressureModel );
   }
 
   return inherit( PoolWithFaucetsModel, TrapezoidPoolModel, {
+
     getPressureAtCoords: function( x, y ) {
       var pressure = '';
 
-      if ( y < this.globalModel.skyGroundBoundY ) {
-        pressure = this.globalModel.getAirPressure( y );
+      if ( y < this.underPressureModel.skyGroundBoundY ) {
+        pressure = this.underPressureModel.getAirPressure( y );
       }
       else if ( this.isPointInsidePool( x, y ) ) {
         //inside pool
         var waterHeight = y - (this.poolDimensions.bottomChamber.y2 - this.MAX_HEIGHT * this.volume / this.MAX_VOLUME);// water height above barometer
         if ( waterHeight <= 0 ) {
-          pressure = this.globalModel.getAirPressure( y );
+          pressure = this.underPressureModel.getAirPressure( y );
         }
         else {
-          pressure = this.globalModel.getAirPressure( y - waterHeight ) + this.globalModel.getWaterPressure( waterHeight );
+          pressure = this.underPressureModel.getAirPressure( y - waterHeight ) + this.underPressureModel.getWaterPressure( waterHeight );
         }
       }
 

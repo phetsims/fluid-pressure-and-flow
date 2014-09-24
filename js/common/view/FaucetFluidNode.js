@@ -3,8 +3,8 @@
 /**
  * Fluid coming out of a faucet.
  * Origin is at the top center, to simplify alignment with the center of the faucet's output pipe.
- *
  * @author Chris Malley (PixelZoom, Inc.), Vasily Shakhov(MLearner)
+ * @author Siddhartha Chinthapally (Actual Concepts)
  */
 define( function( require ) {
   'use strict';
@@ -12,6 +12,14 @@ define( function( require ) {
   // modules
   var inherit = require( 'PHET_CORE/inherit' );
   var Rectangle = require( 'SCENERY/nodes/Rectangle' );
+
+  /**
+   * @param {FaucetModel} faucet model of the sim.
+   * @param {PoolWithFaucetsModel} model square-pool/mystery-pool/trapezoid model
+   * @param {ModelViewTransform2} modelViewTransform that is used to transform between model and view coordinate frames
+   * @param {Number} maxHeight
+   * @constructor
+   */
 
   function FaucetFluidNode( faucet, model, modelViewTransform, maxHeight ) {
     var thisNode = this;
@@ -24,8 +32,8 @@ define( function( require ) {
       thisNode.setRect( modelViewTransform.modelToViewX( faucet.location.x ) - (thisNode.viewWidth / 2), modelViewTransform.modelToViewY( faucet.location.y ), thisNode.viewWidth, thisNode.currentHeight );
     };
 
-    model.globalModel.waterColorModel.waterColorProperty.link( function() {
-      thisNode.fill = model.globalModel.waterColorModel.bottomColor;
+    model.underPressureModel.waterColorModel.waterColorProperty.link( function() {
+      thisNode.fill = model.underPressureModel.waterColorModel.bottomColor;
     } );
 
     faucet.flowRateProperty.link( function( flowRate ) {
