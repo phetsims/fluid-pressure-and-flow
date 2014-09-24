@@ -17,6 +17,7 @@ define( function( require ) {
   var Units = require( 'UNDER_PRESSURE/common/model/Units' );
   var LinearFunction = require( 'DOT/LinearFunction' );
   var Vector2 = require( 'DOT/Vector2' );
+  var Barometer = require( 'UNDER_PRESSURE/common/model/Barometer' );
 
   var SceneModels = {
     SquarePoolModel: require( 'UNDER_PRESSURE/square-pool/model/SquarePoolModel' ),
@@ -85,10 +86,7 @@ define( function( require ) {
     this.barometers = [];
 
     for ( var i = 0; i < 4; i++ ) {
-      this.barometers.push( {
-        value: new Property( 0 ),
-        position: new Property( new Vector2( 570, 50 ) )
-      } );
+      this.barometers.push( new Barometer( new Vector2( 0, 0 ), null ) );
     }
 
     this.currentSceneProperty.link( function() {
@@ -112,7 +110,7 @@ define( function( require ) {
         }
       }
       this.barometers.forEach( function( barometer ) {
-        barometer.position.reset();
+        barometer.reset();
       } );
     },
 
@@ -131,6 +129,10 @@ define( function( require ) {
 
     getPressureAtCoords: function( x, y ) {
       return this.sceneModels[this.currentScene].getPressureAtCoords( x, y );
+    },
+
+    getPressureString: function( pressure, units ) {
+      return Units.getPressureString( pressure, units, false );
     },
 
     getGravityString: function() {

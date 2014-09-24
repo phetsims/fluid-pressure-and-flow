@@ -182,9 +182,13 @@ define( function( require ) {
 
     // add barometers within the sensor panel bounds
     _.each( underPressureModel.barometers, function( barometer ) {
-      barometer.position.storeInitialValue( new Vector2( sensorPanel.centerX, sensorPanel.centerY - 15 ) );
-      barometer.position.reset();
-      self.addChild( new BarometerNode( underPressureModel, modelViewTransform, barometer.value, barometer.position, sensorPanel.visibleBounds, self.layoutBounds ) );
+      barometer.positionProperty.storeInitialValue( new Vector2( sensorPanel.centerX, sensorPanel.centerY - 15 ) );
+      barometer.reset();
+      self.addChild( new BarometerNode( modelViewTransform, barometer, underPressureModel.measureUnitsProperty,
+        [ underPressureModel.currentSceneProperty, underPressureModel.gravityProperty, underPressureModel.fluidDensityProperty,
+          underPressureModel.isAtmosphereProperty, underPressureModel.currentVolumeProperty, underPressureModel.leftDisplacementProperty],
+        underPressureModel.getPressureAtCoords.bind( underPressureModel ), underPressureModel.getPressureString.bind( underPressureModel ),
+        sensorPanel.visibleBounds, self.layoutBounds, { scale: 1.5 } ) );
     } );
 
   }
