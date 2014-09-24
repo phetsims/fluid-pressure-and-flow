@@ -49,6 +49,10 @@ define( function( require ) {
   function BarometerNode( modelViewTransform, barometer, measureUnitsProperty, linkedProperties, getPressureAt, getPressureString, containerBounds, dragBounds, options ) {
     var barometerNode = this;
 
+    options = _.extend( {
+      scale: 1
+    }, options );
+
     Node.call( this, {cursor: 'pointer'} );
 
     // Show the circular part of the gauge and the needle
@@ -111,7 +115,7 @@ define( function( require ) {
         barometer.value = null; // in the initial position barometer has no reading. Not even 0.
       }
       else {
-        barometer.value = getPressureAt( modelViewTransform.viewToModelX( position.x ), modelViewTransform.viewToModelY( position.y + (53) ) );
+        barometer.value = getPressureAt( modelViewTransform.viewToModelX( position.x ), modelViewTransform.viewToModelY( position.y + (53 * options.scale) ) );
       }
     } );
 
@@ -123,7 +127,7 @@ define( function( require ) {
       }
       else {
         text.text = getPressureString( barometerValue, units, modelViewTransform.viewToModelX( barometer.position.x ),
-          modelViewTransform.viewToModelY( barometer.position.y + (53) ) );
+          modelViewTransform.viewToModelY( barometer.position.y + (53 * options.scale) ) );
         textBackground.setRect( 0, 0, text.width + 4, text.height + 2 );
       }
 
