@@ -1,8 +1,9 @@
 // Copyright 2002-2013, University of Colorado Boulder
 
 /**
- * model for units conversion
+ * Utility class for units conversion
  * @author Vasily Shakhov (Mlearner)
+ * @author Siddhartha Chinthapally (Actual Concepts)
  */
 define( function( require ) {
   'use strict';
@@ -27,9 +28,15 @@ define( function( require ) {
   var PSI_PER_PASCAL = 145.04E-6;
   var FEET_PER_METER = 3.2808399;
   var GRAVITY_ENGLISH_PER_METRIC = 32.16 / 9.80665; //http://evaosd.fartoomuch.info/library/units.htm
-  var FLUIDDENSITY_ENGLISH_PER_METRIC = 62.4 / 1000.0;
+  var FLUID_DENSITY_ENGLISH_PER_METRIC = 62.4 / 1000.0;
 
   return {
+
+    FLUID_DENSITY_ENGLISH_PER_METRIC: FLUID_DENSITY_ENGLISH_PER_METRIC,
+    FLUID_FlOW_RATE_ENGLISH_PER_METRIC: 35.3 / 1000,
+    SQUARE_FEET_PER_SQUARE_METER: 10.7639,
+    FEET_CUBE_PER_LITER: 0.0353146,
+    FEET_PER_CENTIMETER: 0.0328,
 
     /**
      * Returns the pressure string with units after converting to the specified scale. Supports abbreviated values as well.
@@ -82,7 +89,7 @@ define( function( require ) {
       var value;
       var units;
       if ( measureUnits === 'english' ) {
-        value = FLUIDDENSITY_ENGLISH_PER_METRIC * fluidDensity;
+        value = FLUID_DENSITY_ENGLISH_PER_METRIC * fluidDensity;
         units = densityUnitsEnglish;
       }
       else {
