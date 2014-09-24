@@ -6,6 +6,8 @@
  */
 define( function( require ) {
   'use strict';
+
+  // modules
   var Node = require( 'SCENERY/nodes/Node' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Image = require( 'SCENERY/nodes/Image' );
@@ -21,7 +23,7 @@ define( function( require ) {
     MysteryPoolIcon: require( 'image!UNDER_PRESSURE/mystery-pool-icon.png' )
   };
 
-  function SceneChoiceNode( model, x, y ) {
+  function SceneChoiceNode( model, x, y, options ) {
     var self = this;
     Node.call( this, {x: x, y: y} );
 
@@ -30,10 +32,13 @@ define( function( require ) {
     model.scenes.forEach( function( name, index ) {
       var iconImage = new Image( iconImages[name + 'PoolIcon'] );
       iconImage.scale( ICON_SIZE.width / iconImage.width, ICON_SIZE.height / iconImage.height );
-      var iconButton = new InOutRadioButton( model.currentSceneProperty, name, iconImage, {cornerRadius:5} );
+      var iconButton = new InOutRadioButton( model.currentSceneProperty, name, iconImage, {cornerRadius: 5} );
+      iconButton.touchArea = iconButton.localBounds.dilatedXY( 0, 0 );
       iconButton.translate( 0, dy * index );
       self.addChild( iconButton );
     } );
+
+    this.mutate( options );
   }
 
   return inherit( Node, SceneChoiceNode, {} );
