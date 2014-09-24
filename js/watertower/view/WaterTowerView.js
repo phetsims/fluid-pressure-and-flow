@@ -30,7 +30,7 @@ define( function( require ) {
   var Text = require( 'SCENERY/nodes/Text' );
   var FaucetNode = require( 'SCENERY_PHET/FaucetNode' );
 
-  var BarometerNode = require( 'FLUID_PRESSURE_AND_FLOW/watertower/view/BarometerNode' );
+  var BarometerNode = require( 'UNDER_PRESSURE/common/view/BarometerNode' );
   var ControlSlider = require( 'UNDER_PRESSURE/common/view/ControlSlider' );
   var ToolsControlPanel = require( 'FLUID_PRESSURE_AND_FLOW/watertower/view/ToolsControlPanel' );
   var MeasuringTape = require( 'FLUID_PRESSURE_AND_FLOW/watertower/view/MeasuringTape' );
