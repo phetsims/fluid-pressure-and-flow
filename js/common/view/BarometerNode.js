@@ -7,7 +7,7 @@
 define( function( require ) {
   'use strict';
 
-  // Imports
+  // modules
   var inherit = require( 'PHET_CORE/inherit' );
   var Node = require( 'SCENERY/nodes/Node' );
   var GaugeNode = require( 'SCENERY_PHET/GaugeNode' );
@@ -19,6 +19,7 @@ define( function( require ) {
   var PhetFont = require( 'SCENERY_PHET/PhetFont' );
   var MovableDragHandler = require( 'SCENERY_PHET/input/MovableDragHandler' );
   var ModelViewTransform2 = require( 'PHETCOMMON/view/ModelViewTransform2' );
+  var Units = require( 'UNDER_PRESSURE/common/model/Units' );
 
   var pressureString = require( 'string!UNDER_PRESSURE/pressure' );
 
@@ -97,7 +98,7 @@ define( function( require ) {
     barometerValueProperty.set( model.getPressureAtCoords( modelViewTransform.viewToModelX( self.centerX ), modelViewTransform.viewToModelY( self.bottom ) ) );
 
     var setText = function() {
-      text.text = model.units.getPressureString[model.measureUnits]( barometerValueProperty.get() );
+      text.text = Units.getPressureString( barometerValueProperty.get(), model.measureUnits );
       text.centerX = gaugeNode.centerX;
       textBackground.setRect( text.x - 2, text.y - text.height + 2, text.width + 4, text.height + 2 );
       textBackground.visible = (text.text !== '-');

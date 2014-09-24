@@ -7,10 +7,11 @@
 define( function( require ) {
   'use strict';
 
-  // Imports
+  // modules
   var inherit = require( 'PHET_CORE/inherit' );
   var Node = require( 'SCENERY/nodes/Node' );
   var Line = require( 'SCENERY/nodes/Line' );
+  var Units = require( 'UNDER_PRESSURE/common/model/Units' );
 
   function GridLinesNode( model, modelViewTransform, x1, y1, x2, y2, options ) {
     Node.call( this );
@@ -30,7 +31,7 @@ define( function( require ) {
       addLine( metersGrid, i );
     }
     var feetGrid = new Node();
-    for ( i = modelViewTransform.modelToViewY( y1 ); i <= modelViewTransform.modelToViewY( y2 ); i += modelViewTransform.modelToViewY( model.units.feetToMeters( options.feetStep ) ) ) {
+    for ( i = modelViewTransform.modelToViewY( y1 ); i <= modelViewTransform.modelToViewY( y2 ); i += modelViewTransform.modelToViewY( Units.feetToMeters( options.feetStep ) ) ) {
       addLine( feetGrid, i );
     }
 

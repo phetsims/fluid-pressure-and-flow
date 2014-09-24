@@ -8,6 +8,7 @@
 define( function( require ) {
   'use strict';
 
+  // modules
   var Property = require( 'AXON/Property' );
   var PropertySet = require( 'AXON/PropertySet' );
   var inherit = require( 'PHET_CORE/inherit' );
@@ -79,8 +80,7 @@ define( function( require ) {
       self.sceneModels[name] = (new SceneModels[name + 'PoolModel']( self ));
     } );
 
-    this.units = new Units( self );
-    this.getStandardAirPressure = new LinearFunction( 0, this.units.feetToMeters( 500 ), this.EARTH_AIR_PRESSURE, this.EARTH_AIR_PRESSURE_AT_500_FT );
+    this.getStandardAirPressure = new LinearFunction( 0, Units.feetToMeters( 500 ), this.EARTH_AIR_PRESSURE, this.EARTH_AIR_PRESSURE_AT_500_FT );
 
     this.barometers = [];
 
@@ -131,6 +131,14 @@ define( function( require ) {
 
     getPressureAtCoords: function( x, y ) {
       return this.sceneModels[this.currentScene].getPressureAtCoords( x, y );
+    },
+
+    getGravityString: function() {
+      return Units.getGravityString( this.gravity, this.measureUnits );
+    },
+
+    getFluidDensityString: function() {
+      return Units.getGravityString( this.fluidDensity, this.measureUnits );
     }
   } );
 } );

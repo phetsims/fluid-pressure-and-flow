@@ -20,6 +20,7 @@ define( function( require ) {
   var ModelViewTransform2 = require( 'PHETCOMMON/view/ModelViewTransform2' );
   var RectangularPushButton = require( 'SUN/buttons/RectangularPushButton' );
   var PhetFont = require( 'SCENERY_PHET/PhetFont' );
+  var Units = require( 'UNDER_PRESSURE/common/model/Units' );
 
   // strings
   var units_metersString = require( 'string!UNDER_PRESSURE/m' );
@@ -34,11 +35,11 @@ define( function( require ) {
    */
   function UnderPressureRuler( underPressureModel, modelViewTransform, dragBounds ) {
 
+    var underPressureRuler = this;
     Node.call( this, { cursor: 'pointer', renderer: 'svg', cssTransform: true } );
 
     var closeIconRadius = 4;
     var scaleFont = new PhetFont( 12 );
-
 
     var xIcon = new Path( new Shape()
       .moveTo( -closeIconRadius, -closeIconRadius )
@@ -57,7 +58,13 @@ define( function( require ) {
     } );
     this.addChild( closeButton );
 
-    var metersRuler = new RulerNode( modelViewTransform.modelToViewX( 5 ), 50, modelViewTransform.modelToViewX( 1 ), ['0', '1', '2', '3', '4', '5'],
+    var rulerWidth = 50;
+
+    // meter ruler
+    // Note: make sure that ruler height and major stick width should be multiples of 10
+    var meterRulerHeight = Math.floor( modelViewTransform.modelToViewX( 5 ) );
+    var meterRulerMajorStickWidth = Math.floor( modelViewTransform.modelToViewX( 1 ) );
+    var metersRuler = new RulerNode( meterRulerHeight, rulerWidth, meterRulerMajorStickWidth, ['0', '1', '2', '3', '4', '5'],
       units_metersString, {
         minorTicksPerMajorTick: 4,
         unitsSpacing: 4,
@@ -68,9 +75,11 @@ define( function( require ) {
     );
     this.addChild( metersRuler );
 
-    var feetRuler = new RulerNode( modelViewTransform.modelToViewX( underPressureModel.units.feetToMeters( 10 ) ), 50,
-      modelViewTransform.modelToViewX( underPressureModel.units.feetToMeters( 1 ) ),
-      ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10'], units_feetString, {
+    // feet ruler
+    // Note: make sure that ruler height and major stick width should be multiples of 10
+    var feetRulerHeight = Math.floor( modelViewTransform.modelToViewX( Units.feetToMeters( 9.5 ) ) );
+    var feetRulerMajorStickWidth = Math.floor( modelViewTransform.modelToViewX( Units.feetToMeters( 0.95 ) ) );
+    var feetRuler = new RulerNode( feetRulerHeight, rulerWidth, feetRulerMajorStickWidth, ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10'], units_feetString, {
         minorTicksPerMajorTick: 4,
         unitsSpacing: 4,
         unitsFont: scaleFont,
@@ -94,6 +103,7 @@ define( function( require ) {
     underPressureModel.rulerPositionProperty.linkAttribute( feetRuler, 'translation' );
 
     underPressureModel.rulerPositionProperty.link( function( rulerPosition ) {
+      underPressureRuler.moveToFront();
       closeButton.setTranslation( rulerPosition.x - 50, rulerPosition.y - closeButton.height );
     } );
 

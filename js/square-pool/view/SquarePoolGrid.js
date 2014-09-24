@@ -6,12 +6,15 @@
  */
 define( function( require ) {
   'use strict';
+
+  // modules
   var Node = require( 'SCENERY/nodes/Node' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Text = require( 'SCENERY/nodes/Text' );
   var GridLinesNode = require( 'UNDER_PRESSURE/common/view/GridLinesNode' );
   var StringUtils = require( 'PHETCOMMON/util/StringUtils' );
   var PhetFont = require( 'SCENERY_PHET/PhetFont' );
+  var Units = require( 'UNDER_PRESSURE/common/model/Units' );
 
   var metersStringPattern = require( 'string!UNDER_PRESSURE/readoutMeters' );
   var feetStringPattern = require( 'string!UNDER_PRESSURE/readoutFeet' );
@@ -44,7 +47,7 @@ define( function( require ) {
     for ( i = 0; i < 11; i++ ) {
       feetLabels.addChild( new Text( StringUtils.format( feetStringPattern, i ), _.extend( {
         right: modelViewTransform.modelToViewX( squarePoolModel.poolDimensions.x1 ) - 8,
-        centerY: modelViewTransform.modelToViewY( squarePoolModel.globalModel.skyGroundBoundY + squarePoolModel.globalModel.units.feetToMeters( i ) )
+        centerY: modelViewTransform.modelToViewY( squarePoolModel.globalModel.skyGroundBoundY + Units.feetToMeters( i ) )
       }, fontOptions ) ) );
     }
 

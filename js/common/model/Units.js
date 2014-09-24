@@ -6,85 +6,96 @@
  */
 define( function( require ) {
   'use strict';
+
+  // modules
   var StringUtils = require( 'PHETCOMMON/util/StringUtils' );
   var Util = require( 'DOT/Util' );
+  var inherit = require( 'PHET_CORE/inherit' );
 
+  // strings
   var atmString = require( 'string!UNDER_PRESSURE/atm' );
   var psiString = require( 'string!UNDER_PRESSURE/psi' );
   var kPaString = require( 'string!UNDER_PRESSURE/kPa' );
-
   var valueWithUnitsPattern = require( 'string!UNDER_PRESSURE/valueWithUnitsPattern' );
-
   var ftPerSPerS = require( 'string!UNDER_PRESSURE/ftPerSPerS' );
   var mPerSPerS = require( 'string!UNDER_PRESSURE/mPerSPerS' );
   var densityUnitsEnglish = require( 'string!UNDER_PRESSURE/densityUnitsEnglish' );
   var densityUnitsMetric = require( 'string!UNDER_PRESSURE/densityUnitsMetric' );
 
-  function Units( model ) {
-    var self = this;
+  // constants
+  var ATMOSPHERE_PER_PASCAL = 9.8692E-6;
+  var PSI_PER_PASCAL = 145.04E-6;
+  var FEET_PER_METER = 3.2808399;
+  var GRAVITY_ENGLISH_PER_METRIC = 32.16 / 9.80665; //http://evaosd.fartoomuch.info/library/units.htm
+  var FLUIDDENSITY_ENGLISH_PER_METRIC = 62.4 / 1000.0;
 
-    this.ATMOSPHERE_PER_PASCAL = 9.8692E-6;
-    this.PSI_PER_PASCAL = 145.04E-6;
-    this.FEET_PER_METER = 3.2808399;
-    this.GRAVITY_ENGLISH_PER_METRIC = 32.16 / 9.80665; //http://evaosd.fartoomuch.info/library/units.htm
-    this.FLUIDDENSITY_ENGLISH_PER_METRIC = 62.4 / 1000.0;
+  return {
 
-    this.getPressureString = {
-      metric: function( pressure ) {
-        if ( pressure === '' ) {
-          return '-';
-        }
-        else {
-          return Util.toFixed( pressure / 1000, 3 ) + ' ' + kPaString;
-        }
-      },
-      atmosphere: function( pressure ) {
-        if ( pressure === '' ) {
-          return '-';
-        }
-        else {
-          return Util.toFixed( pressure * self.ATMOSPHERE_PER_PASCAL, 4 ) + ' ' + atmString;
-        }
-      },
-      english: function( pressure ) {
-        if ( pressure === '' ) {
-          return '-';
-        }
-        else {
-          return  Util.toFixed( pressure * self.PSI_PER_PASCAL, 4 ) + ' ' + psiString;
-        }
-      }
-    };
-
-    this.getGravityString = function() {
-      if ( model.measureUnits === 'english' ) {
-        return StringUtils.format( valueWithUnitsPattern, Util.toFixed( self.GRAVITY_ENGLISH_PER_METRIC * model.gravity, 1 ), ftPerSPerS );
+    /**
+     * Returns the pressure string with units after converting to the specified scale. Supports abbreviated values as well.
+     * @param {Number} pressure in Pascals
+     * @param {string} measureUnits (english/metric/atmosphere)
+     * @param {boolean} abbreviated value. Abbreviate to 1 decimal place for metric and 2 decimal places for others.
+     * @returns {string}
+     */
+    getPressureString: function( pressure, measureUnits, abbreviated ) {
+      if ( pressure === '' ) {
+        return '-';
       }
       else {
-        return StringUtils.format( valueWithUnitsPattern, Util.toFixed( model.gravity, 1 ), mPerSPerS );
+        if ( measureUnits === 'metric' ) {
+          return StringUtils.format( valueWithUnitsPattern, Util.toFixed( pressure / 1000, abbreviated ? 1 : 3 ), kPaString );
+        }
+        else if ( measureUnits === 'atmosphere' ) {
+          return StringUtils.format( valueWithUnitsPattern, Util.toFixed( pressure * ATMOSPHERE_PER_PASCAL, abbreviated ? 2 : 4 ), atmString );
+        }
+        else if ( measureUnits === 'english' ) {
+          return  StringUtils.format( valueWithUnitsPattern, Util.toFixed( pressure * PSI_PER_PASCAL, abbreviated ? 2 : 4 ), psiString );
+        }
       }
-    };
 
-    this.getFluidDensityString = function() {
+    },
+
+    /**
+     * Returns the gravity string with units after converting to the specified scale
+     * @param {Number} gravity in metric units
+     * @param {string} measureUnits (english/metric/atmosphere)
+     * @returns {string}
+     */
+    getGravityString: function( gravity, measureUnits ) {
+
+      if ( measureUnits === 'english' ) {
+        return StringUtils.format( valueWithUnitsPattern, Util.toFixed( GRAVITY_ENGLISH_PER_METRIC * gravity, 1 ), ftPerSPerS );
+      }
+      else {
+        return StringUtils.format( valueWithUnitsPattern, Util.toFixed( gravity, 1 ), mPerSPerS );
+      }
+    },
+
+    /**
+     * Returns the fluidDensity string with units after converting to the specified scale
+     * @param {Number} fluidDensity in metric units
+     * @param {string} measureUnits (english/metric/atmosphere)
+     * @returns {string}
+     */
+    getFluidDensityString: function( fluidDensity, measureUnits ) {
       var value;
       var units;
-      if ( model.measureUnits === 'english' ) {
-        value = self.FLUIDDENSITY_ENGLISH_PER_METRIC * model.fluidDensity;
+      if ( measureUnits === 'english' ) {
+        value = FLUIDDENSITY_ENGLISH_PER_METRIC * fluidDensity;
         units = densityUnitsEnglish;
       }
       else {
-        value = model.fluidDensity;
+        value = fluidDensity;
         units = densityUnitsMetric;
       }
-      var numDecimalsPlaces = value >= 100 ? 0 : 1;
-      return StringUtils.format( valueWithUnitsPattern, Util.toFixed( value, numDecimalsPlaces ), units );
-    };
 
-    this.feetToMeters = function( feet ) {
-      return feet / this.FEET_PER_METER;
-    };
+      return StringUtils.format( valueWithUnitsPattern, Util.toFixed( value, value >= 100 ? 0 : 1 ), units );
+    },
+
+    // converts feet to meters
+    feetToMeters: function( feet ) {
+      return feet / FEET_PER_METER;
+    }
   }
-
-  return Units;
-} )
-;
+} );

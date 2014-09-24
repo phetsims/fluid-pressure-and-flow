@@ -82,8 +82,8 @@ define( function( require ) {
     this.unitsControlPanel = new UnitsControlPanel( underPressureModel.measureUnitsProperty, this.controlPanel.width, { right: this.resetAllButton.right, top: this.controlPanel.bottom + 5} );
     this.addChild( this.unitsControlPanel );
 
-    //control sliders
-    this.gravitySlider = new ControlSlider( underPressureModel, underPressureModel.gravityProperty, underPressureModel.units.getGravityString, underPressureModel.gravityRange, underPressureModel.gravityControlExpandedProperty, {
+    // gravity slider
+    this.gravitySlider = new ControlSlider( underPressureModel, underPressureModel.gravityProperty, underPressureModel.getGravityString.bind( underPressureModel ), underPressureModel.gravityRange, underPressureModel.gravityControlExpandedProperty, {
 
       right: this.resetAllButton.right,
       bottom: this.resetAllButton.top - 5,
@@ -107,8 +107,8 @@ define( function( require ) {
     } );
     this.addChild( this.gravitySlider );
 
-
-    this.fluidDensitySlider = new ControlSlider( underPressureModel, underPressureModel.fluidDensityProperty, underPressureModel.units.getFluidDensityString, underPressureModel.fluidDensityRange, underPressureModel.fluidDensityControlExpandedProperty, {
+    // fluid density slider
+    this.fluidDensitySlider = new ControlSlider( underPressureModel, underPressureModel.fluidDensityProperty, underPressureModel.getFluidDensityString.bind( underPressureModel ), underPressureModel.fluidDensityRange, underPressureModel.fluidDensityControlExpandedProperty, {
 
       right: this.resetAllButton.right,
       bottom: this.gravitySlider.top - 5,
