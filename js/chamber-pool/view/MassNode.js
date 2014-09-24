@@ -3,6 +3,7 @@
 /**
  * View for a single mass
  * @author Vasily Shakhov (Mlearner)
+ * @author Siddhartha Chinthapally (Actual Concepts)
  */
 define( function( require ) {
   'use strict';
@@ -18,9 +19,7 @@ define( function( require ) {
   var Text = require( 'SCENERY/nodes/Text' );
   var StringUtils = require( 'PHETCOMMON/util/StringUtils' );
   var PhetFont = require( 'SCENERY_PHET/PhetFont' );
-
-  // images
-  var massImg = require( 'image!UNDER_PRESSURE/images/mass.png' );
+  var LinearGradient = require( 'SCENERY/util/LinearGradient' );
 
   // strings
   var massLabelPattern = require( 'string!UNDER_PRESSURE/massLabelPattern' );
@@ -33,31 +32,31 @@ define( function( require ) {
    * @constructor
    */
   function MassNode( massModel, chamberPoolModel, modelViewTransform, dragBounds ) {
+
     var massNode = this;
+    Node.call( this, { cursor: 'pointer'  } );
 
-    Node.call( this, {
-      cursor: 'pointer'
-    } );
+    var width = modelViewTransform.modelToViewX( massModel.width );
+    var height = modelViewTransform.modelToViewY( massModel.height );
 
-    var width = modelViewTransform.modelToViewX( massModel.width ),
-      height = modelViewTransform.modelToViewY( massModel.height );
-
-    this.addChild( new Image( massImg, { /*scale :0.9*/
-      clipArea: Shape.rect( 0, 0, width, height ),
-      x: -width / 2,
-      y: -height / 2
-    } ) );
-
-    //image border
-    this.addChild( new Rectangle( -width / 2, -height / 2, width, height, {
+    // add mass rectangle
+    var mass = new Rectangle( -width / 2, -height / 2, width, height, {
+      fill: new LinearGradient( -width / 2, 0, width, 0 )
+        .addColorStop( 0, '#8C8D8D' )
+        .addColorStop( 0.3, '#C0C1C2' )
+        .addColorStop( 0.5, '# F0F1F1' )
+        .addColorStop( 0.6, '#F8F8F7' ),
       stroke: '#918e8e',
       lineWidth: 1
-    } ) );
+    } );
+    this.addChild( mass );
 
-    this.addChild( new Text( StringUtils.format( massLabelPattern, massModel.mass ), { centerY: 0, centerX: 0, font: new PhetFont( 9 ), fill: 'black', pickable: false, 'fontWeight': 'bold'} ) );
+    this.addChild( new Text( StringUtils.format( massLabelPattern, massModel.mass ), { x: mass.centerX - 15, y: mass.centerY + 3, font: new PhetFont( 9 ), fill: 'black', pickable: false, 'fontWeight': 'bold'} ) );
 
     var massClickOffset = {x: 0, y: 0};
-    var massDragHandler = new SimpleDragHandler( {
+
+    // mass drag handler
+    this.addInputListener( new SimpleDragHandler( {
       //When dragging across it in a mobile device, pick it up
       allowTouchSnag: true,
       start: function( event ) {
@@ -78,9 +77,7 @@ define( function( require ) {
         var point = massNode.globalToParentPoint( event.pointer.point ).subtract( massClickOffset );
         massNode.translation = dragBounds.getClosestPoint( point.x, point.y );
       }
-    } );
-
-    this.addInputListener( massDragHandler );
+    } ) );
 
     massModel.positionProperty.link( function( position ) {
       if ( !chamberPoolModel.isDragging ) {
