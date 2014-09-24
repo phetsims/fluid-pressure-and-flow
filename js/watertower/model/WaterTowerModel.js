@@ -157,6 +157,10 @@ define( function( require ) {
       return pressure;
     },
 
+    getPressureString: function( pressure, units, x, y ) {
+      return Units.getPressureString( pressure, units, this.isPointInWater( x, y ) );
+    },
+
     isPointInWater: function( x, y ) {
       return (x > this.waterTower.tankPosition.x && x < this.waterTower.tankPosition.x + 2 * this.waterTower.TANK_RADIUS &&
               y > this.waterTower.tankPosition.y && y < this.waterTower.tankPosition.y + this.waterTower.fluidLevel);

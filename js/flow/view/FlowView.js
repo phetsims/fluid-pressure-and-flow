@@ -216,7 +216,10 @@ define( function( require ) {
     _.each( flowModel.barometers, function( barometer ) {
       barometer.positionProperty.storeInitialValue( new Vector2( sensorPanel.visibleBounds.centerX + 50, sensorPanel.visibleBounds.centerY - 10 ) );
       barometer.reset();
-      this.addChild( new BarometerNode( flowModel, modelViewTransform, barometer, [ flowModel.fluidDensityProperty, flowModel.pipe.flowRateProperty, flowModel.pipe.frictionProperty ], sensorPanel.visibleBounds, this.layoutBounds, { scale: 0.9 } ) );
+      this.addChild( new BarometerNode( modelViewTransform, barometer, flowModel.measureUnitsProperty,
+        [ flowModel.fluidDensityProperty, flowModel.pipe.flowRateProperty, flowModel.pipe.frictionProperty ],
+        flowModel.getPressureAtCoords.bind( flowModel ), flowModel.getPressureString.bind( flowModel ),
+        sensorPanel.visibleBounds, this.layoutBounds, { scale: 0.9 } ) );
     }.bind( this ) );
 
     // add the rule node

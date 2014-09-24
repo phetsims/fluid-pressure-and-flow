@@ -142,11 +142,13 @@ define( function( require ) {
       return 0;
     },
 
-
     getPressureAtCoords: function( x, y ) {
       return (y > 0) ? this.getAirPressure( y ) : this.getFluidPressure( x, y );
     },
 
+    getPressureString: function( pressure, units ) {
+      return Units.getPressureString( pressure, units );
+    },
     // Called by the animation loop.
     step: function( dt ) {
       // prevent sudden dt bursts when the user comes back to the tab after a while

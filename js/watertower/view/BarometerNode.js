@@ -31,16 +31,22 @@ define( function( require ) {
   /**
    * Main constructor for BarometerNode.
    *
-   * @param {WaterTowerModel} waterTowerModel of simulation
    * @param {ModelViewTransform2} modelViewTransform , Transform between model and view coordinate frames
    * @param {Barometer} barometer - the barometer model
+   * @param {Property<String>} measureUnitsProperty -- english/metric
    * @param {Property[]} linkedProperties - the set of properties which affect the barometer value
+   * @param {Function} getPressureAt - function to be called to get pressure at the given coords
+   * @param {Function} getPressureString - function to be called to get the pressure display string at the given coords
    * @param {Bounds2} containerBounds - bounds of container for all barometers, needed to snap barometer to initial position when it in container
    * @param {Bounds2} dragBounds - bounds that define where the barometer may be dragged
    * @param {Object} [options] that can be passed on to the underlying node
    * @constructor
+   *
+   * Note the params passed for the functions:
+   *  getPressureAt (x, y) where x, y are model values.
+   *  getPressureString (pressure, units, x, y) where pressure in Pascals, x, y are model values
    */
-  function BarometerNode( waterTowerModel, modelViewTransform, barometer, linkedProperties, containerBounds, dragBounds, options ) {
+  function BarometerNode( modelViewTransform, barometer, measureUnitsProperty, linkedProperties, getPressureAt, getPressureString, containerBounds, dragBounds, options ) {
     var barometerNode = this;
 
     Node.call( this, {cursor: 'pointer'} );
@@ -51,8 +57,9 @@ define( function( require ) {
 
     var underGaugeRectangleWidth = 18;
     var underGaugeRectangleHeight = 15;
-    var underGaugeRectangle = new Rectangle( gaugeNode.centerX - underGaugeRectangleWidth / 2, gaugeNode.bottom - 3, underGaugeRectangleWidth, underGaugeRectangleHeight, 1, 1, {
-      fill: new LinearGradient( gaugeNode.centerX - underGaugeRectangleWidth / 2, 0, gaugeNode.centerX + underGaugeRectangleWidth / 2, 0 )
+    var underGaugeRectangle = new Rectangle( gaugeNode.centerX - underGaugeRectangleWidth / 2, gaugeNode.bottom - 3,
+      underGaugeRectangleWidth, underGaugeRectangleHeight, 1, 1, {
+        fill: new LinearGradient( gaugeNode.centerX - underGaugeRectangleWidth / 2, 0, gaugeNode.centerX + underGaugeRectangleWidth / 2, 0 )
         .addColorStop( 0, '#656570' )
         .addColorStop( 0.2, '#bdc3cf' )
         .addColorStop( 0.5, '#dee6f5' )
@@ -104,23 +111,24 @@ define( function( require ) {
         barometer.value = null; // in the initial position barometer has no reading. Not even 0.
       }
       else {
-        barometer.value = waterTowerModel.getPressureAtCoords( modelViewTransform.viewToModelX( position.x ), modelViewTransform.viewToModelY( position.y + (53) ) );
+        barometer.value = getPressureAt( modelViewTransform.viewToModelX( position.x ), modelViewTransform.viewToModelY( position.y + (53) ) );
       }
     } );
 
     //Update the text when the value or units changes.
-    Property.multilink( [barometer.valueProperty, waterTowerModel.measureUnitsProperty], function( barometerValue, units ) {
+    Property.multilink( [barometer.valueProperty, measureUnitsProperty], function( barometerValue, units ) {
       if ( typeof( barometerValue ) !== 'number' ) {
         text.text = '-';
         textBackground.setRect( 0, 0, text.width + 50, text.height + 2 );
       }
       else {
-        text.text = Units.getPressureString( barometerValue, units, waterTowerModel.isPointInWater && waterTowerModel.isPointInWater( modelViewTransform.viewToModelX( barometer.position.x ), modelViewTransform.viewToModelY( barometer.position.y + (53) ) ) );
+        text.text = getPressureString( barometerValue, units, modelViewTransform.viewToModelX( barometer.position.x ),
+          modelViewTransform.viewToModelY( barometer.position.y + (53) ) );
         textBackground.setRect( 0, 0, text.width + 4, text.height + 2 );
       }
 
       textBackground.centerX = gaugeNode.centerX;
-      textBackground.bottom = gaugeNode.bottom - 4;
+      textBackground.bottom = gaugeNode.bottom;
       text.center = textBackground.center;
     } );
 
