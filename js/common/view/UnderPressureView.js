@@ -83,7 +83,7 @@ define( function( require ) {
     this.addChild( this.unitsControlPanel );
 
     // gravity slider
-    this.gravitySlider = new ControlSlider( underPressureModel, underPressureModel.gravityProperty, underPressureModel.getGravityString.bind( underPressureModel ), underPressureModel.gravityRange, underPressureModel.gravityControlExpandedProperty, {
+    this.gravitySlider = new ControlSlider( underPressureModel.measureUnitsProperty, underPressureModel.gravityProperty, underPressureModel.getGravityString.bind( underPressureModel ), underPressureModel.gravityRange, underPressureModel.gravityControlExpandedProperty, {
 
       right: this.resetAllButton.right,
       bottom: this.resetAllButton.top - 5,
@@ -108,7 +108,7 @@ define( function( require ) {
     this.addChild( this.gravitySlider );
 
     // fluid density slider
-    this.fluidDensitySlider = new ControlSlider( underPressureModel, underPressureModel.fluidDensityProperty, underPressureModel.getFluidDensityString.bind( underPressureModel ), underPressureModel.fluidDensityRange, underPressureModel.fluidDensityControlExpandedProperty, {
+    this.fluidDensitySlider = new ControlSlider( underPressureModel.measureUnitsProperty, underPressureModel.fluidDensityProperty, underPressureModel.getFluidDensityString.bind( underPressureModel ), underPressureModel.fluidDensityRange, underPressureModel.fluidDensityControlExpandedProperty, {
 
       right: this.resetAllButton.right,
       bottom: this.gravitySlider.top - 5,
