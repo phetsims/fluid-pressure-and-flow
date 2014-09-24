@@ -19,7 +19,7 @@ define( function( require ) {
   var Constants = require( 'FLUID_PRESSURE_AND_FLOW/flow/Constants' );
   var StringUtils = require( 'PHETCOMMON/util/StringUtils' );
   var VelocitySensor = require( 'FLUID_PRESSURE_AND_FLOW/watertower/model/VelocitySensor' );
-  var Barometer = require( 'FLUID_PRESSURE_AND_FLOW/watertower/model/Barometer' );
+  var Barometer = require( 'UNDER_PRESSURE/common/model/Barometer' );
   var ObservableArray = require( 'AXON/ObservableArray' );
   var FluidColorModel = require( 'FLUID_PRESSURE_AND_FLOW/watertower/model/FluidColorModel' );
   var Units = require( 'UNDER_PRESSURE/common/model/Units' );

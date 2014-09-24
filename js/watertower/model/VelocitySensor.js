@@ -1,7 +1,7 @@
 // Copyright (c) 2002 - 2014. University of Colorado Boulder
 
 /**
- * VelocitySensor
+ * VelocitySensor that has a position and measures velocity
  * @author Siddhartha Chinthapally (Actual Concepts) on 6/24/2014.
  */
 define( function( require ) {
@@ -9,7 +9,7 @@ define( function( require ) {
 
   // modules
   var inherit = require( 'PHET_CORE/inherit' );
-  var Sensor = require( 'FLUID_PRESSURE_AND_FLOW/watertower/model/Sensor' );
+  var Sensor = require( 'UNDER_PRESSURE/common/model/Sensor' );
 
   /**
    * @param {Vector2} position of the sensor
