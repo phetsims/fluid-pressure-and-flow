@@ -1,12 +1,14 @@
 // Copyright 2002-2013, University of Colorado Boulder
 
 /**
- * Main view for the mystery pool. Based on square pool view.
- *
+ * View for the mystery pool controls including a radio selection for mystery planet/fluid and a drop down for selecting
+ * one of three planets/fluids.
  * @author Vasily Shakhov (Mlearner)
+ * @author Siddhartha Chinthapally (Actual Concepts)
  */
 define( function( require ) {
   'use strict';
+  // modules
   var inherit = require( 'PHET_CORE/inherit' );
   var Node = require( 'SCENERY/nodes/Node' );
   var ComboBox = require( 'SUN/ComboBox' );
@@ -15,7 +17,9 @@ define( function( require ) {
   var Rectangle = require( 'SCENERY/nodes/Rectangle' );
   var VBox = require( 'SCENERY/nodes/VBox' );
   var AquaRadioButton = require( 'SUN/AquaRadioButton' );
+  var Bounds2 = require( 'DOT/Bounds2' );
 
+  // strings
   var mysteryFluid = require( 'string!UNDER_PRESSURE/mysteryFluid' );
   var mysteryPlanet = require( 'string!UNDER_PRESSURE/mysteryPlanet' );
   var planetA = require( 'string!UNDER_PRESSURE/planetA' );
@@ -25,23 +29,35 @@ define( function( require ) {
   var fluidB = require( 'string!UNDER_PRESSURE/fluidB' );
   var fluidC = require( 'string!UNDER_PRESSURE/fluidC' );
 
-  function MysteryPoolControls( model ) {
-    var self = this;
-    Node.call( this );
+  /**
+   * @param {MysteryPoolModel} mysteryPoolModel
+   * @constructor
+   */
+  function MysteryPoolControls( mysteryPoolModel ) {
 
+    var mysteryPoolControls = this;
+    Node.call( this );
     //choice for mystery scene
-    var textOptions = {font: new PhetFont( 14 )};
-    this.choicePanel = new Node( {x: 625, y: 192, scale: 0.8} );
-    var background = new Rectangle( 0, 0, 1, 1, {stroke: 'gray', lineWidth: 1, fill: '#f2fa6a', pickable: false } );
+    var textOptions = { font: new PhetFont( 14 ) };
+    this.choicePanel = new Node( { x: 625, y: 195, scale: 0.7 } );
+    var background = new Rectangle( 0, 0, 0.9, 1, { stroke: 'gray', lineWidth: 1, fill: '#f2fa6a', pickable: false } );
+
+    var mysteryFluidRadio = new AquaRadioButton( mysteryPoolModel.underPressureModel.mysteryChoiceProperty, 'fluidDensity', new Text( mysteryFluid, textOptions ), { radius: 9 } );
+    var mysteryPlanetRadio = new AquaRadioButton( mysteryPoolModel.underPressureModel.mysteryChoiceProperty, 'gravity', new Text( mysteryPlanet, textOptions ), { radius: 9 } );
+    var touchExpansion = 5;
+    var maxRadioButtonWidth = _.max( [ mysteryFluidRadio, mysteryPlanetRadio ], function( item ) {
+      return item.width;
+    } ).width + 5;
+
+    //touch areas
+    mysteryFluidRadio.touchArea = new Bounds2( mysteryFluidRadio.localBounds.minX - touchExpansion, mysteryFluidRadio.localBounds.minY, mysteryFluidRadio.localBounds.minX + maxRadioButtonWidth, mysteryFluidRadio.localBounds.maxY );
+    mysteryPlanetRadio.touchArea = new Bounds2( mysteryPlanetRadio.localBounds.minX - touchExpansion, mysteryPlanetRadio.localBounds.minY, mysteryPlanetRadio.localBounds.minX + maxRadioButtonWidth, mysteryPlanetRadio.localBounds.maxY );
+
     var content = new VBox( {
-      children: [
-        new AquaRadioButton( model.globalModel.mysteryChoiceProperty, 'fluidDensity', new Text( mysteryFluid, textOptions ), {radius: 8} ),
-        new AquaRadioButton( model.globalModel.mysteryChoiceProperty, 'gravity', new Text( mysteryPlanet, textOptions ), {radius: 8} )
-      ],
+      children: [ mysteryFluidRadio, mysteryPlanetRadio ],
       spacing: 5,
       align: 'left'
     } );
-
     this.choicePanel.addChild( background );
     this.choicePanel.addChild( content );
     this.addChild( this.choicePanel );
@@ -51,24 +67,27 @@ define( function( require ) {
       ComboBox.createItem( new Text( fluidA, textOptions ), 0 ),
       ComboBox.createItem( new Text( fluidB, textOptions ), 1 ),
       ComboBox.createItem( new Text( fluidC, textOptions ), 2 )
-    ], model.fluidDensityCustom, self, {
+    ], mysteryPoolModel.fluidDensityCustomProperty, mysteryPoolControls, {
       itemHighlightFill: 'rgb(218,255,255)',
       y: 260,
       x: 450,
       visible: false
     } );
+
+    this.fluidDensityComboBox.touchArea = this.fluidDensityComboBox.localBounds.dilatedXY( 0, 0 );
     this.addChild( this.fluidDensityComboBox );
 
     this.gravityComboBox = new ComboBox( [
       ComboBox.createItem( new Text( planetA, textOptions ), 0 ),
       ComboBox.createItem( new Text( planetB, textOptions ), 1 ),
       ComboBox.createItem( new Text( planetC, textOptions ), 2 )
-    ], model.gravityCustom, self, {
+    ], mysteryPoolModel.gravityCustomProperty, mysteryPoolControls, {
       itemHighlightFill: 'rgb(218,255,255)',
       y: 260,
       x: 450,
       visible: false
     } );
+    this.gravityComboBox.touchArea = this.gravityComboBox.localBounds.dilatedXY( 0, 0 );
     this.addChild( this.gravityComboBox );
 
     this.choicePanel.resizeWidth = function( width ) {
@@ -78,12 +97,9 @@ define( function( require ) {
     };
     this.choicePanel.resizeWidth( content.width + 10 );
 
-    model.globalModel.mysteryChoiceProperty.link( function( value, oldValue ) {
-      self[value + 'ComboBox'].visible = true;
-      if ( oldValue ) {
-        self[oldValue + 'ComboBox'].visible = false;
-      }
-    } );
+    mysteryPoolModel.underPressureModel.mysteryChoiceProperty.valueEquals( 'fluidDensity' ).linkAttribute( mysteryPoolControls.fluidDensityComboBox, 'visible' );
+    mysteryPoolModel.underPressureModel.mysteryChoiceProperty.valueEquals( 'gravity' ).linkAttribute( mysteryPoolControls.gravityComboBox, 'visible' );
+
   }
 
   return inherit( Node, MysteryPoolControls );
