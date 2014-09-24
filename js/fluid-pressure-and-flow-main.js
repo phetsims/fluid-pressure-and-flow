@@ -19,12 +19,9 @@ define( function( require ) {
 
   var simOptions = {
     credits: {
-
-      // all credits fields are optional
       leadDesign: '',
       softwareDevelopment: '',
-      designTeam: '',
-      interviews: '',
+      team: '',
       thanks: ''
     }
   };
