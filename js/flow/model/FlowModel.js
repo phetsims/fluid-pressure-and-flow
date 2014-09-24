@@ -60,6 +60,8 @@ define( function( require ) {
         isPlay: true,// Whether the sim is paused or running
         measureUnits: 'metric', //metric, english
         fluidDensity: Constants.WATER_DENSITY,
+        fluidDensityControlExpanded: false,
+        flowRateControlExpanded: false,
         rulerPosition: new Vector2( 300, 344 ), // px
         speed: 'normal' //speed of the model, either 'normal' or 'slow'
       }

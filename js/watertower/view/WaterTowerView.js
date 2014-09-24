@@ -31,7 +31,7 @@ define( function( require ) {
   var FaucetNode = require( 'SCENERY_PHET/FaucetNode' );
 
   var BarometerNode = require( 'FLUID_PRESSURE_AND_FLOW/watertower/view/BarometerNode' );
-  var ControlSlider = require( 'FLUID_PRESSURE_AND_FLOW/watertower/view/ControlSlider' );
+  var ControlSlider = require( 'UNDER_PRESSURE/common/view/ControlSlider' );
   var ToolsControlPanel = require( 'FLUID_PRESSURE_AND_FLOW/watertower/view/ToolsControlPanel' );
   var MeasuringTape = require( 'FLUID_PRESSURE_AND_FLOW/watertower/view/MeasuringTape' );
   var SluiceControlPanel = require( 'FLUID_PRESSURE_AND_FLOW/watertower/view/SluiceControlPanel' );
@@ -130,7 +130,6 @@ define( function( require ) {
     var resetAllButton = new ResetAllButton( {
       listener: function() {
         waterTowerModel.reset();
-        controlSlider.reset();
         waterTowerScreenView.hoseNode.reset();
         measuringTape.reset();
         waterTowerNode.fillButton.enabled = true;
@@ -141,7 +140,7 @@ define( function( require ) {
     this.addChild( resetAllButton );
 
     // add the fluid density control slider
-    var controlSlider = new ControlSlider( waterTowerModel, waterTowerModel.fluidDensityProperty, waterTowerModel.getFluidDensityString.bind( waterTowerModel ), waterTowerModel.fluidDensityRange, {
+    var fluidDensityControlSlider = new ControlSlider( waterTowerModel.measureUnitsProperty, waterTowerModel.fluidDensityProperty, waterTowerModel.getFluidDensityString.bind( waterTowerModel ), waterTowerModel.fluidDensityRange, waterTowerModel.fluidDensityControlExpandedProperty, {
       right: resetAllButton.left - 4 * inset,
       bottom: this.layoutBounds.bottom - inset,
       title: fluidDensityString,
@@ -160,7 +159,7 @@ define( function( require ) {
         }
       ]
     } );
-    this.addChild( controlSlider );
+    this.addChild( fluidDensityControlSlider );
 
     // add the sluice control near bottom left
     var sluiceControlPanel = new SluiceControlPanel( waterTowerModel.isSluiceOpenProperty, { xMargin: 10, yMargin: 15, fill: '#1F5EFF', right: waterTowerNode.right + 36, bottom: this.layoutBounds.bottom - 70} );
@@ -169,7 +168,7 @@ define( function( require ) {
     // add play pause button and step button
     var stepButton = new StepButton( function() {
       waterTowerModel.stepInternal( 0.016 );
-    }, waterTowerModel.isPlayProperty, { stroke: 'black', fill: '#005566', right: controlSlider.left - inset, bottom: controlSlider.bottom - inset} );
+    }, waterTowerModel.isPlayProperty, { stroke: 'black', fill: '#005566', right: fluidDensityControlSlider.left - inset, bottom: fluidDensityControlSlider.bottom - inset} );
 
     this.addChild( stepButton );
 

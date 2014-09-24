@@ -52,6 +52,7 @@ define( function( require ) {
         isFaucetEnabled: true,
         measureUnits: 'metric', //metric, english
         fluidDensity: Constants.WATER_DENSITY,
+        fluidDensityControlExpanded: false,
         rulerPosition: new Vector2( 300, 350 ), // px
         measuringTapePosition: new Vector2( 150, 351 ), // px
         waterFlow: 'water',

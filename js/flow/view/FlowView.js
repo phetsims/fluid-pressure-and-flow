@@ -22,7 +22,7 @@ define( function( require ) {
   var Matrix3 = require( 'DOT/Matrix3' );
   var ToolsControlPanel = require( 'FLUID_PRESSURE_AND_FLOW/flow/view/ToolsControlPanel' );
   var UnitsControlPanel = require( 'FLUID_PRESSURE_AND_FLOW/flow/view/UnitsControlPanel' );
-  var ControlSlider = require( 'FLUID_PRESSURE_AND_FLOW/watertower/view/ControlSlider' );
+  var ControlSlider = require( 'UNDER_PRESSURE/common/view/ControlSlider' );
   var VelocitySensorNode = require( 'FLUID_PRESSURE_AND_FLOW/watertower/view/VelocitySensorNode' );
   var BarometerNode = require( 'FLUID_PRESSURE_AND_FLOW/watertower/view/BarometerNode' );
   var FlowRuler = require( 'FLUID_PRESSURE_AND_FLOW/flow/view/FlowRuler' );
@@ -97,7 +97,7 @@ define( function( require ) {
 
 
     // add the fluid density control slider
-    var fluidDensityControlNode = new ControlSlider( flowModel, flowModel.fluidDensityProperty, flowModel.getFluidDensityString.bind( flowModel ), flowModel.fluidDensityRange, {
+    var fluidDensityControlNode = new ControlSlider( flowModel.measureUnitsProperty, flowModel.fluidDensityProperty, flowModel.getFluidDensityString.bind( flowModel ), flowModel.fluidDensityRange, flowModel.fluidDensityControlExpandedProperty, {
       right: this.layoutBounds.right - 105,
       bottom: this.layoutBounds.bottom - 7,
       title: fluidDensityString,
@@ -138,8 +138,6 @@ define( function( require ) {
     var resetAllButton = new ResetAllButton( {
       listener: function() {
         flowModel.reset();
-        fluidDensityControlNode.reset();
-        flowRateControlNode.reset();
         flowView.pipeNode.reset();
       },
       radius: 18,
@@ -187,7 +185,7 @@ define( function( require ) {
     this.addChild( speedControl.mutate( { right: playPauseButton.left - 8, bottom: playPauseButton.bottom } ) );
 
     // add flow rate panel
-    var flowRateControlNode = new ControlSlider( flowModel, flowModel.pipe.flowRateProperty, flowModel.getFluidFlowRateString.bind( flowModel ), flowModel.flowRateRange, {
+    var flowRateControlNode = new ControlSlider( flowModel.measureUnitsProperty, flowModel.pipe.flowRateProperty, flowModel.getFluidFlowRateString.bind( flowModel ), flowModel.flowRateRange, flowModel.flowRateControlExpandedProperty, {
       right: speedControl.left - 20,
       bottom: this.layoutBounds.bottom - 7,
       title: flowRateString,
