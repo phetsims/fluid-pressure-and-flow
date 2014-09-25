@@ -18,8 +18,8 @@ define( function( require ) {
    * @constructor
    */
   function FaucetModel( location, maxFlowRate, scale ) {
-    var self = this;
 
+    var faucet = this;
     this.location = location;
     this.maxFlowRate = maxFlowRate;
     this.scale = scale;
@@ -32,7 +32,7 @@ define( function( require ) {
 
     // when disabled, turn off the faucet.
     this.enabledProperty.onValue( false, function() {
-      self.flowRate = 0;
+      faucet.flowRate = 0;
     } );
   }
 

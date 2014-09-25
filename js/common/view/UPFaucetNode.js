@@ -18,6 +18,7 @@ define( function( require ) {
    * @constructor
    */
   function UPFaucetNode( faucet, width, modelViewTransform ) {
+
     FaucetNode.call( this, faucet.maxFlowRate, faucet.flowRateProperty, faucet.enabledProperty,
       {
         horizontalPipeLength: width,
