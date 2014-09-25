@@ -44,23 +44,12 @@ define( function( require ) {
 
   return inherit( PoolWithFaucetsModel, SquarePoolModel, {
 
-    getPressureAtCoords: function( x, y ) {
-      var pressure = '';
-      if ( y < this.underPressureModel.skyGroundBoundY ) {
-        pressure = this.underPressureModel.getAirPressure( y );
-      }
-      else if ( x > this.poolDimensions.x1 && x < this.poolDimensions.x2 && y < this.poolDimensions.y2 ) {
-        //inside pool
-        var waterHeight = y - (this.poolDimensions.y2 - this.MAX_HEIGHT * this.volume / this.MAX_VOLUME);// water height above barometer
-        if ( waterHeight <= 0 ) {
-          pressure = this.underPressureModel.getAirPressure( y );
-        }
-        else {
-          pressure = this.underPressureModel.getAirPressure( y - waterHeight ) + this.underPressureModel.getWaterPressure( waterHeight );
-        }
-      }
+    getWaterHeightAboveY: function( x, y ) {
+      return y - (this.poolDimensions.y2 - this.MAX_HEIGHT * this.volume / this.MAX_VOLUME);// water height above barometer
+    },
 
-      return pressure;
+    isPointInsidePool: function( x, y ) {
+      return x > this.poolDimensions.x1 && x < this.poolDimensions.x2 && y < this.poolDimensions.y2;
     }
   } );
 } );

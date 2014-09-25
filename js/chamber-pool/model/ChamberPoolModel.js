@@ -130,7 +130,7 @@ define( function( require ) {
   return inherit( PropertySet, ChamberPoolModel, {
 
     reset: function() {
-      PropertySet.prototype.reset.call( this );
+
       this.stack.clear();
       this.masses.forEach( function( mass ) {
         mass.reset();
@@ -172,26 +172,13 @@ define( function( require ) {
       }
     },
 
-    getPressureAtCoords: function( x, y ) {
-      var pressure = '';
-      if ( y < this.underPressureModel.skyGroundBoundY ) {
-        pressure = this.underPressureModel.getAirPressure( y );
+    getWaterHeightAboveY: function( x, y ) {
+      if ( this.poolDimensions.leftOpening.x1 < x && x < this.poolDimensions.leftOpening.x2 && y < this.poolDimensions.leftChamber.y2 - this.DEFAULT_HEIGHT + this.underPressureModel.leftDisplacement ) {
+        return 0;
       }
-      else if ( this.isPointInsidePool( x, y ) ) {
-        //inside pool
-        //if in left opening over masses, than air pressure
-        if ( this.poolDimensions.leftOpening.x1 < x && x < this.poolDimensions.leftOpening.x2 && y < this.poolDimensions.leftChamber.y2 - this.DEFAULT_HEIGHT + this.underPressureModel.leftDisplacement ) {
-          pressure = this.underPressureModel.getAirPressure( y );
-        }
-        else {
-          //other case
-          var waterHeight = y - (this.poolDimensions.leftChamber.y2 - this.DEFAULT_HEIGHT - this.underPressureModel.leftDisplacement / this.LENGTH_RATIO);// water height above barometer
-          pressure = waterHeight <= 0 ? this.underPressureModel.getAirPressure( y ) :
-                     this.underPressureModel.getAirPressure( y - waterHeight ) + this.underPressureModel.getWaterPressure( waterHeight );
-
-        }
+      else {
+        return y - (this.poolDimensions.leftChamber.y2 - this.DEFAULT_HEIGHT - this.underPressureModel.leftDisplacement / this.LENGTH_RATIO);// water height above barometer
       }
-      return pressure;
     },
 
     isPointInsidePool: function( x, y ) {

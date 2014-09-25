@@ -86,25 +86,10 @@ define( function( require ) {
 
   return inherit( PoolWithFaucetsModel, TrapezoidPoolModel, {
 
-    getPressureAtCoords: function( x, y ) {
-      var pressure = '';
-
-      if ( y < this.underPressureModel.skyGroundBoundY ) {
-        pressure = this.underPressureModel.getAirPressure( y );
-      }
-      else if ( this.isPointInsidePool( x, y ) ) {
-        //inside pool
-        var waterHeight = y - (this.poolDimensions.bottomChamber.y2 - this.MAX_HEIGHT * this.volume / this.MAX_VOLUME);// water height above barometer
-        if ( waterHeight <= 0 ) {
-          pressure = this.underPressureModel.getAirPressure( y );
-        }
-        else {
-          pressure = this.underPressureModel.getAirPressure( y - waterHeight ) + this.underPressureModel.getWaterPressure( waterHeight );
-        }
-      }
-
-      return pressure;
+    getWaterHeightAboveY: function( x, y ) {
+      return y - (this.poolDimensions.bottomChamber.y2 - this.MAX_HEIGHT * this.volume / this.MAX_VOLUME);// water height above barometer
     },
+
     isPointInsidePool: function( x, y ) {
       var isInside = false;
       if ( x > this.poolDimensions.bottomChamber.x1 && x < this.poolDimensions.bottomChamber.x2 && y > this.poolDimensions.bottomChamber.y1 && y < this.poolDimensions.bottomChamber.y2 ) {

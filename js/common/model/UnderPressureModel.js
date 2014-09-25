@@ -128,7 +128,25 @@ define( function( require ) {
     },
 
     getPressureAtCoords: function( x, y ) {
-      return this.sceneModels[this.currentScene].getPressureAtCoords( x, y );
+
+      var pressure = '';
+      var currentModel = this.sceneModels[this.currentScene];
+      if ( y < this.skyGroundBoundY ) {
+        pressure = this.getAirPressure( y );
+      }
+      else if ( currentModel.isPointInsidePool( x, y ) ) {
+
+        // get the water height over barometer
+        var waterHeight = currentModel.getWaterHeightAboveY( x, y );
+        if ( waterHeight <= 0 ) {
+          pressure = this.getAirPressure( y );
+        }
+        else {
+          pressure = this.getAirPressure( y - waterHeight ) + this.getWaterPressure( waterHeight );
+        }
+
+      }
+      return pressure;
     },
 
     getPressureString: function( pressure, units ) {
