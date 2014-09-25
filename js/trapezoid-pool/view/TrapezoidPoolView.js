@@ -24,7 +24,8 @@ define( function( require ) {
   function TrapezoidPoolView( trapezoidPoolModel, modelViewTransform ) {
 
     Node.call( this, { renderer: 'svg' } );
-    //pool
+
+    // add pool back
     this.addChild( new TrapezoidPoolBack( trapezoidPoolModel, modelViewTransform ) );
 
     // add fluids
@@ -34,8 +35,17 @@ define( function( require ) {
     // add water
     this.addChild( new TrapezoidPoolWaterNode( trapezoidPoolModel, modelViewTransform ) );
 
+    // pool dimensions in view values
+    var poolLeftX = trapezoidPoolModel.poolDimensions.leftChamber.centerTop - trapezoidPoolModel.poolDimensions.leftChamber.widthBottom / 2;
+    var poolTopY = trapezoidPoolModel.poolDimensions.leftChamber.y;
+    var poolRightX = trapezoidPoolModel.poolDimensions.rightChamber.centerTop + trapezoidPoolModel.poolDimensions.rightChamber.widthTop / 2;
+    var poolBottomY = trapezoidPoolModel.poolDimensions.leftChamber.y + trapezoidPoolModel.poolDimensions.leftChamber.height + 0.3;
+    var poolHeight = trapezoidPoolModel.poolDimensions.leftChamber.height;
+    var labelXPosition = modelViewTransform.modelToViewX( ( trapezoidPoolModel.poolDimensions.leftChamber.centerTop + trapezoidPoolModel.poolDimensions.leftChamber.widthTop / 2 + trapezoidPoolModel.poolDimensions.rightChamber.centerTop - trapezoidPoolModel.poolDimensions.rightChamber.widthTop / 2 ) / 2 );
+    var slantMultiplier = 0.45; // Empirically determined to make label line up in space between the pools
+
     // add grid
-    this.addChild( new TrapezoidPoolGrid( trapezoidPoolModel, modelViewTransform ) );
+    this.addChild( new TrapezoidPoolGrid( trapezoidPoolModel.underPressureModel, modelViewTransform, poolLeftX, poolTopY, poolRightX, poolBottomY, poolHeight, labelXPosition, slantMultiplier ) );
   }
 
   return inherit( Node, TrapezoidPoolView );
