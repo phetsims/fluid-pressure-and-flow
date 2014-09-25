@@ -1,12 +1,14 @@
 // Copyright 2002-2013, University of Colorado Boulder
 
 /**
- * Scenery node for the control panel, view settings and controls.
+ * Control panel that contains various tools like ruler, grid and atmosphere controls.
  * @author Vasily Shakhov (Mlearner)
+ * @author Siddhartha Chinthapally (Actual Concepts)
  */
 define( function( require ) {
   'use strict';
 
+// modules
   var inherit = require( 'PHET_CORE/inherit' );
   var Node = require( 'SCENERY/nodes/Node' );
   var VBox = require( 'SCENERY/nodes/VBox' );
@@ -15,7 +17,6 @@ define( function( require ) {
   var Rectangle = require( 'SCENERY/nodes/Rectangle' );
   var Panel = require( 'SUN/Panel' );
   var HStrut = require( 'SUN/HStrut' );
-
   var CheckBox = require( 'SUN/CheckBox' );
   var AquaRadioButton = require( 'SUN/AquaRadioButton' );
   var Text = require( 'SCENERY/nodes/Text' );
@@ -24,14 +25,19 @@ define( function( require ) {
   var RulerNode = require( 'SCENERY_PHET/RulerNode' );
   var Bounds2 = require( 'DOT/Bounds2' );
 
+  // strings
   var gridString = require( 'string!UNDER_PRESSURE/grid' );
   var rulerString = require( 'string!UNDER_PRESSURE/ruler' );
   var onString = require( 'string!UNDER_PRESSURE/on' );
   var offString = require( 'string!UNDER_PRESSURE/off' );
-
   var atmosphereString = require( 'string!UNDER_PRESSURE/atmosphere' );
 
-  function ControlPanel( model, options ) {
+  /**
+   * @param {UnderPressureModel} underPressureModel of the sim.
+   * @param {Object} options
+   * @constructor
+   */
+  function ControlPanel( underPressureModel, options ) {
 
     options = _.extend( {
       xMargin: 10,
@@ -49,8 +55,8 @@ define( function( require ) {
     var rulerSet = [new Text( rulerString, textOptions ), this.createRulerIcon()];
     var grid = [new Text( gridString, textOptions )];
 
-    var atmosphereTrue = new AquaRadioButton( model.isAtmosphereProperty, true, new Text( onString, textOptions ), {radius: 8} );
-    var atmosphereFalse = new AquaRadioButton( model.isAtmosphereProperty, false, new Text( offString, textOptions ), {radius: 8} );
+    var atmosphereTrue = new AquaRadioButton( underPressureModel.isAtmosphereProperty, true, new Text( onString, textOptions ), {radius: 8} );
+    var atmosphereFalse = new AquaRadioButton( underPressureModel.isAtmosphereProperty, false, new Text( offString, textOptions ), {radius: 8} );
 
     //touch areas
     atmosphereTrue.touchArea = atmosphereTrue.localBounds.dilatedXY( 0, 0 );
@@ -76,8 +82,8 @@ define( function( require ) {
     //resize boxes to fit max
     atmosphere.updateWidth( expandedWidth );
 
-    var rulerCheckBox = new CheckBox( new HBox( {children: ( ruler )} ), model.isRulerVisibleProperty, alignOptions );
-    var gridCheckBox = new CheckBox( new HBox( {children: ( grid )} ), model.isGridVisibleProperty, alignOptions );
+    var rulerCheckBox = new CheckBox( new HBox( {children: ( ruler )} ), underPressureModel.isRulerVisibleProperty, alignOptions );
+    var gridCheckBox = new CheckBox( new HBox( {children: ( grid )} ), underPressureModel.isGridVisibleProperty, alignOptions );
 
     var maxCheckBoxWidth = _.max( [ rulerCheckBox, gridCheckBox ], function( item ) {
       return item.width;
@@ -98,10 +104,10 @@ define( function( require ) {
     } );
 
     Panel.call( this, content, options );
-
   }
 
   return inherit( Panel, ControlPanel, {
+
     //Create an icon for the ruler check box
     createRulerIcon: function() {
       return new RulerNode( 30, 20, 15, ['0', '1', '2'], '', {
