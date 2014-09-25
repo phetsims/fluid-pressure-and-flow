@@ -4,11 +4,12 @@
  * Top model for all screens - all common properties and methods are placed here.
  *
  * @author Vasily Shakhov (Mlearner)
+ * @author siddhartha chinthapally (Actual Concepts )
  */
 define( function( require ) {
   'use strict';
 
-  // modules
+// modules
   var Property = require( 'AXON/Property' );
   var PropertySet = require( 'AXON/PropertySet' );
   var inherit = require( 'PHET_CORE/inherit' );
@@ -20,10 +21,10 @@ define( function( require ) {
   var Barometer = require( 'UNDER_PRESSURE/common/model/Barometer' );
 
   var SceneModels = {
-    SquarePoolModel: require( 'UNDER_PRESSURE/square-pool/model/SquarePoolModel' ),
-    TrapezoidPoolModel: require( 'UNDER_PRESSURE/trapezoid-pool/model/TrapezoidPoolModel' ),
-    ChamberPoolModel: require( 'UNDER_PRESSURE/chamber-pool/model/ChamberPoolModel' ),
-    MysteryPoolModel: require( 'UNDER_PRESSURE/mystery-pool/model/MysteryPoolModel' )
+    Square: require( 'UNDER_PRESSURE/square-pool/model/SquarePoolModel' ),
+    Trapezoid: require( 'UNDER_PRESSURE/trapezoid-pool/model/TrapezoidPoolModel' ),
+    Chamber: require( 'UNDER_PRESSURE/chamber-pool/model/ChamberPoolModel' ),
+    Mystery: require( 'UNDER_PRESSURE/mystery-pool/model/MysteryPoolModel' )
   };
 
   /**
@@ -32,8 +33,8 @@ define( function( require ) {
    */
 
   function UnderPressureModel( width, height ) {
-    var self = this;
 
+    var underPressureModel = this;
     this.scenes = ['Square', 'Trapezoid', 'Chamber', 'Mystery'];
 
     this.MARS_GRAVITY = 3.71;
@@ -41,7 +42,6 @@ define( function( require ) {
     this.GAZOLINE_DENSITY = 700;
     this.HONEY_DENSITY = 1420;
     this.WATER_DENSITY = 1000;
-
     this.MIN_PRESSURE = 0;
     this.MAX_PRESSURE = 350000;//kPa
 
@@ -63,9 +63,9 @@ define( function( require ) {
         isGridVisible: false,
         measureUnits: 'metric', //metric, english or atmosphere
         gravity: 9.8,
-        fluidDensity: self.WATER_DENSITY,
+        fluidDensity: underPressureModel.WATER_DENSITY,
         leftDisplacement: 0, //displacement from default height, for chamber-pool
-        currentScene: self.scenes[0],
+        currentScene: underPressureModel.scenes[0],
         currentVolume: 0, //L, volume of liquid in currentScene
         rulerPosition: new Vector2( 195, 245 ), // px
         mysteryChoice: 'fluidDensity', //for mystery-pool, gravity of fluidDensity
@@ -78,7 +78,7 @@ define( function( require ) {
 
     this.sceneModels = {};
     this.scenes.forEach( function( name ) {
-      self.sceneModels[name] = (new SceneModels[name + 'PoolModel']( self ));
+      underPressureModel.sceneModels[name] = (new SceneModels[name]( underPressureModel ));
     } );
 
     this.getStandardAirPressure = new LinearFunction( 0, Units.feetToMeters( 500 ), this.EARTH_AIR_PRESSURE, this.EARTH_AIR_PRESSURE_AT_500_FT );
@@ -90,7 +90,7 @@ define( function( require ) {
     }
 
     this.currentSceneProperty.link( function() {
-      self.currentVolume = self.sceneModels[self.currentScene].volume;
+      underPressureModel.currentVolume = underPressureModel.sceneModels[underPressureModel.currentScene].volume;
     } );
   }
 

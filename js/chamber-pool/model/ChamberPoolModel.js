@@ -195,13 +195,15 @@ define( function( require ) {
     },
 
     isPointInsidePool: function( x, y ) {
+      var isInside = false;
       ['leftChamber', 'rightChamber', 'horizontalPassage', 'leftOpening', 'rightOpening'].forEach( function( name ) {
         if ( x > this.poolDimensions[name].x1 && x < this.poolDimensions[name].x2 && y > this.poolDimensions[name].y1 && y < this.poolDimensions[name].y2 ) {
           //inside bottom chamber
-          return  true;
+          isInside = true;
         }
-      } );
-      return false;
+      }.bind( this ) );
+
+      return isInside;
     }
   } );
 } );
