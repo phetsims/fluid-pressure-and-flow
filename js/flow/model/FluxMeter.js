@@ -22,12 +22,15 @@ define( function( require ) {
     // pipe that the flux meter attaches to and measures
     this.pipe = pipe;
     PropertySet.call( this, {
-      xPosition: -6.5 //m
+
+      //The flux meter can be dragged horizontally across the pipe
+      xPosition: -6.5 //in meters
     } );
   }
 
   return inherit( PropertySet, FluxMeter, {
-    // Compute the area as the pi * r * r of the pipe at the crosssection where the flux meter is currently positioned
+
+    // Compute the area as the pi * r * r of the pipe at the cross section where the flux meter is currently positioned
     // Returns the area in meters squared
     getArea: function() {
       return this.pipe.getCrossSectionalArea( this.xPosition );
