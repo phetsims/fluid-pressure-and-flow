@@ -76,13 +76,13 @@ define( function( require ) {
     this.content = new Node();
 
     var plusButton = new ArrowButton( 'right', function propertyPlus() {
-      trackProperty.set( Util.toFixed( parseFloat( Math.min( parseFloat( trackProperty.get() ) ) + 1 / Math.pow( 10, options.decimals ), trackRange.max ), options.decimals ) );
+      trackProperty.set( Util.toFixedNumber( parseFloat( Math.min(  trackProperty.get() + 1 / Math.pow( 10, options.decimals ), trackRange.max )), options.decimals ) );
     } );
     plusButton.touchArea = new Bounds2( plusButton.localBounds.minX - 20, plusButton.localBounds.minY - 5,
         plusButton.localBounds.maxX + 20, plusButton.localBounds.maxY + 20 );
 
     var minusButton = new ArrowButton( 'left', function propertyMinus() {
-      trackProperty.set( Util.toFixed( parseFloat( Math.max( trackProperty.get() ) - 1 / Math.pow( 10, options.decimals ), trackRange.min ), options.decimals ) );
+      trackProperty.set( Util.toFixedNumber( parseFloat( Math.max( trackProperty.get() - 1 / Math.pow( 10, options.decimals ), trackRange.min )), options.decimals ) );
     } );
     minusButton.touchArea = new Bounds2( minusButton.localBounds.minX - 20, minusButton.localBounds.minY - 5,
         minusButton.localBounds.maxX + 20, minusButton.localBounds.maxY + 20 );
