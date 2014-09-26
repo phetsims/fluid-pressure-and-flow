@@ -2,10 +2,13 @@
 
 /**
  * Model for a simple spherical particle (Modified from watertower's WaterDrop). The red dots and black grid dots
- * in flow sim are modelled as Particles. Model contains properties for radius, color, position etc
+ * in flow sim are modelled as Particles. Model contains properties for radius, color, position etc.
+ *
+ * Since so many particles are moving in every frame, it is too much overhead to model them using PropertySet.link,
+ * and they are rendered in a CanvasNode.  Hence the values are modeled directly as attributes (without axon Properties).
+ *
  * @author Siddhartha Chinthapally (Actual Concepts)
  */
-
 define( function( require ) {
   'use strict';
 
@@ -13,7 +16,6 @@ define( function( require ) {
   var inherit = require( 'PHET_CORE/inherit' );
 
   /**
-   *
    * @param {Number} xPosition of the particle in meters
    * @param {Number} fractionUpPipe represents the fractional position w.r.t to the cross section height. Takes a value between (0,1).
    * @param {Pipe} container holding the particle
@@ -22,10 +24,13 @@ define( function( require ) {
    * @constructor
    */
   function Particle( xPosition, fractionUpPipe, container, radius, color ) {
+
     // position along the pipe's horizontal axis.
     this.xPosition = xPosition;
+
     // how far up the pipe, 0 = bottom, 1 = top
     this.fractionUpPipe = fractionUpPipe;
+
     // the pipe within which the particle travels
     this.container = container;
 
