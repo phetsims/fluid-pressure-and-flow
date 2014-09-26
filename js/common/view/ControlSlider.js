@@ -76,7 +76,7 @@ define( function( require ) {
     this.content = new Node();
 
     var plusButton = new ArrowButton( 'right', function propertyPlus() {
-      trackProperty.set( Util.toFixed( parseFloat( Math.min( trackProperty.get() ) + 1 / Math.pow( 10, options.decimals ), trackRange.max ), options.decimals ) );
+      trackProperty.set( Util.toFixed( parseFloat( Math.min( parseFloat( trackProperty.get() ) ) + 1 / Math.pow( 10, options.decimals ), trackRange.max ), options.decimals ) );
     } );
     plusButton.touchArea = new Bounds2( plusButton.localBounds.minX - 20, plusButton.localBounds.minY - 5,
         plusButton.localBounds.maxX + 20, plusButton.localBounds.maxY + 20 );
