@@ -35,21 +35,20 @@ define( function( require ) {
 
     options = _.extend( {
       xMargin: 7,
-      yMargin: 4,
+      yMargin: 5,
       fill: '#f2fa6a ',
       stroke: 'gray',
       lineWidth: 1,
       resize: false,
-      scale: 0.9
+      scale: 0.8
     }, options );
 
-
-    var textOptions = {font: new PhetFont( 14 )};
+    var textOptions = {font: new PhetFont( 12 )};
 
     var titleText = new Text( unitsString, { font: new PhetFont( 12 ), fontWeight: 'bold' } );
-    var metricRadio = new AquaRadioButton( measureUnitsProperty, 'metric', new Text( metricString, textOptions ), { radius: 8 } );
-    var atmosphereRadio = new AquaRadioButton( measureUnitsProperty, 'atmosphere', new Text( atmospheresString, textOptions ), { radius: 8 } );
-    var englishRadio = new AquaRadioButton( measureUnitsProperty, 'english', new Text( englishString, textOptions ), { radius: 8 } );
+    var metricRadio = new AquaRadioButton( measureUnitsProperty, 'metric', new Text( metricString, textOptions ), { radius: 6 } );
+    var atmosphereRadio = new AquaRadioButton( measureUnitsProperty, 'atmosphere', new Text( atmospheresString, textOptions ), { radius: 6 } );
+    var englishRadio = new AquaRadioButton( measureUnitsProperty, 'english', new Text( englishString, textOptions ), { radius: 6 } );
 
     //dummy text for height
     var dummyText = new Text( '', { font: new PhetFont( 3 ) } );
