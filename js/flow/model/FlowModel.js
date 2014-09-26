@@ -273,12 +273,15 @@ define( function( require ) {
      */
     injectGridParticles: function() {
       var x0 = this.pipe.getMinX();
-      var COLUMN_SPACING = 0.3; // initial distance between two successive columns in the particle grid
+      var COLUMN_SPACING = 0.3; // initial distance (in meters) between two successive columns in the particle grid
+      var NUM_COLUMNS = 4;
+      var NUM_ROWS = 9;
 
-      for ( var i = 0; i < 4; i++ ) {
+      for ( var i = 0; i < NUM_COLUMNS; i++ ) {
         var x = x0 + i * COLUMN_SPACING;
-        for ( var j = 0; j < 9; j++ ) {
-          // ensure the particle's y fraction is between [0.1, 0.9]
+        for ( var j = 0; j < NUM_ROWS; j++ ) {
+
+          // ensure the particle's y fraction is between [0.1, 0.9], so they aren't too close to the edge of the pipe.
           var fraction = 0.1 * (j + 1);
           this.gridParticles.push( new Particle( x, fraction, this.pipe, 0.06, 'black' ) );
         }
