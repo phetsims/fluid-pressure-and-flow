@@ -45,7 +45,7 @@ define( function( require ) {
    * A flux meter that display flow rate, area and flux at a particular cross section
    * @param {FlowModel} flowModel of the simulation
    * @param {ModelViewTransform2} modelViewTransform to convert between model and view co-ordinates
-   * @param options
+   * @param {Object} options that can be passed on to the underlying node
    * @constructor
    */
   function FluxMeterNode( flowModel, modelViewTransform, options ) {

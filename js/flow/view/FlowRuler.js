@@ -30,7 +30,7 @@ define( function( require ) {
    * @param {Property<String>} measureUnitsProperty controls the ruler view -- english/metric
    * @param {ModelViewTransform2} modelViewTransform to convert model units to view units
    * @param {Bounds2} dragBounds for the area where the ruler can be dragged
-   * @param options
+   * @param {Object} options that can be passed on to the underlying node
    * @constructor
    */
   function FlowRuler( isRulerVisibleProperty, rulerPositionProperty, measureUnitsProperty, modelViewTransform, dragBounds, options ) {

@@ -19,7 +19,7 @@ define( function( require ) {
   /**
    * Node that injects the grid dots
    * @param {FlowModel} flowModel of the simulation
-   * @param options
+   * @param {Object} options that can be passed on to the underlying node
    * @constructor
    */
   function GridInjectorNode( flowModel, options ) {

@@ -460,6 +460,7 @@ define( function( require ) {
   return inherit( Node, PipeNode,
     {
       // update the pipe flow line shape (the flexible middle pipe)
+      // @private
       updatePipeFlowLineShape: function() {
 
         // getting cross sections
