@@ -37,7 +37,7 @@ define( function( require ) {
     this.fluidDensityChoices = [ 1700, 840, 1100 ];
     this.gravityChoices = [ 20, 14, 6.5 ];
 
-    this.waterColor = [ new Color( 113, 35, 136 ), new Color( 179, 115, 176 ), new Color( 60, 29, 71 ) ];
+    this.fluidColor = [ new Color( 113, 35, 136 ), new Color( 179, 115, 176 ), new Color( 60, 29, 71 ) ];
 
     var oldGravity;
     var oldFluidDensity;
@@ -81,7 +81,7 @@ define( function( require ) {
 
       if ( this.underPressureModel.mysteryChoice === 'fluidDensity' ) {
         this.underPressureModel.fluidDensity = this.fluidDensityChoices[ this.fluidDensityCustomProperty.value ];
-        this.underPressureModel.fluidColorModel.setWaterColor( this.waterColor[ this.fluidDensityCustomProperty.value ] );
+        this.underPressureModel.fluidColorModel.color = this.fluidColor[ this.fluidDensityCustomProperty.value ];
       }
       else {
         this.underPressureModel.gravity = this.gravityChoices[ this.gravityCustomProperty.value ];
