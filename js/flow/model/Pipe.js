@@ -25,19 +25,20 @@ define( function( require ) {
   function Pipe() {
 
     PropertySet.call( this, {
-      flowRate: 5000,// rate of fluid flow in Liter per second (L/s)
-      friction: false  // flag indicating whether friction should slow particles near the edges
+      flowRate: 5000, // rate of fluid flow in Liter per second (L/s)
+      friction: false // flag indicating whether friction should slow particles near the edges
     } );
 
     // cross-sections that the user can manipulate to deform the pipe.
-    this.controlCrossSections = [];
-    this.controlCrossSections[ 0 ] = new PipeCrossSection( -6.7, -3.5, -1.4 );
-    this.controlCrossSections[ 1 ] = new PipeCrossSection( -4.6, -3.5, -1.4 );
-    this.controlCrossSections[ 2 ] = new PipeCrossSection( -2.3, -3.5, -1.4 );
-    this.controlCrossSections[ 3 ] = new PipeCrossSection( -0, -3.5, -1.4 );
-    this.controlCrossSections[ 4 ] = new PipeCrossSection( 2.3, -3.5, -1.4 );
-    this.controlCrossSections[ 5 ] = new PipeCrossSection( 4.6, -3.5, -1.4 );
-    this.controlCrossSections[ 6 ] = new PipeCrossSection( 6.7, -3.5, -1.4 );
+    this.controlCrossSections = [
+      new PipeCrossSection( -6.7, -3.5, -1.4 ),
+      new PipeCrossSection( -4.6, -3.5, -1.4 ),
+      new PipeCrossSection( -2.3, -3.5, -1.4 ),
+      new PipeCrossSection( -0, -3.5, -1.4 ),
+      new PipeCrossSection( 2.3, -3.5, -1.4 ),
+      new PipeCrossSection( 4.6, -3.5, -1.4 ),
+      new PipeCrossSection( 6.7, -3.5, -1.4 )
+    ];
 
     // nonlinear interpolation of the control sections for particle motion and determining the velocity field
     this.splineCrossSections = [];
@@ -49,7 +50,8 @@ define( function( require ) {
     this.controlPoints = [];
 
     // add pipe top control points
-    for ( var m = 0; m < this.controlCrossSections.length; m++ ) {
+    var m;
+    for ( m = 0; m < this.controlCrossSections.length; m++ ) {
       this.controlPoints.push( new PipeControlPoint( this.controlCrossSections[ m ].x, this.controlCrossSections[ m ].yTop ) );
     }
 
@@ -164,7 +166,7 @@ define( function( require ) {
 
     // Gets all the pipe cross-sections, rebuilding the intermediate interpolated ones if necessary
     getSplineCrossSections: function() {
-      // if pipe  shape changes create the new cross sections else return old cross sections
+      // if pipe shape changes create the new cross sections else return old cross sections
       if ( this.dirty ) {
         this.splineCrossSections = this.createSpline();
         this.dirty = false;
