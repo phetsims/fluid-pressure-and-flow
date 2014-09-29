@@ -16,13 +16,10 @@ define( function( require ) {
   var ScreenView = require( 'JOIST/ScreenView' );
   var Screen = require( 'JOIST/Screen' );
 
-  // strings
-  var simTitle = require( 'string!UNDER_PRESSURE/under-pressure.name' );
-
   // images
   var underPressureScreenIcon = require( 'image!UNDER_PRESSURE/square-pool-icon.png' );
 
-  function UnderPressureScreen() {
+  function UnderPressureScreen( simTitle ) {
     Screen.call( this, simTitle, new Image( underPressureScreenIcon ),
       function() { return new UnderPressureModel( ScreenView.DEFAULT_LAYOUT_BOUNDS.width, ScreenView.DEFAULT_LAYOUT_BOUNDS.height ); },
       function( model ) { return new UnderPressureView( model ); },

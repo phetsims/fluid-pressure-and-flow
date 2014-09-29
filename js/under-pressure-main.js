@@ -31,7 +31,7 @@ define( function( require ) {
     // Create and start the sim
     //Create and start the sim
     new Sim( simTitle, [
-      new UnderPressureScreen()
+      new UnderPressureScreen( simTitle )
     ], simOptions ).start();
   } );
 } );
