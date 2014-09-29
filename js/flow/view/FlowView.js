@@ -59,8 +59,8 @@ define( function( require ) {
    * @constructor
    */
   function FlowView( flowModel ) {
-    var flowView = this;
 
+    var flowView = this;
     ScreenView.call( this, { renderer: 'svg' } );
 
     var modelViewTransform = ModelViewTransform2.createSinglePointScaleInvertedYMapping(
@@ -71,8 +71,7 @@ define( function( require ) {
     // add sky node
     this.addChild( new Rectangle( -5000, -1000, 10000, 1002, { stroke: '#01ACE4', fill: '#01ACE4' } ) );
 
-    var skyNode = new SkyNode( -5000, 0, 10000, 140, 140 );
-    this.addChild( skyNode );
+    this.addChild( new SkyNode( -5000, 0, 10000, 140, 140 ) );
 
     // add ground node
     var groundNode = new GroundNode( -5000, 140, 10000, 10000, 400, { topColor: '#9D8B61', bottomColor: '#645A3C' } );
@@ -89,11 +88,11 @@ define( function( require ) {
     } ) );
 
     // tools control panel
-    this.toolsControlPanel = new ToolsControlPanel( flowModel, { right: this.layoutBounds.right - 7, top: 7 } );
-    this.addChild( this.toolsControlPanel );
+    var toolsControlPanel = new ToolsControlPanel( flowModel, { right: this.layoutBounds.right - 7, top: 7 } );
+    this.addChild( toolsControlPanel );
 
     // units control panel
-    var unitsControlPanel = new UnitsControlPanel( flowModel.measureUnitsProperty, 50, { right: this.toolsControlPanel.left - 7, top: this.toolsControlPanel.top } );
+    var unitsControlPanel = new UnitsControlPanel( flowModel.measureUnitsProperty, 50, { right: toolsControlPanel.left - 7, top: toolsControlPanel.top } );
     this.addChild( unitsControlPanel );
 
 
@@ -126,7 +125,6 @@ define( function( require ) {
 
     //adding pipe Node
     this.pipeNode = new PipeNode( flowModel, flowModel.pipe, modelViewTransform, this.layoutBounds );
-    flowModel.pipe.reset();
     this.addChild( this.pipeNode );
 
     // add the back ellipse of the fluxMeter to the pipe node's pre-particle layer
@@ -148,7 +146,7 @@ define( function( require ) {
     this.addChild( resetAllButton );
 
     // add the sensors panel
-    var sensorPanel = new Rectangle( 0, 0, 167, 85, 10, 10, { stroke: 'gray', lineWidth: 1, fill: '#f2fa6a', right: unitsControlPanel.left - 4, top: this.toolsControlPanel.top } );
+    var sensorPanel = new Rectangle( 0, 0, 167, 85, 10, 10, { stroke: 'gray', lineWidth: 1, fill: '#f2fa6a', right: unitsControlPanel.left - 4, top: toolsControlPanel.top } );
     this.addChild( sensorPanel );
 
     flowModel.isGridInjectorPressedProperty.link( function( isGridInjectorPressed ) {
