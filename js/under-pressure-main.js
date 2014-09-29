@@ -13,6 +13,7 @@ define( function( require ) {
   var ScreenView = require( 'JOIST/ScreenView' );
   var UnderPressureModel = require( 'UNDER_PRESSURE/common/model/UnderPressureModel' );
   var UnderPressureView = require( 'UNDER_PRESSURE/common/view/UnderPressureView' );
+  var UnderPressureScreen = require( 'UNDER_PRESSURE/UnderPressureScreen' );
 
   // Strings
   var simTitle = require( 'string!UNDER_PRESSURE/under-pressure.name' );
@@ -30,11 +31,7 @@ define( function( require ) {
     // Create and start the sim
     //Create and start the sim
     new Sim( simTitle, [
-      new Screen( simTitle, null,
-        function() {return new UnderPressureModel( ScreenView.DEFAULT_LAYOUT_BOUNDS.width, ScreenView.DEFAULT_LAYOUT_BOUNDS.height );},
-        function( model ) {return new UnderPressureView( model );},
-        { backgroundColor: '#fff' }
-      )
+      new UnderPressureScreen()
     ], simOptions ).start();
   } );
 } );
