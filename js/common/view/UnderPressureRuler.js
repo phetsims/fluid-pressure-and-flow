@@ -62,7 +62,7 @@ define( function( require ) {
 
     // meter ruler
     // Note: make sure that ruler height and major stick width should be multiples of 10
-    var meterRulerHeight = Math.floor( modelViewTransform.modelToViewX( 5 ) );
+    var meterRulerHeight = modelViewTransform.modelToViewX( 5 );
     var meterRulerMajorStickWidth = Math.floor( modelViewTransform.modelToViewX( 1 ) );
     var metersRuler = new RulerNode( meterRulerHeight, rulerWidth, meterRulerMajorStickWidth, ['0', '1', '2', '3', '4', '5'],
       units_metersString, {
@@ -76,11 +76,11 @@ define( function( require ) {
     this.addChild( metersRuler );
 
     // feet ruler
-    // Note: make sure that ruler height and major stick width should be multiples of 10
-    var feetRulerHeight = Math.floor( modelViewTransform.modelToViewX( Units.feetToMeters( 9.5 ) ) );
-    var feetRulerMajorStickWidth = Math.floor( modelViewTransform.modelToViewX( Units.feetToMeters( 0.95 ) ) );
+    // Note: make sure that major stick width and minor stick width are integers
+    var feetRulerHeight = modelViewTransform.modelToViewX( Units.feetToMeters( 10 ) );
+    var feetRulerMajorStickWidth = Math.floor( modelViewTransform.modelToViewX( Units.feetToMeters( 1 ) ) );
     var feetRuler = new RulerNode( feetRulerHeight, rulerWidth, feetRulerMajorStickWidth, ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10'], units_feetString, {
-        minorTicksPerMajorTick: 4,
+        minorTicksPerMajorTick: 2,
         unitsSpacing: 4,
         unitsFont: scaleFont,
         majorTickFont: scaleFont,
