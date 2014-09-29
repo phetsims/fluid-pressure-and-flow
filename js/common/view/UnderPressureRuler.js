@@ -61,7 +61,7 @@ define( function( require ) {
     var rulerWidth = 50;
 
     // meter ruler
-    // Note: make sure that ruler height and major stick width should be multiples of 10
+    // Note: make sure that major stick width and minor stick width are integers
     var meterRulerHeight = modelViewTransform.modelToViewX( 5 );
     var meterRulerMajorStickWidth = Math.floor( modelViewTransform.modelToViewX( 1 ) );
     var metersRuler = new RulerNode( meterRulerHeight, rulerWidth, meterRulerMajorStickWidth, ['0', '1', '2', '3', '4', '5'],
