@@ -26,16 +26,11 @@ define( function( require ) {
     Node.call( this );
     var waterPath = new Path();
 
-    var maxHeight = modelViewTransform.modelToViewY( trapezoidPoolModel.MAX_HEIGHT );//max water height, px
     var yMax = modelViewTransform.modelToViewY( trapezoidPoolModel.poolDimensions.leftChamber.y + trapezoidPoolModel.poolDimensions.leftChamber.height );//bottom y coord of pool, px
     var x1 = modelViewTransform.modelToViewX( trapezoidPoolModel.verticles.x1bottom ); //bottom left corner of the pool
     var x4 = modelViewTransform.modelToViewX( trapezoidPoolModel.verticles.x4bottom ); //bottom right corner of the pool
 
-    trapezoidPoolModel.underPressureModel.waterColorModel.waterColorProperty.link( function() {
-      waterPath.fill = new LinearGradient( 0, yMax, 0, yMax - maxHeight )
-        .addColorStop( 0, trapezoidPoolModel.underPressureModel.waterColorModel.bottomColor )
-        .addColorStop( 1, trapezoidPoolModel.underPressureModel.waterColorModel.topColor );
-    } );
+    trapezoidPoolModel.underPressureModel.waterColorModel.colorProperty.linkAttribute( waterPath, 'fill' );
 
     trapezoidPoolModel.volumeProperty.link( function() {
       var viewHeight = trapezoidPoolModel.MAX_HEIGHT * trapezoidPoolModel.volume / trapezoidPoolModel.MAX_VOLUME; //height of water

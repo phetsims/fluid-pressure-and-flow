@@ -24,9 +24,6 @@ define( function( require ) {
 
     var waterPath = new Path();
 
-    var maxHeight = modelViewTransform.modelToViewY( chamberPoolModel.MAX_HEIGHT );
-    var yMax = modelViewTransform.modelToViewY( chamberPoolModel.underPressureModel.skyGroundBoundY + chamberPoolModel.MAX_HEIGHT );
-
     //calculated view coordinates for water
     var leftOpeningX1 = modelViewTransform.modelToViewX( chamberPoolModel.poolDimensions.leftOpening.x1 );
     var leftOpeningX2 = modelViewTransform.modelToViewX( chamberPoolModel.poolDimensions.leftOpening.x2 );
@@ -70,12 +67,7 @@ define( function( require ) {
         .lineTo( leftOpeningX2, leftY );
     } );
 
-    // todo: can use linkAttribute once we remove the gradient fill.
-    chamberPoolModel.underPressureModel.waterColorModel.waterColorProperty.link( function() {
-      waterPath.fill = new LinearGradient( 0, yMax, 0, yMax - maxHeight )
-        .addColorStop( 0, chamberPoolModel.underPressureModel.waterColorModel.bottomColor )
-        .addColorStop( 1, chamberPoolModel.underPressureModel.waterColorModel.topColor );
-    } );
+    chamberPoolModel.underPressureModel.waterColorModel.colorProperty.linkAttribute( waterPath, 'fill' );
 
     this.addChild( waterPath );
   }

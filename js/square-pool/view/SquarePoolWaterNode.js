@@ -31,12 +31,7 @@ define( function( require ) {
     var xMin = modelViewTransform.modelToViewX( squarePoolModel.poolDimensions.x1 );//left x point of pool in pixels
     var yMax = modelViewTransform.modelToViewY( squarePoolModel.poolDimensions.y2 );//bottom y point of pool in pixels
 
-    // todo: can use linkAttribute once gradient is removed
-    squarePoolModel.underPressureModel.waterColorModel.waterColorProperty.link( function() {
-      squarePoolWaterNode.fill = new LinearGradient( 0, yMax, 0, yMax - maxHeight )
-        .addColorStop( 0, squarePoolModel.underPressureModel.waterColorModel.bottomColor )
-        .addColorStop( 1, squarePoolModel.underPressureModel.waterColorModel.topColor );
-    } );
+    squarePoolModel.underPressureModel.waterColorModel.colorProperty.linkAttribute( squarePoolWaterNode, 'fill' );
 
     squarePoolModel.volumeProperty.link( function() {
       viewHeight = maxHeight * squarePoolModel.volume / squarePoolModel.MAX_VOLUME;

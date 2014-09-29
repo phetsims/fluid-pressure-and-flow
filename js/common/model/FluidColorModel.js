@@ -15,7 +15,7 @@ define( function( require ) {
   var inherit = require( 'PHET_CORE/inherit' );
   var Color = require( 'SCENERY/util/Color' );
   var LinearFunction = require( 'DOT/LinearFunction' );
-  var Constants = require( 'FLUID_PRESSURE_AND_FLOW/watertower/Constants' );
+  var Constants = require( 'UNDER_PRESSURE/common/Constants' );
 
   /**
    * @param {Property<Number>} fluidDensityProperty

@@ -14,7 +14,7 @@ define( function( require ) {
   var PropertySet = require( 'AXON/PropertySet' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Range = require( 'DOT/Range' );
-  var WaterColorModel = require( 'UNDER_PRESSURE/common/model/WaterColorModel' );
+  var FluidColorModel = require( 'UNDER_PRESSURE/common/model/FluidColorModel' );
   var Units = require( 'UNDER_PRESSURE/common/model/Units' );
   var LinearFunction = require( 'DOT/LinearFunction' );
   var Vector2 = require( 'DOT/Vector2' );
@@ -74,7 +74,7 @@ define( function( require ) {
       }
     );
 
-    this.waterColorModel = new WaterColorModel( this );
+    this.waterColorModel = new FluidColorModel( this.fluidDensityProperty, this.fluidDensityRange );
 
     this.sceneModels = {};
     this.scenes.forEach( function( name ) {
