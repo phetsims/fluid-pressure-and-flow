@@ -33,7 +33,7 @@ define( function( require ) {
     var fontOptions = { font: new PhetFont( 12 ), fontWeight: 'bold' };
 
     // add grid lines
-    this.addChild( new GridLinesNode( squarePoolModel.underPressureModel, modelViewTransform, squarePoolModel.poolDimensions.x1, squarePoolModel.poolDimensions.y1, squarePoolModel.poolDimensions.x2, squarePoolModel.poolDimensions.y2 + 0.3 ) );
+    this.addChild( new GridLinesNode( squarePoolModel.underPressureModel.measureUnitsProperty, modelViewTransform, squarePoolModel.poolDimensions.x1, squarePoolModel.poolDimensions.y1, squarePoolModel.poolDimensions.x2, squarePoolModel.poolDimensions.y2 + 0.3 ) );
 
     // meter labels
     var metersLabels = new Node();
