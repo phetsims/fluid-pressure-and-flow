@@ -180,8 +180,8 @@ define( function( require ) {
       align: 'left',
       spacing: 5,
       children: [
-        new AquaRadioButton( waterTowerModel.speedProperty, 'normal', new Text( normalString, textOptions ), {radius: 6} ),
-        new AquaRadioButton( waterTowerModel.speedProperty, 'slow', new Text( slowMotionString, textOptions ), {radius: 6} )
+        new AquaRadioButton( waterTowerModel.speedProperty, 'slow', new Text( slowMotionString, textOptions ), {radius: 6} ),
+        new AquaRadioButton( waterTowerModel.speedProperty, 'normal', new Text( normalString, textOptions ), {radius: 6} )
       ]} );
 
     this.addChild( speedControl.mutate( {right: playPauseButton.left - inset, bottom: playPauseButton.bottom} ) );
