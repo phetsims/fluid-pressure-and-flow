@@ -17,6 +17,7 @@ define( function( require ) {
 
   // strings
   var simTitle = require( 'string!FLUID_PRESSURE_AND_FLOW/fluid-pressure-and-flow.name' );
+  var underPressureTitle = require( 'string!FLUID_PRESSURE_AND_FLOW/under-pressure.name' );
 
   var simOptions = {
     credits: {
@@ -28,7 +29,7 @@ define( function( require ) {
   };
 
   SimLauncher.launch( function() {
-    var sim = new Sim( simTitle, [ new UnderPressureScreen(), new FlowScreen(), new WaterTowerScreen()  ], simOptions );
+    var sim = new Sim( simTitle, [ new UnderPressureScreen( underPressureTitle ), new FlowScreen(), new WaterTowerScreen()  ], simOptions );
     sim.start();
   } );
 } );
