@@ -144,7 +144,7 @@ define( function( require ) {
         [ underPressureModel.currentSceneProperty, underPressureModel.gravityProperty, underPressureModel.fluidDensityProperty,
           underPressureModel.isAtmosphereProperty, underPressureModel.currentVolumeProperty, underPressureModel.leftDisplacementProperty],
         underPressureModel.getPressureAtCoords.bind( underPressureModel ), underPressureModel.getPressureString.bind( underPressureModel ),
-        sensorPanel.visibleBounds, this.layoutBounds, { scale: 1.5, pressureReadOffset: 51  } ) );
+        sensorPanel.visibleBounds, this.layoutBounds, { scale: 1.5, pressureReadOffset: 51, minPressure: 0  } ) );
     }.bind( this ) );
 
 
