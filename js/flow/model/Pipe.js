@@ -9,6 +9,7 @@
 define( function( require ) {
   'use strict';
 
+  // modules
   var inherit = require( 'PHET_CORE/inherit' );
   var PropertySet = require( 'AXON/PropertySet' );
   var Util = require( 'DOT/Util' );
@@ -56,13 +57,6 @@ define( function( require ) {
     for ( m = this.controlCrossSections.length - 1; m >= 0; m-- ) {
       this.controlPoints.push( new PipeControlPoint( this.controlCrossSections[ m ].x, this.controlCrossSections[ m ].yBottom ) );
     }
-
-    // allocate fixed size arrays for holding pipe control points' x,y values. These are used for computing the splines.
-    this.u = new Array( this.controlPoints.length / 2 );
-    this.xBottom = new Array( this.controlPoints.length / 2 );
-    this.yBottom = new Array( this.controlPoints.length / 2 );
-    this.xTop = new Array( this.controlPoints.length / 2 );
-    this.yTop = new Array( this.controlPoints.length / 2 );
   }
 
   return inherit( PropertySet, Pipe, {
@@ -101,41 +95,48 @@ define( function( require ) {
      */
     spline: function( controlCrossSections ) {
       var spline = [];// array to hold the pipe cross sections
+      var top = [];
+      var bottom = [];
 
-      this.top = [];
-      this.bottom = [];
+      // allocate fixed size arrays for holding pipe control points' x,y values. These are used for computing the splines.
+      var u = new Array( this.controlPoints.length / 2 );
+      var xBottom = new Array( this.controlPoints.length / 2 );
+      var yBottom = new Array( this.controlPoints.length / 2 );
+      var xTop = new Array( this.controlPoints.length / 2 );
+      var yTop = new Array( this.controlPoints.length / 2 );
+
       for ( var i = 0; i < controlCrossSections.length; i++ ) {
-        this.top.push( new PipeControlPoint( controlCrossSections[ i ].x, controlCrossSections[ i ].yTop ) );
-        this.bottom.push( new PipeControlPoint( controlCrossSections[ i ].x, controlCrossSections[ i ].yBottom ) );
+        top.push( new PipeControlPoint( controlCrossSections[ i ].x, controlCrossSections[ i ].yTop ) );
+        bottom.push( new PipeControlPoint( controlCrossSections[ i ].x, controlCrossSections[ i ].yBottom ) );
       }
 
       // compute the spline for the pipe top line
-      for ( i = 0; i < this.top.length; i++ ) {
-        this.u[ i ] = i / this.top.length;
-        this.xTop[ i ] = this.top[ i ].position.x;
-        this.yTop[ i ] = this.top[ i ].position.y;
+      for ( i = 0; i < top.length; i++ ) {
+        u[ i ] = i / top.length;
+        xTop[ i ] = top[ i ].position.x;
+        yTop[ i ] = top[ i ].position.y;
       }
-      this.xSplineTop = numeric.spline( this.u, this.xTop );
-      this.ySplineTop = numeric.spline( this.u, this.yTop );
+      var xSplineTop = numeric.spline( u, xTop );
+      var ySplineTop = numeric.spline( u, yTop );
 
       // compute the spline for the pipe bottom line
-      for ( i = 0; i < this.bottom.length; i++ ) {
-        this.u[ i ] = i / this.bottom.length;
-        this.xBottom[ i ] = this.bottom[ i ].position.x;
-        this.yBottom[ i ] = this.bottom[ i ].position.y;
+      for ( i = 0; i < bottom.length; i++ ) {
+        u[ i ] = i / bottom.length;
+        xBottom[ i ] = bottom[ i ].position.x;
+        yBottom[ i ] = bottom[ i ].position.y;
       }
-      this.xSplineBottom = numeric.spline( this.u, this.xBottom );
-      this.ySplineBottom = numeric.spline( this.u, this.yBottom );
+      var xSplineBottom = numeric.spline( u, xBottom );
+      var ySplineBottom = numeric.spline( u, yBottom );
 
       // for line smoothness
       var lastPt = ( this.controlPoints.length - 1) / this.controlPoints.length;
       var linSpace = numeric.linspace( 0, lastPt, 20 * ( this.controlPoints.length - 1) );
 
       // compute points
-      var xPointsBottom = SplineEvaluation.atArray( this.xSplineBottom, linSpace );
-      var yPointsBottom = SplineEvaluation.atArray( this.ySplineBottom, linSpace );
-      var xPointsTop = SplineEvaluation.atArray( this.xSplineTop, linSpace );
-      var yPointsTop = SplineEvaluation.atArray( this.ySplineTop, linSpace );
+      var xPointsBottom = SplineEvaluation.atArray( xSplineBottom, linSpace );
+      var yPointsBottom = SplineEvaluation.atArray( ySplineBottom, linSpace );
+      var xPointsTop = SplineEvaluation.atArray( xSplineTop, linSpace );
+      var yPointsTop = SplineEvaluation.atArray( ySplineTop, linSpace );
 
       // Use spline points to build the intermediate pipe cross-sections.
       // Note: the number of cross-sections to use can be reduced (ex: alpha += 3) to get better performance
@@ -173,17 +174,12 @@ define( function( require ) {
 
     // return the xPosition of the right most cross section
     getMaxX: function() {
-      var sortedPipePositions = this.getPipePositionsSortedByX();
-      return  sortedPipePositions[ sortedPipePositions.length - 1 ].getX();
+      return this.controlCrossSections[ this.controlCrossSections.length - 1 ].getX();
     },
 
     // return the xPosition of the left most cross section
     getMinX: function() {
-      return this.getPipePositionsSortedByX()[ 0 ].getX();
-    },
-
-    getPipePositionsSortedByX: function() {
-      return this.controlCrossSections;
+      return this.controlCrossSections[ 0 ].getX();
     },
 
     // Given a global y-position, determine the fraction to the top (point at bottom = 0, point halfway up = 0.5, etc.)
