@@ -21,7 +21,7 @@ define( function( require ) {
   var VelocitySensor = require( 'FLUID_PRESSURE_AND_FLOW/watertower/model/VelocitySensor' );
   var Barometer = require( 'UNDER_PRESSURE/common/model/Barometer' );
   var ObservableArray = require( 'AXON/ObservableArray' );
-  var FluidColorModel = require( 'FLUID_PRESSURE_AND_FLOW/watertower/model/FluidColorModel' );
+  var FluidColorModel = require( 'UNDER_PRESSURE/common/model/FluidColorModel' );
   var Units = require( 'UNDER_PRESSURE/common/model/Units' );
   var Util = require( 'DOT/Util' );
   var Pipe = require( 'FLUID_PRESSURE_AND_FLOW/flow/model/Pipe' );
@@ -77,7 +77,7 @@ define( function( require ) {
       this.speedometers.push( new VelocitySensor( new Vector2( 0, 0 ), new Vector2( 0, 0 ) ) );
     }
 
-    this.fluidColorModel = new FluidColorModel( this );
+    this.fluidColorModel = new FluidColorModel( this.fluidDensityProperty, this.fluidDensityRange );
 
     this.pipe = new Pipe();
     this.fluxMeter = new FluxMeter( this.pipe );

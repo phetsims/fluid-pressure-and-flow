@@ -19,7 +19,7 @@ define( function( require ) {
   var VelocitySensor = require( 'FLUID_PRESSURE_AND_FLOW/watertower/model/VelocitySensor' );
   var WaterTower = require( 'FLUID_PRESSURE_AND_FLOW/watertower/model/WaterTower' );
   var WaterDrop = require( 'FLUID_PRESSURE_AND_FLOW/watertower/model/WaterDrop' );
-  var FluidColorModel = require( 'FLUID_PRESSURE_AND_FLOW/watertower/model/FluidColorModel' );
+  var FluidColorModel = require( 'UNDER_PRESSURE/common/model/FluidColorModel' );
   var StringUtils = require( 'PHETCOMMON/util/StringUtils' );
   var ObservableArray = require( 'AXON/ObservableArray' );
   var Constants = require( 'FLUID_PRESSURE_AND_FLOW/watertower/Constants' );
@@ -78,7 +78,7 @@ define( function( require ) {
     this.faucetDrops = new ObservableArray();
     this.waterTowerDrops = new ObservableArray();
     this.hoseDrops = new ObservableArray();
-    this.fluidColorModel = new FluidColorModel( this );
+    this.fluidColorModel = new FluidColorModel( this.fluidDensityProperty, this.fluidDensityRange );
 
     this.barometers = [];
     for ( var i = 0; i < 2; i++ ) {
