@@ -39,15 +39,15 @@ define( function( require ) {
     Node.call( this );
     //choice for mystery scene
     var textOptions = { font: new PhetFont( 14 ) };
-    this.choicePanel = new Node( { x: 625, y: 203, scale: 0.7 } );
-    var background = new Rectangle( 0, 0, 0.9, 1, { stroke: 'gray', lineWidth: 1, fill: '#f2fa6a', pickable: false } );
+    this.choicePanel = new Node( { x: 625, y: 195, scale: 0.9 } );
+    var background = new Rectangle( 0, 0, 0, 1, { stroke: 'gray', lineWidth: 1, fill: '#f2fa6a', pickable: false } );
 
-    var mysteryFluidRadio = new AquaRadioButton( mysteryPoolModel.underPressureModel.mysteryChoiceProperty, 'fluidDensity', new Text( mysteryFluid, textOptions ), { radius: 9 } );
-    var mysteryPlanetRadio = new AquaRadioButton( mysteryPoolModel.underPressureModel.mysteryChoiceProperty, 'gravity', new Text( mysteryPlanet, textOptions ), { radius: 9 } );
-    var touchExpansion = 5;
+    var mysteryFluidRadio = new AquaRadioButton( mysteryPoolModel.underPressureModel.mysteryChoiceProperty, 'fluidDensity', new Text( mysteryFluid, textOptions ), { radius: 6 } );
+    var mysteryPlanetRadio = new AquaRadioButton( mysteryPoolModel.underPressureModel.mysteryChoiceProperty, 'gravity', new Text( mysteryPlanet, textOptions ), { radius: 6 } );
+    var touchExpansion = 4;
     var maxRadioButtonWidth = _.max( [ mysteryFluidRadio, mysteryPlanetRadio ], function( item ) {
       return item.width;
-    } ).width + 50;
+    } ).width + 5;
 
     //touch areas
     mysteryFluidRadio.touchArea = new Bounds2( mysteryFluidRadio.localBounds.minX - touchExpansion, mysteryFluidRadio.localBounds.minY, mysteryFluidRadio.localBounds.minX + maxRadioButtonWidth, mysteryFluidRadio.localBounds.maxY );
@@ -91,11 +91,11 @@ define( function( require ) {
     this.addChild( this.gravityComboBox );
 
     this.choicePanel.resizeWidth = function( width ) {
-      background.setRect( 0, 0, width, content.height + 10, 5, 5 );
-      content.centerX = background.centerX - 30;
+      background.setRect( 0, 0, width - 32, content.height + 10, 5, 5 );
+      content.centerX = background.centerX - 4;
       content.centerY = background.centerY;
     };
-    this.choicePanel.resizeWidth( content.width + 70 );
+    this.choicePanel.resizeWidth( content.width + 10 );
 
     mysteryPoolModel.underPressureModel.mysteryChoiceProperty.valueEquals( 'fluidDensity' ).linkAttribute( mysteryPoolControls.fluidDensityComboBox, 'visible' );
     mysteryPoolModel.underPressureModel.mysteryChoiceProperty.valueEquals( 'gravity' ).linkAttribute( mysteryPoolControls.gravityComboBox, 'visible' );

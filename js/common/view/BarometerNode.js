@@ -50,6 +50,7 @@ define( function( require ) {
     var barometerNode = this;
 
     options = _.extend( {
+      pressureReadOffset: 53,
       scale: 1,
       minPressure: Constants.MIN_PRESSURE,
       maxPressure: Constants.MAX_PRESSURE
@@ -117,7 +118,7 @@ define( function( require ) {
         barometer.value = null; // in the initial position barometer has no reading. Not even 0.
       }
       else {
-        barometer.value = getPressureAt( modelViewTransform.viewToModelX( position.x ), modelViewTransform.viewToModelY( position.y + (53 * options.scale) ) );
+        barometer.value = getPressureAt( modelViewTransform.viewToModelX( position.x ), modelViewTransform.viewToModelY( position.y + (options.pressureReadOffset * options.scale) ) );
       }
     } );
 
@@ -129,7 +130,7 @@ define( function( require ) {
       }
       else {
         text.text = getPressureString( barometerValue, units, modelViewTransform.viewToModelX( barometer.position.x ),
-          modelViewTransform.viewToModelY( barometer.position.y + (53 * options.scale) ) );
+          modelViewTransform.viewToModelY( barometer.position.y + (options.pressureReadOffset * options.scale) ) );
         textBackground.setRect( 0, 0, text.width + 4, text.height + 2 );
       }
 

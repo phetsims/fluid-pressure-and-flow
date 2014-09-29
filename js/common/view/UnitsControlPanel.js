@@ -35,7 +35,7 @@ define( function( require ) {
 
     options = _.extend( {
       xMargin: 7,
-      yMargin: 5,
+      yMargin: 6,
       fill: '#f2fa6a ',
       stroke: 'gray',
       lineWidth: 1,
@@ -43,7 +43,8 @@ define( function( require ) {
       scale: 0.8
     }, options );
 
-    var textOptions = {font: new PhetFont( 12 )};
+
+    var textOptions = {font: new PhetFont( 14 )};
 
     var titleText = new Text( unitsString, { font: new PhetFont( 12 ), fontWeight: 'bold' } );
     var metricRadio = new AquaRadioButton( measureUnitsProperty, 'metric', new Text( metricString, textOptions ), { radius: 6 } );

@@ -64,13 +64,6 @@ define( function( require ) {
     this.addChild( backgroundNode );
     backgroundNode.moveToBack();
 
-    var scenes = {};
-    underPressureModel.scenes.forEach( function( name ) {
-      scenes[ name ] = new SceneView[ name ]( underPressureModel.sceneModels[ name ], modelViewTransform, underPressureView.layoutBounds );
-      scenes[ name ].visible = false;
-      underPressureView.addChild( scenes[ name ] );
-    } );
-
     // add reset button
     this.resetAllButton = new ResetAllButton( {
       listener: function() {
@@ -78,24 +71,23 @@ define( function( require ) {
       },
       scale: 0.66,
       right: this.layoutBounds.right - inset,
-      bottom: this.layoutBounds.bottom - inset
+      bottom: this.layoutBounds.bottom - inset + 4
     } );
     this.addChild( this.resetAllButton );
 
-
     //control panel
-    this.controlPanel = new ControlPanel( underPressureModel, { right: this.resetAllButton.right, top: inset, scale: 0.7 } );
+    this.controlPanel = new ControlPanel( underPressureModel, { right: this.resetAllButton.right, top: inset, scale: 0.74 } );
     this.addChild( this.controlPanel );
 
     // units panel
-    this.unitsControlPanel = new UnitsControlPanel( underPressureModel.measureUnitsProperty, this.controlPanel.width, { scale: 0.9, right: this.resetAllButton.right, top: this.controlPanel.bottom + 5 } );
+    this.unitsControlPanel = new UnitsControlPanel( underPressureModel.measureUnitsProperty, this.controlPanel.width, { scale: 0.89, right: this.resetAllButton.right, top: this.controlPanel.bottom + 3 } );
     this.addChild( this.unitsControlPanel );
 
     // gravity slider
     this.gravitySlider = new ControlSlider( underPressureModel.measureUnitsProperty, underPressureModel.gravityProperty, underPressureModel.getGravityString.bind( underPressureModel ), underPressureModel.gravityRange, underPressureModel.gravityControlExpandedProperty, {
 
       right: this.resetAllButton.right,
-      bottom: this.resetAllButton.top - 5,
+      bottom: this.resetAllButton.top - 2,
 
       title: gravityString,
       decimals: 1,
@@ -139,6 +131,30 @@ define( function( require ) {
       ]
     } );
     this.addChild( this.fluidDensitySlider );
+
+    // add the sensors panel
+    var sensorPanel = new Rectangle( 0, 0, 100, 130, 10, 10, {stroke: 'gray', lineWidth: 1, fill: '#f2fa6a', right: this.controlPanel.left - 20, top: this.controlPanel.top} );
+    this.addChild( sensorPanel );
+
+    // add barometers within the sensor panel bounds
+    _.each( underPressureModel.barometers, function( barometer ) {
+      barometer.positionProperty.storeInitialValue( new Vector2( sensorPanel.centerX, sensorPanel.centerY - 15 ) );
+      barometer.reset();
+      this.addChild( new BarometerNode( modelViewTransform, barometer, underPressureModel.measureUnitsProperty,
+        [ underPressureModel.currentSceneProperty, underPressureModel.gravityProperty, underPressureModel.fluidDensityProperty,
+          underPressureModel.isAtmosphereProperty, underPressureModel.currentVolumeProperty, underPressureModel.leftDisplacementProperty],
+        underPressureModel.getPressureAtCoords.bind( underPressureModel ), underPressureModel.getPressureString.bind( underPressureModel ),
+        sensorPanel.visibleBounds, this.layoutBounds, { scale: 1.5, pressureReadOffset: 51  } ) );
+    }.bind( this ) );
+
+
+    var scenes = {};
+    underPressureModel.scenes.forEach( function( name ) {
+      scenes[ name ] = new SceneView[ name ]( underPressureModel.sceneModels[ name ], modelViewTransform, underPressureView.layoutBounds );
+      scenes[ name ].visible = false;
+      underPressureView.addChild( scenes[ name ] );
+    } );
+
 
     underPressureModel.mysteryChoiceProperty.link( function( choice ) {
       if ( underPressureModel.currentScene === 'Mystery' ) {
@@ -195,20 +211,6 @@ define( function( require ) {
 
     this.addChild( new UnderPressureRuler( underPressureModel, modelViewTransform, underPressureView.layoutBounds ) );
 
-    // add the sensors panel
-    var sensorPanel = new Rectangle( 0, 0, 100, 130, 10, 10, {stroke: 'gray', lineWidth: 1, fill: '#f2fa6a', right: this.controlPanel.left - 20, top: this.controlPanel.top} );
-    this.addChild( sensorPanel );
-
-    // add barometers within the sensor panel bounds
-    _.each( underPressureModel.barometers, function( barometer ) {
-      barometer.positionProperty.storeInitialValue( new Vector2( sensorPanel.centerX, sensorPanel.centerY - 15 ) );
-      barometer.reset();
-      this.addChild( new BarometerNode( modelViewTransform, barometer, underPressureModel.measureUnitsProperty,
-        [ underPressureModel.currentSceneProperty, underPressureModel.gravityProperty, underPressureModel.fluidDensityProperty,
-          underPressureModel.isAtmosphereProperty, underPressureModel.currentVolumeProperty, underPressureModel.leftDisplacementProperty],
-        underPressureModel.getPressureAtCoords.bind( underPressureModel ), underPressureModel.getPressureString.bind( underPressureModel ),
-        sensorPanel.visibleBounds, this.layoutBounds, { scale: 1.5 } ) );
-    }.bind( this ) );
 
   }
 
