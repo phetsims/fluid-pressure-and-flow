@@ -6,16 +6,12 @@
 define( function( require ) {
   'use strict';
 
-  // Imports
-  var Screen = require( 'JOIST/Screen' );
+  // modules
   var Sim = require( 'JOIST/Sim' );
   var SimLauncher = require( 'JOIST/SimLauncher' );
-  var ScreenView = require( 'JOIST/ScreenView' );
-  var UnderPressureModel = require( 'UNDER_PRESSURE/common/model/UnderPressureModel' );
-  var UnderPressureView = require( 'UNDER_PRESSURE/common/view/UnderPressureView' );
   var UnderPressureScreen = require( 'UNDER_PRESSURE/UnderPressureScreen' );
 
-  // Strings
+  // strings
   var simTitle = require( 'string!UNDER_PRESSURE/under-pressure.name' );
 
   var simOptions = {

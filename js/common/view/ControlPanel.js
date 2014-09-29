@@ -10,11 +10,9 @@ define( function( require ) {
 
 // modules
   var inherit = require( 'PHET_CORE/inherit' );
-  var Node = require( 'SCENERY/nodes/Node' );
   var VBox = require( 'SCENERY/nodes/VBox' );
   var HBox = require( 'SCENERY/nodes/HBox' );
   var Shape = require( 'KITE/Shape' );
-  var Rectangle = require( 'SCENERY/nodes/Rectangle' );
   var Panel = require( 'SUN/Panel' );
   var HStrut = require( 'SUN/HStrut' );
   var CheckBox = require( 'SUN/CheckBox' );

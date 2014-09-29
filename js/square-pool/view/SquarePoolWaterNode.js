@@ -12,7 +12,6 @@ define( function( require ) {
   // modules
   var inherit = require( 'PHET_CORE/inherit' );
   var Rectangle = require( 'SCENERY/nodes/Rectangle' );
-  var LinearGradient = require( 'SCENERY/util/LinearGradient' );
 
   /**
    * @param {SquarePoolModel} squarePoolModel of the simulation

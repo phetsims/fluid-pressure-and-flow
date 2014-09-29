@@ -12,7 +12,6 @@ define( function( require ) {
   var Node = require( 'SCENERY/nodes/Node' );
   var inherit = require( 'PHET_CORE/inherit' );
   var RulerNode = require( 'SCENERY_PHET/RulerNode' );
-  var ButtonListener = require( 'SCENERY/input/ButtonListener' );
   var Path = require( 'SCENERY/nodes/Path' );
   var Shape = require( 'KITE/Shape' );
   var Vector2 = require( 'DOT/Vector2' );

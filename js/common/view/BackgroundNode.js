@@ -9,7 +9,6 @@ define( function( require ) {
   'use strict';
   var Node = require( 'SCENERY/nodes/Node' );
   var inherit = require( 'PHET_CORE/inherit' );
-  var LinearGradient = require( 'SCENERY/util/LinearGradient' );
   var Rectangle = require( 'SCENERY/nodes/Rectangle' );
   var SkyNode = require( 'SCENERY_PHET/SkyNode' );
   var GroundNode = require( 'SCENERY_PHET/GroundNode' );

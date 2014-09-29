@@ -11,7 +11,6 @@ define( function( require ) {
   // modules
   var StringUtils = require( 'PHETCOMMON/util/StringUtils' );
   var Util = require( 'DOT/Util' );
-  var inherit = require( 'PHET_CORE/inherit' );
 
   // strings
   var atmString = require( 'string!UNDER_PRESSURE/atm' );
@@ -104,5 +103,5 @@ define( function( require ) {
     feetToMeters: function( feet ) {
       return feet / FEET_PER_METER;
     }
-  }
+  };
 } );
