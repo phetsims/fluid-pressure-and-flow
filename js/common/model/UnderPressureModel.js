@@ -158,7 +158,7 @@ define( function( require ) {
     },
 
     getFluidDensityString: function() {
-      return Units.getGravityString( this.fluidDensity, this.measureUnits );
+      return Units.getFluidDensityString( this.fluidDensity, this.measureUnits );
     }
   } );
 } );
