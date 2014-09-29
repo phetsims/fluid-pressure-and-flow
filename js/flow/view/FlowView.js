@@ -26,6 +26,7 @@ define( function( require ) {
   var VelocitySensorNode = require( 'FLUID_PRESSURE_AND_FLOW/watertower/view/VelocitySensorNode' );
   var BarometerNode = require( 'UNDER_PRESSURE/common/view/BarometerNode' );
   var FlowRuler = require( 'FLUID_PRESSURE_AND_FLOW/flow/view/FlowRuler' );
+  var Constants = require( 'FLUID_PRESSURE_AND_FLOW/watertower/Constants' );
 
   var VBox = require( 'SCENERY/nodes/VBox' );
   var PlayPauseButton = require( 'SCENERY_PHET/PlayPauseButton' );
@@ -219,7 +220,7 @@ define( function( require ) {
       this.addChild( new BarometerNode( modelViewTransform, barometer, flowModel.measureUnitsProperty,
         [ flowModel.fluidDensityProperty, flowModel.pipe.flowRateProperty, flowModel.pipe.frictionProperty ],
         flowModel.getPressureAtCoords.bind( flowModel ), flowModel.getPressureString.bind( flowModel ),
-        sensorPanel.visibleBounds, this.layoutBounds, { scale: 0.9 } ) );
+        sensorPanel.visibleBounds, this.layoutBounds, { minPressure: Constants.MIN_PRESSURE, maxPressure: Constants.MAX_PRESSURE, scale: 0.9 } ) );
     }.bind( this ) );
 
     // add the rule node

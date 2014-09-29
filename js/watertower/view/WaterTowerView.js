@@ -41,6 +41,7 @@ define( function( require ) {
   var HoseNode = require( 'FLUID_PRESSURE_AND_FLOW/watertower/view/HoseNode' );
   var VelocitySensorNode = require( 'FLUID_PRESSURE_AND_FLOW/watertower/view/VelocitySensorNode' );
   var FaucetControlPanel = require( 'FLUID_PRESSURE_AND_FLOW/watertower/view/FaucetControlPanel' );
+  var Constants = require( 'FLUID_PRESSURE_AND_FLOW/watertower/Constants' );
 
   //strings
   var fluidDensityString = require( 'string!FLUID_PRESSURE_AND_FLOW/fluidDensity' );
@@ -196,7 +197,7 @@ define( function( require ) {
       this.addChild( new BarometerNode( modelViewTransform, barometer, waterTowerModel.measureUnitsProperty,
         [ waterTowerModel.fluidDensityProperty, waterTowerModel.waterTower.tankPositionProperty, waterTowerModel.waterTower.fluidLevelProperty],
         waterTowerModel.getPressureAtCoords.bind( waterTowerModel ), waterTowerModel.getPressureString.bind( waterTowerModel ),
-        sensorPanel.visibleBounds, this.layoutBounds.withMaxY( this.layoutBounds.maxY - 62 ) ) );
+        sensorPanel.visibleBounds, this.layoutBounds.withMaxY( this.layoutBounds.maxY - 62 ), {minPressure: Constants.MIN_PRESSURE, maxPressure: Constants.MAX_PRESSURE} ) );
     }.bind( this ) );
 
     // add speedometers within the sensor panel bounds
