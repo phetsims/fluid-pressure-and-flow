@@ -11,10 +11,10 @@ define( function( require ) {
   // modules
   var inherit = require( 'PHET_CORE/inherit' );
   var Node = require( 'SCENERY/nodes/Node' );
-  var TrapezoidPoolBack = require( 'trapezoid-pool/view/TrapezoidPoolBack' );
+  var TrapezoidPoolBack = require( 'UNDER_PRESSURE/trapezoid-pool/view/TrapezoidPoolBack' );
   var FaucetFluidNode = require( 'UNDER_PRESSURE/common/view/FaucetFluidNode' );
-  var TrapezoidPoolWaterNode = require( 'trapezoid-pool/view/TrapezoidPoolWaterNode' );
-  var TrapezoidPoolGrid = require( 'trapezoid-pool/view/TrapezoidPoolGrid' );
+  var TrapezoidPoolWaterNode = require( 'UNDER_PRESSURE/trapezoid-pool/view/TrapezoidPoolWaterNode' );
+  var TrapezoidPoolGrid = require( 'UNDER_PRESSURE/trapezoid-pool/view/TrapezoidPoolGrid' );
 
   /**
    * @param {TrapezoidPoolModel} trapezoidPoolModel

@@ -11,10 +11,10 @@ define( function( require ) {
   //modules
   var inherit = require( 'PHET_CORE/inherit' );
   var Node = require( 'SCENERY/nodes/Node' );
-  var SquarePoolBack = require( 'square-pool/view/SquarePoolBack' );
+  var SquarePoolBack = require( 'UNDER_PRESSURE/square-pool/view/SquarePoolBack' );
   var FaucetFluidNode = require( 'UNDER_PRESSURE/common/view/FaucetFluidNode' );
-  var SquarePoolWaterNode = require( 'square-pool/view/SquarePoolWaterNode' );
-  var SquarePoolGrid = require( 'square-pool/view/SquarePoolGrid' );
+  var SquarePoolWaterNode = require( 'UNDER_PRESSURE/square-pool/view/SquarePoolWaterNode' );
+  var SquarePoolGrid = require( 'UNDER_PRESSURE/square-pool/view/SquarePoolGrid' );
 
   /**
    * @param {SquarePoolModel} squarePoolModel of the simulation

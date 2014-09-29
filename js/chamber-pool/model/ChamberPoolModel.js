@@ -14,7 +14,7 @@ define( function( require ) {
   var PropertySet = require( 'AXON/PropertySet' );
   var ObservableArray = require( 'AXON/ObservableArray' );
   var inherit = require( 'PHET_CORE/inherit' );
-  var MassModel = require( 'chamber-pool/model/MassModel' );
+  var MassModel = require( 'UNDER_PRESSURE/chamber-pool/model/MassModel' );
 
   var lastDt = 0;//to filter dt in step.
 

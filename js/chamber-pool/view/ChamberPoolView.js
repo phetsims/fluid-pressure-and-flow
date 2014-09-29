@@ -12,11 +12,11 @@ define( function( require ) {
   // modules
   var inherit = require( 'PHET_CORE/inherit' );
   var Node = require( 'SCENERY/nodes/Node' );
-  var ChamberPoolBack = require( 'chamber-pool/view/ChamberPoolBack' );
-  var ChamberPoolWaterNode = require( 'chamber-pool/view/ChamberPoolWaterNode' );
-  var MassNode = require( 'chamber-pool/view/MassNode' );
-  var MassStackNode = require( 'chamber-pool/view/MassStackNode' );
-  var TrapezoidPoolGrid = require( 'trapezoid-pool/view/TrapezoidPoolGrid' );
+  var ChamberPoolBack = require( 'UNDER_PRESSURE/chamber-pool/view/ChamberPoolBack' );
+  var ChamberPoolWaterNode = require( 'UNDER_PRESSURE/chamber-pool/view/ChamberPoolWaterNode' );
+  var MassNode = require( 'UNDER_PRESSURE/chamber-pool/view/MassNode' );
+  var MassStackNode = require( 'UNDER_PRESSURE/chamber-pool/view/MassStackNode' );
+  var TrapezoidPoolGrid = require( 'UNDER_PRESSURE/trapezoid-pool/view/TrapezoidPoolGrid' );
 
   /**
    *
