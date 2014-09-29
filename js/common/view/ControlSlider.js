@@ -148,8 +148,8 @@ define( function( require ) {
     trackProperty.link( function( value ) {
       valueLabel.text = getPropertyStringFunction();
       valueLabel.center = valueField.center; // keep the value centered in the field
-      plusButton.setEnabled( value < trackRange.max );
-      minusButton.setEnabled( value > trackRange.min );
+      plusButton.enabled = ( value < trackRange.max );
+      minusButton.enabled = ( value > trackRange.min );
     } );
 
     measureUnitsProperty.link( function() {
