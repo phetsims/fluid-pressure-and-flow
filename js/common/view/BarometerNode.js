@@ -50,13 +50,15 @@ define( function( require ) {
     var barometerNode = this;
 
     options = _.extend( {
-      scale: 1
+      scale: 1,
+      minPressure: Constants.MIN_PRESSURE,
+      maxPressure: Constants.MAX_PRESSURE
     }, options );
 
     Node.call( this, {cursor: 'pointer'} );
 
     // Show the circular part of the gauge and the needle
-    var gaugeNode = new GaugeNode( barometer.valueProperty, pressureString, {min: Constants.MIN_PRESSURE, max: Constants.MAX_PRESSURE}, {scale: 0.4} );
+    var gaugeNode = new GaugeNode( barometer.valueProperty, pressureString, {min: options.minPressure, max: options.maxPressure}, {scale: 0.4} );
     this.addChild( gaugeNode );
 
     var underGaugeRectangleWidth = 18;

@@ -10,7 +10,7 @@ define( function() {
   return {
     EARTH_GRAVITY: 9.8,
     MIN_PRESSURE: 50000,
-    MAX_PRESSURE: 250000,
+    MAX_PRESSURE: 350000,
 
     MIN_FLOW_RATE: 1000,
     MAX_FLOW_RATE: 10000,
