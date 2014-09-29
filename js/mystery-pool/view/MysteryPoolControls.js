@@ -39,7 +39,7 @@ define( function( require ) {
     Node.call( this );
     //choice for mystery scene
     var textOptions = { font: new PhetFont( 14 ) };
-    this.choicePanel = new Node( { x: 625, y: 195, scale: 0.7 } );
+    this.choicePanel = new Node( { x: 625, y: 203, scale: 0.7 } );
     var background = new Rectangle( 0, 0, 0.9, 1, { stroke: 'gray', lineWidth: 1, fill: '#f2fa6a', pickable: false } );
 
     var mysteryFluidRadio = new AquaRadioButton( mysteryPoolModel.underPressureModel.mysteryChoiceProperty, 'fluidDensity', new Text( mysteryFluid, textOptions ), { radius: 9 } );
@@ -47,7 +47,7 @@ define( function( require ) {
     var touchExpansion = 5;
     var maxRadioButtonWidth = _.max( [ mysteryFluidRadio, mysteryPlanetRadio ], function( item ) {
       return item.width;
-    } ).width + 5;
+    } ).width + 50;
 
     //touch areas
     mysteryFluidRadio.touchArea = new Bounds2( mysteryFluidRadio.localBounds.minX - touchExpansion, mysteryFluidRadio.localBounds.minY, mysteryFluidRadio.localBounds.minX + maxRadioButtonWidth, mysteryFluidRadio.localBounds.maxY );
@@ -67,7 +67,7 @@ define( function( require ) {
       ComboBox.createItem( new Text( fluidA, textOptions ), 0 ),
       ComboBox.createItem( new Text( fluidB, textOptions ), 1 ),
       ComboBox.createItem( new Text( fluidC, textOptions ), 2 )
-    ], mysteryPoolModel.fluidDensityCustomProperty, mysteryPoolControls, {
+    ], mysteryPoolModel.fluidDensityCustom, mysteryPoolControls, {
       itemHighlightFill: 'rgb(218,255,255)',
       y: 260,
       x: 450,
@@ -81,7 +81,7 @@ define( function( require ) {
       ComboBox.createItem( new Text( planetA, textOptions ), 0 ),
       ComboBox.createItem( new Text( planetB, textOptions ), 1 ),
       ComboBox.createItem( new Text( planetC, textOptions ), 2 )
-    ], mysteryPoolModel.gravityCustomProperty, mysteryPoolControls, {
+    ], mysteryPoolModel.gravityCustom, mysteryPoolControls, {
       itemHighlightFill: 'rgb(218,255,255)',
       y: 260,
       x: 450,
@@ -92,10 +92,10 @@ define( function( require ) {
 
     this.choicePanel.resizeWidth = function( width ) {
       background.setRect( 0, 0, width, content.height + 10, 5, 5 );
-      content.centerX = background.centerX;
+      content.centerX = background.centerX - 30;
       content.centerY = background.centerY;
     };
-    this.choicePanel.resizeWidth( content.width + 10 );
+    this.choicePanel.resizeWidth( content.width + 70 );
 
     mysteryPoolModel.underPressureModel.mysteryChoiceProperty.valueEquals( 'fluidDensity' ).linkAttribute( mysteryPoolControls.fluidDensityComboBox, 'visible' );
     mysteryPoolModel.underPressureModel.mysteryChoiceProperty.valueEquals( 'gravity' ).linkAttribute( mysteryPoolControls.gravityComboBox, 'visible' );
