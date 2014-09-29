@@ -74,7 +74,7 @@ define( function( require ) {
       }
     );
 
-    this.waterColorModel = new FluidColorModel( this.fluidDensityProperty, this.fluidDensityRange );
+    this.fluidColorModel = new FluidColorModel( this.fluidDensityProperty, this.fluidDensityRange );
 
     this.sceneModels = {};
     this.scenes.forEach( function( name ) {

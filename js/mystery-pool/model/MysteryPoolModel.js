@@ -81,7 +81,7 @@ define( function( require ) {
 
       if ( this.underPressureModel.mysteryChoice === 'fluidDensity' ) {
         this.underPressureModel.fluidDensity = this.fluidDensityChoices[ this.fluidDensityCustomProperty.value ];
-        this.underPressureModel.waterColorModel.setWaterColor( this.waterColor[ this.fluidDensityCustomProperty.value ] );
+        this.underPressureModel.fluidColorModel.setWaterColor( this.waterColor[ this.fluidDensityCustomProperty.value ] );
       }
       else {
         this.underPressureModel.gravity = this.gravityChoices[ this.gravityCustomProperty.value ];

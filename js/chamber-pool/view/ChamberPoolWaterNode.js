@@ -67,7 +67,7 @@ define( function( require ) {
         .lineTo( leftOpeningX2, leftY );
     } );
 
-    chamberPoolModel.underPressureModel.waterColorModel.colorProperty.linkAttribute( waterPath, 'fill' );
+    chamberPoolModel.underPressureModel.fluidColorModel.colorProperty.linkAttribute( waterPath, 'fill' );
 
     this.addChild( waterPath );
   }

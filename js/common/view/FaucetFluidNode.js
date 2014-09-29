@@ -32,7 +32,7 @@ define( function( require ) {
       thisNode.setRect( modelViewTransform.modelToViewX( faucet.location.x ) - (thisNode.viewWidth / 2), modelViewTransform.modelToViewY( faucet.location.y ), thisNode.viewWidth, thisNode.currentHeight );
     };
 
-    model.underPressureModel.waterColorModel.colorProperty.linkAttribute( thisNode, 'fill' );
+    model.underPressureModel.fluidColorModel.colorProperty.linkAttribute( thisNode, 'fill' );
 
     faucet.flowRateProperty.link( function( flowRate ) {
       if ( flowRate === 0 ) {

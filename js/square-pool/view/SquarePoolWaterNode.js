@@ -31,7 +31,7 @@ define( function( require ) {
     var xMin = modelViewTransform.modelToViewX( squarePoolModel.poolDimensions.x1 );//left x point of pool in pixels
     var yMax = modelViewTransform.modelToViewY( squarePoolModel.poolDimensions.y2 );//bottom y point of pool in pixels
 
-    squarePoolModel.underPressureModel.waterColorModel.colorProperty.linkAttribute( squarePoolWaterNode, 'fill' );
+    squarePoolModel.underPressureModel.fluidColorModel.colorProperty.linkAttribute( squarePoolWaterNode, 'fill' );
 
     squarePoolModel.volumeProperty.link( function() {
       viewHeight = maxHeight * squarePoolModel.volume / squarePoolModel.MAX_VOLUME;

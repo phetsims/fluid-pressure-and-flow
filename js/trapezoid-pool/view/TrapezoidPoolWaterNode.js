@@ -30,7 +30,7 @@ define( function( require ) {
     var x1 = modelViewTransform.modelToViewX( trapezoidPoolModel.verticles.x1bottom ); //bottom left corner of the pool
     var x4 = modelViewTransform.modelToViewX( trapezoidPoolModel.verticles.x4bottom ); //bottom right corner of the pool
 
-    trapezoidPoolModel.underPressureModel.waterColorModel.colorProperty.linkAttribute( waterPath, 'fill' );
+    trapezoidPoolModel.underPressureModel.fluidColorModel.colorProperty.linkAttribute( waterPath, 'fill' );
 
     trapezoidPoolModel.volumeProperty.link( function() {
       var viewHeight = trapezoidPoolModel.MAX_HEIGHT * trapezoidPoolModel.volume / trapezoidPoolModel.MAX_VOLUME; //height of water
