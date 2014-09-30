@@ -328,12 +328,11 @@ define( function( require ) {
       return Util.linear( 0, 1, position.yBottom, position.yTop, fraction );
     },
 
-
     /**
      * Get the point at the specified location
      * @param {Number} x position  is in meters
-     * @param {Number}  fractionToTop is in (0,1)
-     * @returns {Vector2 } the position vector of the point
+     * @param {Number} fractionToTop is in (0,1)
+     * @returns {Vector2} the position vector of the point
      */
     getPoint: function( x, fractionToTop ) {
       return new Vector2( x, this.fractionToLocation( x, fractionToTop ) );
