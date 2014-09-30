@@ -76,14 +76,10 @@ define( function( require ) {
     // creates the set of interpolated cross section samples from the control cross sections.
     createSpline: function() {
       // update the control cross section with the new pipe cross sections by using updated control points
-      this.controlCrossSections[ 0 ] = new PipeCrossSection( this.controlPoints[ 0 ].position.x, this.controlPoints[ 13 ].position.y, this.controlPoints[ 0 ].position.y );
-      this.controlCrossSections[ 1 ] = new PipeCrossSection( this.controlPoints[ 1 ].position.x, this.controlPoints[ 12 ].position.y, this.controlPoints[ 1 ].position.y );
-      this.controlCrossSections[ 2 ] = new PipeCrossSection( this.controlPoints[ 2 ].position.x, this.controlPoints[ 11 ].position.y, this.controlPoints[ 2 ].position.y );
-      this.controlCrossSections[ 3 ] = new PipeCrossSection( this.controlPoints[ 3 ].position.x, this.controlPoints[ 10 ].position.y, this.controlPoints[ 3 ].position.y );
-      this.controlCrossSections[ 4 ] = new PipeCrossSection( this.controlPoints[ 4 ].position.x, this.controlPoints[ 9 ].position.y, this.controlPoints[ 4 ].position.y );
-      this.controlCrossSections[ 5 ] = new PipeCrossSection( this.controlPoints[ 5 ].position.x, this.controlPoints[ 8 ].position.y, this.controlPoints[ 5 ].position.y );
-      this.controlCrossSections[ 6 ] = new PipeCrossSection( this.controlPoints[ 6 ].position.x, this.controlPoints[ 7 ].position.y, this.controlPoints[ 6 ].position.y );
-
+      var numberOfControlPoints = this.controlPoints.length;
+      for ( var i = 0; i < numberOfControlPoints / 2; i++ ) {
+        this.controlCrossSections[ i ] = new PipeCrossSection( this.controlPoints[ i ].position.x, this.controlPoints[ numberOfControlPoints - ( i + 1) ].position.y, this.controlPoints[ i ].position.y );
+      }
       var pipePositions = [ new PipeCrossSection( this.getMinX(), this.getBottomLeft().y, this.getTopLeft().y )].concat( this.controlCrossSections );
       var dx = 0.3;//extend water flow so it looks like it enters the pipe cutaway
       pipePositions.push( new PipeCrossSection( this.getMaxX() + dx, this.getBottomRight().y, this.getTopRight().y ) );
