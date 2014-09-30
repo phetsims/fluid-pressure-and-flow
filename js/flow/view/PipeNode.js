@@ -108,7 +108,7 @@ define( function( require ) {
     }
 
     // Injector which generates grid particles
-    this.gridInjectorNode = new GridInjectorNode( flowModel );
+    this.gridInjectorNode = new GridInjectorNode( flowModel.isGridInjectorPressedProperty );
     this.addChild( this.gridInjectorNode );
 
     this.gridInjectorNode.setTranslation( modelViewTransform.modelToViewX( pipeNode.gridInjectorX ) - pipeNode.gridInjectorNodeXOffset, modelViewTransform.modelToViewY( this.pipe.getCrossSection( pipeNode.gridInjectorX ).yTop ) - pipeNode.gridInjectorNodeYOffset );

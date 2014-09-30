@@ -18,18 +18,18 @@ define( function( require ) {
 
   /**
    * Node that injects the grid dots
-   * @param {FlowModel} flowModel of the simulation
+   * @param {Property<Boolean>} isGridInjectorPressedProperty indicates whether the injector is pressed or not
    * @param {Object} options that can be passed on to the underlying node
    * @constructor
    */
-  function GridInjectorNode( flowModel, options ) {
+  function GridInjectorNode( isGridInjectorPressedProperty, options ) {
 
     Node.call( this );
     var gridInjectorNode = this;
 
     var injector = new Image( injectorBulbImage, { scale: 0.35 } );
 
-    this.redButton = new RoundStickyToggleButton( false, true, flowModel.isGridInjectorPressedProperty, { radius: 25, centerX: injector.centerX, top: injector.top + 31, baseColor: 'red', stroke: 'red', fill: 'red', touchExpansion: 10 } );
+    this.redButton = new RoundStickyToggleButton( false, true, isGridInjectorPressedProperty, { radius: 25, centerX: injector.centerX, top: injector.top + 31, baseColor: 'red', stroke: 'red', fill: 'red', touchExpansion: 10 } );
 
     // add grid injector
     gridInjectorNode.addChild( new Node( { children: [ injector, this.redButton ] } ) );
