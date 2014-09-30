@@ -142,6 +142,12 @@ define( function( require ) {
 
     barometerNode.touchArea = barometerNode.localBounds.dilatedXY( 0, 0 );
 
+    barometer.on( 'update', function() {
+      if ( barometer.position !== barometer.positionProperty.initialValue ) {
+        barometer.value = getPressureAt( modelViewTransform.viewToModelX( barometer.position.x ), modelViewTransform.viewToModelY( barometer.position.y + (options.pressureReadOffset * options.scale) ) );
+      }
+    } );
+
     this.mutate( options );
   }
 
