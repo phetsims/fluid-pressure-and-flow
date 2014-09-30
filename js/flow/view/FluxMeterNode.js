@@ -19,7 +19,6 @@ define( function( require ) {
   var Property = require( 'AXON/Property' );
   var Node = require( 'SCENERY/nodes/Node' );
   var Image = require( 'SCENERY/nodes/Image' );
-
   var Path = require( 'SCENERY/nodes/Path' );
   var Shape = require( 'KITE/Shape' );
   var Color = require( 'SCENERY/util/Color' );
@@ -49,6 +48,7 @@ define( function( require ) {
    * @constructor
    */
   function FluxMeterNode( flowModel, modelViewTransform, options ) {
+
     var fluxMeterNode = this;
     Node.call( this );
 
@@ -112,15 +112,16 @@ define( function( require ) {
       lineWidth: 2
     } );
 
-
     var yTop = modelViewTransform.modelToViewY( flowModel.pipe.fractionToLocation( flowModel.fluxMeter.xPosition, 1 ) );
     var yBottom = modelViewTransform.modelToViewY( flowModel.pipe.fractionToLocation( flowModel.fluxMeter.xPosition, 0 ) );
     var centerY = ( yTop + yBottom ) / 2;
     var radiusY = ( yBottom - yTop ) / 2;
+    var initialCenterX = 60; // initial center x of ellipse
+    this.radiusX = 6; // x radius for the ellipse is  always constant
 
     // split the ring into two ellipses
-    this.ellipse = new Path( new Shape().ellipticalArc( 60, centerY, radiusY, 6, Math.PI / 2, 0, Math.PI, false ), { lineWidth: '5', stroke: 'blue' } );
-    this.ellipse2 = new Path( new Shape().ellipticalArc( 60, centerY, radiusY, 6, Math.PI / 2, Math.PI, 0, false ), { lineWidth: '5', stroke: new Color( 0, 0, 255, 0.5 ) } );
+    this.ellipse = new Path( new Shape().ellipticalArc( initialCenterX, centerY, radiusY, this.radiusX, Math.PI / 2, 0, Math.PI, false ), { lineWidth: '5', stroke: 'blue' } );
+    this.ellipse2 = new Path( new Shape().ellipticalArc( initialCenterX, centerY, radiusY, this.radiusX, Math.PI / 2, Math.PI, 0, false ), { lineWidth: '5', stroke: new Color( 0, 0, 255, 0.5 ) } );
 
     // add only the first ellipse. The second ellipse is added by the pipe node.
     this.addChild( this.ellipse );
@@ -193,8 +194,8 @@ define( function( require ) {
       var centerY = ( yTop + yBottom ) / 2;
       var radiusY = ( yBottom - yTop ) / 2;
 
-      var newEllipse1 = new Shape().ellipticalArc( centerX, centerY, radiusY, 6, Math.PI / 2, 0, Math.PI, false );
-      var newEllipse2 = new Shape().ellipticalArc( centerX, centerY, radiusY, 6, Math.PI / 2, Math.PI, 0, false );
+      var newEllipse1 = new Shape().ellipticalArc( centerX, centerY, radiusY, this.radiusX, Math.PI / 2, 0, Math.PI, false );
+      var newEllipse2 = new Shape().ellipticalArc( centerX, centerY, radiusY, this.radiusX, Math.PI / 2, Math.PI, 0, false );
 
       this.ellipse.setShape( newEllipse1 );
       this.ellipse2.setShape( newEllipse2 );
@@ -240,9 +241,7 @@ define( function( require ) {
         var flux = this.flowModel.fluxMeter.getFlux() * Units.FEET_PER_CENTIMETER;
         this.fluxValue.text = flux.toFixed( 1 );
         this.fluxUnit.text = fluxUnitsEnglish;
-
       }
     }
-
   } );
 } );
