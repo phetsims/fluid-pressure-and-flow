@@ -88,13 +88,14 @@ define( function( require ) {
 
     /**
      * Interpolates the specified control points to obtain a smooth set of cross sections
-     * @param {PipeCrossSection[]} controlCrossSections that are used to generate the spline
-     * @returns {PipeCrossSection[]} array of interpolated cross-sections
+     * @param {Array<PipeCrossSection>} controlCrossSections that are used to generate the spline
+     * @returns {Array<PipeCrossSection>} array of interpolated cross-sections
      */
     spline: function( controlCrossSections ) {
       var spline = [];// array to hold the pipe cross sections
       var top = [];
       var bottom = [];
+      var i; // for-loop
 
       // allocate fixed size arrays for holding pipe control points' x,y values. These are used for computing the splines.
       var u = new Array( this.controlPoints.length / 2 );
@@ -103,7 +104,7 @@ define( function( require ) {
       var xTop = new Array( this.controlPoints.length / 2 );
       var yTop = new Array( this.controlPoints.length / 2 );
 
-      for ( var i = 0; i < controlCrossSections.length; i++ ) {
+      for ( i = 0; i < controlCrossSections.length; i++ ) {
         top.push( new PipeControlPoint( controlCrossSections[ i ].x, controlCrossSections[ i ].yTop ) );
         bottom.push( new PipeControlPoint( controlCrossSections[ i ].x, controlCrossSections[ i ].yBottom ) );
       }
