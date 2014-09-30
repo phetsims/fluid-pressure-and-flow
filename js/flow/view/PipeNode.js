@@ -345,6 +345,10 @@ define( function( require ) {
               flowModel.speedometers[ 0 ].trigger( 'update' );
               flowModel.speedometers[ 1 ].trigger( 'update' );
 
+              // update the barometers
+              flowModel.barometers[ 0 ].trigger( 'update' );
+              flowModel.barometers[ 1 ].trigger( 'update' );
+
             }
 
           } ) );
@@ -442,6 +446,10 @@ define( function( require ) {
             // update the velocity sensors
             flowModel.speedometers[ 0 ].trigger( 'update' );
             flowModel.speedometers[ 1 ].trigger( 'update' );
+
+            // update the barometers
+            flowModel.barometers[ 0 ].trigger( 'update' );
+            flowModel.barometers[ 1 ].trigger( 'update' );
 
             // reposition the grid injector
             pipeNode.gridInjectorNode.setTranslation( modelViewTransform.modelToViewX( pipeNode.gridInjectorX ) - pipeNode.gridInjectorNodeXOffset, modelViewTransform.modelToViewY( pipeNode.pipe.getCrossSection( pipeNode.gridInjectorX ).yTop ) - pipeNode.gridInjectorNodeYOffset );
