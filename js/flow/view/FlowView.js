@@ -97,29 +97,34 @@ define( function( require ) {
     var unitsControlPanel = new UnitsControlPanel( flowModel.measureUnitsProperty, 50, { right: toolsControlPanel.left - 7, top: toolsControlPanel.top } );
     this.addChild( unitsControlPanel );
 
-
     // add the fluid density control slider
-    var fluidDensityControlNode = new ControlSlider( flowModel.measureUnitsProperty, flowModel.fluidDensityProperty, flowModel.getFluidDensityString.bind( flowModel ), flowModel.fluidDensityRange, flowModel.fluidDensityControlExpandedProperty, {
-      right: this.layoutBounds.right - 105,
-      bottom: this.layoutBounds.bottom - 7,
-      title: fluidDensityString,
-      ticks: [
-        {
-          title: waterString,
-          value: flowModel.fluidDensity
-        },
-        {
-          title: gasolineString,
-          value: flowModel.fluidDensityRange.min
-        },
-        {
-          title: honeyString,
-          value: flowModel.fluidDensityRange.max
-        }
-      ],
-      scale: 0.9,
-      titleAlign: 'center'
-    } );
+    var fluidDensityControlNode = new ControlSlider(
+      flowModel.measureUnitsProperty,
+      flowModel.fluidDensityProperty,
+      flowModel.getFluidDensityString.bind( flowModel ),
+      flowModel.fluidDensityRange,
+      flowModel.fluidDensityControlExpandedProperty,
+      {
+        right: this.layoutBounds.right - 105,
+        bottom: this.layoutBounds.bottom - 7,
+        title: fluidDensityString,
+        ticks: [
+          {
+            title: waterString,
+            value: flowModel.fluidDensity
+          },
+          {
+            title: gasolineString,
+            value: flowModel.fluidDensityRange.min
+          },
+          {
+            title: honeyString,
+            value: flowModel.fluidDensityRange.max
+          }
+        ],
+        scale: 0.9,
+        titleAlign: 'center'
+      } );
     this.addChild( fluidDensityControlNode );
 
     var fluxMeterNode = new FluxMeterNode( flowModel, modelViewTransform, { stroke: 'blue' } );
@@ -175,7 +180,7 @@ define( function( require ) {
     // add sim speed controls
     var slowMotionRadioBox = new AquaRadioButton( flowModel.speedProperty, 'slow', new Text( slowMotionString, { font: new PhetFont( 12 ) } ), { radius: 8 } );
     var normalMotionRadioBox = new AquaRadioButton( flowModel.speedProperty, 'normal', new Text( normalString, { font: new PhetFont( 12 ) } ), { radius: 8 } );
-    var speedControlMaxWidth = ( slowMotionRadioBox.width > normalMotionRadioBox.width) ? slowMotionRadioBox.width : normalMotionRadioBox.width;
+    var speedControlMaxWidth = ( slowMotionRadioBox.width > normalMotionRadioBox.width ) ? slowMotionRadioBox.width : normalMotionRadioBox.width;
     slowMotionRadioBox.touchArea = new Bounds2( slowMotionRadioBox.localBounds.minX, slowMotionRadioBox.localBounds.minY, slowMotionRadioBox.localBounds.minX + speedControlMaxWidth, slowMotionRadioBox.localBounds.maxY );
     normalMotionRadioBox.touchArea = new Bounds2( normalMotionRadioBox.localBounds.minX, normalMotionRadioBox.localBounds.minY, normalMotionRadioBox.localBounds.minX + speedControlMaxWidth, normalMotionRadioBox.localBounds.maxY );
 
@@ -186,24 +191,30 @@ define( function( require ) {
     this.addChild( speedControl.mutate( { right: playPauseButton.left - 8, bottom: playPauseButton.bottom } ) );
 
     // add flow rate panel
-    var flowRateControlNode = new ControlSlider( flowModel.measureUnitsProperty, flowModel.pipe.flowRateProperty, flowModel.getFluidFlowRateString.bind( flowModel ), flowModel.flowRateRange, flowModel.flowRateControlExpandedProperty, {
-      right: speedControl.left - 20,
-      bottom: this.layoutBounds.bottom - 7,
-      title: flowRateString,
-      ticks: [
-        {
-          title: 'Min',
-          value: Constants.MIN_FLOW_RATE
-        },
-        {
-          title: 'Max',
-          value: Constants.MAX_FLOW_RATE
-        }
-      ],
-      ticksVisible: false,
-      titleAlign: 'center',
-      scale: 0.9
-    } );
+    var flowRateControlNode = new ControlSlider(
+      flowModel.measureUnitsProperty,
+      flowModel.pipe.flowRateProperty,
+      flowModel.getFluidFlowRateString.bind( flowModel ),
+      flowModel.flowRateRange,
+      flowModel.flowRateControlExpandedProperty,
+      {
+        right: speedControl.left - 20,
+        bottom: this.layoutBounds.bottom - 7,
+        title: flowRateString,
+        ticks: [
+          {
+            title: 'Min',
+            value: Constants.MIN_FLOW_RATE
+          },
+          {
+            title: 'Max',
+            value: Constants.MAX_FLOW_RATE
+          }
+        ],
+        ticksVisible: false,
+        titleAlign: 'center',
+        scale: 0.9
+      } );
     this.addChild( flowRateControlNode );
 
     // add speedometers within the sensor panel bounds
