@@ -16,7 +16,7 @@ define( function( require ) {
   var Vector2 = require( 'DOT/Vector2' );
   var Units = require( 'UNDER_PRESSURE/common/model/Units' );
   var Barometer = require( 'UNDER_PRESSURE/common/model/Barometer' );
-  var VelocitySensor = require( 'FLUID_PRESSURE_AND_FLOW/watertower/model/VelocitySensor' );
+  var VelocitySensor = require( 'FLUID_PRESSURE_AND_FLOW/common/model/VelocitySensor' );
   var WaterTower = require( 'FLUID_PRESSURE_AND_FLOW/watertower/model/WaterTower' );
   var WaterDrop = require( 'FLUID_PRESSURE_AND_FLOW/watertower/model/WaterDrop' );
   var FluidColorModel = require( 'UNDER_PRESSURE/common/model/FluidColorModel' );

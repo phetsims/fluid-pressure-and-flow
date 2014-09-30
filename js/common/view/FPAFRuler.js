@@ -1,10 +1,10 @@
-// Copyright 2002-2013, University of Colorado Boulder
+// Copyright (c) 2002 - 2014. University of Colorado Boulder
 
 /**
  * Ruler Node. Supports english and metric views of the ruler.
  * @author Shakhov Vasily (Mlearner)
+ * @author Siddhartha Chinthapally (Actual Concepts).
  */
-
 define( function( require ) {
   'use strict';
 
@@ -30,22 +30,39 @@ define( function( require ) {
    * @param {Property<String>} measureUnitsProperty controls the ruler view -- english/metric
    * @param {ModelViewTransform2} modelViewTransform to convert model units to view units
    * @param {Bounds2} dragBounds for the area where the ruler can be dragged
-   * @param options
+   * @param {Object} options that can be passed on to the underlying node
    * @constructor
    */
-  function WaterTowerRuler( isRulerVisibleProperty, rulerPositionProperty, measureUnitsProperty, modelViewTransform, dragBounds, options ) {
-    Node.call( this, {cursor: 'pointer'} );
+  function FPAFRuler( isRulerVisibleProperty, rulerPositionProperty, measureUnitsProperty, modelViewTransform, dragBounds, options ) {
+
+    var fpafRuler = this;
+
+    Node.call( this, { cursor: 'pointer' } );
+
+    options = _.extend( {
+      rulerWidth: 40,
+      rulerHeight: 5,
+      meterMajorStickWidth: 1,
+      feetMajorStickWidth: 0.3,
+      scaleFont: 10,
+      meterUnitsSpacing: 54, // distance between the left end of the ruler and the meter symbol in px
+      feetUnitSpacing: 14, // distance between the left end of the ruler and the feet symbol in px
+      meterTicks: _.range( 0, 6, 1 ),
+      feetTicks: _.range( 0, 17, 1 ),
+      insetsWidth: 0
+    }, options );
+
     var closeIconRadius = 4;
-    var rulerWidth = 40;
-    var rulerHeight = modelViewTransform.modelToViewX( 30 );
-    var meterMajorStickWidth = modelViewTransform.modelToViewX( 5 );
-    var feetMajorStickWidth = modelViewTransform.modelToViewX( 3 );
-    var scaleFont = new PhetFont( 12 );
+    var rulerWidth = options.rulerWidth;
+    var rulerHeight = Math.abs( modelViewTransform.modelToViewDeltaY( options.rulerHeight ) );
+    var meterMajorStickWidth = Math.abs( modelViewTransform.modelToViewDeltaY( options.meterMajorStickWidth ) );
+    var feetMajorStickWidth = Math.abs( modelViewTransform.modelToViewDeltaY( options.feetMajorStickWidth ) );
+    var scaleFont = new PhetFont( options.scaleFont );
     var xIcon = new Path( new Shape()
       .moveTo( -closeIconRadius, -closeIconRadius )
       .lineTo( closeIconRadius, closeIconRadius )
       .moveTo( closeIconRadius, -closeIconRadius )
-      .lineTo( -closeIconRadius, closeIconRadius ), {stroke: 'white', lineWidth: 2} );
+      .lineTo( -closeIconRadius, closeIconRadius ), { stroke: 'white', lineWidth: 2 } );
     //close button
     var closeButton = new RectangularPushButton( {
       baseColor: 'red',
@@ -58,11 +75,13 @@ define( function( require ) {
     this.addChild( closeButton );
 
     // ruler in meters
-    var metersRuler = new RulerNode( rulerHeight, rulerWidth, meterMajorStickWidth, ['0', '5', '10', '15', '20', '25', '30'], units_metersString, {minorTicksPerMajorTick: 4, unitsFont: scaleFont, majorTickFont: scaleFont, unitsSpacing: 50, rotation: -Math.PI / 2, insetsWidth: 0} );
+    var metersRuler = new RulerNode( rulerHeight, rulerWidth, meterMajorStickWidth, options.meterTicks, units_metersString,
+      { minorTicksPerMajorTick: 4, unitsFont: scaleFont, majorTickFont: scaleFont, unitsSpacing: options.meterUnitsSpacing, insetsWidth: options.insetsWidth, rotation: -Math.PI / 2 } );
     this.addChild( metersRuler );
 
     // ruler in feet
-    var feetRuler = new RulerNode( rulerHeight, rulerWidth, feetMajorStickWidth, ['0', '10', '20', '30', '40', '50', '60', '70', '80', '90', '100'], units_feetString, {minorTicksPerMajorTick: 4, unitsSpacing: 34, unitsFont: scaleFont, majorTickFont: scaleFont, insetsWidth: 0, rotation: -Math.PI / 2} );
+    var feetRuler = new RulerNode( rulerHeight, rulerWidth, feetMajorStickWidth, options.feetTicks, units_feetString,
+      { minorTicksPerMajorTick: 4, unitsFont: scaleFont, majorTickFont: scaleFont, unitsSpacing: options.feetUnitSpacing, insetsWidth: options.insetsWidth, rotation: -Math.PI / 2} );
     this.addChild( feetRuler );
 
     isRulerVisibleProperty.linkAttribute( this, 'visible' );
@@ -73,18 +92,19 @@ define( function( require ) {
     rulerPositionProperty.linkAttribute( metersRuler, 'translation' );
     rulerPositionProperty.linkAttribute( feetRuler, 'translation' );
     rulerPositionProperty.link( function( rulerPosition ) {
+      fpafRuler.moveToFront();
       closeButton.setTranslation( rulerPosition.x, rulerPosition.y - closeButton.height - rulerHeight );
     } );
 
     // ruler drag handlers
-    metersRuler.addInputListener( new MovableDragHandler( {locationProperty: rulerPositionProperty, dragBounds: dragBounds},
+    metersRuler.addInputListener( new MovableDragHandler( { locationProperty: rulerPositionProperty, dragBounds: dragBounds },
       ModelViewTransform2.createIdentity() ) );
-    feetRuler.addInputListener( new MovableDragHandler( {locationProperty: rulerPositionProperty, dragBounds: dragBounds},
+    feetRuler.addInputListener( new MovableDragHandler( { locationProperty: rulerPositionProperty, dragBounds: dragBounds },
       ModelViewTransform2.createIdentity() ) );
 
     this.mutate( options );
 
   }
 
-  return inherit( Node, WaterTowerRuler );
+  return inherit( Node, FPAFRuler );
 } );

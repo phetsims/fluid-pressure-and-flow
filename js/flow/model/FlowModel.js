@@ -18,7 +18,7 @@ define( function( require ) {
   var Vector2 = require( 'DOT/Vector2' );
   var Constants = require( 'FLUID_PRESSURE_AND_FLOW/flow/Constants' );
   var StringUtils = require( 'PHETCOMMON/util/StringUtils' );
-  var VelocitySensor = require( 'FLUID_PRESSURE_AND_FLOW/watertower/model/VelocitySensor' );
+  var VelocitySensor = require( 'FLUID_PRESSURE_AND_FLOW/common/model/VelocitySensor' );
   var Barometer = require( 'UNDER_PRESSURE/common/model/Barometer' );
   var ObservableArray = require( 'AXON/ObservableArray' );
   var FluidColorModel = require( 'UNDER_PRESSURE/common/model/FluidColorModel' );

@@ -37,17 +37,18 @@ define( function( require ) {
       xMargin: 14,
       yMargin: 4,
       fill: '#f2fa6a ',
+      fontSize: 12,
       stroke: 'gray',
       lineWidth: 1,
       resize: false,
       scale: 0.9
     }, options );
 
-    var textOptions = {font: new PhetFont( 12 )};
+    var textOptions = { font: new PhetFont( options.fontSize ) };
 
-    var titleText = new Text( unitsString, {font: new PhetFont( 12 )} );
-    var metricRadio = new AquaRadioButton( measureUnitsProperty, 'metric', new Text( metricString, textOptions ), {radius: 8, x: 17, y: 35} );
-    var englishRadio = new AquaRadioButton( measureUnitsProperty, 'english', new Text( englishString, textOptions ), {radius: 8, x: 17, y: 60} );
+    var titleText = new Text( unitsString, { font: new PhetFont( options.fontSize ) } );
+    var metricRadio = new AquaRadioButton( measureUnitsProperty, 'metric', new Text( metricString, textOptions ), { radius: 8 } );
+    var englishRadio = new AquaRadioButton( measureUnitsProperty, 'english', new Text( englishString, textOptions ), { radius: 8 } );
 
     //dummy text for height
     var dummyText = new Text( '', {font: new PhetFont( 3 )} );
@@ -61,7 +62,7 @@ define( function( require ) {
     // center the title by adding space before and after. Also ensures that the panel's width is 'width'
     var createTitle = function( item ) {
       var strutWidth = (width - item.width) / 2;
-      return new HBox( { children: [ new HStrut( strutWidth + 12 ), item, new HStrut( strutWidth )] } );
+      return new HBox( { children: [ new HStrut( strutWidth ), item, new HStrut( strutWidth )] } );
     };
 
 

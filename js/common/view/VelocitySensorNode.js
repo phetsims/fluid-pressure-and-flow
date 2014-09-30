@@ -164,7 +164,7 @@ define( function( require ) {
 
     velocitySensorNode.touchArea = velocitySensorNode.localBounds.dilatedXY( 0, 0 );
 
-    this.mutate(options);
+    this.mutate( options );
   }
 
   return inherit( Node, VelocitySensorNode );

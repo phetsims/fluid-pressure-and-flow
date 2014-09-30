@@ -22,24 +22,22 @@ define( function( require ) {
   var ResetAllButton = require( 'SCENERY_PHET/ResetAllButton' );
   var Rectangle = require( 'SCENERY/nodes/Rectangle' );
   var VBox = require( 'SCENERY/nodes/VBox' );
-
   var PlayPauseButton = require( 'SCENERY_PHET/PlayPauseButton' );
   var StepButton = require( 'SCENERY_PHET/StepButton' );
   var AquaRadioButton = require( 'SUN/AquaRadioButton' );
   var PhetFont = require( 'SCENERY_PHET/PhetFont' );
   var Text = require( 'SCENERY/nodes/Text' );
   var FaucetNode = require( 'SCENERY_PHET/FaucetNode' );
-
   var BarometerNode = require( 'UNDER_PRESSURE/common/view/BarometerNode' );
   var ControlSlider = require( 'UNDER_PRESSURE/common/view/ControlSlider' );
   var ToolsControlPanel = require( 'FLUID_PRESSURE_AND_FLOW/watertower/view/ToolsControlPanel' );
   var MeasuringTape = require( 'FLUID_PRESSURE_AND_FLOW/watertower/view/MeasuringTape' );
   var SluiceControlPanel = require( 'FLUID_PRESSURE_AND_FLOW/watertower/view/SluiceControlPanel' );
-  var UnitsControlPanel = require( 'FLUID_PRESSURE_AND_FLOW/watertower/view/UnitsControlPanel' );
-  var WaterTowerRuler = require( 'FLUID_PRESSURE_AND_FLOW/watertower/view/WaterTowerRuler' );
+  var UnitsControlPanel = require( 'FLUID_PRESSURE_AND_FLOW/common/view/UnitsControlPanel' );
+  var FPAFRuler = require( 'FLUID_PRESSURE_AND_FLOW/common/view/FPAFRuler' );
   var WaterTowerNode = require( 'FLUID_PRESSURE_AND_FLOW/watertower/view/WaterTowerNode' );
   var HoseNode = require( 'FLUID_PRESSURE_AND_FLOW/watertower/view/HoseNode' );
-  var VelocitySensorNode = require( 'FLUID_PRESSURE_AND_FLOW/watertower/view/VelocitySensorNode' );
+  var VelocitySensorNode = require( 'FLUID_PRESSURE_AND_FLOW/common/view/VelocitySensorNode' );
   var FaucetControlPanel = require( 'FLUID_PRESSURE_AND_FLOW/watertower/view/FaucetControlPanel' );
   var Constants = require( 'FLUID_PRESSURE_AND_FLOW/watertower/Constants' );
 
@@ -77,7 +75,7 @@ define( function( require ) {
 
     // add background -- sky
     // rectangle with uniform sky color for y < groundY - 200
-    this.addChild( new Rectangle( -5000, -1000, 10000, 1000 + groundY - 200, {stroke: '#01ACE4', fill: '#01ACE4'} ) );
+    this.addChild( new Rectangle( -5000, -1000, 10000, 1000 + groundY - 198, { stroke: '#01ACE4', fill: '#01ACE4'} ) );
     // gradient background skynode between y = groundY - 200 and y = groundY
     this.addChild( new SkyNode( -5000, groundY - 200, 10000, 200, groundY ) );
 
@@ -124,7 +122,8 @@ define( function( require ) {
     // tools control panel
     this.toolsControlPanel = new ToolsControlPanel( waterTowerModel, {right: this.layoutBounds.right - inset, top: inset} );
     this.addChild( this.toolsControlPanel );
-    this.addChild( new UnitsControlPanel( waterTowerModel.measureUnitsProperty, this.toolsControlPanel.width, {left: this.toolsControlPanel.left, top: this.toolsControlPanel.bottom + inset} ) );
+    this.addChild( new UnitsControlPanel( waterTowerModel.measureUnitsProperty, this.toolsControlPanel.width, { left: this.toolsControlPanel.left, xMargin: 10, yMargin: 10, fontSize: 14,
+      top: this.toolsControlPanel.bottom + inset} ) );
 
     var measuringTape = new MeasuringTape( waterTowerModel, this.layoutBounds );
     // add reset button near the bottom right
@@ -207,7 +206,16 @@ define( function( require ) {
       this.addChild( new VelocitySensorNode( waterTowerModel, modelViewTransform, velocitySensor, [], sensorPanel.visibleBounds, this.layoutBounds.withMaxY( this.layoutBounds.maxY - 72 ) ) );
     }.bind( this ) );
 
-    this.addChild( new WaterTowerRuler( waterTowerModel.isRulerVisibleProperty, waterTowerModel.rulerPositionProperty, waterTowerModel.measureUnitsProperty, modelViewTransform, this.layoutBounds ) );
+    this.addChild( new FPAFRuler( waterTowerModel.isRulerVisibleProperty, waterTowerModel.rulerPositionProperty, waterTowerModel.measureUnitsProperty, modelViewTransform, this.layoutBounds, { rulerWidth: 40,
+      rulerHeight: 30,
+      meterMajorStickWidth: 5,
+      feetMajorStickWidth: 3,
+      scaleFont: 12,
+      meterUnitsSpacing: 50,
+      feetUnitSpacing: 34,
+      meterTicks: _.range( 0, 35, 5 ),
+      feetTicks: _.range( 0, 110, 10 ),
+      insetsWidth: 0 } ) );
     this.addChild( measuringTape );
 
     waterTowerModel.isSluiceOpenProperty.link( function( isSluiceOpen ) {

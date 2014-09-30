@@ -21,20 +21,18 @@ define( function( require ) {
   var Pattern = require( 'SCENERY/util/Pattern' );
   var Matrix3 = require( 'DOT/Matrix3' );
   var ToolsControlPanel = require( 'FLUID_PRESSURE_AND_FLOW/flow/view/ToolsControlPanel' );
-  var UnitsControlPanel = require( 'FLUID_PRESSURE_AND_FLOW/flow/view/UnitsControlPanel' );
+  var UnitsControlPanel = require( 'FLUID_PRESSURE_AND_FLOW/common/view/UnitsControlPanel' );
   var ControlSlider = require( 'UNDER_PRESSURE/common/view/ControlSlider' );
-  var VelocitySensorNode = require( 'FLUID_PRESSURE_AND_FLOW/watertower/view/VelocitySensorNode' );
+  var VelocitySensorNode = require( 'FLUID_PRESSURE_AND_FLOW/common/view/VelocitySensorNode' );
   var BarometerNode = require( 'UNDER_PRESSURE/common/view/BarometerNode' );
-  var FlowRuler = require( 'FLUID_PRESSURE_AND_FLOW/flow/view/FlowRuler' );
+  var FPAFRuler = require( 'FLUID_PRESSURE_AND_FLOW/common/view/FPAFRuler' );
   var Constants = require( 'FLUID_PRESSURE_AND_FLOW/watertower/Constants' );
-
   var VBox = require( 'SCENERY/nodes/VBox' );
   var PlayPauseButton = require( 'SCENERY_PHET/PlayPauseButton' );
   var StepButton = require( 'SCENERY_PHET/StepButton' );
   var AquaRadioButton = require( 'SUN/AquaRadioButton' );
   var PhetFont = require( 'SCENERY_PHET/PhetFont' );
   var Text = require( 'SCENERY/nodes/Text' );
-
   var PipeNode = require( 'FLUID_PRESSURE_AND_FLOW/flow/view/PipeNode' );
   var FluxMeterNode = require( 'FLUID_PRESSURE_AND_FLOW/flow/view/FluxMeterNode' );
 
@@ -63,21 +61,25 @@ define( function( require ) {
     var flowView = this;
     ScreenView.call( this, { renderer: 'svg' } );
 
+    // view co-ordinates (370,140) map to model origin (0,0) with inverted y-axis (y grows up in the model)
     var modelViewTransform = ModelViewTransform2.createSinglePointScaleInvertedYMapping(
       Vector2.ZERO,
       new Vector2( 370, 140 ),
       50 ); //1m = 50Px
 
-    // add sky node
+    var groundY = modelViewTransform.modelToViewY( 0 );
+
+    // add rectangle on top of the sky node. See https://github.com/phetsims/fluid-pressure-and-flow/issues/87
     this.addChild( new Rectangle( -5000, -1000, 10000, 1002, { stroke: '#01ACE4', fill: '#01ACE4' } ) );
 
-    this.addChild( new SkyNode( -5000, 0, 10000, 140, 140 ) );
+    // add sky node
+    this.addChild( new SkyNode( -5000, 0, 10000, groundY, groundY ) );
 
-    // add ground node
-    var groundNode = new GroundNode( -5000, 140, 10000, 10000, 400, { topColor: '#9D8B61', bottomColor: '#645A3C' } );
+    // add ground node with gradient
+    var groundNode = new GroundNode( -5000, groundY, 10000, 10000, 400, { topColor: '#9D8B61', bottomColor: '#645A3C' } );
     this.addChild( groundNode );
 
-    // grass
+    // add grass above the ground
     var grassPattern = new Pattern( grassImg ).setTransformMatrix( Matrix3.scale( 0.25 ) );
     var grassRectYOffset = 1;
     var grassRectHeight = 10;
@@ -191,11 +193,11 @@ define( function( require ) {
       ticks: [
         {
           title: 'Min',
-          value: 1000
+          value: Constants.MIN_FLOW_RATE
         },
         {
           title: 'Max',
-          value: 10000
+          value: Constants.MAX_FLOW_RATE
         }
       ],
       ticksVisible: false,
@@ -222,7 +224,7 @@ define( function( require ) {
     }.bind( this ) );
 
     // add the rule node
-    this.addChild( new FlowRuler( flowModel.isRulerVisibleProperty, flowModel.rulerPositionProperty, flowModel.measureUnitsProperty, modelViewTransform, this.layoutBounds ) );
+    this.addChild( new FPAFRuler( flowModel.isRulerVisibleProperty, flowModel.rulerPositionProperty, flowModel.measureUnitsProperty, modelViewTransform, this.layoutBounds ) );
 
   }
 
