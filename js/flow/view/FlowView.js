@@ -224,7 +224,7 @@ define( function( require ) {
       velocitySensor.positionProperty.storeInitialValue( new Vector2( sensorPanel.visibleBounds.centerX - 75, sensorPanel.visibleBounds.centerY - 30 ) );
       velocitySensor.positionProperty.reset();
       this.addChild( new VelocitySensorNode( modelViewTransform, velocitySensor, flowModel.measureUnitsProperty,
-        [ flowModel.pipe.flowRateProperty, flowModel.pipe.frictionProperty ], flowModel.getVelocityAt.bind(flowModel),
+        [ flowModel.pipe.flowRateProperty, flowModel.pipe.frictionProperty ], flowModel.getVelocityAt.bind( flowModel ),
         sensorPanel.visibleBounds, this.layoutBounds, { scale: 0.9 } ) );
     }.bind( this ) );
 
