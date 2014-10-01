@@ -97,36 +97,6 @@ define( function( require ) {
     var unitsControlPanel = new UnitsControlPanel( flowModel.measureUnitsProperty, 50, { right: toolsControlPanel.left - 7, top: toolsControlPanel.top } );
     this.addChild( unitsControlPanel );
 
-    // add the fluid density control slider
-    var fluidDensityControlNode = new ControlSlider(
-      flowModel.measureUnitsProperty,
-      flowModel.fluidDensityProperty,
-      flowModel.getFluidDensityString.bind( flowModel ),
-      flowModel.fluidDensityRange,
-      flowModel.fluidDensityControlExpandedProperty,
-      {
-        right: this.layoutBounds.right - 105,
-        bottom: this.layoutBounds.bottom - 7,
-        title: fluidDensityString,
-        ticks: [
-          {
-            title: waterString,
-            value: flowModel.fluidDensity
-          },
-          {
-            title: gasolineString,
-            value: flowModel.fluidDensityRange.min
-          },
-          {
-            title: honeyString,
-            value: flowModel.fluidDensityRange.max
-          }
-        ],
-        scale: 0.9,
-        titleAlign: 'center'
-      } );
-    this.addChild( fluidDensityControlNode );
-
     var fluxMeterNode = new FluxMeterNode( flowModel, modelViewTransform, { stroke: 'blue' } );
     flowModel.isFluxMeterVisibleProperty.linkAttribute( fluxMeterNode.ellipse2, 'visible' );
 
@@ -151,6 +121,36 @@ define( function( require ) {
       right: this.layoutBounds.right - 13
     } );
     this.addChild( resetAllButton );
+
+    // add the fluid density control slider
+    var fluidDensityControlNode = new ControlSlider(
+      flowModel.measureUnitsProperty,
+      flowModel.fluidDensityProperty,
+      flowModel.getFluidDensityString.bind( flowModel ),
+      flowModel.fluidDensityRange,
+      flowModel.fluidDensityControlExpandedProperty,
+      {
+        right: resetAllButton.left - 55,
+        bottom: resetAllButton.bottom,
+        title: fluidDensityString,
+        ticks: [
+          {
+            title: waterString,
+            value: flowModel.fluidDensity
+          },
+          {
+            title: gasolineString,
+            value: flowModel.fluidDensityRange.min
+          },
+          {
+            title: honeyString,
+            value: flowModel.fluidDensityRange.max
+          }
+        ],
+        scale: 0.9,
+        titleAlign: 'center'
+      } );
+    this.addChild( fluidDensityControlNode );
 
     // add the sensors panel
     var sensorPanel = new Rectangle( 0, 0, 167, 85, 10, 10, { stroke: 'gray', lineWidth: 1, fill: '#f2fa6a', right: unitsControlPanel.left - 4, top: toolsControlPanel.top } );
@@ -181,8 +181,10 @@ define( function( require ) {
     var slowMotionRadioBox = new AquaRadioButton( flowModel.speedProperty, 'slow', new Text( slowMotionString, { font: new PhetFont( 12 ) } ), { radius: 8 } );
     var normalMotionRadioBox = new AquaRadioButton( flowModel.speedProperty, 'normal', new Text( normalString, { font: new PhetFont( 12 ) } ), { radius: 8 } );
     var speedControlMaxWidth = ( slowMotionRadioBox.width > normalMotionRadioBox.width ) ? slowMotionRadioBox.width : normalMotionRadioBox.width;
-    slowMotionRadioBox.touchArea = new Bounds2( slowMotionRadioBox.localBounds.minX, slowMotionRadioBox.localBounds.minY, slowMotionRadioBox.localBounds.minX + speedControlMaxWidth, slowMotionRadioBox.localBounds.maxY );
-    normalMotionRadioBox.touchArea = new Bounds2( normalMotionRadioBox.localBounds.minX, normalMotionRadioBox.localBounds.minY, normalMotionRadioBox.localBounds.minX + speedControlMaxWidth, normalMotionRadioBox.localBounds.maxY );
+    slowMotionRadioBox.touchArea = new Bounds2( slowMotionRadioBox.localBounds.minX, slowMotionRadioBox.localBounds.minY,
+        slowMotionRadioBox.localBounds.minX + speedControlMaxWidth, slowMotionRadioBox.localBounds.maxY );
+    normalMotionRadioBox.touchArea = new Bounds2( normalMotionRadioBox.localBounds.minX, normalMotionRadioBox.localBounds.minY,
+        normalMotionRadioBox.localBounds.minX + speedControlMaxWidth, normalMotionRadioBox.localBounds.maxY );
 
     var speedControl = new VBox( {
       align: 'left',
@@ -199,7 +201,7 @@ define( function( require ) {
       flowModel.flowRateControlExpandedProperty,
       {
         right: speedControl.left - 20,
-        bottom: this.layoutBounds.bottom - 7,
+        bottom: fluidDensityControlNode.bottom,
         title: flowRateString,
         ticks: [
           {
@@ -235,7 +237,8 @@ define( function( require ) {
     }.bind( this ) );
 
     // add the rule node
-    this.addChild( new FPAFRuler( flowModel.isRulerVisibleProperty, flowModel.rulerPositionProperty, flowModel.measureUnitsProperty, modelViewTransform, this.layoutBounds ) );
+    this.addChild( new FPAFRuler( flowModel.isRulerVisibleProperty, flowModel.rulerPositionProperty,
+      flowModel.measureUnitsProperty, modelViewTransform, this.layoutBounds ) );
 
   }
 
