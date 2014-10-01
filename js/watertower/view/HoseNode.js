@@ -34,7 +34,7 @@ define( function( require ) {
    * @param {Property<Vector2>} tankPositionProperty the bottom left of the tank frame
    * @param {ModelViewTransform2} modelViewTransform transform to convert between model and view values
    * @param {Property<Boolean>} isHoseVisibleProperty controls the hose visibility
-   * @param options
+   * @param {Object} [options]
    * @constructor
    */
   function HoseNode( hose, tankPositionProperty, modelViewTransform, isHoseVisibleProperty, options ) {

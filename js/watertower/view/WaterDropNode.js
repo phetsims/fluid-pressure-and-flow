@@ -17,7 +17,7 @@ define( function( require ) {
    * @param {WaterDrop} waterDrop for the water drop node
    * @param {FluidColorModel} fluidColorModel for the "water" drop
    * @param {ModelViewTransform2} modelViewTransform to transform between model and view values
-   * @param options
+   * @param {Object} [options]
    * @constructor
    */
   function WaterDropNode( waterDrop, fluidColorModel, modelViewTransform, options ) {

@@ -36,7 +36,7 @@ define( function( require ) {
   /**
    *
    * @param {WaterTowerModel} waterTowerModel of the simulation
-   * @param options
+   * @param {Object} [options]
    * @constructor
    */
   function ToolsControlPanel( waterTowerModel, options ) {

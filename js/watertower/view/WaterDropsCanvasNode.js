@@ -17,7 +17,7 @@ define( function( require ) {
    * @param {ObservableArray<WaterDrop>} waterDrops that need to be rendered
    * @param {FluidColorModel} fluidColorModel that defines the color of the drops
    * @param {ModelViewTransform2} modelViewTransform to convert between view and model values
-   * @param options
+   * @param {Object} [options]
    * @constructor
    */
   function WaterDropsCanvasNode( waterDrops, fluidColorModel, modelViewTransform, options ) {
