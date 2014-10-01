@@ -68,15 +68,19 @@ define( function( require ) {
       50 ); //1m = 50Px
 
     var groundY = modelViewTransform.modelToViewY( 0 );
+    var backgroundNodeStartX = -5000;
+    var backgroundNodeWidth = 10000;
+    var skyExtensionHeight = 10000;
+    var groundDepth = 10000;
 
-    // add rectangle on top of the sky node. See https://github.com/phetsims/fluid-pressure-and-flow/issues/87
-    this.addChild( new Rectangle( -5000, -1000, 10000, 1002, { stroke: '#01ACE4', fill: '#01ACE4' } ) );
+    // add rectangle on top of the sky node to extend sky upwards. See https://github.com/phetsims/fluid-pressure-and-flow/issues/87
+    this.addChild( new Rectangle( backgroundNodeStartX, -skyExtensionHeight, backgroundNodeWidth, skyExtensionHeight, { stroke: '#01ACE4', fill: '#01ACE4' } ) );
 
     // add sky node
-    this.addChild( new SkyNode( -5000, 0, 10000, groundY, groundY ) );
+    this.addChild( new SkyNode( backgroundNodeStartX, 0, backgroundNodeWidth, groundY, groundY ) );
 
     // add ground node with gradient
-    var groundNode = new GroundNode( -5000, groundY, 10000, 10000, 400, { topColor: '#9D8B61', bottomColor: '#645A3C' } );
+    var groundNode = new GroundNode( backgroundNodeStartX, groundY, backgroundNodeWidth, groundDepth, 400, { topColor: '#9D8B61', bottomColor: '#645A3C' } );
     this.addChild( groundNode );
 
     // add grass above the ground
@@ -84,7 +88,7 @@ define( function( require ) {
     var grassRectYOffset = 1;
     var grassRectHeight = 10;
 
-    this.addChild( new Rectangle( -1000, grassRectYOffset, 10000, grassRectHeight, {
+    this.addChild( new Rectangle( backgroundNodeStartX, grassRectYOffset, backgroundNodeWidth, grassRectHeight, {
       fill: grassPattern,
       bottom: groundNode.top
     } ) );
