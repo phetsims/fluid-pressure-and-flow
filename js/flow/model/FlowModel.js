@@ -254,7 +254,7 @@ define( function( require ) {
      * @param {Number} y position in meters
      * @returns {Number} velocity at the position x, y
      */
-    getWaterDropVelocityAt: function( x, y ) {
+    getVelocityAt: function( x, y ) {
       if ( x <= this.pipe.getMinX() || x >= this.pipe.getMaxX() ) {
         return Vector2.ZERO;
       }

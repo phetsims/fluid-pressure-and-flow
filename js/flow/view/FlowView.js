@@ -223,7 +223,9 @@ define( function( require ) {
     _.each( flowModel.speedometers, function( velocitySensor ) {
       velocitySensor.positionProperty.storeInitialValue( new Vector2( sensorPanel.visibleBounds.centerX - 75, sensorPanel.visibleBounds.centerY - 30 ) );
       velocitySensor.positionProperty.reset();
-      this.addChild( new VelocitySensorNode( flowModel, modelViewTransform, velocitySensor, [ flowModel.pipe.flowRateProperty, flowModel.pipe.frictionProperty ], sensorPanel.visibleBounds, this.layoutBounds, { scale: 0.9 } ) );
+      this.addChild( new VelocitySensorNode( modelViewTransform, velocitySensor, flowModel.measureUnitsProperty,
+        [ flowModel.pipe.flowRateProperty, flowModel.pipe.frictionProperty ], flowModel.getVelocityAt.bind(flowModel),
+        sensorPanel.visibleBounds, this.layoutBounds, { scale: 0.9 } ) );
     }.bind( this ) );
 
     // add barometers within the sensor panel bounds
