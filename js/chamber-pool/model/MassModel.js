@@ -67,14 +67,21 @@ define( function( require ) {
 
     step: function( dt ) {
       var acceleration;
+      // move the masses only when the velocity is greater than than this.
+      // See https://github.com/phetsims/under-pressure/issues/60
+      var epsilonVelocity = 0.01;
+
       if ( this.isDropping && !this.isDragging ) {
         acceleration = this.chamberPoolModel.underPressureModel.gravity;
         this.velocity = this.velocity + acceleration * dt;
-        this.position = new Vector2( this.position.x, this.velocity * dt + this.position.y );
-        if ( this.position.y > this.chamberPoolModel.MAX_Y - this.height / 2 ) {
-          this.position = new Vector2( this.position.x, this.chamberPoolModel.MAX_Y - this.height / 2 );
-          this.isDropping = false;
-          this.velocityProperty.reset();
+        if ( this.velocity > epsilonVelocity ) {
+          this.position.y += this.velocity * dt;
+          if ( this.position.y > this.chamberPoolModel.MAX_Y - this.height / 2 ) {
+            this.position.y = this.chamberPoolModel.MAX_Y - this.height / 2;
+            this.isDropping = false;
+            this.velocityProperty.reset();
+          }
+          this.positionProperty._notifyObservers();
         }
       }
       else if ( this.chamberPoolModel.stack.contains( this ) ) {
@@ -90,8 +97,12 @@ define( function( require ) {
         acceleration = force / m;
         var frictionCoefficient = 0.98;
         this.velocity = (this.velocity + acceleration * dt) * frictionCoefficient;
-        this.position = new Vector2( this.position.x, this.position.y + this.velocity * dt );
+        if ( this.velocity > epsilonVelocity ) {
+          this.position.y += this.velocity * dt;
+          this.positionProperty._notifyObservers();
+        }
       }
+
     },
 
     // checks if the mass intersects with the the target drop area.
