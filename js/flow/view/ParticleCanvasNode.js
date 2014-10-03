@@ -36,10 +36,10 @@ define( function( require ) {
      */
     paintCanvas: function( wrapper ) {
       var context = wrapper.context;
-      var particle;
+      var particle, i;
 
       // paint the regular particles
-      for ( var i = 0; i < this.particles.length; i++ ) {
+      for ( i = 0; i < this.particles.length; i++ ) {
         particle = this.particles.get( i );
         context.fillStyle = particle.color;
         context.beginPath();
