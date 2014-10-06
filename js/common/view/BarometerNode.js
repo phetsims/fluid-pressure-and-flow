@@ -1,7 +1,8 @@
 // Copyright 2002-2013, University of Colorado Boulder
 
 /**
- * Barometer view
+ * Barometer Node with a gauge and needle to display the pressure.
+ * Also has a text box to display the pressure value.
  * @author Vasily Shakhov (Mlearner)
  * @author Siddhartha Chinthapally (ActualConcepts)
  * @author Sam Reid
@@ -81,8 +82,8 @@ define( function( require ) {
     this.addChild( textBackground );
     this.addChild( text );
 
-    var bottomTriangleShapeWidth = 6,
-      bottomTriangleShapeHeight = 12;
+    var bottomTriangleShapeWidth = 6;
+    var bottomTriangleShapeHeight = 12;
 
     var bottomTriangleShape = new Shape()
       .moveTo( gaugeNode.centerX - bottomTriangleShapeWidth / 2, underGaugeRectangle.rectY + underGaugeRectangleHeight )
@@ -114,16 +115,20 @@ define( function( require ) {
     //Update the value in the barometer value model by reading from the model.
     Property.multilink( [barometer.positionProperty].concat( linkedProperties ), function( position ) {
       if ( barometer.positionProperty.initialValue === position ) {
-        barometer.value = null; // in the initial position barometer has no reading. Not even 0.
+        // In the initial position barometer has no value.
+        // The value needs to be a number for the needle to be visible, so using 0.
+        barometer.value = 0;
       }
       else {
         barometer.value = getPressureAt( modelViewTransform.viewToModelX( position.x ), modelViewTransform.viewToModelY( position.y + (options.pressureReadOffset * options.scale) ) );
       }
     } );
 
-    //Update the text when the value or units changes.
-    Property.multilink( [barometer.valueProperty, measureUnitsProperty], function( barometerValue, units ) {
-      if ( typeof( barometerValue ) !== 'number' ) {
+    //Update the text when the value, units or position changes.
+    // If the barometer reading is 0 and it is touching the sensor panel, then only the position changes.
+    // In order to trigger the text display change, need to listen to position property here as well.
+    Property.multilink( [barometer.valueProperty, measureUnitsProperty, barometer.positionProperty], function( barometerValue, units ) {
+      if ( barometer.position === barometer.positionProperty.initialValue ) {
         text.text = '-';
         textBackground.setRect( 0, 0, text.width + 50, text.height + 2 );
       }

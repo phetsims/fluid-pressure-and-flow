@@ -85,7 +85,7 @@ define( function( require ) {
     this.barometers = [];
 
     for ( var i = 0; i < 4; i++ ) {
-      this.barometers.push( new Barometer( new Vector2( 0, 0 ), null ) );
+      this.barometers.push( new Barometer( new Vector2( 0, 0 ), 0 ) );
     }
 
     this.currentSceneProperty.link( function() {
@@ -95,6 +95,9 @@ define( function( require ) {
 
   return inherit( PropertySet, UnderPressureModel, {
 
+    /**
+     * @param {Number} dt seconds
+     */
     step: function( dt ) {
       this.sceneModels[this.currentScene].step( dt );
     },
@@ -113,6 +116,11 @@ define( function( require ) {
       } );
     },
 
+    /**
+     * Returns the air pressure (in Pa) at the given height.
+     * @param {Number} height in meters
+     * @returns {Number}
+     */
     getAirPressure: function( height ) {
       if ( !this.isAtmosphere ) {
         return 0;
@@ -122,13 +130,24 @@ define( function( require ) {
       }
     },
 
+    /**
+     * Returns the pressure (in Pa) exerted by a fluid column of given height.
+     * @param {Number} height of the fluid column
+     * @returns {Number}
+     */
     getWaterPressure: function( height ) {
       return height * this.gravity * this.fluidDensity;
     },
 
+    /**
+     * Returns the pressure (in Pa) at the given position.
+     * @param {Number} x position in meters
+     * @param {Number} y position in meters
+     * @returns {Number}
+     */
     getPressureAtCoords: function( x, y ) {
 
-      var pressure = '';
+      var pressure = 0;
       var currentModel = this.sceneModels[this.currentScene];
       if ( y < this.skyGroundBoundY ) {
         pressure = this.getAirPressure( y );
@@ -148,6 +167,11 @@ define( function( require ) {
       return pressure;
     },
 
+    /**
+     * @param {Number} pressure in Pa
+     * @param {String} units -- can be english/metric/atmospheres
+     * @returns {String}
+     */
     getPressureString: function( pressure, units ) {
       return Units.getPressureString( pressure, units, false );
     },

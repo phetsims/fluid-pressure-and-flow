@@ -45,21 +45,15 @@ define( function( require ) {
      * @returns {string}
      */
     getPressureString: function( pressure, measureUnits, abbreviated ) {
-      if ( pressure === '' ) {
-        return '-';
+      if ( measureUnits === 'metric' ) {
+        return StringUtils.format( valueWithUnitsPattern, Util.toFixed( pressure / 1000, abbreviated ? 1 : 3 ), kPaString );
       }
-      else {
-        if ( measureUnits === 'metric' ) {
-          return StringUtils.format( valueWithUnitsPattern, Util.toFixed( pressure / 1000, abbreviated ? 1 : 3 ), kPaString );
-        }
-        else if ( measureUnits === 'atmosphere' ) {
-          return StringUtils.format( valueWithUnitsPattern, Util.toFixed( pressure * ATMOSPHERE_PER_PASCAL, abbreviated ? 2 : 4 ), atmString );
-        }
-        else if ( measureUnits === 'english' ) {
-          return  StringUtils.format( valueWithUnitsPattern, Util.toFixed( pressure * PSI_PER_PASCAL, abbreviated ? 2 : 4 ), psiString );
-        }
+      else if ( measureUnits === 'atmosphere' ) {
+        return StringUtils.format( valueWithUnitsPattern, Util.toFixed( pressure * ATMOSPHERE_PER_PASCAL, abbreviated ? 2 : 4 ), atmString );
       }
-
+      else if ( measureUnits === 'english' ) {
+        return  StringUtils.format( valueWithUnitsPattern, Util.toFixed( pressure * PSI_PER_PASCAL, abbreviated ? 2 : 4 ), psiString );
+      }
     },
 
     /**
