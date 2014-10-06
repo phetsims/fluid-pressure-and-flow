@@ -55,7 +55,7 @@ define( function( require ) {
     },
 
     /**
-     * Returns true if the given point is inside the chamber pool, false otherwise.
+     * Returns true if the given point is inside the square pool, false otherwise.
      * @param {Number} x position in meters
      * @param {Number} y position in meters
      * @returns {boolean}
