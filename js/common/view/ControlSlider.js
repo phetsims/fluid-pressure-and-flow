@@ -141,7 +141,7 @@ define( function( require ) {
     //question mark, show if unknown property
     this.questionMark = new Node( {visible: false} );
     this.questionMark.addChild( new Text( '?', { font: new PhetFont( 80 )} ) );
-    this.questionMark.centerX = accordionBox.width / 2;
+    this.questionMark.centerX = accordionBox.width / 2 + 16;
     this.questionMark.top = this.content.top;
     this.accordionContent.addChild( this.questionMark );
 
