@@ -28,6 +28,7 @@ define( function( require ) {
   var ResetAllButton = require( 'SCENERY_PHET/ResetAllButton' );
   var Rectangle = require( 'SCENERY/nodes/Rectangle' );
   var BarometerNode = require( 'UNDER_PRESSURE/common/view/BarometerNode' );
+  var Constants = require( 'UNDER_PRESSURE/common/Constants' );
 
   // strings
   var fluidDensityString = require( 'string!UNDER_PRESSURE/fluidDensity' );
@@ -47,8 +48,12 @@ define( function( require ) {
   };
 
   //View layout related constants
-  var inset = 10;
+  var inset = 15;
 
+  /**
+   * @param {UnderPressureModel} underPressureModel of the sim
+   * @constructor
+   */
   function UnderPressureView( underPressureModel ) {
 
     var underPressureView = this;
@@ -88,13 +93,14 @@ define( function( require ) {
 
       right: this.resetAllButton.right,
       bottom: this.resetAllButton.top - 2,
+      scale: 0.95,
 
       title: gravityString,
       decimals: 1,
       ticks: [
         {
           title: EarthString,
-          value: 9.8
+          value: Constants.EARTH_GRAVITY
         },
         {
           title: MarsString,
@@ -113,12 +119,13 @@ define( function( require ) {
 
       right: this.resetAllButton.right,
       bottom: this.gravitySlider.top - 5,
+      scale: 0.95,
 
       title: fluidDensityString,
       ticks: [
         {
           title: WaterString,
-          value: 1000
+          value: Constants.WATER_DENSITY
         },
         {
           title: GasolineString,
@@ -187,7 +194,7 @@ define( function( require ) {
     } );
 
 
-    this.addChild( new SceneChoiceNode( underPressureModel, { x: 0, y: 260 } ) );
+    this.addChild( new SceneChoiceNode( underPressureModel, { x: 5, y: 260 } ) );
 
     //resize control panels
     // todo: fix this maxWidth calculation
@@ -210,8 +217,6 @@ define( function( require ) {
     } );
 
     this.addChild( new UnderPressureRuler( underPressureModel, modelViewTransform, underPressureView.layoutBounds ) );
-
-
   }
 
   return inherit( ScreenView, UnderPressureView );
