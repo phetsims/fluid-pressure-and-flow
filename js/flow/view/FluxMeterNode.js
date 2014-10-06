@@ -65,7 +65,7 @@ define( function( require ) {
     this.modelViewTransform = modelViewTransform;
     var textOptions = { font: new PhetFont( 10 ) };
 
-    // flowRate  row
+    // flowRate row
     var flowRateText = new Text( flowRateString, textOptions );
     this.flowRateValue = new Text( '', textOptions );
     this.flowRateUnit = new SubSupText( 'dummy', textOptions );
