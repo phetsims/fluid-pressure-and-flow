@@ -128,6 +128,11 @@ define( function( require ) {
       return Util.linear( 0, 150, Constants.EARTH_AIR_PRESSURE, Constants.EARTH_AIR_PRESSURE_AT_500_FT, height );
     },
 
+    /**
+     * @param {Number} x position in meters
+     * @param {Number} y position in meters
+     * @returns {Number} fluid pressure (in Pa) at the specified position
+     */
     getFluidPressure: function( x, y ) {
       if ( x <= this.pipe.getMinX() || x >= this.pipe.getMaxX() ) {
         return 0;
@@ -144,14 +149,29 @@ define( function( require ) {
       return 0;
     },
 
+    /**
+     * @param {Number} x position in meters
+     * @param {Number} y position in meters
+     * @returns {Number} pressure (in Pa) at specified position
+     */
     getPressureAtCoords: function( x, y ) {
       return (y > 0) ? this.getAirPressure( y ) : this.getFluidPressure( x, y );
     },
 
+
+    /**
+     * @param {Number} pressure in Pa
+     * @param {String} units -- can be english/metric/atmospheres
+     * @returns {String} with value and units
+     */
     getPressureString: function( pressure, units ) {
       return Units.getPressureString( pressure, units );
     },
-    // Called by the animation loop.
+
+    /**
+     * Called by the animation loop.
+     * @param {Number} dt -- time in seconds
+     */
     step: function( dt ) {
       // prevent sudden dt bursts when the user comes back to the tab after a while
       dt = ( dt > 0.04 ) ? 0.04 : dt;
@@ -175,7 +195,11 @@ define( function( require ) {
       }
     },
 
-    // propagates the particles in the pipe as per their velocity. Removes any particles that cross the pipe right end.
+
+    /**
+     * propagates the particles in the pipe as per their velocity. Removes any particles that cross the pipe right end.
+     * @param {Number} dt -- time in seconds
+     */
     propagateParticles: function( dt ) {
       var x2;
       var particle;

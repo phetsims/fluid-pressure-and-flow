@@ -39,6 +39,7 @@ define( function( require ) {
   }
 
   return inherit( Object, Particle, {
+
     // get particle x position
     getX: function() {
       return this.xPosition;
@@ -49,7 +50,10 @@ define( function( require ) {
       return this.container.fractionToLocation( this.xPosition, this.fractionUpPipe );
     },
 
-    // set particle x position
+    /**
+     * Set the particle x position
+     * @param {Number} x position in meters
+     */
     setX: function( x ) {
       this.xPosition = x;
     }
