@@ -64,13 +64,13 @@ define( function( require ) {
 
     // items
     this.fluidDensityComboBox = new ComboBox( [
-      ComboBox.createItem( new Text( fluidA, textOptions ), 0 ),
-      ComboBox.createItem( new Text( fluidB, textOptions ), 1 ),
-      ComboBox.createItem( new Text( fluidC, textOptions ), 2 )
+      ComboBox.createItem( new Text( fluidA, { font: new PhetFont( 12 ) } ), 0 ),
+      ComboBox.createItem( new Text( fluidB, { font: new PhetFont( 12 ) } ), 1 ),
+      ComboBox.createItem( new Text( fluidC, { font: new PhetFont( 12 ) } ), 2 )
     ], mysteryPoolModel.fluidDensityCustom, mysteryPoolControls, {
       itemHighlightFill: 'rgb(218,255,255)',
-      y: 260,
-      x: 450,
+      y: 253,
+      x: 467,
       visible: false
     } );
 
@@ -83,10 +83,11 @@ define( function( require ) {
       ComboBox.createItem( new Text( planetC, textOptions ), 2 )
     ], mysteryPoolModel.gravityCustom, mysteryPoolControls, {
       itemHighlightFill: 'rgb(218,255,255)',
-      y: 260,
-      x: 450,
+      y: this.fluidDensityComboBox.y,
+      x: this.fluidDensityComboBox.x,
       visible: false
     } );
+
     this.gravityComboBox.touchArea = this.gravityComboBox.localBounds.dilatedXY( 0, 0 );
     this.addChild( this.gravityComboBox );
 

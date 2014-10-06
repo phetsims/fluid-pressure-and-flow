@@ -1,7 +1,7 @@
 // Copyright 2002-2013, University of Colorado Boulder
 
 /**
- * scene chooser, 4 image radio buttons
+ * View for the scene chooser containing 4 image radio buttons
  * @author Vasily Shakhov (Mlearner)
  * @author Siddhartha Chinthapally (Actual Concepts)
  */
@@ -14,7 +14,7 @@ define( function( require ) {
   var InOutRadioButton = require( 'SUN/InOutRadioButton' );
   var Dimension2 = require( 'DOT/Dimension2' );
 
-  var ICON_SIZE = new Dimension2( 55, 37 );
+  var ICON_SIZE = new Dimension2( 52, 37 );
 
   var iconImages = {
     Square: require( 'image!UNDER_PRESSURE/square-pool-icon.png' ),

@@ -48,7 +48,7 @@ define( function( require ) {
     }, options );
 
 
-    var textOptions = {font: new PhetFont( 14 )};
+    var textOptions = {font: new PhetFont( 16 )};
 
     var rulerSet = [new Text( rulerString, textOptions ), this.createRulerIcon()];
     var grid = [new Text( gridString, textOptions )];

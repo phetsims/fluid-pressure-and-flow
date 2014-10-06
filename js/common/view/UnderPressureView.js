@@ -74,27 +74,26 @@ define( function( require ) {
       listener: function() {
         underPressureModel.reset();
       },
-      scale: 0.66,
+      scale: 0.6,
       right: this.layoutBounds.right - inset,
-      bottom: this.layoutBounds.bottom - inset + 4
+      bottom: this.layoutBounds.bottom - 10
     } );
     this.addChild( this.resetAllButton );
 
     //control panel
-    this.controlPanel = new ControlPanel( underPressureModel, { right: this.resetAllButton.right, top: inset, scale: 0.74 } );
+    this.controlPanel = new ControlPanel( underPressureModel, { right: this.resetAllButton.right, top: 5, scale: 0.74 } );
     this.addChild( this.controlPanel );
 
     // units panel
-    this.unitsControlPanel = new UnitsControlPanel( underPressureModel.measureUnitsProperty, this.controlPanel.width, { scale: 0.89, right: this.resetAllButton.right, top: this.controlPanel.bottom + 3 } );
+    this.unitsControlPanel = new UnitsControlPanel( underPressureModel.measureUnitsProperty, this.controlPanel.width, { scale: 0.89, right: this.resetAllButton.right, top: this.controlPanel.bottom + 5 } );
     this.addChild( this.unitsControlPanel );
 
     // gravity slider
     this.gravitySlider = new ControlSlider( underPressureModel.measureUnitsProperty, underPressureModel.gravityProperty, underPressureModel.getGravityString.bind( underPressureModel ), underPressureModel.gravityRange, underPressureModel.gravityControlExpandedProperty, {
 
       right: this.resetAllButton.right,
-      bottom: this.resetAllButton.top - 2,
+      bottom: this.resetAllButton.top - 5,
       scale: 0.95,
-
       title: gravityString,
       decimals: 1,
       ticks: [
@@ -118,7 +117,7 @@ define( function( require ) {
     this.fluidDensitySlider = new ControlSlider( underPressureModel.measureUnitsProperty, underPressureModel.fluidDensityProperty, underPressureModel.getFluidDensityString.bind( underPressureModel ), underPressureModel.fluidDensityRange, underPressureModel.fluidDensityControlExpandedProperty, {
 
       right: this.resetAllButton.right,
-      bottom: this.gravitySlider.top - 5,
+      bottom: this.gravitySlider.top - 8,
       scale: 0.95,
 
       title: fluidDensityString,
