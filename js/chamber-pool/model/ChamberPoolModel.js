@@ -137,6 +137,10 @@ define( function( require ) {
       } );
     },
 
+    /**
+     * Steps the chamber pool elements forward in time by dt seconds
+     * @param {Number} dt -- time in seconds
+     */
     step: function( dt ) {
       if ( !lastDt ) { lastDt = dt; } // init lastDt value
 
@@ -172,6 +176,12 @@ define( function( require ) {
       }
     },
 
+    /**
+     * Returns height of the water above the y
+     * @param {Number} x position in meters
+     * @param {Number} y position in meters
+     * @returns {Number} height of the water above the y
+     */
     getWaterHeightAboveY: function( x, y ) {
       if ( this.poolDimensions.leftOpening.x1 < x && x < this.poolDimensions.leftOpening.x2 && y < this.poolDimensions.leftChamber.y2 - this.DEFAULT_HEIGHT + this.underPressureModel.leftDisplacement ) {
         return 0;
@@ -181,6 +191,12 @@ define( function( require ) {
       }
     },
 
+    /**
+     * Returns true if the given point is inside the chamber pool, false otherwise.
+     * @param {Number} x position in meters
+     * @param {Number} y position in meters
+     * @returns {boolean}
+     */
     isPointInsidePool: function( x, y ) {
       var isInside = false;
       ['leftChamber', 'rightChamber', 'horizontalPassage', 'leftOpening', 'rightOpening'].forEach( function( name ) {
