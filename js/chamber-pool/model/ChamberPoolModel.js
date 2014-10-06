@@ -187,7 +187,7 @@ define( function( require ) {
         return 0;
       }
       else {
-        return y - (this.poolDimensions.leftChamber.y2 - this.DEFAULT_HEIGHT - this.underPressureModel.leftDisplacement / this.LENGTH_RATIO);// water height above barometer
+        return y - (this.poolDimensions.leftChamber.y2 - this.DEFAULT_HEIGHT - this.underPressureModel.leftDisplacement / this.LENGTH_RATIO);
       }
     },
 

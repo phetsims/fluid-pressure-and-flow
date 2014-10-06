@@ -86,10 +86,22 @@ define( function( require ) {
 
   return inherit( PoolWithFaucetsModel, TrapezoidPoolModel, {
 
+    /**
+     * Returns height of the water above the given position
+     * @param {Number} x position in meters
+     * @param {Number} y position in meters
+     * @returns {Number} height of the water above the y
+     */
     getWaterHeightAboveY: function( x, y ) {
-      return y - (this.poolDimensions.bottomChamber.y2 - this.MAX_HEIGHT * this.volume / this.MAX_VOLUME);// water height above barometer
+      return y - (this.poolDimensions.bottomChamber.y2 - this.MAX_HEIGHT * this.volume / this.MAX_VOLUME);
     },
 
+    /**
+     * Returns true if the given point is inside the chamber pool, false otherwise.
+     * @param {Number} x position in meters
+     * @param {Number} y position in meters
+     * @returns {boolean}
+     */
     isPointInsidePool: function( x, y ) {
       var isInside = false;
       if ( x > this.poolDimensions.bottomChamber.x1 && x < this.poolDimensions.bottomChamber.x2 && y > this.poolDimensions.bottomChamber.y1 && y < this.poolDimensions.bottomChamber.y2 ) {

@@ -51,7 +51,7 @@ define( function( require ) {
      * @returns {Number} height of the water above the y
      */
     getWaterHeightAboveY: function( x, y ) {
-      return y - (this.poolDimensions.y2 - this.MAX_HEIGHT * this.volume / this.MAX_VOLUME);// water height above barometer
+      return y - (this.poolDimensions.y2 - this.MAX_HEIGHT * this.volume / this.MAX_VOLUME);
     },
 
     /**
