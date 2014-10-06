@@ -44,10 +44,22 @@ define( function( require ) {
 
   return inherit( PoolWithFaucetsModel, SquarePoolModel, {
 
+    /**
+     * Returns height of the water above the given position
+     * @param {Number} x position in meters
+     * @param {Number} y position in meters
+     * @returns {Number} height of the water above the y
+     */
     getWaterHeightAboveY: function( x, y ) {
       return y - (this.poolDimensions.y2 - this.MAX_HEIGHT * this.volume / this.MAX_VOLUME);// water height above barometer
     },
 
+    /**
+     * Returns true if the given point is inside the chamber pool, false otherwise.
+     * @param {Number} x position in meters
+     * @param {Number} y position in meters
+     * @returns {boolean}
+     */
     isPointInsidePool: function( x, y ) {
       return x > this.poolDimensions.x1 && x < this.poolDimensions.x2 && y < this.poolDimensions.y2;
     }

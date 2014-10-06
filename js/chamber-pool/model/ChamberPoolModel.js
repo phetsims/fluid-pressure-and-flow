@@ -177,7 +177,7 @@ define( function( require ) {
     },
 
     /**
-     * Returns height of the water above the y
+     * Returns height of the water above the given position
      * @param {Number} x position in meters
      * @param {Number} y position in meters
      * @returns {Number} height of the water above the y
