@@ -19,11 +19,11 @@ define( function( require ) {
   var SkyNode = require( 'SCENERY_PHET/SkyNode' );
   var GroundNode = require( 'SCENERY_PHET/GroundNode' );
   var WaterDropsCanvasNode = require( 'FLUID_PRESSURE_AND_FLOW/watertower/view/WaterDropsCanvasNode' );
-  var ResetAllButton = require( 'SCENERY_PHET/ResetAllButton' );
+  var ResetAllButton = require( 'SCENERY_PHET/buttons/ResetAllButton' );
   var Rectangle = require( 'SCENERY/nodes/Rectangle' );
   var VBox = require( 'SCENERY/nodes/VBox' );
-  var PlayPauseButton = require( 'SCENERY_PHET/PlayPauseButton' );
-  var StepButton = require( 'SCENERY_PHET/StepButton' );
+  var PlayPauseButton = require( 'SCENERY_PHET/buttons/PlayPauseButton' );
+  var StepButton = require( 'SCENERY_PHET/buttons/StepButton' );
   var AquaRadioButton = require( 'SUN/AquaRadioButton' );
   var PhetFont = require( 'SCENERY_PHET/PhetFont' );
   var Text = require( 'SCENERY/nodes/Text' );

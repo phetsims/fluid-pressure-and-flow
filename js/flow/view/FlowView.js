@@ -14,7 +14,7 @@ define( function( require ) {
   var ModelViewTransform2 = require( 'PHETCOMMON/view/ModelViewTransform2' );
   var Vector2 = require( 'DOT/Vector2' );
   var Bounds2 = require( 'DOT/Bounds2' );
-  var ResetAllButton = require( 'SCENERY_PHET/ResetAllButton' );
+  var ResetAllButton = require( 'SCENERY_PHET/buttons/ResetAllButton' );
   var Rectangle = require( 'SCENERY/nodes/Rectangle' );
   var SkyNode = require( 'SCENERY_PHET/SkyNode' );
   var GroundNode = require( 'SCENERY_PHET/GroundNode' );
@@ -28,8 +28,8 @@ define( function( require ) {
   var FPAFRuler = require( 'FLUID_PRESSURE_AND_FLOW/common/view/FPAFRuler' );
   var Constants = require( 'FLUID_PRESSURE_AND_FLOW/watertower/Constants' );
   var VBox = require( 'SCENERY/nodes/VBox' );
-  var PlayPauseButton = require( 'SCENERY_PHET/PlayPauseButton' );
-  var StepButton = require( 'SCENERY_PHET/StepButton' );
+  var PlayPauseButton = require( 'SCENERY_PHET/buttons/PlayPauseButton' );
+  var StepButton = require( 'SCENERY_PHET/buttons/StepButton' );
   var AquaRadioButton = require( 'SUN/AquaRadioButton' );
   var PhetFont = require( 'SCENERY_PHET/PhetFont' );
   var Text = require( 'SCENERY/nodes/Text' );
