@@ -7,6 +7,7 @@
  */
 define( function( require ) {
   'use strict';
+
 // modules
   var inherit = require( 'PHET_CORE/inherit' );
   var Vector2 = require( 'DOT/Vector2' );
@@ -26,13 +27,13 @@ define( function( require ) {
     //constants
     this.MAX_HEIGHT = 3; // meters
     this.MAX_VOLUME = trapezoidPoolModel.MAX_HEIGHT; // Liters
-    var WIDTHATTOP = 0.785; //meters,
-    var WIDTHATBOTTOM = 3.57; //meters,
-    var LEFTCHAMBERTOPCENTER = 3; //meters,
-    var SEPARATION = 3.5;//Between centers
+    var WIDTHATTOP = 0.7; //meters,
+    var WIDTHATBOTTOM = 3.15; //meters,
+    var LEFTCHAMBERTOPCENTER = 3.2; //meters,
+    var SEPARATION = 3.22;//Between centers
 
-    this.inputFaucet = new FaucetModel( new Vector2( 3, underPressureModel.skyGroundBoundY - 0.44 ), 1, 0.42 );
-    this.outputFaucet = new FaucetModel( new Vector2( 7.7, underPressureModel.skyGroundBoundY + 3.45 ), 1, 0.3 );
+    this.inputFaucet = new FaucetModel( new Vector2( 3.19, underPressureModel.skyGroundBoundY - 0.44 ), 1, 0.42 );
+    this.outputFaucet = new FaucetModel( new Vector2( 7.5, underPressureModel.skyGroundBoundY + 3.45 ), 1, 0.3 );
 
     this.underPressureModel = underPressureModel;
 

@@ -39,7 +39,7 @@ define( function( require ) {
     var PASSAGE_SIZE = 0.5;
 
     //Width of the right opening to the air
-    var RIGHT_OPENING_WIDTH = 2.5;
+    var RIGHT_OPENING_WIDTH = 2.3;
 
     //Width of the left opening to the air
     var LEFT_OPENING_WIDTH = 0.5;
@@ -52,12 +52,12 @@ define( function( require ) {
 
     //from mockup
     //left chamber start x
-    var LEFT_CHAMBER_X = 1.25;
-    var LEFT_CHAMBER_WIDTH = 3;
+    var LEFT_CHAMBER_X = 1.55;
+    var LEFT_CHAMBER_WIDTH = 2.8;
 
     //right(bottom) chamber start x
-    var RIGHT_CHAMBER_X = 6.3;
-    var RIGHT_CHAMBER_WIDTH = 1.25;
+    var RIGHT_CHAMBER_X = 6.27;
+    var RIGHT_CHAMBER_WIDTH = 1.1;
 
     //default left opening water height
     this.LEFT_WATER_HEIGHT = this.DEFAULT_HEIGHT - CHAMBER_HEIGHT;
@@ -65,7 +65,7 @@ define( function( require ) {
     //masses can't have y-coord more that this, sky height - grass height
     this.MAX_Y = chamberPoolModel.underPressureModel.skyGroundBoundY - 0.05;
 
-    var massOffset = 1.1; // start x-coordinate of first mass
+    var massOffset = 1.35; // start x-coordinate of first mass
     var separation = 0.03; //separation between masses
 
     this.poolDimensions = {
