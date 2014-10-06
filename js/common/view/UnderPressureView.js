@@ -25,7 +25,7 @@ define( function( require ) {
   var UnitsControlPanel = require( 'UNDER_PRESSURE/common/view/UnitsControlPanel' );
   var ControlSlider = require( 'UNDER_PRESSURE/common/view/ControlSlider' );
   var SceneChoiceNode = require( 'UNDER_PRESSURE/common/view/SceneChoiceNode' );
-  var ResetAllButton = require( 'SCENERY_PHET/ResetAllButton' );
+  var ResetAllButton = require( 'SCENERY_PHET/buttons/ResetAllButton' );
   var Rectangle = require( 'SCENERY/nodes/Rectangle' );
   var BarometerNode = require( 'UNDER_PRESSURE/common/view/BarometerNode' );
   var Constants = require( 'UNDER_PRESSURE/common/Constants' );
