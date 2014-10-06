@@ -34,11 +34,19 @@ define( function( require ) {
 
   return inherit( PropertySet, PoolWithFaucetsModel, {
 
+    /**
+     * Step the pool model forward in time by dt seconds.
+     * @param {Number} dt -- time in seconds
+     */
     step: function( dt ) {
       this.addLiquid( dt );
       this.removeLiquid( dt );
     },
 
+    /**
+     * Add liquid to the pool based on the input faucet's flow rate and dt.
+     * @param {Number} dt -- time in seconds
+     */
     addLiquid: function( dt ) {
       var deltaVolume = this.inputFaucet.flowRate * dt;
       if ( deltaVolume > 0 ) {
@@ -46,6 +54,10 @@ define( function( require ) {
       }
     },
 
+    /**
+     * Remove liquid from the pool based on the output faucet's flow rate and dt.
+     * @param {Number} dt -- time in seconds
+     */
     removeLiquid: function( dt ) {
       var deltaVolume = this.outputFaucet.flowRate * dt;
       if ( deltaVolume > 0 ) {
