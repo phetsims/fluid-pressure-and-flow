@@ -181,13 +181,23 @@ define( function( require ) {
       return this.controlCrossSections[ 0 ].getX();
     },
 
-    // Given a global y-position, determine the fraction to the top (point at bottom = 0, point halfway up = 0.5, etc.)
+    /**
+     * Given a global y-position, determine the fraction to the top (point at bottom = 0, point halfway up = 0.5, etc.)
+     * @param {Number} x position in meters
+     * @param {Number} y position in meters
+     * @returns {*} fraction
+     */
     getFractionToTop: function( x, y ) {
       var position = this.getCrossSection( x );
       return Util.linear( position.yBottom, position.yTop, 0, 1, y );
     },
 
-    // Determines the cross section for a given x-coordinate by linear interpolation between the nearest nonlinear samples.
+
+    /**
+     * Determines the cross section for a given x-coordinate by linear interpolation between the nearest nonlinear samples.
+     * @param {Number} x position in meters
+     * @returns {PipeCrossSection} cross section of pipe
+     */
     getCrossSection: function( x ) {
       var previous = this.getPipePositionBefore( x );
       var next = this.getPipePositionAfter( x );
@@ -196,7 +206,12 @@ define( function( require ) {
       return new PipeCrossSection( x, bottom, top ); //return pipe cross section
     },
 
-    // Lookup the cross section immediately before the specified x-location for interpolation
+
+    /**
+     * Lookup the cross section immediately before the specified x-location for interpolation
+     * @param {Number} x position in meters
+     * @returns {PipeCrossSection} if one exists
+     */
     getPipePositionBefore: function( x ) {
       var crossSections = this.getCrossSections();
       var pipeCrossSection;
@@ -214,7 +229,12 @@ define( function( require ) {
       return this.getSplineCrossSections();
     },
 
-    // Lookup the cross section immediately after the specified x-location for interpolation
+
+    /**
+     *  Lookup the cross section immediately after the specified x-location for interpolation
+     * @param {Number} x position in meters
+     * @returns {PipeCrossSection} if one exists
+     */
     getPipePositionAfter: function( x ) {
       var crossSections = this.getCrossSections();
       var pipeCrossSection;
@@ -250,7 +270,12 @@ define( function( require ) {
       return new Vector2( this.getMaxX(), controlCrossSections[ controlCrossSections.length - 1 ].yBottom );
     },
 
-    // Get the speed at the specified x-location.  This is before friction and vertical effects are accounted for
+
+    /**
+     *  Get the speed at the specified x-location.  This is before friction and vertical effects are accounted for
+     * @param { Number } x position in meters
+     * @returns {Number} speed of fluid flow at given x position
+     */
     getSpeed: function( x ) {
       //Continuity equation: a1*v1 = a2*v2
       //treat pipes as if they are cylindrical cross sections
@@ -261,16 +286,32 @@ define( function( require ) {
       return  ( this.flowRate / 1000 ) / crossSectionArea;
     },
 
-    // I was told that the fluid flow rate falls off quadratically, so use lagrange interpolation so that at the center of the pipe
-    // the velocity is full speed, and it falls off quadratically toward the sides.
-    // See http://stackoverflow.com/questions/2075013/best-way-to-find-quadratic-regression-curve-in-java
+    /**
+     * I was told that the fluid flow rate falls off quadratically, so use lagrange interpolation so that at the center of the pipe
+     * the velocity is full speed, and it falls off quadratically toward the sides.
+     * See http://stackoverflow.com/questions/2075013/best-way-to-find-quadratic-regression-curve-in-java
+     * @param {Number} x1
+     * @param {Number} y1
+     * @param {Number} x2
+     * @param {Number} y2
+     * @param {Number} x3
+     * @param {Number} y3
+     * @param {Number} x
+     * @returns {Number}
+     */
     lagrange: function( x1, y1, x2, y2, x3, y3, x ) {
       return ( x - x2 ) * ( x - x3 ) / ( x1 - x2 ) / ( x1 - x3 ) * y1 +
              ( x - x1 ) * ( x - x3 ) / ( x2 - x1 ) / ( x2 - x3 ) * y2 +
              ( x - x1 ) * ( x - x2 ) / ( x3 - x1 ) / ( x3 - x2 ) * y3;
     },
 
-    // Get the velocity at the specified point, does not account for vertical effects or friction.
+
+    /**
+     * Get the velocity at the specified point, does not account for vertical effects or friction.
+     * @param {Number} x position in meters
+     * @param {Number} y position in meters
+     * @returns {*} velocity  at x,y
+     */
     getVelocity: function( x, y ) {
       var fraction = this.getFractionToTop( x, y );
       var speed = this.getSpeed( x );
@@ -286,8 +327,13 @@ define( function( require ) {
       return velocity.setMagnitude( speed );
     },
 
-    // Gets the x-velocity of a particle, incorporating vertical effects.
-    // If this effect is ignored, then when there is a large slope in the pipe, particles closer to the edge move much faster (which is physically incorrect).
+    /**
+     *  Gets the x-velocity of a particle, incorporating vertical effects.
+     *  If this effect is ignored, then when there is a large slope in the pipe, particles closer to the edge move much faster (which is physically incorrect).
+     * @param {Number} x position in meters
+     * @param {Number} y position in meters
+     * @returns {Number} the tweaked x-velocity
+     */
     getTweakedVx: function( x, y ) {
 
       var fraction = this.getFractionToTop( x, y );
@@ -318,11 +364,22 @@ define( function( require ) {
       }
     },
 
+    /**
+     *
+     * @param {Number} x position in meters
+     * @param {Number} y position in meters
+     * @returns {Vector2} the velocity vector at the given point
+     */
     getTweakedVelocity: function( x, y ) {
       return new Vector2( this.getTweakedVx( x, y ), this.getVelocity( x, y ).y );
     },
 
-    // Find the y-value for the specified x-value and fraction (0=bottom, 1=top) of the pipe
+    /**
+     * Find the y-value for the specified x-value and fraction (0=bottom, 1=top) of the pipe
+     * @param {Number} x position in meters
+     * @param {Number} fraction is in (0,1) (0=bottom, 1=top)
+     * @returns {*}
+     */
     fractionToLocation: function( x, fraction ) {
       var position = this.getCrossSection( x );
       return Util.linear( 0, 1, position.yBottom, position.yTop, fraction );
@@ -338,7 +395,11 @@ define( function( require ) {
       return new Vector2( x, this.fractionToLocation( x, fractionToTop ) );
     },
 
-    // Compute the circular cross sectional area (in meters squared) at the specified location
+    /**
+     * Compute the circular cross sectional area (in meters squared) at the specified location
+     * @param {Number} x position in meters
+     * @returns {Number} area of cross section at x in square meters
+     */
     getCrossSectionalArea: function( x ) {
       var radius = Math.abs( this.getPoint( x, 0.5 ).y - this.getPoint( x, 1 ).y );
       return Math.PI * radius * radius;
