@@ -215,6 +215,7 @@ define( function( require ) {
 
     /**
      * Updates the display text in the panel as per the new x position
+     * @param {String} units can be metric/english
      * @private
      */
     updateDisplayPanel: function( units ) {

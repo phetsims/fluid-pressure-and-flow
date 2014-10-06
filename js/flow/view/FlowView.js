@@ -249,6 +249,11 @@ define( function( require ) {
   }
 
   return inherit( ScreenView, FlowView, {
+
+    /**
+     * Called by the animation loop.
+     * @param {Number} dt -- time in seconds
+     */
     step: function( dt ) {
       this.pipeNode.particlesLayer.step( dt );
     }
