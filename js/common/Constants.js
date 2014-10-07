@@ -1,7 +1,7 @@
 // Copyright (c) 2002 - 2014. University of Colorado Boulder
 
 /**
- * Constants used in this Sim
+ * Constants used in this Sim.  All units are SI (mks) unless otherwise specified.
  * @author Siddhartha Chinthapally (Actual Concepts)
  */
 define( function() {
@@ -15,8 +15,7 @@ define( function() {
     MIN_FLOW_RATE: 1000,
     MAX_FLOW_RATE: 10000,
 
-
-    // density values of fluids in kg/cubic mt
+    // density values of fluids in kg/cubic meter
     GASOLINE_DENSITY: 700,
     HONEY_DENSITY: 1420,
     WATER_DENSITY: 1000,
