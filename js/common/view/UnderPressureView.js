@@ -148,11 +148,30 @@ define( function( require ) {
     _.each( underPressureModel.barometers, function( barometer ) {
       barometer.positionProperty.storeInitialValue( new Vector2( sensorPanel.centerX, sensorPanel.centerY - 15 ) );
       barometer.reset();
-      this.addChild( new BarometerNode( modelViewTransform, barometer, underPressureModel.measureUnitsProperty,
-        [ underPressureModel.currentSceneProperty, underPressureModel.gravityProperty, underPressureModel.fluidDensityProperty,
-          underPressureModel.isAtmosphereProperty, underPressureModel.currentVolumeProperty, underPressureModel.leftDisplacementProperty],
-        underPressureModel.getPressureAtCoords.bind( underPressureModel ), underPressureModel.getPressureString.bind( underPressureModel ),
-        sensorPanel.visibleBounds, this.layoutBounds, { scale: 1.5, pressureReadOffset: 51, minPressure: 0  } ) );
+
+      var barometerLinkedProperties = [
+        underPressureModel.currentSceneProperty,
+        underPressureModel.gravityProperty,
+        underPressureModel.fluidDensityProperty,
+        underPressureModel.isAtmosphereProperty,
+        underPressureModel.currentVolumeProperty,
+        underPressureModel.leftDisplacementProperty
+      ];
+      var barometerNode = new BarometerNode(
+        modelViewTransform,
+        barometer,
+        underPressureModel.measureUnitsProperty,
+        barometerLinkedProperties,
+        underPressureModel.getPressureAtCoords.bind( underPressureModel ),
+        underPressureModel.getPressureString.bind( underPressureModel ),
+        sensorPanel.visibleBounds,
+        this.layoutBounds,
+        {
+          scale: 1.5,
+          pressureReadOffset: 51,
+          minPressure: 0
+        } );
+      this.addChild( barometerNode );
     }.bind( this ) );
 
 
