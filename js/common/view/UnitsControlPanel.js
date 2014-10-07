@@ -43,13 +43,15 @@ define( function( require ) {
       scale: 0.8
     }, options );
 
-
-    var textOptions = {font: new PhetFont( 14 )};
-
     var titleText = new Text( unitsString, { font: new PhetFont( 12 ), fontWeight: 'bold' } );
-    var metricRadio = new AquaRadioButton( measureUnitsProperty, 'metric', new Text( metricString, textOptions ), { radius: 6 } );
-    var atmosphereRadio = new AquaRadioButton( measureUnitsProperty, 'atmosphere', new Text( atmospheresString, textOptions ), { radius: 6 } );
-    var englishRadio = new AquaRadioButton( measureUnitsProperty, 'english', new Text( englishString, textOptions ), { radius: 6 } );
+
+    var AQUA_RADIO_BUTTON_OPTIONS = { radius: 6 };
+    var createButtonTextNode = function( text ) { return new Text( text, {font: new PhetFont( 14 )} ); };
+
+    // Create the radio buttons
+    var metricRadio = new AquaRadioButton( measureUnitsProperty, 'metric', createButtonTextNode( metricString ), AQUA_RADIO_BUTTON_OPTIONS );
+    var atmosphereRadio = new AquaRadioButton( measureUnitsProperty, 'atmosphere', createButtonTextNode( atmospheresString ), AQUA_RADIO_BUTTON_OPTIONS );
+    var englishRadio = new AquaRadioButton( measureUnitsProperty, 'english', createButtonTextNode( englishString ), AQUA_RADIO_BUTTON_OPTIONS );
 
     //dummy text for height
     var dummyText = new Text( '', { font: new PhetFont( 3 ) } );
@@ -71,7 +73,6 @@ define( function( require ) {
       return new HBox( { children: [ new HStrut( strutWidth ), item, new HStrut( strutWidth ) ] } );
     };
 
-
     var content = new VBox( {
       spacing: 5,
       children: [ createTitle( titleText ), metricRadio, atmosphereRadio, englishRadio, createTitle( dummyText ) ],
@@ -79,7 +80,6 @@ define( function( require ) {
     } );
 
     Panel.call( this, content, options );
-
   }
 
   return inherit( Panel, UnitsControlPanel );
