@@ -121,28 +121,33 @@ define( function( require ) {
     this.addChild( this.gravitySlider );
 
     // fluid density slider
-    this.fluidDensitySlider = new ControlSlider( underPressureModel.measureUnitsProperty, underPressureModel.fluidDensityProperty, underPressureModel.getFluidDensityString.bind( underPressureModel ), underPressureModel.fluidDensityRange, underPressureModel.fluidDensityControlExpandedProperty, {
+    this.fluidDensitySlider = new ControlSlider(
+      underPressureModel.measureUnitsProperty,
+      underPressureModel.fluidDensityProperty,
+      underPressureModel.getFluidDensityString.bind( underPressureModel ),
+      underPressureModel.fluidDensityRange,
+      underPressureModel.fluidDensityControlExpandedProperty,
+      {
+        right: this.resetAllButton.right,
+        bottom: this.gravitySlider.top - 8,
+        scale: 0.95,
 
-      right: this.resetAllButton.right,
-      bottom: this.gravitySlider.top - 8,
-      scale: 0.95,
-
-      title: fluidDensityString,
-      ticks: [
-        {
-          title: WaterString,
-          value: Constants.WATER_DENSITY
-        },
-        {
-          title: GasolineString,
-          value: underPressureModel.fluidDensityRange.min
-        },
-        {
-          title: HoneyString,
-          value: underPressureModel.fluidDensityRange.max
-        }
-      ]
-    } );
+        title: fluidDensityString,
+        ticks: [
+          {
+            title: WaterString,
+            value: Constants.WATER_DENSITY
+          },
+          {
+            title: GasolineString,
+            value: underPressureModel.fluidDensityRange.min
+          },
+          {
+            title: HoneyString,
+            value: underPressureModel.fluidDensityRange.max
+          }
+        ]
+      } );
     this.addChild( this.fluidDensitySlider );
 
     // add the sensors panel
