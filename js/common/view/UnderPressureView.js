@@ -91,28 +91,33 @@ define( function( require ) {
     this.addChild( this.unitsControlPanel );
 
     // gravity slider
-    this.gravitySlider = new ControlSlider( underPressureModel.measureUnitsProperty, underPressureModel.gravityProperty, underPressureModel.getGravityString.bind( underPressureModel ), underPressureModel.gravityRange, underPressureModel.gravityControlExpandedProperty, {
-
-      right: this.resetAllButton.right,
-      bottom: this.resetAllButton.top - 5,
-      scale: 0.95,
-      title: gravityString,
-      decimals: 1,
-      ticks: [
-        {
-          title: EarthString,
-          value: Constants.EARTH_GRAVITY
-        },
-        {
-          title: MarsString,
-          value: underPressureModel.gravityRange.min
-        },
-        {
-          title: JupiterString,
-          value: underPressureModel.gravityRange.max
-        }
-      ]
-    } );
+    this.gravitySlider = new ControlSlider(
+      underPressureModel.measureUnitsProperty,
+      underPressureModel.gravityProperty,
+      underPressureModel.getGravityString.bind( underPressureModel ),
+      underPressureModel.gravityRange,
+      underPressureModel.gravityControlExpandedProperty,
+      {
+        right: this.resetAllButton.right,
+        bottom: this.resetAllButton.top - 5,
+        scale: 0.95,
+        title: gravityString,
+        decimals: 1,
+        ticks: [
+          {
+            title: EarthString,
+            value: Constants.EARTH_GRAVITY
+          },
+          {
+            title: MarsString,
+            value: underPressureModel.gravityRange.min
+          },
+          {
+            title: JupiterString,
+            value: underPressureModel.gravityRange.max
+          }
+        ]
+      } );
     this.addChild( this.gravitySlider );
 
     // fluid density slider
@@ -174,14 +179,12 @@ define( function( require ) {
       this.addChild( barometerNode );
     }.bind( this ) );
 
-
     var scenes = {};
     underPressureModel.scenes.forEach( function( name ) {
       scenes[ name ] = new SceneView[ name ]( underPressureModel.sceneModels[ name ], modelViewTransform, underPressureView.layoutBounds );
       scenes[ name ].visible = false;
       underPressureView.addChild( scenes[ name ] );
     } );
-
 
     underPressureModel.mysteryChoiceProperty.link( function( choice ) {
       if ( underPressureModel.currentScene === 'Mystery' ) {
@@ -193,7 +196,6 @@ define( function( require ) {
           underPressureView.gravitySlider.enable();
           underPressureView.fluidDensitySlider.disable();
         }
-
       }
     } );
 
@@ -212,7 +214,6 @@ define( function( require ) {
         underPressureView.fluidDensitySlider.enable();
       }
     } );
-
 
     this.addChild( new SceneChoiceNode( underPressureModel, { x: 5, y: 260 } ) );
 
