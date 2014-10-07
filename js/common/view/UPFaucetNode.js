@@ -1,8 +1,11 @@
 // Copyright 2002-2013, University of Colorado Boulder
 
 /**
- * Faucet node for this sim.
- * @author Chris Malley (PixelZoom, Inc.), Vasily Shakhov (Mlearner)
+ * Faucet node for this sim.  Extends the scenery-phet faucet component and simplifies positioning within the
+ * Under Pressure scenes.
+ *
+ * @author Chris Malley (PixelZoom, Inc.)
+ * @author Vasily Shakhov (Mlearner)
  */
 define( function( require ) {
   'use strict';
