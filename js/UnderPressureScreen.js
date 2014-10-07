@@ -1,10 +1,11 @@
 // Copyright (c) 2002 - 2014. University of Colorado Boulder
 
 /**
- * UnderPressureScreen
+ * The screen (model + view) for the Under Pressure screen, which appears as a standalone sim in the "Under Pressure" sim
+ * as well as the 1st screen in the "Fluid Pressure and Flow" sim.
+ *
  * @author Siddhartha Chinthapally (Actual Concepts)
  */
-
 define( function( require ) {
   'use strict';
 
