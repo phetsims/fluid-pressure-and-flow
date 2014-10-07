@@ -1,11 +1,9 @@
 // Copyright 2002-2013, University of Colorado Boulder
 
 /**
- *  Main view for the under-pressure sim.
- *  The view contains 4 scenes: square pool, chamber pool, trapezoid and a mystery pool.
- *  There is a scene selector to switch between the views.
- *  There are panels to control the fluid density and gravity and tools to measure pressure and length.
- *  Supports viewing values in english, metric or atmosphere units.
+ *  Main view for the under-pressure sim. The view contains 4 scenes: square pool, chamber pool, trapezoid and a
+ *  mystery pool. There is a scene selector to switch between the views. There are panels to control the fluid density
+ *  and gravity and tools to measure pressure and length. Supports viewing values in english, metric or atmosphere units.
  *
  * @author Vasily Shakhov (Mlearner)
  * @author Siddhartha Chinthapally (Actual Concepts).
@@ -29,6 +27,10 @@ define( function( require ) {
   var Rectangle = require( 'SCENERY/nodes/Rectangle' );
   var BarometerNode = require( 'UNDER_PRESSURE/common/view/BarometerNode' );
   var Constants = require( 'UNDER_PRESSURE/common/Constants' );
+  var SquarePoolView = require( 'UNDER_PRESSURE/square-pool/view/SquarePoolView' );
+  var TrapezoidPoolView = require( 'UNDER_PRESSURE/trapezoid-pool/view/TrapezoidPoolView' );
+  var ChamberPoolView = require( 'UNDER_PRESSURE/chamber-pool/view/ChamberPoolView' );
+  var MysteryPoolView = require( 'UNDER_PRESSURE/mystery-pool/view/MysteryPoolView' );
 
   // strings
   var fluidDensityString = require( 'string!UNDER_PRESSURE/fluidDensity' );
@@ -41,10 +43,10 @@ define( function( require ) {
   var HoneyString = require( 'string!UNDER_PRESSURE/honey' );
 
   var SceneView = {
-    Square: require( 'UNDER_PRESSURE/square-pool/view/SquarePoolView' ),
-    Trapezoid: require( 'UNDER_PRESSURE/trapezoid-pool/view/TrapezoidPoolView' ),
-    Chamber: require( 'UNDER_PRESSURE/chamber-pool/view/ChamberPoolView' ),
-    Mystery: require( 'UNDER_PRESSURE/mystery-pool/view/MysteryPoolView' )
+    Square: SquarePoolView,
+    Trapezoid: TrapezoidPoolView,
+    Chamber: ChamberPoolView,
+    Mystery: MysteryPoolView
   };
 
   //View layout related constants
