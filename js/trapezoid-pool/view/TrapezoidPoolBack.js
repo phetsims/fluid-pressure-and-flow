@@ -17,7 +17,7 @@ define( function( require ) {
   var Matrix3 = require( 'DOT/Matrix3' );
   var Shape = require( 'KITE/Shape' );
   var Path = require( 'SCENERY/nodes/Path' );
-  var UPFaucetNode = require( 'UNDER_PRESSURE/common/view/UPFaucetNode' );
+  var UnderPressureFaucetNode = require( 'UNDER_PRESSURE/common/view/UnderPressureFaucetNode' );
 
   // images
   var grassImg = require( 'image!UNDER_PRESSURE/images/grass-texture.png' );
@@ -70,7 +70,7 @@ define( function( require ) {
     } ) );
 
     // add output faucet
-    this.addChild( new UPFaucetNode( trapezoidPoolModel.outputFaucet, 200, modelViewTransform ) );
+    this.addChild( new UnderPressureFaucetNode( trapezoidPoolModel.outputFaucet, 200, modelViewTransform ) );
 
     // bottom chamber
     this.addChild( new Rectangle( modelViewTransform.modelToViewX( trapezoidPoolModel.verticles.x1middle ) - 8, modelViewTransform.modelToViewY( trapezoidPoolModel.poolDimensions.bottomChamber.y1 ) + 1, modelViewTransform.modelToViewX( trapezoidPoolModel.verticles.x2middle - trapezoidPoolModel.verticles.x1middle ) + 16, modelViewTransform.modelToViewY( trapezoidPoolModel.poolDimensions.bottomChamber.y2 - trapezoidPoolModel.poolDimensions.bottomChamber.y1 ) - 1, {
@@ -100,7 +100,7 @@ define( function( require ) {
     } ) );
 
     // add input faucet
-    this.addChild( new UPFaucetNode( trapezoidPoolModel.inputFaucet, 3000, modelViewTransform ) );
+    this.addChild( new UnderPressureFaucetNode( trapezoidPoolModel.inputFaucet, 3000, modelViewTransform ) );
   }
 
   return inherit( Node, TrapezoidPoolBack );

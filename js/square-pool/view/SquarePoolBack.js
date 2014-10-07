@@ -16,7 +16,7 @@ define( function( require ) {
   var Matrix3 = require( 'DOT/Matrix3' );
   var Shape = require( 'KITE/Shape' );
   var Path = require( 'SCENERY/nodes/Path' );
-  var UPFaucetNode = require( 'UNDER_PRESSURE/common/view/UPFaucetNode' );
+  var UnderPressureFaucetNode = require( 'UNDER_PRESSURE/common/view/UnderPressureFaucetNode' );
 
   // images
   var grassImg = require( 'image!UNDER_PRESSURE/images/grass-texture.png' );
@@ -54,7 +54,7 @@ define( function( require ) {
     this.addChild( new Path( cementBorder, {  stroke: new Pattern( cementImg ), lineWidth: 4, lineJoin: 'round' } ) );
 
     // add output faucet
-    this.addChild( new UPFaucetNode( squarePoolModel.outputFaucet, 150, modelViewTransform ) );
+    this.addChild( new UnderPressureFaucetNode( squarePoolModel.outputFaucet, 150, modelViewTransform ) );
 
     //white background for pool
     this.addChild( new Rectangle( modelViewTransform.modelToViewX( squarePoolModel.poolDimensions.x1 ),
@@ -63,7 +63,7 @@ define( function( require ) {
         modelViewTransform.modelToViewY( squarePoolModel.poolDimensions.y2 - squarePoolModel.poolDimensions.y1 ) + 1, { fill: '#f3f0e9' } ) );
 
     // add input faucet node
-    this.addChild( new UPFaucetNode( squarePoolModel.inputFaucet, 3000, modelViewTransform ) );
+    this.addChild( new UnderPressureFaucetNode( squarePoolModel.inputFaucet, 3000, modelViewTransform ) );
   }
 
   return inherit( Node, SquarePoolBack );

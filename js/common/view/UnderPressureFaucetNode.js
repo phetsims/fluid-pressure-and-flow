@@ -20,7 +20,7 @@ define( function( require ) {
    * @param {ModelViewTransform2} modelViewTransform , Transform between model and view coordinate frames
    * @constructor
    */
-  function UPFaucetNode( faucet, width, modelViewTransform ) {
+  function UnderPressureFaucetNode( faucet, width, modelViewTransform ) {
 
     FaucetNode.call( this, faucet.maxFlowRate, faucet.flowRateProperty, faucet.enabledProperty,
       {
@@ -32,5 +32,5 @@ define( function( require ) {
       } );
   }
 
-  return inherit( FaucetNode, UPFaucetNode );
+  return inherit( FaucetNode, UnderPressureFaucetNode );
 } );
