@@ -35,16 +35,18 @@ define( function( require ) {
     var grassPattern = new Pattern( grassImg ).setTransformMatrix( Matrix3.scale( 0.25 ) );
     var grassRectYOffset = 1;
     var grassRectHeight = 10;
+    var grassExtension = 1000;
+
     // grass on the left of the pool
-    this.addChild( new Rectangle( -1000, grassRectYOffset,
-        1000 + modelViewTransform.modelToViewX( squarePoolModel.poolDimensions.x1 ),
+    this.addChild( new Rectangle( -grassExtension, grassRectYOffset,
+        grassExtension + modelViewTransform.modelToViewX( squarePoolModel.poolDimensions.x1 ),
       grassRectHeight, {
         fill: grassPattern, y: modelViewTransform.modelToViewY( squarePoolModel.underPressureModel.skyGroundBoundY ) -
                                grassRectHeight
       } ) );
     // grass on the right of the pool
     this.addChild( new Rectangle( modelViewTransform.modelToViewX( squarePoolModel.poolDimensions.x2 ),
-      grassRectYOffset, 2000, grassRectHeight, {
+      grassRectYOffset, grassExtension, grassRectHeight, {
         fill: grassPattern, y: modelViewTransform.modelToViewY( squarePoolModel.underPressureModel.skyGroundBoundY ) -
                                grassRectHeight
       } ) );

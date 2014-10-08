@@ -36,9 +36,10 @@ define( function( require ) {
     var grassPattern = new Pattern( grassImg ).setTransformMatrix( Matrix3.scale( 0.25 ) );
     var grassRectYOffset = 1;
     var grassRectHeight = 10;
+    var grassExtension = 1000;
 
-    this.addChild( new Rectangle( -1000, grassRectYOffset,
-        1000 + modelViewTransform.modelToViewX( trapezoidPoolModel.verticles.x1top ),
+    this.addChild( new Rectangle( -grassExtension, grassRectYOffset,
+        grassExtension + modelViewTransform.modelToViewX( trapezoidPoolModel.verticles.x1top ),
       grassRectHeight, {
         fill: grassPattern,
         y: modelViewTransform.modelToViewY( trapezoidPoolModel.underPressureModel.skyGroundBoundY ) - grassRectHeight
@@ -54,7 +55,7 @@ define( function( require ) {
       } ) );
 
     this.addChild( new Rectangle( modelViewTransform.modelToViewX( trapezoidPoolModel.verticles.x4top ),
-      grassRectYOffset, 1000, grassRectHeight, {
+      grassRectYOffset, grassExtension, grassRectHeight, {
         fill: grassPattern,
         y: modelViewTransform.modelToViewY( trapezoidPoolModel.underPressureModel.skyGroundBoundY ) - grassRectHeight
       } ) );
