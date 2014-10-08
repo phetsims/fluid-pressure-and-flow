@@ -68,17 +68,17 @@ define( function( require ) {
     // flowRate row
     var flowRateText = new Text( flowRateString, textOptions );
     this.flowRateValue = new Text( '', textOptions );
-    this.flowRateUnit = new SubSupText( 'dummy', textOptions );
+    this.flowRateUnit = new SubSupText( '', textOptions );
 
     // area row
     var area = new Text( areaString, textOptions );
     this.areaValue = new Text( '', textOptions );
-    this.areaUnit = new SubSupText( 'dummy', textOptions );
+    this.areaUnit = new SubSupText( '', textOptions );
 
     // flux row
     var flux = new Text( fluxString, textOptions );
     this.fluxValue = new Text( '', textOptions );
-    this.fluxUnit = new SubSupText( 'dummy', textOptions );
+    this.fluxUnit = new SubSupText( '', textOptions );
 
     // Split the content into 3 vboxes. First vbox holds the right aligned title,
     // second the right aligned value and the third vbox holds the left aligned units text
