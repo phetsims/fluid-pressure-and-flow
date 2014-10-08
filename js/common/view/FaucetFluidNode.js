@@ -29,7 +29,9 @@ define( function( require ) {
     this.viewWidth = 0;
 
     var redrawRect = function() {
-      thisNode.setRect( modelViewTransform.modelToViewX( faucet.location.x ) - (thisNode.viewWidth / 2), modelViewTransform.modelToViewY( faucet.location.y ), thisNode.viewWidth, thisNode.currentHeight );
+      thisNode.setRect( modelViewTransform.modelToViewX( faucet.location.x ) - (thisNode.viewWidth / 2),
+        modelViewTransform.modelToViewY( faucet.location.y ), thisNode.viewWidth,
+        thisNode.currentHeight );
     };
 
     model.underPressureModel.fluidColorModel.colorProperty.linkAttribute( thisNode, 'fill' );
@@ -45,7 +47,8 @@ define( function( require ) {
     } );
 
     model.volumeProperty.link( function( volume ) {
-      thisNode.currentHeight = maxHeight - modelViewTransform.modelToViewY( volume * model.MAX_HEIGHT / model.MAX_VOLUME );
+      thisNode.currentHeight =
+      maxHeight - modelViewTransform.modelToViewY( volume * model.MAX_HEIGHT / model.MAX_VOLUME );
       if ( faucet.flowRate !== 0 ) {
         redrawRect();
       }

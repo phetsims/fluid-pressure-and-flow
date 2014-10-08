@@ -22,7 +22,10 @@ define( function( require ) {
 
   function UnderPressureScreen( simTitle ) {
     Screen.call( this, simTitle, new Image( underPressureScreenIcon ),
-      function() { return new UnderPressureModel( ScreenView.DEFAULT_LAYOUT_BOUNDS.width, ScreenView.DEFAULT_LAYOUT_BOUNDS.height ); },
+      function() {
+        return new UnderPressureModel( ScreenView.DEFAULT_LAYOUT_BOUNDS.width,
+          ScreenView.DEFAULT_LAYOUT_BOUNDS.height );
+      },
       function( model ) { return new UnderPressureView( model ); },
       { backgroundColor: null }
     );

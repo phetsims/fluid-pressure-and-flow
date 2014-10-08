@@ -37,7 +37,8 @@ define( function( require ) {
     underPressureModel.scenes.forEach( function( name, index ) {
       var iconImage = new Image( iconImages[ name ] );
       iconImage.scale( ICON_SIZE.width / iconImage.width, ICON_SIZE.height / iconImage.height );
-      var iconButton = new InOutRadioButton( underPressureModel.currentSceneProperty, name, iconImage, { cornerRadius: 5 } );
+      var iconButton = new InOutRadioButton( underPressureModel.currentSceneProperty, name, iconImage,
+        { cornerRadius: 5 } );
       iconButton.touchArea = iconButton.localBounds.dilatedXY( 0, 0 );
       iconButton.translate( 0, dy * index );
       sceneChoiceNode.addChild( iconButton );

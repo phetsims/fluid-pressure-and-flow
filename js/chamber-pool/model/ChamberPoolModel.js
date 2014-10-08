@@ -25,7 +25,7 @@ define( function( require ) {
   function ChamberPoolModel( underPressureModel ) {
 
     var chamberPoolModel = this;
-    PropertySet.call( this, {stackMass: 0} );
+    PropertySet.call( this, { stackMass: 0 } );
 
     this.underPressureModel = underPressureModel;
 
@@ -44,7 +44,8 @@ define( function( require ) {
     //Width of the left opening to the air
     var LEFT_OPENING_WIDTH = 0.5;
 
-    //Use the length ratio instead of area ratio because the quadratic factor makes it too hard to see the water move on the right, and decreases the pressure effect too much to see it
+    //Use the length ratio instead of area ratio because the quadratic factor makes it too hard to see the
+    // water move on the right, and decreases the pressure effect too much to see it
     this.LENGTH_RATIO = RIGHT_OPENING_WIDTH / LEFT_OPENING_WIDTH;
 
     //Height of each chamber, physics not working properly to vary these independently
@@ -105,9 +106,12 @@ define( function( require ) {
     this.stack = new ObservableArray();
 
     this.masses = [
-      new MassModel( chamberPoolModel, 500, massOffset, chamberPoolModel.MAX_Y - PASSAGE_SIZE / 2, PASSAGE_SIZE, PASSAGE_SIZE ),
-      new MassModel( chamberPoolModel, 250, massOffset + PASSAGE_SIZE + separation, chamberPoolModel.MAX_Y - PASSAGE_SIZE / 4, PASSAGE_SIZE, PASSAGE_SIZE / 2 ),
-      new MassModel( chamberPoolModel, 250, massOffset + 2 * PASSAGE_SIZE + 2 * separation, chamberPoolModel.MAX_Y - PASSAGE_SIZE / 4, PASSAGE_SIZE, PASSAGE_SIZE / 2 )
+      new MassModel( chamberPoolModel, 500, massOffset, chamberPoolModel.MAX_Y - PASSAGE_SIZE / 2, PASSAGE_SIZE,
+        PASSAGE_SIZE ),
+      new MassModel( chamberPoolModel, 250, massOffset + PASSAGE_SIZE + separation,
+          chamberPoolModel.MAX_Y - PASSAGE_SIZE / 4, PASSAGE_SIZE, PASSAGE_SIZE / 2 ),
+      new MassModel( chamberPoolModel, 250, massOffset + 2 * PASSAGE_SIZE + 2 * separation,
+          chamberPoolModel.MAX_Y - PASSAGE_SIZE / 4, PASSAGE_SIZE, PASSAGE_SIZE / 2 )
     ];
 
     this.stack.addListeners(
@@ -183,11 +187,13 @@ define( function( require ) {
      * @returns {Number} height of the water above the y
      */
     getWaterHeightAboveY: function( x, y ) {
-      if ( this.poolDimensions.leftOpening.x1 < x && x < this.poolDimensions.leftOpening.x2 && y < this.poolDimensions.leftChamber.y2 - this.DEFAULT_HEIGHT + this.underPressureModel.leftDisplacement ) {
+      if ( this.poolDimensions.leftOpening.x1 < x && x < this.poolDimensions.leftOpening.x2 &&
+           y < this.poolDimensions.leftChamber.y2 - this.DEFAULT_HEIGHT + this.underPressureModel.leftDisplacement ) {
         return 0;
       }
       else {
-        return y - (this.poolDimensions.leftChamber.y2 - this.DEFAULT_HEIGHT - this.underPressureModel.leftDisplacement / this.LENGTH_RATIO);
+        return y - (this.poolDimensions.leftChamber.y2 - this.DEFAULT_HEIGHT -
+                    this.underPressureModel.leftDisplacement / this.LENGTH_RATIO);
       }
     },
 
@@ -200,7 +206,8 @@ define( function( require ) {
     isPointInsidePool: function( x, y ) {
       var isInside = false;
       ['leftChamber', 'rightChamber', 'horizontalPassage', 'leftOpening', 'rightOpening'].forEach( function( name ) {
-        if ( x > this.poolDimensions[name].x1 && x < this.poolDimensions[name].x2 && y > this.poolDimensions[name].y1 && y < this.poolDimensions[name].y2 ) {
+        if ( x > this.poolDimensions[name].x1 && x < this.poolDimensions[name].x2 && y > this.poolDimensions[name].y1 &&
+             y < this.poolDimensions[name].y2 ) {
           //inside bottom chamber
           isInside = true;
         }

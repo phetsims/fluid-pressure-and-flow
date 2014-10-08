@@ -50,8 +50,8 @@ define( function( require ) {
     // Create the radio buttons
     var metricRadio = new AquaRadioButton( measureUnitsProperty, 'metric', createButtonTextNode( metricString ),
       AQUA_RADIO_BUTTON_OPTIONS );
-    var atmosphereRadio = new AquaRadioButton( measureUnitsProperty, 'atmosphere', createButtonTextNode( atmospheresString ),
-      AQUA_RADIO_BUTTON_OPTIONS );
+    var atmosphereRadio = new AquaRadioButton( measureUnitsProperty, 'atmosphere',
+      createButtonTextNode( atmospheresString ), AQUA_RADIO_BUTTON_OPTIONS );
     var englishRadio = new AquaRadioButton( measureUnitsProperty, 'english', createButtonTextNode( englishString ),
       AQUA_RADIO_BUTTON_OPTIONS );
 
@@ -67,7 +67,8 @@ define( function( require ) {
     //touch areas
     metricRadio.touchArea = new Bounds2( metricRadio.localBounds.minX - touchExpansion, metricRadio.localBounds.minY,
         metricRadio.localBounds.minX + maxRadioButtonWidth, metricRadio.localBounds.maxY );
-    atmosphereRadio.touchArea = new Bounds2( atmosphereRadio.localBounds.minX - touchExpansion, atmosphereRadio.localBounds.minY,
+    atmosphereRadio.touchArea =
+    new Bounds2( atmosphereRadio.localBounds.minX - touchExpansion, atmosphereRadio.localBounds.minY,
         atmosphereRadio.localBounds.minX + maxRadioButtonWidth, atmosphereRadio.localBounds.maxY );
     englishRadio.touchArea = new Bounds2( englishRadio.localBounds.minX - touchExpansion, englishRadio.localBounds.minY,
         englishRadio.localBounds.minX + maxRadioButtonWidth, englishRadio.localBounds.maxY );
@@ -80,7 +81,8 @@ define( function( require ) {
 
     var content = new VBox( {
       spacing: 4,
-      children: [ createTitle( titleText ), metricRadio, atmosphereRadio, englishRadio, createTitle( dummyText ) ],
+      children: [ createTitle( titleText ), metricRadio, atmosphereRadio, englishRadio,
+                  createTitle( dummyText ) ],
       align: 'left'
     } );
 

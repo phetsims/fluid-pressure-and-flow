@@ -43,8 +43,8 @@ define( function( require ) {
     this.choicePanel = new Node( { x: 625, y: 197 } );
     var background = new Rectangle( 0, 0, 0, 1, { stroke: 'gray', lineWidth: 1, fill: '#f2fa6a', pickable: false } );
 
-    var mysteryFluidRadio = new AquaRadioButton( mysteryPoolModel.underPressureModel.mysteryChoiceProperty, 'fluidDensity',
-      new Text( mysteryFluid, textOptions ), { radius: 6 } );
+    var mysteryFluidRadio = new AquaRadioButton( mysteryPoolModel.underPressureModel.mysteryChoiceProperty,
+      'fluidDensity', new Text( mysteryFluid, textOptions ), { radius: 6 } );
     var mysteryPlanetRadio = new AquaRadioButton( mysteryPoolModel.underPressureModel.mysteryChoiceProperty, 'gravity',
       new Text( mysteryPlanet, textOptions ), { radius: 6 } );
     var touchExpansion = 4;

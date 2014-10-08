@@ -45,8 +45,10 @@ define( function( require ) {
 
     var textOptions = {font: new PhetFont( 12 )};
 
-    var atmosphereTrue = new AquaRadioButton( isAtmosphereProperty, true, new Text( onString, textOptions ), { radius: 6 } );
-    var atmosphereFalse = new AquaRadioButton( isAtmosphereProperty, false, new Text( offString, textOptions ), { radius: 6 } );
+    var atmosphereTrue = new AquaRadioButton( isAtmosphereProperty, true, new Text( onString, textOptions ),
+      { radius: 6 } );
+    var atmosphereFalse = new AquaRadioButton( isAtmosphereProperty, false, new Text( offString, textOptions ),
+      { radius: 6 } );
 
     //touch areas
     atmosphereTrue.touchArea = atmosphereTrue.localBounds.dilatedXY( 0, 0 );
@@ -61,8 +63,10 @@ define( function( require ) {
 
 
     this.background = new Rectangle( -this.options.xMargin, -this.options.yMargin,
-        this.contentNode.width + 2 * this.options.xMargin, this.contentNode.height + 2 * this.options.yMargin,
-      this.options.cornerRadius, this.options.cornerRadius, { stroke: this.options.stroke, lineWidth: this.options.lineWidth,
+        this.contentNode.width + 2 * this.options.xMargin,
+        this.contentNode.height + 2 * this.options.yMargin,
+      this.options.cornerRadius, this.options.cornerRadius,
+      { stroke: this.options.stroke, lineWidth: this.options.lineWidth,
         fill: this.options.fill } );
     this.addChild( this.background );
     this.addChild( this.contentNode, { y: 50 } );

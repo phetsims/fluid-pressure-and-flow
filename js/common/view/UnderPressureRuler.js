@@ -63,7 +63,8 @@ define( function( require ) {
     // Note: make sure that major stick width and minor stick width are integers
     var meterRulerHeight = modelViewTransform.modelToViewX( 5 );
     var meterRulerMajorStickWidth = Math.floor( modelViewTransform.modelToViewX( 1 ) );
-    var metersRuler = new RulerNode( meterRulerHeight, rulerWidth, meterRulerMajorStickWidth, ['0', '1', '2', '3', '4', '5'],
+    var metersRuler = new RulerNode( meterRulerHeight, rulerWidth, meterRulerMajorStickWidth,
+      ['0', '1', '2', '3', '4', '5'],
       units_metersString, {
         minorTicksPerMajorTick: 4,
         unitsSpacing: 4,
@@ -78,7 +79,8 @@ define( function( require ) {
     // Note: make sure that major stick width and minor stick width are integers
     var feetRulerHeight = modelViewTransform.modelToViewX( Units.feetToMeters( 10 ) );
     var feetRulerMajorStickWidth = Math.floor( modelViewTransform.modelToViewX( Units.feetToMeters( 1 ) ) );
-    var feetRuler = new RulerNode( feetRulerHeight, rulerWidth, feetRulerMajorStickWidth, ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10'], units_feetString, {
+    var feetRuler = new RulerNode( feetRulerHeight, rulerWidth, feetRulerMajorStickWidth,
+      ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10'], units_feetString, {
         minorTicksPerMajorTick: 2,
         unitsSpacing: 4,
         unitsFont: scaleFont,

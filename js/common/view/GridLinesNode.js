@@ -36,16 +36,20 @@ define( function( require ) {
 
 
     var addLine = function( node, y ) {
-      node.addChild( new Line( modelViewTransform.modelToViewX( x1 ), y, modelViewTransform.modelToViewX( x2 ), y, {stroke: 'RGB(192, 192, 192)', lineWidth: 1.5} ) );
-      node.addChild( new Line( modelViewTransform.modelToViewX( x1 ), y + 1, modelViewTransform.modelToViewX( x2 ), y + 1, {stroke: 'RGB(64, 64, 64)', lineWidth: 1} ) );
+      node.addChild( new Line( modelViewTransform.modelToViewX( x1 ), y, modelViewTransform.modelToViewX( x2 ), y,
+        {stroke: 'RGB(192, 192, 192)', lineWidth: 1.5} ) );
+      node.addChild( new Line( modelViewTransform.modelToViewX( x1 ), y + 1, modelViewTransform.modelToViewX( x2 ),
+          y + 1, {stroke: 'RGB(64, 64, 64)', lineWidth: 1} ) );
     };
 
     var metersGrid = new Node();
-    for ( var i = modelViewTransform.modelToViewY( y1 ); i <= modelViewTransform.modelToViewY( y2 ); i += modelViewTransform.modelToViewY( options.metersStep ) ) {
+    for ( var i = modelViewTransform.modelToViewY( y1 ); i <= modelViewTransform.modelToViewY( y2 );
+          i += modelViewTransform.modelToViewY( options.metersStep ) ) {
       addLine( metersGrid, i );
     }
     var feetGrid = new Node();
-    for ( i = modelViewTransform.modelToViewY( y1 ); i <= modelViewTransform.modelToViewY( y2 ); i += modelViewTransform.modelToViewY( Units.feetToMeters( options.feetStep ) ) ) {
+    for ( i = modelViewTransform.modelToViewY( y1 ); i <= modelViewTransform.modelToViewY( y2 );
+          i += modelViewTransform.modelToViewY( Units.feetToMeters( options.feetStep ) ) ) {
       addLine( feetGrid, i );
     }
 

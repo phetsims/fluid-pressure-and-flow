@@ -21,19 +21,26 @@ define( function( require ) {
   function BackgroundNode( underPressureModel, modelViewTransform ) {
     Node.call( this );
 
-    var skyNode = new SkyNode( -20000, -5000, 50000, 5000 + modelViewTransform.modelToViewY( underPressureModel.skyGroundBoundY ), modelViewTransform.modelToViewY( underPressureModel.skyGroundBoundY ) );
-    var skyNodeWithNoAtmosphere = new Rectangle( -2000, -1000, 5000, 1000 + modelViewTransform.modelToViewY( underPressureModel.skyGroundBoundY ), { fill: 'black'} );
+    var skyNode = new SkyNode( -20000, -5000, 50000,
+        5000 + modelViewTransform.modelToViewY( underPressureModel.skyGroundBoundY ),
+      modelViewTransform.modelToViewY( underPressureModel.skyGroundBoundY ) );
+    var skyNodeWithNoAtmosphere = new Rectangle( -2000, -1000, 5000, 1000 +
+                                                                     modelViewTransform.modelToViewY( underPressureModel.skyGroundBoundY ),
+      { fill: 'black'} );
 
     this.addChild( skyNode );
     this.addChild( skyNodeWithNoAtmosphere );
 
     underPressureModel.isAtmosphereProperty.link( function( isAtmosphere ) {
-        skyNode.visible = isAtmosphere;
-        skyNodeWithNoAtmosphere.visible = !isAtmosphere;
+      skyNode.visible = isAtmosphere;
+      skyNodeWithNoAtmosphere.visible = !isAtmosphere;
     } );
 
     //Ground node
-    this.addChild( new GroundNode( -2000, modelViewTransform.modelToViewY( underPressureModel.skyGroundBoundY ), 5000, underPressureModel.height - modelViewTransform.modelToViewY( underPressureModel.skyGroundBoundY ) + 1000, 295, {topColor: '#93774C', bottomColor: '#93774C'} ) );
+    this.addChild( new GroundNode( -2000, modelViewTransform.modelToViewY( underPressureModel.skyGroundBoundY ), 5000,
+        underPressureModel.height -
+        modelViewTransform.modelToViewY( underPressureModel.skyGroundBoundY ) + 1000, 295,
+      {topColor: '#93774C', bottomColor: '#93774C'} ) );
   }
 
   return inherit( Node, BackgroundNode, {} );

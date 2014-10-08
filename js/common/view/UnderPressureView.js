@@ -59,7 +59,8 @@ define( function( require ) {
   function UnderPressureView( underPressureModel ) {
 
     var underPressureView = this;
-    ScreenView.call( this, { renderer: 'svg', layoutBounds: new Bounds2( 0, 0, underPressureModel.width, underPressureModel.height )} );
+    ScreenView.call( this, { renderer: 'svg', layoutBounds: new Bounds2( 0, 0, underPressureModel.width,
+      underPressureModel.height )} );
 
     var modelViewTransform = ModelViewTransform2.createSinglePointScaleMapping(
       Vector2.ZERO,
@@ -83,12 +84,14 @@ define( function( require ) {
     this.addChild( this.resetAllButton );
 
     //control panel
-    this.controlPanel = new ControlPanel( underPressureModel, { right: this.resetAllButton.right, top: 5, cornerRadius: 7 } );
+    this.controlPanel =
+    new ControlPanel( underPressureModel, { right: this.resetAllButton.right, top: 5, cornerRadius: 7 } );
     this.addChild( this.controlPanel );
 
     // units panel
     this.unitsControlPanel = new UnitsControlPanel( underPressureModel.measureUnitsProperty, this.controlPanel.width,
-      {  yMargin: 2, right: this.resetAllButton.right, top: this.controlPanel.bottom + 6, cornerRadius: 7 } );
+      {  yMargin: 2, right: this.resetAllButton.right, top: this.controlPanel.bottom +
+                                                            6, cornerRadius: 7 } );
     this.addChild( this.unitsControlPanel );
 
     // gravity slider

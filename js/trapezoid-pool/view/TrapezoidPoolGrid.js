@@ -36,19 +36,22 @@ define( function( require ) {
    * @param {Number} slantMultiplier is to make label line up in space between the pools
    * @constructor
    */
-  function TrapezoidPoolGrid( underPressureModel, modelViewTransform, poolLeftX, poolTopY, poolRightX, poolBottomY, poolHeight, labelXPosition, slantMultiplier ) {
+  function TrapezoidPoolGrid( underPressureModel, modelViewTransform, poolLeftX, poolTopY, poolRightX, poolBottomY,
+                              poolHeight, labelXPosition, slantMultiplier ) {
 
     Node.call( this );
     var fontOptions = {  font: new PhetFont( 12 ) };
 
     // add grid line
-    this.addChild( new GridLinesNode( underPressureModel.measureUnitsProperty, modelViewTransform, poolLeftX, poolTopY, poolRightX, poolBottomY ) );
+    this.addChild( new GridLinesNode( underPressureModel.measureUnitsProperty, modelViewTransform, poolLeftX, poolTopY,
+      poolRightX, poolBottomY ) );
 
     // Add the labels for meters
     var depthLabelsMeters = new Node();
     for ( var depthMeters = 0; depthMeters <= poolHeight; depthMeters++ ) {
       var metersText = new Text( StringUtils.format( valueWithUnitsPattern, depthMeters, metersString ), fontOptions );
-      var metersLabelRect = new Rectangle( 0, 0, metersText.width + 5, metersText.height + 5, 10, 10, { fill: '#67a257' } );
+      var metersLabelRect = new Rectangle( 0, 0, metersText.width + 5, metersText.height + 5, 10, 10,
+        { fill: '#67a257' } );
       metersText.center = metersLabelRect.center;
       metersLabelRect.addChild( metersText );
       metersLabelRect.centerX = labelXPosition + modelViewTransform.modelToViewX( depthMeters * slantMultiplier );

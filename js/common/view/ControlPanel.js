@@ -56,22 +56,29 @@ define( function( require ) {
     var expandedWidth = atmosphereControlNode.width + 10;
 
     //align ruler icon right
-    var padWidth = expandedWidth - rulerSet[0].width - rulerSet[1].width - alignOptions.boxWidth - alignOptions.spacing * 2;
+    var padWidth = expandedWidth - rulerSet[0].width - rulerSet[1].width - alignOptions.boxWidth -
+                   alignOptions.spacing * 2;
     var ruler = [ rulerSet[0], new HStrut( padWidth ), rulerSet[1] ];
 
     //resize boxes to fit max
     atmosphereControlNode.updateWidth( expandedWidth );
 
-    var rulerCheckBox = new CheckBox( new HBox( {children: ( ruler )} ), underPressureModel.isRulerVisibleProperty, alignOptions );
-    var gridCheckBox = new CheckBox( new HBox( {children: ( grid )} ), underPressureModel.isGridVisibleProperty, alignOptions );
+    var rulerCheckBox = new CheckBox( new HBox( {children: ( ruler )} ), underPressureModel.isRulerVisibleProperty,
+      alignOptions );
+    var gridCheckBox = new CheckBox( new HBox( {children: ( grid )} ), underPressureModel.isGridVisibleProperty,
+      alignOptions );
 
     var maxCheckBoxWidth = _.max( [ rulerCheckBox, gridCheckBox ], function( item ) {
       return item.width;
     } ).width + 5;
 
     //touch Areas
-    rulerCheckBox.touchArea = new Bounds2( rulerCheckBox.localBounds.minX - 5, rulerCheckBox.localBounds.minY, rulerCheckBox.localBounds.minX + maxCheckBoxWidth, rulerCheckBox.localBounds.maxY );
-    gridCheckBox.touchArea = new Bounds2( gridCheckBox.localBounds.minX - 5, gridCheckBox.localBounds.minY, gridCheckBox.localBounds.minX + maxCheckBoxWidth, gridCheckBox.localBounds.maxY );
+    rulerCheckBox.touchArea = new Bounds2( rulerCheckBox.localBounds.minX - 5, rulerCheckBox.localBounds.minY,
+        rulerCheckBox.localBounds.minX + maxCheckBoxWidth,
+      rulerCheckBox.localBounds.maxY );
+    gridCheckBox.touchArea = new Bounds2( gridCheckBox.localBounds.minX - 5, gridCheckBox.localBounds.minY,
+        gridCheckBox.localBounds.minX + maxCheckBoxWidth,
+      gridCheckBox.localBounds.maxY );
 
     var checkBoxChildren = [ rulerCheckBox , gridCheckBox ];
 

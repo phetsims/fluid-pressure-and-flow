@@ -33,7 +33,9 @@ define( function( require ) {
     var fontOptions = { font: new PhetFont( 12 ), fontWeight: 'bold' };
 
     // add grid lines
-    this.addChild( new GridLinesNode( squarePoolModel.underPressureModel.measureUnitsProperty, modelViewTransform, squarePoolModel.poolDimensions.x1, squarePoolModel.poolDimensions.y1, squarePoolModel.poolDimensions.x2, squarePoolModel.poolDimensions.y2 + 0.3 ) );
+    this.addChild( new GridLinesNode( squarePoolModel.underPressureModel.measureUnitsProperty, modelViewTransform,
+      squarePoolModel.poolDimensions.x1, squarePoolModel.poolDimensions.y1,
+      squarePoolModel.poolDimensions.x2, squarePoolModel.poolDimensions.y2 + 0.3 ) );
 
     // meter labels
     var metersLabels = new Node();
@@ -49,7 +51,8 @@ define( function( require ) {
     for ( i = 0; i < 11; i++ ) {
       feetLabels.addChild( new Text( StringUtils.format( feetStringPattern, i ), _.extend( {
         right: modelViewTransform.modelToViewX( squarePoolModel.poolDimensions.x1 ) - 8,
-        centerY: modelViewTransform.modelToViewY( squarePoolModel.underPressureModel.skyGroundBoundY + Units.feetToMeters( i ) )
+        centerY: modelViewTransform.modelToViewY( squarePoolModel.underPressureModel.skyGroundBoundY +
+                                                  Units.feetToMeters( i ) )
       }, fontOptions ) ) );
     }
 

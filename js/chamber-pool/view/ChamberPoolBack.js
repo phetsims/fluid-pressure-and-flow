@@ -35,15 +35,29 @@ define( function( require ) {
     var grassPattern = new Pattern( grassImg ).setTransformMatrix( Matrix3.scale( 0.25 ) );
     var grassRectYOffset = 1;
     var grassRectHeight = 10;
+    var grassExtension = 1000; // how far should grass extend on either side of safe screen bounds.
 
-    this.addChild( new Rectangle( -1000, grassRectYOffset, 1000 + modelViewTransform.modelToViewX( chamberPoolModel.poolDimensions.leftOpening.x1 ), grassRectHeight, {
-      fill: grassPattern, y: modelViewTransform.modelToViewY( chamberPoolModel.underPressureModel.skyGroundBoundY ) - grassRectHeight } ) );
+    this.addChild( new Rectangle( -grassExtension, grassRectYOffset,
+        grassExtension +
+        modelViewTransform.modelToViewX( chamberPoolModel.poolDimensions.leftOpening.x1 ),
+      grassRectHeight, { fill: grassPattern,
+        y: modelViewTransform.modelToViewY( chamberPoolModel.underPressureModel.skyGroundBoundY ) - grassRectHeight
+      } ) );
 
-    this.addChild( new Rectangle( modelViewTransform.modelToViewX( chamberPoolModel.poolDimensions.leftOpening.x2 ), grassRectYOffset, modelViewTransform.modelToViewX( chamberPoolModel.poolDimensions.rightOpening.x1 - chamberPoolModel.poolDimensions.leftOpening.x2 ), grassRectHeight, {
-      fill: grassPattern, y: modelViewTransform.modelToViewY( chamberPoolModel.underPressureModel.skyGroundBoundY ) - grassRectHeight } ) );
+    this.addChild( new Rectangle( modelViewTransform.modelToViewX( chamberPoolModel.poolDimensions.leftOpening.x2 ),
+      grassRectYOffset,
+      modelViewTransform.modelToViewX( chamberPoolModel.poolDimensions.rightOpening.x1 -
+                                       chamberPoolModel.poolDimensions.leftOpening.x2 ),
+      grassRectHeight,
+      { fill: grassPattern,
+        y: modelViewTransform.modelToViewY( chamberPoolModel.underPressureModel.skyGroundBoundY ) -
+           grassRectHeight
+      } ) );
 
-    this.addChild( new Rectangle( modelViewTransform.modelToViewX( chamberPoolModel.poolDimensions.rightOpening.x2 ), grassRectYOffset, 1000, grassRectHeight, {
-      fill: grassPattern, y: modelViewTransform.modelToViewY( chamberPoolModel.underPressureModel.skyGroundBoundY ) - grassRectHeight } ) );
+    this.addChild( new Rectangle( modelViewTransform.modelToViewX( chamberPoolModel.poolDimensions.rightOpening.x2 ),
+      grassRectYOffset, grassExtension, grassRectHeight, { fill: grassPattern,
+        y: modelViewTransform.modelToViewY( chamberPoolModel.underPressureModel.skyGroundBoundY ) - grassRectHeight
+      } ) );
 
     //calculated view coordinates for water
     var leftOpeningX1 = modelViewTransform.modelToViewX( chamberPoolModel.poolDimensions.leftOpening.x1 );

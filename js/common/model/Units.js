@@ -46,13 +46,16 @@ define( function( require ) {
      */
     getPressureString: function( pressure, measureUnits, abbreviated ) {
       if ( measureUnits === 'metric' ) {
-        return StringUtils.format( valueWithUnitsPattern, Util.toFixed( pressure / 1000, abbreviated ? 1 : 3 ), kPaString );
+        return StringUtils.format( valueWithUnitsPattern, Util.toFixed( pressure / 1000, abbreviated ? 1 : 3 ),
+          kPaString );
       }
       else if ( measureUnits === 'atmosphere' ) {
-        return StringUtils.format( valueWithUnitsPattern, Util.toFixed( pressure * ATMOSPHERE_PER_PASCAL, abbreviated ? 2 : 4 ), atmString );
+        return StringUtils.format( valueWithUnitsPattern,
+          Util.toFixed( pressure * ATMOSPHERE_PER_PASCAL, abbreviated ? 2 : 4 ), atmString );
       }
       else if ( measureUnits === 'english' ) {
-        return  StringUtils.format( valueWithUnitsPattern, Util.toFixed( pressure * PSI_PER_PASCAL, abbreviated ? 2 : 4 ), psiString );
+        return  StringUtils.format( valueWithUnitsPattern,
+          Util.toFixed( pressure * PSI_PER_PASCAL, abbreviated ? 2 : 4 ), psiString );
       }
     },
 
@@ -65,7 +68,8 @@ define( function( require ) {
     getGravityString: function( gravity, measureUnits ) {
 
       if ( measureUnits === 'english' ) {
-        return StringUtils.format( valueWithUnitsPattern, Util.toFixed( GRAVITY_ENGLISH_PER_METRIC * gravity, 1 ), ftPerSPerS );
+        return StringUtils.format( valueWithUnitsPattern, Util.toFixed( GRAVITY_ENGLISH_PER_METRIC * gravity, 1 ),
+          ftPerSPerS );
       }
       else {
         return StringUtils.format( valueWithUnitsPattern, Util.toFixed( gravity, 1 ), mPerSPerS );

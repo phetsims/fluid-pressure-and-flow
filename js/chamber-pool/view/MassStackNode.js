@@ -31,16 +31,19 @@ define( function( require ) {
 
     this.totalHeight = 0; //height of all masses
 
-    var placementRectWidth = modelViewTransform.modelToViewX( chamberPoolModel.poolDimensions.leftOpening.x2 - chamberPoolModel.poolDimensions.leftOpening.x1 );
+    var placementRectWidth = modelViewTransform.modelToViewX( chamberPoolModel.poolDimensions.leftOpening.x2 -
+                                                              chamberPoolModel.poolDimensions.leftOpening.x1 );
 
     var placementRect = new Rectangle( 0, 0, placementRectWidth, 0 );
-    var placementRectBorder = new Path( new Shape(), {  stroke: '#000', lineWidth: 2, lineDash: [ 10, 5 ], fill: '#ffdcf0' } );
+    var placementRectBorder = new Path( new Shape(),
+      {  stroke: '#000', lineWidth: 2, lineDash: [ 10, 5 ], fill: '#ffdcf0' } );
 
     this.addChild( placementRect );
     this.addChild( placementRectBorder );
 
     chamberPoolModel.underPressureModel.leftDisplacementProperty.link( function( displacement ) {
-      massStackNode.bottom = modelViewTransform.modelToViewY( chamberPoolModel.poolDimensions.leftOpening.y2 - chamberPoolModel.LEFT_WATER_HEIGHT + displacement );
+      massStackNode.bottom = modelViewTransform.modelToViewY( chamberPoolModel.poolDimensions.leftOpening.y2 -
+                                                              chamberPoolModel.LEFT_WATER_HEIGHT + displacement );
     } );
 
     chamberPoolModel.masses.forEach( function( massModel ) {
@@ -76,7 +79,11 @@ define( function( require ) {
       var dy = 0;
       var chamberPoolModel = this.chamberPoolModel;
       chamberPoolModel.stack.forEach( function( massModel ) {
-        massModel.position = new Vector2( chamberPoolModel.poolDimensions.leftOpening.x1 + massModel.width / 2, ( chamberPoolModel.poolDimensions.leftOpening.y2 - chamberPoolModel.LEFT_WATER_HEIGHT + chamberPoolModel.underPressureModel.leftDisplacement) - dy - massModel.height / 2 );
+        massModel.position = new Vector2( chamberPoolModel.poolDimensions.leftOpening.x1 + massModel.width / 2,
+            ( chamberPoolModel.poolDimensions.leftOpening.y2 -
+              chamberPoolModel.LEFT_WATER_HEIGHT +
+              chamberPoolModel.underPressureModel.leftDisplacement) - dy -
+            massModel.height / 2 );
         dy += massModel.height;
       } );
     },

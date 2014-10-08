@@ -24,7 +24,7 @@ define( function( require ) {
   };
 
   SimLauncher.launch( function() {
-    
+
     // Create and start the sim
     new Sim( simTitle, [
       new UnderPressureScreen( simTitle )

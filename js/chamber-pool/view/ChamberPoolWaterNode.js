@@ -40,8 +40,11 @@ define( function( require ) {
     chamberPoolModel.underPressureModel.leftDisplacementProperty.link( function( displacement ) {
 
       //new left and right levels of water
-      var leftY = modelViewTransform.modelToViewY( chamberPoolModel.poolDimensions.leftOpening.y2 - chamberPoolModel.LEFT_WATER_HEIGHT + displacement );
-      var rightY = modelViewTransform.modelToViewY( chamberPoolModel.poolDimensions.rightOpening.y2 - chamberPoolModel.LEFT_WATER_HEIGHT - displacement / chamberPoolModel.LENGTH_RATIO );
+      var leftY = modelViewTransform.modelToViewY( chamberPoolModel.poolDimensions.leftOpening.y2 -
+                                                   chamberPoolModel.LEFT_WATER_HEIGHT + displacement );
+      var rightY = modelViewTransform.modelToViewY( chamberPoolModel.poolDimensions.rightOpening.y2 -
+                                                    chamberPoolModel.LEFT_WATER_HEIGHT -
+                                                    displacement / chamberPoolModel.LENGTH_RATIO );
 
       waterPath.shape = new Shape()
         .moveTo( leftOpeningX1, leftY )

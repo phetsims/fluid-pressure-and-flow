@@ -48,11 +48,15 @@ define( function( require ) {
     var poolTopY = chamberPoolModel.poolDimensions.leftOpening.y1;
     var poolRightX = chamberPoolModel.poolDimensions.rightOpening.x2;
     var poolBottomY = chamberPoolModel.poolDimensions.leftChamber.y2 + 0.3;
-    var poolHeight = chamberPoolModel.poolDimensions.leftChamber.y2 - chamberPoolModel.underPressureModel.skyGroundBoundY;
-    var labelXPosition = modelViewTransform.modelToViewX( ( chamberPoolModel.poolDimensions.leftChamber.x2 + chamberPoolModel.poolDimensions.rightOpening.x1 ) / 2 );
+    var poolHeight = chamberPoolModel.poolDimensions.leftChamber.y2 -
+                     chamberPoolModel.underPressureModel.skyGroundBoundY;
+    var labelXPosition = modelViewTransform.modelToViewX( ( chamberPoolModel.poolDimensions.leftChamber.x2 +
+                                                            chamberPoolModel.poolDimensions.rightOpening.x1 ) / 2 );
 
     // add grid
-    this.addChild( new TrapezoidPoolGrid( chamberPoolModel.underPressureModel, modelViewTransform, poolLeftX, poolTopY, poolRightX, poolBottomY, poolHeight, labelXPosition, 0 ) );
+    this.addChild( new TrapezoidPoolGrid( chamberPoolModel.underPressureModel, modelViewTransform, poolLeftX, poolTopY,
+      poolRightX, poolBottomY,
+      poolHeight, labelXPosition, 0 ) );
   }
 
   return inherit( Node, ChamberPoolView );

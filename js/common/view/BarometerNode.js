@@ -46,7 +46,8 @@ define( function( require ) {
    *  getPressureAt (x, y) where x, y are model values.
    *  getPressureString (pressure, units, x, y) where pressure in Pascals, x, y are model values
    */
-  function BarometerNode( modelViewTransform, barometer, measureUnitsProperty, linkedProperties, getPressureAt, getPressureString, containerBounds, dragBounds, options ) {
+  function BarometerNode( modelViewTransform, barometer, measureUnitsProperty, linkedProperties, getPressureAt,
+                          getPressureString, containerBounds, dragBounds, options ) {
     var barometerNode = this;
 
     options = _.extend( {
@@ -59,14 +60,16 @@ define( function( require ) {
     Node.call( this, {cursor: 'pointer'} );
 
     // Show the circular part of the gauge and the needle
-    var gaugeNode = new GaugeNode( barometer.valueProperty, pressureString, {min: options.minPressure, max: options.maxPressure}, {scale: 0.4} );
+    var gaugeNode = new GaugeNode( barometer.valueProperty, pressureString,
+      {min: options.minPressure, max: options.maxPressure}, {scale: 0.4} );
     this.addChild( gaugeNode );
 
     var underGaugeRectangleWidth = 18;
     var underGaugeRectangleHeight = 15;
     var underGaugeRectangle = new Rectangle( gaugeNode.centerX - underGaugeRectangleWidth / 2, gaugeNode.bottom - 3,
       underGaugeRectangleWidth, underGaugeRectangleHeight, 1, 1, {
-        fill: new LinearGradient( gaugeNode.centerX - underGaugeRectangleWidth / 2, 0, gaugeNode.centerX + underGaugeRectangleWidth / 2, 0 )
+        fill: new LinearGradient( gaugeNode.centerX - underGaugeRectangleWidth / 2, 0,
+            gaugeNode.centerX + underGaugeRectangleWidth / 2, 0 )
           .addColorStop( 0, '#656570' )
           .addColorStop( 0.2, '#bdc3cf' )
           .addColorStop( 0.5, '#dee6f5' )
@@ -88,9 +91,11 @@ define( function( require ) {
     var bottomTriangleShape = new Shape()
       .moveTo( gaugeNode.centerX - bottomTriangleShapeWidth / 2, underGaugeRectangle.rectY + underGaugeRectangleHeight )
       .lineTo( gaugeNode.centerX, bottomTriangleShapeHeight + underGaugeRectangle.rectY + underGaugeRectangleHeight )
-      .lineTo( gaugeNode.centerX + bottomTriangleShapeWidth / 2, underGaugeRectangle.rectY + underGaugeRectangleHeight );
+      .lineTo( gaugeNode.centerX + bottomTriangleShapeWidth / 2,
+        underGaugeRectangle.rectY + underGaugeRectangleHeight );
     this.addChild( new Path( bottomTriangleShape, {
-      fill: new LinearGradient( gaugeNode.centerX - bottomTriangleShapeWidth / 2, 0, gaugeNode.centerX + bottomTriangleShapeWidth / 2, 0 )
+      fill: new LinearGradient( gaugeNode.centerX - bottomTriangleShapeWidth / 2, 0,
+          gaugeNode.centerX + bottomTriangleShapeWidth / 2, 0 )
         .addColorStop( 0, '#656570' )
         .addColorStop( 0.5, '#dee6f5' )
         .addColorStop( 1, '#656570' ),
@@ -120,28 +125,34 @@ define( function( require ) {
         barometer.value = 0;
       }
       else {
-        barometer.value = getPressureAt( modelViewTransform.viewToModelX( position.x ), modelViewTransform.viewToModelY( position.y + (options.pressureReadOffset * options.scale) ) );
+        barometer.value = getPressureAt( modelViewTransform.viewToModelX( position.x ),
+          modelViewTransform.viewToModelY( position.y + (options.pressureReadOffset *
+                                                         options.scale) ) );
       }
     } );
 
-    //Update the text when the value, units or position changes.
+    // Update the text when the value, units or position changes.
     // If the barometer reading is 0 and it is touching the sensor panel, then only the position changes.
     // In order to trigger the text display change, need to listen to position property here as well.
-    Property.multilink( [barometer.valueProperty, measureUnitsProperty, barometer.positionProperty], function( barometerValue, units ) {
-      if ( barometer.position === barometer.positionProperty.initialValue ) {
-        text.text = '-';
-        textBackground.setRect( 0, 0, text.width + 50, text.height + 2 );
-      }
-      else {
-        text.text = getPressureString( barometerValue, units, modelViewTransform.viewToModelX( barometer.position.x ),
-          modelViewTransform.viewToModelY( barometer.position.y + (options.pressureReadOffset * options.scale) ) );
-        textBackground.setRect( 0, 0, text.width + 4, text.height + 2 );
-      }
+    Property.multilink( [barometer.valueProperty, measureUnitsProperty, barometer.positionProperty],
+      function( barometerValue, units ) {
+        if ( barometer.position === barometer.positionProperty.initialValue ) {
+          text.text = '-';
+          textBackground.setRect( 0, 0, text.width + 50, text.height + 2 );
+        }
+        else {
+          text.text = getPressureString( barometerValue, units,
+            modelViewTransform.viewToModelX( barometer.position.x ),
+            modelViewTransform.viewToModelY( barometer.position.y +
+                                             (options.pressureReadOffset *
+                                              options.scale) ) );
+          textBackground.setRect( 0, 0, text.width + 4, text.height + 2 );
+        }
 
-      textBackground.centerX = gaugeNode.centerX;
-      textBackground.bottom = gaugeNode.bottom;
-      text.center = textBackground.center;
-    } );
+        textBackground.centerX = gaugeNode.centerX;
+        textBackground.bottom = gaugeNode.bottom;
+        text.center = textBackground.center;
+      } );
 
     barometer.positionProperty.linkAttribute( barometerNode, 'translation' );
 
@@ -149,7 +160,10 @@ define( function( require ) {
 
     barometer.on( 'update', function() {
       if ( barometer.position !== barometer.positionProperty.initialValue ) {
-        barometer.value = getPressureAt( modelViewTransform.viewToModelX( barometer.position.x ), modelViewTransform.viewToModelY( barometer.position.y + (options.pressureReadOffset * options.scale) ) );
+        barometer.value = getPressureAt( modelViewTransform.viewToModelX( barometer.position.x ),
+          modelViewTransform.viewToModelY( barometer.position.y +
+                                           (options.pressureReadOffset *
+                                            options.scale) ) );
       }
     } );
 

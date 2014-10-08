@@ -44,8 +44,12 @@ define( function( require ) {
         widthBottom: WIDTHATBOTTOM,
         y: trapezoidPoolModel.underPressureModel.skyGroundBoundY,
         height: trapezoidPoolModel.MAX_HEIGHT,
-        leftBorderFunction: new LinearFunction( 0, trapezoidPoolModel.MAX_HEIGHT, LEFTCHAMBERTOPCENTER - WIDTHATBOTTOM / 2, LEFTCHAMBERTOPCENTER - WIDTHATTOP / 2 ),
-        rightBorderFunction: new LinearFunction( 0, trapezoidPoolModel.MAX_HEIGHT, LEFTCHAMBERTOPCENTER + WIDTHATBOTTOM / 2, LEFTCHAMBERTOPCENTER + WIDTHATTOP / 2 )
+        leftBorderFunction: new LinearFunction( 0, trapezoidPoolModel.MAX_HEIGHT,
+            LEFTCHAMBERTOPCENTER - WIDTHATBOTTOM / 2,
+            LEFTCHAMBERTOPCENTER - WIDTHATTOP / 2 ),
+        rightBorderFunction: new LinearFunction( 0, trapezoidPoolModel.MAX_HEIGHT,
+            LEFTCHAMBERTOPCENTER + WIDTHATBOTTOM / 2,
+            LEFTCHAMBERTOPCENTER + WIDTHATTOP / 2 )
       },
       rightChamber: {
         centerTop: LEFTCHAMBERTOPCENTER + SEPARATION,
@@ -53,8 +57,12 @@ define( function( require ) {
         widthBottom: WIDTHATTOP,
         y: trapezoidPoolModel.underPressureModel.skyGroundBoundY,
         height: trapezoidPoolModel.MAX_HEIGHT,
-        leftBorderFunction: new LinearFunction( 0, trapezoidPoolModel.MAX_HEIGHT, LEFTCHAMBERTOPCENTER + SEPARATION - WIDTHATTOP / 2, LEFTCHAMBERTOPCENTER + SEPARATION - WIDTHATBOTTOM / 2 ),
-        rightBorderFunction: new LinearFunction( 0, trapezoidPoolModel.MAX_HEIGHT, LEFTCHAMBERTOPCENTER + SEPARATION + WIDTHATTOP / 2, LEFTCHAMBERTOPCENTER + SEPARATION + WIDTHATBOTTOM / 2 )
+        leftBorderFunction: new LinearFunction( 0, trapezoidPoolModel.MAX_HEIGHT,
+            LEFTCHAMBERTOPCENTER + SEPARATION - WIDTHATTOP / 2,
+            LEFTCHAMBERTOPCENTER + SEPARATION - WIDTHATBOTTOM / 2 ),
+        rightBorderFunction: new LinearFunction( 0, trapezoidPoolModel.MAX_HEIGHT,
+            LEFTCHAMBERTOPCENTER + SEPARATION + WIDTHATTOP / 2,
+            LEFTCHAMBERTOPCENTER + SEPARATION + WIDTHATBOTTOM / 2 )
       },
       bottomChamber: {
         x1: LEFTCHAMBERTOPCENTER + WIDTHATBOTTOM / 2,
@@ -66,18 +74,28 @@ define( function( require ) {
 
     //key coordinates of complex figure
     this.verticles = {
-      x1top: trapezoidPoolModel.poolDimensions.leftChamber.centerTop - trapezoidPoolModel.poolDimensions.leftChamber.widthTop / 2,
-      x2top: trapezoidPoolModel.poolDimensions.leftChamber.centerTop + trapezoidPoolModel.poolDimensions.leftChamber.widthTop / 2,
-      x3top: trapezoidPoolModel.poolDimensions.rightChamber.centerTop - trapezoidPoolModel.poolDimensions.rightChamber.widthTop / 2,
-      x4top: trapezoidPoolModel.poolDimensions.rightChamber.centerTop + trapezoidPoolModel.poolDimensions.rightChamber.widthTop / 2,
+      x1top: trapezoidPoolModel.poolDimensions.leftChamber.centerTop -
+             trapezoidPoolModel.poolDimensions.leftChamber.widthTop / 2,
+      x2top: trapezoidPoolModel.poolDimensions.leftChamber.centerTop +
+             trapezoidPoolModel.poolDimensions.leftChamber.widthTop / 2,
+      x3top: trapezoidPoolModel.poolDimensions.rightChamber.centerTop -
+             trapezoidPoolModel.poolDimensions.rightChamber.widthTop / 2,
+      x4top: trapezoidPoolModel.poolDimensions.rightChamber.centerTop +
+             trapezoidPoolModel.poolDimensions.rightChamber.widthTop / 2,
 
-      x1middle: trapezoidPoolModel.poolDimensions.leftChamber.rightBorderFunction( trapezoidPoolModel.poolDimensions.bottomChamber.y2 - trapezoidPoolModel.poolDimensions.bottomChamber.y1 ),
-      x2middle: trapezoidPoolModel.poolDimensions.rightChamber.leftBorderFunction( trapezoidPoolModel.poolDimensions.bottomChamber.y2 - trapezoidPoolModel.poolDimensions.bottomChamber.y1 ),
+      x1middle: trapezoidPoolModel.poolDimensions.leftChamber.rightBorderFunction( trapezoidPoolModel.poolDimensions.bottomChamber.y2 -
+                                                                                   trapezoidPoolModel.poolDimensions.bottomChamber.y1 ),
+      x2middle: trapezoidPoolModel.poolDimensions.rightChamber.leftBorderFunction( trapezoidPoolModel.poolDimensions.bottomChamber.y2 -
+                                                                                   trapezoidPoolModel.poolDimensions.bottomChamber.y1 ),
 
-      x1bottom: trapezoidPoolModel.poolDimensions.leftChamber.centerTop - trapezoidPoolModel.poolDimensions.leftChamber.widthBottom / 2,
-      x2bottom: trapezoidPoolModel.poolDimensions.leftChamber.centerTop + trapezoidPoolModel.poolDimensions.leftChamber.widthBottom / 2,
-      x3bottom: trapezoidPoolModel.poolDimensions.rightChamber.centerTop - trapezoidPoolModel.poolDimensions.rightChamber.widthBottom / 2,
-      x4bottom: trapezoidPoolModel.poolDimensions.rightChamber.centerTop + trapezoidPoolModel.poolDimensions.rightChamber.widthBottom / 2,
+      x1bottom: trapezoidPoolModel.poolDimensions.leftChamber.centerTop -
+                trapezoidPoolModel.poolDimensions.leftChamber.widthBottom / 2,
+      x2bottom: trapezoidPoolModel.poolDimensions.leftChamber.centerTop +
+                trapezoidPoolModel.poolDimensions.leftChamber.widthBottom / 2,
+      x3bottom: trapezoidPoolModel.poolDimensions.rightChamber.centerTop -
+                trapezoidPoolModel.poolDimensions.rightChamber.widthBottom / 2,
+      x4bottom: trapezoidPoolModel.poolDimensions.rightChamber.centerTop +
+                trapezoidPoolModel.poolDimensions.rightChamber.widthBottom / 2,
 
       ymiddle: trapezoidPoolModel.poolDimensions.bottomChamber.y1
     };
@@ -105,7 +123,8 @@ define( function( require ) {
      */
     isPointInsidePool: function( x, y ) {
       var isInside = false;
-      if ( x > this.poolDimensions.bottomChamber.x1 && x < this.poolDimensions.bottomChamber.x2 && y > this.poolDimensions.bottomChamber.y1 && y < this.poolDimensions.bottomChamber.y2 ) {
+      if ( x > this.poolDimensions.bottomChamber.x1 && x < this.poolDimensions.bottomChamber.x2 &&
+           y > this.poolDimensions.bottomChamber.y1 && y < this.poolDimensions.bottomChamber.y2 ) {
         //inside bottom chamber
         isInside = true;
       }

@@ -29,7 +29,9 @@ define( function( require ) {
     this.addChild( new SquarePoolBack( squarePoolModel, modelViewTransform ) );
 
     // fluids from faucets
-    this.addChild( new FaucetFluidNode( squarePoolModel.inputFaucet, squarePoolModel, modelViewTransform, modelViewTransform.modelToViewY( squarePoolModel.poolDimensions.y2 - squarePoolModel.inputFaucet.location.y ) ) );
+    this.addChild( new FaucetFluidNode( squarePoolModel.inputFaucet, squarePoolModel, modelViewTransform,
+      modelViewTransform.modelToViewY( squarePoolModel.poolDimensions.y2 -
+                                       squarePoolModel.inputFaucet.location.y ) ) );
     this.addChild( new FaucetFluidNode( squarePoolModel.outputFaucet, squarePoolModel, modelViewTransform, 1000 ) );
 
     // add water

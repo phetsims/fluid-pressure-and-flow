@@ -80,7 +80,8 @@ define( function( require ) {
       underPressureModel.sceneModels[name] = (new SceneModels[name]( underPressureModel ));
     } );
 
-    this.getStandardAirPressure = new LinearFunction( 0, Units.feetToMeters( 500 ), this.EARTH_AIR_PRESSURE, this.EARTH_AIR_PRESSURE_AT_500_FT );
+    this.getStandardAirPressure =
+    new LinearFunction( 0, Units.feetToMeters( 500 ), this.EARTH_AIR_PRESSURE, this.EARTH_AIR_PRESSURE_AT_500_FT );
 
     this.barometers = [];
 
