@@ -39,19 +39,21 @@ define( function( require ) {
       fill: '#f2fa6a ',
       stroke: 'gray',
       lineWidth: 1,
-      resize: false,
-      scale: 0.8
+      resize: false
     }, options );
 
     var titleText = new Text( unitsString, { font: new PhetFont( 12 ), fontWeight: 'bold' } );
 
-    var AQUA_RADIO_BUTTON_OPTIONS = { radius: 6 };
-    var createButtonTextNode = function( text ) { return new Text( text, {font: new PhetFont( 14 )} ); };
+    var AQUA_RADIO_BUTTON_OPTIONS = { radius: 6, font: new PhetFont( 12 ) };
+    var createButtonTextNode = function( text ) { return new Text( text, { font: new PhetFont( 12 ) } ); };
 
     // Create the radio buttons
-    var metricRadio = new AquaRadioButton( measureUnitsProperty, 'metric', createButtonTextNode( metricString ), AQUA_RADIO_BUTTON_OPTIONS );
-    var atmosphereRadio = new AquaRadioButton( measureUnitsProperty, 'atmosphere', createButtonTextNode( atmospheresString ), AQUA_RADIO_BUTTON_OPTIONS );
-    var englishRadio = new AquaRadioButton( measureUnitsProperty, 'english', createButtonTextNode( englishString ), AQUA_RADIO_BUTTON_OPTIONS );
+    var metricRadio = new AquaRadioButton( measureUnitsProperty, 'metric', createButtonTextNode( metricString ),
+      AQUA_RADIO_BUTTON_OPTIONS );
+    var atmosphereRadio = new AquaRadioButton( measureUnitsProperty, 'atmosphere', createButtonTextNode( atmospheresString ),
+      AQUA_RADIO_BUTTON_OPTIONS );
+    var englishRadio = new AquaRadioButton( measureUnitsProperty, 'english', createButtonTextNode( englishString ),
+      AQUA_RADIO_BUTTON_OPTIONS );
 
     //dummy text for height
     var dummyText = new Text( '', { font: new PhetFont( 3 ) } );
@@ -63,18 +65,21 @@ define( function( require ) {
     } ).width;
 
     //touch areas
-    metricRadio.touchArea = new Bounds2( metricRadio.localBounds.minX - touchExpansion, metricRadio.localBounds.minY, metricRadio.localBounds.minX + maxRadioButtonWidth, metricRadio.localBounds.maxY );
-    atmosphereRadio.touchArea = new Bounds2( atmosphereRadio.localBounds.minX - touchExpansion, atmosphereRadio.localBounds.minY, atmosphereRadio.localBounds.minX + maxRadioButtonWidth, atmosphereRadio.localBounds.maxY );
-    englishRadio.touchArea = new Bounds2( englishRadio.localBounds.minX - touchExpansion, englishRadio.localBounds.minY, englishRadio.localBounds.minX + maxRadioButtonWidth, englishRadio.localBounds.maxY );
+    metricRadio.touchArea = new Bounds2( metricRadio.localBounds.minX - touchExpansion, metricRadio.localBounds.minY,
+        metricRadio.localBounds.minX + maxRadioButtonWidth, metricRadio.localBounds.maxY );
+    atmosphereRadio.touchArea = new Bounds2( atmosphereRadio.localBounds.minX - touchExpansion, atmosphereRadio.localBounds.minY,
+        atmosphereRadio.localBounds.minX + maxRadioButtonWidth, atmosphereRadio.localBounds.maxY );
+    englishRadio.touchArea = new Bounds2( englishRadio.localBounds.minX - touchExpansion, englishRadio.localBounds.minY,
+        englishRadio.localBounds.minX + maxRadioButtonWidth, englishRadio.localBounds.maxY );
 
     // center the title by adding space before and after. Also ensures that the panel's width is 'width'
     var createTitle = function( item ) {
-      var strutWidth = ( width - item.width ) / 2;
+      var strutWidth = ( width - item.width ) / 2 - options.xMargin;
       return new HBox( { children: [ new HStrut( strutWidth ), item, new HStrut( strutWidth ) ] } );
     };
 
     var content = new VBox( {
-      spacing: 5,
+      spacing: 4,
       children: [ createTitle( titleText ), metricRadio, atmosphereRadio, englishRadio, createTitle( dummyText ) ],
       align: 'left'
     } );

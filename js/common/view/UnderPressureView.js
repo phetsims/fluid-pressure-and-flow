@@ -83,11 +83,12 @@ define( function( require ) {
     this.addChild( this.resetAllButton );
 
     //control panel
-    this.controlPanel = new ControlPanel( underPressureModel, { right: this.resetAllButton.right, top: 5, scale: 0.74 } );
+    this.controlPanel = new ControlPanel( underPressureModel, { right: this.resetAllButton.right, top: 5, cornerRadius: 7 } );
     this.addChild( this.controlPanel );
 
     // units panel
-    this.unitsControlPanel = new UnitsControlPanel( underPressureModel.measureUnitsProperty, this.controlPanel.width, { scale: 0.89, right: this.resetAllButton.right, top: this.controlPanel.bottom + 5 } );
+    this.unitsControlPanel = new UnitsControlPanel( underPressureModel.measureUnitsProperty, this.controlPanel.width,
+      {  yMargin: 2, right: this.resetAllButton.right, top: this.controlPanel.bottom + 6, cornerRadius: 7 } );
     this.addChild( this.unitsControlPanel );
 
     // gravity slider
@@ -151,7 +152,8 @@ define( function( require ) {
     this.addChild( this.fluidDensitySlider );
 
     // add the sensors panel
-    var sensorPanel = new Rectangle( 0, 0, 100, 130, 10, 10, {stroke: 'gray', lineWidth: 1, fill: '#f2fa6a', right: this.controlPanel.left - 20, top: this.controlPanel.top} );
+    var sensorPanel = new Rectangle( 0, 0, 100, 130, 10, 10, { stroke: 'gray', lineWidth: 1, fill: '#f2fa6a',
+      right: this.controlPanel.left - 20, top: this.controlPanel.top } );
     this.addChild( sensorPanel );
 
     // add barometers within the sensor panel bounds
@@ -186,7 +188,8 @@ define( function( require ) {
 
     var scenes = {};
     underPressureModel.scenes.forEach( function( name ) {
-      scenes[ name ] = new SceneView[ name ]( underPressureModel.sceneModels[ name ], modelViewTransform, underPressureView.layoutBounds );
+      scenes[ name ] = new SceneView[ name ]( underPressureModel.sceneModels[ name ], modelViewTransform,
+        underPressureView.layoutBounds );
       scenes[ name ].visible = false;
       underPressureView.addChild( scenes[ name ] );
     } );
@@ -222,18 +225,9 @@ define( function( require ) {
 
     this.addChild( new SceneChoiceNode( underPressureModel, { x: 5, y: 260 } ) );
 
-    //resize control panels
-    // todo: fix this maxWidth calculation
-    var panels = [ this.controlPanel, scenes.Mystery.mysteryPoolControls.choicePanel ];
-    var maxWidth = 0;
-    panels.forEach( function( panel ) {
-      maxWidth = Math.max( maxWidth, panel.width / panel.transform.matrix.scaleVector.x );
-    } );
-    scenes.Mystery.mysteryPoolControls.choicePanel.resizeWidth( maxWidth );
-
-    panels.forEach( function( panel ) {
-      panel.right = underPressureView.gravitySlider.right;
-    } );
+    //resize mystery control panel
+    scenes.Mystery.mysteryPoolControls.choicePanel.resizeWidth( this.controlPanel.width );
+    scenes.Mystery.mysteryPoolControls.choicePanel.right = underPressureView.gravitySlider.right;
 
     underPressureModel.currentSceneProperty.link( function( currentScene, previousScene ) {
       scenes[currentScene].visible = true;
