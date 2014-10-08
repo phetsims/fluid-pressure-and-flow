@@ -108,11 +108,17 @@ define( function( require ) {
 
     //Create an icon for the ruler check box
     createRulerIcon: function() {
-      return new RulerNode( 30, 20, 15, ['0', '1', '2'], '', {
-        insetsWidth: 7,
+      var rulerWidth = 30;
+      var rulerHeight = 20;
+      var insetsWidth = 7;
+
+      return new RulerNode( rulerWidth, rulerHeight, rulerWidth / 2, ['0', '1', '2'], '', {
+        insetsWidth: insetsWidth,
         minorTicksPerMajorTick: 4,
         majorTickFont: new PhetFont( 12 ),
-        clipArea: Shape.rect( -1, -1, 44, 22 )
+        // In the mock the right border of the ruler icon is not visible.
+        // Clipping it using a rectangle with a width that is 1px lesser than the icon.
+        clipArea: Shape.rect( 0, 0, rulerWidth + 2 * insetsWidth - 1, rulerHeight )
       } );
     }
   } );
