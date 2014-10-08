@@ -1,14 +1,15 @@
 // Copyright 2002-2013, University of Colorado Boulder
 
 /**
- * Node which draws a border around the given content node and puts a title at the top left embedded within the border.
+ * View for the atmosphere control options embedded within the control panel.
+ * Contains on/off radio boxes and a border around the options with a title at the top left embedded within the border.
  * @author Vasily Shakhov (Mlearner)
  * @author Siddhartha Chinthapally (Actual Concepts)
  */
 define( function( require ) {
   'use strict';
 
-// modules
+  // modules
   var inherit = require( 'PHET_CORE/inherit' );
   var Node = require( 'SCENERY/nodes/Node' );
   var Text = require( 'SCENERY/nodes/Text' );
@@ -16,7 +17,6 @@ define( function( require ) {
   var Rectangle = require( 'SCENERY/nodes/Rectangle' );
   var HBox = require( 'SCENERY/nodes/HBox' );
   var AquaRadioButton = require( 'SUN/AquaRadioButton' );
-
 
   // strings
   var atmosphereString = require( 'string!UNDER_PRESSURE/atmosphere' );
@@ -41,7 +41,7 @@ define( function( require ) {
       cornerRadius: 5 // radius of the rounded corners on the background
     }, options );
 
-    Node.call( this, { align: 'left' } );
+    Node.call( this );
 
     var textOptions = {font: new PhetFont( 12 )};
 
@@ -54,13 +54,11 @@ define( function( require ) {
     atmosphereTrue.touchArea = atmosphereTrue.localBounds.dilatedXY( 0, 0 );
     atmosphereFalse.touchArea = atmosphereFalse.localBounds.dilatedXY( 0, 0 );
 
-
     this.contentNode = new HBox( {
       children: [ atmosphereTrue, atmosphereFalse ],
       spacing: 10,
       align: 'left'
     } );
-
 
     this.background = new Rectangle( -this.options.xMargin, -this.options.yMargin,
         this.contentNode.width + 2 * this.options.xMargin,
@@ -81,7 +79,7 @@ define( function( require ) {
     this.addChild( titleBackground );
     this.addChild( titleNode );
 
-
+    this.mutate( this.options );
   }
 
   return inherit( Node, AtmosphereControlNode, {
