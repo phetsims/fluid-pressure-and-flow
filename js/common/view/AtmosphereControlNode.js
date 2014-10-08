@@ -24,7 +24,6 @@ define( function( require ) {
   var offString = require( 'string!UNDER_PRESSURE/off' );
 
   /**
-   *
    * @param {Property<Boolean>} isAtmosphereProperty to select atmosphere on/off
    * @param {Object} options
    * @constructor
