@@ -1,8 +1,8 @@
 // Copyright (c) 2002 - 2014. University of Colorado Boulder
 
 /**
- * Model for the Flow tab in Fluid Pressure and Flow (FPAF) simulation. The model includes values for various view settings
- * like whether a ruler is visible, whether a grid injector is pressed and so on.
+ * Model for the Flow tab in Fluid Pressure and Flow (FPAF) simulation. The model includes values for various view
+ * settings like whether a ruler is visible, whether a grid injector is pressed and so on.
  * Origin is at the center on the ground. And y grows in the direction of sky from ground.
  *
  * @author Siddhartha Chinthapally (Actual Concepts)
@@ -144,7 +144,8 @@ define( function( require ) {
       // cross section.
       if ( y > crossSection.yBottom && y < crossSection.yTop - 0.1 ) {
         var vSquared = this.pipe.getVelocity( x, y ).magnitudeSquared();
-        return this.getAirPressure( 0 ) - y * Constants.EARTH_GRAVITY * this.fluidDensity - 0.5 * this.fluidDensity * vSquared;
+        return this.getAirPressure( 0 ) - y * Constants.EARTH_GRAVITY * this.fluidDensity -
+               0.5 * this.fluidDensity * vSquared;
       }
       return 0;
     },
@@ -251,7 +252,8 @@ define( function( require ) {
      */
     getFluidDensityString: function() {
       if ( this.measureUnits === 'english' ) {
-        return StringUtils.format( valueWithUnitsPattern, (Units.FLUID_DENSITY_ENGLISH_PER_METRIC * this.fluidDensity).toFixed( 2 ), densityUnitsEnglish );
+        return StringUtils.format( valueWithUnitsPattern,
+          (Units.FLUID_DENSITY_ENGLISH_PER_METRIC * this.fluidDensity).toFixed( 2 ), densityUnitsEnglish );
       }
       else {
         return StringUtils.format( valueWithUnitsPattern, Math.round( this.fluidDensity ), densityUnitsMetric );
@@ -265,7 +267,8 @@ define( function( require ) {
      */
     getFluidFlowRateString: function() {
       if ( this.measureUnits === 'english' ) {
-        return StringUtils.format( valueWithUnitsPattern, (Units.FLUID_FlOW_RATE_ENGLISH_PER_METRIC * this.pipe.flowRate).toFixed( 2 ), flowRateUnitsEnglish );
+        return StringUtils.format( valueWithUnitsPattern,
+          (Units.FLUID_FlOW_RATE_ENGLISH_PER_METRIC * this.pipe.flowRate).toFixed( 2 ), flowRateUnitsEnglish );
       }
       else {
         return StringUtils.format( valueWithUnitsPattern, Math.round( this.pipe.flowRate ), flowRateUnitsMetric );

@@ -43,7 +43,9 @@ define( function( require ) {
         particle = this.particles.get( i );
         context.fillStyle = particle.color;
         context.beginPath();
-        context.arc( this.modelViewTransform.modelToViewX( particle.xPosition ), this.modelViewTransform.modelToViewY( particle.getY() ), this.modelViewTransform.modelToViewDeltaX( particle.radius ), 0, 2 * Math.PI, true );
+        context.arc( this.modelViewTransform.modelToViewX( particle.xPosition ),
+          this.modelViewTransform.modelToViewY( particle.getY() ),
+          this.modelViewTransform.modelToViewDeltaX( particle.radius ), 0, 2 * Math.PI, true );
         context.fill();
       }
 
@@ -52,7 +54,9 @@ define( function( require ) {
         particle = this.gridParticles.get( i );
         context.fillStyle = particle.color;
         context.beginPath();
-        context.arc( this.modelViewTransform.modelToViewX( particle.xPosition ), this.modelViewTransform.modelToViewY( particle.getY() ), this.modelViewTransform.modelToViewDeltaX( particle.radius ), 0, 2 * Math.PI, true );
+        context.arc( this.modelViewTransform.modelToViewX( particle.xPosition ),
+          this.modelViewTransform.modelToViewY( particle.getY() ),
+          this.modelViewTransform.modelToViewDeltaX( particle.radius ), 0, 2 * Math.PI, true );
         context.fill();
       }
 

@@ -29,7 +29,16 @@ define( function( require ) {
 
     var injector = new Image( injectorBulbImage, { scale: 0.35 } );
 
-    this.redButton = new RoundStickyToggleButton( false, true, isGridInjectorPressedProperty, { radius: 25, centerX: injector.centerX, top: injector.top + 31, baseColor: 'red', stroke: 'red', fill: 'red', touchExpansion: 10 } );
+    this.redButton = new RoundStickyToggleButton( false, true, isGridInjectorPressedProperty,
+      {
+        radius: 25,
+        centerX: injector.centerX,
+        top: injector.top + 31,
+        baseColor: 'red',
+        stroke: 'red',
+        fill: 'red',
+        touchExpansion: 10
+      } );
 
     // add grid injector
     gridInjectorNode.addChild( new Node( { children: [ injector, this.redButton ] } ) );

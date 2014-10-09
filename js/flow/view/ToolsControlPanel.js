@@ -78,18 +78,25 @@ define( function( require ) {
 
     var rulerCheckBox = new CheckBox( createItem( ruler ), flowModel.isRulerVisibleProperty, checkBoxOptions );
     var frictionCheckBox = new CheckBox( createItem( friction ), flowModel.pipe.frictionProperty, checkBoxOptions );
-    var fluxMeterCheckBox = new CheckBox( createItem( fluxMeter ), flowModel.isFluxMeterVisibleProperty, checkBoxOptions );
+    var fluxMeterCheckBox = new CheckBox( createItem( fluxMeter ), flowModel.isFluxMeterVisibleProperty,
+      checkBoxOptions );
     var dotsCheckBox = new CheckBox( createItem( dots ), flowModel.isDotsVisibleProperty, checkBoxOptions );
 
-    var maxCheckBoxWidth = _.max( [ rulerCheckBox, frictionCheckBox, fluxMeterCheckBox, dotsCheckBox ], function( item ) {
-      return item.width;
-    } ).width + 5;
+    var maxCheckBoxWidth = _.max( [ rulerCheckBox, frictionCheckBox, fluxMeterCheckBox, dotsCheckBox ],
+      function( item ) {
+        return item.width;
+      } ).width + 5;
 
     //touch Areas
-    rulerCheckBox.touchArea = new Bounds2( rulerCheckBox.localBounds.minX - 5, rulerCheckBox.localBounds.minY, rulerCheckBox.localBounds.minX + maxCheckBoxWidth, rulerCheckBox.localBounds.maxY );
-    frictionCheckBox.touchArea = new Bounds2( frictionCheckBox.localBounds.minX - 5, frictionCheckBox.localBounds.minY, frictionCheckBox.localBounds.minX + maxCheckBoxWidth, frictionCheckBox.localBounds.maxY );
-    fluxMeterCheckBox.touchArea = new Bounds2( fluxMeterCheckBox.localBounds.minX - 5, fluxMeterCheckBox.localBounds.minY, fluxMeterCheckBox.localBounds.minX + maxCheckBoxWidth, fluxMeterCheckBox.localBounds.maxY );
-    dotsCheckBox.touchArea = new Bounds2( dotsCheckBox.localBounds.minX - 5, dotsCheckBox.localBounds.minY, dotsCheckBox.localBounds.minX + maxCheckBoxWidth, dotsCheckBox.localBounds.maxY );
+    rulerCheckBox.touchArea = new Bounds2( rulerCheckBox.localBounds.minX - 5, rulerCheckBox.localBounds.minY,
+        rulerCheckBox.localBounds.minX + maxCheckBoxWidth, rulerCheckBox.localBounds.maxY );
+    frictionCheckBox.touchArea = new Bounds2( frictionCheckBox.localBounds.minX - 5, frictionCheckBox.localBounds.minY,
+        frictionCheckBox.localBounds.minX + maxCheckBoxWidth, frictionCheckBox.localBounds.maxY );
+    fluxMeterCheckBox.touchArea = new Bounds2( fluxMeterCheckBox.localBounds.minX - 5,
+      fluxMeterCheckBox.localBounds.minY, fluxMeterCheckBox.localBounds.minX + maxCheckBoxWidth,
+      fluxMeterCheckBox.localBounds.maxY );
+    dotsCheckBox.touchArea = new Bounds2( dotsCheckBox.localBounds.minX - 5, dotsCheckBox.localBounds.minY,
+        dotsCheckBox.localBounds.minX + maxCheckBoxWidth, dotsCheckBox.localBounds.maxY );
 
     // pad all the rows so the text nodes are left aligned and the icons is right aligned
     var checkBoxChildren = [ rulerCheckBox , frictionCheckBox, fluxMeterCheckBox , dotsCheckBox ];

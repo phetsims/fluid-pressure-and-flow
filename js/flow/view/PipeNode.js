@@ -86,11 +86,13 @@ define( function( require ) {
       top: this.groundY + this.pipeNodeYOffset,
       left: layoutBounds.minX - pipeNode.leftPipeXOffest,
       scale: options.pipeScale } );
-    leftPipeMiddle[ 0 ] = new Image( pipeSegmentImage, { right: leftPipe.left + MIDDLE_PIPE_INSET, scale: options.pipeScale} );
+    leftPipeMiddle[ 0 ] = new Image( pipeSegmentImage,
+      { right: leftPipe.left + MIDDLE_PIPE_INSET, scale: options.pipeScale} );
 
     // extend the left pipe by repeating the pipe segment image
     for ( j = 1; j < NUMBER_OF_PIPE_SEGMENTS; j++ ) {
-      leftPipeMiddle[ j ] = new Image( pipeSegmentImage, { right: leftPipeMiddle[ j - 1 ].left + 1, scale: options.pipeScale } );
+      leftPipeMiddle[ j ] = new Image( pipeSegmentImage,
+        { right: leftPipeMiddle[ j - 1 ].left + 1, scale: options.pipeScale } );
     }
     this.leftPipeNode = new Node( {
       children: [ leftPipe ],
@@ -106,7 +108,8 @@ define( function( require ) {
     this.pipeFlowLine = new Path( null, { stroke: options.lineColor, lineWidth: '6' } );
 
     // shape for fluid
-    this.pipeFluidNode = new Path( null, { stroke: options.lineColor, lineWidth: '0', fill: flowModel.fluidColorModel.color } );
+    this.pipeFluidNode = new Path( null,
+      { stroke: options.lineColor, lineWidth: '0', fill: flowModel.fluidColorModel.color } );
 
     // right side pipe image.
     var rightPipe = new Image( rightSidePipeImage, { scale: options.pipeScale } );
@@ -115,7 +118,8 @@ define( function( require ) {
 
     // extend the right pipe by repeating the pipe segment image
     for ( j = 1; j < NUMBER_OF_PIPE_SEGMENTS; j++ ) {
-      rightPipeMiddle[ j ] = new Image( pipeSegmentImage, { left: rightPipeMiddle[ j - 1 ].right - 1, scale: options.pipeScale } );
+      rightPipeMiddle[ j ] = new Image( pipeSegmentImage,
+        { left: rightPipeMiddle[ j - 1 ].right - 1, scale: options.pipeScale } );
     }
 
     this.rightPipeNode = new Node( {
@@ -133,8 +137,9 @@ define( function( require ) {
     this.addChild( this.gridInjectorNode );
 
     this.gridInjectorNode.setTranslation(
-      modelViewTransform.modelToViewX( pipeNode.gridInjectorX ) - pipeNode.gridInjectorNodeXOffset,
-      modelViewTransform.modelToViewY( this.pipe.getCrossSection( pipeNode.gridInjectorX ).yTop ) - pipeNode.gridInjectorNodeYOffset );
+        modelViewTransform.modelToViewX( pipeNode.gridInjectorX ) - pipeNode.gridInjectorNodeXOffset,
+        modelViewTransform.modelToViewY( this.pipe.getCrossSection( pipeNode.gridInjectorX ).yTop ) -
+        pipeNode.gridInjectorNodeYOffset );
 
     // order of different layers within pipe Node -- leftPipeBackNode, pipeFluidNode, preParticleLayer, pipeFlowLine,
     // leftPipeNode and rightPipeNode
@@ -144,9 +149,10 @@ define( function( require ) {
     this.preParticleLayer = new Node();
     this.addChild( this.preParticleLayer );
 
-    this.particlesLayer = new ParticleCanvasNode( flowModel.flowParticles, flowModel.gridParticles, modelViewTransform, {
-      canvasBounds: new Bounds2( 20, 80, 800, 600 )
-    } );
+    this.particlesLayer = new ParticleCanvasNode( flowModel.flowParticles, flowModel.gridParticles, modelViewTransform,
+      {
+        canvasBounds: new Bounds2( 20, 80, 800, 600 )
+      } );
     this.addChild( this.particlesLayer );
     this.addChild( this.pipeFlowLine );
 
@@ -154,16 +160,20 @@ define( function( require ) {
     this.addChild( this.leftPipeNode );
 
     // add handle to drag the left pipe
-    this.leftPipeMainHandleNode = new Image( handleImage, { y: this.leftPipeNode.centerY, x: pipeNode.layoutBounds.minX - 10, cursor: 'pointer', scale: 0.32 } );
+    this.leftPipeMainHandleNode = new Image( handleImage,
+      { y: this.leftPipeNode.centerY, x: pipeNode.layoutBounds.minX - 10, cursor: 'pointer', scale: 0.32 } );
     // touch area for the left pipe drag handle
-    this.leftPipeMainHandleNode.touchArea = new Bounds2( this.leftPipeMainHandleNode.localBounds.minX - 20, this.leftPipeMainHandleNode.localBounds.minY + 25,
+    this.leftPipeMainHandleNode.touchArea = new Bounds2( this.leftPipeMainHandleNode.localBounds.minX - 20,
+        this.leftPipeMainHandleNode.localBounds.minY + 25,
         this.leftPipeMainHandleNode.localBounds.maxX + 20, this.leftPipeMainHandleNode.localBounds.maxY + 60 );
     this.addChild( this.leftPipeMainHandleNode );
 
     // add handle to drag the right pipe
-    this.rightPipeMainHandleNode = new Image( handleImage, { y: this.rightPipeNode.centerY, x: layoutBounds.maxX - 50, cursor: 'pointer', scale: 0.35 } );
+    this.rightPipeMainHandleNode = new Image( handleImage,
+      { y: this.rightPipeNode.centerY, x: layoutBounds.maxX - 50, cursor: 'pointer', scale: 0.35 } );
     // touch area for the right pipe drag handle
-    this.rightPipeMainHandleNode.touchArea = new Bounds2( this.rightPipeMainHandleNode.localBounds.minX - 20, this.rightPipeMainHandleNode.localBounds.minY + 25,
+    this.rightPipeMainHandleNode.touchArea = new Bounds2( this.rightPipeMainHandleNode.localBounds.minX - 20,
+        this.rightPipeMainHandleNode.localBounds.minY + 25,
         this.rightPipeMainHandleNode.localBounds.maxX + 20, this.rightPipeMainHandleNode.localBounds.maxY + 60 );
     this.addChild( this.rightPipeMainHandleNode );
 
@@ -207,22 +217,27 @@ define( function( require ) {
 
         pipeNode.controlHandleNodes[ i ] = new Node( { children: [ handleNode ] } );
         controlPoint.positionProperty.link( function( position ) {
-          pipeNode.controlHandleNodes[ i ].setTranslation( modelViewTransform.modelToViewX( position.x ), modelViewTransform.modelToViewY( position.y ) );
+          pipeNode.controlHandleNodes[ i ].setTranslation( modelViewTransform.modelToViewX( position.x ),
+            modelViewTransform.modelToViewY( position.y ) );
         } );
 
         // set the initial position of control point handles on left pipe node and right pipe node.
         switch( i ) {
           case leftBottomControlPointIndex :
-            pipeNode.controlHandleNodes[ leftBottomControlPointIndex ].top = pipeNode.leftPipeNode.bottom - CONTROL_HANDLE_OFFSET;
+            pipeNode.controlHandleNodes[ leftBottomControlPointIndex ].top = pipeNode.leftPipeNode.bottom -
+                                                                             CONTROL_HANDLE_OFFSET;
             break;
           case rightBottomControlPointIndex :
-            pipeNode.controlHandleNodes[ rightBottomControlPointIndex ].top = pipeNode.rightPipeNode.bottom - CONTROL_HANDLE_OFFSET;
+            pipeNode.controlHandleNodes[ rightBottomControlPointIndex ].top = pipeNode.rightPipeNode.bottom -
+                                                                              CONTROL_HANDLE_OFFSET;
             break;
           case rightTopControlPointIndex :
-            pipeNode.controlHandleNodes[ rightTopControlPointIndex ].bottom = pipeNode.rightPipeNode.top + CONTROL_HANDLE_OFFSET;
+            pipeNode.controlHandleNodes[ rightTopControlPointIndex ].bottom = pipeNode.rightPipeNode.top +
+                                                                              CONTROL_HANDLE_OFFSET;
             break;
           case leftTopControlPointIndex :
-            pipeNode.controlHandleNodes[ leftTopControlPointIndex ].bottom = pipeNode.leftPipeNode.top + CONTROL_HANDLE_OFFSET;
+            pipeNode.controlHandleNodes[ leftTopControlPointIndex ].bottom = pipeNode.leftPipeNode.top +
+                                                                             CONTROL_HANDLE_OFFSET;
             break;
         }
 
@@ -257,14 +272,17 @@ define( function( require ) {
               var offSetY = pipeNode.controlHandleNodes[ i ].globalToParentPoint( event.pointer.point ).y - dragStartY;
 
               // x position is constant for a control point
-              var pt = new Vector2( pipe.controlPoints[ i ].position.x, controlPointDragStartY + modelViewTransform.viewToModelDeltaY( offSetY ) );
+              var pt = new Vector2( pipe.controlPoints[ i ].position.x,
+                  controlPointDragStartY + modelViewTransform.viewToModelDeltaY( offSetY ) );
 
               // limit the y to (0, -4)
               pt.y = ( pt.y > 0 ? 0 : ( pt.y < -4 ? -4 : pt.y ) );
 
               // prevent the two ends of the cross sections from crossing each other
-              if ( ( i < rightBottomControlPointIndex && pt.y < pipe.controlPoints[ numControlPoints - ( i + 1 ) ].position.y ) ||
-                   ( i >= rightBottomControlPointIndex && pt.y > pipe.controlPoints[ numControlPoints - ( i + 1 ) ].position.y ) ) {
+              if ( ( i < rightBottomControlPointIndex &&
+                     pt.y < pipe.controlPoints[ numControlPoints - ( i + 1 ) ].position.y ) ||
+                   ( i >= rightBottomControlPointIndex &&
+                     pt.y > pipe.controlPoints[ numControlPoints - ( i + 1 ) ].position.y ) ) {
                 return;
               }
               var yDiff = Math.abs( ( pipe.controlPoints[ numControlPoints - ( i + 1 ) ].position.y ) - pt.y );
@@ -279,8 +297,9 @@ define( function( require ) {
 
                 // reposition the grid injector
                 pipeNode.gridInjectorNode.setTranslation(
-                  modelViewTransform.modelToViewX( pipeNode.gridInjectorX ) - pipeNode.gridInjectorNodeXOffset,
-                  modelViewTransform.modelToViewY( pipeNode.pipe.getCrossSection( pipeNode.gridInjectorX ).yTop ) - pipeNode.gridInjectorNodeYOffset );
+                    modelViewTransform.modelToViewX( pipeNode.gridInjectorX ) - pipeNode.gridInjectorNodeXOffset,
+                    modelViewTransform.modelToViewY( pipeNode.pipe.getCrossSection( pipeNode.gridInjectorX ).yTop ) -
+                    pipeNode.gridInjectorNodeYOffset );
               }
 
               var pipeExpansionFactor;
@@ -294,15 +313,19 @@ define( function( require ) {
                 }
 
                 // calculate the pipe scale
-                pipeExpansionFactor = (pipe.getCrossSection( pipe.controlPoints[ leftTopControlPointIndex ].position.x + 0.3 ).getHeight()) / PIPE_INITIAL_HEIGHT;
+                pipeExpansionFactor = (pipe.getCrossSection( pipe.controlPoints[ leftTopControlPointIndex ].position.x +
+                                                             0.3 ).getHeight()) / PIPE_INITIAL_HEIGHT;
                 pipeExpansionFactor = pipeExpansionFactor < 0.5 ? 0.5 : pipeExpansionFactor;
 
                 pipeNode.leftPipeNode.setScaleMagnitude( options.pipeScale, pipeExpansionFactor * options.pipeScale );
-                pipeNode.leftPipeBackNode.setScaleMagnitude( options.pipeScale, pipeExpansionFactor * options.pipeScale );
+                pipeNode.leftPipeBackNode.setScaleMagnitude( options.pipeScale,
+                    pipeExpansionFactor * options.pipeScale );
 
                 // calculate distance from left pipe main drag handle to left pipe top/bottom control points
-                pipeNode.yDiffFromLeftPipeDrageHandleToLeftTopControlPoint = modelViewTransform.viewToModelY( pipeNode.leftPipeNode.centerY ) - pipe.controlPoints[ leftTopControlPointIndex ].position.y;
-                pipeNode.yDiffFromLeftPipeDrageHandleToLeftBottomControlPoint = modelViewTransform.viewToModelY( pipeNode.leftPipeNode.centerY ) - pipe.controlPoints[ leftBottomControlPointIndex ].position.y;
+                pipeNode.yDiffFromLeftPipeDrageHandleToLeftTopControlPoint = modelViewTransform.viewToModelY( pipeNode.leftPipeNode.centerY ) -
+                                                                             pipe.controlPoints[ leftTopControlPointIndex ].position.y;
+                pipeNode.yDiffFromLeftPipeDrageHandleToLeftBottomControlPoint = modelViewTransform.viewToModelY( pipeNode.leftPipeNode.centerY ) -
+                                                                                pipe.controlPoints[ leftBottomControlPointIndex ].position.y;
 
                 if ( i === leftTopControlPointIndex ) {
                   // fix the bottom end of the pipe if the top control point is used for scaling
@@ -310,7 +333,8 @@ define( function( require ) {
                   pipeNode.leftPipeBackNode.bottom = pipeBottom;
                 }
 
-                pipeNode.leftPipeMainHandleNode.setTranslation( pipeNode.layoutBounds.minX - 10, pipeNode.leftPipeNode.centerY );
+                pipeNode.leftPipeMainHandleNode.setTranslation( pipeNode.layoutBounds.minX - 10,
+                  pipeNode.leftPipeNode.centerY );
               }
 
               // handle the right  pipe scaling
@@ -321,7 +345,8 @@ define( function( require ) {
                   pipeNode.rightPipeNode.top = pipeTop;
                 }
 
-                pipeExpansionFactor = ( pipe.getCrossSection( pipe.controlPoints[ rightTopControlPointIndex ].position.x - 0.3 ).getHeight() ) / PIPE_INITIAL_HEIGHT;
+                pipeExpansionFactor = ( pipe.getCrossSection( pipe.controlPoints[ rightTopControlPointIndex ].position.x -
+                                                              0.3 ).getHeight() ) / PIPE_INITIAL_HEIGHT;
 
                 // limit the scaling to 0.5 on the lower side
                 pipeExpansionFactor = pipeExpansionFactor < 0.5 ? 0.5 : pipeExpansionFactor;
@@ -329,14 +354,17 @@ define( function( require ) {
                 pipeNode.rightPipeNode.setScaleMagnitude( options.pipeScale, pipeExpansionFactor * options.pipeScale );
 
                 // calculate distance from the right pipe main drag handle to right pipe top/bottom control points
-                pipeNode.yDiffFromRightPipeDrageHandleToRightTopControlPoint = modelViewTransform.viewToModelY( pipeNode.rightPipeNode.centerY ) - pipe.controlPoints[ rightTopControlPointIndex ].position.y;
-                pipeNode.yDiffFromRightPipeDrageHandleToRightBottomControlPoint = modelViewTransform.viewToModelY( pipeNode.rightPipeNode.centerY ) - pipe.controlPoints[ rightBottomControlPointIndex ].position.y;
+                pipeNode.yDiffFromRightPipeDrageHandleToRightTopControlPoint = modelViewTransform.viewToModelY( pipeNode.rightPipeNode.centerY ) -
+                                                                               pipe.controlPoints[ rightTopControlPointIndex ].position.y;
+                pipeNode.yDiffFromRightPipeDrageHandleToRightBottomControlPoint = modelViewTransform.viewToModelY( pipeNode.rightPipeNode.centerY ) -
+                                                                                  pipe.controlPoints[ rightBottomControlPointIndex ].position.y;
 
                 if ( i === rightTopControlPointIndex ) {
                   // fix the bottom end of the pipe if the top control point is used for scaling
                   pipeNode.rightPipeNode.bottom = pipeBottom;
                 }
-                pipeNode.rightPipeMainHandleNode.setTranslation( layoutBounds.maxX - 50, pipeNode.rightPipeNode.centerY );
+                pipeNode.rightPipeMainHandleNode.setTranslation( layoutBounds.maxX - 50,
+                  pipeNode.rightPipeNode.centerY );
 
               }
 
@@ -354,10 +382,14 @@ define( function( require ) {
               }
 
               // setting the left/right  pipe top/bottom  control point handle positions when left/right pipe drag
-              pipeNode.controlHandleNodes[ leftTopControlPointIndex ].bottom = pipeNode.leftPipeNode.top + CONTROL_HANDLE_OFFSET;
-              pipeNode.controlHandleNodes[ leftBottomControlPointIndex ].top = pipeNode.leftPipeNode.bottom - CONTROL_HANDLE_OFFSET;
-              pipeNode.controlHandleNodes[ rightTopControlPointIndex ].bottom = pipeNode.rightPipeNode.top + CONTROL_HANDLE_OFFSET;
-              pipeNode.controlHandleNodes[ rightBottomControlPointIndex ].top = pipeNode.rightPipeNode.bottom - CONTROL_HANDLE_OFFSET;
+              pipeNode.controlHandleNodes[ leftTopControlPointIndex ].bottom = pipeNode.leftPipeNode.top +
+                                                                               CONTROL_HANDLE_OFFSET;
+              pipeNode.controlHandleNodes[ leftBottomControlPointIndex ].top = pipeNode.leftPipeNode.bottom -
+                                                                               CONTROL_HANDLE_OFFSET;
+              pipeNode.controlHandleNodes[ rightTopControlPointIndex ].bottom = pipeNode.rightPipeNode.top +
+                                                                                CONTROL_HANDLE_OFFSET;
+              pipeNode.controlHandleNodes[ rightBottomControlPointIndex ].top = pipeNode.rightPipeNode.bottom -
+                                                                                CONTROL_HANDLE_OFFSET;
 
               // update the flux meter
               flowModel.fluxMeter.trigger( 'update' );
@@ -416,8 +448,10 @@ define( function( require ) {
               pipe.controlPoints[ leftTopControlPointIndex ].position = new Vector2( x, yUp );
               pipe.controlPoints[ leftBottomControlPointIndex ].position = new Vector2( x, yLow );
 
-              pipeNode.leftPipeNode.setTranslation( layoutBounds.minX - pipeNode.leftPipeXOffest, modelViewTransform.modelToViewY( pipe.controlPoints[ leftTopControlPointIndex ].position.y ) - 13 );
-              pipeNode.leftPipeBackNode.setTranslation( layoutBounds.minX - pipeNode.leftPipeXOffest, modelViewTransform.modelToViewY( pipe.controlPoints[ leftTopControlPointIndex ].position.y ) - 13 );
+              pipeNode.leftPipeNode.setTranslation( layoutBounds.minX - pipeNode.leftPipeXOffest,
+                  modelViewTransform.modelToViewY( pipe.controlPoints[ leftTopControlPointIndex ].position.y ) - 13 );
+              pipeNode.leftPipeBackNode.setTranslation( layoutBounds.minX - pipeNode.leftPipeXOffest,
+                  modelViewTransform.modelToViewY( pipe.controlPoints[ leftTopControlPointIndex ].position.y ) - 13 );
 
               // set the left pipe  top/bottom control point handle positions
               pipeNode.controlHandleNodes[ leftTopControlPointIndex ].bottom = pipeNode.leftPipeNode.top + 2;
@@ -435,7 +469,8 @@ define( function( require ) {
               pipe.controlPoints[ rightTopControlPointIndex ].position = new Vector2( x, yUp );
               pipe.controlPoints[ rightBottomControlPointIndex ].position = new Vector2( x, yLow );
 
-              pipeNode.rightPipeNode.setTranslation( layoutBounds.maxX - pipeNode.rightPipeXOffest, modelViewTransform.modelToViewY( pipe.controlPoints[ rightTopControlPointIndex ].position.y ) - 13 );
+              pipeNode.rightPipeNode.setTranslation( layoutBounds.maxX - pipeNode.rightPipeXOffest,
+                  modelViewTransform.modelToViewY( pipe.controlPoints[ rightTopControlPointIndex ].position.y ) - 13 );
 
               // set the right pipe top/bottom control point handle positions
               pipeNode.controlHandleNodes[ rightTopControlPointIndex ].bottom = pipeNode.rightPipeNode.top + 2;
@@ -472,7 +507,10 @@ define( function( require ) {
             flowModel.barometers[ 1 ].trigger( 'update' );
 
             // reposition the grid injector
-            pipeNode.gridInjectorNode.setTranslation( modelViewTransform.modelToViewX( pipeNode.gridInjectorX ) - pipeNode.gridInjectorNodeXOffset, modelViewTransform.modelToViewY( pipeNode.pipe.getCrossSection( pipeNode.gridInjectorX ).yTop ) - pipeNode.gridInjectorNodeYOffset );
+            pipeNode.gridInjectorNode.setTranslation( modelViewTransform.modelToViewX( pipeNode.gridInjectorX ) -
+                                                      pipeNode.gridInjectorNodeXOffset,
+                modelViewTransform.modelToViewY( pipeNode.pipe.getCrossSection( pipeNode.gridInjectorX ).yTop ) -
+                pipeNode.gridInjectorNodeYOffset );
 
           }
         } ) );
@@ -507,7 +545,8 @@ define( function( require ) {
           yPointsTop[l] = splineCrossSections[l].yTop;
         }
 
-        var flowLineShape = new Shape().moveTo( this.modelViewTransform.modelToViewX( xPointsBottom[ 0 ] ), this.modelViewTransform.modelToViewY( yPointsBottom[ 0 ] ) );
+        var flowLineShape = new Shape().moveTo( this.modelViewTransform.modelToViewX( xPointsBottom[ 0 ] ),
+          this.modelViewTransform.modelToViewY( yPointsBottom[ 0 ] ) );
 
         var minXOfPipeFlowLineShape = -6.7; // model value
         var maxXOfPipeFlowLineShape = 6.8;
@@ -515,14 +554,16 @@ define( function( require ) {
         for ( i = 1; i < xPointsBottom.length; i = i + 1 ) {
           // Spline points beyond the last pipe cross section are not needed.
           if ( xPointsBottom[ i ] < maxXOfPipeFlowLineShape && xPointsBottom[ i ] > minXOfPipeFlowLineShape ) {
-            flowLineShape.lineTo( this.modelViewTransform.modelToViewX( xPointsBottom[ i ] ), this.modelViewTransform.modelToViewY( yPointsBottom[ i ] ) );
+            flowLineShape.lineTo( this.modelViewTransform.modelToViewX( xPointsBottom[ i ] ),
+              this.modelViewTransform.modelToViewY( yPointsBottom[ i ] ) );
           }
         }
 
         for ( i = xPointsTop.length; i > 0; i = i - 1 ) {
           // Spline points beyond the last pipe cross section are not needed.
           if ( xPointsBottom[ i ] < maxXOfPipeFlowLineShape && xPointsBottom[ i ] > minXOfPipeFlowLineShape ) {
-            flowLineShape.lineTo( this.modelViewTransform.modelToViewX( xPointsTop[ i ] ), this.modelViewTransform.modelToViewY( yPointsTop[ i ] ) );
+            flowLineShape.lineTo( this.modelViewTransform.modelToViewX( xPointsTop[ i ] ),
+              this.modelViewTransform.modelToViewY( yPointsTop[ i ] ) );
           }
         }
         this.pipeFlowLine.shape = flowLineShape;
@@ -534,11 +575,14 @@ define( function( require ) {
 
       reset: function() {
         // reset the left and right pipe position and scale
-        this.leftPipeNode.setMatrix( Matrix3.translation( this.layoutBounds.minX - this.leftPipeXOffest, this.groundY + this.pipeNodeYOffset ) );
+        this.leftPipeNode.setMatrix( Matrix3.translation( this.layoutBounds.minX - this.leftPipeXOffest,
+            this.groundY + this.pipeNodeYOffset ) );
         this.leftPipeNode.scale( this.options.pipeScale, this.options.pipeScale, false );
-        this.leftPipeBackNode.setMatrix( Matrix3.translation( this.layoutBounds.minX - this.leftPipeXOffest, this.groundY + this.pipeNodeYOffset ) );
+        this.leftPipeBackNode.setMatrix( Matrix3.translation( this.layoutBounds.minX - this.leftPipeXOffest,
+            this.groundY + this.pipeNodeYOffset ) );
         this.leftPipeBackNode.scale( this.options.pipeScale, this.options.pipeScale, false );
-        this.rightPipeNode.setMatrix( Matrix3.translation( this.layoutBounds.maxX - this.rightPipeXOffest, this.groundY + this.pipeNodeYOffset ) );
+        this.rightPipeNode.setMatrix( Matrix3.translation( this.layoutBounds.maxX - this.rightPipeXOffest,
+            this.groundY + this.pipeNodeYOffset ) );
         this.rightPipeNode.scale( this.options.pipeScale, this.options.pipeScale, false );
         this.leftPipeMainHandleNode.setTranslation( this.layoutBounds.minX - 10, this.leftPipeNode.getCenterY() );
         this.rightPipeMainHandleNode.setTranslation( this.layoutBounds.maxX - 50, this.rightPipeNode.getCenterY() );
@@ -563,8 +607,9 @@ define( function( require ) {
         this.controlHandleNodes[ numControlPoints - 1 ].top = this.leftPipeNode.bottom - 2;
 
         this.gridInjectorNode.setTranslation(
-          this.modelViewTransform.modelToViewX( this.gridInjectorX ) - this.gridInjectorNodeXOffset,
-          this.modelViewTransform.modelToViewY( this.pipe.getCrossSection( this.gridInjectorX ).yTop ) - this.gridInjectorNodeYOffset );
+            this.modelViewTransform.modelToViewX( this.gridInjectorX ) - this.gridInjectorNodeXOffset,
+            this.modelViewTransform.modelToViewY( this.pipe.getCrossSection( this.gridInjectorX ).yTop ) -
+            this.gridInjectorNodeYOffset );
       }
     } );
 } );

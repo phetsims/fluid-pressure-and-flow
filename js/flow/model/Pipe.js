@@ -52,12 +52,14 @@ define( function( require ) {
     // add pipe top control points
     var m;
     for ( m = 0; m < this.controlCrossSections.length; m++ ) {
-      this.controlPoints.push( new PipeControlPoint( this.controlCrossSections[ m ].x, this.controlCrossSections[ m ].yTop ) );
+      this.controlPoints.push( new PipeControlPoint( this.controlCrossSections[ m ].x,
+        this.controlCrossSections[ m ].yTop ) );
     }
 
     // add pipe bottom control points
     for ( m = this.controlCrossSections.length - 1; m >= 0; m-- ) {
-      this.controlPoints.push( new PipeControlPoint( this.controlCrossSections[ m ].x, this.controlCrossSections[ m ].yBottom ) );
+      this.controlPoints.push( new PipeControlPoint( this.controlCrossSections[ m ].x,
+        this.controlCrossSections[ m ].yBottom ) );
     }
   }
 
@@ -78,9 +80,11 @@ define( function( require ) {
       // update the control cross section with the new pipe cross sections by using updated control points
       var numberOfControlPoints = this.controlPoints.length;
       for ( var i = 0; i < numberOfControlPoints / 2; i++ ) {
-        this.controlCrossSections[ i ] = new PipeCrossSection( this.controlPoints[ i ].position.x, this.controlPoints[ numberOfControlPoints - ( i + 1) ].position.y, this.controlPoints[ i ].position.y );
+        this.controlCrossSections[ i ] = new PipeCrossSection( this.controlPoints[ i ].position.x,
+          this.controlPoints[ numberOfControlPoints - ( i + 1) ].position.y, this.controlPoints[ i ].position.y );
       }
-      var pipePositions = [ new PipeCrossSection( this.getMinX(), this.getBottomLeft().y, this.getTopLeft().y )].concat( this.controlCrossSections );
+      var pipePositions = [ new PipeCrossSection( this.getMinX(), this.getBottomLeft().y,
+        this.getTopLeft().y )].concat( this.controlCrossSections );
       var dx = 0.3;//extend water flow so it looks like it enters the pipe cutaway
       pipePositions.push( new PipeCrossSection( this.getMaxX() + dx, this.getBottomRight().y, this.getTopRight().y ) );
       return this.spline( pipePositions );
