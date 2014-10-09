@@ -47,8 +47,10 @@ define( function( require ) {
     var textOptions = { font: new PhetFont( options.fontSize ) };
 
     var titleText = new Text( unitsString, { font: new PhetFont( options.fontSize ) } );
-    var metricRadio = new AquaRadioButton( measureUnitsProperty, 'metric', new Text( metricString, textOptions ), { radius: 8 } );
-    var englishRadio = new AquaRadioButton( measureUnitsProperty, 'english', new Text( englishString, textOptions ), { radius: 8 } );
+    var metricRadio = new AquaRadioButton( measureUnitsProperty, 'metric', new Text( metricString, textOptions ),
+      { radius: 8 } );
+    var englishRadio = new AquaRadioButton( measureUnitsProperty, 'english', new Text( englishString, textOptions ),
+      { radius: 8 } );
 
     //dummy text for height
     var dummyText = new Text( '', {font: new PhetFont( 3 )} );
@@ -56,8 +58,12 @@ define( function( require ) {
 
     // touch areas
     var touchExpansion = 5;
-    metricRadio.touchArea = new Bounds2( metricRadio.localBounds.minX - touchExpansion, metricRadio.localBounds.minY - touchExpansion, metricRadio.localBounds.minX + maxOptionWidth + touchExpansion, metricRadio.localBounds.maxY + touchExpansion );
-    englishRadio.touchArea = new Bounds2( englishRadio.localBounds.minX - touchExpansion, englishRadio.localBounds.minY - touchExpansion, englishRadio.localBounds.minX + maxOptionWidth + touchExpansion, englishRadio.localBounds.maxY + touchExpansion );
+    metricRadio.touchArea = new Bounds2( metricRadio.localBounds.minX - touchExpansion,
+        metricRadio.localBounds.minY - touchExpansion, metricRadio.localBounds.minX + maxOptionWidth + touchExpansion,
+        metricRadio.localBounds.maxY + touchExpansion );
+    englishRadio.touchArea = new Bounds2( englishRadio.localBounds.minX - touchExpansion,
+        englishRadio.localBounds.minY - touchExpansion, englishRadio.localBounds.minX + maxOptionWidth + touchExpansion,
+        englishRadio.localBounds.maxY + touchExpansion );
 
     // center the title by adding space before and after. Also ensures that the panel's width is 'width'
     var createTitle = function( item ) {

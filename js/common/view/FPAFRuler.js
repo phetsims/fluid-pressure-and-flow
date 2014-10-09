@@ -33,7 +33,8 @@ define( function( require ) {
    * @param {Object} options that can be passed on to the underlying node
    * @constructor
    */
-  function FPAFRuler( isRulerVisibleProperty, rulerPositionProperty, measureUnitsProperty, modelViewTransform, dragBounds, options ) {
+  function FPAFRuler( isRulerVisibleProperty, rulerPositionProperty, measureUnitsProperty, modelViewTransform,
+                      dragBounds, options ) {
 
     var fpafRuler = this;
 
@@ -75,13 +76,26 @@ define( function( require ) {
     this.addChild( closeButton );
 
     // ruler in meters
-    var metersRuler = new RulerNode( rulerHeight, rulerWidth, meterMajorStickWidth, options.meterTicks, units_metersString,
-      { minorTicksPerMajorTick: 4, unitsFont: scaleFont, majorTickFont: scaleFont, unitsSpacing: options.meterUnitsSpacing, insetsWidth: options.insetsWidth, rotation: -Math.PI / 2 } );
+    var metersRuler = new RulerNode( rulerHeight, rulerWidth, meterMajorStickWidth, options.meterTicks,
+      units_metersString, {
+        minorTicksPerMajorTick: 4,
+        unitsFont: scaleFont,
+        majorTickFont: scaleFont,
+        unitsSpacing: options.meterUnitsSpacing,
+        insetsWidth: options.insetsWidth,
+        rotation: -Math.PI / 2
+      } );
     this.addChild( metersRuler );
 
     // ruler in feet
-    var feetRuler = new RulerNode( rulerHeight, rulerWidth, feetMajorStickWidth, options.feetTicks, units_feetString,
-      { minorTicksPerMajorTick: 4, unitsFont: scaleFont, majorTickFont: scaleFont, unitsSpacing: options.feetUnitSpacing, insetsWidth: options.insetsWidth, rotation: -Math.PI / 2} );
+    var feetRuler = new RulerNode( rulerHeight, rulerWidth, feetMajorStickWidth, options.feetTicks, units_feetString, {
+      minorTicksPerMajorTick: 4,
+      unitsFont: scaleFont,
+      majorTickFont: scaleFont,
+      unitsSpacing: options.feetUnitSpacing,
+      insetsWidth: options.insetsWidth,
+      rotation: -Math.PI / 2
+    } );
     this.addChild( feetRuler );
 
     isRulerVisibleProperty.linkAttribute( this, 'visible' );
