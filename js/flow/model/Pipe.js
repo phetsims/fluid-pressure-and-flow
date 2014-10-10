@@ -143,7 +143,7 @@ define( function( require ) {
 
       // Use spline points to build the intermediate pipe cross-sections.
       // Note: the number of cross-sections to use can be reduced (ex: alpha += 3) to get better performance
-      for ( var alpha = 0; alpha < xPointsTop.length; alpha++ ) {
+      for ( var alpha = 0; alpha < xPointsTop.length; alpha += 3 ) {
         var topPt = new Vector2( xPointsTop[ alpha ], yPointsTop[ alpha ] );
         var bottomPt = new Vector2( xPointsBottom[ alpha ], yPointsBottom[ alpha ] );
         //make sure pipe top doesn't go below pipe bottom
