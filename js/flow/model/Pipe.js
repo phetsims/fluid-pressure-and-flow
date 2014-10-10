@@ -3,6 +3,7 @@
 /**
  * Model for a flexible cylindrical pipe which can be modified using a fixed number of control points.
  * Also models the flow of particles in the pipe (with and without friction).
+ * All units are in metric unless otherwise mentioned.
  * @author Siddhartha Chinthapally (Actual Concepts).
  */
 
@@ -235,7 +236,7 @@ define( function( require ) {
 
 
     /**
-     *  Lookup the cross section immediately after the specified x-location for interpolation
+     * Lookup the cross section immediately after the specified x-location for interpolation
      * @param {Number} x position in meters
      * @returns {PipeCrossSection} if one exists
      */
@@ -276,7 +277,7 @@ define( function( require ) {
 
 
     /**
-     *  Get the speed at the specified x-location.  This is before friction and vertical effects are accounted for
+     * Get the speed at the specified x-location in m/s.  This is before friction and vertical effects are accounted for.
      * @param { Number } x position in meters
      * @returns {Number} speed of fluid flow at given x position
      */
@@ -314,7 +315,7 @@ define( function( require ) {
      * Get the velocity at the specified point, does not account for vertical effects or friction.
      * @param {Number} x position in meters
      * @param {Number} y position in meters
-     * @returns {*} velocity  at x,y
+     * @returns {Vector2} velocity at x,y in metric units.
      */
     getVelocity: function( x, y ) {
       var fraction = this.getFractionToTop( x, y );
@@ -332,8 +333,8 @@ define( function( require ) {
     },
 
     /**
-     *  Gets the x-velocity of a particle, incorporating vertical effects.
-     *  If this effect is ignored, then when there is a large slope in the pipe, particles closer to the edge move much faster (which is physically incorrect).
+     * Gets the x-velocity of a particle, incorporating vertical effects.
+     * If this effect is ignored, then when there is a large slope in the pipe, particles closer to the edge move much faster (which is physically incorrect).
      * @param {Number} x position in meters
      * @param {Number} y position in meters
      * @returns {Number} the tweaked x-velocity
@@ -369,7 +370,6 @@ define( function( require ) {
     },
 
     /**
-     *
      * @param {Number} x position in meters
      * @param {Number} y position in meters
      * @returns {Vector2} the velocity vector at the given point
