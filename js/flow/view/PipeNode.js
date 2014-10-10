@@ -574,13 +574,13 @@ define( function( require ) {
         // reset the left and right pipe position and scale
         this.leftPipeNode.setMatrix( Matrix3.translation( this.layoutBounds.minX - this.leftPipeXOffest,
             this.groundY + this.pipeNodeYOffset ) );
-        this.leftPipeNode.scale( this.PIPE_SCALE, this.PIPE_SCALE, false );
+        this.leftPipeNode.scale( PIPE_SCALE, PIPE_SCALE, false );
         this.leftPipeBackNode.setMatrix( Matrix3.translation( this.layoutBounds.minX - this.leftPipeXOffest,
             this.groundY + this.pipeNodeYOffset ) );
-        this.leftPipeBackNode.scale( this.PIPE_SCALE, this.PIPE_SCALE, false );
+        this.leftPipeBackNode.scale( PIPE_SCALE, PIPE_SCALE, false );
         this.rightPipeNode.setMatrix( Matrix3.translation( this.layoutBounds.maxX - this.rightPipeXOffest,
             this.groundY + this.pipeNodeYOffset ) );
-        this.rightPipeNode.scale( this.PIPE_SCALE, this.PIPE_SCALE, false );
+        this.rightPipeNode.scale( PIPE_SCALE, PIPE_SCALE, false );
         this.leftPipeMainHandleNode.setTranslation( this.layoutBounds.minX - 10, this.leftPipeNode.getCenterY() );
         this.rightPipeMainHandleNode.setTranslation( this.layoutBounds.maxX - 50, this.rightPipeNode.getCenterY() );
 
