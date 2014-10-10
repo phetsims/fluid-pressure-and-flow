@@ -60,12 +60,12 @@ define( function( require ) {
     this.options = options;
 
     // y offset of left pipe main drag handle with top/bottom control points
-    this.yDiffFromLeftPipeDrageHandleToLeftTopControlPoint = 1.05; // model value, 1m
-    this.yDiffFromLeftPipeDrageHandleToLeftBottomControlPoint = 1.05;
+    this.yDiffFromLeftPipeDragHandleToLeftTopControlPoint = 1.05; // model value, 1m
+    this.yDiffFromLeftPipeDragHandleToLeftBottomControlPoint = 1.05;
 
     // y offset of right  pipe main drag handle with top/bottom control points
-    this.yDiffFromRightPipeDrageHandleToRightTopControlPoint = 1.05; // model value, 1m
-    this.yDiffFromRightPipeDrageHandleToRightBottomControlPoint = 1.05;
+    this.yDiffFromRightPipeDragHandleToRightTopControlPoint = 1.05; // model value, 1m
+    this.yDiffFromRightPipeDragHandleToRightBottomControlPoint = 1.05;
 
     this.groundY = this.modelViewTransform.modelToViewY( 0 );
     this.pipeNodeYOffset = 57; // w.r.t to ground in px
@@ -322,9 +322,9 @@ define( function( require ) {
                     pipeExpansionFactor * options.pipeScale );
 
                 // calculate distance from left pipe main drag handle to left pipe top/bottom control points
-                pipeNode.yDiffFromLeftPipeDrageHandleToLeftTopControlPoint = modelViewTransform.viewToModelY( pipeNode.leftPipeNode.centerY ) -
+                pipeNode.yDiffFromLeftPipeDragHandleToLeftTopControlPoint = modelViewTransform.viewToModelY( pipeNode.leftPipeNode.centerY ) -
                                                                              pipe.controlPoints[ leftTopControlPointIndex ].position.y;
-                pipeNode.yDiffFromLeftPipeDrageHandleToLeftBottomControlPoint = modelViewTransform.viewToModelY( pipeNode.leftPipeNode.centerY ) -
+                pipeNode.yDiffFromLeftPipeDragHandleToLeftBottomControlPoint = modelViewTransform.viewToModelY( pipeNode.leftPipeNode.centerY ) -
                                                                                 pipe.controlPoints[ leftBottomControlPointIndex ].position.y;
 
                 if ( i === leftTopControlPointIndex ) {
@@ -354,9 +354,9 @@ define( function( require ) {
                 pipeNode.rightPipeNode.setScaleMagnitude( options.pipeScale, pipeExpansionFactor * options.pipeScale );
 
                 // calculate distance from the right pipe main drag handle to right pipe top/bottom control points
-                pipeNode.yDiffFromRightPipeDrageHandleToRightTopControlPoint = modelViewTransform.viewToModelY( pipeNode.rightPipeNode.centerY ) -
+                pipeNode.yDiffFromRightPipeDragHandleToRightTopControlPoint = modelViewTransform.viewToModelY( pipeNode.rightPipeNode.centerY ) -
                                                                                pipe.controlPoints[ rightTopControlPointIndex ].position.y;
-                pipeNode.yDiffFromRightPipeDrageHandleToRightBottomControlPoint = modelViewTransform.viewToModelY( pipeNode.rightPipeNode.centerY ) -
+                pipeNode.yDiffFromRightPipeDragHandleToRightBottomControlPoint = modelViewTransform.viewToModelY( pipeNode.rightPipeNode.centerY ) -
                                                                                   pipe.controlPoints[ rightBottomControlPointIndex ].position.y;
 
                 if ( i === rightTopControlPointIndex ) {
@@ -441,8 +441,8 @@ define( function( require ) {
 
             if ( j === 0 ) {
               // calculate top and bottom control point positions
-              yUp = pt.y + Math.abs( pipeNode.yDiffFromLeftPipeDrageHandleToLeftTopControlPoint );
-              yLow = pt.y - Math.abs( pipeNode.yDiffFromLeftPipeDrageHandleToLeftBottomControlPoint );
+              yUp = pt.y + Math.abs( pipeNode.yDiffFromLeftPipeDragHandleToLeftTopControlPoint );
+              yLow = pt.y - Math.abs( pipeNode.yDiffFromLeftPipeDragHandleToLeftBottomControlPoint );
 
               // set the  left pipe  top  and bottom control point.
               pipe.controlPoints[ leftTopControlPointIndex ].position = new Vector2( x, yUp );
@@ -462,8 +462,8 @@ define( function( require ) {
             }
             else {
               // calculate  top and bottom control point positions
-              yUp = pt.y + Math.abs( pipeNode.yDiffFromRightPipeDrageHandleToRightTopControlPoint );
-              yLow = pt.y - Math.abs( pipeNode.yDiffFromRightPipeDrageHandleToRightBottomControlPoint );
+              yUp = pt.y + Math.abs( pipeNode.yDiffFromRightPipeDragHandleToRightTopControlPoint );
+              yLow = pt.y - Math.abs( pipeNode.yDiffFromRightPipeDragHandleToRightBottomControlPoint );
 
               // set the right pipe top and bottom control points positions
               pipe.controlPoints[ rightTopControlPointIndex ].position = new Vector2( x, yUp );
@@ -594,10 +594,10 @@ define( function( require ) {
         this.flowModel.fluxMeter.trigger( 'update' );
 
         // reset the distance from left/right pipe main drag handle to left/right pipe top/bottom control points
-        this.yDiffFromLeftPipeDrageHandleToLeftTopControlPoint = 1.05; //model value
-        this.yDiffFromLeftPipeDrageHandleToLeftBottomControlPoint = 1.05;
-        this.yDiffFromRightPipeDrageHandleToRightTopControlPoint = 1.05;
-        this.yDiffFromRightPipeDrageHandleToRightBottomControlPoint = 1.05;
+        this.yDiffFromLeftPipeDragHandleToLeftTopControlPoint = 1.05; //model value
+        this.yDiffFromLeftPipeDragHandleToLeftBottomControlPoint = 1.05;
+        this.yDiffFromRightPipeDragHandleToRightTopControlPoint = 1.05;
+        this.yDiffFromRightPipeDragHandleToRightBottomControlPoint = 1.05;
 
         // reset the handle positions
         var numControlPoints = this.pipe.controlPoints.length;
