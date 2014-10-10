@@ -27,7 +27,9 @@ define( function( require ) {
           ScreenView.DEFAULT_LAYOUT_BOUNDS.height );
       },
       function( model ) { return new UnderPressureView( model ); },
-      { backgroundColor: null }
+
+      // Workaround for triggering a black navigation bar
+      { backgroundColor: 'white' }
     );
   }
 
