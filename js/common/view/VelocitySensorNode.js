@@ -1,7 +1,9 @@
 // Copyright 2002-2013, University of Colorado Boulder
 
 /**
- * Velocity Sensor view
+ * View for the Velocity Sensor tool. Measures the velocity at the sensor's tip and shows it in the display box.
+ * Also points a blue arrow along the direction of the velocity and the arrow length is proportional to the velocity.
+ * Supports metric and english units.
  * @author Siddhartha Chinthapally (Actual Concepts)
  */
 define( function( require ) {
