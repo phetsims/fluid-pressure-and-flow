@@ -105,6 +105,13 @@ define( function( require ) {
     // shape for fluid
     this.pipeFluidNode = new Path( null, { stroke: LINE_COLOR, lineWidth: 6, fill: flowModel.fluidColorModel.color } );
 
+    // Skip bounds computation to improve performance, see energy-skate-park-basics#245
+    // Qualitative tests did not show a significant improvement
+    var emptyBounds = new Bounds2( 0, 0, 0, 0 );
+    this.pipeFluidNode.computeShapeBounds = function() {
+      return emptyBounds;
+    };
+
     // right side pipe image.
     var rightPipe = new Image( rightSidePipeImage, { scale: PIPE_SCALE } );
     var rightPipeMiddle = [];
