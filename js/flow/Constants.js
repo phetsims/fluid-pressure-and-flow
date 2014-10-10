@@ -1,20 +1,19 @@
 // Copyright (c) 2002 - 2014. University of Colorado Boulder
 
 /**
- * Constants used in this Sim
+ * Constants used in this Sim.
  * @author Siddhartha Chinthapally (Actual Concepts)
  */
 define( function() {
   'use strict';
 
   return {
-    EARTH_GRAVITY: 9.8,
-    MIN_PRESSURE: 50000,
-    MAX_PRESSURE: 250000,
+    EARTH_GRAVITY: 9.8, // m/s^2
+    MIN_PRESSURE: 50000, // Pascals
+    MAX_PRESSURE: 250000, // Pascals
 
-    MIN_FLOW_RATE: 1000,
-    MAX_FLOW_RATE: 10000,
-
+    MIN_FLOW_RATE: 1000, // Liter per second (L/s)
+    MAX_FLOW_RATE: 10000, // Liter per second (L/s)
 
     // density values of fluids in kg/cubic mt
     GASOLINE_DENSITY: 700,

@@ -1,7 +1,7 @@
 // Copyright (c) 2002 - 2014. University of Colorado Boulder
 
 /**
- * FlowScreen
+ * The screen (model + view) for the Flow screen, which appears as the second screen in the "Fluid Pressure and Flow" sim.
  * @author Siddhartha Chinthapally (Actual Concepts)
  */
 
