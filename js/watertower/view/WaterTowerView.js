@@ -39,7 +39,7 @@ define( function( require ) {
   var HoseNode = require( 'FLUID_PRESSURE_AND_FLOW/watertower/view/HoseNode' );
   var VelocitySensorNode = require( 'FLUID_PRESSURE_AND_FLOW/common/view/VelocitySensorNode' );
   var FaucetControlPanel = require( 'FLUID_PRESSURE_AND_FLOW/watertower/view/FaucetControlPanel' );
-  var Constants = require( 'FLUID_PRESSURE_AND_FLOW/watertower/Constants' );
+  var Constants = require( 'FLUID_PRESSURE_AND_FLOW/common/Constants' );
 
   //strings
   var fluidDensityString = require( 'string!FLUID_PRESSURE_AND_FLOW/fluidDensity' );

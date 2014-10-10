@@ -22,7 +22,7 @@ define( function( require ) {
   var FluidColorModel = require( 'UNDER_PRESSURE/common/model/FluidColorModel' );
   var StringUtils = require( 'PHETCOMMON/util/StringUtils' );
   var ObservableArray = require( 'AXON/ObservableArray' );
-  var Constants = require( 'FLUID_PRESSURE_AND_FLOW/watertower/Constants' );
+  var Constants = require( 'FLUID_PRESSURE_AND_FLOW/common/Constants' );
   var Property = require( 'AXON/Property' );
   var Hose = require( 'FLUID_PRESSURE_AND_FLOW/watertower/model/Hose' );
   var Util = require( 'DOT/Util' );

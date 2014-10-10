@@ -13,7 +13,7 @@ define( function( require ) {
   var inherit = require( 'PHET_CORE/inherit' );
 
   // constants
-  var Constants = require( 'FLUID_PRESSURE_AND_FLOW/watertower/Constants' );
+  var Constants = require( 'FLUID_PRESSURE_AND_FLOW/common/Constants' );
 
   /**
    * @param {Vector2} position of the water drop

@@ -16,7 +16,7 @@ define( function( require ) {
   var inherit = require( 'PHET_CORE/inherit' );
   var Range = require( 'DOT/Range' );
   var Vector2 = require( 'DOT/Vector2' );
-  var Constants = require( 'FLUID_PRESSURE_AND_FLOW/flow/Constants' );
+  var Constants = require( 'FLUID_PRESSURE_AND_FLOW/common/Constants' );
   var StringUtils = require( 'PHETCOMMON/util/StringUtils' );
   var VelocitySensor = require( 'FLUID_PRESSURE_AND_FLOW/common/model/VelocitySensor' );
   var Barometer = require( 'UNDER_PRESSURE/common/model/Barometer' );

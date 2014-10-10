@@ -26,7 +26,7 @@ define( function( require ) {
   var VelocitySensorNode = require( 'FLUID_PRESSURE_AND_FLOW/common/view/VelocitySensorNode' );
   var BarometerNode = require( 'UNDER_PRESSURE/common/view/BarometerNode' );
   var FPAFRuler = require( 'FLUID_PRESSURE_AND_FLOW/common/view/FPAFRuler' );
-  var Constants = require( 'FLUID_PRESSURE_AND_FLOW/watertower/Constants' );
+  var Constants = require( 'FLUID_PRESSURE_AND_FLOW/common/Constants' );
   var VBox = require( 'SCENERY/nodes/VBox' );
   var PlayPauseButton = require( 'SCENERY_PHET/buttons/PlayPauseButton' );
   var StepButton = require( 'SCENERY_PHET/buttons/StepButton' );
