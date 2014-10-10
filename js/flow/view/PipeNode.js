@@ -38,13 +38,12 @@ define( function( require ) {
   /*
    * Constructor for PipeNode
    * @param {FlowModel} flowModel of the simulation.
-   * @param {Pipe} pipe model for this pipe node
    * @param {ModelViewTransform2} modelViewTransform to convert between model and view co-ordinate frames
    * @param {Bounds2} layoutBounds of the simulation
    * @param {Object} [options] that can be passed on to the underlying node
    * @constructor
    */
-  function PipeNode( flowModel, pipe, modelViewTransform, layoutBounds, options ) {
+  function PipeNode( flowModel, modelViewTransform, layoutBounds, options ) {
 
     var pipeNode = this;
     Node.call( this );
@@ -55,7 +54,10 @@ define( function( require ) {
 
     this.flowModel = flowModel;
     this.modelViewTransform = modelViewTransform;
+
+    var pipe = flowModel.pipe;
     this.pipe = pipe;
+
     this.layoutBounds = layoutBounds;
     this.options = options;
 
@@ -323,9 +325,9 @@ define( function( require ) {
 
                 // calculate distance from left pipe main drag handle to left pipe top/bottom control points
                 pipeNode.yDiffFromLeftPipeDragHandleToLeftTopControlPoint = modelViewTransform.viewToModelY( pipeNode.leftPipeNode.centerY ) -
-                                                                             pipe.controlPoints[ leftTopControlPointIndex ].position.y;
+                                                                            pipe.controlPoints[ leftTopControlPointIndex ].position.y;
                 pipeNode.yDiffFromLeftPipeDragHandleToLeftBottomControlPoint = modelViewTransform.viewToModelY( pipeNode.leftPipeNode.centerY ) -
-                                                                                pipe.controlPoints[ leftBottomControlPointIndex ].position.y;
+                                                                               pipe.controlPoints[ leftBottomControlPointIndex ].position.y;
 
                 if ( i === leftTopControlPointIndex ) {
                   // fix the bottom end of the pipe if the top control point is used for scaling
@@ -355,9 +357,9 @@ define( function( require ) {
 
                 // calculate distance from the right pipe main drag handle to right pipe top/bottom control points
                 pipeNode.yDiffFromRightPipeDragHandleToRightTopControlPoint = modelViewTransform.viewToModelY( pipeNode.rightPipeNode.centerY ) -
-                                                                               pipe.controlPoints[ rightTopControlPointIndex ].position.y;
+                                                                              pipe.controlPoints[ rightTopControlPointIndex ].position.y;
                 pipeNode.yDiffFromRightPipeDragHandleToRightBottomControlPoint = modelViewTransform.viewToModelY( pipeNode.rightPipeNode.centerY ) -
-                                                                                  pipe.controlPoints[ rightBottomControlPointIndex ].position.y;
+                                                                                 pipe.controlPoints[ rightBottomControlPointIndex ].position.y;
 
                 if ( i === rightTopControlPointIndex ) {
                   // fix the bottom end of the pipe if the top control point is used for scaling

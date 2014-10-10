@@ -109,7 +109,7 @@ define( function( require ) {
     flowModel.isFluxMeterVisibleProperty.linkAttribute( fluxMeterNode.ellipse2, 'visible' );
 
     //adding pipe Node
-    this.pipeNode = new PipeNode( flowModel, flowModel.pipe, modelViewTransform, this.layoutBounds );
+    this.pipeNode = new PipeNode( flowModel, modelViewTransform, this.layoutBounds );
     this.addChild( this.pipeNode );
 
     // add the back ellipse of the fluxMeter to the pipe node's pre-particle layer
