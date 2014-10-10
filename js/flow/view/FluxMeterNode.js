@@ -122,9 +122,9 @@ define( function( require ) {
 
     // split the ring into two ellipses
     this.ellipse = new Path( new Shape().ellipticalArc( initialCenterX, centerY, radiusY, this.radiusX, Math.PI / 2, 0,
-      Math.PI, false ), { lineWidth: '5', stroke: 'blue' } );
+      Math.PI, false ), { lineWidth: 5, stroke: 'blue' } );
     this.ellipse2 = new Path( new Shape().ellipticalArc( initialCenterX, centerY, radiusY, this.radiusX, Math.PI / 2,
-      Math.PI, 0, false ), { lineWidth: '5', stroke: new Color( 0, 0, 255, 0.5 ) } );
+      Math.PI, 0, false ), { lineWidth: 5, stroke: new Color( 0, 0, 255, 0.5 ) } );
 
     // add only the first ellipse. The second ellipse is added by the pipe node.
     this.addChild( this.ellipse );

@@ -102,12 +102,8 @@ define( function( require ) {
       this.leftPipeNode.addChild( leftPipeMiddle[ j ] );
     }
 
-    // shape for the pipelines
-    this.pipeFlowLine = new Path( null, { stroke: LINE_COLOR, lineWidth: '6' } );
-
     // shape for fluid
-    this.pipeFluidNode = new Path( null,
-      { stroke: LINE_COLOR, lineWidth: '0', fill: flowModel.fluidColorModel.color } );
+    this.pipeFluidNode = new Path( null, { stroke: LINE_COLOR, lineWidth: 6, fill: flowModel.fluidColorModel.color } );
 
     // right side pipe image.
     var rightPipe = new Image( rightSidePipeImage, { scale: PIPE_SCALE } );
@@ -139,7 +135,7 @@ define( function( require ) {
         modelViewTransform.modelToViewY( this.pipe.getCrossSection( pipeNode.gridInjectorX ).yTop ) -
         pipeNode.gridInjectorNodeYOffset );
 
-    // order of different layers within pipe Node -- leftPipeBackNode, pipeFluidNode, preParticleLayer, pipeFlowLine,
+    // order of different layers within pipe Node -- leftPipeBackNode, pipeFluidNode, preParticleLayer
     // leftPipeNode and rightPipeNode
     this.addChild( this.leftPipeBackNode );
     this.addChild( this.pipeFluidNode );
@@ -152,7 +148,6 @@ define( function( require ) {
         canvasBounds: new Bounds2( 20, 80, 800, 600 )
       } );
     this.addChild( this.particlesLayer );
-    this.addChild( this.pipeFlowLine );
 
     this.addChild( this.rightPipeNode );
     this.addChild( this.leftPipeNode );
@@ -563,11 +558,9 @@ define( function( require ) {
               this.modelViewTransform.modelToViewY( yPointsTop[ i ] ) );
           }
         }
-        this.pipeFlowLine.shape = flowLineShape;
 
         // make a copy of the line shape for the fluid node
-        this.pipeFluidNode.shape = flowLineShape.copy();
-
+        this.pipeFluidNode.shape = flowLineShape;
       },
 
       reset: function() {
