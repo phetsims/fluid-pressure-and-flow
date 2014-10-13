@@ -16,7 +16,7 @@ define( function( require ) {
 
   /**
    * @param {Faucet} faucet model
-   * @param {Number} width of horizontal part of pipe
+   * @param {number} width of horizontal part of pipe
    * @param {ModelViewTransform2} modelViewTransform , Transform between model and view coordinate frames
    * @constructor
    */

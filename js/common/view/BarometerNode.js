@@ -35,8 +35,8 @@ define( function( require ) {
    * @param {Barometer} barometer - the barometer model
    * @param {Property<String>} measureUnitsProperty -- english/metric
    * @param {Property[]} linkedProperties - the set of properties which affect the barometer value
-   * @param {Function} getPressureAt - function to be called to get pressure at the given coords
-   * @param {Function} getPressureString - function to be called to get the pressure display string at the given coords
+   * @param {function} getPressureAt - function to be called to get pressure at the given coords
+   * @param {function} getPressureString - function to be called to get the pressure display string at the given coords
    * @param {Bounds2} containerBounds - bounds of container for all barometers, needed to snap barometer to initial position when it in container
    * @param {Bounds2} dragBounds - bounds that define where the barometer may be dragged
    * @param {Object} [options] that can be passed on to the underlying node
@@ -46,8 +46,7 @@ define( function( require ) {
    *  getPressureAt (x, y) where x, y are model values.
    *  getPressureString (pressure, units, x, y) where pressure in Pascals, x, y are model values
    */
-  function BarometerNode( modelViewTransform, barometer, measureUnitsProperty, linkedProperties, getPressureAt,
-                          getPressureString, containerBounds, dragBounds, options ) {
+  function BarometerNode( modelViewTransform, barometer, measureUnitsProperty, linkedProperties, getPressureAt, getPressureString, containerBounds, dragBounds, options ) {
     var barometerNode = this;
 
     options = _.extend( {

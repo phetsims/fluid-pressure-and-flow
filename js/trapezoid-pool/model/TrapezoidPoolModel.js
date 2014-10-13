@@ -107,9 +107,9 @@ define( function( require ) {
 
     /**
      * Returns height of the water above the given position
-     * @param {Number} x position in meters
-     * @param {Number} y position in meters
-     * @returns {Number} height of the water above the y
+     * @param {number} x position in meters
+     * @param {number} y position in meters
+     * @returns {number} height of the water above the y
      */
     getWaterHeightAboveY: function( x, y ) {
       return y - (this.poolDimensions.bottomChamber.y2 - this.MAX_HEIGHT * this.volume / this.MAX_VOLUME);
@@ -117,8 +117,8 @@ define( function( require ) {
 
     /**
      * Returns true if the given point is inside the trapezoid pool, false otherwise.
-     * @param {Number} x position in meters
-     * @param {Number} y position in meters
+     * @param {number} x position in meters
+     * @param {number} y position in meters
      * @returns {boolean}
      */
     isPointInsidePool: function( x, y ) {

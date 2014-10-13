@@ -17,7 +17,7 @@ define( function( require ) {
   /**
    * Constructor for the grid view for trapezoid pool
    * @param {TrapezoidPoolModel} trapezoidPoolModel
-   * @param {ModelViewTransform2 } modelViewTransform to convert between model and view co-ordinates
+   * @param {ModelViewTransform2} modelViewTransform to convert between model and view co-ordinates
    * @constructor
    */
   function TrapezoidPoolWaterNode( trapezoidPoolModel, modelViewTransform ) {

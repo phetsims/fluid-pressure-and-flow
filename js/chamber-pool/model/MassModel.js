@@ -17,11 +17,11 @@ define( function( require ) {
 
   /**
    * @param {ChamberPoolModel} chamberPoolModel of the simulation
-   * @param {Number} mass of object in grams
-   * @param {Number} x coordinate of the mass in meters
-   * @param {Number} y coordinate of the mass in meters
-   * @param {Number} width of the mass in meters
-   * @param {Number} height of the mass in meters
+   * @param {number} mass of object in grams
+   * @param {number} x coordinate of the mass in meters
+   * @param {number} y coordinate of the mass in meters
+   * @param {number} width of the mass in meters
+   * @param {number} height of the mass in meters
    * @constructor
    */
 

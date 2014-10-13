@@ -13,7 +13,7 @@ define( function( require ) {
 
   /**
    * @param {Vector2} position of the sensor
-   * @param {Number} value Pressure as measured by the sensor
+   * @param {number} value Pressure as measured by the sensor
    * @constructor
    */
   function Barometer( position, value ) {

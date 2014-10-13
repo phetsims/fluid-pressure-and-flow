@@ -40,8 +40,7 @@ define( function( require ) {
    * @param {Object} options
    * @constructor
    */
-  function ControlSlider( measureUnitsProperty, trackProperty, getPropertyStringFunction, trackRange, expandedProperty,
-                          options ) {
+  function ControlSlider( measureUnitsProperty, trackProperty, getPropertyStringFunction, trackRange, expandedProperty, options ) {
     options = _.extend( {
       fill: '#f2fa6a',
       xMargin: 15,

@@ -13,8 +13,8 @@ define( function( require ) {
 
   /**
    * @param {Vector2} location center of output pipe
-   * @param {Number} maxFlowRate L/sec
-   * @param {Number} scale of Faucet (the top faucet is larger than the bottom faucet)
+   * @param {number} maxFlowRate L/sec
+   * @param {number} scale of Faucet (the top faucet is larger than the bottom faucet)
    * @constructor
    */
   function FaucetModel( location, maxFlowRate, scale ) {

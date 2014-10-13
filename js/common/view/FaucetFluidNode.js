@@ -17,7 +17,7 @@ define( function( require ) {
    * @param {FaucetModel} faucet model of the sim.
    * @param {PoolWithFaucetsModel} model square-pool/mystery-pool/trapezoid model
    * @param {ModelViewTransform2} modelViewTransform that is used to transform between model and view coordinate frames
-   * @param {Number} maxHeight
+   * @param {number} maxHeight
    * @constructor
    */
 

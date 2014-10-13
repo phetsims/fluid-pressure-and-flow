@@ -18,10 +18,10 @@ define( function( require ) {
    * Draw grid lines in rect (x1, y1, x2 , y2)
    * @param { Property<string> }  measureUnitsProperty takes one of 'english'/'metric'/'atmospheres'
    * @param {ModelViewTransform2} modelViewTransform to transform between model and view coordinate frames
-   * @param {Number} x1
-   * @param {Number} y1
-   * @param {Number} x2
-   * @param {Number} y2
+   * @param {number} x1
+   * @param {number} y1
+   * @param {number} x2
+   * @param {number} y2
    * @param {Object} options to pass to the underlying node
    * @constructor
    */

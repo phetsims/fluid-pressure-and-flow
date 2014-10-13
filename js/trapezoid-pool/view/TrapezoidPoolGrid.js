@@ -27,13 +27,13 @@ define( function( require ) {
   /**
    * @param {UnderPressureModel} underPressureModel of the sim
    * @param {ModelViewTransform2 } modelViewTransform to convert between model and view co-ordinates
-   * @param {Number} poolLeftX is pool left x coordinate
-   * @param {Number} poolTopY is pool top y coordinate
-   * @param {Number} poolRightX is pool right x coordinate
-   * @param {Number} poolBottomY is pool bottom y coordinate
-   * @param {Number} poolHeight is height of the pool
-   * @param {Number} labelXPosition is label x position
-   * @param {Number} slantMultiplier is to make label line up in space between the pools
+   * @param {number} poolLeftX is pool left x coordinate
+   * @param {number} poolTopY is pool top y coordinate
+   * @param {number} poolRightX is pool right x coordinate
+   * @param {number} poolBottomY is pool bottom y coordinate
+   * @param {number} poolHeight is height of the pool
+   * @param {number} labelXPosition is label x position
+   * @param {number} slantMultiplier is to make label line up in space between the pools
    * @constructor
    */
   function TrapezoidPoolGrid( underPressureModel, modelViewTransform, poolLeftX, poolTopY, poolRightX, poolBottomY,

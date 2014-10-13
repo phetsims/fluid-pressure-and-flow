@@ -27,8 +27,8 @@ define( function( require ) {
   };
 
   /**
-   * @param {Number} width of sim
-   * @param {Number} height of sim
+   * @param {number} width of sim
+   * @param {number} height of sim
    */
 
   function UnderPressureModel( width, height ) {
@@ -97,7 +97,7 @@ define( function( require ) {
   return inherit( PropertySet, UnderPressureModel, {
 
     /**
-     * @param {Number} dt seconds
+     * @param {number} dt seconds
      */
     step: function( dt ) {
       this.sceneModels[this.currentScene].step( dt );
@@ -119,8 +119,8 @@ define( function( require ) {
 
     /**
      * Returns the air pressure (in Pa) at the given height.
-     * @param {Number} height in meters
-     * @returns {Number}
+     * @param {number} height in meters
+     * @returns {number}
      */
     getAirPressure: function( height ) {
       if ( !this.isAtmosphere ) {
@@ -133,8 +133,8 @@ define( function( require ) {
 
     /**
      * Returns the pressure (in Pa) exerted by a fluid column of given height.
-     * @param {Number} height of the fluid column
-     * @returns {Number}
+     * @param {number} height of the fluid column
+     * @returns {number}
      */
     getWaterPressure: function( height ) {
       return height * this.gravity * this.fluidDensity;
@@ -142,9 +142,9 @@ define( function( require ) {
 
     /**
      * Returns the pressure (in Pa) at the given position.
-     * @param {Number} x position in meters
-     * @param {Number} y position in meters
-     * @returns {Number}
+     * @param {number} x position in meters
+     * @param {number} y position in meters
+     * @returns {number}
      */
     getPressureAtCoords: function( x, y ) {
 
@@ -169,9 +169,9 @@ define( function( require ) {
     },
 
     /**
-     * @param {Number} pressure in Pa
-     * @param {String} units -- can be english/metric/atmospheres
-     * @returns {String}
+     * @param {number} pressure in Pa
+     * @param {string} units -- can be english/metric/atmospheres
+     * @returns {string}
      */
     getPressureString: function( pressure, units ) {
       return Units.getPressureString( pressure, units, false );

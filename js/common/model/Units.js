@@ -39,7 +39,7 @@ define( function( require ) {
 
     /**
      * Returns the pressure string with units after converting to the specified scale. Supports abbreviated values as well.
-     * @param {Number} pressure in Pascals
+     * @param {number} pressure in Pascals
      * @param {string} measureUnits (english/metric/atmosphere)
      * @param {boolean} abbreviated value. Abbreviate to 1 decimal place for metric and 2 decimal places for others.
      * @returns {string}
@@ -61,7 +61,7 @@ define( function( require ) {
 
     /**
      * Returns the gravity string with units after converting to the specified scale
-     * @param {Number} gravity in metric units
+     * @param {number} gravity in metric units
      * @param {string} measureUnits (english/metric/atmosphere)
      * @returns {string}
      */
@@ -78,7 +78,7 @@ define( function( require ) {
 
     /**
      * Returns the fluidDensity string with units after converting to the specified scale
-     * @param {Number} fluidDensity in metric units
+     * @param {number} fluidDensity in metric units
      * @param {string} measureUnits (english/metric/atmosphere)
      * @returns {string}
      */

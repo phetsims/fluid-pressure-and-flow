@@ -27,7 +27,7 @@ define( function( require ) {
   /**
    *
    * @param {Property<string>} measureUnitsProperty can take values 'english' or 'metric'
-   * @param {Number} width -- fixed width that the panel is supposed to take
+   * @param {number} width -- fixed width that the panel is supposed to take
    * @param {Object} [options]
    * @constructor
    */
@@ -82,7 +82,7 @@ define( function( require ) {
     var content = new VBox( {
       spacing: 4,
       children: [ createTitle( titleText ), metricRadio, atmosphereRadio, englishRadio,
-                  createTitle( dummyText ) ],
+        createTitle( dummyText ) ],
       align: 'left'
     } );
 
