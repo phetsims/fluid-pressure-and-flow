@@ -19,13 +19,20 @@ define( function( require ) {
   /**
    * Node that injects the grid dots
    * @param {Property<Boolean>} isGridInjectorPressedProperty indicates whether the injector is pressed or not
+   * @param {modelViewTransform} modelViewTransform , Transform between model and view coordinate frames
+   * @param {Pipe} pipe model of the simulation
    * @param {Object} options that can be passed on to the underlying node
    * @constructor
    */
-  function GridInjectorNode( isGridInjectorPressedProperty, options ) {
+  function GridInjectorNode( isGridInjectorPressedProperty, modelViewTransform, pipe, options ) {
 
     Node.call( this );
-    var gridInjectorNode = this;
+
+    this.modelViewTransform = modelViewTransform;
+    this.pipe = pipe;
+    this.gridInjectorNodeXOffset = 50;
+    this.gridInjectorNodeYOffset = 150;
+    this.gridInjectorX = -6; // model value
 
     var injector = new Image( injectorBulbImage, { scale: 0.35 } );
 
@@ -41,11 +48,22 @@ define( function( require ) {
       } );
 
     // add grid injector
-    gridInjectorNode.addChild( new Node( { children: [ injector, this.redButton ] } ) );
+    this.gridInjector = new Node( { children: [ injector, this.redButton ] } );
+    this.addChild( this.gridInjector );
+    this.updateGridInjector();
 
     this.mutate( options );
 
   }
 
-  return inherit( Node, GridInjectorNode );
+  return inherit( Node, GridInjectorNode, {
+
+    // reposition the grid injector
+    updateGridInjector: function() {
+      this.gridInjector.setTranslation( this.modelViewTransform.modelToViewX( this.gridInjectorX ) -
+                                        this.gridInjectorNodeXOffset,
+          this.modelViewTransform.modelToViewY( this.pipe.getCrossSection( this.gridInjectorX ).yTop ) -
+          this.gridInjectorNodeYOffset );
+    }
+  } );
 } );

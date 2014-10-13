@@ -121,10 +121,18 @@ define( function( require ) {
     this.radiusX = 6; // x radius for the ellipse is  always constant
 
     // split the ring into two ellipses
-    this.ellipse = new Path( new Shape().ellipticalArc( initialCenterX, centerY, radiusY, this.radiusX, Math.PI / 2, 0,
-      Math.PI, false ), { lineWidth: 5, stroke: 'blue' } );
+    this.ellipse = new Path( new Shape().ellipticalArc( initialCenterX, centerY, radiusY, this.radiusX, Math.PI / 2,
+      0, Math.PI, false ), {
+      lineWidth: '5',
+      stroke: 'blue'
+    } );
     this.ellipse2 = new Path( new Shape().ellipticalArc( initialCenterX, centerY, radiusY, this.radiusX, Math.PI / 2,
-      Math.PI, 0, false ), { lineWidth: 5, stroke: new Color( 0, 0, 255, 0.5 ) } );
+        Math.PI,
+        0, false ),
+      {
+        lineWidth: '5',
+        stroke: new Color( 0, 0, 255, 0.5 )
+      } );
 
     // add only the first ellipse. The second ellipse is added by the pipe node.
     this.addChild( this.ellipse );
@@ -135,7 +143,12 @@ define( function( require ) {
       lineTo( this.ellipse2.right, this.ellipse2.top );
 
     this.upperLine = new Path( upperLineShape,
-      { stroke: 'blue', lineWidth: 3, left: this.ellipse.right - 1, bottom: this.ellipse2.top + 3 } );
+      {
+        stroke: 'blue',
+        lineWidth: 3,
+        left: this.ellipse.right - 1,
+        bottom: this.ellipse2.top + 3
+      } );
 
     this.addChild( this.upperLine );
     this.displayPanel.bottom = this.upperLine.top;
@@ -147,18 +160,15 @@ define( function( require ) {
       lineTo( this.ellipse2.centerX - 3, this.ellipse2.centerY + 60 );
 
     this.lowerLine = new Path( lowerLineShape,
-      { stroke: 'blue', lineWidth: 2, top: this.ellipse2.bottom, left: this.ellipse.right - 1 } );
+      { stroke: 'blue', lineWidth: 2,
+        top: this.ellipse2.bottom,
+        left: this.ellipse.right - 1
+      } );
     this.addChild( this.lowerLine );
 
-    var handleImage = new Image( twoSidedHandleImage );
-    handleImage.touchArea = handleImage.localBounds.dilatedXY( 20, 20 );
-    this.handle = new Node( {
-      children: [handleImage],
-      cursor: 'pointer',
-      top: this.lowerLine.bottom,
-      left: this.lowerLine.right - 16,
-      scale: 0.35
-    } );
+    this.handle = new Image( twoSidedHandleImage,
+      { cursor: 'pointer', top: this.lowerLine.bottom, left: this.lowerLine.right - 16, scale: 0.35 } );
+    this.handle.touchArea = this.handle.localBounds.dilatedXY( 20, 20 );
 
     this.addChild( this.handle );
 
@@ -180,7 +190,7 @@ define( function( require ) {
       drag: function( e ) {
         fluxMeterNode.moveToFront();
         var x = fluxMeterNode.globalToParentPoint( e.pointer.point ).x;
-        x = x < 47 ? 47 : x > 698 ? 698 : x; // min, max view values (emperically determined)
+        x = x < 46 ? 46 : x > 692 ? 692 : x; // min, max view values (emperically determined)
         flowModel.fluxMeter.xPosition = modelViewTransform.viewToModelX( x );
       }
     } ) );
@@ -200,14 +210,10 @@ define( function( require ) {
      */
     updateFluxMeter: function() {
 
-      var yTop = this.modelViewTransform.modelToViewY(
-        this.flowModel.pipe.fractionToLocation( this.flowModel.fluxMeter.xPosition, 1 )
-      );
-
-      var yBottom = this.modelViewTransform.modelToViewY(
-        this.flowModel.pipe.fractionToLocation( this.flowModel.fluxMeter.xPosition, 0 )
-      );
-
+      var yTop = this.modelViewTransform.modelToViewY( this.flowModel.pipe.fractionToLocation(
+        this.flowModel.fluxMeter.xPosition, 1 ) );
+      var yBottom = this.modelViewTransform.modelToViewY( this.flowModel.pipe.fractionToLocation(
+        this.flowModel.fluxMeter.xPosition, 0 ) );
       var centerX = this.modelViewTransform.modelToViewX( this.flowModel.fluxMeter.xPosition );
       var centerY = ( yTop + yBottom ) / 2;
       var radiusY = ( yBottom - yTop ) / 2;

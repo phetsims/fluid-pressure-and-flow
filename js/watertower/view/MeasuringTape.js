@@ -54,7 +54,7 @@ define( function( require ) {
     ];
     this.waterTowerModel = waterTowerModel;
     // add base of tape and not base node
-    this.base = new Node( {children: [new Image( measuringTapeImg )], scale: 0.8} );
+    this.base = new Image( measuringTapeImg, {scale: 0.8} );
     this.addChild( this.base );
     this.centerRotation = new Vector2( measuringTape.base.getWidth(), measuringTape.base.getHeight() );
     this.notBase = new Node();
@@ -71,7 +71,8 @@ define( function( require ) {
         var h;
         var y0 = measuringTape.globalToParentPoint( e.pointer.point ).y - e.currentTarget.y;
         var x0 = measuringTape.globalToParentPoint( e.pointer.point ).x - e.currentTarget.x;
-        h = measuringTape.centerRotation.timesScalar( Math.cos( measuringTape.angle / 2 ) ).rotated( measuringTape.angle / 2 );
+        h = measuringTape.centerRotation.timesScalar( Math.cos( measuringTape.angle /
+                                                                2 ) ).rotated( measuringTape.angle / 2 );
         v = measuringTape.centerRotation.plus( h.minus( measuringTape.centerRotation ).multiply( 2 ) );
         clickYOffset = y0 - v.y;
         clickXOffset = x0 - v.x;
@@ -96,11 +97,14 @@ define( function( require ) {
 
     // add center point
     var size = 5;
-    this.mediator = new Path( new Shape().moveTo( -size, 0 ).lineTo( size, 0 ).moveTo( 0, -size ).lineTo( 0, size ), {stroke: '#E05F20', lineWidth: 2} );
+    this.mediator = new Path( new Shape().moveTo( -size, 0 ).lineTo( size, 0 ).moveTo( 0, -size ).lineTo( 0, size ),
+      {stroke: '#E05F20', lineWidth: 2} );
     this.notBase.addChild( this.mediator );
 
     // add tip
-    this.tip = new Node( {children: [new Circle( 8, {fill: 'black'} ), new Path( new Shape().moveTo( -size, 0 ).lineTo( size, 0 ).moveTo( 0, -size ).lineTo( 0, size ), {stroke: '#E05F20', lineWidth: 2} )]} );
+    this.tip = new Node( {children: [new Circle( 8, {fill: 'black'} ),
+                                     new Path( new Shape().moveTo( -size, 0 ).lineTo( size, 0 ).moveTo( 0,
+                                       -size ).lineTo( 0, size ), {stroke: '#E05F20', lineWidth: 2} )]} );
     this.tip.cursor = 'pointer';
     this.tip.touchArea = this.tip.localBounds.dilatedXY( 10, 10 );
     this.notBase.addChild( this.tip );
@@ -134,7 +138,8 @@ define( function( require ) {
 
     this.addChild( this.notBase );
     waterTowerModel.measureUnitsProperty.link( function( data ) {
-      data === 'metric' ? measuringTape.text.setText( measuringTape.getText().toFixed( 2 ) + ' ' + metersString ) : measuringTape.text.setText( (measuringTape.getText() * 3.28).toFixed( 2 ) + ' ' + feetString );
+      data === 'metric' ? measuringTape.text.setText( measuringTape.getText().toFixed( 2 ) + ' ' + metersString ) :
+      measuringTape.text.setText( (measuringTape.getText() * 3.28).toFixed( 2 ) + ' ' + feetString );
     } );
 
     // add observers
@@ -155,7 +160,8 @@ define( function( require ) {
       this.rotate( -angle );
       this.translate( option.initialMeasuringTapePosition.x, option.initialMeasuringTapePosition.y );
       this.setTip( option.lengthDefault, 0 );
-      this.base.setTranslation( -this.centerRotation.x + option.initialMeasuringTapePosition.x, -this.centerRotation.y + option.initialMeasuringTapePosition.y );
+      this.base.setTranslation( -this.centerRotation.x + option.initialMeasuringTapePosition.x,
+          -this.centerRotation.y + option.initialMeasuringTapePosition.y );
     },
 
     // return text(length)
@@ -179,7 +185,9 @@ define( function( require ) {
 
       this.options[0].length = Math.sqrt( Math.pow( x, 2 ) + Math.pow( y, 2 ) );
       this.line.setShape( new Shape().moveTo( 0, 0 ).lineTo( x, y ) );
-      this.waterTowerModel.measureUnits === 'english' ? this.text.setText( (this.getText() * 3.28).toFixed( this.options[0].precision ) + ' ' + feetString ) : this.text.setText( this.getText().toFixed( this.options[0].precision ) + ' ' + metersString );
+      this.waterTowerModel.measureUnits === 'english' ?
+      this.text.setText( (this.getText() * 3.28).toFixed( this.options[0].precision ) + ' ' + feetString ) :
+      this.text.setText( this.getText().toFixed( this.options[0].precision ) + ' ' + metersString );
       this.tip.setTranslation( x, y );
       this.options[0].tipX = x;
       this.options[0].tipY = y;

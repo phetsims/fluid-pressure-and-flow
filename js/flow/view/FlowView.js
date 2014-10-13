@@ -35,6 +35,8 @@ define( function( require ) {
   var Text = require( 'SCENERY/nodes/Text' );
   var PipeNode = require( 'FLUID_PRESSURE_AND_FLOW/flow/view/PipeNode' );
   var FluxMeterNode = require( 'FLUID_PRESSURE_AND_FLOW/flow/view/FluxMeterNode' );
+  var GridInjectorNode = require( 'FLUID_PRESSURE_AND_FLOW/flow/view/GridInjectorNode' );
+  var PipeNodeDragHandle = require( 'FLUID_PRESSURE_AND_FLOW/flow/view/PipeNodeDragHandle' );
 
   //strings
   var fluidDensityString = require( 'string!FLUID_PRESSURE_AND_FLOW/fluidDensity' );
@@ -108,9 +110,16 @@ define( function( require ) {
     var fluxMeterNode = new FluxMeterNode( flowModel, modelViewTransform, { stroke: 'blue' } );
     flowModel.isFluxMeterVisibleProperty.linkAttribute( fluxMeterNode.ellipse2, 'visible' );
 
+    // Injector which generates grid particles
+    this.gridInjectorNode = new GridInjectorNode( flowModel.isGridInjectorPressedProperty, modelViewTransform,
+      flowModel.pipe );
+    this.addChild( this.gridInjectorNode );
+
     //adding pipe Node
-    this.pipeNode = new PipeNode( flowModel, modelViewTransform, this.layoutBounds );
+    this.pipeNode = new PipeNode( flowView, flowModel, flowModel.pipe, modelViewTransform, this.layoutBounds );
     this.addChild( this.pipeNode );
+    this.pipeNodeDragHandle = new PipeNodeDragHandle( flowModel, modelViewTransform, this.pipeNode, this.layoutBounds );
+    this.addChild( this.pipeNodeDragHandle );
 
     // add the back ellipse of the fluxMeter to the pipe node's pre-particle layer
     this.pipeNode.preParticleLayer.addChild( fluxMeterNode.ellipse2 );
@@ -123,6 +132,8 @@ define( function( require ) {
       listener: function() {
         flowModel.reset();
         flowView.pipeNode.reset();
+        flowView.pipeNodeDragHandle.reset();
+        flowView.gridInjectorNode.updateGridInjector();
       },
       radius: 18,
       bottom: this.layoutBounds.bottom - 7,
@@ -161,18 +172,17 @@ define( function( require ) {
     this.addChild( fluidDensityControlNode );
 
     // add the sensors panel
-    var sensorPanel = new Rectangle( 0, 0, 167, 85, 10, 10,
-      { stroke: 'gray', lineWidth: 1, fill: '#f2fa6a', right: unitsControlPanel.left -
-                                                              4, top: toolsControlPanel.top } );
+    var sensorPanel = new Rectangle( 0, 0, 167, 85, 10, 10, { stroke: 'gray', lineWidth: 1, fill: '#f2fa6a',
+      right: unitsControlPanel.left - 4, top: toolsControlPanel.top } );
     this.addChild( sensorPanel );
 
     flowModel.isGridInjectorPressedProperty.link( function( isGridInjectorPressed ) {
       if ( isGridInjectorPressed ) {
         flowModel.injectGridParticles();
-        flowView.pipeNode.gridInjectorNode.redButton.enabled = false;
+        flowView.gridInjectorNode.redButton.enabled = false;
       }
       else {
-        flowView.pipeNode.gridInjectorNode.redButton.enabled = true;
+        flowView.gridInjectorNode.redButton.enabled = true;
       }
     } );
 
