@@ -184,7 +184,7 @@ define( function( require ) {
         {
           scale: 1.5,
           pressureReadOffset: 51,
-          minPressure: 0
+          minPressure: Constants.MIN_PRESSURE
         } );
       this.addChild( barometerNode );
     }.bind( this ) );
