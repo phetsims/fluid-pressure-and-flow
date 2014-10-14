@@ -1,14 +1,14 @@
 // Copyright 2002-2013, University of Colorado Boulder
 
 /**
- * Model for a "mass" object containing its mass, position, width, height, velocity etc.
+ * Model for a draggable, rectangular "mass" object containing its mass, position, width, height, velocity etc.
  *
  * @author Vasily Shakhov (Mlearner)
  * @author Siddhartha Chinthapally (Actual Concepts)
  */
-
 define( function( require ) {
   'use strict';
+
   // modules
   var PropertySet = require( 'AXON/PropertySet' );
   var inherit = require( 'PHET_CORE/inherit' );
@@ -24,16 +24,16 @@ define( function( require ) {
    * @param {number} height of the mass in meters
    * @constructor
    */
-
   function MassModel( chamberPoolModel, mass, x, y, width, height ) {
 
     var massModel = this;
 
+    this.chamberPoolModel = chamberPoolModel;
+    this.mass = mass;
+
     // all coordinates in meters
     this.width = width;
     this.height = height;
-    this.chamberPoolModel = chamberPoolModel;
-    this.mass = mass;
 
     PropertySet.call( this, {
       position: new Vector2( x, y ),
@@ -67,8 +67,8 @@ define( function( require ) {
 
     step: function( dt ) {
       var acceleration;
-      // move the masses only when the velocity is greater than than this.
-      // See https://github.com/phetsims/under-pressure/issues/60
+
+      // move the masses only when the velocity is greater than than this, see #60
       var epsilonVelocity = 0.01;
 
       if ( this.isDropping && !this.isDragging ) {
@@ -85,10 +85,12 @@ define( function( require ) {
         }
       }
       else if ( this.chamberPoolModel.stack.contains( this ) ) {
+
         //use newton’s laws to equalize pressure/force at interface
         var m = this.chamberPoolModel.stackMass;
         var rho = this.chamberPoolModel.underPressureModel.fluidDensity;
         var g = this.chamberPoolModel.underPressureModel.gravity;
+
         //difference between water levels in left and right opening
         var h = this.chamberPoolModel.underPressureModel.leftDisplacement +
                 this.chamberPoolModel.underPressureModel.leftDisplacement / this.chamberPoolModel.LENGTH_RATIO;
@@ -118,33 +120,20 @@ define( function( require ) {
     },
 
     cannotFall: function() {
+
       //mass dropped under earth or over opening
       return this.position.y > this.chamberPoolModel.MAX_Y + this.height / 2 || this.isMassOverOpening();
     },
 
     // checks if the mass is over the left or the right opening
     isMassOverOpening: function() {
-      var isOverOpening = false;
-      var leftCorner = this.position.x,
-        rightCorner = this.position.x + this.width / 2;
-      if ( this.chamberPoolModel.poolDimensions.leftOpening.x1 < leftCorner &&
-           leftCorner < this.chamberPoolModel.poolDimensions.leftOpening.x2 ) {
-        isOverOpening = true;
-      }
-      else if ( this.chamberPoolModel.poolDimensions.leftOpening.x1 < rightCorner &&
-                rightCorner < this.chamberPoolModel.poolDimensions.leftOpening.x2 ) {
-        isOverOpening = true;
-      }
-      else if ( this.chamberPoolModel.poolDimensions.rightOpening.x1 < leftCorner &&
-                leftCorner < this.chamberPoolModel.poolDimensions.rightOpening.x2 ) {
-        isOverOpening = true;
-      }
-      else if ( this.chamberPoolModel.poolDimensions.rightOpening.x1 < rightCorner &&
-                rightCorner < this.chamberPoolModel.poolDimensions.rightOpening.x2 ) {
-        isOverOpening = true;
-      }
-      return isOverOpening;
+      var left = this.position.x;
+      var right = this.position.x + this.width / 2;
+      var dimensions = this.chamberPoolModel.poolDimensions;
+      return ( dimensions.leftOpening.x1 < left && left < dimensions.leftOpening.x2 ) ||
+             ( dimensions.leftOpening.x1 < right && right < dimensions.leftOpening.x2 ) ||
+             ( dimensions.rightOpening.x1 < left && left < dimensions.rightOpening.x2 ) ||
+             ( dimensions.rightOpening.x1 < right && right < dimensions.rightOpening.x2 );
     }
   } );
-} )
-;
+} );
