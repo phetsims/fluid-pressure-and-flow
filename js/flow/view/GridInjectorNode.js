@@ -16,6 +16,9 @@ define( function( require ) {
   // images
   var injectorBulbImage = require( 'image!FLUID_PRESSURE_AND_FLOW/injector-bulb-cropped.png' );
 
+  var X_OFFSET = 50; //px
+  var Y_OFFSET = 150; //px
+
   /**
    * Node that injects the grid dots
    * @param {Property<Boolean>} isGridInjectorPressedProperty indicates whether the injector is pressed or not
@@ -30,13 +33,11 @@ define( function( require ) {
 
     this.modelViewTransform = modelViewTransform;
     this.pipe = pipe;
-    this.gridInjectorNodeXOffset = 50;
-    this.gridInjectorNodeYOffset = 150;
     this.gridInjectorX = -6; // model value
 
     var injector = new Image( injectorBulbImage, { scale: 0.35 } );
 
-    this.redButton = new RoundStickyToggleButton( false, true, isGridInjectorPressedProperty,
+    var redButton = new RoundStickyToggleButton( false, true, isGridInjectorPressedProperty,
       {
         radius: 25,
         centerX: injector.centerX,
@@ -47,10 +48,13 @@ define( function( require ) {
         touchExpansion: 10
       } );
 
-    // add grid injector
-    this.gridInjector = new Node( { children: [ injector, this.redButton ] } );
-    this.addChild( this.gridInjector );
+
+    this.addChild( injector );
+    this.addChild( redButton );
+
     this.updateGridInjector();
+
+    isGridInjectorPressedProperty.not().linkAttribute( redButton, 'enabled' );
 
     this.mutate( options );
 
@@ -60,10 +64,8 @@ define( function( require ) {
 
     // reposition the grid injector
     updateGridInjector: function() {
-      this.gridInjector.setTranslation( this.modelViewTransform.modelToViewX( this.gridInjectorX ) -
-                                        this.gridInjectorNodeXOffset,
-          this.modelViewTransform.modelToViewY( this.pipe.getCrossSection( this.gridInjectorX ).yTop ) -
-          this.gridInjectorNodeYOffset );
+      this.setTranslation( this.modelViewTransform.modelToViewX( this.gridInjectorX ) - X_OFFSET,
+          this.modelViewTransform.modelToViewY( this.pipe.getCrossSection( this.gridInjectorX ).yTop ) - Y_OFFSET );
     }
   } );
 } );

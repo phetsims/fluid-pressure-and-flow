@@ -182,10 +182,6 @@ define( function( require ) {
     flowModel.isGridInjectorPressedProperty.link( function( isGridInjectorPressed ) {
       if ( isGridInjectorPressed ) {
         flowModel.injectGridParticles();
-        flowView.gridInjectorNode.redButton.enabled = false;
-      }
-      else {
-        flowView.gridInjectorNode.redButton.enabled = true;
       }
     } );
     // add play pause button and step button
