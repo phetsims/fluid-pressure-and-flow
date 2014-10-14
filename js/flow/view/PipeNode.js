@@ -96,7 +96,9 @@ define( function( require ) {
     // shape for the pipelines
     this.pipeFlowLine = new Path( null, { stroke: LINE_COLOR, lineWidth: '6' } );
 
-    // shape for fluid
+    // shape for fluid. Although this is identical in "shape" to pipeFlowLine a separate node is used to layer
+    // the particles between fluid and the pipelines so that they appear on top of fluid and don't protrude over the pipe.
+    // See https://github.com/phetsims/fluid-pressure-and-flow/issues/183
     this.pipeFluidNode = new Path( null,
       { stroke: LINE_COLOR, lineWidth: '0', fill: flowModel.fluidColorModel.color } );
 
