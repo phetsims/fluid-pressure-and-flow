@@ -290,15 +290,20 @@ define( function( require ) {
               }
 
 
-              // setting the left/right  pipe top/bottom  control point handle positions when left/right pipe drag
-              pipeNode.controlHandleNodes[ leftTopControlPointIndex ].bottom = pipeNode.leftPipeNode.top +
-                                                                               CONTROL_HANDLE_OFFSET;
-              pipeNode.controlHandleNodes[ leftBottomControlPointIndex ].top = pipeNode.leftPipeNode.bottom -
-                                                                               CONTROL_HANDLE_OFFSET;
-              pipeNode.controlHandleNodes[ rightTopControlPointIndex ].bottom = pipeNode.rightPipeNode.top +
-                                                                                CONTROL_HANDLE_OFFSET;
-              pipeNode.controlHandleNodes[ rightBottomControlPointIndex ].top = pipeNode.rightPipeNode.bottom -
-                                                                                CONTROL_HANDLE_OFFSET;
+              // set the pipe control point handle positions when left/right pipe is scaled
+              if ( i === leftTopControlPointIndex || i === leftBottomControlPointIndex ) {
+                pipeNode.controlHandleNodes[ leftTopControlPointIndex ].bottom = pipeNode.leftPipeNode.top +
+                                                                                 CONTROL_HANDLE_OFFSET;
+                pipeNode.controlHandleNodes[ leftBottomControlPointIndex ].top = pipeNode.leftPipeNode.bottom -
+                                                                                 CONTROL_HANDLE_OFFSET;
+              }
+              else if ( i === rightTopControlPointIndex || i === rightBottomControlPointIndex ) {
+
+                pipeNode.controlHandleNodes[ rightTopControlPointIndex ].bottom = pipeNode.rightPipeNode.top +
+                                                                                  CONTROL_HANDLE_OFFSET;
+                pipeNode.controlHandleNodes[ rightBottomControlPointIndex ].top = pipeNode.rightPipeNode.bottom -
+                                                                                  CONTROL_HANDLE_OFFSET;
+              }
 
               // update the flux meter
               flowModel.fluxMeter.trigger( 'update' );
