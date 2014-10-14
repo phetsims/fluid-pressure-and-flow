@@ -36,6 +36,8 @@ define( function( require ) {
     this.height = height;
 
     PropertySet.call( this, {
+
+      // The position is the center of the block.
       position: new Vector2( x, y ),
       isDragging: false,
       isDropping: false,
@@ -43,7 +45,9 @@ define( function( require ) {
     } );
 
     this.isDraggingProperty.link( function( isDragging, oldValue ) {
-        if ( !isDragging && oldValue ) { //dragging just have stopped
+
+        // If the user dropped the mass, then let it fall.
+        if ( !isDragging && oldValue ) {
           if ( massModel.isInTargetDroppedArea() ) {
             chamberPoolModel.stack.push( massModel );
           }
@@ -119,9 +123,8 @@ define( function( require ) {
           this.chamberPoolModel.poolDimensions.leftOpening.x2, bottomLine ) );
     },
 
+    // If the user drops the mass underground or above a pool opening, it will teleport back to its initial location.
     cannotFall: function() {
-
-      //mass dropped under earth or over opening
       return this.position.y > this.chamberPoolModel.MAX_Y + this.height / 2 || this.isMassOverOpening();
     },
 
