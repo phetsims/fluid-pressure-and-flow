@@ -76,7 +76,11 @@ define( function( require ) {
       this.dirty = true;
     },
 
-    // creates the set of interpolated cross section samples from the control cross sections.
+    /**
+     * creates the set of interpolated cross section samples from the control cross sections.
+     * @returns {Array.<PipeCrossSection>}
+     * @private
+     */
     createSpline: function() {
       // update the control cross section with the new pipe cross sections by using updated control points
       var numberOfControlPoints = this.controlPoints.length;
@@ -95,6 +99,7 @@ define( function( require ) {
      * Interpolates the specified control points to obtain a smooth set of cross sections
      * @param {Array<PipeCrossSection>} controlCrossSections that are used to generate the spline
      * @returns {Array<PipeCrossSection>} array of interpolated cross-sections
+     * @private
      */
     spline: function( controlCrossSections ) {
       var spline = [];// array to hold the pipe cross sections

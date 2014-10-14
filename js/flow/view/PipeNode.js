@@ -230,7 +230,6 @@ define( function( require ) {
                 controlPoint.position = pt;
                 // When a control point is dragged, mark the pipe as dirty and update the pipe flow line shape
                 pipe.dirty = true;
-                pipe.createSpline();
                 pipeNode.updatePipeFlowLineShape();
                 flowView.gridInjectorNode.updateGridInjector();
               }
@@ -325,7 +324,6 @@ define( function( require ) {
       })( i );
     }
     // init the PipeFlow Line shape
-    pipe.createSpline();
     this.updatePipeFlowLineShape();
   }
 
@@ -394,7 +392,6 @@ define( function( require ) {
 
         // mark pipe as dirty for getting new spline cross sections
         this.pipe.dirty = true;
-        this.pipe.createSpline();
         this.updatePipeFlowLineShape();
         this.flowModel.fluxMeter.trigger( 'update' );
 

@@ -171,7 +171,6 @@ define( function( require ) {
 
             // When a control point is dragged, update the pipe flow line shape and the node shape
             pipe.dirty = true;
-            pipe.createSpline();
             pipeNode.updatePipeFlowLineShape();
             flowModel.fluxMeter.trigger( 'update' );
             // update the velocity sensors
