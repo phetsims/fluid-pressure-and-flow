@@ -81,7 +81,7 @@ define( function( require ) {
       if ( this.isFalling && !this.isDragging ) {
         acceleration = this.chamberPoolModel.underPressureModel.gravity;
         this.velocity = this.velocity + acceleration * dt;
-        if ( this.velocity > epsilonVelocity ) {
+        if ( Math.abs( this.velocity ) > epsilonVelocity ) {
           this.position.y += this.velocity * dt;
 
           // If it landed, then stop the block.
@@ -110,7 +110,7 @@ define( function( require ) {
         acceleration = force / m;
         var frictionCoefficient = 0.98;
         this.velocity = (this.velocity + acceleration * dt) * frictionCoefficient;
-        if ( this.velocity > epsilonVelocity ) {
+        if ( Math.abs( this.velocity ) > epsilonVelocity ) {
           this.position.y += this.velocity * dt;
           this.positionProperty._notifyObservers();
         }
