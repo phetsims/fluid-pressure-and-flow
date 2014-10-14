@@ -74,6 +74,7 @@ define( function( require ) {
     var backgroundNodeWidth = 10000;
     var skyExtensionHeight = 10000;
     var groundDepth = 10000;
+    this.flowModel = flowModel;
 
     // add rectangle on top of the sky node to extend sky upwards.
     // See https://github.com/phetsims/fluid-pressure-and-flow/issues/87
@@ -185,12 +186,12 @@ define( function( require ) {
         flowView.gridInjectorNode.redButton.enabled = true;
       }
     } );
-
     // add play pause button and step button
     var stepButton = new StepButton(
       function() {
         flowModel.timer.step( 0.016 );
         flowModel.propagateParticles( 0.016 );
+        flowView.pipeNode.particlesLayer.step();
       },
       flowModel.isPlayProperty,
       {
@@ -327,10 +328,11 @@ define( function( require ) {
 
     /**
      * Called by the animation loop.
-     * @param {Number} dt -- time in seconds
      */
-    step: function( dt ) {
-      this.pipeNode.particlesLayer.step( dt );
+    step: function() {
+      if ( this.flowModel.isPlay ) {
+        this.pipeNode.particlesLayer.step();
+      }
     }
   } );
 } );

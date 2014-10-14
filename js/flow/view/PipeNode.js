@@ -286,16 +286,9 @@ define( function( require ) {
 
               // reposition the particles when the sim is paused and the handle is dragged
               if ( !flowModel.isPlay ) {
-                var particle, k;
-
-                for ( k = 0; k < flowModel.flowParticles.length; k++ ) {
-                  particle = flowModel.flowParticles.get( k );
-                }
-
-                for ( k = 0; k < flowModel.gridParticles.length; k++ ) {
-                  particle = flowModel.gridParticles.get( k );
-                }
+                pipeNode.particlesLayer.step();
               }
+
 
               // setting the left/right  pipe top/bottom  control point handle positions when left/right pipe drag
               pipeNode.controlHandleNodes[ leftTopControlPointIndex ].bottom = pipeNode.leftPipeNode.top +
