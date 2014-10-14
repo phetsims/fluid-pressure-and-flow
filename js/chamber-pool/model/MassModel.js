@@ -39,11 +39,11 @@ define( function( require ) {
 
       // The position is the center of the block.
       position: new Vector2( x, y ),
-      isDragging: false,
-      velocity: 0
+      isDragging: false
     } );
 
     this.isFalling = false;
+    this.velocity = 0;
 
     this.isDraggingProperty.link( function( isDragging, oldValue ) {
 
@@ -86,7 +86,7 @@ define( function( require ) {
           if ( this.position.y > this.chamberPoolModel.MAX_Y - this.height / 2 ) {
             this.position.y = this.chamberPoolModel.MAX_Y - this.height / 2;
             this.isFalling = false;
-            this.velocityProperty.reset();
+            this.velocity = 0;
           }
           this.positionProperty._notifyObservers();
         }
