@@ -36,7 +36,7 @@ define( function( require ) {
   var PipeNode = require( 'FLUID_PRESSURE_AND_FLOW/flow/view/PipeNode' );
   var FluxMeterNode = require( 'FLUID_PRESSURE_AND_FLOW/flow/view/FluxMeterNode' );
   var GridInjectorNode = require( 'FLUID_PRESSURE_AND_FLOW/flow/view/GridInjectorNode' );
-  var PipeNodeDragHandle = require( 'FLUID_PRESSURE_AND_FLOW/flow/view/PipeNodeDragHandle' );
+  var PipeHandlesNode = require( 'FLUID_PRESSURE_AND_FLOW/flow/view/PipeHandlesNode' );
 
   //strings
   var fluidDensityString = require( 'string!FLUID_PRESSURE_AND_FLOW/fluidDensity' );
@@ -116,11 +116,14 @@ define( function( require ) {
       flowModel.pipe );
     this.addChild( this.gridInjectorNode );
 
-    //adding pipe Node
-    this.pipeNode = new PipeNode( flowView, flowModel, flowModel.pipe, modelViewTransform, this.layoutBounds );
+    // add the pipe (without handles)
+    this.pipeNode = new PipeNode( flowModel, modelViewTransform, this.layoutBounds );
     this.addChild( this.pipeNode );
-    this.pipeNodeDragHandle = new PipeNodeDragHandle( flowModel, modelViewTransform, this.pipeNode, this.layoutBounds );
-    this.addChild( this.pipeNodeDragHandle );
+
+    // add the handles
+    this.pipeHandlesNode = new PipeHandlesNode( flowModel, this.pipeNode, this.gridInjectorNode, modelViewTransform,
+      this.layoutBounds );
+    this.addChild( this.pipeHandlesNode );
 
     // add the back ellipse of the fluxMeter to the pipe node's pre-particle layer
     this.pipeNode.preParticleLayer.addChild( fluxMeterNode.ellipse2 );
@@ -133,8 +136,7 @@ define( function( require ) {
       listener: function() {
         flowModel.reset();
         flowView.pipeNode.reset();
-        flowView.pipeNodeDragHandle.reset();
-        flowView.gridInjectorNode.updateGridInjector();
+        flowView.pipeHandlesNode.reset();
       },
       radius: 18,
       bottom: this.layoutBounds.bottom - 7,
