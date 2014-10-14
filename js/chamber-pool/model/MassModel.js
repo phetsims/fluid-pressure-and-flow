@@ -83,12 +83,14 @@ define( function( require ) {
         this.velocity = this.velocity + acceleration * dt;
         if ( this.velocity > epsilonVelocity ) {
           this.position.y += this.velocity * dt;
+
+          // If it landed, then stop the block.
           if ( this.position.y > this.chamberPoolModel.MAX_Y - this.height / 2 ) {
             this.position.y = this.chamberPoolModel.MAX_Y - this.height / 2;
             this.isFalling = false;
             this.velocity = 0;
           }
-          this.positionProperty._notifyObservers();
+          this.positionProperty.notifyObserversStatic();
         }
       }
       else if ( this.chamberPoolModel.stack.contains( this ) ) {
