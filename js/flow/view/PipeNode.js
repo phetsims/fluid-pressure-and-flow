@@ -30,11 +30,12 @@ define( function( require ) {
   var leftPipeBackImage = require( 'image!FLUID_PRESSURE_AND_FLOW/pipe-left-back.png' );
 
   // constants
-  var CONTROL_HANDLE_OFFSET = 2;
-  var PIPE_INITIAL_HEIGHT = 2.1; //in meters
+  var CONTROL_HANDLE_OFFSET = 2; //px
+  var PIPE_INITIAL_HEIGHT = 2.1; //meters
   var LINE_COLOR = '#613705';
   var PIPE_SCALE = 0.6;
   var PIPE_SEGMENT_X_SCALE = 100;
+  var CROSS_SECTION_MIN_HEIGHT = 1; //meters
 
   /*
    * Constructor for PipeNode
@@ -217,17 +218,21 @@ define( function( require ) {
               // limit the y to (-4,0)
               pt.y = Util.clamp( pt.y, -4, 0 );
 
-              // prevent the two ends of the cross sections from crossing each other
+              // Prevent the two ends of the cross sections from crossing each other. Set the cross section to
+              // minimum when the user tries to move the handle beyond the opposite control point.
               if ( ( i < rightBottomControlPointIndex &&
-                     pt.y < pipe.controlPoints[ numControlPoints - ( i + 1 ) ].position.y ) ||
-                   ( i >= rightBottomControlPointIndex &&
-                     pt.y > pipe.controlPoints[ numControlPoints - ( i + 1 ) ].position.y ) ) {
-                return;
+                     pt.y < pipe.controlPoints[ numControlPoints - ( i + 1 ) ].position.y ) ) {
+                pt.y = pipe.controlPoints[ numControlPoints - ( i + 1 ) ].position.y + CROSS_SECTION_MIN_HEIGHT;
               }
+              else if ( ( i >= rightBottomControlPointIndex &&
+                          pt.y > pipe.controlPoints[ numControlPoints - ( i + 1 ) ].position.y ) ) {
+                pt.y = pipe.controlPoints[ numControlPoints - ( i + 1 ) ].position.y - CROSS_SECTION_MIN_HEIGHT;
+              }
+
               var yDiff = Math.abs( ( pipe.controlPoints[ numControlPoints - ( i + 1 ) ].position.y ) - pt.y );
 
               // ensure that the cross section is at least 1 meter
-              if ( yDiff >= 1 ) {
+              if ( yDiff >= CROSS_SECTION_MIN_HEIGHT ) {
                 controlPoint.position = pt;
                 // When a control point is dragged, mark the pipe as dirty and update the pipe flow line shape
                 pipe.dirty = true;
@@ -283,14 +288,12 @@ define( function( require ) {
                   pipeNode.rightPipeNode.centerY );
 
               }
-
               // reposition the particles when the sim is paused and the handle is dragged
               if ( !flowModel.isPlay ) {
                 pipeNode.particlesLayer.step();
               }
 
-
-              // set the pipe control point handle positions when left/right pipe is scaled
+              // setting the left/right  pipe top/bottom  control point handle positions when left/right pipe  scale.
               if ( i === leftTopControlPointIndex || i === leftBottomControlPointIndex ) {
                 pipeNode.controlHandleNodes[ leftTopControlPointIndex ].bottom = pipeNode.leftPipeNode.top +
                                                                                  CONTROL_HANDLE_OFFSET;
