@@ -83,7 +83,7 @@ define( function( require ) {
     // shape for the pipelines
     this.pipeFlowLine = new Path( null, { stroke: LINE_COLOR, lineWidth: '6' } );
 
-    // shape for fluid. Although this is identical in "shape" to pipeFlowLine a separate node is used to layer
+    // Shape for fluid. Although this is identical in "shape" to pipeFlowLine, a separate node is used to layer
     // the particles between fluid and the pipelines so that they appear on top of fluid and don't protrude over the pipe.
     // See https://github.com/phetsims/fluid-pressure-and-flow/issues/183
     this.pipeFluidNode = new Path( null,
@@ -181,14 +181,15 @@ define( function( require ) {
       },
 
       reset: function() {
-
         // reset the left and right pipe position and scale
         this.leftPipeNode.setMatrix( Matrix3.translation( this.layoutBounds.minX - this.leftPipeLeftOffset,
             this.groundY + this.pipeNodeYOffset ) );
         this.leftPipeNode.scale( PIPE_SCALE );
+
         this.leftPipeBackNode.setMatrix( Matrix3.translation( this.layoutBounds.minX - this.leftPipeLeftOffset,
             this.groundY + this.pipeNodeYOffset ) );
         this.leftPipeBackNode.scale( PIPE_SCALE );
+
         this.rightPipeNode.setMatrix( Matrix3.translation( this.layoutBounds.maxX - this.rightPipeLeftOffset,
             this.groundY + this.pipeNodeYOffset ) );
         this.rightPipeNode.scale( PIPE_SCALE );
@@ -197,7 +198,6 @@ define( function( require ) {
         this.flowModel.pipe.dirty = true;
         this.updatePipeFlowLineShape();
         this.flowModel.fluxMeter.trigger( 'update' );
-
       }
     } );
 } );

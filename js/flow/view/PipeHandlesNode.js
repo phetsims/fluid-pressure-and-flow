@@ -371,6 +371,7 @@ define( function( require ) {
   }
 
   return inherit( Node, PipeHandlesNode, {
+
     reset: function() {
 
       // reset the left and right pipe drag handle
@@ -394,4 +395,5 @@ define( function( require ) {
       this.gridInjectorNode.updateGridInjector();
     }
   } );
+
 } );
