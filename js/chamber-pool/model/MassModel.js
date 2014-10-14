@@ -103,7 +103,8 @@ define( function( require ) {
         //difference between water levels in left and right opening
         var h = this.chamberPoolModel.underPressureModel.leftDisplacement +
                 this.chamberPoolModel.underPressureModel.leftDisplacement / this.chamberPoolModel.LENGTH_RATIO;
-        var gravityForce = +m * g;
+
+        var gravityForce = m * g;
         var pressureForce = -rho * h * g;
         var force = gravityForce + pressureForce;
         acceleration = force / m;
