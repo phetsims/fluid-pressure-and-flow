@@ -40,9 +40,10 @@ define( function( require ) {
       // The position is the center of the block.
       position: new Vector2( x, y ),
       isDragging: false,
-      isDropping: false,
       velocity: 0
     } );
+
+    this.isFalling = false;
 
     this.isDraggingProperty.link( function( isDragging, oldValue ) {
 
@@ -55,10 +56,12 @@ define( function( require ) {
             massModel.reset();
           }
           else {
-            massModel.isDropping = true;
+            massModel.isFalling = true;
           }
         }
         else {
+
+          // The user grabbed the mass.  If it was in the stack, remove it.
           if ( chamberPoolModel.stack.contains( massModel ) ) {
             chamberPoolModel.stack.remove( massModel );
           }
@@ -75,14 +78,14 @@ define( function( require ) {
       // move the masses only when the velocity is greater than than this, see #60
       var epsilonVelocity = 0.01;
 
-      if ( this.isDropping && !this.isDragging ) {
+      if ( this.isFalling && !this.isDragging ) {
         acceleration = this.chamberPoolModel.underPressureModel.gravity;
         this.velocity = this.velocity + acceleration * dt;
         if ( this.velocity > epsilonVelocity ) {
           this.position.y += this.velocity * dt;
           if ( this.position.y > this.chamberPoolModel.MAX_Y - this.height / 2 ) {
             this.position.y = this.chamberPoolModel.MAX_Y - this.height / 2;
-            this.isDropping = false;
+            this.isFalling = false;
             this.velocityProperty.reset();
           }
           this.positionProperty._notifyObservers();
