@@ -143,7 +143,7 @@ define( function( require ) {
     },
 
     /**
-     * Steps the chamber pool elements forward in time by dt seconds
+     * Steps the chamber pool dimensions forward in time by dt seconds
      * @param {number} dt -- time in seconds
      */
     step: function( dt ) {
@@ -205,16 +205,14 @@ define( function( require ) {
      * @returns {boolean}
      */
     isPointInsidePool: function( x, y ) {
-      var isInside = false;
-      ['leftChamber', 'rightChamber', 'horizontalPassage', 'leftOpening', 'rightOpening'].forEach( function( name ) {
-        if ( x > this.poolDimensions[name].x1 && x < this.poolDimensions[name].x2 && y > this.poolDimensions[name].y1 &&
-             y < this.poolDimensions[name].y2 ) {
-          //inside bottom chamber
-          isInside = true;
+      var keys = _.keys( this.poolDimensions );
+      for ( var i = 0; i < keys.length; i++ ) {
+        var dimension = this.poolDimensions[keys[i]];
+        if ( x > dimension.x1 && x < dimension.x2 && y > dimension.y1 && y < dimension.y2 ) {
+          return true;
         }
-      }.bind( this ) );
-
-      return isInside;
+      }
+      return false;
     }
   } );
 } );
