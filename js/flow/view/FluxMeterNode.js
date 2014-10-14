@@ -190,7 +190,7 @@ define( function( require ) {
       drag: function( e ) {
         fluxMeterNode.moveToFront();
         var x = fluxMeterNode.globalToParentPoint( e.pointer.point ).x;
-        x = x < 46 ? 46 : x > 692 ? 692 : x; // min, max view values (emperically determined)
+        x = x < 46 ? 46 : x > 698 ? 698 : x; // min, max view values (emperically determined)
         flowModel.fluxMeter.xPosition = modelViewTransform.viewToModelX( x );
       }
     } ) );
