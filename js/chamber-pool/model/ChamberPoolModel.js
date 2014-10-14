@@ -103,6 +103,9 @@ define( function( require ) {
       }
     };
 
+    //List of masses that are currently stacked
+    this.stack = new ObservableArray();
+
     //List of all available masses
     this.masses = [
       new MassModel( chamberPoolModel, 500, MASS_OFFSET, chamberPoolModel.MAX_Y - PASSAGE_SIZE / 2, PASSAGE_SIZE,
@@ -112,9 +115,6 @@ define( function( require ) {
       new MassModel( chamberPoolModel, 250, MASS_OFFSET + 2 * PASSAGE_SIZE + 2 * SEPARATION,
           chamberPoolModel.MAX_Y - PASSAGE_SIZE / 4, PASSAGE_SIZE, PASSAGE_SIZE / 2 )
     ];
-
-    //List of masses that are currently stacked
-    this.stack = new ObservableArray();
 
     //When an item is added to the stack, update the total mass and equalize the mass velocities
     this.stack.addItemAddedListener( function( massModel ) {
