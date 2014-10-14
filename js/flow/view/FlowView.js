@@ -112,18 +112,18 @@ define( function( require ) {
     flowModel.isFluxMeterVisibleProperty.linkAttribute( fluxMeterNode.ellipse2, 'visible' );
 
     // Injector which generates grid particles
-    this.gridInjectorNode = new GridInjectorNode( flowModel.isGridInjectorPressedProperty, modelViewTransform,
+    var gridInjectorNode = new GridInjectorNode( flowModel.isGridInjectorPressedProperty, modelViewTransform,
       flowModel.pipe );
-    this.addChild( this.gridInjectorNode );
+    this.addChild( gridInjectorNode );
 
     // add the pipe (without handles)
     this.pipeNode = new PipeNode( flowModel, modelViewTransform, this.layoutBounds );
     this.addChild( this.pipeNode );
 
     // add the handles
-    this.pipeHandlesNode = new PipeHandlesNode( flowModel, this.pipeNode, this.gridInjectorNode, modelViewTransform,
+    var pipeHandlesNode = new PipeHandlesNode( flowModel, this.pipeNode, gridInjectorNode, modelViewTransform,
       this.layoutBounds );
-    this.addChild( this.pipeHandlesNode );
+    this.addChild( pipeHandlesNode );
 
     // add the back ellipse of the fluxMeter to the pipe node's pre-particle layer
     this.pipeNode.preParticleLayer.addChild( fluxMeterNode.ellipse2 );
@@ -136,7 +136,7 @@ define( function( require ) {
       listener: function() {
         flowModel.reset();
         flowView.pipeNode.reset();
-        flowView.pipeHandlesNode.reset();
+        pipeHandlesNode.reset();
       },
       radius: 18,
       bottom: this.layoutBounds.bottom - 7,
