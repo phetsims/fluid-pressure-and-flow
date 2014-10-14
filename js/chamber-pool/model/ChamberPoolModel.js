@@ -103,9 +103,7 @@ define( function( require ) {
       }
     };
 
-    //stack of masses
-    this.stack = new ObservableArray();
-
+    //List of all available masses
     this.masses = [
       new MassModel( chamberPoolModel, 500, MASS_OFFSET, chamberPoolModel.MAX_Y - PASSAGE_SIZE / 2, PASSAGE_SIZE,
         PASSAGE_SIZE ),
@@ -115,21 +113,27 @@ define( function( require ) {
           chamberPoolModel.MAX_Y - PASSAGE_SIZE / 4, PASSAGE_SIZE, PASSAGE_SIZE / 2 )
     ];
 
-    this.stack.addListeners(
-      function( massModel ) {
-        chamberPoolModel.stackMass = chamberPoolModel.stackMass + massModel.mass;
-        var maxVelocity = 0;
-        //must equalize velocity of each mass
-        chamberPoolModel.stack.forEach( function( mass ) {
-          maxVelocity = Math.max( mass.velocity, maxVelocity );
-        } );
-        chamberPoolModel.stack.forEach( function( mass ) {
-          mass.velocity = maxVelocity;
-        } );
-      },
-      function( massModel ) {
-        chamberPoolModel.stackMass = chamberPoolModel.stackMass - massModel.mass;
+    //List of masses that are currently stacked
+    this.stack = new ObservableArray();
+
+    //When an item is added to the stack, update the total mass and equalize the mass velocities
+    this.stack.addItemAddedListener( function( massModel ) {
+      chamberPoolModel.stackMass = chamberPoolModel.stackMass + massModel.mass;
+
+      var maxVelocity = 0;
+      //must equalize velocity of each mass
+      chamberPoolModel.stack.forEach( function( mass ) {
+        maxVelocity = Math.max( mass.velocity, maxVelocity );
       } );
+      chamberPoolModel.stack.forEach( function( mass ) {
+        mass.velocity = maxVelocity;
+      } );
+    } );
+
+    //When an item is removed from the stack, update the total mass.
+    this.stack.addItemRemovedListener( function( massModel ) {
+      chamberPoolModel.stackMass = chamberPoolModel.stackMass - massModel.mass;
+    } );
   }
 
   return inherit( PropertySet, ChamberPoolModel, {
