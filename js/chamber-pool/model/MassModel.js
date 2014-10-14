@@ -15,6 +15,9 @@ define( function( require ) {
   var Vector2 = require( 'DOT/Vector2' );
   var Bounds = require( 'DOT/bounds2' );
 
+  // constants
+  var frictionCoefficient = 0.98;
+
   /**
    * @param {ChamberPoolModel} chamberPoolModel of the simulation
    * @param {number} mass of object in grams
@@ -108,14 +111,12 @@ define( function( require ) {
         var pressureForce = -rho * h * g;
         var force = gravityForce + pressureForce;
         acceleration = force / m;
-        var frictionCoefficient = 0.98;
         this.velocity = (this.velocity + acceleration * dt) * frictionCoefficient;
         if ( Math.abs( this.velocity ) > epsilonVelocity ) {
           this.position.y += this.velocity * dt;
-          this.positionProperty._notifyObservers();
+          this.positionProperty.notifyObserversStatic();
         }
       }
-
     },
 
     // checks if the mass intersects with the the target drop area.
