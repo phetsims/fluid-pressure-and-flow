@@ -20,6 +20,7 @@ define( function( require ) {
   var Vector2 = require( 'DOT/Vector2' );
   var ParticleCanvasNode = require( 'FLUID_PRESSURE_AND_FLOW/flow/view/ParticleCanvasNode' );
   var Bounds2 = require( 'DOT/Bounds2' );
+  var Util = require( 'DOT/Util' );
 
   // images
   var handleImage = require( 'image!FLUID_PRESSURE_AND_FLOW/handle-with-bar.png' );
@@ -213,8 +214,8 @@ define( function( require ) {
               var pt = new Vector2( pipe.controlPoints[ i ].position.x,
                   controlPointDragStartY + modelViewTransform.viewToModelDeltaY( offSetY ) );
 
-              // limit the y to (0, -4)
-              pt.y = ( pt.y > 0 ? 0 : ( pt.y < -4 ? -4 : pt.y ) );
+              // limit the y to (-4,0)
+              pt.y = Util.clamp( pt.y, -4, 0 );
 
               // prevent the two ends of the cross sections from crossing each other
               if ( ( i < rightBottomControlPointIndex &&
