@@ -44,7 +44,7 @@ define( function( require ) {
   var SEPARATION = 0.03; //separation between masses
 
   /**
-   * @param {UnderPressureModel} underPressureModel of the sim.
+   * @param {UnderPressureModel} underPressureModel -- model for the sim.
    * @constructor
    */
   function ChamberPoolModel( underPressureModel ) {
@@ -151,7 +151,11 @@ define( function( require ) {
      * @param {number} dt -- time in seconds
      */
     step: function( dt ) {
-      if ( !lastDt ) { lastDt = dt; } // init lastDt value
+
+      // init lastDt value
+      if ( !lastDt ) {
+        lastDt = dt;
+      }
 
       if ( Math.abs( lastDt - dt ) > lastDt * 0.3 ) {
         dt = lastDt;
@@ -160,12 +164,15 @@ define( function( require ) {
         lastDt = dt;
       }
 
+      // Update each of the masses
       var steps = 10;
       this.masses.forEach( function( mass ) {
         for ( var i = 0; i < steps; i++ ) {
           mass.step( dt / steps );
         }
       } );
+
+      // If there are any masses stacked, update the water height
       if ( this.stackMass ) {
         var maxY = 0;
         this.stack.forEach( function( massModel ) {
