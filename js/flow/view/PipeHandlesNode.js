@@ -115,45 +115,42 @@ define( function( require ) {
         }
         handleNode.setRotation( imageRotation );
 
-        pipeHandlesNode.controlHandleNodes[ i ] = new Node( {children: [handleNode]} );
+        var controlHandleNode = new Node( {children: [handleNode]} );
+        pipeHandlesNode.controlHandleNodes[ i ] = controlHandleNode;
         controlPoint.positionProperty.link( function( position ) {
-          pipeHandlesNode.controlHandleNodes[ i ].setTranslation( modelViewTransform.modelToViewX( position.x ),
+          controlHandleNode.setTranslation( modelViewTransform.modelToViewX( position.x ),
             modelViewTransform.modelToViewY( position.y ) );
         } );
 
         // set the initial position of control point handles on left pipe node and right pipe node.
         switch( i ) {
           case leftBottomControlPointIndex :
-            pipeHandlesNode.controlHandleNodes[ leftBottomControlPointIndex ].top = pipeNode.leftPipeNode.bottom -
-                                                                                    CONTROL_HANDLE_OFFSET;
+            controlHandleNode.top = pipeNode.leftPipeNode.bottom - CONTROL_HANDLE_OFFSET;
             break;
           case rightBottomControlPointIndex :
-            pipeHandlesNode.controlHandleNodes[ rightBottomControlPointIndex ].top = pipeNode.rightPipeNode.bottom -
-                                                                                     CONTROL_HANDLE_OFFSET;
+            controlHandleNode.top = pipeNode.rightPipeNode.bottom - CONTROL_HANDLE_OFFSET;
             break;
           case rightTopControlPointIndex :
-            pipeHandlesNode.controlHandleNodes[ rightTopControlPointIndex ].bottom = pipeNode.rightPipeNode.top +
-                                                                                     CONTROL_HANDLE_OFFSET;
+            controlHandleNode.bottom = pipeNode.rightPipeNode.top + CONTROL_HANDLE_OFFSET;
             break;
           case leftTopControlPointIndex :
-            pipeHandlesNode.controlHandleNodes[ leftTopControlPointIndex ].bottom = pipeNode.leftPipeNode.top +
-                                                                                    CONTROL_HANDLE_OFFSET;
+            controlHandleNode.bottom = pipeNode.leftPipeNode.top + CONTROL_HANDLE_OFFSET;
             break;
         }
 
         var dragStartY;
         var controlPointDragStartY; // the model y value of the control point at drag start
 
-        pipeHandlesNode.controlHandleNodes[ i ].addInputListener( new SimpleDragHandler(
+        controlHandleNode.addInputListener( new SimpleDragHandler(
           {
             start: function( event ) {
-              dragStartY = pipeHandlesNode.controlHandleNodes[ i ].globalToParentPoint( event.pointer.point ).y;
+              dragStartY = controlHandleNode.globalToParentPoint( event.pointer.point ).y;
               controlPointDragStartY = pipe.controlPoints[ i ].position.y;
             },
 
             drag: function( event ) {
 
-              var offSetY = pipeHandlesNode.controlHandleNodes[ i ].globalToParentPoint( event.pointer.point ).y -
+              var offSetY = controlHandleNode.globalToParentPoint( event.pointer.point ).y -
                             dragStartY;
 
               // x position is constant for a control point
@@ -265,7 +262,7 @@ define( function( require ) {
               flowModel.barometers[ 1 ].trigger( 'update' );
             }
           } ) );
-        pipeHandlesNode.addChild( pipeHandlesNode.controlHandleNodes[ i ] );
+        pipeHandlesNode.addChild( controlHandleNode );
       })( i );
     }
 
