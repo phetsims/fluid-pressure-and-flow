@@ -50,7 +50,7 @@ define( function( require ) {
     this.isFalling = false;
     this.velocity = 0;
 
-    this.isDraggingProperty.link( function( isDragging, oldValue ) {
+    this.isDraggingProperty.link( function( isDragging ) {
 
         // If the user dropped the mass, then let it fall.
         if ( !isDragging ) {
