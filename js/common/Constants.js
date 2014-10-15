@@ -8,10 +8,16 @@ define( function() {
   'use strict';
 
   return {
+
     EARTH_GRAVITY: 9.8,
+    MARS_GRAVITY: 3.71,
+    JUPITER_GRAVITY: 24.9,
+
+    // in Pascals
     MIN_PRESSURE: 50000,
     MAX_PRESSURE: 350000,
 
+    // flow rate values in liter/sec
     MIN_FLOW_RATE: 1000,
     MAX_FLOW_RATE: 10000,
 

@@ -15,15 +15,20 @@ define( function( require ) {
   var Range = require( 'DOT/Range' );
   var FluidColorModel = require( 'UNDER_PRESSURE/common/model/FluidColorModel' );
   var Units = require( 'UNDER_PRESSURE/common/model/Units' );
+  var Constants = require( 'UNDER_PRESSURE/common/Constants' );
   var LinearFunction = require( 'DOT/LinearFunction' );
   var Vector2 = require( 'DOT/Vector2' );
   var Barometer = require( 'UNDER_PRESSURE/common/model/Barometer' );
+  var SquarePoolModel = require( 'UNDER_PRESSURE/square-pool/model/SquarePoolModel' );
+  var TrapezoidPoolModel = require( 'UNDER_PRESSURE/trapezoid-pool/model/TrapezoidPoolModel' );
+  var ChamberPoolModel = require( 'UNDER_PRESSURE/chamber-pool/model/ChamberPoolModel' );
+  var MysteryPoolModel = require( 'UNDER_PRESSURE/mystery-pool/model/MysteryPoolModel' );
 
   var SceneModels = {
-    Square: require( 'UNDER_PRESSURE/square-pool/model/SquarePoolModel' ),
-    Trapezoid: require( 'UNDER_PRESSURE/trapezoid-pool/model/TrapezoidPoolModel' ),
-    Chamber: require( 'UNDER_PRESSURE/chamber-pool/model/ChamberPoolModel' ),
-    Mystery: require( 'UNDER_PRESSURE/mystery-pool/model/MysteryPoolModel' )
+    Square: SquarePoolModel,
+    Trapezoid: TrapezoidPoolModel,
+    Chamber: ChamberPoolModel,
+    Mystery: MysteryPoolModel
   };
 
   /**
@@ -36,33 +41,21 @@ define( function( require ) {
     var underPressureModel = this;
     this.scenes = ['Square', 'Trapezoid', 'Chamber', 'Mystery'];
 
-    this.MARS_GRAVITY = 3.71;
-    this.JUPITER_GRAVITY = 24.9;
-    this.GAZOLINE_DENSITY = 700;
-    this.HONEY_DENSITY = 1420;
-    this.WATER_DENSITY = 1000;
-    this.MIN_PRESSURE = 0;
-    this.MAX_PRESSURE = 350000;//kPa
-
     // dimensions of the model's space
     this.width = width;
     this.height = height;
     this.skyGroundBoundY = 3.5; // M
 
-    //Constants for air pressure in Pascals, Pascals is SI, see http://en.wikipedia.org/wiki/Atmospheric_pressure
-    this.EARTH_AIR_PRESSURE = 101325;
-    this.EARTH_AIR_PRESSURE_AT_500_FT = 99490;
-
-    this.gravityRange = new Range( this.MARS_GRAVITY, this.JUPITER_GRAVITY );
-    this.fluidDensityRange = new Range( this.GAZOLINE_DENSITY, this.HONEY_DENSITY );
+    this.gravityRange = new Range( Constants.MARS_GRAVITY, Constants.JUPITER_GRAVITY );
+    this.fluidDensityRange = new Range( Constants.GASOLINE_DENSITY, Constants.HONEY_DENSITY );
 
     PropertySet.call( this, {
         isAtmosphere: true,
         isRulerVisible: false,
         isGridVisible: false,
         measureUnits: 'metric', //metric, english or atmosphere
-        gravity: 9.8,
-        fluidDensity: underPressureModel.WATER_DENSITY,
+        gravity: Constants.EARTH_GRAVITY,
+        fluidDensity: Constants.WATER_DENSITY,
         currentScene: underPressureModel.scenes[0],
         currentVolume: 0, //L, volume of liquid in currentScene
         rulerPosition: new Vector2( 195, 245 ), // px
@@ -80,7 +73,8 @@ define( function( require ) {
     } );
 
     this.getStandardAirPressure =
-    new LinearFunction( 0, Units.feetToMeters( 500 ), this.EARTH_AIR_PRESSURE, this.EARTH_AIR_PRESSURE_AT_500_FT );
+    new LinearFunction( 0, Units.feetToMeters( 500 ), Constants.EARTH_AIR_PRESSURE,
+      Constants.EARTH_AIR_PRESSURE_AT_500_FT );
 
     this.barometers = [];
 
