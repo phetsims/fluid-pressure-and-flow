@@ -65,7 +65,6 @@ define( function( require ) {
           }
         }
         else {
-
           // The user grabbed the mass.  If it was in the stack, remove it.
           if ( chamberPoolModel.stack.contains( massModel ) ) {
             chamberPoolModel.stack.remove( massModel );

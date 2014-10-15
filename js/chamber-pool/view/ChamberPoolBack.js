@@ -39,6 +39,7 @@ define( function( require ) {
 
     var poolDimensions = chamberPoolModel.poolDimensions;
 
+    // left grass
     this.addChild( new Rectangle(
       -grassExtension,
       grassRectYOffset,
@@ -50,6 +51,7 @@ define( function( require ) {
       }
     ) );
 
+    // middle grass
     this.addChild( new Rectangle(
       modelViewTransform.modelToViewX( poolDimensions.leftOpening.x2 ),
       grassRectYOffset,
@@ -61,6 +63,7 @@ define( function( require ) {
       }
     ) );
 
+    // right grass
     this.addChild( new Rectangle( modelViewTransform.modelToViewX( poolDimensions.rightOpening.x2 ),
       grassRectYOffset, grassExtension, grassRectHeight, { fill: grassPattern,
         y: modelViewTransform.modelToViewY( chamberPoolModel.underPressureModel.skyGroundBoundY ) - grassRectHeight
