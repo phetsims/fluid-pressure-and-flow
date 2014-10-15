@@ -37,7 +37,7 @@ define( function( require ) {
     var passageY1 = modelViewTransform.modelToViewY( chamberPoolModel.poolDimensions.horizontalPassage.y1 );
     var passageY2 = modelViewTransform.modelToViewY( chamberPoolModel.poolDimensions.horizontalPassage.y2 );
 
-    chamberPoolModel.underPressureModel.leftDisplacementProperty.link( function( displacement ) {
+    chamberPoolModel.leftDisplacementProperty.link( function( displacement ) {
 
       //new left and right levels of water
       var leftY = modelViewTransform.modelToViewY( chamberPoolModel.poolDimensions.leftOpening.y2 -

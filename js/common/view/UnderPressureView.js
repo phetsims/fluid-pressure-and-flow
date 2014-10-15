@@ -169,8 +169,7 @@ define( function( require ) {
         underPressureModel.gravityProperty,
         underPressureModel.fluidDensityProperty,
         underPressureModel.isAtmosphereProperty,
-        underPressureModel.currentVolumeProperty,
-        underPressureModel.leftDisplacementProperty
+        underPressureModel.currentVolumeProperty
       ];
       var barometerNode = new BarometerNode(
         modelViewTransform,

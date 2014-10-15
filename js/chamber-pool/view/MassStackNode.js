@@ -41,7 +41,7 @@ define( function( require ) {
     this.addChild( placementRect );
     this.addChild( placementRectBorder );
 
-    chamberPoolModel.underPressureModel.leftDisplacementProperty.link( function( displacement ) {
+    chamberPoolModel.leftDisplacementProperty.link( function( displacement ) {
       massStackNode.bottom = modelViewTransform.modelToViewY( chamberPoolModel.poolDimensions.leftOpening.y2 -
                                                               chamberPoolModel.LEFT_WATER_HEIGHT + displacement );
     } );
@@ -82,8 +82,7 @@ define( function( require ) {
         massModel.position = new Vector2( chamberPoolModel.poolDimensions.leftOpening.x1 + massModel.width / 2,
             ( chamberPoolModel.poolDimensions.leftOpening.y2 -
               chamberPoolModel.LEFT_WATER_HEIGHT +
-              chamberPoolModel.underPressureModel.leftDisplacement) - dy -
-            massModel.height / 2 );
+              chamberPoolModel.leftDisplacement) - dy - massModel.height / 2 );
         dy += massModel.height;
       } );
     },

@@ -63,7 +63,6 @@ define( function( require ) {
         measureUnits: 'metric', //metric, english or atmosphere
         gravity: 9.8,
         fluidDensity: underPressureModel.WATER_DENSITY,
-        leftDisplacement: 0, //displacement from default height, for chamber-pool
         currentScene: underPressureModel.scenes[0],
         currentVolume: 0, //L, volume of liquid in currentScene
         rulerPosition: new Vector2( 195, 245 ), // px

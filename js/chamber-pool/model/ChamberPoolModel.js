@@ -50,7 +50,10 @@ define( function( require ) {
   function ChamberPoolModel( underPressureModel ) {
 
     var chamberPoolModel = this;
-    PropertySet.call( this, { stackMass: 0 } );
+    PropertySet.call( this, {
+      leftDisplacement: 0, //displacement from default height
+      stackMass: 0
+    } );
 
     this.underPressureModel = underPressureModel;
 
@@ -130,6 +133,15 @@ define( function( require ) {
       function( massModel ) {
         chamberPoolModel.stackMass = chamberPoolModel.stackMass - massModel.mass;
       } );
+
+    this.leftDisplacementProperty.link( function() {
+      // trigger barometers update
+      _.each( underPressureModel.barometers, function( barometer ) {
+        barometer.trigger( 'update' );
+      } );
+
+    } );
+
   }
 
   return inherit( PropertySet, ChamberPoolModel, {
@@ -167,16 +179,16 @@ define( function( require ) {
         this.stack.forEach( function( massModel ) {
           maxY = Math.max( massModel.position.y + massModel.height / 2, maxY );
         } );
-        this.underPressureModel.leftDisplacement = maxY - (this.poolDimensions.leftOpening.y2 - this.LEFT_WATER_HEIGHT);
+        this.leftDisplacement = maxY - (this.poolDimensions.leftOpening.y2 - this.LEFT_WATER_HEIGHT);
       }
       else {
         //no masses, water must get to equilibrium
         //move back toward zero displacement.  Note, this does not use correct newtonian dynamics, just a simple heuristic
-        if ( this.underPressureModel.leftDisplacement >= 0 ) {
-          this.underPressureModel.leftDisplacement -= this.underPressureModel.leftDisplacement / 10;
+        if ( this.leftDisplacement >= 0 ) {
+          this.leftDisplacement -= this.leftDisplacement / 10;
         }
         else {
-          this.underPressureModel.leftDisplacement = 0;
+          this.leftDisplacement = 0;
         }
       }
     },
@@ -189,12 +201,12 @@ define( function( require ) {
      */
     getWaterHeightAboveY: function( x, y ) {
       if ( this.poolDimensions.leftOpening.x1 < x && x < this.poolDimensions.leftOpening.x2 &&
-           y < this.poolDimensions.leftChamber.y2 - this.DEFAULT_HEIGHT + this.underPressureModel.leftDisplacement ) {
+           y < this.poolDimensions.leftChamber.y2 - this.DEFAULT_HEIGHT + this.leftDisplacement ) {
         return 0;
       }
       else {
         return y - (this.poolDimensions.leftChamber.y2 - this.DEFAULT_HEIGHT -
-                    this.underPressureModel.leftDisplacement / this.LENGTH_RATIO);
+                    this.leftDisplacement / this.LENGTH_RATIO);
       }
     },
 

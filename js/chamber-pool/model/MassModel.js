@@ -90,8 +90,8 @@ define( function( require ) {
         var rho = this.chamberPoolModel.underPressureModel.fluidDensity;
         var g = this.chamberPoolModel.underPressureModel.gravity;
         //difference between water levels in left and right opening
-        var h = this.chamberPoolModel.underPressureModel.leftDisplacement +
-                this.chamberPoolModel.underPressureModel.leftDisplacement / this.chamberPoolModel.LENGTH_RATIO;
+        var h = this.chamberPoolModel.leftDisplacement +
+                this.chamberPoolModel.leftDisplacement / this.chamberPoolModel.LENGTH_RATIO;
         var gravityForce = +m * g;
         var pressureForce = -rho * h * g;
         var force = gravityForce + pressureForce;
@@ -109,7 +109,7 @@ define( function( require ) {
     // checks if the mass intersects with the the target drop area.
     isInTargetDroppedArea: function() {
       var waterLine = this.chamberPoolModel.poolDimensions.leftOpening.y2 - this.chamberPoolModel.LEFT_WATER_HEIGHT +
-                      this.chamberPoolModel.underPressureModel.leftDisplacement;
+                      this.chamberPoolModel.leftDisplacement;
       var bottomLine = waterLine - this.chamberPoolModel.stack.reduce( 0, function( a, b ) {return a + b.height;} );
       return new Bounds( this.position.x - this.width / 2, this.position.y - this.height / 2,
           this.position.x + this.width, this.position.y + this.height ).intersectsBounds( new Bounds(
