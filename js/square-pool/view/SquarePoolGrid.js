@@ -31,17 +31,16 @@ define( function( require ) {
 
     Node.call( this );
     var fontOptions = { font: new PhetFont( 12 ), fontWeight: 'bold' };
-
+    var poolDimensions = squarePoolModel.poolDimensions;
     // add grid lines
     this.addChild( new GridLinesNode( squarePoolModel.underPressureModel.measureUnitsProperty, modelViewTransform,
-      squarePoolModel.poolDimensions.x1, squarePoolModel.poolDimensions.y1,
-      squarePoolModel.poolDimensions.x2, squarePoolModel.poolDimensions.y2 + 0.3 ) );
+      poolDimensions.x1, poolDimensions.y1, poolDimensions.x2, poolDimensions.y2 + 0.3 ) );
 
     // meter labels
     var metersLabels = new Node();
     for ( var i = 0; i < 4; i++ ) {
       metersLabels.addChild( new Text( StringUtils.format( metersStringPattern, i ), _.extend( {
-        right: modelViewTransform.modelToViewX( squarePoolModel.poolDimensions.x1 ) - 8,
+        right: modelViewTransform.modelToViewX( poolDimensions.x1 ) - 8,
         centerY: modelViewTransform.modelToViewY( squarePoolModel.underPressureModel.skyGroundBoundY + i )
       }, fontOptions ) ) );
     }
@@ -50,7 +49,7 @@ define( function( require ) {
     var feetLabels = new Node();
     for ( i = 0; i < 11; i++ ) {
       feetLabels.addChild( new Text( StringUtils.format( feetStringPattern, i ), _.extend( {
-        right: modelViewTransform.modelToViewX( squarePoolModel.poolDimensions.x1 ) - 8,
+        right: modelViewTransform.modelToViewX( poolDimensions.x1 ) - 8,
         centerY: modelViewTransform.modelToViewY( squarePoolModel.underPressureModel.skyGroundBoundY +
                                                   Units.feetToMeters( i ) )
       }, fontOptions ) ) );
