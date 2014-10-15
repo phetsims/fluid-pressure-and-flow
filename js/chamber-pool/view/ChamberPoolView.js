@@ -44,14 +44,16 @@ define( function( require ) {
     this.addChild( new MassStackNode( chamberPoolModel, modelViewTransform ) );
 
     // pool dimensions in view values
-    var poolLeftX = chamberPoolModel.poolDimensions.leftChamber.x1;
-    var poolTopY = chamberPoolModel.poolDimensions.leftOpening.y1;
-    var poolRightX = chamberPoolModel.poolDimensions.rightOpening.x2;
-    var poolBottomY = chamberPoolModel.poolDimensions.leftChamber.y2 + 0.3;
-    var poolHeight = chamberPoolModel.poolDimensions.leftChamber.y2 -
+    var poolDimensions = chamberPoolModel.poolDimensions;
+
+    var poolLeftX = poolDimensions.leftChamber.x1;
+    var poolTopY = poolDimensions.leftOpening.y1;
+    var poolRightX = poolDimensions.rightOpening.x2;
+    var poolBottomY = poolDimensions.leftChamber.y2 + 0.3;
+    var poolHeight = poolDimensions.leftChamber.y2 -
                      chamberPoolModel.underPressureModel.skyGroundBoundY;
-    var labelXPosition = modelViewTransform.modelToViewX( ( chamberPoolModel.poolDimensions.leftChamber.x2 +
-                                                            chamberPoolModel.poolDimensions.rightOpening.x1 ) / 2 );
+    var labelXPosition = modelViewTransform.modelToViewX( ( poolDimensions.leftChamber.x2 +
+                                                            poolDimensions.rightOpening.x1 ) / 2 );
 
     // add grid
     this.addChild( new TrapezoidPoolGrid( chamberPoolModel.underPressureModel, modelViewTransform, poolLeftX, poolTopY,

@@ -50,8 +50,14 @@ define( function( require ) {
     this.addChild( mass );
 
     this.addChild( new Text( StringUtils.format( massLabelPattern, massModel.mass ),
-      { x: mass.centerX - 15, y: mass.centerY +
-                                 3, font: new PhetFont( 9 ), fill: 'black', pickable: false, 'fontWeight': 'bold'} ) );
+      {
+        x: mass.centerX - 15,
+        y: mass.centerY + 3,
+        font: new PhetFont( 9 ),
+        fill: 'black',
+        pickable: false,
+        fontWeight: 'bold'
+      } ) );
 
     var massClickOffset = {x: 0, y: 0};
 

@@ -43,7 +43,7 @@ define( function( require ) {
 
     chamberPoolModel.leftDisplacementProperty.link( function( displacement ) {
       massStackNode.bottom = modelViewTransform.modelToViewY( chamberPoolModel.poolDimensions.leftOpening.y2 -
-                                                              chamberPoolModel.LEFT_WATER_HEIGHT + displacement );
+                                                              chamberPoolModel.leftWaterHeight + displacement );
     } );
 
     // If a mass is being dragged by the user, show the dotted line drop region where it can be placed in the chamber pool.
@@ -82,7 +82,7 @@ define( function( require ) {
       chamberPoolModel.stack.forEach( function( massModel ) {
         massModel.position = new Vector2( chamberPoolModel.poolDimensions.leftOpening.x1 + massModel.width / 2,
             ( chamberPoolModel.poolDimensions.leftOpening.y2 -
-              chamberPoolModel.LEFT_WATER_HEIGHT +
+              chamberPoolModel.leftWaterHeight +
               chamberPoolModel.leftDisplacement) - dy - massModel.height / 2 );
         dy += massModel.height;
       } );

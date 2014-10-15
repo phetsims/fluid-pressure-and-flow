@@ -37,65 +37,73 @@ define( function( require ) {
     var grassRectHeight = 10;
     var grassExtension = 1000; // how far should grass extend on either side of safe screen bounds.
 
-    this.addChild( new Rectangle( -grassExtension, grassRectYOffset,
-        grassExtension +
-        modelViewTransform.modelToViewX( chamberPoolModel.poolDimensions.leftOpening.x1 ),
-      grassRectHeight, { fill: grassPattern,
-        y: modelViewTransform.modelToViewY( chamberPoolModel.underPressureModel.skyGroundBoundY ) - grassRectHeight
-      } ) );
+    var poolDimensions = chamberPoolModel.poolDimensions;
 
-    this.addChild( new Rectangle( modelViewTransform.modelToViewX( chamberPoolModel.poolDimensions.leftOpening.x2 ),
+    this.addChild( new Rectangle(
+      -grassExtension,
       grassRectYOffset,
-      modelViewTransform.modelToViewX( chamberPoolModel.poolDimensions.rightOpening.x1 -
-                                       chamberPoolModel.poolDimensions.leftOpening.x2 ),
+        grassExtension + modelViewTransform.modelToViewX( poolDimensions.leftOpening.x1 ),
       grassRectHeight,
-      { fill: grassPattern,
-        y: modelViewTransform.modelToViewY( chamberPoolModel.underPressureModel.skyGroundBoundY ) -
-           grassRectHeight
-      } ) );
+      {
+        fill: grassPattern,
+        y: modelViewTransform.modelToViewY( chamberPoolModel.underPressureModel.skyGroundBoundY ) - grassRectHeight
+      }
+    ) );
 
-    this.addChild( new Rectangle( modelViewTransform.modelToViewX( chamberPoolModel.poolDimensions.rightOpening.x2 ),
+    this.addChild( new Rectangle(
+      modelViewTransform.modelToViewX( poolDimensions.leftOpening.x2 ),
+      grassRectYOffset,
+      modelViewTransform.modelToViewX( poolDimensions.rightOpening.x1 - poolDimensions.leftOpening.x2 ),
+      grassRectHeight,
+      {
+        fill: grassPattern,
+        y: modelViewTransform.modelToViewY( chamberPoolModel.underPressureModel.skyGroundBoundY ) - grassRectHeight
+      }
+    ) );
+
+    this.addChild( new Rectangle( modelViewTransform.modelToViewX( poolDimensions.rightOpening.x2 ),
       grassRectYOffset, grassExtension, grassRectHeight, { fill: grassPattern,
         y: modelViewTransform.modelToViewY( chamberPoolModel.underPressureModel.skyGroundBoundY ) - grassRectHeight
       } ) );
 
     //calculated view coordinates for water
-    var leftOpeningX1 = modelViewTransform.modelToViewX( chamberPoolModel.poolDimensions.leftOpening.x1 );
-    var leftOpeningX2 = modelViewTransform.modelToViewX( chamberPoolModel.poolDimensions.leftOpening.x2 );
-    var leftChamberX1 = modelViewTransform.modelToViewX( chamberPoolModel.poolDimensions.leftChamber.x1 );
-    var leftChamberX2 = modelViewTransform.modelToViewX( chamberPoolModel.poolDimensions.leftChamber.x2 );
-    var rightChamberX1 = modelViewTransform.modelToViewX( chamberPoolModel.poolDimensions.rightChamber.x1 );
-    var rightChamberX2 = modelViewTransform.modelToViewX( chamberPoolModel.poolDimensions.rightChamber.x2 );
-    var rightOpeningX1 = modelViewTransform.modelToViewX( chamberPoolModel.poolDimensions.rightOpening.x1 );
-    var rightOpeningX2 = modelViewTransform.modelToViewX( chamberPoolModel.poolDimensions.rightOpening.x2 );
-    var leftOpeningY1 = modelViewTransform.modelToViewY( chamberPoolModel.poolDimensions.leftOpening.y1 );
-    var leftOpeningY2 = modelViewTransform.modelToViewY( chamberPoolModel.poolDimensions.leftOpening.y2 );
-    var leftChamberY2 = modelViewTransform.modelToViewY( chamberPoolModel.poolDimensions.leftChamber.y2 );
-    var passageY1 = modelViewTransform.modelToViewY( chamberPoolModel.poolDimensions.horizontalPassage.y1 );
-    var passageY2 = modelViewTransform.modelToViewY( chamberPoolModel.poolDimensions.horizontalPassage.y2 );
+    var leftOpeningX1 = modelViewTransform.modelToViewX( poolDimensions.leftOpening.x1 );
+    var leftOpeningX2 = modelViewTransform.modelToViewX( poolDimensions.leftOpening.x2 );
+    var leftChamberX1 = modelViewTransform.modelToViewX( poolDimensions.leftChamber.x1 );
+    var leftChamberX2 = modelViewTransform.modelToViewX( poolDimensions.leftChamber.x2 );
+    var rightChamberX1 = modelViewTransform.modelToViewX( poolDimensions.rightChamber.x1 );
+    var rightChamberX2 = modelViewTransform.modelToViewX( poolDimensions.rightChamber.x2 );
+    var rightOpeningX1 = modelViewTransform.modelToViewX( poolDimensions.rightOpening.x1 );
+    var rightOpeningX2 = modelViewTransform.modelToViewX( poolDimensions.rightOpening.x2 );
+    var leftOpeningY1 = modelViewTransform.modelToViewY( poolDimensions.leftOpening.y1 );
+    var leftOpeningY2 = modelViewTransform.modelToViewY( poolDimensions.leftOpening.y2 );
+    var leftChamberY2 = modelViewTransform.modelToViewY( poolDimensions.leftChamber.y2 );
+    var passageY1 = modelViewTransform.modelToViewY( poolDimensions.horizontalPassage.y1 );
+    var passageY2 = modelViewTransform.modelToViewY( poolDimensions.horizontalPassage.y2 );
 
     //cement border
+    var cementWidth = 2;
     var shape = new Shape()
-      .moveTo( leftOpeningX1 - 2, leftOpeningY1 ) //outer part
-      .lineTo( leftOpeningX1 - 2, leftOpeningY2 - 2 )
-      .lineTo( leftChamberX1 - 2, leftOpeningY2 - 2 )
-      .lineTo( leftChamberX1 - 2, leftChamberY2 + 2 )
-      .lineTo( leftChamberX2 + 2, leftChamberY2 + 2 )
-      .lineTo( leftChamberX2 + 2, passageY2 + 2 )
-      .lineTo( rightChamberX1 - 2, passageY2 + 2 )
-      .lineTo( rightChamberX1 - 2, leftChamberY2 + 2 )
-      .lineTo( rightChamberX2 + 2, leftChamberY2 + 2 )
-      .lineTo( rightChamberX2 + 2, leftOpeningY2 + 2 )
-      .lineTo( rightOpeningX2 + 2, leftOpeningY2 + 2 )
-      .lineTo( rightOpeningX2 + 2, leftOpeningY1 )
-      .moveTo( leftOpeningX2 + 2, leftOpeningY1 ) //inner part
-      .lineTo( leftOpeningX2 + 2, leftOpeningY2 - 2 )
-      .lineTo( leftChamberX2 + 2, leftOpeningY2 - 2 )
-      .lineTo( leftChamberX2 + 2, passageY1 - 2 )
-      .lineTo( rightChamberX1 - 2, passageY1 - 2 )
-      .lineTo( rightChamberX1 - 2, leftOpeningY2 + 2 )
-      .lineTo( rightOpeningX1 - 2, leftOpeningY2 + 2 )
-      .lineTo( rightOpeningX1 - 2, leftOpeningY1 );
+      .moveTo( leftOpeningX1 - cementWidth, leftOpeningY1 ) //outer part
+      .lineTo( leftOpeningX1 - cementWidth, leftOpeningY2 - cementWidth )
+      .lineTo( leftChamberX1 - cementWidth, leftOpeningY2 - cementWidth )
+      .lineTo( leftChamberX1 - cementWidth, leftChamberY2 + cementWidth )
+      .lineTo( leftChamberX2 + cementWidth, leftChamberY2 + cementWidth )
+      .lineTo( leftChamberX2 + cementWidth, passageY2 + cementWidth )
+      .lineTo( rightChamberX1 - cementWidth, passageY2 + cementWidth )
+      .lineTo( rightChamberX1 - cementWidth, leftChamberY2 + cementWidth )
+      .lineTo( rightChamberX2 + cementWidth, leftChamberY2 + cementWidth )
+      .lineTo( rightChamberX2 + cementWidth, leftOpeningY2 + cementWidth )
+      .lineTo( rightOpeningX2 + cementWidth, leftOpeningY2 + cementWidth )
+      .lineTo( rightOpeningX2 + cementWidth, leftOpeningY1 )
+      .moveTo( leftOpeningX2 + cementWidth, leftOpeningY1 ) //inner part
+      .lineTo( leftOpeningX2 + cementWidth, leftOpeningY2 - cementWidth )
+      .lineTo( leftChamberX2 + cementWidth, leftOpeningY2 - cementWidth )
+      .lineTo( leftChamberX2 + cementWidth, passageY1 - cementWidth )
+      .lineTo( rightChamberX1 - cementWidth, passageY1 - cementWidth )
+      .lineTo( rightChamberX1 - cementWidth, leftOpeningY2 + cementWidth )
+      .lineTo( rightOpeningX1 - cementWidth, leftOpeningY2 + cementWidth )
+      .lineTo( rightOpeningX1 - cementWidth, leftOpeningY1 );
 
     this.addChild( new Path( shape, { stroke: new Pattern( cementImg ), lineWidth: 4, lineJoin: 'round' } ) );
 

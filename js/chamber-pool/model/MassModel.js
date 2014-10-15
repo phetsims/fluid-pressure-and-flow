@@ -39,7 +39,7 @@ define( function( require ) {
     // all coordinates in meters
     this.width = width;
     this.height = height;
-   
+
     PropertySet.call( this, {
 
       // The position is the center of the block.
@@ -90,8 +90,8 @@ define( function( require ) {
           this.position.y += this.velocity * dt;
 
           // If it landed, then stop the block.
-          if ( this.position.y > this.chamberPoolModel.MAX_Y - this.height / 2 ) {
-            this.position.y = this.chamberPoolModel.MAX_Y - this.height / 2;
+          if ( this.position.y > this.chamberPoolModel.maxY - this.height / 2 ) {
+            this.position.y = this.chamberPoolModel.maxY - this.height / 2;
             this.isFalling = false;
             this.velocity = 0;
           }
@@ -107,7 +107,7 @@ define( function( require ) {
 
         //difference between water levels in left and right opening
         var h = this.chamberPoolModel.leftDisplacement +
-                this.chamberPoolModel.leftDisplacement / this.chamberPoolModel.LENGTH_RATIO;
+                this.chamberPoolModel.leftDisplacement / this.chamberPoolModel.lengthRatio;
         var gravityForce = m * g;
         var pressureForce = -rho * h * g;
         var force = gravityForce + pressureForce;
@@ -122,7 +122,7 @@ define( function( require ) {
 
     // checks if the mass intersects with the the target drop area.
     isInTargetDroppedArea: function() {
-      var waterLine = this.chamberPoolModel.poolDimensions.leftOpening.y2 - this.chamberPoolModel.LEFT_WATER_HEIGHT +
+      var waterLine = this.chamberPoolModel.poolDimensions.leftOpening.y2 - this.chamberPoolModel.leftWaterHeight +
                       this.chamberPoolModel.leftDisplacement;
       var bottomLine = waterLine - this.chamberPoolModel.stack.reduce( 0, function( a, b ) {return a + b.height;} );
       return new Bounds( this.position.x - this.width / 2, this.position.y - this.height / 2,
@@ -133,7 +133,7 @@ define( function( require ) {
 
     // If the user drops the mass underground or above a pool opening, it will teleport back to its initial location.
     cannotFall: function() {
-      return this.position.y > this.chamberPoolModel.MAX_Y + this.height / 2 || this.isMassOverOpening();
+      return this.position.y > this.chamberPoolModel.maxY + this.height / 2 || this.isMassOverOpening();
     },
 
     // checks if the mass is over the left or the right opening
