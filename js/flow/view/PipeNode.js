@@ -136,6 +136,8 @@ define( function( require ) {
       // @private
       updatePipeFlowLineShape: function() {
 
+        var i;
+
         // getting cross sections
         var splineCrossSections = this.flowModel.pipe.getSplineCrossSections();
 
@@ -145,11 +147,11 @@ define( function( require ) {
         var yPointsTop = new Array( splineCrossSections.length );
 
         //  points for lineTo
-        for ( var l = 0; l < splineCrossSections.length; l++ ) {
-          xPointsBottom[l] = splineCrossSections[l].x;
-          yPointsBottom[l] = splineCrossSections[l].yBottom;
-          xPointsTop[l] = splineCrossSections[l].x;
-          yPointsTop[l] = splineCrossSections[l].yTop;
+        for ( i = 0; i < splineCrossSections.length; i++ ) {
+          xPointsBottom[i] = splineCrossSections[i].x;
+          yPointsBottom[i] = splineCrossSections[i].yBottom;
+          xPointsTop[i] = splineCrossSections[i].x;
+          yPointsTop[i] = splineCrossSections[i].yTop;
         }
 
         var flowLineShape = new Shape().moveTo( this.modelViewTransform.modelToViewX( xPointsBottom[ 0 ] ),
@@ -157,7 +159,7 @@ define( function( require ) {
 
         var minXOfPipeFlowLineShape = -6.7; // model value
         var maxXOfPipeFlowLineShape = 6.8;
-        var i;
+
         for ( i = 1; i < xPointsBottom.length; i = i + 1 ) {
           // Spline points beyond the last pipe cross section are not needed.
           if ( xPointsBottom[ i ] < maxXOfPipeFlowLineShape && xPointsBottom[ i ] > minXOfPipeFlowLineShape ) {
