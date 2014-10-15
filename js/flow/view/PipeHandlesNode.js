@@ -29,11 +29,11 @@ define( function( require ) {
   var PIPE_INITIAL_HEIGHT = 2.1; //in meters
   var PIPE_SCALE = 0.6;
   var CROSS_SECTION_MIN_HEIGHT = 1; //meters
+  var HANDLE_X_TOUCH_EXPAND = 30;
 
   /*
    * Constructor for PipeHandlesNode
    * @param {FlowModel} flowModel of the simulation
-   * @param {PipeNode} pipeNode
    * @param {GridInjectorNode} gridInjectorNode that sits on the pipe
    * @param {ModelViewTransform2} modelViewTransform to convert between model and view co-ordinate frames
    * @param {Bounds2} layoutBounds of the simulation
@@ -68,10 +68,13 @@ define( function( require ) {
         cursor: 'pointer',
         scale: 0.32 } );
 
+
+    var boundsToTouchAreaForLeftAndRightHandles = function( localBounds ) {
+      return new Bounds2( localBounds.minX - HANDLE_X_TOUCH_EXPAND, localBounds.minY + 25, localBounds.maxX + HANDLE_X_TOUCH_EXPAND, localBounds.maxY + 60 );
+    };
+
     // touch area for the left pipe drag handle
-    this.leftPipeMainHandleNode.touchArea = new Bounds2( this.leftPipeMainHandleNode.localBounds.minX - 20,
-        this.leftPipeMainHandleNode.localBounds.minY + 25, this.leftPipeMainHandleNode.localBounds.maxX + 20,
-        this.leftPipeMainHandleNode.localBounds.maxY + 60 );
+    this.leftPipeMainHandleNode.touchArea = boundsToTouchAreaForLeftAndRightHandles( this.leftPipeMainHandleNode.localBounds );
     this.addChild( this.leftPipeMainHandleNode );
 
 
@@ -82,9 +85,7 @@ define( function( require ) {
         cursor: 'pointer',
         scale: 0.32   } );
     // touch area for the right pipe drag handle
-    this.rightPipeMainHandleNode.touchArea = new Bounds2( this.rightPipeMainHandleNode.localBounds.minX - 20,
-        this.rightPipeMainHandleNode.localBounds.minY + 25, this.rightPipeMainHandleNode.localBounds.maxX + 20,
-        this.rightPipeMainHandleNode.localBounds.maxY + 60 );
+    this.rightPipeMainHandleNode.touchArea = boundsToTouchAreaForLeftAndRightHandles( this.rightPipeMainHandleNode.localBounds );
     this.addChild( this.rightPipeMainHandleNode );
 
     // add control handles for dragging and scaling using the 4 control points on the left/right pipe
@@ -105,12 +106,12 @@ define( function( require ) {
 
         // expand the touch area upwards for the top handles and downwards for bottom handles
         if ( i < rightBottomControlPointIndex ) {
-          handleNode.touchArea = new Bounds2( handleNode.localBounds.minX - 30, handleNode.localBounds.minY,
-              handleNode.localBounds.maxX + 30, handleNode.localBounds.maxY + 40 );
+          handleNode.touchArea = new Bounds2( handleNode.localBounds.minX - HANDLE_X_TOUCH_EXPAND, handleNode.localBounds.minY,
+              handleNode.localBounds.maxX + HANDLE_X_TOUCH_EXPAND, handleNode.localBounds.maxY + 40 );
         }
         else {
-          handleNode.touchArea = new Bounds2( handleNode.localBounds.minX - 30, handleNode.localBounds.minY + 30,
-              handleNode.localBounds.maxX + 30, handleNode.localBounds.maxY + 60 );
+          handleNode.touchArea = new Bounds2( handleNode.localBounds.minX - HANDLE_X_TOUCH_EXPAND, handleNode.localBounds.minY + 30,
+              handleNode.localBounds.maxX + HANDLE_X_TOUCH_EXPAND, handleNode.localBounds.maxY + 60 );
         }
         handleNode.setRotation( imageRotation );
 
