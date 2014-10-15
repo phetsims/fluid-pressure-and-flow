@@ -115,6 +115,8 @@ define( function( require ) {
         }
         handleNode.setRotation( imageRotation );
 
+        // handleNode is in charge of performing the rotation for the top control handles, whereas
+        // the parent node controlHandleNode is in change of doing the translations
         var controlHandleNode = new Node( {children: [handleNode]} );
         pipeHandlesNode.controlHandleNodes[ i ] = controlHandleNode;
         controlPoint.positionProperty.link( function( position ) {
