@@ -172,9 +172,8 @@ define( function( require ) {
                 pt.y = oppositeControlPoint.position.y - CROSS_SECTION_MIN_HEIGHT;
               }
 
-              var yDiff = Math.abs( ( oppositeControlPoint.position.y ) - pt.y );
-
               // ensure that the cross section is at least 1 meter
+              var yDiff = Math.abs( ( oppositeControlPoint.position.y ) - pt.y );
               if ( yDiff >= CROSS_SECTION_MIN_HEIGHT ) {
                 controlPoint.position = pt;
                 // When a control point is dragged, mark the pipe as dirty and update the pipe flow line shape
