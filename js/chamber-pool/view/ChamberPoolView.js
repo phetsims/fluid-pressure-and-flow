@@ -50,15 +50,13 @@ define( function( require ) {
     var poolTopY = poolDimensions.leftOpening.y1;
     var poolRightX = poolDimensions.rightOpening.x2;
     var poolBottomY = poolDimensions.leftChamber.y2 + 0.3;
-    var poolHeight = poolDimensions.leftChamber.y2 -
-                     chamberPoolModel.underPressureModel.skyGroundBoundY;
+    var poolHeight = poolDimensions.leftChamber.y2 - chamberPoolModel.underPressureModel.skyGroundBoundY;
     var labelXPosition = modelViewTransform.modelToViewX( ( poolDimensions.leftChamber.x2 +
                                                             poolDimensions.rightOpening.x1 ) / 2 );
 
     // add grid
     this.addChild( new TrapezoidPoolGrid( chamberPoolModel.underPressureModel, modelViewTransform, poolLeftX, poolTopY,
-      poolRightX, poolBottomY,
-      poolHeight, labelXPosition, 0 ) );
+      poolRightX, poolBottomY, poolHeight, labelXPosition, 0 ) );
   }
 
   return inherit( Node, ChamberPoolView );
