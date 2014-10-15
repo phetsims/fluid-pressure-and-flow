@@ -30,37 +30,47 @@ define( function( require ) {
   function SquarePoolBack( squarePoolModel, modelViewTransform ) {
 
     Node.call( this );
-
     //grass
     var grassPattern = new Pattern( grassImg ).setTransformMatrix( Matrix3.scale( 0.25 ) );
     var grassRectYOffset = 1;
     var grassRectHeight = 10;
     var grassExtension = 1000;
+    var poolDimensions = squarePoolModel.poolDimensions;
 
     // grass on the left of the pool
-    this.addChild( new Rectangle( -grassExtension, grassRectYOffset,
+    this.addChild( new Rectangle(
+      -grassExtension,
+      grassRectYOffset,
         grassExtension + modelViewTransform.modelToViewX( squarePoolModel.poolDimensions.x1 ),
-      grassRectHeight, {
-        fill: grassPattern, y: modelViewTransform.modelToViewY( squarePoolModel.underPressureModel.skyGroundBoundY ) -
-                               grassRectHeight
-      } ) );
+      grassRectHeight,
+      {
+        fill: grassPattern,
+        y: modelViewTransform.modelToViewY( squarePoolModel.underPressureModel.skyGroundBoundY ) - grassRectHeight
+      }
+    ) );
+
     // grass on the right of the pool
-    this.addChild( new Rectangle( modelViewTransform.modelToViewX( squarePoolModel.poolDimensions.x2 ),
-      grassRectYOffset, grassExtension, grassRectHeight, {
-        fill: grassPattern, y: modelViewTransform.modelToViewY( squarePoolModel.underPressureModel.skyGroundBoundY ) -
-                               grassRectHeight
+    this.addChild( new Rectangle(
+      modelViewTransform.modelToViewX( poolDimensions.x2 ),
+      grassRectYOffset,
+      grassExtension,
+      grassRectHeight,
+      {
+        fill: grassPattern,
+        y: modelViewTransform.modelToViewY( squarePoolModel.underPressureModel.skyGroundBoundY ) - grassRectHeight
       } ) );
 
     //cement border
+    var cementWidth = 2;
     var cementBorder = new Shape()
-      .moveTo( modelViewTransform.modelToViewX( squarePoolModel.poolDimensions.x1 ) - 2,
-      modelViewTransform.modelToViewY( squarePoolModel.poolDimensions.y1 ) )
-      .lineTo( modelViewTransform.modelToViewX( squarePoolModel.poolDimensions.x1 ) - 2,
-        modelViewTransform.modelToViewY( squarePoolModel.poolDimensions.y2 ) + 2 )
-      .lineTo( modelViewTransform.modelToViewX( squarePoolModel.poolDimensions.x2 ) + 2,
-        modelViewTransform.modelToViewY( squarePoolModel.poolDimensions.y2 ) + 2 )
-      .lineTo( modelViewTransform.modelToViewX( squarePoolModel.poolDimensions.x2 ) + 2,
-      modelViewTransform.modelToViewY( squarePoolModel.poolDimensions.y1 ) );
+      .moveTo( modelViewTransform.modelToViewX( poolDimensions.x1 ) - cementWidth,
+      modelViewTransform.modelToViewY( poolDimensions.y1 ) )
+      .lineTo( modelViewTransform.modelToViewX( poolDimensions.x1 ) - cementWidth,
+        modelViewTransform.modelToViewY( poolDimensions.y2 ) + cementWidth )
+      .lineTo( modelViewTransform.modelToViewX( poolDimensions.x2 ) + cementWidth,
+        modelViewTransform.modelToViewY( poolDimensions.y2 ) + cementWidth )
+      .lineTo( modelViewTransform.modelToViewX( poolDimensions.x2 ) + cementWidth,
+      modelViewTransform.modelToViewY( poolDimensions.y1 ) );
 
     this.addChild( new Path( cementBorder, {  stroke: new Pattern( cementImg ), lineWidth: 4, lineJoin: 'round' } ) );
 
@@ -68,13 +78,15 @@ define( function( require ) {
     this.addChild( new UnderPressureFaucetNode( squarePoolModel.outputFaucet, 150, modelViewTransform ) );
 
     //white background for pool
-    this.addChild( new Rectangle( modelViewTransform.modelToViewX( squarePoolModel.poolDimensions.x1 ),
-        modelViewTransform.modelToViewY( squarePoolModel.poolDimensions.y1 ) - 1,
-      modelViewTransform.modelToViewX( squarePoolModel.poolDimensions.x2 -
-                                       squarePoolModel.poolDimensions.x1 ),
-        modelViewTransform.modelToViewY( squarePoolModel.poolDimensions.y2 -
-                                         squarePoolModel.poolDimensions.y1 ) + 1,
-      { fill: '#f3f0e9' } ) );
+    this.addChild( new Rectangle(
+      modelViewTransform.modelToViewX( poolDimensions.x1 ),
+        modelViewTransform.modelToViewY( poolDimensions.y1 ) - 1,
+      modelViewTransform.modelToViewX( poolDimensions.x2 - poolDimensions.x1 ),
+        modelViewTransform.modelToViewY( poolDimensions.y2 - poolDimensions.y1 ) + 1,
+      {
+        fill: '#f3f0e9'
+      }
+    ) );
 
     // add input faucet node
     this.addChild( new UnderPressureFaucetNode( squarePoolModel.inputFaucet, 3000, modelViewTransform ) );
