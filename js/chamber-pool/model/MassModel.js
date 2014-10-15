@@ -42,8 +42,8 @@ define( function( require ) {
       velocity: 0
     } );
 
-    massModel.isDraggingProperty.link( function( isDragging, oldValue ) {
-        if ( !isDragging && oldValue ) { //dragging just have stopped
+    massModel.isDraggingProperty.link( function( isDragging ) {
+        if ( !isDragging ) { //dragging just stopped
           if ( massModel.isInTargetDroppedArea() ) {
             chamberPoolModel.stack.push( massModel );
           }
