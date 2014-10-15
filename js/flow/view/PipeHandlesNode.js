@@ -94,7 +94,7 @@ define( function( require ) {
         var controlPoint = pipe.controlPoints[ i ];
         var leftSpace = 0; // to vertically align the handles
         var imageRotation = 0;
-        if ( pipe.controlPoints[ i ].position.y < -2 ) {
+        if ( controlPoint.position.y < -2 ) {
           leftSpace = -13;
         }
         else {
@@ -145,7 +145,7 @@ define( function( require ) {
           {
             start: function( event ) {
               dragStartY = controlHandleNode.globalToParentPoint( event.pointer.point ).y;
-              controlPointDragStartY = pipe.controlPoints[ i ].position.y;
+              controlPointDragStartY = controlPoint.position.y;
             },
 
             drag: function( event ) {
@@ -154,7 +154,7 @@ define( function( require ) {
                             dragStartY;
 
               // x position is constant for a control point
-              var pt = new Vector2( pipe.controlPoints[ i ].position.x,
+              var pt = new Vector2( controlPoint.position.x,
                   controlPointDragStartY + modelViewTransform.viewToModelDeltaY( offSetY ) );
 
               // limit the y to (-4,0)
