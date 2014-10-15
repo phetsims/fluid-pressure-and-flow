@@ -164,16 +164,15 @@ define( function( require ) {
 
               // Prevent the two ends of the cross sections from crossing each other. Set the cross section to
               // minimum when the user tries to move the handle beyond the opposite control point.
-              if ( ( i < rightBottomControlPointIndex &&
-                     pt.y < pipe.controlPoints[ numControlPoints - ( i + 1 ) ].position.y ) ) {
-                pt.y = pipe.controlPoints[ numControlPoints - ( i + 1 ) ].position.y + CROSS_SECTION_MIN_HEIGHT;
+              var oppositeControlPoint = pipe.controlPoints[ numControlPoints - ( i + 1 ) ];
+              if ( ( i < rightBottomControlPointIndex && pt.y < oppositeControlPoint.position.y ) ) {
+                pt.y = oppositeControlPoint.position.y + CROSS_SECTION_MIN_HEIGHT;
               }
-              else if ( ( i >= rightBottomControlPointIndex &&
-                          pt.y > pipe.controlPoints[ numControlPoints - ( i + 1 ) ].position.y ) ) {
-                pt.y = pipe.controlPoints[ numControlPoints - ( i + 1 ) ].position.y - CROSS_SECTION_MIN_HEIGHT;
+              else if ( ( i >= rightBottomControlPointIndex && pt.y > oppositeControlPoint.position.y ) ) {
+                pt.y = oppositeControlPoint.position.y - CROSS_SECTION_MIN_HEIGHT;
               }
 
-              var yDiff = Math.abs( ( pipe.controlPoints[ numControlPoints - ( i + 1 ) ].position.y ) - pt.y );
+              var yDiff = Math.abs( ( oppositeControlPoint.position.y ) - pt.y );
 
               // ensure that the cross section is at least 1 meter
               if ( yDiff >= CROSS_SECTION_MIN_HEIGHT ) {
