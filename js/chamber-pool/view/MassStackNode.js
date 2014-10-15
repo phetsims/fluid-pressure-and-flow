@@ -46,6 +46,7 @@ define( function( require ) {
                                                               chamberPoolModel.LEFT_WATER_HEIGHT + displacement );
     } );
 
+    // If a mass is being dragged by the user, show the dotted line drop region where it can be placed in the chamber pool.
     chamberPoolModel.masses.forEach( function( massModel ) {
       massModel.isDraggingProperty.link( function( isDragging ) {
         if ( isDragging ) {

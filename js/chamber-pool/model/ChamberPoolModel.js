@@ -44,7 +44,7 @@ define( function( require ) {
   var SEPARATION = 0.03; //separation between masses
 
   /**
-   * @param {UnderPressureModel} underPressureModel of the sim.
+   * @param {UnderPressureModel} underPressureModel -- model for the sim.
    * @constructor
    */
   function ChamberPoolModel( underPressureModel ) {
@@ -106,9 +106,10 @@ define( function( require ) {
       }
     };
 
-    //stack of masses
+    //List of masses that are currently stacked
     this.stack = new ObservableArray();
 
+    //List of all available masses
     this.masses = [
       new MassModel( chamberPoolModel, 500, MASS_OFFSET, chamberPoolModel.MAX_Y - PASSAGE_SIZE / 2, PASSAGE_SIZE,
         PASSAGE_SIZE ),
@@ -118,21 +119,24 @@ define( function( require ) {
           chamberPoolModel.MAX_Y - PASSAGE_SIZE / 4, PASSAGE_SIZE, PASSAGE_SIZE / 2 )
     ];
 
-    this.stack.addListeners(
-      function( massModel ) {
-        chamberPoolModel.stackMass = chamberPoolModel.stackMass + massModel.mass;
-        var maxVelocity = 0;
-        //must equalize velocity of each mass
-        chamberPoolModel.stack.forEach( function( mass ) {
-          maxVelocity = Math.max( mass.velocity, maxVelocity );
-        } );
-        chamberPoolModel.stack.forEach( function( mass ) {
-          mass.velocity = maxVelocity;
-        } );
-      },
-      function( massModel ) {
-        chamberPoolModel.stackMass = chamberPoolModel.stackMass - massModel.mass;
+    //When an item is added to the stack, update the total mass and equalize the mass velocities
+    this.stack.addItemAddedListener( function( massModel ) {
+      chamberPoolModel.stackMass = chamberPoolModel.stackMass + massModel.mass;
+
+      var maxVelocity = 0;
+      //must equalize velocity of each mass
+      chamberPoolModel.stack.forEach( function( mass ) {
+        maxVelocity = Math.max( mass.velocity, maxVelocity );
       } );
+      chamberPoolModel.stack.forEach( function( mass ) {
+        mass.velocity = maxVelocity;
+      } );
+    } );
+
+    //When an item is removed from the stack, update the total mass.
+    this.stack.addItemRemovedListener( function( massModel ) {
+      chamberPoolModel.stackMass = chamberPoolModel.stackMass - massModel.mass;
+    } );
 
     this.leftDisplacementProperty.link( function() {
       // trigger barometers update
@@ -155,11 +159,15 @@ define( function( require ) {
     },
 
     /**
-     * Steps the chamber pool elements forward in time by dt seconds
+     * Steps the chamber pool dimensions forward in time by dt seconds
      * @param {number} dt -- time in seconds
      */
     step: function( dt ) {
-      if ( !lastDt ) { lastDt = dt; } // init lastDt value
+
+      // init lastDt value
+      if ( !lastDt ) {
+        lastDt = dt;
+      }
 
       if ( Math.abs( lastDt - dt ) > lastDt * 0.3 ) {
         dt = lastDt;
@@ -168,12 +176,15 @@ define( function( require ) {
         lastDt = dt;
       }
 
+      // Update each of the masses
       var steps = 10;
       this.masses.forEach( function( mass ) {
         for ( var i = 0; i < steps; i++ ) {
           mass.step( dt / steps );
         }
       } );
+
+      // If there are any masses stacked, update the water height
       if ( this.stackMass ) {
         var maxY = 0;
         this.stack.forEach( function( massModel ) {
@@ -217,16 +228,14 @@ define( function( require ) {
      * @returns {boolean}
      */
     isPointInsidePool: function( x, y ) {
-      var isInside = false;
-      ['leftChamber', 'rightChamber', 'horizontalPassage', 'leftOpening', 'rightOpening'].forEach( function( name ) {
-        if ( x > this.poolDimensions[name].x1 && x < this.poolDimensions[name].x2 && y > this.poolDimensions[name].y1 &&
-             y < this.poolDimensions[name].y2 ) {
-          //inside bottom chamber
-          isInside = true;
+      var keys = _.keys( this.poolDimensions );
+      for ( var i = 0; i < keys.length; i++ ) {
+        var dimension = this.poolDimensions[keys[i]];
+        if ( x > dimension.x1 && x < dimension.x2 && y > dimension.y1 && y < dimension.y2 ) {
+          return true;
         }
-      }.bind( this ) );
-
-      return isInside;
+      }
+      return false;
     }
   } );
 } );
