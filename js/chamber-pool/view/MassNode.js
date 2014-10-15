@@ -72,10 +72,7 @@ define( function( require ) {
         massModel.isDragging = true;
       },
       end: function() {
-        var newPosition = massNode.translation;
-        newPosition.x = modelViewTransform.viewToModelX( newPosition.x );
-        newPosition.y = modelViewTransform.viewToModelY( newPosition.y );
-        massModel.position = newPosition;
+        massModel.position = modelViewTransform.viewToModelPosition( massNode.translation );
         massModel.isDragging = false;
       },
       //Translate on drag events
