@@ -19,17 +19,16 @@ define( function( require ) {
    */
   function PoolWithFaucetsModel( underPressureModel ) {
 
-    var poolWithFaucetModel = this;
     PropertySet.call( this, {
       volume: 1.5
     } );
 
     // Enable faucets and dropper based on amount of solution in the beaker.
     this.volumeProperty.link( function( volume ) {
-      poolWithFaucetModel.inputFaucet.enabled = ( volume < poolWithFaucetModel.MAX_VOLUME );
-      poolWithFaucetModel.outputFaucet.enabled = ( volume > 0 );
+      this.inputFaucet.enabled = ( volume < this.maxVolume );
+      this.outputFaucet.enabled = ( volume > 0 );
       underPressureModel.currentVolume = volume;
-    } );
+    }.bind( this ) );
   }
 
   return inherit( PropertySet, PoolWithFaucetsModel, {
@@ -50,7 +49,7 @@ define( function( require ) {
     addLiquid: function( dt ) {
       var deltaVolume = this.inputFaucet.flowRate * dt;
       if ( deltaVolume > 0 ) {
-        this.volume = Math.min( this.MAX_VOLUME, this.volume + deltaVolume );
+        this.volume = Math.min( this.maxVolume, this.volume + deltaVolume );
       }
     },
 

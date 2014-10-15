@@ -48,7 +48,7 @@ define( function( require ) {
 
     model.volumeProperty.link( function( volume ) {
       thisNode.currentHeight =
-      maxHeight - modelViewTransform.modelToViewY( volume * model.MAX_HEIGHT / model.MAX_VOLUME );
+      maxHeight - modelViewTransform.modelToViewY( volume * model.maxHeight / model.maxVolume );
       if ( faucet.flowRate !== 0 ) {
         redrawRect();
       }

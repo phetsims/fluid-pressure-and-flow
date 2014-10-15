@@ -15,6 +15,11 @@ define( function( require ) {
   var FaucetModel = require( 'UNDER_PRESSURE/common/model/FaucetModel' );
   var LinearFunction = require( 'DOT/LinearFunction' );
 
+// constants
+  var WIDTH_AT_TOP = 0.7; //meters,
+  var WIDTH_AT_BOTTOM = 3.15; //meters,
+  var LEFT_CHAMBER_TOP_CENTER = 3.2; //meters,
+  var SEPARATION = 3.22;//Between centers
 
   /**
    * @param {UnderPressureModel} underPressureModel of the simulation
@@ -22,15 +27,9 @@ define( function( require ) {
    */
   function TrapezoidPoolModel( underPressureModel ) {
 
-    var trapezoidPoolModel = this;
-
     //constants
-    this.MAX_HEIGHT = 3; // meters
-    this.MAX_VOLUME = trapezoidPoolModel.MAX_HEIGHT; // Liters
-    var WIDTHATTOP = 0.7; //meters,
-    var WIDTHATBOTTOM = 3.15; //meters,
-    var LEFTCHAMBERTOPCENTER = 3.2; //meters,
-    var SEPARATION = 3.22;//Between centers
+    this.maxHeight = 3; // meters
+    this.maxVolume = this.maxHeight; // Liters
 
     this.inputFaucet = new FaucetModel( new Vector2( 3.19, underPressureModel.skyGroundBoundY - 0.44 ), 1, 0.42 );
     this.outputFaucet = new FaucetModel( new Vector2( 7.5, underPressureModel.skyGroundBoundY + 3.45 ), 1, 0.3 );
@@ -39,65 +38,54 @@ define( function( require ) {
 
     this.poolDimensions = {
       leftChamber: {
-        centerTop: LEFTCHAMBERTOPCENTER,
-        widthTop: WIDTHATTOP,
-        widthBottom: WIDTHATBOTTOM,
-        y: trapezoidPoolModel.underPressureModel.skyGroundBoundY,
-        height: trapezoidPoolModel.MAX_HEIGHT,
-        leftBorderFunction: new LinearFunction( 0, trapezoidPoolModel.MAX_HEIGHT,
-            LEFTCHAMBERTOPCENTER - WIDTHATBOTTOM / 2,
-            LEFTCHAMBERTOPCENTER - WIDTHATTOP / 2 ),
-        rightBorderFunction: new LinearFunction( 0, trapezoidPoolModel.MAX_HEIGHT,
-            LEFTCHAMBERTOPCENTER + WIDTHATBOTTOM / 2,
-            LEFTCHAMBERTOPCENTER + WIDTHATTOP / 2 )
+        centerTop: LEFT_CHAMBER_TOP_CENTER,
+        widthTop: WIDTH_AT_TOP,
+        widthBottom: WIDTH_AT_BOTTOM,
+        y: this.underPressureModel.skyGroundBoundY,
+        height: this.maxHeight,
+        leftBorderFunction: new LinearFunction( 0, this.maxHeight, LEFT_CHAMBER_TOP_CENTER - WIDTH_AT_BOTTOM / 2,
+            LEFT_CHAMBER_TOP_CENTER - WIDTH_AT_TOP / 2 ),
+        rightBorderFunction: new LinearFunction( 0, this.maxHeight, LEFT_CHAMBER_TOP_CENTER + WIDTH_AT_BOTTOM / 2,
+            LEFT_CHAMBER_TOP_CENTER + WIDTH_AT_TOP / 2 )
       },
       rightChamber: {
-        centerTop: LEFTCHAMBERTOPCENTER + SEPARATION,
-        widthTop: WIDTHATBOTTOM,
-        widthBottom: WIDTHATTOP,
-        y: trapezoidPoolModel.underPressureModel.skyGroundBoundY,
-        height: trapezoidPoolModel.MAX_HEIGHT,
-        leftBorderFunction: new LinearFunction( 0, trapezoidPoolModel.MAX_HEIGHT,
-            LEFTCHAMBERTOPCENTER + SEPARATION - WIDTHATTOP / 2,
-            LEFTCHAMBERTOPCENTER + SEPARATION - WIDTHATBOTTOM / 2 ),
-        rightBorderFunction: new LinearFunction( 0, trapezoidPoolModel.MAX_HEIGHT,
-            LEFTCHAMBERTOPCENTER + SEPARATION + WIDTHATTOP / 2,
-            LEFTCHAMBERTOPCENTER + SEPARATION + WIDTHATBOTTOM / 2 )
+        centerTop: LEFT_CHAMBER_TOP_CENTER + SEPARATION,
+        widthTop: WIDTH_AT_BOTTOM,
+        widthBottom: WIDTH_AT_TOP,
+        y: this.underPressureModel.skyGroundBoundY,
+        height: this.maxHeight,
+        leftBorderFunction: new LinearFunction( 0, this.maxHeight,
+            LEFT_CHAMBER_TOP_CENTER + SEPARATION - WIDTH_AT_TOP / 2,
+            LEFT_CHAMBER_TOP_CENTER + SEPARATION - WIDTH_AT_BOTTOM / 2 ),
+        rightBorderFunction: new LinearFunction( 0, this.maxHeight,
+            LEFT_CHAMBER_TOP_CENTER + SEPARATION + WIDTH_AT_TOP / 2,
+            LEFT_CHAMBER_TOP_CENTER + SEPARATION + WIDTH_AT_BOTTOM / 2 )
       },
       bottomChamber: {
-        x1: LEFTCHAMBERTOPCENTER + WIDTHATBOTTOM / 2,
-        y1: trapezoidPoolModel.underPressureModel.skyGroundBoundY + trapezoidPoolModel.MAX_HEIGHT - 0.21,
-        x2: LEFTCHAMBERTOPCENTER + SEPARATION - WIDTHATTOP / 2,
-        y2: trapezoidPoolModel.underPressureModel.skyGroundBoundY + trapezoidPoolModel.MAX_HEIGHT
+        x1: LEFT_CHAMBER_TOP_CENTER + WIDTH_AT_BOTTOM / 2,
+        y1: this.underPressureModel.skyGroundBoundY + this.maxHeight - 0.21,
+        x2: LEFT_CHAMBER_TOP_CENTER + SEPARATION - WIDTH_AT_TOP / 2,
+        y2: this.underPressureModel.skyGroundBoundY + this.maxHeight
       }
     };
-
     //key coordinates of complex figure
     this.verticles = {
-      x1top: trapezoidPoolModel.poolDimensions.leftChamber.centerTop -
-             trapezoidPoolModel.poolDimensions.leftChamber.widthTop / 2,
-      x2top: trapezoidPoolModel.poolDimensions.leftChamber.centerTop +
-             trapezoidPoolModel.poolDimensions.leftChamber.widthTop / 2,
-      x3top: trapezoidPoolModel.poolDimensions.rightChamber.centerTop -
-             trapezoidPoolModel.poolDimensions.rightChamber.widthTop / 2,
-      x4top: trapezoidPoolModel.poolDimensions.rightChamber.centerTop +
-             trapezoidPoolModel.poolDimensions.rightChamber.widthTop / 2,
+      x1top: this.poolDimensions.leftChamber.centerTop - this.poolDimensions.leftChamber.widthTop / 2,
+      x2top: this.poolDimensions.leftChamber.centerTop + this.poolDimensions.leftChamber.widthTop / 2,
+      x3top: this.poolDimensions.rightChamber.centerTop - this.poolDimensions.rightChamber.widthTop / 2,
+      x4top: this.poolDimensions.rightChamber.centerTop + this.poolDimensions.rightChamber.widthTop / 2,
 
-      x1middle: trapezoidPoolModel.poolDimensions.leftChamber.rightBorderFunction( trapezoidPoolModel.poolDimensions.bottomChamber.y2 -
-                                                                                   trapezoidPoolModel.poolDimensions.bottomChamber.y1 ),
-      x2middle: trapezoidPoolModel.poolDimensions.rightChamber.leftBorderFunction( trapezoidPoolModel.poolDimensions.bottomChamber.y2 -
-                                                                                   trapezoidPoolModel.poolDimensions.bottomChamber.y1 ),
+      x1middle: this.poolDimensions.leftChamber.rightBorderFunction( this.poolDimensions.bottomChamber.y2 -
+                                                                     this.poolDimensions.bottomChamber.y1 ),
+      x2middle: this.poolDimensions.rightChamber.leftBorderFunction( this.poolDimensions.bottomChamber.y2 -
+                                                                     this.poolDimensions.bottomChamber.y1 ),
 
-      x1bottom: trapezoidPoolModel.poolDimensions.leftChamber.centerTop -
-                trapezoidPoolModel.poolDimensions.leftChamber.widthBottom / 2,
-      x2bottom: trapezoidPoolModel.poolDimensions.leftChamber.centerTop +
-                trapezoidPoolModel.poolDimensions.leftChamber.widthBottom / 2,
-      x3bottom: trapezoidPoolModel.poolDimensions.rightChamber.centerTop -
-                trapezoidPoolModel.poolDimensions.rightChamber.widthBottom / 2,
-      x4bottom: trapezoidPoolModel.poolDimensions.rightChamber.centerTop +
-                trapezoidPoolModel.poolDimensions.rightChamber.widthBottom / 2,
+      x1bottom: this.poolDimensions.leftChamber.centerTop - this.poolDimensions.leftChamber.widthBottom / 2,
+      x2bottom: this.poolDimensions.leftChamber.centerTop + this.poolDimensions.leftChamber.widthBottom / 2,
+      x3bottom: this.poolDimensions.rightChamber.centerTop - this.poolDimensions.rightChamber.widthBottom / 2,
+      x4bottom: this.poolDimensions.rightChamber.centerTop + this.poolDimensions.rightChamber.widthBottom / 2,
 
-      ymiddle: trapezoidPoolModel.poolDimensions.bottomChamber.y1
+      ymiddle: this.poolDimensions.bottomChamber.y1
     };
 
     PoolWithFaucetsModel.call( this, underPressureModel );
@@ -112,7 +100,7 @@ define( function( require ) {
      * @returns {number} height of the water above the y
      */
     getWaterHeightAboveY: function( x, y ) {
-      return y - (this.poolDimensions.bottomChamber.y2 - this.MAX_HEIGHT * this.volume / this.MAX_VOLUME);
+      return y - (this.poolDimensions.bottomChamber.y2 - this.maxHeight * this.volume / this.maxVolume);
     },
 
     /**
@@ -129,20 +117,14 @@ define( function( require ) {
         isInside = true;
       }
       else {
-        var y_above_pool = this.poolDimensions.bottomChamber.y2 - y;
-        if ( y_above_pool > 0 ) {
-          var x1 = this.poolDimensions.leftChamber.leftBorderFunction( y_above_pool ),
-            x2 = this.poolDimensions.leftChamber.rightBorderFunction( y_above_pool ),
-            x3 = this.poolDimensions.rightChamber.leftBorderFunction( y_above_pool ),
-            x4 = this.poolDimensions.rightChamber.rightBorderFunction( y_above_pool );
-          if ( x1 < x && x < x2 ) {
-            //inside left chamber
-            isInside = true;
-          }
-          else if ( x3 < x && x < x4 ) {
-            //inside right chamber
-            isInside = true;
-          }
+        var yDiffWithPoolBottom = this.poolDimensions.bottomChamber.y2 - y;
+        if ( yDiffWithPoolBottom > 0 ) {
+          var x1 = this.poolDimensions.leftChamber.leftBorderFunction( yDiffWithPoolBottom ),
+            x2 = this.poolDimensions.leftChamber.rightBorderFunction( yDiffWithPoolBottom ),
+            x3 = this.poolDimensions.rightChamber.leftBorderFunction( yDiffWithPoolBottom ),
+            x4 = this.poolDimensions.rightChamber.rightBorderFunction( yDiffWithPoolBottom );
+          //inside left or right chamber
+          isInside = (x1 < x && x < x2) || (x3 < x && x < x4);
         }
       }
       return isInside;

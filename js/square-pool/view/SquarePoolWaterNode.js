@@ -25,16 +25,17 @@ define( function( require ) {
 
     //height of water in pixels
     var viewHeight;
-    var viewWidth = modelViewTransform.modelToViewX( squarePoolModel.poolDimensions.x2 -
-                                                     squarePoolModel.poolDimensions.x1 );//width of pool, px
-    var maxHeight = modelViewTransform.modelToViewY( squarePoolModel.MAX_HEIGHT );//max height of water in pixels
-    var xMin = modelViewTransform.modelToViewX( squarePoolModel.poolDimensions.x1 );//left x point of pool in pixels
-    var yMax = modelViewTransform.modelToViewY( squarePoolModel.poolDimensions.y2 );//bottom y point of pool in pixels
+    var poolDimensions = squarePoolModel.poolDimensions;
+
+    var viewWidth = modelViewTransform.modelToViewX( poolDimensions.x2 - poolDimensions.x1 );//width of pool, px
+    var maxHeight = modelViewTransform.modelToViewY( squarePoolModel.maxHeight );//max height of water in pixels
+    var xMin = modelViewTransform.modelToViewX( poolDimensions.x1 );//left x point of pool in pixels
+    var yMax = modelViewTransform.modelToViewY( poolDimensions.y2 );//bottom y point of pool in pixels
 
     squarePoolModel.underPressureModel.fluidColorModel.colorProperty.linkAttribute( squarePoolWaterNode, 'fill' );
 
     squarePoolModel.volumeProperty.link( function() {
-      viewHeight = maxHeight * squarePoolModel.volume / squarePoolModel.MAX_VOLUME;
+      viewHeight = maxHeight * squarePoolModel.volume / squarePoolModel.maxVolume;
       squarePoolWaterNode.setRect( xMin, yMax - viewHeight, viewWidth, viewHeight );
     } );
   }

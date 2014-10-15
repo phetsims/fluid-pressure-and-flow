@@ -21,11 +21,9 @@ define( function( require ) {
    */
   function SquarePoolModel( underPressureModel ) {
 
-    var squarePoolModel = this;
-
     //constants
-    this.MAX_HEIGHT = 3; // Meters
-    this.MAX_VOLUME = this.MAX_HEIGHT; // Liters
+    this.maxHeight = 3; // Meters
+    this.maxVolume = this.maxHeight; // Liters
 
     this.inputFaucet = new FaucetModel( new Vector2( 2.7, underPressureModel.skyGroundBoundY - 0.44 ), 1, 0.42 );
     this.outputFaucet = new FaucetModel( new Vector2( 6.6, underPressureModel.skyGroundBoundY + 3.45 ), 1, 0.3 );
@@ -36,9 +34,9 @@ define( function( require ) {
 
     this.poolDimensions = {
       x1: 2.3,
-      y1: squarePoolModel.underPressureModel.skyGroundBoundY,
+      y1: underPressureModel.skyGroundBoundY,
       x2: 6,
-      y2: squarePoolModel.underPressureModel.skyGroundBoundY + 3
+      y2: underPressureModel.skyGroundBoundY + 3
     };
   }
 
@@ -51,7 +49,7 @@ define( function( require ) {
      * @returns {number} height of the water above the y
      */
     getWaterHeightAboveY: function( x, y ) {
-      return y - (this.poolDimensions.y2 - this.MAX_HEIGHT * this.volume / this.MAX_VOLUME);
+      return y - (this.poolDimensions.y2 - this.maxHeight * this.volume / this.maxVolume);
     },
 
     /**
