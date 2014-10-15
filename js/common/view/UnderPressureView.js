@@ -73,7 +73,7 @@ define( function( require ) {
     backgroundNode.moveToBack();
 
     // add reset button
-    this.resetAllButton = new ResetAllButton( {
+    var resetAllButton = new ResetAllButton( {
       listener: function() {
         underPressureModel.reset();
       },
@@ -81,29 +81,30 @@ define( function( require ) {
       right: this.layoutBounds.right - inset,
       bottom: this.layoutBounds.bottom - 10
     } );
-    this.addChild( this.resetAllButton );
+    this.addChild( resetAllButton );
 
     //control panel
-    this.controlPanel =
-    new ControlPanel( underPressureModel, { right: this.resetAllButton.right, top: 5, cornerRadius: 7 } );
-    this.addChild( this.controlPanel );
+    var controlPanel = new ControlPanel( underPressureModel, { right: resetAllButton.right, top: 5, cornerRadius: 7 } );
+    this.addChild( controlPanel );
 
     // units panel
-    this.unitsControlPanel = new UnitsControlPanel( underPressureModel.measureUnitsProperty, this.controlPanel.width,
-      {  yMargin: 2, right: this.resetAllButton.right, top: this.controlPanel.bottom +
-                                                            6, cornerRadius: 7 } );
-    this.addChild( this.unitsControlPanel );
+    var unitsControlPanel = new UnitsControlPanel( underPressureModel.measureUnitsProperty, controlPanel.width,
+      {  yMargin: 2, right: resetAllButton.right,
+        top: controlPanel.bottom + 6,
+        cornerRadius: 7
+      } );
+    this.addChild( unitsControlPanel );
 
     // gravity slider
-    this.gravitySlider = new ControlSlider(
+    var gravitySlider = new ControlSlider(
       underPressureModel.measureUnitsProperty,
       underPressureModel.gravityProperty,
       underPressureModel.getGravityString.bind( underPressureModel ),
       underPressureModel.gravityRange,
       underPressureModel.gravityControlExpandedProperty,
       {
-        right: this.resetAllButton.right,
-        bottom: this.resetAllButton.top - 5,
+        right: resetAllButton.right,
+        bottom: resetAllButton.top - 5,
         scale: 0.95,
         title: gravityString,
         decimals: 1,
@@ -122,18 +123,18 @@ define( function( require ) {
           }
         ]
       } );
-    this.addChild( this.gravitySlider );
+    this.addChild( gravitySlider );
 
     // fluid density slider
-    this.fluidDensitySlider = new ControlSlider(
+    var fluidDensitySlider = new ControlSlider(
       underPressureModel.measureUnitsProperty,
       underPressureModel.fluidDensityProperty,
       underPressureModel.getFluidDensityString.bind( underPressureModel ),
       underPressureModel.fluidDensityRange,
       underPressureModel.fluidDensityControlExpandedProperty,
       {
-        right: this.resetAllButton.right,
-        bottom: this.gravitySlider.top - 8,
+        right: resetAllButton.right,
+        bottom: gravitySlider.top - 8,
         scale: 0.95,
 
         title: fluidDensityString,
@@ -152,11 +153,11 @@ define( function( require ) {
           }
         ]
       } );
-    this.addChild( this.fluidDensitySlider );
+    this.addChild( fluidDensitySlider );
 
     // add the sensors panel
     var sensorPanel = new Rectangle( 0, 0, 100, 130, 10, 10, { stroke: 'gray', lineWidth: 1, fill: '#f2fa6a',
-      right: this.controlPanel.left - 20, top: this.controlPanel.top } );
+      right: controlPanel.left - 20, top: controlPanel.top } );
     this.addChild( sensorPanel );
 
     // add barometers within the sensor panel bounds
@@ -199,12 +200,12 @@ define( function( require ) {
     underPressureModel.mysteryChoiceProperty.link( function( choice ) {
       if ( underPressureModel.currentScene === 'Mystery' ) {
         if ( choice === 'gravity' ) {
-          underPressureView.gravitySlider.disable();
-          underPressureView.fluidDensitySlider.enable();
+          gravitySlider.disable();
+          fluidDensitySlider.enable();
         }
         else {
-          underPressureView.gravitySlider.enable();
-          underPressureView.fluidDensitySlider.disable();
+          gravitySlider.enable();
+          fluidDensitySlider.disable();
         }
       }
     } );
@@ -212,24 +213,23 @@ define( function( require ) {
     underPressureModel.currentSceneProperty.link( function( currentScene ) {
       if ( currentScene === 'Mystery' ) {
         if ( underPressureModel.mysteryChoice === 'gravity' ) {
-          underPressureView.gravitySlider.disable();
+          gravitySlider.disable();
         }
         else {
-          underPressureView.fluidDensitySlider.disable();
+          fluidDensitySlider.disable();
         }
       }
-
       else {
-        underPressureView.gravitySlider.enable();
-        underPressureView.fluidDensitySlider.enable();
+        gravitySlider.enable();
+        fluidDensitySlider.enable();
       }
     } );
 
     this.addChild( new SceneChoiceNode( underPressureModel, { x: 5, y: 260 } ) );
 
     //resize mystery control panel
-    scenes.Mystery.mysteryPoolControls.choicePanel.resizeWidth( this.controlPanel.width );
-    scenes.Mystery.mysteryPoolControls.choicePanel.right = underPressureView.gravitySlider.right;
+    scenes.Mystery.mysteryPoolControls.choicePanel.resizeWidth( controlPanel.width );
+    scenes.Mystery.mysteryPoolControls.choicePanel.right = gravitySlider.right;
 
     underPressureModel.currentSceneProperty.link( function( currentScene, previousScene ) {
       scenes[currentScene].visible = true;
