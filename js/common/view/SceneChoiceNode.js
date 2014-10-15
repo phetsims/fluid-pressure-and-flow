@@ -7,6 +7,7 @@
  */
 define( function( require ) {
   'use strict';
+
   // modules
   var Node = require( 'SCENERY/nodes/Node' );
   var inherit = require( 'PHET_CORE/inherit' );
@@ -14,13 +15,19 @@ define( function( require ) {
   var InOutRadioButton = require( 'SUN/InOutRadioButton' );
   var Dimension2 = require( 'DOT/Dimension2' );
 
+  // images
+  var SquarePoolImage = require( 'image!UNDER_PRESSURE/square-pool-icon.png' );
+  var TrapezoidPoolImage = require( 'image!UNDER_PRESSURE/trapezoid-pool-icon.png' );
+  var ChamberPoolImage = require( 'image!UNDER_PRESSURE/chamber-pool-icon.png' );
+  var MysteryPoolImage = require( 'image!UNDER_PRESSURE/mystery-pool-icon.png' );
+
   var ICON_SIZE = new Dimension2( 52, 37 );
 
   var iconImages = {
-    Square: require( 'image!UNDER_PRESSURE/square-pool-icon.png' ),
-    Trapezoid: require( 'image!UNDER_PRESSURE/trapezoid-pool-icon.png' ),
-    Chamber: require( 'image!UNDER_PRESSURE/chamber-pool-icon.png' ),
-    Mystery: require( 'image!UNDER_PRESSURE/mystery-pool-icon.png' )
+    Square: SquarePoolImage,
+    Trapezoid: TrapezoidPoolImage,
+    Chamber: ChamberPoolImage,
+    Mystery: MysteryPoolImage
   };
 
   /**
