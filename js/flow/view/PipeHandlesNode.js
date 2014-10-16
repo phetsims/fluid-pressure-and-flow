@@ -66,7 +66,8 @@ define( function( require ) {
     );
 
     var boundsToTouchAreaForLeftAndRightHandles = function( localBounds ) {
-      return new Bounds2( localBounds.minX - HANDLE_X_TOUCH_EXPAND, localBounds.minY + 25, localBounds.maxX + HANDLE_X_TOUCH_EXPAND, localBounds.maxY + 60 );
+      return new Bounds2( localBounds.minX - HANDLE_X_TOUCH_EXPAND, localBounds.minY + 25,
+          localBounds.maxX + HANDLE_X_TOUCH_EXPAND, localBounds.maxY + 60 );
     };
 
     // touch area for the left pipe drag handle
@@ -91,18 +92,8 @@ define( function( require ) {
       right: this.rightPipeMainHandleNode
     };
 
-    // this.pipeMainDragHandles.push( this.leftPipeMainHandleNode );
-    // this.pipeMainDragHandles.push( this.rightPipeMainHandleNode );
-
     this.addChild( new PipeMainDragHandle( pipeHandlesNode, 'left', modelViewTransform, this.layoutBounds ) );
     this.addChild( new PipeMainDragHandle( pipeHandlesNode, 'right', modelViewTransform, this.layoutBounds ) );
-
-    /*for ( var j = 0; j < this.pipeMainDragHandles.length; j++ ) {
-     // add the  left/right pipe main drag handles
-     var pipeMainDragHandle = new PipeMainDragHandle( pipeHandlesNode, j, modelViewTransform, this.layoutBounds );
-     this.addChild( pipeMainDragHandle );
-     }*/
-
 
     for ( var i = 0; i < numControlPoints; i++ ) {
       var pipeHandleNode = new PipeHandleNode( pipeHandlesNode, i, modelViewTransform, layoutBounds );
