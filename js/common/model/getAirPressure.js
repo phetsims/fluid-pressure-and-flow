@@ -9,7 +9,7 @@
 define( function( require ) {
   'use strict';
 
-  var Util = require( 'DOT/Util' )
+  var Util = require( 'DOT/Util' );
   var Constants = require( 'FLUID_PRESSURE_AND_FLOW/common/Constants' );
 
   /**
@@ -20,5 +20,5 @@ define( function( require ) {
   return function( height ) {
     //Note: 150 meters is 500 feet
     return Util.linear( 0, 150, Constants.EARTH_AIR_PRESSURE, Constants.EARTH_AIR_PRESSURE_AT_500_FT, height );
-  }
+  };
 } );
