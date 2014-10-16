@@ -23,7 +23,7 @@ define( function( require ) {
   var ObservableArray = require( 'AXON/ObservableArray' );
   var FluidColorModel = require( 'UNDER_PRESSURE/common/model/FluidColorModel' );
   var Units = require( 'UNDER_PRESSURE/common/model/Units' );
-  var Util = require( 'DOT/Util' );
+
   var Pipe = require( 'FLUID_PRESSURE_AND_FLOW/flow/model/Pipe' );
   var Particle = require( 'FLUID_PRESSURE_AND_FLOW/flow/model/Particle' );
   var EventTimer = require( 'PHET_CORE/EventTimer' );
