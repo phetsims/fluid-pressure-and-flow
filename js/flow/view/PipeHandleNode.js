@@ -23,7 +23,7 @@ define( function( require ) {
   // constants
   var CONTROL_HANDLE_OFFSET = 2;
   var PIPE_INITIAL_HEIGHT = 2.1; //in meters
-  var PIPE_SCALE = 0.6;
+  var PIPE_INITIAL_SCALE = 0.36;
   var CROSS_SECTION_MIN_HEIGHT = 1; //meters
   var HANDLE_X_TOUCH_EXPAND = 30;
 
@@ -47,10 +47,6 @@ define( function( require ) {
     var leftBottomControlPointIndex = numControlPoints - 1;
     var rightTopControlPointIndex = numControlPoints / 2 - 1;
     var rightBottomControlPointIndex = numControlPoints / 2;
-
-    // scaling factors for the right, left pipe nodes.
-    this.rightPipeExpansionScale = PIPE_SCALE;
-    this.leftPipeExpansionScale = PIPE_SCALE;
 
     var controlPoint = pipe.controlPoints[controlPointIndex ];
     var leftSpace = 0; // to vertically align the handles
@@ -150,47 +146,35 @@ define( function( require ) {
             pipeExpansionFactor = ( pipe.getCrossSection( pipe.controlPoints[ leftTopControlPointIndex ].position.x ).getHeight()) /
                                   PIPE_INITIAL_HEIGHT;
 
-            pipeHandlesNode.leftPipeExpansionScale = ( pipeExpansionFactor * PIPE_SCALE );
 
-            // limit the scaling to 0.3
-            pipeHandlesNode.leftPipeExpansionScale = pipeHandlesNode.leftPipeExpansionScale < 0.3 ? 0.3 :
-                                                     pipeHandlesNode.leftPipeExpansionScale;
-            pipeNode.leftPipeNode.setScaleMagnitude( PIPE_SCALE, pipeHandlesNode.leftPipeExpansionScale );
-            pipeNode.leftPipeBackNode.setScaleMagnitude( PIPE_SCALE, pipeHandlesNode.leftPipeExpansionScale );
+            // limit the scaling to 0.18 on the lower side
+            pipe.leftPipeScale = Math.max( pipeExpansionFactor * PIPE_INITIAL_SCALE, 0.18 );
 
-            pipeNode.leftPipeNode.setTranslation( layoutBounds.minX - pipeNode.leftPipeLeftOffset,
-                modelViewTransform.modelToViewY( pipe.controlPoints[ leftTopControlPointIndex ].position.y ) -
-                pipeNode.leftPipeYOffset * pipeHandlesNode.leftPipeExpansionScale );
-            pipeNode.leftPipeBackNode.setTranslation( layoutBounds.minX - pipeNode.leftPipeLeftOffset,
-                modelViewTransform.modelToViewY( pipe.controlPoints[ leftTopControlPointIndex ].position.y ) -
-                pipeNode.leftPipeYOffset * pipeHandlesNode.leftPipeExpansionScale );
 
-            pipeHandlesNode.leftPipeMainHandleNode.setTranslation( layoutBounds.minX - 10,
-              pipeNode.leftPipeNode.centerY );
+            var leftPipeY = modelViewTransform.modelToViewY( pipe.controlPoints[ leftTopControlPointIndex ].position.y ) -
+                            pipeNode.leftPipeYOffset * pipe.leftPipeScale;
+
+            pipe.leftPipePosition = new Vector2( layoutBounds.minX - pipeNode.leftPipeLeftOffset, leftPipeY );
+            flowModel.pipe.leftPipeMainHandleYPosition = pipeNode.leftPipeNode.centerY;
           }
 
           // handle the right  pipe scaling
-          if ( controlPointIndex === rightBottomControlPointIndex ||
-               controlPointIndex === (rightTopControlPointIndex) ) {
+          if ( controlPointIndex === rightBottomControlPointIndex || controlPointIndex === rightTopControlPointIndex ) {
 
-            pipeExpansionFactor = ( pipe.getCrossSection( pipe.controlPoints[ rightTopControlPointIndex ].position.x ).getHeight() ) /
-                                  PIPE_INITIAL_HEIGHT;
+            var pipeHeight = pipe.getCrossSection( pipe.controlPoints[ rightTopControlPointIndex ].position.x ).getHeight();
+            pipeExpansionFactor = pipeHeight / PIPE_INITIAL_HEIGHT;
 
-            pipeHandlesNode.rightPipeExpansionScale = pipeExpansionFactor * PIPE_SCALE;
+            // limit the scaling to 0.18 on the lower side
+            pipe.rightPipeScale = Math.max( pipeExpansionFactor * PIPE_INITIAL_SCALE, 0.18 );
 
-            // limit the scaling to 0.3 on the lower side
-            pipeHandlesNode.rightPipeExpansionScale = pipeHandlesNode.rightPipeExpansionScale < 0.3 ? 0.3 :
-                                                      pipeHandlesNode.rightPipeExpansionScale;
-            pipeNode.rightPipeNode.setScaleMagnitude( PIPE_SCALE, pipeHandlesNode.rightPipeExpansionScale );
+            var rightPipeY = modelViewTransform.modelToViewY( pipe.controlPoints[ rightTopControlPointIndex ].position.y ) -
+                             ( pipeNode.rightPipeYOffset * pipe.rightPipeScale );
+            var rightPipeX = layoutBounds.maxX - pipeNode.rightPipeLeftOffset;
 
-            pipeNode.rightPipeNode.setTranslation( layoutBounds.maxX - pipeNode.rightPipeLeftOffset,
-                modelViewTransform.modelToViewY( pipe.controlPoints[ rightTopControlPointIndex ].position.y ) -
-                pipeNode.rightPipeYOffset * pipeHandlesNode.rightPipeExpansionScale );
-
-            pipeHandlesNode.rightPipeMainHandleNode.setTranslation( layoutBounds.maxX - 50,
-              pipeNode.rightPipeNode.centerY );
-
+            pipe.rightPipePosition = new Vector2( rightPipeX, rightPipeY );
+            flowModel.pipe.rightPipeMainHandleYPosition = pipeNode.rightPipeNode.centerY;
           }
+
           // reposition the particles when the sim is paused and the handle is dragged
           if ( !flowModel.isPlay ) {
             pipeNode.particlesLayer.step();

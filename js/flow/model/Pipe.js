@@ -27,7 +27,13 @@ define( function( require ) {
 
     PropertySet.call( this, {
       flowRate: 5000, // rate of fluid flow in Liter per second (L/s)
-      friction: false // flag indicating whether friction should slow particles near the edges
+      friction: false, // flag indicating whether friction should slow particles near the edges
+      rightPipePosition: new Vector2( 693, 197 ),
+      leftPipePosition: new Vector2( -50, 197 ),
+      leftPipeMainHandleYPosition: 262,
+      rightPipeMainHandleYPosition: 262,
+      leftPipeScale: 0.36,
+      rightPipeScale: 0.36
     } );
 
     // cross-sections that the user can manipulate to deform the pipe.

@@ -25,7 +25,6 @@ define( function( require ) {
   var CONTROL_HANDLE_OFFSET = 2;
   var LEFT_PIPE_DRAG_HANDLE_OFFSET = 10;
   var RIGHT_PIPE_DRAG_HANDLE_OFFSET = 50;
-  var PIPE_SCALE = 0.6;
   var HANDLE_X_TOUCH_EXPAND = 30;
 
   /*
@@ -50,15 +49,11 @@ define( function( require ) {
 
     var numControlPoints = pipe.controlPoints.length;
 
-    // scaling factors for the right, left pipe nodes.
-    this.rightPipeExpansionScale = PIPE_SCALE;
-    this.leftPipeExpansionScale = PIPE_SCALE;
-
     this.controlHandleNodes = [];
     // add handle to drag the left pipe
     this.leftPipeMainHandleNode = new Image( handleImage,
       {
-        y: pipeNode.leftPipeNode.centerY,
+        y: flowModel.pipe.leftPipeMainHandleYPosition,
         x: layoutBounds.minX - LEFT_PIPE_DRAG_HANDLE_OFFSET,
         cursor: 'pointer',
         scale: 0.32
@@ -77,7 +72,7 @@ define( function( require ) {
     // add handle to drag the right pipe
     this.rightPipeMainHandleNode = new Image( handleImage,
       {
-        y: pipeNode.rightPipeNode.centerY,
+        y: flowModel.pipe.rightPipeMainHandleYPosition,
         x: layoutBounds.maxX - RIGHT_PIPE_DRAG_HANDLE_OFFSET,
         cursor: 'pointer',
         scale: 0.32
@@ -100,6 +95,10 @@ define( function( require ) {
       this.controlHandleNodes.push( pipeHandleNode );
       this.addChild( pipeHandleNode );
     }
+
+    flowModel.pipe.leftPipeMainHandleYPositionProperty.linkAttribute( pipeHandlesNode.leftPipeMainHandleNode, 'y' );
+    flowModel.pipe.rightPipeMainHandleYPositionProperty.linkAttribute( pipeHandlesNode.rightPipeMainHandleNode, 'y' );
+
   }
 
   return inherit( Node, PipeHandlesNode, {
@@ -114,17 +113,10 @@ define( function( require ) {
       this.controlHandleNodes[ 0 ].bottom = this.pipeNode.leftPipeNode.top + CONTROL_HANDLE_OFFSET;
       this.controlHandleNodes[ numControlPoints - 1 ].top = this.pipeNode.leftPipeNode.bottom - CONTROL_HANDLE_OFFSET;
 
-      this.rightPipeExpansionScale = PIPE_SCALE;
-      this.leftPipeExpansionScale = PIPE_SCALE;
-
       // reset the grid injector position
       this.gridInjectorNode.updateGridInjector();
 
-      // reset the left and right pipe drag handle
-      this.leftPipeMainHandleNode.setTranslation( this.layoutBounds.minX - LEFT_PIPE_DRAG_HANDLE_OFFSET,
-        this.pipeNode.leftPipeNode.getCenterY() );
-      this.rightPipeMainHandleNode.setTranslation( this.layoutBounds.maxX - RIGHT_PIPE_DRAG_HANDLE_OFFSET,
-        this.pipeNode.rightPipeNode.getCenterY() );
+
     }
   } );
 

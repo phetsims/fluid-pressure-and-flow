@@ -14,7 +14,6 @@ define( function( require ) {
   var Path = require( 'SCENERY/nodes/Path' );
   var Image = require( 'SCENERY/nodes/Image' );
   var Shape = require( 'KITE/Shape' );
-  var Matrix3 = require( 'DOT/Matrix3' );
   var Vector2 = require( 'DOT/Vector2' );
   var ParticleCanvasNode = require( 'FLUID_PRESSURE_AND_FLOW/flow/view/ParticleCanvasNode' );
   var Bounds2 = require( 'DOT/Bounds2' );
@@ -27,7 +26,7 @@ define( function( require ) {
 
   // constants
   var LINE_COLOR = '#613705';
-  var PIPE_SCALE = 0.6;
+  var PIPE_INITIAL_SCALE = 0.36;
   var PIPE_SEGMENT_X_SCALE = 100;
 
   /*
@@ -47,47 +46,43 @@ define( function( require ) {
     this.layoutBounds = layoutBounds;
 
     this.leftPipeYOffset = 25; // left pipe top offset w.r.t the left top control point
-    this.rightPipeYOffset = 25; // right pipe top offset w.r.t the right top control point
-
-    this.groundY = this.modelViewTransform.modelToViewY( 0 );
-    this.pipeNodeYOffset = 57; // w.r.t to ground in px
-
+    this.rightPipeYOffset = 30; // right pipe top offset w.r.t the right top control point
     this.leftPipeRightOffset = 55;
     this.rightPipeLeftOffset = 75;
 
     //left side pipe image.
-    var leftPipeHead = new Image( leftPipeImage, { scale: PIPE_SCALE } );
+    var leftPipeHead = new Image( leftPipeImage );
 
     var leftPipeSegment = new Image( pipeSegmentImage,
       {
-        right: leftPipeHead.left + 20,
-        scale: new Vector2( PIPE_SEGMENT_X_SCALE, PIPE_SCALE )
+        right: leftPipeHead.left + 30,
+        scale: new Vector2( PIPE_SEGMENT_X_SCALE, 1 )
       } );
 
     this.leftPipeNode = new Node( {
       children: [ leftPipeHead, leftPipeSegment ],
-      top: this.groundY + this.pipeNodeYOffset,
-      right: layoutBounds.minX + this.leftPipeRightOffset,
-      scale: PIPE_SCALE } );
+      x: flowModel.pipe.leftPipePosition.x,
+      y: flowModel.pipe.leftPipePosition.y,
+      scale: flowModel.pipe.leftPipeScale
+    } );
 
-    var leftPipeWidth = leftPipeHead.getImageWidth() * PIPE_SCALE * PIPE_SCALE;
-
+    var leftPipeWidth = leftPipeHead.getImageWidth() * PIPE_INITIAL_SCALE;
     this.leftPipeLeftOffset = leftPipeWidth - this.leftPipeRightOffset;
 
     this.leftPipeBackNode = new Node( {
-      children: [ new Image( leftPipeBackImage, { scale: PIPE_SCALE } ) ],
-      top: this.groundY + this.pipeNodeYOffset,
-      right: layoutBounds.minX + this.leftPipeRightOffset,
-      scale: PIPE_SCALE } );
+      children: [ new Image( leftPipeBackImage ) ],
+      x: flowModel.pipe.leftPipePosition.x,
+      y: flowModel.pipe.leftPipePosition.y,
+      scale: flowModel.pipe.leftPipeScale
+    } );
 
     // shape for the pipelines
-    this.pipeFlowLine = new Path( null, { stroke: LINE_COLOR, lineWidth: '6' } );
+    this.pipeFlowLine = new Path( null, { stroke: LINE_COLOR, lineWidth: 6 } );
 
     // Shape for fluid. Although this is identical in "shape" to pipeFlowLine, a separate node is used to layer
     // the particles between fluid and the pipelines so that they appear on top of fluid and don't protrude over the pipe.
     // See https://github.com/phetsims/fluid-pressure-and-flow/issues/183
-    this.pipeFluidNode = new Path( null,
-      { stroke: LINE_COLOR, lineWidth: '0', fill: flowModel.fluidColorModel.color } );
+    this.pipeFluidNode = new Path( null, { stroke: LINE_COLOR, lineWidth: 0, fill: flowModel.fluidColorModel.color } );
 
     // Skip bounds computation to improve performance, see energy-skate-park-basics#245
     // Qualitative tests did not show a significant improvement
@@ -97,15 +92,16 @@ define( function( require ) {
     };
 
     // right side pipe image.
-    var rightPipeHead = new Image( rightSidePipeImage, { scale: PIPE_SCALE } );
+    var rightPipeHead = new Image( rightSidePipeImage );
     var rightPipeMiddle = new Image( pipeSegmentImage,
-      { left: rightPipeHead.right - 30, scale: new Vector2( PIPE_SEGMENT_X_SCALE, PIPE_SCALE ) } );
+      { left: rightPipeHead.right - 50, scale: new Vector2( PIPE_SEGMENT_X_SCALE, 1 ) } );
 
     this.rightPipeNode = new Node( {
       children: [ rightPipeHead, rightPipeMiddle ],
-      bottom: this.leftPipeNode.bottom,
-      left: layoutBounds.maxX - pipeNode.rightPipeLeftOffset,
-      scale: PIPE_SCALE } );
+      x: flowModel.pipe.rightPipePosition.x,
+      y: flowModel.pipe.rightPipePosition.y,
+      scale: flowModel.pipe.rightPipeScale
+    } );
 
     // order of different layers within pipe Node -- leftPipeBackNode, pipeFluidNode, preParticleLayer, pipeFlowLine,
     // leftPipeNode and rightPipeNode
@@ -124,9 +120,24 @@ define( function( require ) {
     this.addChild( this.rightPipeNode );
     this.addChild( this.leftPipeNode );
 
+    // link the left/right pipe scale properties to the left/right pipe nodes
+    flowModel.pipe.leftPipeScaleProperty.link( function( scale ) {
+      pipeNode.leftPipeNode.setScaleMagnitude( PIPE_INITIAL_SCALE, scale );
+      pipeNode.leftPipeBackNode.setScaleMagnitude( PIPE_INITIAL_SCALE, scale );
+    } );
+
+    flowModel.pipe.rightPipeScaleProperty.link( function( scale ) {
+      pipeNode.rightPipeNode.setScaleMagnitude( PIPE_INITIAL_SCALE, scale );
+    } );
+
+    // link the left/right pipe position properties to the left/right pipe nodes
+    flowModel.pipe.leftPipePositionProperty.linkAttribute( pipeNode.leftPipeNode, 'translation' );
+    flowModel.pipe.leftPipePositionProperty.linkAttribute( pipeNode.leftPipeBackNode, 'translation' );
+    flowModel.pipe.rightPipePositionProperty.linkAttribute( pipeNode.rightPipeNode, 'translation' );
+
     flowModel.fluidColorModel.colorProperty.linkAttribute( pipeNode.pipeFluidNode, 'fill' );
 
-    // init the PipeFlow Line shape
+    // init the flexible middle pipe flow line shape
     this.updatePipeFlowLineShape();
   }
 
@@ -183,18 +194,6 @@ define( function( require ) {
       },
 
       reset: function() {
-        // reset the left and right pipe position and scale
-        this.leftPipeNode.setMatrix( Matrix3.translation( this.layoutBounds.minX - this.leftPipeLeftOffset,
-            this.groundY + this.pipeNodeYOffset ) );
-        this.leftPipeNode.scale( PIPE_SCALE );
-
-        this.leftPipeBackNode.setMatrix( Matrix3.translation( this.layoutBounds.minX - this.leftPipeLeftOffset,
-            this.groundY + this.pipeNodeYOffset ) );
-        this.leftPipeBackNode.scale( PIPE_SCALE );
-
-        this.rightPipeNode.setMatrix( Matrix3.translation( this.layoutBounds.maxX - this.rightPipeLeftOffset,
-            this.groundY + this.pipeNodeYOffset ) );
-        this.rightPipeNode.scale( PIPE_SCALE );
 
         // mark pipe as dirty for getting new spline cross sections
         this.flowModel.pipe.dirty = true;
