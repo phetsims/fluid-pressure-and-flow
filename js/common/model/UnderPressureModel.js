@@ -23,6 +23,7 @@ define( function( require ) {
   var TrapezoidPoolModel = require( 'UNDER_PRESSURE/trapezoid-pool/model/TrapezoidPoolModel' );
   var ChamberPoolModel = require( 'UNDER_PRESSURE/chamber-pool/model/ChamberPoolModel' );
   var MysteryPoolModel = require( 'UNDER_PRESSURE/mystery-pool/model/MysteryPoolModel' );
+  var getStandardAirPressure = require( 'UNDER_PRESSURE/common/model/getStandardAirPressure' );
 
   var SceneModels = {
     Square: SquarePoolModel,
@@ -72,10 +73,6 @@ define( function( require ) {
       underPressureModel.sceneModels[name] = (new SceneModels[name]( underPressureModel ));
     } );
 
-    this.getStandardAirPressure =
-    new LinearFunction( 0, Units.feetToMeters( 500 ), Constants.EARTH_AIR_PRESSURE,
-      Constants.EARTH_AIR_PRESSURE_AT_500_FT );
-
     this.barometers = [];
 
     for ( var i = 0; i < 4; i++ ) {
@@ -120,7 +117,7 @@ define( function( require ) {
         return 0;
       }
       else {
-        return this.getStandardAirPressure( this.skyGroundBoundY - height ) * this.gravity / 9.8;
+        return getStandardAirPressure( this.skyGroundBoundY - height ) * this.gravity / 9.8;
       }
     },
 
