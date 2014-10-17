@@ -26,7 +26,7 @@ define( function( require ) {
   var Property = require( 'AXON/Property' );
   var Hose = require( 'FLUID_PRESSURE_AND_FLOW/watertower/model/Hose' );
   var Util = require( 'DOT/Util' );
-  var getAirPressure = require( 'FLUID_PRESSURE_AND_FLOW/common/model/getAirPressure' );
+  var getStandardAirPressure = require( 'UNDER_PRESSURE/common/model/getStandardAirPressure' );
 
   // strings
   var densityUnitsEnglish = require( 'string!FLUID_PRESSURE_AND_FLOW/densityUnitsEnglish' );
@@ -143,11 +143,11 @@ define( function( require ) {
         return 0;
       }
 
-      var pressure = getAirPressure( y );
+      var pressure = getStandardAirPressure( y );
 
       //add the fluid pressure if the point is inside the fluid in the tank
       if ( this.isPointInWater( x, y ) ) {
-        pressure = getAirPressure( this.waterTower.tankPosition.y + this.waterTower.fluidLevel ) +
+        pressure = getStandardAirPressure( this.waterTower.tankPosition.y + this.waterTower.fluidLevel ) +
                    this.getFluidPressure( this.waterTower.tankPosition.y + this.waterTower.fluidLevel - y );
       }
 

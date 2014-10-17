@@ -28,7 +28,7 @@ define( function( require ) {
   var Particle = require( 'FLUID_PRESSURE_AND_FLOW/flow/model/Particle' );
   var EventTimer = require( 'PHET_CORE/EventTimer' );
   var FluxMeter = require( 'FLUID_PRESSURE_AND_FLOW/flow/model/FluxMeter' );
-  var getAirPressure = require( 'FLUID_PRESSURE_AND_FLOW/common/model/getAirPressure' );
+  var getStandardAirPressure = require( 'UNDER_PRESSURE/common/model/getStandardAirPressure' );
 
   // strings
   var densityUnitsEnglish = require( 'string!FLUID_PRESSURE_AND_FLOW/densityUnitsEnglish' );
@@ -135,7 +135,7 @@ define( function( require ) {
         // cross section.
         if ( y > crossSection.yBottom && y < crossSection.yTop - 0.1 ) {
           var vSquared = this.pipe.getVelocity( x, y ).magnitudeSquared();
-          return getAirPressure( 0 ) - y * Constants.EARTH_GRAVITY * this.fluidDensity -
+          return getStandardAirPressure( 0 ) - y * Constants.EARTH_GRAVITY * this.fluidDensity -
                  0.5 * this.fluidDensity * vSquared;
         }
         return 0;
@@ -147,7 +147,7 @@ define( function( require ) {
        * @returns {Number} pressure (in Pa) at specified position
        */
       getPressureAtCoords: function( x, y ) {
-        return (y > 0) ? getAirPressure( y ) : this.getFluidPressure( x, y );
+        return (y > 0) ? getStandardAirPressure( y ) : this.getFluidPressure( x, y );
       },
 
 
