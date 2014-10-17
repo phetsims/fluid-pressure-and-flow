@@ -10,7 +10,7 @@ define( function( require ) {
   'use strict';
 
   var Util = require( 'DOT/Util' );
-  var Constants = require( 'FLUID_PRESSURE_AND_FLOW/common/Constants' );
+  var Constants = require( 'UNDER_PRESSURE/common/Constants' );
 
   /**
    * Calculates the standard air pressure by linearly extrapolating the known values for height = 0m & height = 150m
