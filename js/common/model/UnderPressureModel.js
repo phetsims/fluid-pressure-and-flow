@@ -16,7 +16,6 @@ define( function( require ) {
   var FluidColorModel = require( 'UNDER_PRESSURE/common/model/FluidColorModel' );
   var Units = require( 'UNDER_PRESSURE/common/model/Units' );
   var Constants = require( 'UNDER_PRESSURE/common/Constants' );
-  var LinearFunction = require( 'DOT/LinearFunction' );
   var Vector2 = require( 'DOT/Vector2' );
   var Barometer = require( 'UNDER_PRESSURE/common/model/Barometer' );
   var SquarePoolModel = require( 'UNDER_PRESSURE/square-pool/model/SquarePoolModel' );
