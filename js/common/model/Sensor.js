@@ -13,7 +13,7 @@ define( function( require ) {
 
   /**
    * @param {Vector2} position of the sensor
-   * @param {*} value as measured by the sensor
+   * @param {Object} value as measured by the sensor
    * @constructor
    */
   function Sensor( position, value ) {
