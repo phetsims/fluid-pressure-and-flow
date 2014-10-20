@@ -1,8 +1,10 @@
 // Copyright 2002-2013, University of Colorado Boulder
 
 /**
- * Model for the faucet, which is user controlled and allows fluid to flow in from the top left of the screen or down through the bottom of the pool.
- * @author Chris Malley (PixelZoom, Inc.), Vasily Shakhov (Mlearner)
+ * Model for the faucet, which is user controlled and allows fluid to flow in from the top left of the screen or down
+ * through the bottom of the pool.
+ * @author Chris Malley (PixelZoom, Inc.)
+ * @author Vasily Shakhov (Mlearner)
  */
 define( function( require ) {
   'use strict';
@@ -19,7 +21,7 @@ define( function( require ) {
    */
   function FaucetModel( location, maxFlowRate, scale ) {
 
-    var faucet = this;
+    var faucetModel = this;
     this.location = location;
     this.maxFlowRate = maxFlowRate;
     this.scale = scale;
@@ -32,10 +34,9 @@ define( function( require ) {
 
     // when disabled, turn off the faucet.
     this.enabledProperty.onValue( false, function() {
-      faucet.flowRate = 0;
+      faucetModel.flowRate = 0;
     } );
   }
 
   return inherit( PropertySet, FaucetModel );
 } );
-
