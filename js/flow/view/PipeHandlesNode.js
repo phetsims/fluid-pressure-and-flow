@@ -17,12 +17,12 @@ define( function( require ) {
   var Bounds2 = require( 'DOT/Bounds2' );
   var PipeMainDragHandle = require( 'FLUID_PRESSURE_AND_FLOW/flow/view/PipeMainDragHandle' );
   var PipeHandleNode = require( 'FLUID_PRESSURE_AND_FLOW/flow/view/PipeHandleNode' );
+  var Property = require( 'AXON/Property' );
 
   // images
   var handleImage = require( 'image!FLUID_PRESSURE_AND_FLOW/handle-with-bar.png' );
 
   // constants
-  var CONTROL_HANDLE_OFFSET = 2;
   var LEFT_PIPE_DRAG_HANDLE_OFFSET = 10;
   var RIGHT_PIPE_DRAG_HANDLE_OFFSET = 50;
   var HANDLE_X_TOUCH_EXPAND = 30;
@@ -96,8 +96,20 @@ define( function( require ) {
       this.addChild( pipeHandleNode );
     }
 
+    var numberOfControlPoints = pipe.controlPoints.length;
     flowModel.pipe.leftPipeMainHandleYPositionProperty.linkAttribute( pipeHandlesNode.leftPipeMainHandleNode, 'y' );
     flowModel.pipe.rightPipeMainHandleYPositionProperty.linkAttribute( pipeHandlesNode.rightPipeMainHandleNode, 'y' );
+    Property.multilink( [pipe.leftPipeTopHandleYProperty, pipe.leftPipeBottomHandleYProperty],
+      function( leftTop, leftBottom ) {
+        pipeHandlesNode.controlHandleNodes[ 0 ].bottom = leftTop;
+        pipeHandlesNode.controlHandleNodes[ numberOfControlPoints - 1 ].top = leftBottom;
+      } );
+
+    Property.multilink( [pipe.rightPipeTopHandleYProperty, pipe.rightPipeBottomHandleYProperty],
+      function( rightTop, rightBottom ) {
+        pipeHandlesNode.controlHandleNodes[ numberOfControlPoints / 2 - 1 ].bottom = rightTop;
+        pipeHandlesNode.controlHandleNodes[ numberOfControlPoints / 2 ].top = rightBottom;
+      } );
 
   }
 
@@ -105,18 +117,8 @@ define( function( require ) {
 
     reset: function() {
 
-      // reset the handle positions
-      var numControlPoints = this.flowModel.pipe.controlPoints.length;
-      this.controlHandleNodes[ numControlPoints / 2 - 1 ].bottom = this.pipeNode.rightPipeNode.top +
-                                                                   CONTROL_HANDLE_OFFSET;
-      this.controlHandleNodes[ numControlPoints / 2 ].top = this.pipeNode.rightPipeNode.bottom - CONTROL_HANDLE_OFFSET;
-      this.controlHandleNodes[ 0 ].bottom = this.pipeNode.leftPipeNode.top + CONTROL_HANDLE_OFFSET;
-      this.controlHandleNodes[ numControlPoints - 1 ].top = this.pipeNode.leftPipeNode.bottom - CONTROL_HANDLE_OFFSET;
-
       // reset the grid injector position
       this.gridInjectorNode.updateGridInjector();
-
-
     }
   } );
 

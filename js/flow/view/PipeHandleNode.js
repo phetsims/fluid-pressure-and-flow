@@ -83,22 +83,6 @@ define( function( require ) {
         modelViewTransform.modelToViewY( position.y ) );
     } );
 
-    // set the initial position of control point handles on left pipe node and right pipe node.
-    switch( controlPointIndex ) {
-      case leftBottomControlPointIndex :
-        controlHandleNode.top = pipeNode.leftPipeNode.bottom - CONTROL_HANDLE_OFFSET;
-        break;
-      case rightBottomControlPointIndex :
-        controlHandleNode.top = pipeNode.rightPipeNode.bottom - CONTROL_HANDLE_OFFSET;
-        break;
-      case rightTopControlPointIndex :
-        controlHandleNode.bottom = pipeNode.rightPipeNode.top + CONTROL_HANDLE_OFFSET;
-        break;
-      case leftTopControlPointIndex :
-        controlHandleNode.bottom = pipeNode.leftPipeNode.top + CONTROL_HANDLE_OFFSET;
-        break;
-    }
-
     var dragStartY;
     var controlPointDragStartY; // the model y value of the control point at drag start
     controlHandleNode.addInputListener( new SimpleDragHandler(
@@ -146,10 +130,8 @@ define( function( require ) {
             pipeExpansionFactor = ( pipe.getCrossSection( pipe.controlPoints[ leftTopControlPointIndex ].position.x ).getHeight()) /
                                   PIPE_INITIAL_HEIGHT;
 
-
             // limit the scaling to 0.18 on the lower side
             pipe.leftPipeScale = Math.max( pipeExpansionFactor * PIPE_INITIAL_SCALE, 0.18 );
-
 
             var leftPipeY = modelViewTransform.modelToViewY( pipe.controlPoints[ leftTopControlPointIndex ].position.y ) -
                             pipeNode.leftPipeYOffset * pipe.leftPipeScale;
@@ -182,18 +164,14 @@ define( function( require ) {
 
           // setting the left/right  pipe top/bottom  control point handle positions when left/right pipe  scale.
           if ( controlPointIndex === leftTopControlPointIndex || controlPointIndex === leftBottomControlPointIndex ) {
-            pipeHandlesNode.controlHandleNodes[ leftTopControlPointIndex ].bottom = pipeNode.leftPipeNode.top +
-                                                                                    CONTROL_HANDLE_OFFSET;
-            pipeHandlesNode.controlHandleNodes[ leftBottomControlPointIndex ].top = pipeNode.leftPipeNode.bottom -
-                                                                                    CONTROL_HANDLE_OFFSET;
+
+            pipe.leftPipeTopHandleY = pipeNode.leftPipeNode.top + CONTROL_HANDLE_OFFSET;
+            pipe.leftPipeBottomHandleY = pipeNode.leftPipeNode.bottom - CONTROL_HANDLE_OFFSET;
           }
           else if ( controlPointIndex === rightTopControlPointIndex ||
                     controlPointIndex === rightBottomControlPointIndex ) {
-
-            pipeHandlesNode.controlHandleNodes[ rightTopControlPointIndex ].bottom = pipeNode.rightPipeNode.top +
-                                                                                     CONTROL_HANDLE_OFFSET;
-            pipeHandlesNode.controlHandleNodes[ rightBottomControlPointIndex ].top = pipeNode.rightPipeNode.bottom -
-                                                                                     CONTROL_HANDLE_OFFSET;
+            pipe.rightPipeTopHandleY = pipeNode.rightPipeNode.top + CONTROL_HANDLE_OFFSET;
+            pipe.rightPipeBottomHandleY = pipeNode.rightPipeNode.bottom - CONTROL_HANDLE_OFFSET;
           }
           // update the flux meter
           flowModel.fluxMeter.trigger( 'update' );

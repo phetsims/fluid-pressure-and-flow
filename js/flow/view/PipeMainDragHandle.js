@@ -80,12 +80,9 @@ define( function( require ) {
                           pipeNode.leftPipeYOffset * pipe.leftPipeScale;
           pipe.leftPipePosition = new Vector2( layoutBounds.minX - pipeNode.leftPipeLeftOffset, leftPipeY );
 
-
           // set the left pipe  top/bottom control point handle positions
-          pipeHandlesNode.controlHandleNodes[ leftTopControlPointIndex ].bottom = pipeNode.leftPipeNode.top +
-                                                                                  CONTROL_HANDLE_OFFSET;
-          pipeHandlesNode.controlHandleNodes[ leftBottomControlPointIndex ].top = pipeNode.leftPipeNode.bottom -
-                                                                                  CONTROL_HANDLE_OFFSET;
+          pipe.leftPipeTopHandleY = pipeNode.leftPipeNode.top + CONTROL_HANDLE_OFFSET;
+          pipe.leftPipeBottomHandleY = pipeNode.leftPipeNode.bottom - CONTROL_HANDLE_OFFSET;
           flowModel.pipe.leftPipeMainHandleYPosition = pipeNode.leftPipeNode.centerY;
         }
         else {
@@ -101,12 +98,9 @@ define( function( require ) {
                            pipeNode.rightPipeYOffset * pipe.rightPipeScale;
           pipe.rightPipePosition = new Vector2( layoutBounds.maxX - pipeNode.rightPipeLeftOffset, rightPipeY );
 
-
           // set the right pipe top/bottom control point handle positions
-          pipeHandlesNode.controlHandleNodes[ rightTopControlPointIndex ].bottom = pipeNode.rightPipeNode.top +
-                                                                                   CONTROL_HANDLE_OFFSET;
-          pipeHandlesNode.controlHandleNodes[ rightBottomControlPointIndex ].top = pipeNode.rightPipeNode.bottom -
-                                                                                   CONTROL_HANDLE_OFFSET;
+          pipe.rightPipeTopHandleY = pipeNode.rightPipeNode.top + CONTROL_HANDLE_OFFSET;
+          pipe.rightPipeBottomHandleY = pipeNode.rightPipeNode.bottom - CONTROL_HANDLE_OFFSET;
 
           flowModel.pipe.rightPipeMainHandleYPosition = pipeNode.rightPipeNode.centerY;
         }

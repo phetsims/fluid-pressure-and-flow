@@ -45,7 +45,7 @@ define( function( require ) {
     this.modelViewTransform = modelViewTransform;
     this.layoutBounds = layoutBounds;
 
-    this.leftPipeYOffset = 25; // left pipe top offset w.r.t the left top control point
+    this.leftPipeYOffset = 30; // left pipe top offset w.r.t the left top control point
     this.rightPipeYOffset = 30; // right pipe top offset w.r.t the right top control point
     this.leftPipeRightOffset = 55;
     this.rightPipeLeftOffset = 75;

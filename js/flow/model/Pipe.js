@@ -29,11 +29,15 @@ define( function( require ) {
       flowRate: 5000, // rate of fluid flow in Liter per second (L/s)
       friction: false, // flag indicating whether friction should slow particles near the edges
       rightPipePosition: new Vector2( 693, 197 ),
-      leftPipePosition: new Vector2( -50, 197 ),
+      leftPipePosition: new Vector2( -49, 197 ),
       leftPipeMainHandleYPosition: 262,
       rightPipeMainHandleYPosition: 262,
       leftPipeScale: 0.36,
-      rightPipeScale: 0.36
+      rightPipeScale: 0.36,
+      leftPipeTopHandleY: 199,
+      leftPipeBottomHandleY: 324,
+      rightPipeTopHandleY: 199,
+      rightPipeBottomHandleY: 324
     } );
 
     // cross-sections that the user can manipulate to deform the pipe.
@@ -74,12 +78,13 @@ define( function( require ) {
 
     // reset the pipe
     reset: function() {
-      PropertySet.prototype.reset.call( this );
+
       // reset the control points.
       for ( var i = 0; i < this.controlPoints.length; i++ ) {
         this.controlPoints[ i ].reset();
       }
       this.dirty = true;
+      PropertySet.prototype.reset.call( this );
     },
 
     /**
