@@ -164,7 +164,7 @@ define( function( require ) {
       fill: '#f2fa6a',
       right: controlPanel.left - 20,
       top: controlPanel.top
-      scale} );
+    } );
     this.addChild( sensorPanel );
 
     // add barometers within the sensor panel bounds
