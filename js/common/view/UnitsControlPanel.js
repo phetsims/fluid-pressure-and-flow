@@ -71,7 +71,6 @@ define( function( require ) {
       return new HBox( { children: [ new HStrut( strutWidth ), item, new HStrut( strutWidth )] } );
     };
 
-
     var content = new VBox( {
       spacing: 11,
       children: [createTitle( titleText ), metricRadio, englishRadio, createTitle( dummyText )],

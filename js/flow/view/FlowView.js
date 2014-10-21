@@ -38,7 +38,7 @@ define( function( require ) {
   var GridInjectorNode = require( 'FLUID_PRESSURE_AND_FLOW/flow/view/GridInjectorNode' );
   var PipeHandlesNode = require( 'FLUID_PRESSURE_AND_FLOW/flow/view/PipeHandlesNode' );
 
-  //strings
+  // strings
   var fluidDensityString = require( 'string!FLUID_PRESSURE_AND_FLOW/fluidDensity' );
   var gasolineString = require( 'string!FLUID_PRESSURE_AND_FLOW/gasoline' );
   var waterString = require( 'string!FLUID_PRESSURE_AND_FLOW/water' );

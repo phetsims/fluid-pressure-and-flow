@@ -87,6 +87,7 @@ define( function( require ) {
     this.gridParticles = new ObservableArray();
 
     this.gridInjectorElapsedTimeInPressedModeProperty.link( function() {
+
       //The grid injector can only be fired every so often, in order to prevent too many black particles in the pipe
       if ( flowModel.gridInjectorElapsedTimeInPressedMode > 5 ) {
         flowModel.isGridInjectorPressed = false;
@@ -181,6 +182,7 @@ define( function( require ) {
       // creates a red particle at the left most pipe location and a random y fraction between [0.15, 0.85) within the pipe
       createParticle: function() {
         if ( this.isDotsVisible ) {
+
           // create particles in the [0.15, 0.85) range so that they don't touch the pipe
           var fraction = 0.15 + Math.random() * 0.7;
           this.flowParticles.push( new Particle( this.pipe.getMinX(), fraction, this.pipe, 0.1, 'red' ) );

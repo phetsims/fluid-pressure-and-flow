@@ -4,9 +4,9 @@
  * Model for a flexible cylindrical pipe which can be modified using a fixed number of control points.
  * Also models the flow of particles in the pipe (with and without friction).
  * All units are in metric unless otherwise mentioned.
+ *
  * @author Siddhartha Chinthapally (Actual Concepts).
  */
-
 define( function( require ) {
   'use strict';
 
@@ -371,6 +371,7 @@ define( function( require ) {
       var deltaX = ( x1 - x0 );
       var deltaY = ( y1 - y0 );
       var vx = ( deltaX / Math.sqrt( deltaX * deltaX + deltaY * deltaY ) ) * speed;
+
       // If friction is enabled, then scale down quadratically (like a parabola) as you get further from the center of the pipe.
       // But instead of reaching zero velocity at the edge of the pipe (which could cause particles to pile up indefinitely), extend the region
       // a small epsilon past the (0..1) pipe range

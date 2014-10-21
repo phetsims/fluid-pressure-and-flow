@@ -24,7 +24,6 @@ define( function( require ) {
   var ArrowShape = require( 'SCENERY_PHET/ArrowShape' );
   var Bounds2 = require( 'DOT/Bounds2' );
 
-
   // strings
   var speedString = require( 'string!FLUID_PRESSURE_AND_FLOW/speed' );
   var mPerS = require( 'string!FLUID_PRESSURE_AND_FLOW/mPerS' );
@@ -43,8 +42,7 @@ define( function( require ) {
    * @param {Object} [options] that can be passed to the underlying node
    * @constructor
    */
-  function VelocitySensorNode( modelViewTransform, velocitySensor, measureUnitsProperty, linkedProperties,
-                               getVelocityAt, containerBounds, dragBounds, options ) {
+  function VelocitySensorNode( modelViewTransform, velocitySensor, measureUnitsProperty, linkedProperties, getVelocityAt, containerBounds, dragBounds, options ) {
     var velocitySensorNode = this;
     Node.call( this, {cursor: 'pointer', pickable: true} );
 
@@ -106,6 +104,7 @@ define( function( require ) {
     velocitySensor.valueProperty.link( function( velocity ) {
       this.arrowShape.setShape( new ArrowShape( 0, 0, modelViewTransform.modelToViewDeltaX( velocitySensor.value.x ),
         modelViewTransform.modelToViewDeltaY( velocitySensor.value.y ) ) );
+
       // set the arrowShape path position.
       // using approximate values (for better performance) instead of using exact values computed using sin, cos.
       // Note: the arrow position could be off the center of the sensor tip by a pixel in some cases.
@@ -169,8 +168,10 @@ define( function( require ) {
       } );
 
     velocitySensor.on( 'update', function() {
-      velocitySensor.value = getVelocityAt( modelViewTransform.viewToModelX( velocitySensor.position.x + 50 ),
-        modelViewTransform.viewToModelY( velocitySensor.position.y + 72 ) );
+      velocitySensor.value = getVelocityAt(
+        modelViewTransform.viewToModelX( velocitySensor.position.x + 50 ),
+        modelViewTransform.viewToModelY( velocitySensor.position.y + 72 )
+      );
     } );
 
     this.touchArea = this.localBounds.dilatedXY( 0, 0 );
