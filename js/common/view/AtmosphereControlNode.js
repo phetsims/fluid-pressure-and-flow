@@ -3,6 +3,7 @@
 /**
  * View for the atmosphere control options embedded within the control panel.
  * Contains on/off radio boxes and a border around the options with a title at the top left embedded within the border.
+ *
  * @author Vasily Shakhov (Mlearner)
  * @author Siddhartha Chinthapally (Actual Concepts)
  */
@@ -24,7 +25,7 @@ define( function( require ) {
   var offString = require( 'string!UNDER_PRESSURE/off' );
 
   /**
-   * @param {Property<Boolean>} isAtmosphereProperty to select atmosphere on/off
+   * @param {Property<Boolean>} isAtmosphereProperty - to select atmosphere on/off
    * @param {Object} options
    * @constructor
    */
@@ -59,12 +60,18 @@ define( function( require ) {
       align: 'left'
     } );
 
-    this.background = new Rectangle( -this.options.xMargin, -this.options.yMargin,
-        this.contentNode.width + 2 * this.options.xMargin,
-        this.contentNode.height + 2 * this.options.yMargin,
+    this.background = new Rectangle(
+      -this.options.xMargin,
+      -this.options.yMargin,
+      (this.contentNode.width + 2 * this.options.xMargin),
+      (this.contentNode.height + 2 * this.options.yMargin),
       this.options.cornerRadius, this.options.cornerRadius,
-      { stroke: this.options.stroke, lineWidth: this.options.lineWidth,
-        fill: this.options.fill } );
+      {
+        stroke: this.options.stroke,
+        lineWidth: this.options.lineWidth,
+        fill: this.options.fill
+      }
+    );
     this.addChild( this.background );
     this.addChild( this.contentNode, { y: 50 } );
 
