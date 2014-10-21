@@ -3,6 +3,7 @@
 /**
  * Parent type for models of pools with faucets. Handles liquid level changes
  * based on the states of the input and output faucets.
+ *
  * @author Vasily Shakhov (Mlearner)
  * @author Siddhartha Chinthapally (Actual Concepts)
  */

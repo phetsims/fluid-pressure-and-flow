@@ -4,7 +4,7 @@
  * Top model for all screens - all common properties and methods are placed here.
  *
  * @author Vasily Shakhov (Mlearner)
- * @author siddhartha chinthapally (Actual Concepts )
+ * @author Siddhartha Chinthapally (Actual Concepts)
  */
 define( function( require ) {
   'use strict';
@@ -35,7 +35,6 @@ define( function( require ) {
    * @param {number} width of sim
    * @param {number} height of sim
    */
-
   function UnderPressureModel( width, height ) {
 
     var underPressureModel = this;

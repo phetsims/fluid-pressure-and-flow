@@ -1,7 +1,8 @@
 // Copyright 2002-2013, University of Colorado Boulder
 
 /**
- * Utility class for units conversion
+ * Utility class for units conversion.
+ *
  * @author Vasily Shakhov (Mlearner)
  * @author Siddhartha Chinthapally (Actual Concepts)
  */
@@ -46,8 +47,7 @@ define( function( require ) {
      */
     getPressureString: function( pressure, measureUnits, abbreviated ) {
       if ( measureUnits === 'metric' ) {
-        return StringUtils.format( valueWithUnitsPattern, Util.toFixed( pressure / 1000, abbreviated ? 1 : 3 ),
-          kPaString );
+        return StringUtils.format( valueWithUnitsPattern, Util.toFixed( pressure / 1000, abbreviated ? 1 : 3 ), kPaString );
       }
       else if ( measureUnits === 'atmosphere' ) {
         return StringUtils.format( valueWithUnitsPattern,

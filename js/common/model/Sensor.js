@@ -2,6 +2,7 @@
 
 /**
  * Model for a generic sensor with position and value.
+ *
  * @author Siddhartha Chinthapally (Actual Concepts)
  */
 define( function( require ) {
