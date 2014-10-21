@@ -8,7 +8,7 @@
 define( function( require ) {
   'use strict';
 
-// modules
+  // modules
   var inherit = require( 'PHET_CORE/inherit' );
   var VBox = require( 'SCENERY/nodes/VBox' );
   var HBox = require( 'SCENERY/nodes/HBox' );
@@ -26,7 +26,6 @@ define( function( require ) {
   var gridString = require( 'string!UNDER_PRESSURE/grid' );
   var rulerString = require( 'string!UNDER_PRESSURE/ruler' );
 
-
   /**
    * @param {UnderPressureModel} underPressureModel of the sim.
    * @param {Object} options
@@ -37,7 +36,7 @@ define( function( require ) {
     options = _.extend( {
       xMargin: 10,
       yMargin: 7,
-      fill: '#f2fa6a ',
+      fill: '#f2fa6a',
       stroke: 'gray',
       lineWidth: 1,
       resize: false
@@ -45,7 +44,7 @@ define( function( require ) {
 
     var textOptions = {font: new PhetFont( 12 )};
     var rulerSet = [new Text( rulerString, textOptions ), this.createRulerIcon()];
-    var grid = [new Text( gridString, textOptions )];
+    var gridArray = [new Text( gridString, textOptions )];
     var atmosphereControlNode = new AtmosphereControlNode( underPressureModel.isAtmosphereProperty );
 
     var alignOptions = {
@@ -58,14 +57,14 @@ define( function( require ) {
     //align ruler icon right
     var padWidth = expandedWidth - rulerSet[0].width - rulerSet[1].width - alignOptions.boxWidth -
                    alignOptions.spacing * 2;
-    var ruler = [ rulerSet[0], new HStrut( padWidth ), rulerSet[1] ];
+    var rulerArray = [ rulerSet[0], new HStrut( padWidth ), rulerSet[1] ];
 
     //resize boxes to fit max
     atmosphereControlNode.updateWidth( expandedWidth );
 
-    var rulerCheckBox = new CheckBox( new HBox( {children: ( ruler )} ), underPressureModel.isRulerVisibleProperty,
+    var rulerCheckBox = new CheckBox( new HBox( {children: rulerArray} ), underPressureModel.isRulerVisibleProperty,
       alignOptions );
-    var gridCheckBox = new CheckBox( new HBox( {children: ( grid )} ), underPressureModel.isGridVisibleProperty,
+    var gridCheckBox = new CheckBox( new HBox( {children: gridArray} ), underPressureModel.isGridVisibleProperty,
       alignOptions );
 
     var maxCheckBoxWidth = _.max( [ rulerCheckBox, gridCheckBox ], function( item ) {

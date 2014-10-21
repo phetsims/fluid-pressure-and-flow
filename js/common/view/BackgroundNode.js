@@ -2,11 +2,14 @@
 
 /**
  * View for the background node containing sky and ground with an option to turned off the atmosphere
+ *
  * @author Vasily Shakhov (Mlearner)
  * @author Siddhartha Chinthapally (Actual Concepts)
  */
 define( function( require ) {
   'use strict';
+
+  // modules
   var Node = require( 'SCENERY/nodes/Node' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Rectangle = require( 'SCENERY/nodes/Rectangle' );
@@ -14,8 +17,8 @@ define( function( require ) {
   var GroundNode = require( 'SCENERY_PHET/GroundNode' );
 
   /**
-   * @param {UnderPressureModel} underPressureModel of the sim
-   * @param {ModelViewTransform2} modelViewTransform for transforming between model and view co-ordinates
+   * @param {UnderPressureModel} underPressureModel -- main model of the sim
+   * @param {ModelViewTransform2} modelViewTransform -- for transforming between model and view co-ordinates
    * @constructor
    */
   function BackgroundNode( underPressureModel, modelViewTransform ) {
