@@ -160,9 +160,7 @@ define( function( require ) {
     barometer.on( 'update', function() {
       if ( barometer.position !== barometer.positionProperty.initialValue ) {
         barometer.value = getPressureAt( modelViewTransform.viewToModelX( barometer.position.x ),
-          modelViewTransform.viewToModelY( barometer.position.y +
-                                           (options.pressureReadOffset *
-                                            options.scale) ) );
+          modelViewTransform.viewToModelY( barometer.position.y + (options.pressureReadOffset * options.scale) ) );
       }
     } );
 

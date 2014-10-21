@@ -36,7 +36,7 @@ define( function( require ) {
     options = _.extend( {
       xMargin: 7,
       yMargin: 6,
-      fill: '#f2fa6a ',
+      fill: '#f2fa6a',
       stroke: 'gray',
       lineWidth: 1,
       resize: false
@@ -81,8 +81,7 @@ define( function( require ) {
 
     var content = new VBox( {
       spacing: 4,
-      children: [ createTitle( titleText ), metricRadio, atmosphereRadio, englishRadio,
-        createTitle( dummyText ) ],
+      children: [ createTitle( titleText ), metricRadio, atmosphereRadio, englishRadio, createTitle( dummyText ) ],
       align: 'left'
     } );
 
