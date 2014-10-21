@@ -21,7 +21,7 @@ define( function( require ) {
 
   /**
    * Node that injects the grid dots
-   * @param {Property<Boolean>} isGridInjectorPressedProperty indicates whether the injector is pressed or not
+   * @param {Property.<boolean>} isGridInjectorPressedProperty indicates whether the injector is pressed or not
    * @param {modelViewTransform} modelViewTransform , Transform between model and view coordinate frames
    * @param {Pipe} pipe model of the simulation
    * @param {Object} options that can be passed on to the underlying node

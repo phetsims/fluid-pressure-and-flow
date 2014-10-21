@@ -27,6 +27,8 @@ define( function( require ) {
   // constants
   var LINE_COLOR = '#613705';
   var PIPE_INITIAL_SCALE = 0.36;
+
+  // For stretching the pipes off the screen to the left and the right, see #225
   var PIPE_SEGMENT_X_SCALE = 100;
 
   /*
