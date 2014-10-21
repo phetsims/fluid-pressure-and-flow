@@ -25,7 +25,6 @@ define( function( require ) {
    * @param {Object} options to pass to the underlying node
    * @constructor
    */
-
   function GridLinesNode( measureUnitsProperty, modelViewTransform, x1, y1, x2, y2, options ) {
 
     Node.call( this );
@@ -33,7 +32,6 @@ define( function( require ) {
       metersStep: 1,
       feetStep: 1
     }, options );
-
 
     var addLine = function( node, y ) {
       node.addChild( new Line( modelViewTransform.modelToViewX( x1 ), y, modelViewTransform.modelToViewX( x2 ), y,

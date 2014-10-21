@@ -59,8 +59,10 @@ define( function( require ) {
   function UnderPressureView( underPressureModel ) {
 
     var underPressureView = this;
-    ScreenView.call( this, { renderer: 'svg', layoutBounds: new Bounds2( 0, 0, underPressureModel.width,
-      underPressureModel.height )} );
+    ScreenView.call( this, {
+      renderer: 'svg',
+      layoutBounds: new Bounds2( 0, 0, underPressureModel.width, underPressureModel.height )
+    } );
 
     var modelViewTransform = ModelViewTransform2.createSinglePointScaleMapping(
       Vector2.ZERO,
@@ -88,11 +90,12 @@ define( function( require ) {
     this.addChild( controlPanel );
 
     // units panel
-    var unitsControlPanel = new UnitsControlPanel( underPressureModel.measureUnitsProperty, controlPanel.width,
-      {  yMargin: 2, right: resetAllButton.right,
-        top: controlPanel.bottom + 6,
-        cornerRadius: 7
-      } );
+    var unitsControlPanel = new UnitsControlPanel( underPressureModel.measureUnitsProperty, controlPanel.width, {
+      yMargin: 2,
+      right: resetAllButton.right,
+      top: controlPanel.bottom + 6,
+      cornerRadius: 7
+    } );
     this.addChild( unitsControlPanel );
 
     // gravity slider
@@ -101,8 +104,7 @@ define( function( require ) {
       underPressureModel.gravityProperty,
       underPressureModel.getGravityString.bind( underPressureModel ),
       underPressureModel.gravityRange,
-      underPressureModel.gravityControlExpandedProperty,
-      {
+      underPressureModel.gravityControlExpandedProperty, {
         right: resetAllButton.right,
         bottom: resetAllButton.top - 5,
         scale: 0.95,
@@ -122,7 +124,8 @@ define( function( require ) {
             value: underPressureModel.gravityRange.max
           }
         ]
-      } );
+      }
+    );
     this.addChild( gravitySlider );
 
     // fluid density slider
@@ -131,8 +134,7 @@ define( function( require ) {
       underPressureModel.fluidDensityProperty,
       underPressureModel.getFluidDensityString.bind( underPressureModel ),
       underPressureModel.fluidDensityRange,
-      underPressureModel.fluidDensityControlExpandedProperty,
-      {
+      underPressureModel.fluidDensityControlExpandedProperty, {
         right: resetAllButton.right,
         bottom: gravitySlider.top - 8,
         scale: 0.95,
@@ -156,8 +158,13 @@ define( function( require ) {
     this.addChild( fluidDensitySlider );
 
     // add the sensors panel
-    var sensorPanel = new Rectangle( 0, 0, 100, 130, 10, 10, { stroke: 'gray', lineWidth: 1, fill: '#f2fa6a',
-      right: controlPanel.left - 20, top: controlPanel.top } );
+    var sensorPanel = new Rectangle( 0, 0, 100, 130, 10, 10, {
+      stroke: 'gray',
+      lineWidth: 1,
+      fill: '#f2fa6a',
+      right: controlPanel.left - 20,
+      top: controlPanel.top
+    } );
     this.addChild( sensorPanel );
 
     // add barometers within the sensor panel bounds

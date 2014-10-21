@@ -114,7 +114,6 @@ define( function( require ) {
 
     feetRuler.addInputListener( new MovableDragHandler( { locationProperty: underPressureModel.rulerPositionProperty, dragBounds: dragBounds },
       ModelViewTransform2.createIdentity() ) );
-
   }
 
   return inherit( Node, UnderPressureRuler );

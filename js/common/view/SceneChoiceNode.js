@@ -54,5 +54,5 @@ define( function( require ) {
     this.mutate( options );
   }
 
-  return inherit( Node, SceneChoiceNode, {} );
+  return inherit( Node, SceneChoiceNode );
 } );

@@ -20,7 +20,6 @@ define( function( require ) {
    * @param {number} maxHeight
    * @constructor
    */
-
   function FaucetFluidNode( faucet, model, modelViewTransform, maxHeight ) {
     var thisNode = this;
     Rectangle.call( thisNode, 0, 0, 0, 0, { lineWidth: 1 } );

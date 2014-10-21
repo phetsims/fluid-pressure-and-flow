@@ -22,14 +22,13 @@ define( function( require ) {
    */
   function UnderPressureFaucetNode( faucet, width, modelViewTransform ) {
 
-    FaucetNode.call( this, faucet.maxFlowRate, faucet.flowRateProperty, faucet.enabledProperty,
-      {
-        horizontalPipeLength: width,
-        scale: faucet.scale,
-        x: modelViewTransform.modelToViewX( faucet.location.x ),
-        y: modelViewTransform.modelToViewY( faucet.location.y ),
-        tapToDispenseInterval: 250
-      } );
+    FaucetNode.call( this, faucet.maxFlowRate, faucet.flowRateProperty, faucet.enabledProperty, {
+      horizontalPipeLength: width,
+      scale: faucet.scale,
+      x: modelViewTransform.modelToViewX( faucet.location.x ),
+      y: modelViewTransform.modelToViewY( faucet.location.y ),
+      tapToDispenseInterval: 250
+    } );
   }
 
   return inherit( FaucetNode, UnderPressureFaucetNode );

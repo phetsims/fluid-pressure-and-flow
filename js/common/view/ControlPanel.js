@@ -55,8 +55,7 @@ define( function( require ) {
     var expandedWidth = atmosphereControlNode.width + 10;
 
     //align ruler icon right
-    var padWidth = expandedWidth - rulerSet[0].width - rulerSet[1].width - alignOptions.boxWidth -
-                   alignOptions.spacing * 2;
+    var padWidth = expandedWidth - rulerSet[0].width - rulerSet[1].width - alignOptions.boxWidth - alignOptions.spacing * 2;
     var rulerArray = [ rulerSet[0], new HStrut( padWidth ), rulerSet[1] ];
 
     //resize boxes to fit max
