@@ -12,7 +12,6 @@ define( function( require ) {
   var PropertySet = require( 'AXON/PropertySet' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Range = require( 'DOT/Range' );
-  var LinearFunction = require( 'DOT/LinearFunction' );
   var Vector2 = require( 'DOT/Vector2' );
   var Units = require( 'UNDER_PRESSURE/common/model/Units' );
   var Sensor = require( 'UNDER_PRESSURE/common/model/Sensor' );
@@ -157,7 +156,8 @@ define( function( require ) {
     },
 
     isPointInWater: function( x, y ) {
-      return (x > this.waterTower.tankPosition.x && x < this.waterTower.tankPosition.x + 2 * this.waterTower.TANK_RADIUS &&
+      return (x > this.waterTower.tankPosition.x &&
+              x < this.waterTower.tankPosition.x + 2 * this.waterTower.TANK_RADIUS &&
               y > this.waterTower.tankPosition.y && y < this.waterTower.tankPosition.y + this.waterTower.fluidLevel);
     },
 
@@ -193,8 +193,11 @@ define( function( require ) {
 
       while ( this.accumulatedDt > 0.016 ) {
         this.accumulatedDt -= 0.016;
-        if ( (this.faucetMode === 'manual' && this.isFaucetEnabled && this.faucetFlowRate > 0) || (this.faucetMode === 'matchLeakage' && this.isSluiceOpen && this.waterTower.fluidVolume > 0) ) {
-          newFaucetDrop = new WaterDrop( this.faucetPosition.copy().plus( new Vector2( Math.random() * 0.2 - 0.1, 1.5 ) ), new Vector2( 0, 0 ), this.faucetMode === 'manual' ? this.faucetFlowRate * 0.016 : this.leakageVolume );
+        if ( (this.faucetMode === 'manual' && this.isFaucetEnabled && this.faucetFlowRate > 0) ||
+             (this.faucetMode === 'matchLeakage' && this.isSluiceOpen && this.waterTower.fluidVolume > 0) ) {
+          newFaucetDrop = new WaterDrop( this.faucetPosition.copy().plus( new Vector2( Math.random() * 0.2 - 0.1,
+            1.5 ) ), new Vector2( 0, 0 ),
+              this.faucetMode === 'manual' ? this.faucetFlowRate * 0.016 : this.leakageVolume );
           this.faucetDrops.push( newFaucetDrop );
           this.newFaucetDrops.push( newFaucetDrop );
           newFaucetDrop.step( this.accumulatedDt );
@@ -223,7 +226,8 @@ define( function( require ) {
             dropVolume = 4 * Math.PI * radius * radius * radius / 3;
           }
 
-          newWaterDrop = new WaterDrop( this.waterTower.tankPosition.plus( new Vector2( 2 * this.waterTower.TANK_RADIUS, 0.25 + radius ) ), new Vector2( this.velocityMagnitude, 0 ), dropVolume );
+          newWaterDrop = new WaterDrop( this.waterTower.tankPosition.plus( new Vector2( 2 * this.waterTower.TANK_RADIUS,
+              0.25 + radius ) ), new Vector2( this.velocityMagnitude, 0 ), dropVolume );
           this.waterTowerDrops.push( newWaterDrop );
           newWaterDrop.step( this.accumulatedDt );
           this.newWaterTowerDrops.push( newWaterDrop );
@@ -238,14 +242,17 @@ define( function( require ) {
           this.leakageVolume = 0;
           var y = this.hose.rotationPivotY + this.waterTower.tankPosition.y + 0.1;
           if ( y < this.waterTower.fluidLevel + this.waterTower.tankPosition.y ) {
-            this.velocityMagnitude = Math.sqrt( 2 * Constants.EARTH_GRAVITY * (this.waterTower.tankPosition.y + this.waterTower.fluidLevel - y) );
+            this.velocityMagnitude = Math.sqrt( 2 * Constants.EARTH_GRAVITY *
+                                                (this.waterTower.tankPosition.y + this.waterTower.fluidLevel - y) );
             waterVolumeExpelled = this.velocityMagnitude * 2.8 * 0.016;
             remainingVolume = this.waterTower.fluidVolume;
             this.leakageVolume = remainingVolume > waterVolumeExpelled ? waterVolumeExpelled : remainingVolume;
 
-            newHoseDrop = new WaterDrop( new Vector2( this.hose.rotationPivotX + this.waterTower.tankPosition.x + 2 * this.waterTower.TANK_RADIUS - 0.1 + Math.random() * 0.2 - 0.1,
+            newHoseDrop = new WaterDrop( new Vector2( this.hose.rotationPivotX + this.waterTower.tankPosition.x +
+                                                      2 * this.waterTower.TANK_RADIUS - 0.1 + Math.random() * 0.2 - 0.1,
                   y + Math.random() * 0.2 - 0.1 ),
-              new Vector2( this.velocityMagnitude * Math.cos( this.hose.angle ), this.velocityMagnitude * Math.sin( this.hose.angle ) ), this.leakageVolume );
+              new Vector2( this.velocityMagnitude * Math.cos( this.hose.angle ),
+                  this.velocityMagnitude * Math.sin( this.hose.angle ) ), this.leakageVolume );
 
             this.hoseDrops.push( newHoseDrop );
             newHoseDrop.step( this.accumulatedDt );
@@ -264,7 +271,10 @@ define( function( require ) {
         }
 
         // check if the faucetDrops hit the fluidLevel
-        if ( this.faucetDrops.get( i ).position.y < this.waterTower.tankPosition.y + ((this.waterTower.fluidLevel > this.faucetDrops.get( i ).radius) ? this.waterTower.fluidLevel + this.faucetDrops.get( i ).radius : 0.3 + this.faucetDrops.get( i ).radius) ) {
+        if ( this.faucetDrops.get( i ).position.y < this.waterTower.tankPosition.y +
+                                                    ((this.waterTower.fluidLevel > this.faucetDrops.get( i ).radius) ?
+                                                     this.waterTower.fluidLevel + this.faucetDrops.get( i ).radius :
+                                                     0.3 + this.faucetDrops.get( i ).radius) ) {
           this.dropsToRemove.push( this.faucetDrops.get( i ) );
 
           if ( this.waterTower.fluidVolume < this.waterTower.TANK_VOLUME ) {
@@ -329,17 +339,21 @@ define( function( require ) {
 
       // update sensor values only about 10 times per sec
       // update the sensor values only when water is flowing
-      if ( this.accumulatedDtForSensors > 0.1 && (this.hoseDrops.length > 0 || this.waterTowerDrops.length > 0 || this.faucetDrops.length > 0) ) {
+      if ( this.accumulatedDtForSensors > 0.1 &&
+           (this.hoseDrops.length > 0 || this.waterTowerDrops.length > 0 || this.faucetDrops.length > 0) ) {
         this.accumulatedDtForSensors -= 0.1;
         for ( var k = 0; k < this.speedometers.length; k++ ) {
-          this.speedometers[k].value = this.getWaterDropVelocityAt( this.modelViewTransform.viewToModelX( this.speedometers[k].position.x + 50 ), this.modelViewTransform.viewToModelY( this.speedometers[k].position.y + 72 ) );
+          this.speedometers[k].value = this.getWaterDropVelocityAt( this.modelViewTransform.viewToModelX( this.speedometers[k].position.x +
+                                                                                                          50 ),
+            this.modelViewTransform.viewToModelY( this.speedometers[k].position.y + 72 ) );
         }
       }
     },
 
     getFluidDensityString: function() {
       if ( this.measureUnits === 'english' ) {
-        return StringUtils.format( valueWithUnitsPattern, (Units.FLUID_DENSITY_ENGLISH_PER_METRIC * this.fluidDensity).toFixed( 2 ), densityUnitsEnglish );
+        return StringUtils.format( valueWithUnitsPattern,
+          (Units.FLUID_DENSITY_ENGLISH_PER_METRIC * this.fluidDensity).toFixed( 2 ), densityUnitsEnglish );
       }
       else {
         return StringUtils.format( valueWithUnitsPattern, Math.round( this.fluidDensity ), densityUnitsMetric );
