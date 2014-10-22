@@ -19,7 +19,7 @@ define( function( require ) {
   var Constants = require( 'FLUID_PRESSURE_AND_FLOW/common/Constants' );
   var StringUtils = require( 'PHETCOMMON/util/StringUtils' );
   var VelocitySensor = require( 'FLUID_PRESSURE_AND_FLOW/common/model/VelocitySensor' );
-  var Barometer = require( 'UNDER_PRESSURE/common/model/Barometer' );
+  var Sensor = require( 'UNDER_PRESSURE/common/model/Sensor' );
   var ObservableArray = require( 'AXON/ObservableArray' );
   var FluidColorModel = require( 'UNDER_PRESSURE/common/model/FluidColorModel' );
   var Units = require( 'UNDER_PRESSURE/common/model/Units' );
@@ -69,7 +69,7 @@ define( function( require ) {
 
     this.barometers = [];
     for ( var i = 0; i < NUMBER_BAROMETERS; i++ ) {
-      this.barometers.push( new Barometer( new Vector2( 0, 0 ), 0 ) );
+      this.barometers.push( new Sensor( new Vector2( 0, 0 ), 0 ) );
     }
 
     this.speedometers = [];

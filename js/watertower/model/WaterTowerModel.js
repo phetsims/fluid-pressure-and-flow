@@ -15,7 +15,7 @@ define( function( require ) {
   var LinearFunction = require( 'DOT/LinearFunction' );
   var Vector2 = require( 'DOT/Vector2' );
   var Units = require( 'UNDER_PRESSURE/common/model/Units' );
-  var Barometer = require( 'UNDER_PRESSURE/common/model/Barometer' );
+  var Sensor = require( 'UNDER_PRESSURE/common/model/Sensor' );
   var VelocitySensor = require( 'FLUID_PRESSURE_AND_FLOW/common/model/VelocitySensor' );
   var WaterTower = require( 'FLUID_PRESSURE_AND_FLOW/watertower/model/WaterTower' );
   var WaterDrop = require( 'FLUID_PRESSURE_AND_FLOW/watertower/model/WaterDrop' );
@@ -68,8 +68,6 @@ define( function( require ) {
       }
     );
 
-    this.getStandardAirPressure = new LinearFunction( 0, 150, Constants.EARTH_AIR_PRESSURE, Constants.EARTH_AIR_PRESSURE_AT_500_FT );
-
     // position the tank frame at (1, 1.5). (0, 0) is the left most point on the ground.
     this.waterTower = new WaterTower( { tankPosition: new Vector2( 7, 11.1 ) } ); //INITIAL_Y is 15 in java
 
@@ -83,7 +81,7 @@ define( function( require ) {
 
     this.barometers = [];
     for ( var i = 0; i < 2; i++ ) {
-      this.barometers.push( new Barometer( new Vector2( 0, 0 ), 0 ) );
+      this.barometers.push( new Sensor( new Vector2( 0, 0 ), 0 ) );
     }
 
     this.speedometers = [];
