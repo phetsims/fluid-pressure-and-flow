@@ -93,8 +93,8 @@ define( function( require ) {
     frictionCheckBox.touchArea = new Bounds2( frictionCheckBox.localBounds.minX - 5, frictionCheckBox.localBounds.minY,
         frictionCheckBox.localBounds.minX + maxCheckBoxWidth, frictionCheckBox.localBounds.maxY );
     fluxMeterCheckBox.touchArea = new Bounds2( fluxMeterCheckBox.localBounds.minX - 5,
-      fluxMeterCheckBox.localBounds.minY, fluxMeterCheckBox.localBounds.minX + maxCheckBoxWidth,
-      fluxMeterCheckBox.localBounds.maxY );
+      fluxMeterCheckBox.localBounds.minY,
+        fluxMeterCheckBox.localBounds.minX + maxCheckBoxWidth, fluxMeterCheckBox.localBounds.maxY );
     dotsCheckBox.touchArea = new Bounds2( dotsCheckBox.localBounds.minX - 5, dotsCheckBox.localBounds.minY,
         dotsCheckBox.localBounds.minX + maxCheckBoxWidth, dotsCheckBox.localBounds.maxY );
 
@@ -103,13 +103,7 @@ define( function( require ) {
 
     var checkBoxes = new VBox( {align: 'left', spacing: 4, children: checkBoxChildren} );
 
-    var content = new VBox( {
-      spacing: 1,
-      children: [checkBoxes],
-      align: 'left'
-    } );
-
-    Panel.call( this, content, options );
+    Panel.call( this, checkBoxes, options );
   }
 
   //Create an icon for the ruler check box
