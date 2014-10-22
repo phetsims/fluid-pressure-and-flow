@@ -216,23 +216,25 @@ define( function( require ) {
     var speedControlMaxWidth = ( slowMotionRadioBox.width > normalMotionRadioBox.width ) ? slowMotionRadioBox.width :
                                normalMotionRadioBox.width;
 
+    var radioButtonSpacing = 5;
+    var touchAreaHeightExpansion = radioButtonSpacing / 2;
     slowMotionRadioBox.touchArea = new Bounds2(
       slowMotionRadioBox.localBounds.minX,
-      slowMotionRadioBox.localBounds.minY,
-        slowMotionRadioBox.localBounds.minX + speedControlMaxWidth,
-      slowMotionRadioBox.localBounds.maxY
+      slowMotionRadioBox.localBounds.minY - touchAreaHeightExpansion,
+      ( slowMotionRadioBox.localBounds.minX + speedControlMaxWidth ),
+      slowMotionRadioBox.localBounds.maxY + touchAreaHeightExpansion
     );
 
     normalMotionRadioBox.touchArea = new Bounds2(
       normalMotionRadioBox.localBounds.minX,
-      normalMotionRadioBox.localBounds.minY,
-        normalMotionRadioBox.localBounds.minX + speedControlMaxWidth,
-      normalMotionRadioBox.localBounds.maxY
+      normalMotionRadioBox.localBounds.minY - touchAreaHeightExpansion,
+      ( normalMotionRadioBox.localBounds.minX + speedControlMaxWidth ),
+      normalMotionRadioBox.localBounds.maxY + touchAreaHeightExpansion
     );
 
     var speedControl = new VBox( {
       align: 'left',
-      spacing: 5,
+      spacing: radioButtonSpacing,
       children: [ slowMotionRadioBox, normalMotionRadioBox ] } );
     this.addChild( speedControl.mutate( { right: playPauseButton.left - 8, bottom: playPauseButton.bottom } ) );
 
