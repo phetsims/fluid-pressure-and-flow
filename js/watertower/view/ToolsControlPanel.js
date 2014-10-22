@@ -81,13 +81,7 @@ define( function( require ) {
     ];
     var checkBoxes = new VBox( {align: 'left', spacing: 10, children: checkBoxChildren} );
 
-    var content = new VBox( {
-      spacing: 10,
-      children: [checkBoxes],
-      align: 'left'
-    } );
-
-    Panel.call( this, content, options );
+    Panel.call( this, checkBoxes, options );
   }
 
   //Create an icon for the ruler check box
