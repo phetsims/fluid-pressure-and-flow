@@ -15,7 +15,7 @@ define( function( require ) {
   var Range = require( 'DOT/Range' );
   var FluidColorModel = require( 'UNDER_PRESSURE/common/model/FluidColorModel' );
   var Units = require( 'UNDER_PRESSURE/common/model/Units' );
-  var Constants = require( 'UNDER_PRESSURE/common/Constants' );
+  var UnderPressureConstants = require( 'UNDER_PRESSURE/common/UnderPressureConstants' );
   var Vector2 = require( 'DOT/Vector2' );
   var Barometer = require( 'UNDER_PRESSURE/common/model/Barometer' );
   var SquarePoolModel = require( 'UNDER_PRESSURE/square-pool/model/SquarePoolModel' );
@@ -45,16 +45,16 @@ define( function( require ) {
     this.height = height;
     this.skyGroundBoundY = 3.5; // M
 
-    this.gravityRange = new Range( Constants.MARS_GRAVITY, Constants.JUPITER_GRAVITY );
-    this.fluidDensityRange = new Range( Constants.GASOLINE_DENSITY, Constants.HONEY_DENSITY );
+    this.gravityRange = new Range( UnderPressureConstants.MARS_GRAVITY, UnderPressureConstants.JUPITER_GRAVITY );
+    this.fluidDensityRange = new Range( UnderPressureConstants.GASOLINE_DENSITY, UnderPressureConstants.HONEY_DENSITY );
 
     PropertySet.call( this, {
         isAtmosphere: true,
         isRulerVisible: false,
         isGridVisible: false,
         measureUnits: 'metric', //metric, english or atmosphere
-        gravity: Constants.EARTH_GRAVITY,
-        fluidDensity: Constants.WATER_DENSITY,
+        gravity: UnderPressureConstants.EARTH_GRAVITY,
+        fluidDensity: UnderPressureConstants.WATER_DENSITY,
         currentScene: underPressureModel.scenes[0],
         currentVolume: 0, //L, volume of liquid in currentScene
         rulerPosition: new Vector2( 195, 245 ), // px

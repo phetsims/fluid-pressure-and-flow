@@ -10,7 +10,7 @@ define( function( require ) {
   'use strict';
 
   var Util = require( 'DOT/Util' );
-  var Constants = require( 'UNDER_PRESSURE/common/Constants' );
+  var UnderPressureConstants = require( 'UNDER_PRESSURE/common/UnderPressureConstants' );
 
   /**
    * Calculates the standard air pressure by linearly extrapolating the known values for height = 0m & height = 150m
@@ -19,6 +19,7 @@ define( function( require ) {
    */
   return function( height ) {
     //Note: 150 meters is 500 feet
-    return Util.linear( 0, 150, Constants.EARTH_AIR_PRESSURE, Constants.EARTH_AIR_PRESSURE_AT_500_FT, height );
+    return Util.linear( 0, 150, UnderPressureConstants.EARTH_AIR_PRESSURE,
+      UnderPressureConstants.EARTH_AIR_PRESSURE_AT_500_FT, height );
   };
 } );

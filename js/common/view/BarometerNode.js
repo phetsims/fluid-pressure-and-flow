@@ -23,7 +23,7 @@ define( function( require ) {
   var MovableDragHandler = require( 'SCENERY_PHET/input/MovableDragHandler' );
   var ModelViewTransform2 = require( 'PHETCOMMON/view/ModelViewTransform2' );
   var Property = require( 'AXON/Property' );
-  var Constants = require( 'UNDER_PRESSURE/common/Constants' );
+  var UnderPressureConstants = require( 'UNDER_PRESSURE/common/UnderPressureConstants' );
 
   // strings
   var pressureString = require( 'string!UNDER_PRESSURE/pressure' );
@@ -52,8 +52,8 @@ define( function( require ) {
     options = _.extend( {
       pressureReadOffset: 53,
       scale: 1,
-      minPressure: Constants.MIN_PRESSURE,
-      maxPressure: Constants.MAX_PRESSURE
+      minPressure: UnderPressureConstants.MIN_PRESSURE,
+      maxPressure: UnderPressureConstants.MAX_PRESSURE
     }, options );
 
     Node.call( this, {cursor: 'pointer'} );

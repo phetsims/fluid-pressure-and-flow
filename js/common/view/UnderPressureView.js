@@ -26,7 +26,7 @@ define( function( require ) {
   var ResetAllButton = require( 'SCENERY_PHET/buttons/ResetAllButton' );
   var Rectangle = require( 'SCENERY/nodes/Rectangle' );
   var BarometerNode = require( 'UNDER_PRESSURE/common/view/BarometerNode' );
-  var Constants = require( 'UNDER_PRESSURE/common/Constants' );
+  var UnderPressureConstants = require( 'UNDER_PRESSURE/common/UnderPressureConstants' );
   var SquarePoolView = require( 'UNDER_PRESSURE/square-pool/view/SquarePoolView' );
   var TrapezoidPoolView = require( 'UNDER_PRESSURE/trapezoid-pool/view/TrapezoidPoolView' );
   var ChamberPoolView = require( 'UNDER_PRESSURE/chamber-pool/view/ChamberPoolView' );
@@ -113,7 +113,7 @@ define( function( require ) {
         ticks: [
           {
             title: EarthString,
-            value: Constants.EARTH_GRAVITY
+            value: UnderPressureConstants.EARTH_GRAVITY
           },
           {
             title: MarsString,
@@ -143,7 +143,7 @@ define( function( require ) {
         ticks: [
           {
             title: WaterString,
-            value: Constants.WATER_DENSITY
+            value: UnderPressureConstants.WATER_DENSITY
           },
           {
             title: GasolineString,
@@ -191,7 +191,7 @@ define( function( require ) {
         {
           scale: 1.5,
           pressureReadOffset: 51,
-          minPressure: Constants.MIN_PRESSURE
+          minPressure: UnderPressureConstants.MIN_PRESSURE
         } );
       this.addChild( barometerNode );
     }.bind( this ) );
