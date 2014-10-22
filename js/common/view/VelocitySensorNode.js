@@ -174,7 +174,8 @@ define( function( require ) {
       );
     } );
 
-    this.touchArea = this.localBounds.dilatedXY( 0, 0 );
+    // for visually inspecting the touch area
+    this.touchArea = this.localBounds;
 
     this.mutate( options );
   }
