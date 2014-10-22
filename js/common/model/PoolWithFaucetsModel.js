@@ -16,9 +16,12 @@ define( function( require ) {
 
   /**
    * @param {UnderPressureModel} underPressureModel of the sim.
+   * @param {FaucetModel} inputFaucet that fills the pool
+   * @param {FaucetModel} outputFaucet that drains the pool
+   * @param {Number} maxVolume of the pool in liters
    * @constructor
    */
-  function PoolWithFaucetsModel( underPressureModel ) {
+  function PoolWithFaucetsModel( underPressureModel, inputFaucet, outputFaucet, maxVolume ) {
 
     PropertySet.call( this, {
       volume: 1.5
@@ -26,10 +29,10 @@ define( function( require ) {
 
     // Enable faucets and dropper based on amount of solution in the beaker.
     this.volumeProperty.link( function( volume ) {
-      this.inputFaucet.enabled = ( volume < this.maxVolume );
-      this.outputFaucet.enabled = ( volume > 0 );
+      inputFaucet.enabled = ( volume < maxVolume );
+      outputFaucet.enabled = ( volume > 0 );
       underPressureModel.currentVolume = volume;
-    }.bind( this ) );
+    } );
   }
 
   return inherit( PropertySet, PoolWithFaucetsModel, {

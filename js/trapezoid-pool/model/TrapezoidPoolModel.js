@@ -88,7 +88,7 @@ define( function( require ) {
       ymiddle: this.poolDimensions.bottomChamber.y1
     };
 
-    PoolWithFaucetsModel.call( this, underPressureModel );
+    PoolWithFaucetsModel.call( this, underPressureModel, this.inputFaucet, this.outputFaucet, this.maxVolume );
   }
 
   return inherit( PoolWithFaucetsModel, TrapezoidPoolModel, {

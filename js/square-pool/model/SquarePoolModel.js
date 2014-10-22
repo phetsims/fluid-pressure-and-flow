@@ -30,7 +30,7 @@ define( function( require ) {
 
     this.underPressureModel = underPressureModel;
 
-    PoolWithFaucetsModel.call( this, this.underPressureModel );
+    PoolWithFaucetsModel.call( this, this.underPressureModel, this.inputFaucet, this.outputFaucet, this.maxVolume );
 
     this.poolDimensions = {
       x1: 2.3,
