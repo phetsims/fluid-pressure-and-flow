@@ -56,8 +56,7 @@ define( function( require ) {
 
     this.contentNode = new HBox( {
       children: [ atmosphereTrue, atmosphereFalse ],
-      spacing: 10,
-      align: 'left'
+      spacing: 10
     } );
 
     this.background = new Rectangle(
