@@ -17,7 +17,7 @@ define( function( require ) {
   var Units = require( 'UNDER_PRESSURE/common/model/Units' );
   var UnderPressureConstants = require( 'UNDER_PRESSURE/common/UnderPressureConstants' );
   var Vector2 = require( 'DOT/Vector2' );
-  var Barometer = require( 'UNDER_PRESSURE/common/model/Barometer' );
+  var Sensor = require( 'UNDER_PRESSURE/common/model/Sensor' );
   var SquarePoolModel = require( 'UNDER_PRESSURE/square-pool/model/SquarePoolModel' );
   var TrapezoidPoolModel = require( 'UNDER_PRESSURE/trapezoid-pool/model/TrapezoidPoolModel' );
   var ChamberPoolModel = require( 'UNDER_PRESSURE/chamber-pool/model/ChamberPoolModel' );
@@ -74,7 +74,7 @@ define( function( require ) {
     this.barometers = [];
 
     for ( var i = 0; i < 4; i++ ) {
-      this.barometers.push( new Barometer( new Vector2( 0, 0 ), 0 ) );
+      this.barometers.push( new Sensor( new Vector2( 0, 0 ), 0 ) );
     }
 
     this.currentSceneProperty.link( function() {

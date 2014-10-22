@@ -32,7 +32,7 @@ define( function( require ) {
    * Main constructor for BarometerNode.
    *
    * @param {ModelViewTransform2} modelViewTransform , Transform between model and view coordinate frames
-   * @param {Barometer} barometer - the barometer model
+   * @param {Sensor} barometer - the barometer model
    * @param {Property<String>} measureUnitsProperty -- english/metric
    * @param {Property[]} linkedProperties - the set of properties which affect the barometer value
    * @param {function} getPressureAt - function to be called to get pressure at the given coords
