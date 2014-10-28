@@ -105,7 +105,6 @@ define( function( require ) {
       underPressureModel.gravityControlExpandedProperty, {
         right: resetAllButton.right,
         bottom: resetAllButton.top - 5,
-        scale: 0.95,
         title: gravityString,
         decimals: 1,
         ticks: [
@@ -135,7 +134,6 @@ define( function( require ) {
       underPressureModel.fluidDensityControlExpandedProperty, {
         right: resetAllButton.right,
         bottom: gravitySlider.top - 8,
-        scale: 0.95,
 
         title: fluidDensityString,
         ticks: [
