@@ -28,7 +28,7 @@ define( function( require ) {
   var Bounds2 = require( 'DOT/Bounds2' );
 
   // constants
-  var TRACK_SIZE = new Dimension2( 190, 10 );
+  var PLUS_MINUS_SPACING = 6;
 
   /**
    * Constructor for the slider control
@@ -40,65 +40,86 @@ define( function( require ) {
    * @param {Object} options
    * @constructor
    */
-  function ControlSlider( measureUnitsProperty, trackProperty, getPropertyStringFunction, trackRange, expandedProperty, options ) {
+  function ControlSlider( measureUnitsProperty, trackProperty, getPropertyStringFunction, trackRange, expandedProperty,
+                          options ) {
+
     options = _.extend( {
       fill: '#f2fa6a',
-      xMargin: 15,
-      yMargin: 5,
+      xMargin: 5,
       decimals: 0,
-      thumbSize: new Dimension2( 22, 45 ),
+      thumbSize: new Dimension2( 12, 25 ),
       ticks: [],
       ticksVisible: true,
       titleAlign: 'left'
     }, options );
 
     Node.call( this );
+    var trackSize = new Dimension2( 100, 6 );
 
-    var hSlider = new HSlider( trackProperty, trackRange, {
-      trackSize: TRACK_SIZE,
-      thumbSize: options.thumbSize,
-      majorTickLineWidth: (options.ticksVisible ? 1 : 0),
-      trackFill: new LinearGradient( 0, 0, TRACK_SIZE.width, 0 )
-        .addColorStop( 0, '#fff' )
-        .addColorStop( 1, '#000' ),
-      endDrag: function() {
-        for ( var i = 0; i < options.ticks.length; i++ ) {
-          if ( Math.abs( options.ticks[i].value - trackProperty.value ) <= 0.05 * options.ticks[i].value ) {
-            trackProperty.value = options.ticks[i].value;
-            break;
+    var getSlider = function( trackSize ) {
+      var aSlider = new HSlider( trackProperty, trackRange, {
+        trackSize: trackSize,
+        thumbSize: options.thumbSize,
+        majorTickLineWidth: (options.ticksVisible ? 1 : 0),
+        majorTickLength: 15,
+        trackFill: new LinearGradient( 0, 0, trackSize.width, 0 )
+          .addColorStop( 0, '#fff' )
+          .addColorStop( 1, '#000' ),
+        endDrag: function() {
+          for ( var i = 0; i < options.ticks.length; i++ ) {
+            if ( Math.abs( options.ticks[i].value - trackProperty.value ) <= 0.05 * options.ticks[i].value ) {
+              trackProperty.value = options.ticks[i].value;
+              break;
+            }
           }
         }
-      }
-    } );
+      } );
+      var labelFont = new PhetFont( 10 );
 
+      options.ticks.forEach( function( tick ) {
+        aSlider.addMajorTick( tick.value, new Text( tick.title, { font: labelFont, visible: options.ticksVisible } ) );
+      } );
+      return aSlider;
+    };
 
+    var hSlider = getSlider( trackSize );
     this.content = new Node();
 
     var plusButton = new ArrowButton( 'right', function propertyPlus() {
-      trackProperty.set( Util.toFixedNumber( parseFloat( Math.min( trackProperty.get() +
-                                                                   1 / Math.pow( 10, options.decimals ),
-        trackRange.max ) ), options.decimals ) );
+      trackProperty.set( Util.toFixedNumber( Math.min( trackProperty.get() + 1 / Math.pow( 10, options.decimals ),
+        trackRange.max ), options.decimals ) );
+    }, {
+      scale: 0.6
     } );
+
     plusButton.touchArea = new Bounds2( plusButton.localBounds.minX - 20, plusButton.localBounds.minY - 5,
         plusButton.localBounds.maxX + 20, plusButton.localBounds.maxY + 20 );
 
     var minusButton = new ArrowButton( 'left', function propertyMinus() {
-      trackProperty.set( Util.toFixedNumber( parseFloat( Math.max( trackProperty.get() -
-                                                                   1 / Math.pow( 10, options.decimals ),
-        trackRange.min ) ), options.decimals ) );
+      trackProperty.set( Util.toFixedNumber( Math.max( trackProperty.get() - 1 / Math.pow( 10, options.decimals ),
+        trackRange.min ), options.decimals ) );
+    }, {
+      scale: 0.6
     } );
+
     minusButton.touchArea = new Bounds2( minusButton.localBounds.minX - 20, minusButton.localBounds.minY - 5,
         minusButton.localBounds.maxX + 20, minusButton.localBounds.maxY + 20 );
 
-    var valueLabel = new SubSupText( '', { font: new PhetFont( 18 ), pickable: false } );
-    var valueField = new Rectangle( 0, 0, 100, 30, 3, 3,
+    var valueLabel = new SubSupText( '', { font: new PhetFont( 12 ), pickable: false } );
+    var valueField = new Rectangle( 0, 0, trackSize.width / 2, 18, 3, 3,
       { fill: '#FFF', stroke: 'black', lineWidth: 1, pickable: false } );
-    var labelFont = new PhetFont( 14 );
 
-    options.ticks.forEach( function( tick ) {
-      hSlider.addMajorTick( tick.value, new Text( tick.title, { font: labelFont, visible: options.ticksVisible } ) );
-    } );
 
+    var hSliderWidth = hSlider.width;
+
+    // Simple heuristic to expand the slider.
+    // Expand the slider track to the previous track+ticks width
+    if ( hSliderWidth > trackSize.width ) {
+      trackSize.width = hSliderWidth;
+      hSlider = getSlider( trackSize );
+      valueField.setRect( 0, 0, trackSize.width / 2, 18, 3, 3 );
+    }
+    hSliderWidth = hSlider.width;
     // rendering order
     this.content.addChild( valueField );
     this.content.addChild( valueLabel );
@@ -113,39 +134,40 @@ define( function( require ) {
     valueLabel.centerY = valueField.centerY - 3;
 
     // plus button to the right of the value
-    plusButton.left = valueField.right + 10;
+    plusButton.left = valueField.right + PLUS_MINUS_SPACING;
     plusButton.centerY = valueField.centerY;
 
     // minus button to the left of the value
-    minusButton.right = valueField.left - 10;
+    minusButton.right = valueField.left - PLUS_MINUS_SPACING;
     minusButton.centerY = valueField.centerY;
-
-    var scale = 0.65;
 
     this.accordionContent = new Node();
     this.accordionContent.addChild( this.content );
-
+    this.accordionContent.left = 0;
     var accordionBox = new AccordionBox( this.accordionContent,
       {
-        titleNode: new Text( options.title, { font: new PhetFont( { size: 19 } ) } ),
+        titleNode: new Text( options.title, { font: new PhetFont( { size: 12 } ) } ),
         fill: options.fill,
         stroke: 'gray',
         expandedProperty: expandedProperty,
-        minWidth: 270,
         contentAlign: 'center',
         titleAlign: options.titleAlign,
         buttonAlign: 'left',
-        scale: scale,
-        cornerRadius: 10,
-        buttonXMargin: 8,
-        buttonYMargin: 8
+        cornerRadius: 4,
+        contentYSpacing: 2,
+        contentYMargin: 5,
+        contentXMargin: 4,
+        buttonYMargin: 4,
+        buttonXMargin: 6,
+        buttonLength: 12,
+        minWidth: hSliderWidth + 2 * options.xMargin
       } );
     this.addChild( accordionBox );
 
-    //question mark, show if unknown property
+    // question mark, show if unknown property
     this.questionMark = new Node( {visible: false} );
-    this.questionMark.addChild( new Text( '?', { font: new PhetFont( 80 )} ) );
-    this.questionMark.centerX = accordionBox.width / 2 + 16;
+    this.questionMark.addChild( new Text( '?', { font: new PhetFont( 60 )} ) );
+    this.questionMark.centerX = this.content.centerX;
     this.questionMark.top = this.content.top;
     this.accordionContent.addChild( this.questionMark );
 
