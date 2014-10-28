@@ -70,9 +70,7 @@ define( function( require ) {
       70 ); //1m = 70px, (0,0) - top left corner
 
     //sky, earth and controls
-    var backgroundNode = new BackgroundNode( underPressureModel, modelViewTransform );
-    this.addChild( backgroundNode );
-    backgroundNode.moveToBack();
+    this.addChild( new BackgroundNode( underPressureModel, modelViewTransform ) );
 
     // add reset button
     var resetAllButton = new ResetAllButton( {
