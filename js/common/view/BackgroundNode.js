@@ -1,7 +1,7 @@
 // Copyright 2002-2013, University of Colorado Boulder
 
 /**
- * View for the background node containing sky and ground with an option to turned off the atmosphere
+ * View for the background node containing sky and ground with an option to turn off the atmosphere
  *
  * @author Vasily Shakhov (Mlearner)
  * @author Siddhartha Chinthapally (Actual Concepts)
@@ -17,8 +17,8 @@ define( function( require ) {
   var GroundNode = require( 'SCENERY_PHET/GroundNode' );
 
   /**
-   * @param {UnderPressureModel} underPressureModel -- main model of the sim
-   * @param {ModelViewTransform2} modelViewTransform -- for transforming between model and view co-ordinates
+   * @param {UnderPressureModel} underPressureModel of the sim
+   * @param {ModelViewTransform2} modelViewTransform for transforming between model and view co-ordinates
    * @constructor
    */
   function BackgroundNode( underPressureModel, modelViewTransform ) {
@@ -28,12 +28,20 @@ define( function( require ) {
     var backgroundWidth = 5000;
     var skyExtension = 5000;
     var groundExtension = 5000;
+    var groundY = modelViewTransform.modelToViewY( underPressureModel.skyGroundBoundY );
 
-    var skyNode = new SkyNode( backgroundStartX, -skyExtension, backgroundWidth,
-        skyExtension + modelViewTransform.modelToViewY( underPressureModel.skyGroundBoundY ),
-      modelViewTransform.modelToViewY( underPressureModel.skyGroundBoundY ) );
-    var skyNodeWithNoAtmosphere = new Rectangle( backgroundStartX, -skyExtension, backgroundWidth,
-        skyExtension + modelViewTransform.modelToViewY( underPressureModel.skyGroundBoundY ), { fill: 'black'} );
+    // add rectangle on top of the sky node to extend sky upwards.
+    this.addChild( new Rectangle( backgroundStartX, -skyExtension, backgroundWidth, skyExtension,
+      { stroke: '#01ACE4', fill: '#01ACE4' } ) );
+
+    var skyNode = new SkyNode( backgroundStartX, 0, backgroundWidth, groundY, groundY );
+    var skyNodeWithNoAtmosphere = new Rectangle(
+      backgroundStartX,
+      -skyExtension,
+      backgroundWidth,
+      ( skyExtension + modelViewTransform.modelToViewY( underPressureModel.skyGroundBoundY ) ),
+      { fill: 'black' }
+    );
 
     this.addChild( skyNode );
     this.addChild( skyNodeWithNoAtmosphere );
