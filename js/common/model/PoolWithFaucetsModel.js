@@ -24,7 +24,9 @@ define( function( require ) {
   function PoolWithFaucetsModel( underPressureModel, inputFaucet, outputFaucet, maxVolume ) {
 
     PropertySet.call( this, {
-      volume: 1.5
+      // Note: Each scene could have a different volume. If we use currentVolumeProperty from the underPressureModel
+      // instead of this property then volume changes in one scene will reflect in the other.
+      volume: 1.5 //L
     } );
 
     // Enable faucets and dropper based on amount of solution in the beaker.

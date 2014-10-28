@@ -56,6 +56,11 @@ define( function( require ) {
         gravity: UnderPressureConstants.EARTH_GRAVITY,
         fluidDensity: UnderPressureConstants.WATER_DENSITY,
         currentScene: underPressureModel.scenes[0],
+
+        // This is just a "simulated" derived property that depends on currentScene and the volume in the current scene.
+        // This property is passed to barometer so that it can react to changes in the volume.
+        // This way Barometer doesn't need to know about the different scenes and can depend only on
+        // UnderPressureModel's properties.
         currentVolume: 0, //L, volume of liquid in currentScene
         rulerPosition: new Vector2( 195, 245 ), // px
         mysteryChoice: 'fluidDensity', //for mystery-pool, gravity of fluidDensity
