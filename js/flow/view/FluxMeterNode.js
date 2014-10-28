@@ -83,7 +83,7 @@ define( function( require ) {
     // Split the content into 3 vboxes. First vbox holds the right aligned title,
     // second the right aligned value and the third vbox holds the left aligned units text
     var content = new HBox( {
-      spacing: 0,
+      spacing: 5,
       children: [
         new VBox( { align: 'right', children: [
           new HBox( { children: [ new HStrut( 4 ), flowRateText ] } ),
@@ -96,12 +96,11 @@ define( function( require ) {
           new HBox( { children: [ new HStrut( 4 ), this.fluxValue ] } )
         ] } ),
         new VBox( { align: 'left', children: [
-          new HBox( { children: [ new HStrut( 8 ), this.flowRateUnit ] } ),
-          new HBox( { children: [ new HStrut( 8 ), this.areaUnit ] } ),
-          new HBox( { children: [ new HStrut( 8 ), this.fluxUnit ] } )
+          new Node( { children: [ new HStrut( 8 ), this.flowRateUnit ] } ),
+          new Node( { children: [ new HStrut( 8 ), this.areaUnit ] } ),
+          new Node( { children: [ new HStrut( 8 ), this.fluxUnit ] } )
         ] } )
-      ],
-      align: 'left'
+      ]
     } );
 
     this.displayPanel = new Panel( content, {
