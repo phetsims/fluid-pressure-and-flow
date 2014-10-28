@@ -43,7 +43,7 @@ define( function( require ) {
     // dimensions of the model's space
     this.width = width;
     this.height = height;
-    this.skyGroundBoundY = 3.5; // M
+    this.skyGroundBoundY = 3.5; // m
 
     this.gravityRange = new Range( UnderPressureConstants.MARS_GRAVITY, UnderPressureConstants.JUPITER_GRAVITY );
     this.fluidDensityRange = new Range( UnderPressureConstants.GASOLINE_DENSITY, UnderPressureConstants.HONEY_DENSITY );
@@ -62,7 +62,7 @@ define( function( require ) {
         // This way Barometer doesn't need to know about the different scenes and can depend only on
         // UnderPressureModel's properties.
         currentVolume: 0, //L, volume of liquid in currentScene
-        rulerPosition: new Vector2( 195, 245 ), // px
+        rulerPosition: new Vector2( 300, 100 ), // ruler initial position above the ground and center of square pool
         mysteryChoice: 'fluidDensity', //for mystery-pool, gravity of fluidDensity
         fluidDensityControlExpanded: true,//For the accordion box
         gravityControlExpanded: true //For the accordion box

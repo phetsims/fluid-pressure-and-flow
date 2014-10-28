@@ -31,8 +31,12 @@ define( function( require ) {
     this.maxHeight = 3; // meters
     this.maxVolume = this.maxHeight; // Liters
 
-    this.inputFaucet = new FaucetModel( new Vector2( 3.19, underPressureModel.skyGroundBoundY - 0.44 ), 1, 0.42 );
-    this.outputFaucet = new FaucetModel( new Vector2( 7.5, underPressureModel.skyGroundBoundY + 3.45 ), 1, 0.3 );
+    var inputFaucetX = 3.19;
+    var inputFaucetY = underPressureModel.skyGroundBoundY - 0.44;
+    var outputFaucetX = 7.5;
+    var outputFaucetY = underPressureModel.skyGroundBoundY + 3.45;
+    this.inputFaucet = new FaucetModel( new Vector2( inputFaucetX, inputFaucetY ), 1, 0.42 );
+    this.outputFaucet = new FaucetModel( new Vector2( outputFaucetX, outputFaucetY ), 1, 0.3 );
 
     this.underPressureModel = underPressureModel;
 

@@ -30,13 +30,14 @@ define( function( require ) {
     this.addChild( new TrapezoidPoolBack( trapezoidPoolModel, modelViewTransform ) );
 
     // add fluids
+    var inputFaucetFluidMaxHeight = modelViewTransform.modelToViewY( poolDimensions.bottomChamber.y2 -
+                                                                     trapezoidPoolModel.inputFaucet.location.y );
     this.addChild( new FaucetFluidNode(
-      trapezoidPoolModel.inputFaucet, trapezoidPoolModel, modelViewTransform,
-      modelViewTransform.modelToViewY( poolDimensions.bottomChamber.y2 - trapezoidPoolModel.inputFaucet.location.y )
-    ) );
+      trapezoidPoolModel.inputFaucet, trapezoidPoolModel, modelViewTransform, inputFaucetFluidMaxHeight ) );
 
+    var outputFaucetFluidMaxHeight = 1000;
     this.addChild( new FaucetFluidNode( trapezoidPoolModel.outputFaucet, trapezoidPoolModel, modelViewTransform,
-      1000 ) );
+      outputFaucetFluidMaxHeight ) );
 
     // add water
     this.addChild( new TrapezoidPoolWaterNode( trapezoidPoolModel, modelViewTransform ) );

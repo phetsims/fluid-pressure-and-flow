@@ -25,18 +25,23 @@ define( function( require ) {
     this.maxHeight = 3; // Meters
     this.maxVolume = this.maxHeight; // Liters
 
-    this.inputFaucet = new FaucetModel( new Vector2( 2.7, underPressureModel.skyGroundBoundY - 0.44 ), 1, 0.42 );
-    this.outputFaucet = new FaucetModel( new Vector2( 6.6, underPressureModel.skyGroundBoundY + 3.45 ), 1, 0.3 );
+    var inputFaucetX = 2.7;
+    var inputFaucetY = underPressureModel.skyGroundBoundY - 0.44;
+    var outputFaucetX = 6.6;
+    var outputFaucetY = underPressureModel.skyGroundBoundY + 3.45;
+    this.inputFaucet = new FaucetModel( new Vector2( inputFaucetX, inputFaucetY ), 1, 0.42 );
+    this.outputFaucet = new FaucetModel( new Vector2( outputFaucetX, outputFaucetY ), 1, 0.3 );
 
     this.underPressureModel = underPressureModel;
 
     PoolWithFaucetsModel.call( this, this.underPressureModel, this.inputFaucet, this.outputFaucet, this.maxVolume );
-
+    var poolLeftX = 2.3;
+    var poolRightX = 6;
     this.poolDimensions = {
-      x1: 2.3,
-      y1: underPressureModel.skyGroundBoundY,
-      x2: 6,
-      y2: underPressureModel.skyGroundBoundY + 3
+      x1: poolLeftX,
+      y1: underPressureModel.skyGroundBoundY, // pool top y
+      x2: poolRightX,
+      y2: underPressureModel.skyGroundBoundY + this.maxHeight  // pool bottom y
     };
   }
 
