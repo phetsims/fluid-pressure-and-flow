@@ -169,8 +169,8 @@ define( function( require ) {
             value: flowModel.fluidDensityRange.max
           }
         ],
-        scale: 0.9,
-        titleAlign: 'center'
+        titleAlign: 'center',
+        xMargin: 10
       } );
     this.addChild( fluidDensityControlNode );
 
@@ -260,8 +260,7 @@ define( function( require ) {
           }
         ],
         ticksVisible: false,
-        titleAlign: 'center',
-        scale: 0.9
+        titleAlign: 'center'
       } );
     this.addChild( flowRateControlNode );
 
