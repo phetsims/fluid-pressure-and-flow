@@ -168,11 +168,14 @@ define( function( require ) {
     // add play pause button and step button
     var stepButton = new StepButton( function() {
       waterTowerModel.stepInternal( 0.016 );
-    }, waterTowerModel.isPlayProperty, { stroke: 'black', fill: '#005566', right: fluidDensityControlSlider.left - inset, bottom: fluidDensityControlSlider.bottom - inset} );
+    }, waterTowerModel.isPlayingProperty, { stroke: 'black', fill: '#005566', right: fluidDensityControlSlider.left -
+                                                                                     inset, bottom: fluidDensityControlSlider.bottom -
+                                                                                                    inset} );
 
     this.addChild( stepButton );
 
-    var playPauseButton = new PlayPauseButton( waterTowerModel.isPlayProperty, { stroke: 'black', fill: '#005566', y: stepButton.centerY, right: stepButton.left - inset } );
+    var playPauseButton = new PlayPauseButton( waterTowerModel.isPlayingProperty,
+      { stroke: 'black', fill: '#005566', y: stepButton.centerY, right: stepButton.left - inset } );
     this.addChild( playPauseButton );
 
     var speedControl = new VBox( {
@@ -234,17 +237,17 @@ define( function( require ) {
 
     // if the sim is paused, disable the fill button as soon as the tank is filled
     waterTowerModel.waterTower.fluidVolumeProperty.valueEquals( waterTowerModel.waterTower.TANK_VOLUME ).link( function() {
-      if ( !waterTowerModel.isPlay ) {
+      if ( !waterTowerModel.isPlaying ) {
         waterTowerNode.fillButton.enabled = false;
         waterTowerModel.tankFullLevelDuration = 1;
       }
     } );
 
     // Handles the case when switching from play to pause or viceversa
-    waterTowerModel.isPlayProperty.link( function( isPlay ) {
+    waterTowerModel.isPlayingProperty.link( function( isPlaying ) {
       if ( waterTowerModel.waterTower.fluidVolume >= waterTowerModel.waterTower.TANK_VOLUME ) {
         waterTowerModel.tankFullLevelDuration = 1;
-        if ( !isPlay ) {
+        if ( !isPlaying ) {
           // disable the fill button if the tank is full and switching from play to pause
           waterTowerNode.fillButton.enabled = false;
         }

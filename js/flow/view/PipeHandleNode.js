@@ -158,7 +158,7 @@ define( function( require ) {
           }
 
           // reposition the particles when the sim is paused and the handle is dragged
-          if ( !flowModel.isPlay ) {
+          if ( !flowModel.isPlaying ) {
             pipeNode.particlesLayer.step();
           }
 

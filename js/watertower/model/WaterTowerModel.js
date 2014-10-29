@@ -47,7 +47,7 @@ define( function( require ) {
         isMeasuringTapeVisible: false,
         isSpeedometerVisible: true,
         isHoseVisible: false,
-        isPlay: true,//Whether the sim is paused or running
+        isPlaying: true,//Whether the sim is paused or running
         faucetFlowRate: 0, // cubic meter/sec
         isFaucetEnabled: true,
         measureUnits: 'metric', //metric, english
@@ -165,7 +165,7 @@ define( function( require ) {
     step: function( dt ) {
       // prevent sudden dt bursts on slow devices or when the user comes back to the tab after a while
       dt = ( dt > 0.04 ) ? 0.04 : dt;
-      if ( this.isPlay ) {
+      if ( this.isPlaying ) {
         if ( this.speed === 'normal' ) {
           this.stepInternal( dt );
         }

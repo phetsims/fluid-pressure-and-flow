@@ -57,7 +57,7 @@ define( function( require ) {
         isGridInjectorPressed: false,
         gridInjectorElapsedTimeInPressedMode: 0, // elapsed sim time (in sec) for which the injector remained pressed
         isDotsVisible: true,
-        isPlay: true,// Whether the sim is paused or running
+        isPlaying: true,// Whether the sim is paused or running
         measureUnits: 'metric', //metric, english
         fluidDensity: Constants.WATER_DENSITY,
         fluidDensityControlExpanded: false,
@@ -168,7 +168,7 @@ define( function( require ) {
         // prevent sudden dt bursts when the user comes back to the tab after a while
         dt = ( dt > 0.04 ) ? 0.04 : dt;
 
-        if ( this.isPlay ) {
+        if ( this.isPlaying ) {
           var adjustedDT = this.speed === 'normal' ? dt : dt * 0.33;
           this.timer.step( adjustedDT );
           this.propagateParticles( adjustedDT );

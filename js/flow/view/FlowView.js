@@ -191,7 +191,7 @@ define( function( require ) {
         flowModel.propagateParticles( 0.016 );
         flowView.pipeNode.particlesLayer.step();
       },
-      flowModel.isPlayProperty,
+      flowModel.isPlayingProperty,
       {
         radius: 12,
         stroke: 'black',
@@ -203,7 +203,7 @@ define( function( require ) {
 
     this.addChild( stepButton );
 
-    var playPauseButton = new PlayPauseButton( flowModel.isPlayProperty,
+    var playPauseButton = new PlayPauseButton( flowModel.isPlayingProperty,
       { radius: 18, stroke: 'black', fill: '#005566', y: stepButton.centerY, right: stepButton.left - inset } );
     this.addChild( playPauseButton );
 
@@ -329,7 +329,7 @@ define( function( require ) {
      * Called by the animation loop.
      */
     step: function() {
-      if ( this.flowModel.isPlay ) {
+      if ( this.flowModel.isPlaying ) {
         this.pipeNode.particlesLayer.step();
       }
     }
