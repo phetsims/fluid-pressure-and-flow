@@ -47,7 +47,6 @@ define( function( require ) {
 
     var pipe = flowModel.pipe;
 
-    var numControlPoints = pipe.controlPoints.length;
 
     this.controlHandleNodes = [];
     // add handle to drag the left pipe
@@ -87,16 +86,24 @@ define( function( require ) {
       right: this.rightPipeMainHandleNode
     };
 
-    this.addChild( new PipeMainDragHandle( pipeHandlesNode, 'left', modelViewTransform, this.layoutBounds ) );
-    this.addChild( new PipeMainDragHandle( pipeHandlesNode, 'right', modelViewTransform, this.layoutBounds ) );
+    this.addChild( new PipeMainDragHandle( pipeHandlesNode, 'left', modelViewTransform ) );
+    this.addChild( new PipeMainDragHandle( pipeHandlesNode, 'right', modelViewTransform ) );
 
-    for ( var i = 0; i < numControlPoints; i++ ) {
-      var pipeHandleNode = new PipeHandleNode( pipeHandlesNode, i, modelViewTransform, layoutBounds );
+    var i;
+    var pipeHandleNode;
+    for ( i = 1; i < pipe.top.length - 1; i++ ) {
+      pipeHandleNode = new PipeHandleNode( pipeHandlesNode, true, i, modelViewTransform );
       this.controlHandleNodes.push( pipeHandleNode );
       this.addChild( pipeHandleNode );
     }
 
-    var numberOfControlPoints = pipe.controlPoints.length;
+    for ( i = pipe.bottom.length - 2; i > 0; i-- ) {
+      pipeHandleNode = new PipeHandleNode( pipeHandlesNode, false, i, modelViewTransform );
+      this.controlHandleNodes.push( pipeHandleNode );
+      this.addChild( pipeHandleNode );
+    }
+
+    var numberOfControlPoints = pipe.top.length * 2 - 4;
     flowModel.pipe.leftPipeMainHandleYPositionProperty.linkAttribute( pipeHandlesNode.leftPipeMainHandleNode, 'y' );
     flowModel.pipe.rightPipeMainHandleYPositionProperty.linkAttribute( pipeHandlesNode.rightPipeMainHandleNode, 'y' );
     Property.multilink( [pipe.leftPipeTopHandleYProperty, pipe.leftPipeBottomHandleYProperty],

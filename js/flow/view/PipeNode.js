@@ -49,8 +49,8 @@ define( function( require ) {
 
     this.leftPipeYOffset = 30; // left pipe top offset w.r.t the left top control point
     this.rightPipeYOffset = 30; // right pipe top offset w.r.t the right top control point
-    this.leftPipeRightOffset = 55;
     this.rightPipeLeftOffset = 75;
+    var leftPipeX = -49;
 
     //left side pipe image.
     var leftPipeHead = new Image( leftPipeImage );
@@ -63,18 +63,15 @@ define( function( require ) {
 
     this.leftPipeNode = new Node( {
       children: [ leftPipeHead, leftPipeSegment ],
-      x: flowModel.pipe.leftPipePosition.x,
-      y: flowModel.pipe.leftPipePosition.y,
+      x: leftPipeX,
+      y: flowModel.pipe.leftPipeYPosition,
       scale: flowModel.pipe.leftPipeScale
     } );
 
-    var leftPipeWidth = leftPipeHead.getImageWidth() * PIPE_INITIAL_SCALE;
-    this.leftPipeLeftOffset = leftPipeWidth - this.leftPipeRightOffset;
-
     this.leftPipeBackNode = new Node( {
       children: [ new Image( leftPipeBackImage ) ],
-      x: flowModel.pipe.leftPipePosition.x,
-      y: flowModel.pipe.leftPipePosition.y,
+      x: leftPipeX,
+      y: flowModel.pipe.leftPipeYPosition,
       scale: flowModel.pipe.leftPipeScale
     } );
 
@@ -100,8 +97,8 @@ define( function( require ) {
 
     this.rightPipeNode = new Node( {
       children: [ rightPipeHead, rightPipeMiddle ],
-      x: flowModel.pipe.rightPipePosition.x,
-      y: flowModel.pipe.rightPipePosition.y,
+      x: layoutBounds.maxX - pipeNode.rightPipeLeftOffset,
+      y: flowModel.pipe.rightPipeYPosition,
       scale: flowModel.pipe.rightPipeScale
     } );
 
@@ -133,9 +130,9 @@ define( function( require ) {
     } );
 
     // link the left/right pipe position properties to the left/right pipe nodes
-    flowModel.pipe.leftPipePositionProperty.linkAttribute( pipeNode.leftPipeNode, 'translation' );
-    flowModel.pipe.leftPipePositionProperty.linkAttribute( pipeNode.leftPipeBackNode, 'translation' );
-    flowModel.pipe.rightPipePositionProperty.linkAttribute( pipeNode.rightPipeNode, 'translation' );
+    flowModel.pipe.leftPipeYPositionProperty.linkAttribute( pipeNode.leftPipeNode, 'y' );
+    flowModel.pipe.leftPipeYPositionProperty.linkAttribute( pipeNode.leftPipeBackNode, 'y' );
+    flowModel.pipe.rightPipeYPositionProperty.linkAttribute( pipeNode.rightPipeNode, 'y' );
 
     flowModel.fluidColorModel.colorProperty.linkAttribute( pipeNode.pipeFluidNode, 'fill' );
 
@@ -159,21 +156,24 @@ define( function( require ) {
         var xPointsTop = new Array( splineCrossSections.length );
         var yPointsTop = new Array( splineCrossSections.length );
 
+        var minXOfPipeFlowLineShape = -6.7; // model value
+        var maxXOfPipeFlowLineShape = 6.7;
+        var startIndex = 0;
         //  points for lineTo
         for ( i = 0; i < splineCrossSections.length; i++ ) {
           xPointsBottom[i] = splineCrossSections[i].x;
           yPointsBottom[i] = splineCrossSections[i].yBottom;
           xPointsTop[i] = splineCrossSections[i].x;
           yPointsTop[i] = splineCrossSections[i].yTop;
+          if ( splineCrossSections[i].x <= minXOfPipeFlowLineShape ) {
+            startIndex = i;
+          }
         }
 
-        var flowLineShape = new Shape().moveTo( this.modelViewTransform.modelToViewX( xPointsBottom[ 0 ] ),
-          this.modelViewTransform.modelToViewY( yPointsBottom[ 0 ] ) );
+        var flowLineShape = new Shape().moveTo( this.modelViewTransform.modelToViewX( xPointsBottom[ startIndex + 1 ] ),
+          this.modelViewTransform.modelToViewY( yPointsBottom[ startIndex + 1 ] ) );
 
-        var minXOfPipeFlowLineShape = -6.7; // model value
-        var maxXOfPipeFlowLineShape = 6.8;
-
-        for ( i = 1; i < xPointsBottom.length; i = i + 1 ) {
+        for ( i = startIndex + 2; i < xPointsBottom.length; i = i + 1 ) {
           // Spline points beyond the last pipe cross section are not needed.
           if ( xPointsBottom[ i ] < maxXOfPipeFlowLineShape && xPointsBottom[ i ] > minXOfPipeFlowLineShape ) {
             flowLineShape.lineTo( this.modelViewTransform.modelToViewX( xPointsBottom[ i ] ),

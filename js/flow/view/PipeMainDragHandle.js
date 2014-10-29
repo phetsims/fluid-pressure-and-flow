@@ -25,10 +25,9 @@ define( function( require ) {
    * @param {PipeHandlesNode} pipeHandlesNode
    * @param {string} dragHandlePosition indicates whether it is left or right. Can take values 'left' or 'right'
    * @param {ModelViewTransform2} modelViewTransform to convert between model and view co-ordinate frames
-   * @param {Bounds2} layoutBounds of the simulation
    * @constructor
    */
-  function PipeMainDragHandle( pipeHandlesNode, dragHandlePosition, modelViewTransform, layoutBounds ) {
+  function PipeMainDragHandle( pipeHandlesNode, dragHandlePosition, modelViewTransform ) {
 
     Node.call( this );
 
@@ -36,11 +35,10 @@ define( function( require ) {
     var flowModel = pipeHandlesNode.flowModel;
     var pipe = flowModel.pipe;
 
-    var numControlPoints = pipe.controlPoints.length;
-    var leftTopControlPointIndex = 0;
-    var leftBottomControlPointIndex = numControlPoints - 1;
-    var rightTopControlPointIndex = numControlPoints / 2 - 1;
-    var rightBottomControlPointIndex = numControlPoints / 2;
+    var leftTopControlPointIndex = 1;
+    var leftBottomControlPointIndex = 1;
+    var rightTopControlPointIndex = pipe.top.length - 2;
+    var rightBottomControlPointIndex = pipe.bottom.length - 2;
 
     var initialMainHandleY;
     var dragStartY;
@@ -57,28 +55,27 @@ define( function( require ) {
         var currentDragPoint = pipeHandlesNode.pipeMainDragHandles[ dragHandlePosition ].globalToParentPoint( e.pointer.point );
         var offSetY = currentDragPoint.y - dragStartY;
         var pt = modelViewTransform.viewToModelPosition( currentDragPoint );
-        var index = dragHandlePosition === 'left' ? 0 : rightBottomControlPointIndex;
-        var x = pipe.controlPoints[ index ].position.x;
-        var yUp;
-        var yLow;
         pt.y = modelViewTransform.viewToModelY( initialMainHandleY + offSetY );
 
         // limit the pipe drag between [ -3, -1 ]
         pt.y = Util.clamp( pt.y, -3, -1 );
 
+        var yUp;
+        var yLow;
+        var x;
         if ( dragHandlePosition === 'left' ) {
           // Left handle
           // calculate top and bottom control point positions
           yUp = pt.y + pipe.leftPipeScale / PIPE_INITIAL_SCALE * PIPE_INITIAL_HEIGHT / 2;
           yLow = pt.y - pipe.leftPipeScale / PIPE_INITIAL_SCALE * PIPE_INITIAL_HEIGHT / 2;
 
-          // set the  left pipe  top  and bottom control point.
-          pipe.controlPoints[ leftTopControlPointIndex ].position = new Vector2( x, yUp );
-          pipe.controlPoints[ leftBottomControlPointIndex ].position = new Vector2( x, yLow );
+          // set the left pipe top and bottom control point
+          x = pipe.top[ leftTopControlPointIndex ].position.x;
+          pipe.top[ leftTopControlPointIndex ].position = new Vector2( x, yUp );
+          pipe.bottom[ leftBottomControlPointIndex ].position = new Vector2( x, yLow );
 
-          var leftPipeY = modelViewTransform.modelToViewY( pipe.controlPoints[ leftTopControlPointIndex ].position.y ) -
-                          pipeNode.leftPipeYOffset * pipe.leftPipeScale;
-          pipe.leftPipePosition = new Vector2( layoutBounds.minX - pipeNode.leftPipeLeftOffset, leftPipeY );
+          pipe.leftPipeYPosition = modelViewTransform.modelToViewY( pipe.top[ leftTopControlPointIndex ].position.y ) -
+                                   pipeNode.leftPipeYOffset * pipe.leftPipeScale;
 
           // set the left pipe  top/bottom control point handle positions
           pipe.leftPipeTopHandleY = pipeNode.leftPipeNode.top + CONTROL_HANDLE_OFFSET;
@@ -92,11 +89,11 @@ define( function( require ) {
           yLow = pt.y - ( pipe.rightPipeScale / PIPE_INITIAL_SCALE ) * PIPE_INITIAL_HEIGHT / 2;
 
           // set the right pipe top and bottom control points positions
-          pipe.controlPoints[ rightTopControlPointIndex ].position = new Vector2( x, yUp );
-          pipe.controlPoints[ rightBottomControlPointIndex ].position = new Vector2( x, yLow );
-          var rightPipeY = modelViewTransform.modelToViewY( pipe.controlPoints[ rightTopControlPointIndex ].position.y ) -
-                           pipeNode.rightPipeYOffset * pipe.rightPipeScale;
-          pipe.rightPipePosition = new Vector2( layoutBounds.maxX - pipeNode.rightPipeLeftOffset, rightPipeY );
+          x = pipe.top[ rightTopControlPointIndex ].position.x;
+          pipe.top[ rightTopControlPointIndex ].position = new Vector2( x, yUp );
+          pipe.bottom[ rightBottomControlPointIndex ].position = new Vector2( x, yLow );
+          pipe.rightPipeYPosition = modelViewTransform.modelToViewY( pipe.top[ rightTopControlPointIndex ].position.y ) -
+                                    pipeNode.rightPipeYOffset * pipe.rightPipeScale;
 
           // set the right pipe top/bottom control point handle positions
           pipe.rightPipeTopHandleY = pipeNode.rightPipeNode.top + CONTROL_HANDLE_OFFSET;

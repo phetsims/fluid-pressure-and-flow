@@ -29,12 +29,12 @@ define( function( require ) {
 
   /**
    * @param {PipeHandlesNode} pipeHandlesNode
+   * @param {boolean} isTop indicates whether this handle is on top or bottom of the pipe flow line
    * @param {Number} controlPointIndex
    * @param {ModelViewTransform2} modelViewTransform to convert between model and view co-ordinate frames
-   * @param {Bounds2} layoutBounds of the simulation
    * @constructor
    */
-  function PipeHandleNode( pipeHandlesNode, controlPointIndex, modelViewTransform, layoutBounds ) {
+  function PipeHandleNode( pipeHandlesNode, isTop, controlPointIndex, modelViewTransform ) {
 
     Node.call( this );
     var flowModel = pipeHandlesNode.flowModel;
@@ -42,13 +42,13 @@ define( function( require ) {
 
     var pipe = flowModel.pipe;
 
-    var numControlPoints = pipe.controlPoints.length;
-    var leftTopControlPointIndex = 0;
-    var leftBottomControlPointIndex = numControlPoints - 1;
-    var rightTopControlPointIndex = numControlPoints / 2 - 1;
-    var rightBottomControlPointIndex = numControlPoints / 2;
+    var leftTopControlPointIndex = 1;
+    var leftBottomControlPointIndex = 1;
+    var rightTopControlPointIndex = pipe.top.length - 2;
+    var rightBottomControlPointIndex = pipe.bottom.length - 2;
 
-    var controlPoint = pipe.controlPoints[controlPointIndex ];
+    var controlPoint = (isTop) ? pipe.top[controlPointIndex ] : pipe.bottom[controlPointIndex];
+
     var leftSpace = 0; // to vertically align the handles
     var imageRotation = 0;
     if ( controlPoint.position.y < -2 ) {
@@ -61,7 +61,7 @@ define( function( require ) {
     var handleNode = new Image( handleImage, { left: leftSpace, cursor: 'pointer', scale: 0.32 } );
 
     // expand the touch area upwards for the top handles and downwards for bottom handles
-    if ( controlPointIndex < rightBottomControlPointIndex ) {
+    if ( isTop ) {
       handleNode.touchArea = new Bounds2( handleNode.localBounds.minX - HANDLE_X_TOUCH_EXPAND,
         handleNode.localBounds.minY,
           handleNode.localBounds.maxX + HANDLE_X_TOUCH_EXPAND, handleNode.localBounds.maxY + 40 );
@@ -104,11 +104,11 @@ define( function( require ) {
 
           // Prevent the two ends of the cross sections from crossing each other. Set the cross section to
           // minimum when the user tries to move the handle beyond the opposite control point.
-          var oppositeControlPoint = pipe.controlPoints[ numControlPoints - (controlPointIndex + 1 ) ];
-          if ( (controlPointIndex < rightBottomControlPointIndex && pt.y < oppositeControlPoint.position.y ) ) {
+          var oppositeControlPoint = (isTop) ? pipe.bottom[controlPointIndex] : pipe.top[controlPointIndex];
+          if ( (isTop && pt.y < oppositeControlPoint.position.y ) ) {
             pt.y = oppositeControlPoint.position.y + CROSS_SECTION_MIN_HEIGHT;
           }
-          else if ( (controlPointIndex >= rightBottomControlPointIndex && pt.y > oppositeControlPoint.position.y ) ) {
+          else if ( (!isTop && pt.y > oppositeControlPoint.position.y ) ) {
             pt.y = oppositeControlPoint.position.y - CROSS_SECTION_MIN_HEIGHT;
           }
 
@@ -124,36 +124,36 @@ define( function( require ) {
 
           var pipeExpansionFactor;
           // handle the left pipe scaling
-          if ( controlPointIndex === leftBottomControlPointIndex || controlPointIndex === leftTopControlPointIndex ) {
+          if ( (controlPointIndex === leftBottomControlPointIndex && !isTop) ||
+               (controlPointIndex === leftTopControlPointIndex && isTop) ) {
 
             // calculate the pipe scale
-            pipeExpansionFactor = ( pipe.getCrossSection( pipe.controlPoints[ leftTopControlPointIndex ].position.x ).getHeight()) /
+            pipeExpansionFactor = ( pipe.getCrossSection( pipe.top[ leftTopControlPointIndex ].position.x ).getHeight()) /
                                   PIPE_INITIAL_HEIGHT;
 
             // limit the scaling to 0.18 on the lower side
             pipe.leftPipeScale = Math.max( pipeExpansionFactor * PIPE_INITIAL_SCALE, 0.18 );
 
-            var leftPipeY = modelViewTransform.modelToViewY( pipe.controlPoints[ leftTopControlPointIndex ].position.y ) -
-                            pipeNode.leftPipeYOffset * pipe.leftPipeScale;
+            pipe.leftPipeYPosition = modelViewTransform.modelToViewY( pipe.top[ leftTopControlPointIndex ].position.y ) -
+                                     pipeNode.leftPipeYOffset * pipe.leftPipeScale;
 
-            pipe.leftPipePosition = new Vector2( layoutBounds.minX - pipeNode.leftPipeLeftOffset, leftPipeY );
+
             flowModel.pipe.leftPipeMainHandleYPosition = pipeNode.leftPipeNode.centerY;
           }
 
           // handle the right  pipe scaling
-          if ( controlPointIndex === rightBottomControlPointIndex || controlPointIndex === rightTopControlPointIndex ) {
+          if ( (controlPointIndex === rightBottomControlPointIndex && !isTop) ||
+               (controlPointIndex === rightTopControlPointIndex && isTop) ) {
 
-            var pipeHeight = pipe.getCrossSection( pipe.controlPoints[ rightTopControlPointIndex ].position.x ).getHeight();
+            var pipeHeight = pipe.getCrossSection( pipe.top[ rightTopControlPointIndex ].position.x ).getHeight();
             pipeExpansionFactor = pipeHeight / PIPE_INITIAL_HEIGHT;
 
             // limit the scaling to 0.18 on the lower side
             pipe.rightPipeScale = Math.max( pipeExpansionFactor * PIPE_INITIAL_SCALE, 0.18 );
 
-            var rightPipeY = modelViewTransform.modelToViewY( pipe.controlPoints[ rightTopControlPointIndex ].position.y ) -
-                             ( pipeNode.rightPipeYOffset * pipe.rightPipeScale );
-            var rightPipeX = layoutBounds.maxX - pipeNode.rightPipeLeftOffset;
+            pipe.rightPipeYPosition = modelViewTransform.modelToViewY( pipe.top[ rightTopControlPointIndex ].position.y ) -
+                                      ( pipeNode.rightPipeYOffset * pipe.rightPipeScale );
 
-            pipe.rightPipePosition = new Vector2( rightPipeX, rightPipeY );
             flowModel.pipe.rightPipeMainHandleYPosition = pipeNode.rightPipeNode.centerY;
           }
 
