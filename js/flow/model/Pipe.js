@@ -44,7 +44,7 @@ define( function( require ) {
     } );
 
     // cross-sections that the user can manipulate to deform the pipe.
-    this.controlCrossSections = [
+    var controlCrossSections = [
       new PipeCrossSection( -6.8, -3.5, -1.4 ), //dummy cross section, not part of the pipe flow line shape.
       // This is where the particles originate.
       new PipeCrossSection( -6.7, -3.5, -1.4 ),
@@ -61,10 +61,9 @@ define( function( require ) {
 
     this.top = []; // array to store top control points
     this.bottom = []; // array to store bottom control points
-    for ( var i = 0; i < this.controlCrossSections.length; i++ ) {
-      this.top.push( new PipeControlPoint( this.controlCrossSections[ i ].x, this.controlCrossSections[ i ].yTop ) );
-      this.bottom.push( new PipeControlPoint( this.controlCrossSections[ i ].x,
-        this.controlCrossSections[ i ].yBottom ) );
+    for ( var i = 0; i < controlCrossSections.length; i++ ) {
+      this.top.push( new PipeControlPoint( controlCrossSections[ i ].x, controlCrossSections[ i ].yTop ) );
+      this.bottom.push( new PipeControlPoint( controlCrossSections[ i ].x, controlCrossSections[ i ].yBottom ) );
     }
 
     // nonlinear interpolation of the control sections for particle motion and determining the velocity field
@@ -172,20 +171,20 @@ define( function( require ) {
     getSplineCrossSections: function() {
       // if pipe shape changes create the new cross sections else return old cross sections
       if ( this.dirty ) {
-        this.splineCrossSections = this.createSpline();
+        this.splineCrossSections = this.spline();
         this.dirty = false;
       }
       return this.splineCrossSections;
     },
 
-    // return the xPosition of the right most cross section
+    // return the xPosition of the right most control point
     getMaxX: function() {
-      return this.controlCrossSections[ this.controlCrossSections.length - 1 ].getX();
+      return this.top[ this.top.length - 1 ].position.x;
     },
 
-    // return the xPosition of the left most cross section
+    // return the xPosition of the left most control point
     getMinX: function() {
-      return this.controlCrossSections[ 0 ].getX();
+      return this.top[ 0 ].position.x;
     },
 
     /**
