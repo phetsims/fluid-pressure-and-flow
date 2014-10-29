@@ -95,12 +95,6 @@ define( function( require ) {
      */
     createSpline: function() {
       // update the control cross section values by using updated control points
-      for ( var i = 0; i < this.top.length; i++ ) {
-        this.controlCrossSections[ i ].x = this.top[ i ].position.x;
-        this.controlCrossSections[ i ].yBottom = this.bottom[ i ].position.y;
-        this.controlCrossSections[ i ].yTop = this.top[ i ].position.y;
-      }
-
       return this.spline();
     },
 
@@ -260,29 +254,6 @@ define( function( require ) {
         }
       }
     },
-
-    // Get the pipe left side top position
-    getTopLeft: function() {
-      return new Vector2( this.getMinX(), this.controlCrossSections[ 0 ].yTop );
-    },
-
-    // Get the pipe left side bottom position
-    getBottomLeft: function() {
-      return new Vector2( this.getMinX(), this.controlCrossSections[ 0 ].yBottom );
-    },
-
-    // Get the pipe right side top position
-    getTopRight: function() {
-      var controlCrossSections = this.controlCrossSections;
-      return new Vector2( this.getMaxX(), controlCrossSections[ controlCrossSections.length - 1 ].yTop );
-    },
-
-    // Get the pipe right side bottom position
-    getBottomRight: function() {
-      var controlCrossSections = this.controlCrossSections;
-      return new Vector2( this.getMaxX(), controlCrossSections[ controlCrossSections.length - 1 ].yBottom );
-    },
-
 
     /**
      * Get the speed at the specified x-location in m/s.  This is before friction and vertical effects are accounted for.
