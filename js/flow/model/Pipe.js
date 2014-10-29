@@ -91,16 +91,6 @@ define( function( require ) {
     },
 
     /**
-     * creates the set of interpolated cross section samples from the control cross sections.
-     * @returns {Array.<PipeCrossSection>}
-     * @private
-     */
-    createSpline: function() {
-      // update the control cross section values by using updated control points
-      return this.spline();
-    },
-
-    /**
      * Interpolates the pipe control points to obtain a smooth set of cross sections
      * @returns {Array<PipeCrossSection>} array of interpolated cross-sections
      * @private
