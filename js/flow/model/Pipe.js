@@ -20,7 +20,9 @@ define( function( require ) {
   var SplineEvaluation = require( 'FLUID_PRESSURE_AND_FLOW/flow/model/SplineEvaluation' );
 
   // constants
-  var CROSS_SECTION_MIN_HEIGHT = 1; //meters
+  var CROSS_SECTION_MIN_HEIGHT = 1; //m
+  var TOP_CONTROL_POINT_INITIAL_Y = -3.5; //m
+  var BOTTOM_CONTROL_POINT_INITIAL_Y = -1.4; //m
 
   /**
    * Default constructor for the pipe.
@@ -45,18 +47,19 @@ define( function( require ) {
 
     // cross-sections that the user can manipulate to deform the pipe.
     var controlCrossSections = [
-      new PipeCrossSection( -6.8, -3.5, -1.4 ), //dummy cross section, not part of the pipe flow line shape.
-      // This is where the particles originate.
-      new PipeCrossSection( -6.7, -3.5, -1.4 ),
-      new PipeCrossSection( -4.6, -3.5, -1.4 ),
-      new PipeCrossSection( -2.3, -3.5, -1.4 ),
-      new PipeCrossSection( -0, -3.5, -1.4 ),
-      new PipeCrossSection( 2.3, -3.5, -1.4 ),
-      new PipeCrossSection( 4.6, -3.5, -1.4 ),
-      new PipeCrossSection( 6.7, -3.5, -1.4 ),
+      //dummy cross section, not part of the pipe flow line shape. This is where the particles originate.
+      new PipeCrossSection( -6.8, TOP_CONTROL_POINT_INITIAL_Y, BOTTOM_CONTROL_POINT_INITIAL_Y ),
 
-      new PipeCrossSection( 6.8, -3.5, -1.4 ) //dummy cross section, not part of the pipe flow line shape.
-      // This is where the particles are removed.
+      new PipeCrossSection( -6.7, TOP_CONTROL_POINT_INITIAL_Y, BOTTOM_CONTROL_POINT_INITIAL_Y ),
+      new PipeCrossSection( -4.6, TOP_CONTROL_POINT_INITIAL_Y, BOTTOM_CONTROL_POINT_INITIAL_Y ),
+      new PipeCrossSection( -2.3, TOP_CONTROL_POINT_INITIAL_Y, BOTTOM_CONTROL_POINT_INITIAL_Y ),
+      new PipeCrossSection( 0, TOP_CONTROL_POINT_INITIAL_Y, BOTTOM_CONTROL_POINT_INITIAL_Y ),
+      new PipeCrossSection( 2.3, TOP_CONTROL_POINT_INITIAL_Y, BOTTOM_CONTROL_POINT_INITIAL_Y ),
+      new PipeCrossSection( 4.6, TOP_CONTROL_POINT_INITIAL_Y, BOTTOM_CONTROL_POINT_INITIAL_Y ),
+      new PipeCrossSection( 6.7, TOP_CONTROL_POINT_INITIAL_Y, BOTTOM_CONTROL_POINT_INITIAL_Y ),
+
+      //dummy cross section, not part of the pipe flow line shape. This is where the particles are removed.
+      new PipeCrossSection( 6.8, TOP_CONTROL_POINT_INITIAL_Y, BOTTOM_CONTROL_POINT_INITIAL_Y )
     ];
 
     this.top = []; // array to store top control points
