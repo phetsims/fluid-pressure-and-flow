@@ -146,7 +146,7 @@ define( function( require ) {
       // @private
       updatePipeFlowLineShape: function() {
 
-        var i;
+        var i; //for loop
 
         // getting cross sections
         var splineCrossSections = this.flowModel.pipe.getSplineCrossSections();
@@ -159,6 +159,7 @@ define( function( require ) {
         var minXOfPipeFlowLineShape = -6.7; // model value
         var maxXOfPipeFlowLineShape = 6.7;
         var startIndex = 0;
+        var endIndex = 0;
         //  points for lineTo
         for ( i = 0; i < splineCrossSections.length; i++ ) {
           xPointsBottom[i] = splineCrossSections[i].x;
@@ -168,25 +169,24 @@ define( function( require ) {
           if ( splineCrossSections[i].x <= minXOfPipeFlowLineShape ) {
             startIndex = i;
           }
+          if ( splineCrossSections[i].x <= maxXOfPipeFlowLineShape ) {
+            endIndex = i;
+          }
         }
 
         var flowLineShape = new Shape().moveTo( this.modelViewTransform.modelToViewX( xPointsBottom[ startIndex + 1 ] ),
           this.modelViewTransform.modelToViewY( yPointsBottom[ startIndex + 1 ] ) );
 
-        for ( i = startIndex + 2; i < xPointsBottom.length; i = i + 1 ) {
-          // Spline points beyond the last pipe cross section are not needed.
-          if ( xPointsBottom[ i ] < maxXOfPipeFlowLineShape && xPointsBottom[ i ] > minXOfPipeFlowLineShape ) {
-            flowLineShape.lineTo( this.modelViewTransform.modelToViewX( xPointsBottom[ i ] ),
-              this.modelViewTransform.modelToViewY( yPointsBottom[ i ] ) );
-          }
+        // Spline points beyond the last pipe cross section are not needed.
+        for ( i = startIndex + 2; i <= endIndex; i++ ) {
+          flowLineShape.lineTo( this.modelViewTransform.modelToViewX( xPointsBottom[ i ] ),
+            this.modelViewTransform.modelToViewY( yPointsBottom[ i ] ) );
         }
 
-        for ( i = xPointsTop.length; i > 0; i = i - 1 ) {
-          // Spline points beyond the last pipe cross section are not needed.
-          if ( xPointsBottom[ i ] < maxXOfPipeFlowLineShape && xPointsBottom[ i ] > minXOfPipeFlowLineShape ) {
-            flowLineShape.lineTo( this.modelViewTransform.modelToViewX( xPointsTop[ i ] ),
-              this.modelViewTransform.modelToViewY( yPointsTop[ i ] ) );
-          }
+        // Spline points beyond the last pipe cross section are not needed.
+        for ( i = endIndex; i > startIndex; i-- ) {
+          flowLineShape.lineTo( this.modelViewTransform.modelToViewX( xPointsTop[ i ] ),
+            this.modelViewTransform.modelToViewY( yPointsTop[ i ] ) );
         }
         this.pipeFlowLine.shape = flowLineShape;
 
