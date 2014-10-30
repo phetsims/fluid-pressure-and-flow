@@ -189,14 +189,10 @@ define( function( require ) {
             this.modelViewTransform.modelToViewY( yPointsTop[ i ] ) );
         }
         this.pipeFlowLine.shape = flowLineShape;
-
-        // make a copy of the line shape for the fluid node
-        this.pipeFluidNode.shape = flowLineShape.copy();
-
+        this.pipeFluidNode.shape = flowLineShape;
       },
 
       reset: function() {
-
         // mark pipe as dirty for getting new spline cross sections
         this.flowModel.pipe.dirty = true;
         this.updatePipeFlowLineShape();
