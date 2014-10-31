@@ -77,7 +77,7 @@ define( function( require ) {
     ], mysteryPoolModel.fluidDensityCustom, mysteryPoolControls, {
       itemHighlightFill: 'rgb(218,255,255)',
       y: 253,
-      x: 467,
+      x: 457,
       visible: false
     } );
 
