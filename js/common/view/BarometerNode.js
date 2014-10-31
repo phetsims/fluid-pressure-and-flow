@@ -46,7 +46,8 @@ define( function( require ) {
    *  getPressureAt (x, y) where x, y are model values.
    *  getPressureString (pressure, units, x, y) where pressure in Pascals, x, y are model values
    */
-  function BarometerNode( modelViewTransform, barometer, measureUnitsProperty, linkedProperties, getPressureAt, getPressureString, containerBounds, dragBounds, options ) {
+  function BarometerNode( modelViewTransform, barometer, measureUnitsProperty, linkedProperties, getPressureAt,
+                          getPressureString, containerBounds, dragBounds, options ) {
     var barometerNode = this;
 
     options = _.extend( {
@@ -125,8 +126,7 @@ define( function( require ) {
       }
       else {
         barometer.value = getPressureAt( modelViewTransform.viewToModelX( position.x ),
-          modelViewTransform.viewToModelY( position.y + (options.pressureReadOffset *
-                                                         options.scale) ) );
+          modelViewTransform.viewToModelY( position.y + (options.pressureReadOffset * options.scale) ) );
       }
     } );
 
@@ -142,9 +142,7 @@ define( function( require ) {
         else {
           text.text = getPressureString( barometerValue, units,
             modelViewTransform.viewToModelX( barometer.position.x ),
-            modelViewTransform.viewToModelY( barometer.position.y +
-                                             (options.pressureReadOffset *
-                                              options.scale) ) );
+            modelViewTransform.viewToModelY( barometer.position.y + (options.pressureReadOffset * options.scale) ) );
           textBackground.setRect( 0, 0, text.width + 4, text.height + 2 );
         }
 
