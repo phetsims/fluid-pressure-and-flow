@@ -83,14 +83,14 @@ define( function( require ) {
       var epsilonVelocity = 0.01;
 
       if ( this.isFalling && !this.isDragging ) {
-        acceleration = this.chamberPoolModel.underPressureModel.gravity;
+        acceleration = -this.chamberPoolModel.underPressureModel.gravity;
         this.velocity = this.velocity + acceleration * dt;
         if ( Math.abs( this.velocity ) > epsilonVelocity ) {
           this.position.y += this.velocity * dt;
 
           // If it landed, then stop the block.
-          if ( this.position.y > this.chamberPoolModel.maxY - this.height / 2 ) {
-            this.position.y = this.chamberPoolModel.maxY - this.height / 2;
+          if ( this.position.y < this.chamberPoolModel.maxY + this.height / 2 ) {
+            this.position.y = this.chamberPoolModel.maxY + this.height / 2;
             this.isFalling = false;
             this.velocity = 0;
           }
@@ -107,8 +107,8 @@ define( function( require ) {
         //difference between water levels in left and right opening
         var h = this.chamberPoolModel.leftDisplacement +
                 this.chamberPoolModel.leftDisplacement / this.chamberPoolModel.lengthRatio;
-        var gravityForce = m * g;
-        var pressureForce = -rho * h * g;
+        var gravityForce = -m * g;
+        var pressureForce = rho * h * g;
         var force = gravityForce + pressureForce;
         acceleration = force / m;
         this.velocity = (this.velocity + acceleration * dt) * frictionCoefficient;
@@ -121,18 +121,18 @@ define( function( require ) {
 
     // checks if the mass intersects with the the target drop area.
     isInTargetDroppedArea: function() {
-      var waterLine = this.chamberPoolModel.poolDimensions.leftOpening.y2 - this.chamberPoolModel.leftWaterHeight +
+      var waterLine = this.chamberPoolModel.poolDimensions.leftOpening.y2 + this.chamberPoolModel.leftWaterHeight -
                       this.chamberPoolModel.leftDisplacement;
-      var bottomLine = waterLine - this.chamberPoolModel.stack.reduce( 0, function( a, b ) {return a + b.height;} );
+      var bottomLine = waterLine + this.chamberPoolModel.stack.reduce( 0, function( a, b ) {return a + b.height;} );
       return new Bounds( this.position.x - this.width / 2, this.position.y - this.height / 2,
           this.position.x + this.width, this.position.y + this.height ).intersectsBounds( new Bounds(
-          this.chamberPoolModel.poolDimensions.leftOpening.x1, bottomLine - this.height / 2,
-          this.chamberPoolModel.poolDimensions.leftOpening.x2, bottomLine ) );
+          this.chamberPoolModel.poolDimensions.leftOpening.x1, bottomLine,
+          this.chamberPoolModel.poolDimensions.leftOpening.x2, bottomLine + this.height ) );
     },
 
     // If the user drops the mass underground or above a pool opening, it will teleport back to its initial location.
     cannotFall: function() {
-      return this.position.y > this.chamberPoolModel.maxY + this.height / 2 || this.isMassOverOpening();
+      return this.position.y < this.chamberPoolModel.maxY - this.height / 2 || this.isMassOverOpening();
     },
 
     // checks if the mass is over the left or the right opening

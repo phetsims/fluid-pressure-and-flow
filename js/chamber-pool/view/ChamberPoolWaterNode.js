@@ -41,9 +41,9 @@ define( function( require ) {
     chamberPoolModel.leftDisplacementProperty.link( function( displacement ) {
 
       //new left and right levels of water
-      var leftY = modelViewTransform.modelToViewY( poolDimensions.leftOpening.y2 - chamberPoolModel.leftWaterHeight +
+      var leftY = modelViewTransform.modelToViewY( poolDimensions.leftOpening.y2 + chamberPoolModel.leftWaterHeight -
                                                    displacement );
-      var rightY = modelViewTransform.modelToViewY( poolDimensions.rightOpening.y2 - chamberPoolModel.leftWaterHeight -
+      var rightY = modelViewTransform.modelToViewY( poolDimensions.rightOpening.y2 + chamberPoolModel.leftWaterHeight +
                                                     displacement / chamberPoolModel.lengthRatio );
 
       waterPath.shape = new Shape()

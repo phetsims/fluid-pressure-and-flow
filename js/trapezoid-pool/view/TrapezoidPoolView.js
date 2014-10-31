@@ -30,8 +30,8 @@ define( function( require ) {
     this.addChild( new TrapezoidPoolBack( trapezoidPoolModel, modelViewTransform ) );
 
     // add fluids
-    var inputFaucetFluidMaxHeight = modelViewTransform.modelToViewY( poolDimensions.bottomChamber.y2 -
-                                                                     trapezoidPoolModel.inputFaucet.location.y );
+    var inputFaucetFluidMaxHeight = Math.abs( modelViewTransform.modelToViewDeltaY( trapezoidPoolModel.inputFaucet.location.y -
+                                                                                    poolDimensions.bottomChamber.y2 ) );
     this.addChild( new FaucetFluidNode(
       trapezoidPoolModel.inputFaucet, trapezoidPoolModel, modelViewTransform, inputFaucetFluidMaxHeight ) );
 
@@ -46,7 +46,7 @@ define( function( require ) {
     var poolLeftX = poolDimensions.leftChamber.centerTop - poolDimensions.leftChamber.widthBottom / 2;
     var poolTopY = poolDimensions.leftChamber.y;
     var poolRightX = poolDimensions.rightChamber.centerTop + poolDimensions.rightChamber.widthTop / 2;
-    var poolBottomY = poolDimensions.leftChamber.y + poolDimensions.leftChamber.height + 0.3;
+    var poolBottomY = poolDimensions.leftChamber.y - poolDimensions.leftChamber.height - 0.3;
     var poolHeight = poolDimensions.leftChamber.height;
 
     var labelXPosition = modelViewTransform.modelToViewX(

@@ -64,10 +64,10 @@ define( function( require ) {
       layoutBounds: new Bounds2( 0, 0, underPressureModel.width, underPressureModel.height )
     } );
 
-    var modelViewTransform = ModelViewTransform2.createSinglePointScaleMapping(
+    var modelViewTransform = ModelViewTransform2.createSinglePointScaleInvertedYMapping(
       Vector2.ZERO,
-      Vector2.ZERO,
-      70 ); //1m = 70px, (0,0) - top left corner
+      new Vector2( 0, 245 ),
+      70 );  //1m = 70px, (0,0) - top left corner
 
     //sky, earth and controls
     this.addChild( new BackgroundNode( underPressureModel, modelViewTransform ) );

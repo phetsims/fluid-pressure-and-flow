@@ -47,7 +47,7 @@ define( function( require ) {
       grassRectHeight,
       {
         fill: grassPattern,
-        y: modelViewTransform.modelToViewY( chamberPoolModel.underPressureModel.skyGroundBoundY ) - grassRectHeight
+        y: modelViewTransform.modelToViewY( 0 ) - grassRectHeight
       }
     ) );
 
@@ -59,14 +59,14 @@ define( function( require ) {
       grassRectHeight,
       {
         fill: grassPattern,
-        y: modelViewTransform.modelToViewY( chamberPoolModel.underPressureModel.skyGroundBoundY ) - grassRectHeight
+        y: modelViewTransform.modelToViewY( 0 ) - grassRectHeight
       }
     ) );
 
     // right grass
     this.addChild( new Rectangle( modelViewTransform.modelToViewX( poolDimensions.rightOpening.x2 ),
       grassRectYOffset, grassExtension, grassRectHeight, { fill: grassPattern,
-        y: modelViewTransform.modelToViewY( chamberPoolModel.underPressureModel.skyGroundBoundY ) - grassRectHeight
+        y: modelViewTransform.modelToViewY( 0 ) - grassRectHeight
       } ) );
 
     //calculated view coordinates for water

@@ -27,8 +27,8 @@ define( function( require ) {
     var viewHeight;
     var poolDimensions = squarePoolModel.poolDimensions;
 
-    var viewWidth = modelViewTransform.modelToViewX( poolDimensions.x2 - poolDimensions.x1 );//width of pool, px
-    var maxHeight = modelViewTransform.modelToViewY( squarePoolModel.maxHeight );//max height of water in pixels
+    var viewWidth = modelViewTransform.modelToViewDeltaX( poolDimensions.x2 - poolDimensions.x1 );//width of pool, px
+    var maxHeight = Math.abs( modelViewTransform.modelToViewDeltaY( squarePoolModel.maxHeight ) );//max height of water in pixels
     var xMin = modelViewTransform.modelToViewX( poolDimensions.x1 );//left x point of pool in pixels
     var yMax = modelViewTransform.modelToViewY( poolDimensions.y2 );//bottom y point of pool in pixels
 

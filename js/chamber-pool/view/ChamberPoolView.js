@@ -49,8 +49,8 @@ define( function( require ) {
     var poolLeftX = poolDimensions.leftChamber.x1;
     var poolTopY = poolDimensions.leftOpening.y1;
     var poolRightX = poolDimensions.rightOpening.x2;
-    var poolBottomY = poolDimensions.leftChamber.y2 + 0.3;
-    var poolHeight = poolDimensions.leftChamber.y2 - chamberPoolModel.underPressureModel.skyGroundBoundY;
+    var poolBottomY = poolDimensions.leftChamber.y2 - 0.3;
+    var poolHeight = -poolDimensions.leftChamber.y2;
     var labelXPosition = modelViewTransform.modelToViewX( ( poolDimensions.leftChamber.x2 +
                                                             poolDimensions.rightOpening.x1 ) / 2 );
 

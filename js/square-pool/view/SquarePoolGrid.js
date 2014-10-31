@@ -41,7 +41,7 @@ define( function( require ) {
     for ( var i = 0; i < 4; i++ ) {
       metersLabels.addChild( new Text( StringUtils.format( metersStringPattern, i ), _.extend( {
         right: modelViewTransform.modelToViewX( poolDimensions.x1 ) - 8,
-        centerY: modelViewTransform.modelToViewY( squarePoolModel.underPressureModel.skyGroundBoundY + i )
+        centerY: modelViewTransform.modelToViewY( -i )
       }, fontOptions ) ) );
     }
 
@@ -50,8 +50,7 @@ define( function( require ) {
     for ( i = 0; i < 11; i++ ) {
       feetLabels.addChild( new Text( StringUtils.format( feetStringPattern, i ), _.extend( {
         right: modelViewTransform.modelToViewX( poolDimensions.x1 ) - 8,
-        centerY: modelViewTransform.modelToViewY( squarePoolModel.underPressureModel.skyGroundBoundY +
-                                                  Units.feetToMeters( i ) )
+        centerY: modelViewTransform.modelToViewY( -Units.feetToMeters( i ) )
       }, fontOptions ) ) );
     }
 

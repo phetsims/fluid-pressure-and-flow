@@ -46,7 +46,7 @@ define( function( require ) {
       grassRectHeight,
       {
         fill: grassPattern,
-        y: modelViewTransform.modelToViewY( trapezoidPoolModel.underPressureModel.skyGroundBoundY ) - grassRectHeight
+        y: modelViewTransform.modelToViewY( 0 ) - grassRectHeight
       }
     ) );
 
@@ -57,7 +57,7 @@ define( function( require ) {
       grassRectHeight,
       {
         fill: grassPattern,
-        y: modelViewTransform.modelToViewY( trapezoidPoolModel.underPressureModel.skyGroundBoundY ) - grassRectHeight
+        y: modelViewTransform.modelToViewY( 0 ) - grassRectHeight
       }
     ) );
 
@@ -68,7 +68,7 @@ define( function( require ) {
       grassRectHeight,
       {
         fill: grassPattern,
-        y: modelViewTransform.modelToViewY( trapezoidPoolModel.underPressureModel.skyGroundBoundY ) - grassRectHeight
+        y: modelViewTransform.modelToViewY( 0 ) - grassRectHeight
       }
     ) );
 
@@ -78,10 +78,10 @@ define( function( require ) {
       .moveTo( modelViewTransform.modelToViewX( trapezoidPoolModel.verticles.x1top ) - cementWidth,
       modelViewTransform.modelToViewY( poolDimensions.leftChamber.y ) )
       .lineTo( modelViewTransform.modelToViewX( trapezoidPoolModel.verticles.x1bottom ) - cementWidth,
-        modelViewTransform.modelToViewY( poolDimensions.leftChamber.y + poolDimensions.leftChamber.height ) +
+        modelViewTransform.modelToViewY( poolDimensions.leftChamber.y - poolDimensions.leftChamber.height ) +
         cementWidth )
       .lineTo( modelViewTransform.modelToViewX( trapezoidPoolModel.verticles.x4bottom ) + cementWidth,
-        modelViewTransform.modelToViewY( poolDimensions.leftChamber.y + poolDimensions.leftChamber.height ) +
+        modelViewTransform.modelToViewY( poolDimensions.leftChamber.y - poolDimensions.leftChamber.height ) +
         cementWidth )
       .lineTo( modelViewTransform.modelToViewX( trapezoidPoolModel.verticles.x4top ) + cementWidth,
       modelViewTransform.modelToViewY( poolDimensions.leftChamber.y ) )
@@ -107,9 +107,9 @@ define( function( require ) {
     this.addChild( new Rectangle(
         modelViewTransform.modelToViewX( trapezoidPoolModel.verticles.x1middle ) - 8,
         modelViewTransform.modelToViewY( poolDimensions.bottomChamber.y1 ) + 1,
-        modelViewTransform.modelToViewX( trapezoidPoolModel.verticles.x2middle -
-                                         trapezoidPoolModel.verticles.x1middle ) + 16,
-        modelViewTransform.modelToViewY( poolDimensions.bottomChamber.y2 - poolDimensions.bottomChamber.y1 ) - 1,
+        modelViewTransform.modelToViewDeltaX( trapezoidPoolModel.verticles.x2middle -
+                                              trapezoidPoolModel.verticles.x1middle ) + 16,
+        modelViewTransform.modelToViewDeltaY( poolDimensions.bottomChamber.y2 - poolDimensions.bottomChamber.y1 ) - 1,
       {
         fill: '#f3f0e9'
       }
@@ -120,9 +120,9 @@ define( function( require ) {
       .moveTo( modelViewTransform.modelToViewX( trapezoidPoolModel.verticles.x1top ),
         modelViewTransform.modelToViewY( poolDimensions.leftChamber.y ) - 1 )
       .lineTo( modelViewTransform.modelToViewX( trapezoidPoolModel.verticles.x1bottom ),
-      modelViewTransform.modelToViewY( poolDimensions.leftChamber.y + poolDimensions.leftChamber.height ) )
+      modelViewTransform.modelToViewY( poolDimensions.leftChamber.y - poolDimensions.leftChamber.height ) )
       .lineTo( modelViewTransform.modelToViewX( trapezoidPoolModel.verticles.x2bottom ),
-      modelViewTransform.modelToViewY( poolDimensions.leftChamber.y + poolDimensions.leftChamber.height ) )
+      modelViewTransform.modelToViewY( poolDimensions.leftChamber.y - poolDimensions.leftChamber.height ) )
       .lineTo( modelViewTransform.modelToViewX( trapezoidPoolModel.verticles.x2top ),
         modelViewTransform.modelToViewY( poolDimensions.leftChamber.y ) - 1 );
 
@@ -135,9 +135,9 @@ define( function( require ) {
       .moveTo( modelViewTransform.modelToViewX( trapezoidPoolModel.verticles.x3top ),
         modelViewTransform.modelToViewY( poolDimensions.leftChamber.y ) - 1 )
       .lineTo( modelViewTransform.modelToViewX( trapezoidPoolModel.verticles.x3bottom ),
-      modelViewTransform.modelToViewY( poolDimensions.leftChamber.y + poolDimensions.leftChamber.height ) )
+      modelViewTransform.modelToViewY( poolDimensions.leftChamber.y - poolDimensions.leftChamber.height ) )
       .lineTo( modelViewTransform.modelToViewX( trapezoidPoolModel.verticles.x4bottom ),
-      modelViewTransform.modelToViewY( poolDimensions.leftChamber.y + poolDimensions.leftChamber.height ) )
+      modelViewTransform.modelToViewY( poolDimensions.leftChamber.y - poolDimensions.leftChamber.height ) )
       .lineTo( modelViewTransform.modelToViewX( trapezoidPoolModel.verticles.x4top ),
         modelViewTransform.modelToViewY( poolDimensions.leftChamber.y ) - 1 );
 

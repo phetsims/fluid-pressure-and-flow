@@ -26,9 +26,9 @@ define( function( require ) {
     this.maxVolume = this.maxHeight; // Liters
 
     var inputFaucetX = 2.7;
-    var inputFaucetY = underPressureModel.skyGroundBoundY - 0.44;
+    var inputFaucetY = 0.44;
     var outputFaucetX = 6.6;
-    var outputFaucetY = underPressureModel.skyGroundBoundY + 3.45;
+    var outputFaucetY = -3.45;
     this.inputFaucet = new FaucetModel( new Vector2( inputFaucetX, inputFaucetY ), 1, 0.42 );
     this.outputFaucet = new FaucetModel( new Vector2( outputFaucetX, outputFaucetY ), 1, 0.3 );
 
@@ -39,9 +39,9 @@ define( function( require ) {
     var poolRightX = 6;
     this.poolDimensions = {
       x1: poolLeftX,
-      y1: underPressureModel.skyGroundBoundY, // pool top y
+      y1: 0, // pool top y
       x2: poolRightX,
-      y2: underPressureModel.skyGroundBoundY + this.maxHeight  // pool bottom y
+      y2: -this.maxHeight  // pool bottom y
     };
   }
 
@@ -54,7 +54,7 @@ define( function( require ) {
      * @returns {number} height of the water above the y
      */
     getWaterHeightAboveY: function( x, y ) {
-      return y - (this.poolDimensions.y2 - this.maxHeight * this.volume / this.maxVolume);
+      return this.poolDimensions.y2 + this.maxHeight * this.volume / this.maxVolume - y;
     },
 
     /**
@@ -64,7 +64,8 @@ define( function( require ) {
      * @returns {boolean}
      */
     isPointInsidePool: function( x, y ) {
-      return x > this.poolDimensions.x1 && x < this.poolDimensions.x2 && y < this.poolDimensions.y2;
+      return x > this.poolDimensions.x1 && x < this.poolDimensions.x2 && y > this.poolDimensions.y2 &&
+             y < this.poolDimensions.y1;
     }
   } );
 } );

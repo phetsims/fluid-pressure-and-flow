@@ -34,8 +34,8 @@ define( function( require ) {
     var massNode = this;
     Node.call( this, { cursor: 'pointer'  } );
 
-    var width = modelViewTransform.modelToViewX( massModel.width );
-    var height = modelViewTransform.modelToViewY( massModel.height );
+    var width = modelViewTransform.modelToViewDeltaX( massModel.width );
+    var height = Math.abs( modelViewTransform.modelToViewDeltaY( massModel.height ) );
 
     // add mass rectangle
     var mass = new Rectangle( -width / 2, -height / 2, width, height, {

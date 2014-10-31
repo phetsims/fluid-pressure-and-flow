@@ -45,7 +45,7 @@ define( function( require ) {
       grassRectHeight,
       {
         fill: grassPattern,
-        y: modelViewTransform.modelToViewY( squarePoolModel.underPressureModel.skyGroundBoundY ) - grassRectHeight
+        y: modelViewTransform.modelToViewY( 0 ) - grassRectHeight
       }
     ) );
 
@@ -57,7 +57,7 @@ define( function( require ) {
       grassRectHeight,
       {
         fill: grassPattern,
-        y: modelViewTransform.modelToViewY( squarePoolModel.underPressureModel.skyGroundBoundY ) - grassRectHeight
+        y: modelViewTransform.modelToViewY( 0 ) - grassRectHeight
       } ) );
 
     //cement border
@@ -80,9 +80,9 @@ define( function( require ) {
     //white background for pool
     this.addChild( new Rectangle(
       modelViewTransform.modelToViewX( poolDimensions.x1 ),
-        modelViewTransform.modelToViewY( poolDimensions.y1 ) - 1,
-      modelViewTransform.modelToViewX( poolDimensions.x2 - poolDimensions.x1 ),
-        modelViewTransform.modelToViewY( poolDimensions.y2 - poolDimensions.y1 ) + 1,
+      modelViewTransform.modelToViewY( poolDimensions.y1 ),
+      modelViewTransform.modelToViewDeltaX( poolDimensions.x2 - poolDimensions.x1 ),
+      modelViewTransform.modelToViewDeltaY( poolDimensions.y2 - poolDimensions.y1 ),
       {
         fill: '#f3f0e9'
       }

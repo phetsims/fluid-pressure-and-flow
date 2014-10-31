@@ -46,7 +46,7 @@ define( function( require ) {
     var endY = modelViewTransform.modelToViewY( y2 );
 
     var metersGrid = new Node();
-    var meterStep = modelViewTransform.modelToViewDeltaY( options.metersStep );
+    var meterStep = Math.abs( modelViewTransform.modelToViewDeltaY( options.metersStep ) );
 
     // add lines from startY to endY every meterStep pixels
     for ( var i = startY; i <= endY; i += meterStep ) {
@@ -54,7 +54,7 @@ define( function( require ) {
     }
 
     var feetGrid = new Node();
-    var feetStep = modelViewTransform.modelToViewDeltaY( Units.feetToMeters( options.feetStep ) );
+    var feetStep = Math.abs( modelViewTransform.modelToViewDeltaY( Units.feetToMeters( options.feetStep ) ) );
 
     // add lines from startY to endY every feetStep pixels
     for ( i = startY; i <= endY; i += feetStep ) {

@@ -55,7 +55,7 @@ define( function( require ) {
       metersText.center = metersLabelRect.center;
       metersLabelRect.addChild( metersText );
       metersLabelRect.centerX = labelXPosition + modelViewTransform.modelToViewX( depthMeters * slantMultiplier );
-      metersLabelRect.centerY = modelViewTransform.modelToViewY( depthMeters + underPressureModel.skyGroundBoundY );
+      metersLabelRect.centerY = modelViewTransform.modelToViewY( -depthMeters );
       depthLabelsMeters.addChild( metersLabelRect );
     }
 
@@ -66,8 +66,9 @@ define( function( require ) {
       var feetLabelRect = new Rectangle( 0, 0, feetText.width + 5, feetText.height + 5, 10, 10, { fill: '#67a257' } );
       feetText.center = feetLabelRect.center;
       feetLabelRect.addChild( feetText );
-      feetLabelRect.centerX = labelXPosition + modelViewTransform.modelToViewX( depthFeet / 3.3 * slantMultiplier );
-      feetLabelRect.centerY = modelViewTransform.modelToViewY( depthFeet / 3.3 + underPressureModel.skyGroundBoundY );
+      feetLabelRect.centerX = labelXPosition +
+                              modelViewTransform.modelToViewDeltaX( depthFeet / 3.3 * slantMultiplier );
+      feetLabelRect.centerY = modelViewTransform.modelToViewY( -depthFeet / 3.3 );
       depthLabelsFeet.addChild( feetLabelRect );
     }
 

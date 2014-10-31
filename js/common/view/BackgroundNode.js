@@ -28,7 +28,7 @@ define( function( require ) {
     var backgroundWidth = 5000;
     var skyExtension = 5000;
     var groundExtension = 5000;
-    var groundY = modelViewTransform.modelToViewY( underPressureModel.skyGroundBoundY );
+    var groundY = modelViewTransform.modelToViewY( 0 );
 
     // add rectangle on top of the sky node to extend sky upwards.
     this.addChild( new Rectangle( backgroundStartX, -skyExtension, backgroundWidth, skyExtension,
@@ -39,7 +39,7 @@ define( function( require ) {
       backgroundStartX,
       -skyExtension,
       backgroundWidth,
-      ( skyExtension + modelViewTransform.modelToViewY( underPressureModel.skyGroundBoundY ) ),
+      ( skyExtension + groundY ),
       { fill: 'black' }
     );
 
@@ -52,10 +52,7 @@ define( function( require ) {
     } );
 
     //Ground node
-    this.addChild( new GroundNode( backgroundStartX,
-      modelViewTransform.modelToViewY( underPressureModel.skyGroundBoundY ), backgroundWidth,
-        underPressureModel.height - modelViewTransform.modelToViewY( underPressureModel.skyGroundBoundY ) +
-        groundExtension, 295,
+    this.addChild( new GroundNode( backgroundStartX, groundY, backgroundWidth, groundY + groundExtension, 295,
       {topColor: '#93774C', bottomColor: '#93774C'} ) );
   }
 

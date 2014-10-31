@@ -32,9 +32,9 @@ define( function( require ) {
     this.maxVolume = this.maxHeight; // Liters
 
     var inputFaucetX = 3.19;
-    var inputFaucetY = underPressureModel.skyGroundBoundY - 0.44;
+    var inputFaucetY = 0.44;
     var outputFaucetX = 7.5;
-    var outputFaucetY = underPressureModel.skyGroundBoundY + 3.45;
+    var outputFaucetY = -3.45;
     this.inputFaucet = new FaucetModel( new Vector2( inputFaucetX, inputFaucetY ), 1, 0.42 );
     this.outputFaucet = new FaucetModel( new Vector2( outputFaucetX, outputFaucetY ), 1, 0.3 );
 
@@ -45,7 +45,7 @@ define( function( require ) {
         centerTop: LEFT_CHAMBER_TOP_CENTER,
         widthTop: WIDTH_AT_TOP,
         widthBottom: WIDTH_AT_BOTTOM,
-        y: this.underPressureModel.skyGroundBoundY,
+        y: 0,
         height: this.maxHeight,
         leftBorderFunction: new LinearFunction( 0, this.maxHeight, LEFT_CHAMBER_TOP_CENTER - WIDTH_AT_BOTTOM / 2,
             LEFT_CHAMBER_TOP_CENTER - WIDTH_AT_TOP / 2 ),
@@ -56,7 +56,7 @@ define( function( require ) {
         centerTop: LEFT_CHAMBER_TOP_CENTER + SEPARATION,
         widthTop: WIDTH_AT_BOTTOM,
         widthBottom: WIDTH_AT_TOP,
-        y: this.underPressureModel.skyGroundBoundY,
+        y: 0,
         height: this.maxHeight,
         leftBorderFunction: new LinearFunction( 0, this.maxHeight,
             LEFT_CHAMBER_TOP_CENTER + SEPARATION - WIDTH_AT_TOP / 2,
@@ -66,10 +66,10 @@ define( function( require ) {
             LEFT_CHAMBER_TOP_CENTER + SEPARATION + WIDTH_AT_BOTTOM / 2 )
       },
       bottomChamber: {
-        x1: LEFT_CHAMBER_TOP_CENTER + WIDTH_AT_BOTTOM / 2,
-        y1: this.underPressureModel.skyGroundBoundY + this.maxHeight - 0.21,
-        x2: LEFT_CHAMBER_TOP_CENTER + SEPARATION - WIDTH_AT_TOP / 2,
-        y2: this.underPressureModel.skyGroundBoundY + this.maxHeight
+        x1: 5,
+        y1: -this.maxHeight + 0.21,
+        x2: 8,
+        y2: -this.maxHeight
       }
     };
     //key coordinates of complex figure
@@ -79,10 +79,10 @@ define( function( require ) {
       x3top: this.poolDimensions.rightChamber.centerTop - this.poolDimensions.rightChamber.widthTop / 2,
       x4top: this.poolDimensions.rightChamber.centerTop + this.poolDimensions.rightChamber.widthTop / 2,
 
-      x1middle: this.poolDimensions.leftChamber.rightBorderFunction( this.poolDimensions.bottomChamber.y2 -
-                                                                     this.poolDimensions.bottomChamber.y1 ),
-      x2middle: this.poolDimensions.rightChamber.leftBorderFunction( this.poolDimensions.bottomChamber.y2 -
-                                                                     this.poolDimensions.bottomChamber.y1 ),
+      x1middle: this.poolDimensions.leftChamber.rightBorderFunction( Math.abs( this.poolDimensions.bottomChamber.y2 -
+                                                                               this.poolDimensions.bottomChamber.y1 ) ),
+      x2middle: this.poolDimensions.rightChamber.leftBorderFunction( Math.abs( this.poolDimensions.bottomChamber.y2 -
+                                                                               this.poolDimensions.bottomChamber.y1 ) ),
 
       x1bottom: this.poolDimensions.leftChamber.centerTop - this.poolDimensions.leftChamber.widthBottom / 2,
       x2bottom: this.poolDimensions.leftChamber.centerTop + this.poolDimensions.leftChamber.widthBottom / 2,
@@ -104,7 +104,7 @@ define( function( require ) {
      * @returns {number} height of the water above the y
      */
     getWaterHeightAboveY: function( x, y ) {
-      return y - (this.poolDimensions.bottomChamber.y2 - this.maxHeight * this.volume / this.maxVolume);
+      return this.maxHeight * this.volume / this.maxVolume + this.poolDimensions.bottomChamber.y2 - y;
     },
 
     /**
@@ -116,12 +116,12 @@ define( function( require ) {
     isPointInsidePool: function( x, y ) {
       var isInside = false;
       if ( x > this.poolDimensions.bottomChamber.x1 && x < this.poolDimensions.bottomChamber.x2 &&
-           y > this.poolDimensions.bottomChamber.y1 && y < this.poolDimensions.bottomChamber.y2 ) {
+           y < this.poolDimensions.bottomChamber.y1 && y > this.poolDimensions.bottomChamber.y2 ) {
         //inside bottom chamber
         isInside = true;
       }
       else {
-        var yDiffWithPoolBottom = this.poolDimensions.bottomChamber.y2 - y;
+        var yDiffWithPoolBottom = y - this.poolDimensions.bottomChamber.y2;
         if ( yDiffWithPoolBottom > 0 ) {
           var x1 = this.poolDimensions.leftChamber.leftBorderFunction( yDiffWithPoolBottom ),
             x2 = this.poolDimensions.leftChamber.rightBorderFunction( yDiffWithPoolBottom ),

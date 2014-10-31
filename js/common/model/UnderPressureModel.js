@@ -43,7 +43,6 @@ define( function( require ) {
     // dimensions of the model's space
     this.width = width;
     this.height = height;
-    this.skyGroundBoundY = 3.5; // m
 
     this.gravityRange = new Range( UnderPressureConstants.MARS_GRAVITY, UnderPressureConstants.JUPITER_GRAVITY );
     this.fluidDensityRange = new Range( UnderPressureConstants.GASOLINE_DENSITY, UnderPressureConstants.HONEY_DENSITY );
@@ -120,7 +119,7 @@ define( function( require ) {
         return 0;
       }
       else {
-        return getStandardAirPressure( this.skyGroundBoundY - height ) * this.gravity / 9.8;
+        return getStandardAirPressure( height ) * this.gravity / UnderPressureConstants.EARTH_GRAVITY;
       }
     },
 
@@ -143,7 +142,7 @@ define( function( require ) {
 
       var pressure = 0;
       var currentModel = this.sceneModels[this.currentScene];
-      if ( y < this.skyGroundBoundY ) {
+      if ( y > 0 ) {
         pressure = this.getAirPressure( y );
       }
       else if ( currentModel.isPointInsidePool( x, y ) ) {
@@ -154,7 +153,7 @@ define( function( require ) {
           pressure = this.getAirPressure( y );
         }
         else {
-          pressure = this.getAirPressure( y - waterHeight ) + this.getWaterPressure( waterHeight );
+          pressure = this.getAirPressure( waterHeight + y ) + this.getWaterPressure( waterHeight );
         }
 
       }

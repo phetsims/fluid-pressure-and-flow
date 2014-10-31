@@ -48,7 +48,8 @@ define( function( require ) {
 
     model.volumeProperty.link( function( volume ) {
       thisNode.currentHeight = maxHeight -
-                               modelViewTransform.modelToViewY( volume * model.maxHeight / model.maxVolume );
+                               Math.abs( modelViewTransform.modelToViewDeltaY( volume * model.maxHeight /
+                                                                               model.maxVolume ) );
       redrawRect();
     } );
   }

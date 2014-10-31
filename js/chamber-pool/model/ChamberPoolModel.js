@@ -71,38 +71,38 @@ define( function( require ) {
     this.leftWaterHeight = DEFAULT_HEIGHT - CHAMBER_HEIGHT;
 
     //masses can't have y-coord more that this, sky height - grass height
-    this.maxY = chamberPoolModel.underPressureModel.skyGroundBoundY - 0.05;
+    this.maxY = 0.05;
 
     this.poolDimensions = {
       leftChamber: {
         x1: LEFT_CHAMBER_X,
-        y1: chamberPoolModel.underPressureModel.skyGroundBoundY + MAX_HEIGHT - CHAMBER_HEIGHT,
+        y1: -( MAX_HEIGHT - CHAMBER_HEIGHT ),
         x2: LEFT_CHAMBER_X + LEFT_CHAMBER_WIDTH,
-        y2: chamberPoolModel.underPressureModel.skyGroundBoundY + MAX_HEIGHT
+        y2: -( MAX_HEIGHT )
       },
       rightChamber: {
         x1: RIGHT_CHAMBER_X,
-        y1: chamberPoolModel.underPressureModel.skyGroundBoundY + MAX_HEIGHT - CHAMBER_HEIGHT,
+        y1: -( MAX_HEIGHT - CHAMBER_HEIGHT ),
         x2: RIGHT_CHAMBER_X + RIGHT_CHAMBER_WIDTH,
-        y2: chamberPoolModel.underPressureModel.skyGroundBoundY + MAX_HEIGHT
+        y2: -( MAX_HEIGHT )
       },
       horizontalPassage: {
         x1: LEFT_CHAMBER_X + LEFT_CHAMBER_WIDTH,
-        y1: chamberPoolModel.underPressureModel.skyGroundBoundY + MAX_HEIGHT - PASSAGE_SIZE * 3 / 2,
+        y1: -( MAX_HEIGHT - PASSAGE_SIZE * 3 / 2),
         x2: RIGHT_CHAMBER_X,
-        y2: chamberPoolModel.underPressureModel.skyGroundBoundY + MAX_HEIGHT - PASSAGE_SIZE / 2
+        y2: -( MAX_HEIGHT - PASSAGE_SIZE / 2 )
       },
       leftOpening: {
         x1: LEFT_CHAMBER_X + LEFT_CHAMBER_WIDTH / 2 - LEFT_OPENING_WIDTH / 2,
-        y1: chamberPoolModel.underPressureModel.skyGroundBoundY,
+        y1: 0,
         x2: LEFT_CHAMBER_X + LEFT_CHAMBER_WIDTH / 2 + LEFT_OPENING_WIDTH / 2,
-        y2: chamberPoolModel.underPressureModel.skyGroundBoundY + MAX_HEIGHT - CHAMBER_HEIGHT
+        y2: -( MAX_HEIGHT - CHAMBER_HEIGHT )
       },
       rightOpening: {
         x1: RIGHT_CHAMBER_X + RIGHT_CHAMBER_WIDTH / 2 - RIGHT_OPENING_WIDTH / 2,
-        y1: chamberPoolModel.underPressureModel.skyGroundBoundY,
+        y1: 0,
         x2: RIGHT_CHAMBER_X + RIGHT_CHAMBER_WIDTH / 2 + RIGHT_OPENING_WIDTH / 2,
-        y2: chamberPoolModel.underPressureModel.skyGroundBoundY + MAX_HEIGHT - CHAMBER_HEIGHT
+        y2: -( MAX_HEIGHT - CHAMBER_HEIGHT )
       }
     };
 
@@ -111,12 +111,12 @@ define( function( require ) {
 
     //List of all available masses
     this.masses = [
-      new MassModel( chamberPoolModel, 500, MASS_OFFSET, chamberPoolModel.maxY - PASSAGE_SIZE / 2, PASSAGE_SIZE,
+      new MassModel( chamberPoolModel, 500, MASS_OFFSET, chamberPoolModel.maxY + PASSAGE_SIZE / 2, PASSAGE_SIZE,
         PASSAGE_SIZE ),
       new MassModel( chamberPoolModel, 250, MASS_OFFSET + PASSAGE_SIZE + SEPARATION,
-          chamberPoolModel.maxY - PASSAGE_SIZE / 4, PASSAGE_SIZE, PASSAGE_SIZE / 2 ),
+          chamberPoolModel.maxY + PASSAGE_SIZE / 4, PASSAGE_SIZE, PASSAGE_SIZE / 2 ),
       new MassModel( chamberPoolModel, 250, MASS_OFFSET + 2 * PASSAGE_SIZE + 2 * SEPARATION,
-          chamberPoolModel.maxY - PASSAGE_SIZE / 4, PASSAGE_SIZE, PASSAGE_SIZE / 2 )
+          chamberPoolModel.maxY + PASSAGE_SIZE / 4, PASSAGE_SIZE, PASSAGE_SIZE / 2 )
     ];
 
     //When an item is added to the stack, update the total mass and equalize the mass velocities
@@ -186,11 +186,11 @@ define( function( require ) {
 
       // If there are any masses stacked, update the water height
       if ( this.stackMass ) {
-        var maxY = 0;
+        var minY = 0; // some max value
         this.stack.forEach( function( massModel ) {
-          maxY = Math.max( massModel.position.y + massModel.height / 2, maxY );
+          minY = Math.min( massModel.position.y - massModel.height / 2, minY );
         } );
-        this.leftDisplacement = maxY - (this.poolDimensions.leftOpening.y2 - this.leftWaterHeight);
+        this.leftDisplacement = this.poolDimensions.leftOpening.y2 + this.leftWaterHeight - minY;
       }
       else {
         //no masses, water must get to equilibrium
@@ -212,12 +212,13 @@ define( function( require ) {
      */
     getWaterHeightAboveY: function( x, y ) {
       if ( this.poolDimensions.leftOpening.x1 < x && x < this.poolDimensions.leftOpening.x2 &&
-           y < this.poolDimensions.leftChamber.y2 - DEFAULT_HEIGHT + this.leftDisplacement ) {
+           y > this.poolDimensions.leftChamber.y2 + DEFAULT_HEIGHT - this.leftDisplacement ) {
         return 0;
       }
       else {
-        return y - (this.poolDimensions.leftChamber.y2 - DEFAULT_HEIGHT -
-                    this.leftDisplacement / this.lengthRatio);
+        return this.poolDimensions.leftChamber.y2 + DEFAULT_HEIGHT + this.leftDisplacement / this.lengthRatio - y;
+        //return Math.abs( y ) + this.poolDimensions.leftChamber.y2  + DEFAULT_HEIGHT +
+        //                         this.leftDisplacement / this.lengthRatio;
       }
     },
 
@@ -231,7 +232,7 @@ define( function( require ) {
       var keys = _.keys( this.poolDimensions );
       for ( var i = 0; i < keys.length; i++ ) {
         var dimension = this.poolDimensions[keys[i]];
-        if ( x > dimension.x1 && x < dimension.x2 && y > dimension.y1 && y < dimension.y2 ) {
+        if ( x > dimension.x1 && x < dimension.x2 && y < dimension.y1 && y > dimension.y2 ) {
           return true;
         }
       }
