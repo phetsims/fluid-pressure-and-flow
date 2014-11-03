@@ -40,12 +40,12 @@ define( function( require ) {
     var oldGravity;
     var oldFluidDensity;
     this.underPressureModel.currentSceneProperty.link( function( scene, oldScene ) {
-      if ( scene === 'Mystery' ) {
+      if ( scene === 'mystery' ) {
         oldGravity = mysteryPoolModel.underPressureModel.gravity;
         oldFluidDensity = mysteryPoolModel.underPressureModel.fluidDensity;
         mysteryPoolModel.updateChoiceValue();
       }
-      else if ( oldScene === 'Mystery' ) {
+      else if ( oldScene === 'mystery' ) {
         mysteryPoolModel.underPressureModel.gravity = oldGravity;
         mysteryPoolModel.underPressureModel.fluidDensity = oldFluidDensity;
       }
@@ -61,13 +61,13 @@ define( function( require ) {
         mysteryPoolModel.underPressureModel.fluidDensityProperty.reset();
       }
       // Update mystery quantity.
-      if ( mysteryPoolModel.underPressureModel.currentScene === 'Mystery' ) {
+      if ( mysteryPoolModel.underPressureModel.currentScene === 'mystery' ) {
         mysteryPoolModel.updateChoiceValue();
       }
     } );
 
     Property.multilink( [ this.gravityCustom, this.fluidDensityCustom ], function() {
-      if ( mysteryPoolModel.underPressureModel.currentScene === 'Mystery' ) {
+      if ( mysteryPoolModel.underPressureModel.currentScene === 'mystery' ) {
         mysteryPoolModel.updateChoiceValue();
       }
     } );

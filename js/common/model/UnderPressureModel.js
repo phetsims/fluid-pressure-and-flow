@@ -24,12 +24,6 @@ define( function( require ) {
   var MysteryPoolModel = require( 'UNDER_PRESSURE/mystery-pool/model/MysteryPoolModel' );
   var getStandardAirPressure = require( 'UNDER_PRESSURE/common/model/getStandardAirPressure' );
 
-  var SceneModels = {
-    Square: SquarePoolModel,
-    Trapezoid: TrapezoidPoolModel,
-    Chamber: ChamberPoolModel,
-    Mystery: MysteryPoolModel
-  };
 
   /**
    * @param {number} width of sim
@@ -38,7 +32,6 @@ define( function( require ) {
   function UnderPressureModel( width, height ) {
 
     var underPressureModel = this;
-    this.scenes = ['Square', 'Trapezoid', 'Chamber', 'Mystery'];
 
     // dimensions of the model's space
     this.width = width;
@@ -54,7 +47,7 @@ define( function( require ) {
         measureUnits: 'metric', //metric, english or atmosphere
         gravity: UnderPressureConstants.EARTH_GRAVITY,
         fluidDensity: UnderPressureConstants.WATER_DENSITY,
-        currentScene: underPressureModel.scenes[0],
+        currentScene: 'square', // name of the current screen. Can take values square/trapezoid/chamber/mystery.
 
         // This is just a "simulated" derived property that depends on currentScene and the volume in the current scene.
         // This property is passed to barometer so that it can react to changes in the volume.
@@ -68,12 +61,13 @@ define( function( require ) {
       }
     );
 
-    this.fluidColorModel = new FluidColorModel( this.fluidDensityProperty, this.fluidDensityRange );
-
     this.sceneModels = {};
-    this.scenes.forEach( function( name ) {
-      underPressureModel.sceneModels[name] = (new SceneModels[name]( underPressureModel ));
-    } );
+    this.sceneModels.square = new SquarePoolModel( underPressureModel );
+    this.sceneModels.trapezoid = new TrapezoidPoolModel( underPressureModel );
+    this.sceneModels.chamber = new ChamberPoolModel( underPressureModel );
+    this.sceneModels.mystery = new MysteryPoolModel( underPressureModel );
+
+    this.fluidColorModel = new FluidColorModel( this.fluidDensityProperty, this.fluidDensityRange );
 
     this.barometers = [];
 
@@ -81,9 +75,15 @@ define( function( require ) {
       this.barometers.push( new Sensor( new Vector2( 0, 0 ), 0 ) );
     }
 
-    this.currentSceneProperty.link( function() {
-      underPressureModel.currentVolume = underPressureModel.sceneModels[underPressureModel.currentScene].volume;
+    // current scene's model
+    this.addDerivedProperty( 'currentSceneModel', ['currentScene'], function( currentScene ) {
+      return underPressureModel.sceneModels[currentScene];
     } );
+
+    this.currentSceneModelProperty.link( function( currentSceneModel ) {
+      underPressureModel.currentVolume = currentSceneModel.volume;
+    } );
+
   }
 
   return inherit( PropertySet, UnderPressureModel, {
@@ -92,18 +92,18 @@ define( function( require ) {
      * @param {number} dt seconds
      */
     step: function( dt ) {
-      this.sceneModels[this.currentScene].step( dt );
+      this.currentSceneModel.step( dt );
     },
 
     reset: function() {
-      var self = this;
+
       PropertySet.prototype.reset.call( this );
 
-      for ( var model in self.sceneModels ) {
-        if ( self.sceneModels.hasOwnProperty( model ) ) {
-          self.sceneModels[model].reset();
-        }
-      }
+      this.sceneModels.square.reset();
+      this.sceneModels.trapezoid.reset();
+      this.sceneModels.chamber.reset();
+      this.sceneModels.mystery.reset();
+
       this.barometers.forEach( function( barometer ) {
         barometer.reset();
       } );
@@ -141,7 +141,7 @@ define( function( require ) {
     getPressureAtCoords: function( x, y ) {
 
       var pressure = 0;
-      var currentModel = this.sceneModels[this.currentScene];
+      var currentModel = this.currentSceneModel;
       if ( y > 0 ) {
         pressure = this.getAirPressure( y );
       }

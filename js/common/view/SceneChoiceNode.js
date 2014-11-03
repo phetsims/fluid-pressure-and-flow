@@ -23,13 +23,6 @@ define( function( require ) {
 
   var ICON_SIZE = new Dimension2( 52, 37 );
 
-  var iconImages = {
-    Square: SquarePoolImage,
-    Trapezoid: TrapezoidPoolImage,
-    Chamber: ChamberPoolImage,
-    Mystery: MysteryPoolImage
-  };
-
   /**
    * @param {UnderPressureModel} underPressureModel of the simulation
    * @param {Object} options that can be passed to the underlying node
@@ -40,19 +33,26 @@ define( function( require ) {
     var sceneChoiceNode = this;
     Node.call( this );
 
-    var dy = 60;
-    underPressureModel.scenes.forEach( function( name, index ) {
-      var iconImage = new Image( iconImages[ name ] );
-      iconImage.scale( ICON_SIZE.width / iconImage.width, ICON_SIZE.height / iconImage.height );
-      var iconButton = new InOutRadioButton( underPressureModel.currentSceneProperty, name, iconImage,
-        { cornerRadius: 5 } );
-      iconButton.touchArea = iconButton.localBounds.dilatedXY( 0, 0 );
-      iconButton.translate( 0, dy * index );
-      sceneChoiceNode.addChild( iconButton );
-    } );
+    sceneChoiceNode.addChild( createButton( SquarePoolImage, underPressureModel.currentSceneProperty, 'square', 0 ) );
+    sceneChoiceNode.addChild( createButton( TrapezoidPoolImage, underPressureModel.currentSceneProperty, 'trapezoid',
+      1 ) );
+    sceneChoiceNode.addChild( createButton( ChamberPoolImage, underPressureModel.currentSceneProperty, 'chamber', 2 ) );
+    sceneChoiceNode.addChild( createButton( MysteryPoolImage, underPressureModel.currentSceneProperty, 'mystery', 3 ) );
 
     this.mutate( options );
   }
+
+  // creates an InOutRadioButton with the given image as the icon
+  //@private
+  var createButton = function( image, controlProperty, value, index ) {
+    var iconImg = new Image( image );
+    var dy = 60;
+    iconImg.scale( ICON_SIZE.width / iconImg.width, ICON_SIZE.height / iconImg.height );
+    var iconButton = new InOutRadioButton( controlProperty, value, iconImg, { cornerRadius: 5 } );
+    iconButton.touchArea = iconButton.localBounds.dilatedXY( 0, 0 );
+    iconButton.translate( 0, dy * index );
+    return iconButton;
+  };
 
   return inherit( Node, SceneChoiceNode );
 } );

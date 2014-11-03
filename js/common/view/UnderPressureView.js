@@ -42,13 +42,6 @@ define( function( require ) {
   var WaterString = require( 'string!UNDER_PRESSURE/water' );
   var HoneyString = require( 'string!UNDER_PRESSURE/honey' );
 
-  var SceneView = {
-    Square: SquarePoolView,
-    Trapezoid: TrapezoidPoolView,
-    Chamber: ChamberPoolView,
-    Mystery: MysteryPoolView
-  };
-
   //View layout related constants
   var inset = 15;
 
@@ -193,15 +186,37 @@ define( function( require ) {
     }.bind( this ) );
 
     var scenes = {};
-    underPressureModel.scenes.forEach( function( name ) {
-      scenes[ name ] = new SceneView[ name ]( underPressureModel.sceneModels[ name ], modelViewTransform,
-        underPressureView.layoutBounds );
-      scenes[ name ].visible = false;
-      underPressureView.addChild( scenes[ name ] );
-    } );
+
+    // adding square pool view
+    var squarePoolView = new SquarePoolView( underPressureModel.sceneModels.square, modelViewTransform,
+      underPressureView.layoutBounds );
+    squarePoolView.visible = false;
+    scenes.square = squarePoolView;
+    underPressureView.addChild( squarePoolView );
+
+    // adding trapezoid pool view
+    var trapezoidPoolView = new TrapezoidPoolView( underPressureModel.sceneModels.trapezoid, modelViewTransform,
+      underPressureView.layoutBounds );
+    trapezoidPoolView.visible = false;
+    scenes.trapezoid = trapezoidPoolView;
+    underPressureView.addChild( trapezoidPoolView );
+
+    // adding chamber pool view
+    var chamberPoolView = new ChamberPoolView( underPressureModel.sceneModels.chamber, modelViewTransform,
+      underPressureView.layoutBounds );
+    chamberPoolView.visible = false;
+    scenes.chamber = chamberPoolView;
+    underPressureView.addChild( chamberPoolView );
+
+    // adding mystery pool view
+    var mysteryPoolView = new MysteryPoolView( underPressureModel.sceneModels.mystery, modelViewTransform,
+      underPressureView.layoutBounds );
+    mysteryPoolView.visible = false;
+    scenes.mystery = mysteryPoolView;
+    underPressureView.addChild( mysteryPoolView );
 
     underPressureModel.mysteryChoiceProperty.link( function( choice ) {
-      if ( underPressureModel.currentScene === 'Mystery' ) {
+      if ( underPressureModel.currentScene === 'mystery' ) {
         if ( choice === 'gravity' ) {
           gravitySlider.disable();
           fluidDensitySlider.enable();
@@ -214,7 +229,7 @@ define( function( require ) {
     } );
 
     underPressureModel.currentSceneProperty.link( function( currentScene ) {
-      if ( currentScene === 'Mystery' ) {
+      if ( currentScene === 'mystery' ) {
         if ( underPressureModel.mysteryChoice === 'gravity' ) {
           gravitySlider.disable();
         }
@@ -231,8 +246,8 @@ define( function( require ) {
     this.addChild( new SceneChoiceNode( underPressureModel, { x: 5, y: 260 } ) );
 
     //resize mystery control panel
-    scenes.Mystery.mysteryPoolControls.choicePanel.resizeWidth( controlPanel.width );
-    scenes.Mystery.mysteryPoolControls.choicePanel.right = gravitySlider.right;
+    mysteryPoolView.mysteryPoolControls.choicePanel.resizeWidth( controlPanel.width );
+    mysteryPoolView.mysteryPoolControls.choicePanel.right = gravitySlider.right;
 
     underPressureModel.currentSceneProperty.link( function( currentScene, previousScene ) {
       scenes[currentScene].visible = true;
