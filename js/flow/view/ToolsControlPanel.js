@@ -99,9 +99,11 @@ define( function( require ) {
         dotsCheckBox.localBounds.minX + maxCheckBoxWidth, dotsCheckBox.localBounds.maxY );
 
     // pad all the rows so the text nodes are left aligned and the icons is right aligned
-    var checkBoxChildren = [ rulerCheckBox , frictionCheckBox, fluxMeterCheckBox , dotsCheckBox ];
 
-    var checkBoxes = new VBox( {align: 'left', spacing: 4, children: checkBoxChildren} );
+    var checkBoxes = new VBox( {
+      align: 'left', spacing: 4,
+      children: [ rulerCheckBox , frictionCheckBox, fluxMeterCheckBox , dotsCheckBox ]
+    } );
 
     Panel.call( this, checkBoxes, options );
   }
@@ -119,8 +121,8 @@ define( function( require ) {
 
   //Create an icon for the dots check box
   var createDotsIcon = function() {
-    var dot1 = new Circle( 3, {fill: 'red' } );
-    var dot2 = new Circle( 3, {fill: 'red', left: dot1.right + 4 } );
+    var dot1 = new Circle( 3, { fill: 'red' } );
+    var dot2 = new Circle( 3, { fill: 'red', left: dot1.right + 4 } );
     return new Node( {children: [dot1, dot2]} );
   };
 

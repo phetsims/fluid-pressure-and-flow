@@ -68,8 +68,7 @@ define( function( require ) {
       scale: flowModel.pipe.leftPipeScale
     } );
 
-    this.leftPipeBackNode = new Node( {
-      children: [ new Image( leftPipeBackImage ) ],
+    this.leftPipeBackNode = new Image( leftPipeBackImage, {
       x: leftPipeX,
       y: flowModel.pipe.leftPipeYPosition,
       scale: flowModel.pipe.leftPipeScale

@@ -75,7 +75,7 @@ define( function( require ) {
       }
     } ) );
 
-    var nozzle = new Node( {children: [new Image( nozzleImg )], scale: 0.75 } );
+    var nozzle = new Image( nozzleImg, { scale: 0.75 } );
 
     this.spoutHandle = new Node( {children: [new Image( spoutHandleImg )], scale: 0.75, cursor: 'pointer', bottom: nozzle.bottom, left: nozzle.right - 4} );
     this.spoutHandle.touchArea = this.spoutHandle.localBounds.dilatedXY( 10, 10 );
