@@ -131,9 +131,7 @@ define( function( require ) {
 
         var crossSection = this.pipe.getCrossSection( x );
 
-        // the top pipe's width is drawn inside the cross section while for the bottom pipe the width is outside the
-        // cross section.
-        if ( y > crossSection.yBottom && y < crossSection.yTop - 0.1 ) {
+        if ( y > crossSection.yBottom + 0.05 && y < crossSection.yTop - 0.05 ) {
           var vSquared = this.pipe.getVelocity( x, y ).magnitudeSquared();
           return getStandardAirPressure( 0 ) - y * Constants.EARTH_GRAVITY * this.fluidDensity -
                  0.5 * this.fluidDensity * vSquared;
@@ -279,9 +277,8 @@ define( function( require ) {
         }
 
         var crossSection = this.pipe.getCrossSection( x );
-        // the top pipe's width is drawn inside the cross section while for the bottom pipe the width is outside the
-        // cross section.
-        if ( y > crossSection.yBottom - 0.1 && y < crossSection.yTop - 0.2 ) {
+
+        if ( y > crossSection.yBottom + 0.05 && y < crossSection.yTop - 0.05 ) {
           return this.pipe.getTweakedVelocity( x, y );
         }
         return Vector2.ZERO;
