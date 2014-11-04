@@ -47,8 +47,9 @@ define( function( require ) {
 
     var pipe = flowModel.pipe;
 
+    var topControlHandleNodes = [];
+    var bottomControlHandleNodes = [];
 
-    this.controlHandleNodes = [];
     // add handle to drag the left pipe
     this.leftPipeMainHandleNode = new Image( handleImage,
       {
@@ -93,29 +94,29 @@ define( function( require ) {
     var pipeHandleNode;
     for ( i = 1; i < pipe.top.length - 1; i++ ) {
       pipeHandleNode = new PipeHandleNode( pipeHandlesNode, true, i, modelViewTransform );
-      this.controlHandleNodes.push( pipeHandleNode );
+      topControlHandleNodes.push( pipeHandleNode );
       this.addChild( pipeHandleNode );
     }
 
-    for ( i = pipe.bottom.length - 2; i > 0; i-- ) {
+    for ( i = 1; i < pipe.bottom.length - 1; i++ ) {
       pipeHandleNode = new PipeHandleNode( pipeHandlesNode, false, i, modelViewTransform );
-      this.controlHandleNodes.push( pipeHandleNode );
+      bottomControlHandleNodes.push( pipeHandleNode );
       this.addChild( pipeHandleNode );
     }
 
-    var numberOfControlPoints = pipe.top.length * 2 - 4;
     flowModel.pipe.leftPipeMainHandleYPositionProperty.linkAttribute( pipeHandlesNode.leftPipeMainHandleNode, 'y' );
     flowModel.pipe.rightPipeMainHandleYPositionProperty.linkAttribute( pipeHandlesNode.rightPipeMainHandleNode, 'y' );
     Property.multilink( [pipe.leftPipeTopHandleYProperty, pipe.leftPipeBottomHandleYProperty],
       function( leftTop, leftBottom ) {
-        pipeHandlesNode.controlHandleNodes[ 0 ].bottom = leftTop;
-        pipeHandlesNode.controlHandleNodes[ numberOfControlPoints - 1 ].top = leftBottom;
+        topControlHandleNodes[ 0 ].bottom = leftTop;
+        bottomControlHandleNodes[ 0 ].top = leftBottom;
       } );
 
+    var rightControlHandleIndex = pipe.top.length - 3;
     Property.multilink( [pipe.rightPipeTopHandleYProperty, pipe.rightPipeBottomHandleYProperty],
       function( rightTop, rightBottom ) {
-        pipeHandlesNode.controlHandleNodes[ numberOfControlPoints / 2 - 1 ].bottom = rightTop;
-        pipeHandlesNode.controlHandleNodes[ numberOfControlPoints / 2 ].top = rightBottom;
+        topControlHandleNodes[ rightControlHandleIndex ].bottom = rightTop;
+        bottomControlHandleNodes[ rightControlHandleIndex ].top = rightBottom;
       } );
 
   }
