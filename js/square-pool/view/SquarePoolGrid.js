@@ -34,7 +34,7 @@ define( function( require ) {
     var poolDimensions = squarePoolModel.poolDimensions;
     // add grid lines
     this.addChild( new GridLinesNode( squarePoolModel.underPressureModel.measureUnitsProperty, modelViewTransform,
-      poolDimensions.x1, poolDimensions.y1, poolDimensions.x2, poolDimensions.y2 + 0.3 ) );
+      poolDimensions.x1, poolDimensions.y1, poolDimensions.x2, poolDimensions.y2 - 0.3 ) );
 
     // meter labels
     var metersLabels = new Node();
