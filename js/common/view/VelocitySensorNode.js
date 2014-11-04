@@ -43,6 +43,11 @@ define( function( require ) {
    * @constructor
    */
   function VelocitySensorNode( modelViewTransform, velocitySensor, measureUnitsProperty, linkedProperties, getVelocityAt, containerBounds, dragBounds, options ) {
+
+    options = _.extend( {
+      scale: 1
+    }, options );
+
     var velocitySensorNode = this;
     Node.call( this, {cursor: 'pointer', pickable: true} );
 
@@ -156,8 +161,9 @@ define( function( require ) {
     velocitySensor.positionProperty.linkAttribute( velocitySensorNode, 'translation' );
 
     Property.multilink( [velocitySensor.positionProperty].concat( linkedProperties ), function( position ) {
-      velocitySensor.value = getVelocityAt( modelViewTransform.viewToModelX( position.x + 50 ),
-        modelViewTransform.viewToModelY( position.y + 72 ) );
+      velocitySensor.value = getVelocityAt( modelViewTransform.viewToModelX( position.x +
+                                                                             rectangleWidth / 2 * options.scale ),
+        modelViewTransform.viewToModelY( position.y + ( rectangleHeight + triangleHeight ) * options.scale ) );
     } );
 
     // Update the text when the value or units changes.
@@ -176,8 +182,8 @@ define( function( require ) {
 
     velocitySensor.on( 'update', function() {
       velocitySensor.value = getVelocityAt(
-        modelViewTransform.viewToModelX( velocitySensor.position.x + 50 ),
-        modelViewTransform.viewToModelY( velocitySensor.position.y + 72 )
+        modelViewTransform.viewToModelX( velocitySensor.position.x + rectangleWidth / 2 * options.scale ),
+        modelViewTransform.viewToModelY( velocitySensor.position.y + ( rectangleHeight + triangleHeight ) * options.scale )
       );
     } );
 
