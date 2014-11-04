@@ -23,43 +23,57 @@ define( function( require ) {
   var CROSS_SECTION_MIN_HEIGHT = 1; //m
   var TOP_CONTROL_POINT_INITIAL_Y = -3.5; //m
   var BOTTOM_CONTROL_POINT_INITIAL_Y = -1.4; //m
+  var PIPE_INITIAL_SCALE = 0.36;
+
+  var PIPE_INITIAL_Y = 197; //from screen top in view coordinates
+  var TOP_HANDLE_INITIAL_Y = PIPE_INITIAL_Y + 2; //from screen top in view coordinates
+  var BOTTOM_HANDLE_INITIAL_Y = 324; //from screen top in view coordinates
+
+  var CONTROL_POINT_X_SPACING = 2.3; //m
+  var LAST_CONTROL_POINT_OFFSET = 0.2; //m
+  var DUMMY_CONTROL_POINT_OFFSET = 0.1; //m
 
   /**
    * Default constructor for the pipe.
    * @constructor
    */
   function Pipe() {
+    var mainHandleInitialY = (TOP_HANDLE_INITIAL_Y + BOTTOM_HANDLE_INITIAL_Y) / 2;
 
     PropertySet.call( this, {
       flowRate: 5000, // rate of fluid flow in Liter per second (L/s)
       friction: false, // flag indicating whether friction should slow particles near the edges
-      rightPipeYPosition: 197,
-      leftPipeYPosition: 197,
-      leftPipeMainHandleYPosition: 262,
-      rightPipeMainHandleYPosition: 262,
-      leftPipeScale: 0.36,
-      rightPipeScale: 0.36,
-      leftPipeTopHandleY: 199,
-      leftPipeBottomHandleY: 324,
-      rightPipeTopHandleY: 199,
-      rightPipeBottomHandleY: 324
+      rightPipeYPosition: PIPE_INITIAL_Y, //tracks the right pipe's vertical position in pixel
+      leftPipeYPosition: PIPE_INITIAL_Y,
+      leftPipeMainHandleYPosition: mainHandleInitialY,
+      rightPipeMainHandleYPosition: mainHandleInitialY,
+      leftPipeScale: PIPE_INITIAL_SCALE,
+      rightPipeScale: PIPE_INITIAL_SCALE,
+      leftPipeTopHandleY: TOP_HANDLE_INITIAL_Y,
+      leftPipeBottomHandleY: BOTTOM_HANDLE_INITIAL_Y,
+      rightPipeTopHandleY: TOP_HANDLE_INITIAL_Y,
+      rightPipeBottomHandleY: BOTTOM_HANDLE_INITIAL_Y
     } );
 
     // cross-sections that the user can manipulate to deform the pipe.
     var controlCrossSections = [
       //dummy cross section, not part of the pipe flow line shape. This is where the particles originate.
-      new PipeCrossSection( -6.8, TOP_CONTROL_POINT_INITIAL_Y, BOTTOM_CONTROL_POINT_INITIAL_Y ),
+      new PipeCrossSection( -( 3 * CONTROL_POINT_X_SPACING - DUMMY_CONTROL_POINT_OFFSET ), TOP_CONTROL_POINT_INITIAL_Y,
+        BOTTOM_CONTROL_POINT_INITIAL_Y ),
 
-      new PipeCrossSection( -6.7, TOP_CONTROL_POINT_INITIAL_Y, BOTTOM_CONTROL_POINT_INITIAL_Y ),
-      new PipeCrossSection( -4.6, TOP_CONTROL_POINT_INITIAL_Y, BOTTOM_CONTROL_POINT_INITIAL_Y ),
-      new PipeCrossSection( -2.3, TOP_CONTROL_POINT_INITIAL_Y, BOTTOM_CONTROL_POINT_INITIAL_Y ),
+      new PipeCrossSection( -( 3 * CONTROL_POINT_X_SPACING - LAST_CONTROL_POINT_OFFSET ), TOP_CONTROL_POINT_INITIAL_Y,
+        BOTTOM_CONTROL_POINT_INITIAL_Y ),
+      new PipeCrossSection( -( 2 * CONTROL_POINT_X_SPACING ), TOP_CONTROL_POINT_INITIAL_Y,
+        BOTTOM_CONTROL_POINT_INITIAL_Y ),
+      new PipeCrossSection( -CONTROL_POINT_X_SPACING, TOP_CONTROL_POINT_INITIAL_Y, BOTTOM_CONTROL_POINT_INITIAL_Y ),
       new PipeCrossSection( 0, TOP_CONTROL_POINT_INITIAL_Y, BOTTOM_CONTROL_POINT_INITIAL_Y ),
-      new PipeCrossSection( 2.3, TOP_CONTROL_POINT_INITIAL_Y, BOTTOM_CONTROL_POINT_INITIAL_Y ),
-      new PipeCrossSection( 4.6, TOP_CONTROL_POINT_INITIAL_Y, BOTTOM_CONTROL_POINT_INITIAL_Y ),
-      new PipeCrossSection( 6.7, TOP_CONTROL_POINT_INITIAL_Y, BOTTOM_CONTROL_POINT_INITIAL_Y ),
+      new PipeCrossSection( CONTROL_POINT_X_SPACING, TOP_CONTROL_POINT_INITIAL_Y, BOTTOM_CONTROL_POINT_INITIAL_Y ),
+      new PipeCrossSection( 2 * CONTROL_POINT_X_SPACING, TOP_CONTROL_POINT_INITIAL_Y, BOTTOM_CONTROL_POINT_INITIAL_Y ),
+      new PipeCrossSection( 3 * CONTROL_POINT_X_SPACING - LAST_CONTROL_POINT_OFFSET, TOP_CONTROL_POINT_INITIAL_Y,
+        BOTTOM_CONTROL_POINT_INITIAL_Y ),
 
       //dummy cross section, not part of the pipe flow line shape. This is where the particles are removed.
-      new PipeCrossSection( 6.8, TOP_CONTROL_POINT_INITIAL_Y, BOTTOM_CONTROL_POINT_INITIAL_Y )
+      new PipeCrossSection( 3 * CONTROL_POINT_X_SPACING - DUMMY_CONTROL_POINT_OFFSET, TOP_CONTROL_POINT_INITIAL_Y, BOTTOM_CONTROL_POINT_INITIAL_Y )
     ];
 
     this.top = []; // array to store top control points
