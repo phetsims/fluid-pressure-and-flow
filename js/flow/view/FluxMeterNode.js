@@ -68,17 +68,17 @@ define( function( require ) {
     // flowRate row
     var flowRateText = new Text( flowRateString, textOptions );
     this.flowRateValue = new Text( '', textOptions );
-    this.flowRateUnit = new SubSupText( '', textOptions );
+    this.flowRateUnit = new SubSupText( rateUnitsMetric, textOptions );
 
     // area row
     var area = new Text( areaString, textOptions );
     this.areaValue = new Text( '', textOptions );
-    this.areaUnit = new SubSupText( '', textOptions );
+    this.areaUnit = new SubSupText( areaUnitsMetric, textOptions );
 
     // flux row
     var flux = new Text( fluxString, textOptions );
     this.fluxValue = new Text( '', textOptions );
-    this.fluxUnit = new SubSupText( '', textOptions );
+    this.fluxUnit = new SubSupText( fluxUnitsMetric, textOptions );
 
     // Split the content into 3 vboxes. First vbox holds the right aligned title,
     // second the right aligned value and the third vbox holds the left aligned units text
@@ -96,9 +96,9 @@ define( function( require ) {
           new HBox( { children: [ new HStrut( 4 ), this.fluxValue ] } )
         ] } ),
         new VBox( { align: 'left', children: [
-          new Node( { children: [ new HStrut( 8 ), this.flowRateUnit ] } ),
-          new Node( { children: [ new HStrut( 8 ), this.areaUnit ] } ),
-          new Node( { children: [ new HStrut( 8 ), this.fluxUnit ] } )
+          this.flowRateUnit,
+          this.areaUnit,
+          this.fluxUnit
         ] } )
       ]
     } );
