@@ -31,6 +31,7 @@ define( function( require ) {
   var TrapezoidPoolView = require( 'UNDER_PRESSURE/trapezoid-pool/view/TrapezoidPoolView' );
   var ChamberPoolView = require( 'UNDER_PRESSURE/chamber-pool/view/ChamberPoolView' );
   var MysteryPoolView = require( 'UNDER_PRESSURE/mystery-pool/view/MysteryPoolView' );
+  var Node = require( 'SCENERY/nodes/Node' );
 
   // strings
   var fluidDensityString = require( 'string!UNDER_PRESSURE/fluidDensity' );
@@ -79,6 +80,10 @@ define( function( require ) {
     //control panel
     var controlPanel = new ControlPanel( underPressureModel, { right: resetAllButton.right, top: 5, cornerRadius: 7 } );
     this.addChild( controlPanel );
+
+    // all the movable tools are added to this layer
+    var toolsLayer = new Node();
+    this.addChild( toolsLayer );
 
     // units panel
     var unitsControlPanel = new UnitsControlPanel( underPressureModel.measureUnitsProperty, controlPanel.width, {
@@ -182,7 +187,7 @@ define( function( require ) {
           pressureReadOffset: 51,
           minPressure: UnderPressureConstants.MIN_PRESSURE
         } );
-      this.addChild( barometerNode );
+      toolsLayer.addChild( barometerNode );
     }.bind( this ) );
 
     var scenes = {};
@@ -256,7 +261,9 @@ define( function( require ) {
       }
     } );
 
-    this.addChild( new UnderPressureRuler( underPressureModel, modelViewTransform, underPressureView.layoutBounds ) );
+    toolsLayer.addChild( new UnderPressureRuler( underPressureModel, modelViewTransform,
+      underPressureView.layoutBounds ) );
+    toolsLayer.moveToFront();
   }
 
   return inherit( ScreenView, UnderPressureView );

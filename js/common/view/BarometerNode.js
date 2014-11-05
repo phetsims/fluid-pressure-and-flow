@@ -113,6 +113,7 @@ define( function( require ) {
         endDrag: function() {
           if ( containerBounds.intersectsBounds( barometerNode.visibleBounds ) ) {
             barometer.positionProperty.reset();
+            barometerNode.moveToBack();
           }
         }
       } ) );
