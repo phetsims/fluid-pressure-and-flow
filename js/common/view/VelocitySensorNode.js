@@ -154,6 +154,7 @@ define( function( require ) {
           if ( containerBounds.intersectsBounds( Bounds2.rect( velocitySensor.position.x, velocitySensor.position.y,
             rectangleWidth, rectangleHeight ).eroded( 5 ) ) ) {
             velocitySensor.positionProperty.reset();
+            velocitySensorNode.moveToBack();
           }
         }
       } ) );

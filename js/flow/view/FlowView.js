@@ -37,6 +37,7 @@ define( function( require ) {
   var FluxMeterNode = require( 'FLUID_PRESSURE_AND_FLOW/flow/view/FluxMeterNode' );
   var GridInjectorNode = require( 'FLUID_PRESSURE_AND_FLOW/flow/view/GridInjectorNode' );
   var PipeHandlesNode = require( 'FLUID_PRESSURE_AND_FLOW/flow/view/PipeHandlesNode' );
+  var Node = require( 'SCENERY/nodes/Node' );
 
   // strings
   var fluidDensityString = require( 'string!FLUID_PRESSURE_AND_FLOW/fluidDensity' );
@@ -103,6 +104,10 @@ define( function( require ) {
     var toolsControlPanel = new ToolsControlPanel( flowModel, { right: this.layoutBounds.right - 7, top: 7 } );
     this.addChild( toolsControlPanel );
 
+    // all the movable tools are added to this layer
+    var toolsLayer = new Node();
+    this.addChild( toolsLayer );
+
     // units control panel
     var unitsControlPanel = new UnitsControlPanel( flowModel.measureUnitsProperty, 50,
       { right: toolsControlPanel.left - 7, top: toolsControlPanel.top } );
@@ -129,7 +134,7 @@ define( function( require ) {
     this.pipeNode.preParticleLayer.addChild( fluxMeterNode.ellipse2 );
 
     // now add the front part of the fluxMeter
-    this.addChild( fluxMeterNode );
+    toolsLayer.addChild( fluxMeterNode );
 
     // add the reset button
     var resetAllButton = new ResetAllButton( {
@@ -281,7 +286,7 @@ define( function( require ) {
         { scale: 0.9 }
       );
 
-      this.addChild( velocitySensorNode );
+      toolsLayer.addChild( velocitySensorNode );
 
     }.bind( this ) );
 
@@ -308,12 +313,12 @@ define( function( require ) {
         }
       );
 
-      this.addChild( barometerNode );
+      toolsLayer.addChild( barometerNode );
 
     }.bind( this ) );
 
     // add the rule node
-    this.addChild( new FPAFRuler(
+    toolsLayer.addChild( new FPAFRuler(
         flowModel.isRulerVisibleProperty,
         flowModel.rulerPositionProperty,
         flowModel.measureUnitsProperty,
@@ -321,6 +326,7 @@ define( function( require ) {
         this.layoutBounds )
     );
 
+    toolsLayer.moveToFront();
   }
 
   return inherit( ScreenView, FlowView, {

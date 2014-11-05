@@ -22,6 +22,7 @@ define( function( require ) {
   var ResetAllButton = require( 'SCENERY_PHET/buttons/ResetAllButton' );
   var Rectangle = require( 'SCENERY/nodes/Rectangle' );
   var VBox = require( 'SCENERY/nodes/VBox' );
+  var Node = require( 'SCENERY/nodes/Node' );
   var PlayPauseButton = require( 'SCENERY_PHET/buttons/PlayPauseButton' );
   var StepButton = require( 'SCENERY_PHET/buttons/StepButton' );
   var AquaRadioButton = require( 'SUN/AquaRadioButton' );
@@ -125,6 +126,10 @@ define( function( require ) {
     this.addChild( new UnitsControlPanel( waterTowerModel.measureUnitsProperty, this.toolsControlPanel.width, { left: this.toolsControlPanel.left, xMargin: 10, yMargin: 10, fontSize: 14,
       top: this.toolsControlPanel.bottom + inset} ) );
 
+    // all the movable tools are added to this layer
+    var toolsLayer = new Node();
+    this.addChild( toolsLayer );
+
     var measuringTape = new MeasuringTape( waterTowerModel, this.layoutBounds );
     // add reset button near the bottom right
     var resetAllButton = new ResetAllButton( {
@@ -196,7 +201,7 @@ define( function( require ) {
     _.each( waterTowerModel.barometers, function( barometer ) {
       barometer.positionProperty.storeInitialValue( new Vector2( sensorPanel.visibleBounds.centerX + 55, sensorPanel.visibleBounds.centerY - 10 ) );
       barometer.reset();
-      this.addChild( new BarometerNode( modelViewTransform, barometer, waterTowerModel.measureUnitsProperty,
+      toolsLayer.addChild( new BarometerNode( modelViewTransform, barometer, waterTowerModel.measureUnitsProperty,
         [ waterTowerModel.fluidDensityProperty, waterTowerModel.waterTower.tankPositionProperty, waterTowerModel.waterTower.fluidLevelProperty],
         waterTowerModel.getPressureAtCoords.bind( waterTowerModel ), waterTowerModel.getPressureString.bind( waterTowerModel ),
         sensorPanel.visibleBounds, this.layoutBounds.withMaxY( this.layoutBounds.maxY - 62 ), {minPressure: Constants.MIN_PRESSURE, maxPressure: Constants.MAX_PRESSURE} ) );
@@ -206,10 +211,13 @@ define( function( require ) {
     _.each( waterTowerModel.speedometers, function( velocitySensor ) {
       velocitySensor.positionProperty.storeInitialValue( new Vector2( sensorPanel.visibleBounds.centerX - 85, sensorPanel.visibleBounds.centerY - 35 ) );
       velocitySensor.positionProperty.reset();
-      this.addChild( new VelocitySensorNode( modelViewTransform, velocitySensor, waterTowerModel.measureUnitsProperty, [], waterTowerModel.getWaterDropVelocityAt.bind( waterTowerModel ), sensorPanel.visibleBounds, this.layoutBounds.withMaxY( this.layoutBounds.maxY - 72 ) ) );
+      toolsLayer.addChild( new VelocitySensorNode( modelViewTransform, velocitySensor,
+        waterTowerModel.measureUnitsProperty, [], waterTowerModel.getWaterDropVelocityAt.bind( waterTowerModel ),
+        sensorPanel.visibleBounds, this.layoutBounds.withMaxY( this.layoutBounds.maxY - 72 ) ) );
     }.bind( this ) );
 
-    this.addChild( new FPAFRuler( waterTowerModel.isRulerVisibleProperty, waterTowerModel.rulerPositionProperty, waterTowerModel.measureUnitsProperty, modelViewTransform, this.layoutBounds, { rulerWidth: 40,
+    toolsLayer.addChild( new FPAFRuler( waterTowerModel.isRulerVisibleProperty, waterTowerModel.rulerPositionProperty,
+      waterTowerModel.measureUnitsProperty, modelViewTransform, this.layoutBounds, { rulerWidth: 40,
       rulerHeight: 30,
       meterMajorStickWidth: 5,
       feetMajorStickWidth: 3,
@@ -218,8 +226,8 @@ define( function( require ) {
       feetUnitSpacing: 34,
       meterTicks: _.range( 0, 35, 5 ),
       feetTicks: _.range( 0, 110, 10 ),
-      insetsWidth: 0 } ) );
-    this.addChild( measuringTape );
+        insetsWidth: 0 } ) );
+    toolsLayer.addChild( measuringTape );
 
     waterTowerModel.isSluiceOpenProperty.link( function( isSluiceOpen ) {
       if ( isSluiceOpen ) {
@@ -253,6 +261,7 @@ define( function( require ) {
         }
       }
     } );
+    toolsLayer.moveToFront();
 
   }
 
