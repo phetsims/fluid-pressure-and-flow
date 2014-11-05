@@ -112,11 +112,10 @@ define( function( require ) {
         bottomControlHandleNodes[ 0 ].top = leftBottom;
       } );
 
-    var rightControlHandleIndex = pipe.top.length - 3;
     Property.multilink( [pipe.rightPipeTopHandleYProperty, pipe.rightPipeBottomHandleYProperty],
       function( rightTop, rightBottom ) {
-        topControlHandleNodes[ rightControlHandleIndex ].bottom = rightTop;
-        bottomControlHandleNodes[ rightControlHandleIndex ].top = rightBottom;
+        topControlHandleNodes[ topControlHandleNodes.length - 1 ].bottom = rightTop;
+        bottomControlHandleNodes[ bottomControlHandleNodes.length - 1 ].top = rightBottom;
       } );
 
   }
