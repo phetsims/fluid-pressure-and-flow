@@ -190,7 +190,7 @@ define( function( require ) {
         this.stack.forEach( function( massModel ) {
           minY = Math.min( massModel.position.y - massModel.height / 2, minY );
         } );
-        this.leftDisplacement = this.poolDimensions.leftOpening.y2 + this.leftWaterHeight - minY;
+        this.leftDisplacement = Math.max( this.poolDimensions.leftOpening.y2 + this.leftWaterHeight - minY, 0 );
       }
       else {
         //no masses, water must get to equilibrium
@@ -217,8 +217,6 @@ define( function( require ) {
       }
       else {
         return this.poolDimensions.leftChamber.y2 + DEFAULT_HEIGHT + this.leftDisplacement / this.lengthRatio - y;
-        //return Math.abs( y ) + this.poolDimensions.leftChamber.y2  + DEFAULT_HEIGHT +
-        //                         this.leftDisplacement / this.lengthRatio;
       }
     },
 

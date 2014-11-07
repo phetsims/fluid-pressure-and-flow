@@ -82,22 +82,7 @@ define( function( require ) {
       // move the masses only when the velocity is greater than than this, see #60
       var epsilonVelocity = 0.01;
 
-      if ( this.isFalling && !this.isDragging ) {
-        acceleration = -this.chamberPoolModel.underPressureModel.gravity;
-        this.velocity = this.velocity + acceleration * dt;
-        if ( Math.abs( this.velocity ) > epsilonVelocity ) {
-          this.position.y += this.velocity * dt;
-
-          // If it landed, then stop the block.
-          if ( this.position.y < this.chamberPoolModel.maxY + this.height / 2 ) {
-            this.position.y = this.chamberPoolModel.maxY + this.height / 2;
-            this.isFalling = false;
-            this.velocity = 0;
-          }
-          this.positionProperty.notifyObserversStatic();
-        }
-      }
-      else if ( this.chamberPoolModel.stack.contains( this ) ) {
+      if ( this.chamberPoolModel.stack.contains( this ) ) {
 
         //use newton’s laws to equalize pressure/force at interface
         var m = this.chamberPoolModel.stackMass;
@@ -114,6 +99,21 @@ define( function( require ) {
         this.velocity = (this.velocity + acceleration * dt) * frictionCoefficient;
         if ( Math.abs( this.velocity ) > epsilonVelocity ) {
           this.position.y += this.velocity * dt;
+          this.positionProperty.notifyObserversStatic();
+        }
+      }
+      else if ( this.isFalling && !this.isDragging ) {
+        acceleration = -this.chamberPoolModel.underPressureModel.gravity;
+        this.velocity = this.velocity + acceleration * dt;
+        if ( Math.abs( this.velocity ) > epsilonVelocity ) {
+          this.position.y += this.velocity * dt;
+
+          // If it landed, then stop the block.
+          if ( this.position.y < this.chamberPoolModel.maxY + this.height / 2 ) {
+            this.position.y = this.chamberPoolModel.maxY + this.height / 2;
+            this.isFalling = false;
+            this.velocity = 0;
+          }
           this.positionProperty.notifyObserversStatic();
         }
       }
