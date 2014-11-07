@@ -105,7 +105,7 @@ define( function( require ) {
     minusButton.touchArea = new Bounds2( minusButton.localBounds.minX - 20, minusButton.localBounds.minY - 5,
         minusButton.localBounds.maxX + 20, minusButton.localBounds.maxY + 20 );
 
-    var valueLabel = new SubSupText( '', { font: new PhetFont( 12 ), pickable: false } );
+    var valueLabel = new SubSupText( '', { font: new PhetFont( 10 ), pickable: false } );
     var valueField = new Rectangle( 0, 0, trackSize.width / 2, 18, 3, 3,
       { fill: '#FFF', stroke: 'black', lineWidth: 1, pickable: false } );
 
