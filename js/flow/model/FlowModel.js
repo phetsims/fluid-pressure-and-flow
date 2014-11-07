@@ -288,8 +288,8 @@ define( function( require ) {
        * Injects a grid of particles with 9 rows and 4 columns
        */
       injectGridParticles: function() {
-        var x0 = this.pipe.getMinX();
-        var COLUMN_SPACING = 0.3; // initial distance (in meters) between two successive columns in the particle grid
+        var x0 = this.pipe.getMinX() + 1E-6;
+        var COLUMN_SPACING = 0.2; // initial distance (in meters) between two successive columns in the particle grid
         var NUM_COLUMNS = 4;
         var NUM_ROWS = 9;
 
