@@ -42,7 +42,8 @@ define( function( require ) {
    * @param {Object} [options] that can be passed to the underlying node
    * @constructor
    */
-  function VelocitySensorNode( modelViewTransform, velocitySensor, measureUnitsProperty, linkedProperties, getVelocityAt, containerBounds, dragBounds, options ) {
+  function VelocitySensorNode( modelViewTransform, velocitySensor, measureUnitsProperty, linkedProperties,
+                               getVelocityAt, containerBounds, dragBounds, options ) {
 
     options = _.extend( {
       scale: 1
@@ -56,7 +57,8 @@ define( function( require ) {
 
     // adding outer rectangle
     var outerRectangle = new Rectangle( 0, 0, rectangleWidth, rectangleHeight, 10, 10, {
-      stroke: new LinearGradient( 0, 0, 0, rectangleHeight ).addColorStop( 0, '#FFAD73' ).addColorStop( 0.6, '#893D11' ),
+      stroke: new LinearGradient( 0, 0, 0, rectangleHeight ).addColorStop( 0, '#FFAD73' ).addColorStop( 0.6,
+        '#893D11' ),
       fill: new LinearGradient( 0, 0, 0, rectangleHeight ).addColorStop( 0, '#FFAD73' ).addColorStop( 0.6, '#893D11' )
     } );
     this.addChild( outerRectangle );
@@ -117,12 +119,14 @@ define( function( require ) {
         // if the velocity y component is positive then the arrow will face up,
         // so set the bottom of the arrow to the tip of the sensor
         if ( velocity.y >= 0 ) {
-          this.arrowShape.bottom = outerTriangleShapeNode.bottom + arrowWidth / 2 * Math.cos( Math.abs( velocity.angle() ) );
+          this.arrowShape.bottom = outerTriangleShapeNode.bottom +
+                                   arrowWidth / 2 * Math.cos( Math.abs( velocity.angle() ) );
         }
         else {
           // if the velocity y component is negative then the arrow will face down,
           // so set the top of the arrow to the tip of the sensor
-          this.arrowShape.top = outerTriangleShapeNode.bottom - arrowWidth / 2 * Math.cos( Math.abs( velocity.angle() ) );
+          this.arrowShape.top = outerTriangleShapeNode.bottom -
+                                arrowWidth / 2 * Math.cos( Math.abs( velocity.angle() ) );
         }
 
         // if the velocity x component is positive then the arrow will direct towards right
@@ -140,9 +144,10 @@ define( function( require ) {
     }.bind( velocitySensorNode ) );
 
     velocitySensor.isArrowVisibleProperty.linkAttribute( this.arrowShape, 'visible' );
+    var speedMeterDragBounds = dragBounds.withMaxX( dragBounds.maxX - rectangleWidth * options.scale );
 
     // drag handler
-    this.addInputListener( new MovableDragHandler( {locationProperty: velocitySensor.positionProperty, dragBounds: dragBounds},
+    this.addInputListener( new MovableDragHandler( {locationProperty: velocitySensor.positionProperty, dragBounds: speedMeterDragBounds},
       ModelViewTransform2.createIdentity(),
       {
         startDrag: function() {
@@ -184,7 +189,8 @@ define( function( require ) {
     velocitySensor.on( 'update', function() {
       velocitySensor.value = getVelocityAt(
         modelViewTransform.viewToModelX( velocitySensor.position.x + rectangleWidth / 2 * options.scale ),
-        modelViewTransform.viewToModelY( velocitySensor.position.y + ( rectangleHeight + triangleHeight ) * options.scale )
+        modelViewTransform.viewToModelY( velocitySensor.position.y +
+                                         ( rectangleHeight + triangleHeight ) * options.scale )
       );
     } );
 

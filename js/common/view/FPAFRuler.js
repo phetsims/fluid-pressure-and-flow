@@ -18,6 +18,7 @@ define( function( require ) {
   var ModelViewTransform2 = require( 'PHETCOMMON/view/ModelViewTransform2' );
   var RectangularPushButton = require( 'SUN/buttons/RectangularPushButton' );
   var PhetFont = require( 'SCENERY_PHET/PhetFont' );
+  var Bounds2 = require( 'DOT/Bounds2' );
 
   // strings
   var units_metersString = require( 'string!FLUID_PRESSURE_AND_FLOW/m' );
@@ -109,11 +110,12 @@ define( function( require ) {
       fpafRuler.moveToFront();
       closeButton.setTranslation( rulerPosition.x, rulerPosition.y - closeButton.height - rulerHeight );
     } );
+    var rulerDragBounds = dragBounds.withMaxX( dragBounds.maxX - options.rulerWidth );
 
     // ruler drag handlers
-    metersRuler.addInputListener( new MovableDragHandler( { locationProperty: rulerPositionProperty, dragBounds: dragBounds },
+    metersRuler.addInputListener( new MovableDragHandler( { locationProperty: rulerPositionProperty, dragBounds: rulerDragBounds },
       ModelViewTransform2.createIdentity() ) );
-    feetRuler.addInputListener( new MovableDragHandler( { locationProperty: rulerPositionProperty, dragBounds: dragBounds },
+    feetRuler.addInputListener( new MovableDragHandler( { locationProperty: rulerPositionProperty, dragBounds: rulerDragBounds },
       ModelViewTransform2.createIdentity() ) );
 
     this.mutate( options );
