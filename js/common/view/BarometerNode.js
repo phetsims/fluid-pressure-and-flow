@@ -24,6 +24,7 @@ define( function( require ) {
   var ModelViewTransform2 = require( 'PHETCOMMON/view/ModelViewTransform2' );
   var Property = require( 'AXON/Property' );
   var UnderPressureConstants = require( 'UNDER_PRESSURE/common/UnderPressureConstants' );
+  var Bounds2 = require( 'DOT/Bounds2' );
 
   // strings
   var pressureString = require( 'string!UNDER_PRESSURE/pressure' );
@@ -102,9 +103,11 @@ define( function( require ) {
       top: underGaugeRectangle.bottom - 1
     } ) );
 
+    var barometerDragBounds = dragBounds.withMaxX( dragBounds.maxX - ( gaugeNode.width * options.scale ) / 2 );
+
     // Add an input listener so the BarometerNode can be dragged
     // Constrain the location so it cannot be dragged offscreen
-    this.addInputListener( new MovableDragHandler( {locationProperty: barometer.positionProperty, dragBounds: dragBounds},
+    this.addInputListener( new MovableDragHandler( {locationProperty: barometer.positionProperty, dragBounds: barometerDragBounds},
       ModelViewTransform2.createIdentity(),
       {
         startDrag: function() {
