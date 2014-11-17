@@ -47,10 +47,10 @@ define( function( require ) {
         widthBottom: WIDTH_AT_BOTTOM,
         y: 0,
         height: this.maxHeight,
-        leftBorderFunction: new LinearFunction( 0, this.maxHeight, LEFT_CHAMBER_TOP_CENTER - WIDTH_AT_BOTTOM / 2,
-            LEFT_CHAMBER_TOP_CENTER - WIDTH_AT_TOP / 2 ),
-        rightBorderFunction: new LinearFunction( 0, this.maxHeight, LEFT_CHAMBER_TOP_CENTER + WIDTH_AT_BOTTOM / 2,
-            LEFT_CHAMBER_TOP_CENTER + WIDTH_AT_TOP / 2 )
+        leftBorderFunction: new LinearFunction( 0, this.maxHeight,
+            LEFT_CHAMBER_TOP_CENTER - WIDTH_AT_BOTTOM / 2, LEFT_CHAMBER_TOP_CENTER - WIDTH_AT_TOP / 2 ),
+        rightBorderFunction: new LinearFunction( 0, this.maxHeight,
+            LEFT_CHAMBER_TOP_CENTER + WIDTH_AT_BOTTOM / 2, LEFT_CHAMBER_TOP_CENTER + WIDTH_AT_TOP / 2 )
       },
       rightChamber: {
         centerTop: LEFT_CHAMBER_TOP_CENTER + SEPARATION,

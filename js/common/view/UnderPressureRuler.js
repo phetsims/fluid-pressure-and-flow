@@ -109,11 +109,15 @@ define( function( require ) {
     } );
 
     // drag handlers
-    metersRuler.addInputListener( new MovableDragHandler( { locationProperty: underPressureModel.rulerPositionProperty, dragBounds: dragBounds },
-      ModelViewTransform2.createIdentity() ) );
+    metersRuler.addInputListener( new MovableDragHandler( {
+      locationProperty: underPressureModel.rulerPositionProperty,
+      dragBounds: dragBounds
+    }, ModelViewTransform2.createIdentity() ) );
 
-    feetRuler.addInputListener( new MovableDragHandler( { locationProperty: underPressureModel.rulerPositionProperty, dragBounds: dragBounds },
-      ModelViewTransform2.createIdentity() ) );
+    feetRuler.addInputListener( new MovableDragHandler( {
+      locationProperty: underPressureModel.rulerPositionProperty,
+      dragBounds: dragBounds
+    }, ModelViewTransform2.createIdentity() ) );
   }
 
   return inherit( Node, UnderPressureRuler );

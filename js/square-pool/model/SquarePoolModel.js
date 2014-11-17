@@ -64,8 +64,8 @@ define( function( require ) {
      * @returns {boolean}
      */
     isPointInsidePool: function( x, y ) {
-      return x > this.poolDimensions.x1 && x < this.poolDimensions.x2 && y > this.poolDimensions.y2 &&
-             y < this.poolDimensions.y1;
+      return x > this.poolDimensions.x1 && x < this.poolDimensions.x2 &&
+             y > this.poolDimensions.y2 && y < this.poolDimensions.y1;
     }
   } );
 } );

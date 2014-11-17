@@ -53,12 +53,19 @@ define( function( require ) {
     } ).width + 5;
 
     //touch areas
-    mysteryFluidRadio.touchArea = new Bounds2( mysteryFluidRadio.localBounds.minX - touchExpansion,
-      mysteryFluidRadio.localBounds.minY, mysteryFluidRadio.localBounds.minX + maxRadioButtonWidth,
-      mysteryFluidRadio.localBounds.maxY );
-    mysteryPlanetRadio.touchArea = new Bounds2( mysteryPlanetRadio.localBounds.minX - touchExpansion,
-      mysteryPlanetRadio.localBounds.minY, mysteryPlanetRadio.localBounds.minX + maxRadioButtonWidth,
-      mysteryPlanetRadio.localBounds.maxY );
+    mysteryFluidRadio.touchArea = new Bounds2(
+        mysteryFluidRadio.localBounds.minX - touchExpansion,
+      mysteryFluidRadio.localBounds.minY,
+        mysteryFluidRadio.localBounds.minX + maxRadioButtonWidth,
+      mysteryFluidRadio.localBounds.maxY
+    );
+
+    mysteryPlanetRadio.touchArea = new Bounds2(
+        mysteryPlanetRadio.localBounds.minX - touchExpansion,
+      mysteryPlanetRadio.localBounds.minY,
+        mysteryPlanetRadio.localBounds.minX + maxRadioButtonWidth,
+      mysteryPlanetRadio.localBounds.maxY
+    );
 
     var content = new VBox( {
       children: [ mysteryFluidRadio, mysteryPlanetRadio ],

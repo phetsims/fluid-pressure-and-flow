@@ -57,8 +57,7 @@ define( function( require ) {
 
     // add grid
     this.addChild( new TrapezoidPoolGrid( trapezoidPoolModel.underPressureModel, modelViewTransform, poolLeftX,
-      poolTopY, poolRightX, poolBottomY, poolHeight, labelXPosition,
-      slantMultiplier ) );
+      poolTopY, poolRightX, poolBottomY, poolHeight, labelXPosition, slantMultiplier ) );
   }
 
   return inherit( Node, TrapezoidPoolView );

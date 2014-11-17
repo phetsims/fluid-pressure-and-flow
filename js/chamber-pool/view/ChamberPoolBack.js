@@ -43,7 +43,7 @@ define( function( require ) {
     this.addChild( new Rectangle(
       -grassExtension,
       grassRectYOffset,
-        grassExtension + modelViewTransform.modelToViewX( poolDimensions.leftOpening.x1 ),
+      ( grassExtension + modelViewTransform.modelToViewX( poolDimensions.leftOpening.x1 ) ),
       grassRectHeight,
       {
         fill: grassPattern,
@@ -64,10 +64,16 @@ define( function( require ) {
     ) );
 
     // right grass
-    this.addChild( new Rectangle( modelViewTransform.modelToViewX( poolDimensions.rightOpening.x2 ),
-      grassRectYOffset, grassExtension, grassRectHeight, { fill: grassPattern,
+    this.addChild( new Rectangle(
+      modelViewTransform.modelToViewX( poolDimensions.rightOpening.x2 ),
+      grassRectYOffset,
+      grassExtension,
+      grassRectHeight,
+      {
+        fill: grassPattern,
         y: modelViewTransform.modelToViewY( 0 ) - grassRectHeight
-      } ) );
+      }
+    ) );
 
     //calculated view coordinates for water
     var leftOpeningX1 = modelViewTransform.modelToViewX( poolDimensions.leftOpening.x1 );

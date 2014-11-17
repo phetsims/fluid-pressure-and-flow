@@ -65,13 +65,25 @@ define( function( require ) {
     } ).width;
 
     //touch areas
-    metricRadio.touchArea = new Bounds2( metricRadio.localBounds.minX - touchExpansion, metricRadio.localBounds.minY,
-        metricRadio.localBounds.minX + maxRadioButtonWidth, metricRadio.localBounds.maxY );
-    atmosphereRadio.touchArea =
-    new Bounds2( atmosphereRadio.localBounds.minX - touchExpansion, atmosphereRadio.localBounds.minY,
-        atmosphereRadio.localBounds.minX + maxRadioButtonWidth, atmosphereRadio.localBounds.maxY );
-    englishRadio.touchArea = new Bounds2( englishRadio.localBounds.minX - touchExpansion, englishRadio.localBounds.minY,
-        englishRadio.localBounds.minX + maxRadioButtonWidth, englishRadio.localBounds.maxY );
+    metricRadio.touchArea = new Bounds2(
+      ( metricRadio.localBounds.minX - touchExpansion ),
+      metricRadio.localBounds.minY,
+      ( metricRadio.localBounds.minX + maxRadioButtonWidth ),
+      metricRadio.localBounds.maxY
+    );
+
+    atmosphereRadio.touchArea = new Bounds2(
+      ( atmosphereRadio.localBounds.minX - touchExpansion ),
+      atmosphereRadio.localBounds.minY,
+      ( atmosphereRadio.localBounds.minX + maxRadioButtonWidth ),
+      atmosphereRadio.localBounds.maxY
+    );
+
+    englishRadio.touchArea = new Bounds2(
+      ( englishRadio.localBounds.minX - touchExpansion ),
+      englishRadio.localBounds.minY,
+      ( englishRadio.localBounds.minX + maxRadioButtonWidth ),
+      englishRadio.localBounds.maxY );
 
     // center the title by adding space before and after. Also ensures that the panel's width is 'width'
     var createTitle = function( item ) {

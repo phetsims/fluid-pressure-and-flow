@@ -14,7 +14,7 @@ define( function( require ) {
   var PropertySet = require( 'AXON/PropertySet' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Vector2 = require( 'DOT/Vector2' );
-  var Bounds = require( 'DOT/bounds2' );
+  var Bounds2 = require( 'DOT/Bounds2' );
 
   // constants
   var frictionCoefficient = 0.98;
@@ -124,10 +124,20 @@ define( function( require ) {
       var waterLine = this.chamberPoolModel.poolDimensions.leftOpening.y2 + this.chamberPoolModel.leftWaterHeight -
                       this.chamberPoolModel.leftDisplacement;
       var bottomLine = waterLine + this.chamberPoolModel.stack.reduce( 0, function( a, b ) {return a + b.height;} );
-      return new Bounds( this.position.x - this.width / 2, this.position.y - this.height / 2,
-          this.position.x + this.width, this.position.y + this.height ).intersectsBounds( new Bounds(
-          this.chamberPoolModel.poolDimensions.leftOpening.x1, bottomLine,
-          this.chamberPoolModel.poolDimensions.leftOpening.x2, bottomLine + this.height ) );
+      var massBounds = new Bounds2(
+          this.position.x - this.width / 2,
+          this.position.y - this.height / 2,
+          this.position.x + this.width,
+          this.position.y + this.height
+      );
+
+      var dropAreaBounds = new Bounds2(
+        this.chamberPoolModel.poolDimensions.leftOpening.x1,
+        bottomLine,
+        this.chamberPoolModel.poolDimensions.leftOpening.x2,
+        ( bottomLine + this.height )
+      );
+      return massBounds.intersectsBounds( dropAreaBounds );
     },
 
     // If the user drops the mass underground or above a pool opening, it will teleport back to its initial location.
