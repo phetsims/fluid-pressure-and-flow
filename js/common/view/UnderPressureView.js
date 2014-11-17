@@ -52,7 +52,6 @@ define( function( require ) {
    */
   function UnderPressureView( underPressureModel ) {
 
-    var underPressureView = this;
     ScreenView.call( this, {
       renderer: 'svg',
       layoutBounds: new Bounds2( 0, 0, underPressureModel.width, underPressureModel.height )
@@ -194,31 +193,31 @@ define( function( require ) {
 
     // adding square pool view
     var squarePoolView = new SquarePoolView( underPressureModel.sceneModels.square, modelViewTransform,
-      underPressureView.layoutBounds );
+      this.layoutBounds );
     squarePoolView.visible = false;
     scenes.square = squarePoolView;
-    underPressureView.addChild( squarePoolView );
+    this.addChild( squarePoolView );
 
     // adding trapezoid pool view
     var trapezoidPoolView = new TrapezoidPoolView( underPressureModel.sceneModels.trapezoid, modelViewTransform,
-      underPressureView.layoutBounds );
+      this.layoutBounds );
     trapezoidPoolView.visible = false;
     scenes.trapezoid = trapezoidPoolView;
-    underPressureView.addChild( trapezoidPoolView );
+    this.addChild( trapezoidPoolView );
 
     // adding chamber pool view
     var chamberPoolView = new ChamberPoolView( underPressureModel.sceneModels.chamber, modelViewTransform,
-      underPressureView.layoutBounds );
+      this.layoutBounds );
     chamberPoolView.visible = false;
     scenes.chamber = chamberPoolView;
-    underPressureView.addChild( chamberPoolView );
+    this.addChild( chamberPoolView );
 
     // adding mystery pool view
     var mysteryPoolView = new MysteryPoolView( underPressureModel.sceneModels.mystery, modelViewTransform,
-      underPressureView.layoutBounds );
+      this.layoutBounds );
     mysteryPoolView.visible = false;
     scenes.mystery = mysteryPoolView;
-    underPressureView.addChild( mysteryPoolView );
+    this.addChild( mysteryPoolView );
 
     underPressureModel.mysteryChoiceProperty.link( function( choice ) {
       if ( underPressureModel.currentScene === 'mystery' ) {
@@ -261,8 +260,7 @@ define( function( require ) {
       }
     } );
 
-    toolsLayer.addChild( new UnderPressureRuler( underPressureModel, modelViewTransform,
-      underPressureView.layoutBounds ) );
+    toolsLayer.addChild( new UnderPressureRuler( underPressureModel, modelViewTransform, this.layoutBounds ) );
     toolsLayer.moveToFront();
   }
 
