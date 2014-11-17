@@ -52,7 +52,7 @@ define( function( require ) {
     var barometerNode = this;
 
     options = _.extend( {
-      pressureReadOffset: 53,
+      pressureReadOffset: 53, //distance between center and reading tip of the barometer in view co-ordinates
       scale: 1,
       minPressure: UnderPressureConstants.MIN_PRESSURE,
       maxPressure: UnderPressureConstants.MAX_PRESSURE

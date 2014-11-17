@@ -24,6 +24,8 @@ define( function( require ) {
   var MysteryPoolModel = require( 'UNDER_PRESSURE/mystery-pool/model/MysteryPoolModel' );
   var getStandardAirPressure = require( 'UNDER_PRESSURE/common/model/getStandardAirPressure' );
 
+  // constants
+  var NUM_BAROMETERS = 4;
 
   /**
    * @param {number} width of sim
@@ -71,7 +73,7 @@ define( function( require ) {
 
     this.barometers = [];
 
-    for ( var i = 0; i < 4; i++ ) {
+    for ( var i = 0; i < NUM_BAROMETERS; i++ ) {
       this.barometers.push( new Sensor( new Vector2( 0, 0 ), 0 ) );
     }
 
