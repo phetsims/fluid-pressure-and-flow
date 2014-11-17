@@ -183,7 +183,7 @@ define( function( require ) {
         this.layoutBounds,
         {
           scale: 1.5,
-          pressureReadOffset: 51,
+          pressureReadOffset: 51, // empirically determined distance between center and reading tip of the barometer
           minPressure: UnderPressureConstants.MIN_PRESSURE
         } );
       toolsLayer.addChild( barometerNode );
