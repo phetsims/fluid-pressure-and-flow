@@ -24,7 +24,6 @@ define( function( require ) {
   var ModelViewTransform2 = require( 'PHETCOMMON/view/ModelViewTransform2' );
   var Property = require( 'AXON/Property' );
   var UnderPressureConstants = require( 'UNDER_PRESSURE/common/UnderPressureConstants' );
-  var Bounds2 = require( 'DOT/Bounds2' );
 
   // strings
   var pressureString = require( 'string!UNDER_PRESSURE/pressure' );
