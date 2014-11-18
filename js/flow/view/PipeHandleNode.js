@@ -173,8 +173,10 @@ define( function( require ) {
             pipe.rightPipeTopHandleY = pipeNode.rightPipeNode.top + CONTROL_HANDLE_OFFSET;
             pipe.rightPipeBottomHandleY = pipeNode.rightPipeNode.bottom - CONTROL_HANDLE_OFFSET;
           }
-          // update the flux meter
-          flowModel.fluxMeter.trigger( 'update' );
+          // trigger an update on the flux meter only if it is visible
+          if (flowModel.isFluxMeterVisible) {
+            flowModel.fluxMeter.trigger( 'update' );
+          }
 
           // update the velocity sensors
           flowModel.speedometers[ 0 ].trigger( 'update' );
