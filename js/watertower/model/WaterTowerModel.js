@@ -54,7 +54,6 @@ define( function( require ) {
         fluidDensity: Constants.WATER_DENSITY,
         fluidDensityControlExpanded: false,
         rulerPosition: new Vector2( 300, 350 ), // px
-        measuringTapePosition: new Vector2( 150, 351 ), // px
         waterFlow: 'water',
         isSluiceOpen: false,
         faucetMode: 'manual', //manual or matchLeakage
@@ -66,6 +65,9 @@ define( function( require ) {
         tankFullLevelDuration: 0
       }
     );
+
+    this.measuringTapePosition = new Vector2( 150, 351 ); // @public read-only: initial position (of crosshair near the base) of tape in view coordinates
+
 
     // position the tank frame at (1, 1.5). (0, 0) is the left most point on the ground.
     this.waterTower = new WaterTower( { tankPosition: new Vector2( 7, 11.1 ) } ); //INITIAL_Y is 15 in java

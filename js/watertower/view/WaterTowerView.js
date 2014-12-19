@@ -10,6 +10,9 @@ define( function( require ) {
   'use strict';
 
   // modules
+
+
+  var DerivedProperty = require( 'AXON/DerivedProperty' );
   var inherit = require( 'PHET_CORE/inherit' );
   var ScreenView = require( 'JOIST/ScreenView' );
   var ModelViewTransform2 = require( 'PHETCOMMON/view/ModelViewTransform2' );
@@ -32,7 +35,7 @@ define( function( require ) {
   var BarometerNode = require( 'UNDER_PRESSURE/common/view/BarometerNode' );
   var ControlSlider = require( 'UNDER_PRESSURE/common/view/ControlSlider' );
   var ToolsControlPanel = require( 'FLUID_PRESSURE_AND_FLOW/watertower/view/ToolsControlPanel' );
-  var MeasuringTape = require( 'FLUID_PRESSURE_AND_FLOW/watertower/view/MeasuringTape' );
+  var MeasuringTape = require( 'SCENERY_PHET/MeasuringTape' );
   var SluiceControlPanel = require( 'FLUID_PRESSURE_AND_FLOW/watertower/view/SluiceControlPanel' );
   var UnitsControlPanel = require( 'FLUID_PRESSURE_AND_FLOW/common/view/UnitsControlPanel' );
   var FPAFRuler = require( 'FLUID_PRESSURE_AND_FLOW/common/view/FPAFRuler' );
@@ -49,6 +52,8 @@ define( function( require ) {
   var honeyString = require( 'string!FLUID_PRESSURE_AND_FLOW/honey' );
   var normalString = require( 'string!FLUID_PRESSURE_AND_FLOW/normal' );
   var slowMotionString = require( 'string!FLUID_PRESSURE_AND_FLOW/slowMotion' );
+  var feetString = require( 'string!FLUID_PRESSURE_AND_FLOW/feet' );
+  var metersString = require( 'string!FLUID_PRESSURE_AND_FLOW/meters' );
 
   //View layout related constants
   var inset = 10;
@@ -130,8 +135,32 @@ define( function( require ) {
     var toolsLayer = new Node();
     this.addChild( toolsLayer );
 
-    var measuringTape = new MeasuringTape( waterTowerModel, this.layoutBounds );
-    // add reset button near the bottom right
+    var unitsProperty = new DerivedProperty( [waterTowerModel.measureUnitsProperty],
+      function( measureUnits ) {
+        var units = {};
+        if ( measureUnits === 'metric' ) {
+          units = {name: metersString, multiplier: 1};
+        }
+        else  /// then it must be english
+        {
+          units = {name: feetString, multiplier: 3.28};
+        }
+        return units;
+      } );
+
+    var measuringTape = new MeasuringTape( unitsProperty, waterTowerModel.isMeasuringTapeVisibleProperty, {
+      basePosition: waterTowerModel.measuringTapePosition,
+      unrolledTapeDistance: 7.35, // // in model coordinates
+      modelViewTransform: modelViewTransform,
+      significantFigures: 2,
+      lineColor: 'black', // color of the tapeline itself
+      tipCircleColor: 'black', // color of the circle at the tip
+      tipCircleRadius: 8, // radius of the circle on the tip
+      isBaseCrosshairRotating: false, // do crosshairs rotate around their own axis to line up with the tapeline
+      isTipCrosshairRotating: false, // do crosshairs rotate around their own axis to line up with the tapeline
+      dragBounds: this.layoutBounds.eroded( 10 )
+    } );
+
     var resetAllButton = new ResetAllButton( {
       listener: function() {
         waterTowerModel.reset();
@@ -228,6 +257,7 @@ define( function( require ) {
       feetTicks: _.range( 0, 110, 10 ),
         insetsWidth: 0 } ) );
     toolsLayer.addChild( measuringTape );
+
 
     waterTowerModel.isSluiceOpenProperty.link( function( isSluiceOpen ) {
       if ( isSluiceOpen ) {
