@@ -18,7 +18,6 @@ define( function( require ) {
   var ModelViewTransform2 = require( 'PHETCOMMON/view/ModelViewTransform2' );
   var RectangularPushButton = require( 'SUN/buttons/RectangularPushButton' );
   var PhetFont = require( 'SCENERY_PHET/PhetFont' );
-  var Bounds2 = require( 'DOT/Bounds2' );
 
   // strings
   var units_metersString = require( 'string!FLUID_PRESSURE_AND_FLOW/m' );
