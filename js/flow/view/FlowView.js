@@ -62,7 +62,7 @@ define( function( require ) {
   function FlowView( flowModel ) {
 
     var flowView = this;
-    ScreenView.call( this, { renderer: 'svg' } );
+    ScreenView.call( this, Constants.SCREEN_VIEW_OPTIONS );
 
     // view co-ordinates (370,140) map to model origin (0,0) with inverted y-axis (y grows up in the model)
     var modelViewTransform = ModelViewTransform2.createSinglePointScaleInvertedYMapping(

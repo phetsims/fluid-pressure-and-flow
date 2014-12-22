@@ -64,7 +64,7 @@ define( function( require ) {
    */
   function WaterTowerView( waterTowerModel ) {
     var waterTowerScreenView = this;
-    ScreenView.call( this, {renderer: 'svg'} );
+    ScreenView.call( this, Constants.SCREEN_VIEW_OPTIONS );
 
     var textOptions = {font: new PhetFont( 14 )};
 
