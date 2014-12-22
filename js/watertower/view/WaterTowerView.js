@@ -149,7 +149,7 @@ define( function( require ) {
       } );
 
     var measuringTape = new MeasuringTape( unitsProperty, waterTowerModel.isMeasuringTapeVisibleProperty, {
-      basePosition: waterTowerModel.measuringTapePosition,
+      basePositionProperty: waterTowerModel.measuringTapePositionProperty,
       unrolledTapeDistance: 7.35, // // in model coordinates
       modelViewTransform: modelViewTransform,
       significantFigures: 2,
