@@ -15,7 +15,6 @@ define( function( require ) {
   var UnderPressureView = require( 'UNDER_PRESSURE/common/view/UnderPressureView' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Image = require( 'SCENERY/nodes/Image' );
-  var ScreenView = require( 'JOIST/ScreenView' );
   var Screen = require( 'JOIST/Screen' );
 
   // images
