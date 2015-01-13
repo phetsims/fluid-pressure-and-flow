@@ -53,27 +53,27 @@ define( function( require ) {
       { radius: 8 } );
 
     //dummy text for height
-    var dummyText = new Text( '', {font: new PhetFont( 3 )} );
+    var dummyText = new Text( '', { font: new PhetFont( 3 ) } );
     var maxOptionWidth = (metricRadio.width > englishRadio.width) ? metricRadio.width : englishRadio.width;
 
     // touch areas
     var touchExpansion = 5;
     metricRadio.touchArea = new Bounds2( metricRadio.localBounds.minX - touchExpansion,
-        metricRadio.localBounds.minY - touchExpansion, metricRadio.localBounds.minX + maxOptionWidth + touchExpansion,
-        metricRadio.localBounds.maxY + touchExpansion );
+      metricRadio.localBounds.minY - touchExpansion, metricRadio.localBounds.minX + maxOptionWidth + touchExpansion,
+      metricRadio.localBounds.maxY + touchExpansion );
     englishRadio.touchArea = new Bounds2( englishRadio.localBounds.minX - touchExpansion,
-        englishRadio.localBounds.minY - touchExpansion, englishRadio.localBounds.minX + maxOptionWidth + touchExpansion,
-        englishRadio.localBounds.maxY + touchExpansion );
+      englishRadio.localBounds.minY - touchExpansion, englishRadio.localBounds.minX + maxOptionWidth + touchExpansion,
+      englishRadio.localBounds.maxY + touchExpansion );
 
     // center the title by adding space before and after. Also ensures that the panel's width is 'width'
     var createTitle = function( item ) {
       var strutWidth = (width - item.width) / 2;
-      return new HBox( { children: [ new HStrut( strutWidth ), item, new HStrut( strutWidth )] } );
+      return new HBox( { children: [ new HStrut( strutWidth ), item, new HStrut( strutWidth ) ] } );
     };
 
     var content = new VBox( {
       spacing: 11,
-      children: [createTitle( titleText ), metricRadio, englishRadio, createTitle( dummyText )],
+      children: [ createTitle( titleText ), metricRadio, englishRadio, createTitle( dummyText ) ],
       align: 'left'
     } );
 

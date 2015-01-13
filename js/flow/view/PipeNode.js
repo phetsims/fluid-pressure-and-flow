@@ -110,7 +110,8 @@ define( function( require ) {
     this.addChild( this.preParticleLayer );
 
     this.particlesLayer = new ParticleCanvasNode( flowModel.flowParticles, flowModel.gridParticles, modelViewTransform,
-      { canvasBounds: new Bounds2( 20, 80, 800, 600 )
+      {
+        canvasBounds: new Bounds2( 20, 80, 800, 600 )
       } );
     this.addChild( this.particlesLayer );
     this.addChild( this.pipeFlowLine );
@@ -161,14 +162,14 @@ define( function( require ) {
         var endIndex = 0;
         //  points for lineTo
         for ( i = 0; i < splineCrossSections.length; i++ ) {
-          xPointsBottom[i] = splineCrossSections[i].x;
-          yPointsBottom[i] = splineCrossSections[i].yBottom;
-          xPointsTop[i] = splineCrossSections[i].x;
-          yPointsTop[i] = splineCrossSections[i].yTop;
-          if ( splineCrossSections[i].x <= minXOfPipeFlowLineShape ) {
+          xPointsBottom[ i ] = splineCrossSections[ i ].x;
+          yPointsBottom[ i ] = splineCrossSections[ i ].yBottom;
+          xPointsTop[ i ] = splineCrossSections[ i ].x;
+          yPointsTop[ i ] = splineCrossSections[ i ].yTop;
+          if ( splineCrossSections[ i ].x <= minXOfPipeFlowLineShape ) {
             startIndex = i;
           }
-          if ( splineCrossSections[i].x <= maxXOfPipeFlowLineShape ) {
+          if ( splineCrossSections[ i ].x <= maxXOfPipeFlowLineShape ) {
             endIndex = i;
           }
         }

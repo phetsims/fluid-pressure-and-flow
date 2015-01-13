@@ -32,8 +32,8 @@ define( function( require ) {
       crossbeamWidth: 4
     }, options );
 
-    var legPaintOptions = {stroke: 'black', lineWidth: 1, fill: 'black'};
-    var crossbeamPaintOptions = { stroke: 'black', lineWidth: this.options.crossbeamWidth};
+    var legPaintOptions = { stroke: 'black', lineWidth: 1, fill: 'black' };
+    var crossbeamPaintOptions = { stroke: 'black', lineWidth: this.options.crossbeamWidth };
 
     this.waterTowerWidth = width;
     this.waterTowerHeight = 0;  // will be set to correct value by tankPositionProperty observer below

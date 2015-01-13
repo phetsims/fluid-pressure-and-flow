@@ -33,7 +33,7 @@ define( function( require ) {
     // This is a shortcut to prevent having removal listeners for individual drops.
     this.node = null;
 
-    this.addDerivedProperty( 'radius', ['volume'], function( volume ) {
+    this.addDerivedProperty( 'radius', [ 'volume' ], function( volume ) {
       return Util.cubeRoot( (3 * volume) / (4 * Math.PI) );
     } );
   }

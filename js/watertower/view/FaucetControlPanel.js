@@ -25,14 +25,14 @@ define( function( require ) {
    * @constructor
    */
   function FaucetControlPanel( faucetModeProperty, options ) {
-    var textOptions = {font: new PhetFont( 14 )};
+    var textOptions = { font: new PhetFont( 14 ) };
     var manualText = new Text( manualString, textOptions );
     var matchLeakageText = new Text( matchLeakageString, textOptions );
 
     VBox.call( this, {
       children: [
-        new AquaRadioButton( faucetModeProperty, 'manual', manualText, {radius: 8} ),
-        new AquaRadioButton( faucetModeProperty, 'matchLeakage', matchLeakageText, {radius: 8} )
+        new AquaRadioButton( faucetModeProperty, 'manual', manualText, { radius: 8 } ),
+        new AquaRadioButton( faucetModeProperty, 'matchLeakage', matchLeakageText, { radius: 8 } )
       ],
       spacing: 5,
       align: 'left'

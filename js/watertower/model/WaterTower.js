@@ -37,11 +37,11 @@ define( function( require ) {
 
     // Size of the hole in meters
     this.HOLE_SIZE = 1;
-    this.addDerivedProperty( 'fluidLevel', ['fluidVolume'], function( fluidVolume ) {
+    this.addDerivedProperty( 'fluidLevel', [ 'fluidVolume' ], function( fluidVolume ) {
       return fluidVolume / (Math.PI * waterTower.TANK_RADIUS * waterTower.TANK_RADIUS);
     } );
 
-    this.addDerivedProperty( 'isFull', ['fluidVolume'], function( fluidVolume ) {
+    this.addDerivedProperty( 'isFull', [ 'fluidVolume' ], function( fluidVolume ) {
       return fluidVolume >= waterTower.TANK_VOLUME;
     } );
   }

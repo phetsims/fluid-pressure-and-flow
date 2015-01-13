@@ -50,7 +50,7 @@ define( function( require ) {
     }, options );
 
     var velocitySensorNode = this;
-    Node.call( this, {cursor: 'pointer', pickable: true} );
+    Node.call( this, { cursor: 'pointer', pickable: true } );
 
     var rectangleWidth = 100;
     var rectangleHeight = 56;
@@ -64,23 +64,25 @@ define( function( require ) {
     this.addChild( outerRectangle );
 
     //second rectangle
-    var innerRectangle = new Rectangle( 2, 2, rectangleWidth - 4, rectangleHeight - 4, 10, 10, { fill: '#C5631E'} );
+    var innerRectangle = new Rectangle( 2, 2, rectangleWidth - 4, rectangleHeight - 4, 10, 10, { fill: '#C5631E' } );
     this.addChild( innerRectangle );
 
     // adding velocity meter title text
     var titleText = new Text( speedString,
-      {fill: 'black', font: new PhetFont( {size: 16, weight: 'normal'} ), center: innerRectangle.center, top: innerRectangle.top +
-                                                                                                              2} );
+      {
+        fill: 'black', font: new PhetFont( { size: 16, weight: 'normal' } ), center: innerRectangle.center, top: innerRectangle.top +
+                                                                                                                 2
+      } );
     this.addChild( titleText );
 
     // adding inner rectangle
     var innerMostRectangle = new Rectangle( 10, 0, rectangleWidth - 30, rectangleHeight - 38, 5, 5,
-      {stroke: 'white', lineWidth: 1, fill: '#ffffff', center: innerRectangle.center, top: titleText.bottom + 2} );
+      { stroke: 'white', lineWidth: 1, fill: '#ffffff', center: innerRectangle.center, top: titleText.bottom + 2 } );
     this.addChild( innerMostRectangle );
 
     // adding velocity measure label
     var labelText = new Text( '',
-      {fill: 'black', font: new PhetFont( {size: 12, weight: 'bold'} ), center: innerMostRectangle.center} );
+      { fill: 'black', font: new PhetFont( { size: 12, weight: 'bold' } ), center: innerMostRectangle.center } );
     this.addChild( labelText );
 
     var triangleWidth = 30;
@@ -93,26 +95,28 @@ define( function( require ) {
       .lineTo( innerRectangle.centerX + triangleWidth / 2, innerMostRectangle.rectY + 1 ), {
       fill: new LinearGradient( 0, 0, 0, 2 * rectangleHeight )
         .addColorStop( 0.0, '#FFAD73' ).addColorStop( 0.1, '#C5631E' ), top: outerRectangle.bottom -
-                                                                             1, stroke: '#8D4716'  } );
+                                                                             1, stroke: '#8D4716'
+    } );
     this.addChild( outerTriangleShapeNode );
 
     var innerTriangleShapeNode = new Path( new Shape()
       .moveTo( innerRectangle.centerX + 8 - ((triangleWidth) / 2), innerMostRectangle.rectY + 1 )
       .lineTo( innerRectangle.centerX + 5, (triangleHeight ) + innerMostRectangle.rectY - 4 )
       .lineTo( innerRectangle.centerX + (triangleWidth) / 2, innerMostRectangle.rectY + 1 ), {
-      fill: '#C5631E', center: outerTriangleShapeNode.center, stroke: '#C5631E'  } );
+      fill: '#C5631E', center: outerTriangleShapeNode.center, stroke: '#C5631E'
+    } );
     this.addChild( innerTriangleShapeNode );
 
     // arrow shape
     var arrowWidth = 6;
     this.arrowShape = new Path( new ArrowShape( 0, 0, modelViewTransform.modelToViewDeltaX( velocitySensor.value.x ),
-      modelViewTransform.modelToViewDeltaY( velocitySensor.value.y ) ), {fill: 'blue'} );
+      modelViewTransform.modelToViewDeltaY( velocitySensor.value.y ) ), { fill: 'blue' } );
     this.addChild( this.arrowShape );
 
     velocitySensor.valueProperty.link( function( velocity ) {
       this.arrowShape.setShape( new ArrowShape( 0, 0, modelViewTransform.modelToViewDeltaX( velocitySensor.value.x ),
         modelViewTransform.modelToViewDeltaY( velocitySensor.value.y ),
-        { tailWidth: arrowWidth, headWidth: 2 * arrowWidth, headHeight: 2 * arrowWidth} ) );
+        { tailWidth: arrowWidth, headWidth: 2 * arrowWidth, headHeight: 2 * arrowWidth } ) );
 
       // set the arrowShape path position so that the center of the tail coincides with the tip of the sensor
       if ( this.arrowShape.bounds.isFinite() ) {
@@ -147,7 +151,7 @@ define( function( require ) {
     var speedMeterDragBounds = dragBounds.withMaxX( dragBounds.maxX - rectangleWidth * options.scale );
 
     // drag handler
-    this.addInputListener( new MovableDragHandler( {locationProperty: velocitySensor.positionProperty, dragBounds: speedMeterDragBounds},
+    this.addInputListener( new MovableDragHandler( { locationProperty: velocitySensor.positionProperty, dragBounds: speedMeterDragBounds },
       ModelViewTransform2.createIdentity(),
       {
         startDrag: function() {
@@ -157,7 +161,7 @@ define( function( require ) {
           // check intersection only with the outer rectangle.
           // Add a 5px tolerance. See https://github.com/phetsims/fluid-pressure-and-flow/issues/105
           if ( containerBounds.intersectsBounds( Bounds2.rect( velocitySensor.position.x, velocitySensor.position.y,
-            rectangleWidth, rectangleHeight ).eroded( 5 ) ) ) {
+              rectangleWidth, rectangleHeight ).eroded( 5 ) ) ) {
             velocitySensor.positionProperty.reset();
             velocitySensorNode.moveToBack();
           }
@@ -166,14 +170,14 @@ define( function( require ) {
 
     velocitySensor.positionProperty.linkAttribute( velocitySensorNode, 'translation' );
 
-    Property.multilink( [velocitySensor.positionProperty].concat( linkedProperties ), function( position ) {
+    Property.multilink( [ velocitySensor.positionProperty ].concat( linkedProperties ), function( position ) {
       velocitySensor.value = getVelocityAt( modelViewTransform.viewToModelX( position.x +
                                                                              rectangleWidth / 2 * options.scale ),
         modelViewTransform.viewToModelY( position.y + ( rectangleHeight + triangleHeight ) * options.scale ) );
     } );
 
     // Update the text when the value or units changes.
-    Property.multilink( [velocitySensor.valueProperty, measureUnitsProperty, velocitySensor.positionProperty],
+    Property.multilink( [ velocitySensor.valueProperty, measureUnitsProperty, velocitySensor.positionProperty ],
       function( velocity, units ) {
         if ( velocitySensor.positionProperty.initialValue === velocitySensor.position ) {
           labelText.text = '-';

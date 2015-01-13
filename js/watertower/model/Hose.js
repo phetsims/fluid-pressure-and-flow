@@ -44,7 +44,7 @@ define( function( require ) {
 
     this.update();
 
-    Property.multilink( [this.heightProperty, this.angleProperty], function() {
+    Property.multilink( [ this.heightProperty, this.angleProperty ], function() {
       this.update();
     }.bind( this ) );
 

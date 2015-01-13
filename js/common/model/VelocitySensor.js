@@ -18,7 +18,7 @@ define( function( require ) {
    */
   function VelocitySensor( position, value ) {
     Sensor.call( this, position, value );
-    this.addDerivedProperty( 'isArrowVisible', ['value'], function( value ) {
+    this.addDerivedProperty( 'isArrowVisible', [ 'value' ], function( value ) {
       return value.magnitude() > 0;
     } );
   }

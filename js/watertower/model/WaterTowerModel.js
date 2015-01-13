@@ -68,7 +68,6 @@ define( function( require ) {
     );
 
 
-
     // position the tank frame at (1, 1.5). (0, 0) is the left most point on the ground.
     this.waterTower = new WaterTower( { tankPosition: new Vector2( 7, 11.1 ) } ); //INITIAL_Y is 15 in java
 
@@ -90,7 +89,7 @@ define( function( require ) {
       this.speedometers.push( new VelocitySensor( new Vector2( 0, 0 ), new Vector2( 0, 0 ) ) );
     }
 
-    Property.multilink( [this.waterTower.isFullProperty, this.faucetModeProperty], function( isFull, faucetMode ) {
+    Property.multilink( [ this.waterTower.isFullProperty, this.faucetModeProperty ], function( isFull, faucetMode ) {
       if ( faucetMode === 'manual' ) {
         this.isFaucetEnabled = !isFull;
         if ( isFull ) {
@@ -198,8 +197,8 @@ define( function( require ) {
         if ( (this.faucetMode === 'manual' && this.isFaucetEnabled && this.faucetFlowRate > 0) ||
              (this.faucetMode === 'matchLeakage' && this.isSluiceOpen && this.waterTower.fluidVolume > 0) ) {
           newFaucetDrop = new WaterDrop( this.faucetPosition.copy().plus( new Vector2( Math.random() * 0.2 - 0.1,
-            1.5 ) ), new Vector2( 0, 0 ),
-              this.faucetMode === 'manual' ? this.faucetFlowRate * 0.016 : this.leakageVolume );
+              1.5 ) ), new Vector2( 0, 0 ),
+            this.faucetMode === 'manual' ? this.faucetFlowRate * 0.016 : this.leakageVolume );
           this.faucetDrops.push( newFaucetDrop );
           this.newFaucetDrops.push( newFaucetDrop );
           newFaucetDrop.step( this.accumulatedDt );
@@ -229,7 +228,7 @@ define( function( require ) {
           }
 
           newWaterDrop = new WaterDrop( this.waterTower.tankPosition.plus( new Vector2( 2 * this.waterTower.TANK_RADIUS,
-              0.25 + radius ) ), new Vector2( this.velocityMagnitude, 0 ), dropVolume );
+            0.25 + radius ) ), new Vector2( this.velocityMagnitude, 0 ), dropVolume );
           this.waterTowerDrops.push( newWaterDrop );
           newWaterDrop.step( this.accumulatedDt );
           this.newWaterTowerDrops.push( newWaterDrop );
@@ -252,9 +251,9 @@ define( function( require ) {
 
             newHoseDrop = new WaterDrop( new Vector2( this.hose.rotationPivotX + this.waterTower.tankPosition.x +
                                                       2 * this.waterTower.TANK_RADIUS - 0.1 + Math.random() * 0.2 - 0.1,
-                  y + Math.random() * 0.2 - 0.1 ),
+                y + Math.random() * 0.2 - 0.1 ),
               new Vector2( this.velocityMagnitude * Math.cos( this.hose.angle ),
-                  this.velocityMagnitude * Math.sin( this.hose.angle ) ), this.leakageVolume );
+                this.velocityMagnitude * Math.sin( this.hose.angle ) ), this.leakageVolume );
 
             this.hoseDrops.push( newHoseDrop );
             newHoseDrop.step( this.accumulatedDt );
@@ -345,9 +344,9 @@ define( function( require ) {
            (this.hoseDrops.length > 0 || this.waterTowerDrops.length > 0 || this.faucetDrops.length > 0) ) {
         this.accumulatedDtForSensors -= 0.1;
         for ( var k = 0; k < this.speedometers.length; k++ ) {
-          this.speedometers[k].value = this.getWaterDropVelocityAt( this.modelViewTransform.viewToModelX( this.speedometers[k].position.x +
-                                                                                                          50 ),
-            this.modelViewTransform.viewToModelY( this.speedometers[k].position.y + 72 ) );
+          this.speedometers[ k ].value = this.getWaterDropVelocityAt( this.modelViewTransform.viewToModelX( this.speedometers[ k ].position.x +
+                                                                                                            50 ),
+            this.modelViewTransform.viewToModelY( this.speedometers[ k ].position.y + 72 ) );
         }
       }
     },

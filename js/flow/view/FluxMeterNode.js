@@ -85,21 +85,27 @@ define( function( require ) {
     var content = new HBox( {
       spacing: 5,
       children: [
-        new VBox( { align: 'right', children: [
-          new HBox( { children: [ new HStrut( 4 ), flowRateText ] } ),
-          new HBox( { children: [ new HStrut( 4 ), area ] } ),
-          new HBox( { children: [ new HStrut( 4 ), flux ] } )
-        ] } ),
-        new VBox( { align: 'right', children: [
-          new HBox( { children: [ new HStrut( 4 ), this.flowRateValue ] } ),
-          new HBox( { children: [ new HStrut( 4 ), this.areaValue ] } ),
-          new HBox( { children: [ new HStrut( 4 ), this.fluxValue ] } )
-        ] } ),
-        new VBox( { align: 'left', children: [
-          this.flowRateUnit,
-          this.areaUnit,
-          this.fluxUnit
-        ] } )
+        new VBox( {
+          align: 'right', children: [
+            new HBox( { children: [ new HStrut( 4 ), flowRateText ] } ),
+            new HBox( { children: [ new HStrut( 4 ), area ] } ),
+            new HBox( { children: [ new HStrut( 4 ), flux ] } )
+          ]
+        } ),
+        new VBox( {
+          align: 'right', children: [
+            new HBox( { children: [ new HStrut( 4 ), this.flowRateValue ] } ),
+            new HBox( { children: [ new HStrut( 4 ), this.areaValue ] } ),
+            new HBox( { children: [ new HStrut( 4 ), this.fluxValue ] } )
+          ]
+        } ),
+        new VBox( {
+          align: 'left', children: [
+            this.flowRateUnit,
+            this.areaUnit,
+            this.fluxUnit
+          ]
+        } )
       ]
     } );
 
@@ -159,7 +165,8 @@ define( function( require ) {
       lineTo( this.ellipse2.centerX - 3, this.ellipse2.centerY + 60 );
 
     this.lowerLine = new Path( lowerLineShape,
-      { stroke: 'blue', lineWidth: 2,
+      {
+        stroke: 'blue', lineWidth: 2,
         top: this.ellipse2.bottom,
         left: this.ellipse.right - 1
       } );
@@ -175,7 +182,7 @@ define( function( require ) {
 
     flowModel.isFluxMeterVisibleProperty.linkAttribute( this, 'visible' );
 
-    Property.multilink( [ flowModel.pipe.flowRateProperty , flowModel.measureUnitsProperty ],
+    Property.multilink( [ flowModel.pipe.flowRateProperty, flowModel.measureUnitsProperty ],
       function( flowRate, units ) {
         fluxMeterNode.updateDisplayPanel( units );
       } );

@@ -18,11 +18,11 @@ define( function() {
     var kl = spline.kl;
     var kr = spline.kr;
     var a, b, t;
-    a = (kl[p] * (x[p + 1] - x[p])) - (yr[p + 1] - yl[p]);
-    b = kr[p + 1] * (x[p] - x[p + 1]) + yr[p + 1] - yl[p];
-    t = (x1 - x[p]) / (x[p + 1] - x[p]);
+    a = (kl[ p ] * (x[ p + 1 ] - x[ p ])) - (yr[ p + 1 ] - yl[ p ]);
+    b = kr[ p + 1 ] * (x[ p ] - x[ p + 1 ]) + yr[ p + 1 ] - yl[ p ];
+    t = (x1 - x[ p ]) / (x[ p + 1 ] - x[ p ]);
     var s = t * (1 - t);
-    return ((1 - t) * yl[p] + t * yr[p + 1] +
+    return ((1 - t) * yl[ p ] + t * yr[ p + 1 ] +
             a * s * (1 - t) ) +
            b * s * t;
   };
@@ -35,7 +35,7 @@ define( function() {
     q = n - 1;
     while ( q - p > 1 ) {
       mid = floor( (p + q) / 2 );
-      if ( x[mid] <= x0 ) {
+      if ( x[ mid ] <= x0 ) {
         p = mid;
       }
       else {
@@ -49,10 +49,10 @@ define( function() {
     var n = x0.length;
     var i, ret = new Array( n );
     for ( i = n - 1; i !== -1; --i ) {
-      ret[i] = atNumber( spline, x0[i] );
+      ret[ i ] = atNumber( spline, x0[ i ] );
     }
     return ret;
   };
 
-  return {atNumber: atNumber, atArray: atArray};
+  return { atNumber: atNumber, atArray: atArray };
 } );

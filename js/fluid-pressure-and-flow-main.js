@@ -30,7 +30,7 @@ define( function( require ) {
   };
 
   SimLauncher.launch( function() {
-    var sim = new Sim( simTitle, [ new UnderPressureScreen( underPressureTitle ), new FlowScreen(), new WaterTowerScreen()  ], simOptions );
+    var sim = new Sim( simTitle, [ new UnderPressureScreen( underPressureTitle ), new FlowScreen(), new WaterTowerScreen() ], simOptions );
     sim.start();
   } );
 } );

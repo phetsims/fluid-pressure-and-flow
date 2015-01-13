@@ -180,8 +180,10 @@ define( function( require ) {
     this.addChild( fluidDensityControlNode );
 
     // add the sensors panel
-    var sensorPanel = new Rectangle( 0, 0, 167, 85, 10, 10, { stroke: 'gray', lineWidth: 1, fill: '#f2fa6a',
-      right: unitsControlPanel.left - 4, top: toolsControlPanel.top } );
+    var sensorPanel = new Rectangle( 0, 0, 167, 85, 10, 10, {
+      stroke: 'gray', lineWidth: 1, fill: '#f2fa6a',
+      right: unitsControlPanel.left - 4, top: toolsControlPanel.top
+    } );
     this.addChild( sensorPanel );
 
     flowModel.isGridInjectorPressedProperty.link( function( isGridInjectorPressed ) {
@@ -240,7 +242,8 @@ define( function( require ) {
     var speedControl = new VBox( {
       align: 'left',
       spacing: radioButtonSpacing,
-      children: [ slowMotionRadioBox, normalMotionRadioBox ] } );
+      children: [ slowMotionRadioBox, normalMotionRadioBox ]
+    } );
     this.addChild( speedControl.mutate( { right: playPauseButton.left - 8, bottom: playPauseButton.bottom } ) );
 
     // add flow rate panel
@@ -272,7 +275,7 @@ define( function( require ) {
     // add speedometers within the sensor panel bounds
     _.each( flowModel.speedometers, function( velocitySensor ) {
       velocitySensor.positionProperty.storeInitialValue( new Vector2( sensorPanel.visibleBounds.centerX - 75,
-          sensorPanel.visibleBounds.centerY - 30 ) );
+        sensorPanel.visibleBounds.centerY - 30 ) );
       velocitySensor.positionProperty.reset();
 
       var velocitySensorNode = new VelocitySensorNode(
@@ -294,7 +297,7 @@ define( function( require ) {
     _.each( flowModel.barometers, function( barometer ) {
 
       barometer.positionProperty.storeInitialValue( new Vector2( sensorPanel.visibleBounds.centerX + 50,
-          sensorPanel.visibleBounds.centerY - 10 ) );
+        sensorPanel.visibleBounds.centerY - 10 ) );
       barometer.reset();
 
       var barometerNode = new BarometerNode(

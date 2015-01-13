@@ -56,7 +56,7 @@ define( function( require ) {
       .moveTo( modelViewTransform.modelToViewX( waterTower.INLET_X_OFFSET ), modelViewTransform.modelToViewY( waterTower.TANK_HEIGHT ) )
       .lineTo( modelViewTransform.modelToViewX( 0 ), modelViewTransform.modelToViewY( waterTower.TANK_HEIGHT ) )
       .lineTo( modelViewTransform.modelToViewX( 0 ), modelViewTransform.modelToViewY( 0 ) );
-    this.waterTankFrame = new Path( modelTankShape, { top: 20, stroke: options.towerFrameColor, lineWidth: 2} );
+    this.waterTankFrame = new Path( modelTankShape, { top: 20, stroke: options.towerFrameColor, lineWidth: 2 } );
 
     //added tank background shape
     var tankBackgroundShape = new Shape()
@@ -64,7 +64,7 @@ define( function( require ) {
       .lineTo( modelViewTransform.modelToViewX( 2 * waterTower.TANK_RADIUS ) - 1, modelViewTransform.modelToViewY( 0 ) - 1 )
       .lineTo( modelViewTransform.modelToViewX( 2 * waterTower.TANK_RADIUS ) - 1, modelViewTransform.modelToViewY( waterTower.TANK_HEIGHT ) )
       .lineTo( modelViewTransform.modelToViewX( 0 ), modelViewTransform.modelToViewY( waterTower.TANK_HEIGHT ) ).close();
-    this.addChild( new Path( tankBackgroundShape, { bottom: this.waterTankFrame.bottom - 1, fill: '#808080'} ) );
+    this.addChild( new Path( tankBackgroundShape, { bottom: this.waterTankFrame.bottom - 1, fill: '#808080' } ) );
 
     //add water
     var waterShape = new Shape()
@@ -72,23 +72,33 @@ define( function( require ) {
       .lineTo( modelViewTransform.modelToViewX( 2 * waterTower.TANK_RADIUS ), modelViewTransform.modelToViewY( 0 ) )
       .lineTo( modelViewTransform.modelToViewX( 2 * waterTower.TANK_RADIUS ), modelViewTransform.modelToViewY( waterTower.fluidLevel ) )
       .lineTo( modelViewTransform.modelToViewX( 0 ), modelViewTransform.modelToViewY( waterTower.fluidLevel ) ).close();
-    this.waterShapeNode = new Path( waterShape, { bottom: this.waterTankFrame.bottom - 2, fill: fluidColorModel.color} );
+    this.waterShapeNode = new Path( waterShape, { bottom: this.waterTankFrame.bottom - 2, fill: fluidColorModel.color } );
     this.addChild( this.waterShapeNode );
 
     this.addChild( this.waterTankFrame );
     //add the legs
-    this.waterTowerLegs = new WaterTowerLegsNode( this.waterTankFrame.width, waterTower.tankPositionProperty, modelViewTransform, {top: this.waterTankFrame.bottom} );
+    this.waterTowerLegs = new WaterTowerLegsNode( this.waterTankFrame.width, waterTower.tankPositionProperty, modelViewTransform, { top: this.waterTankFrame.bottom } );
     this.addChild( this.waterTowerLegs );
 
     //add the handle
-    var handleNode = new Image( handleImage, { cursor: 'pointer', scale: 0.3, top: this.waterTankFrame.bottom, centerX: this.waterTankFrame.centerX} );
+    var handleNode = new Image( handleImage, {
+      cursor: 'pointer',
+      scale: 0.3,
+      top: this.waterTankFrame.bottom,
+      centerX: this.waterTankFrame.centerX
+    } );
     this.addChild( handleNode );
     handleNode.touchArea = handleNode.localBounds.dilatedXY( 20, 20 );
 
     //add the wheel and rope
-    var wheelNode = new Image( wheelImage, { cursor: 'pointer', scale: 0.4, bottom: this.waterTankFrame.top, right: this.waterTankFrame.right + 3} );
+    var wheelNode = new Image( wheelImage, { cursor: 'pointer', scale: 0.4, bottom: this.waterTankFrame.top, right: this.waterTankFrame.right + 3 } );
     this.addChild( wheelNode );
-    this.addChild( new Path( Shape.lineSegment( 0, this.waterTankFrame.height - modelViewTransform.modelToViewDeltaX( waterTower.HOLE_SIZE * 1.5 ), 0, 0 ), { right: wheelNode.right, top: wheelNode.bottom, lineWidth: 1, stroke: 'black'} ) );
+    this.addChild( new Path( Shape.lineSegment( 0, this.waterTankFrame.height - modelViewTransform.modelToViewDeltaX( waterTower.HOLE_SIZE * 1.5 ), 0, 0 ), {
+      right: wheelNode.right,
+      top: wheelNode.bottom,
+      lineWidth: 1,
+      stroke: 'black'
+    } ) );
 
     //add the gate at the end of the rope
     this.sluiceGate = new Rectangle( 0, 0, 5, modelViewTransform.modelToViewDeltaX( waterTower.HOLE_SIZE * 2.5 ), {

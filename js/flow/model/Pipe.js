@@ -273,7 +273,7 @@ define( function( require ) {
       var crossSectionRadius = crossSectionDiameter / 2;
       var crossSectionArea = Math.PI * crossSectionRadius * crossSectionRadius;
       // use rate of fluid flow in volume (m^3) per second
-      return  ( this.flowRate / 1000 ) / crossSectionArea;
+      return ( this.flowRate / 1000 ) / crossSectionArea;
     },
 
     /**

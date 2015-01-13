@@ -37,7 +37,7 @@ define( function( require ) {
       var tankPositionProperty = new Property( new Vector2( 0, 0.7 * tankDim ) );
 
       // close option
-      var closeOptionNode = new Rectangle( 0, 0, optionWidth, optionHeight, 5, 5, {stroke: 'black', lineWidth: 1, fill: 'white'} );
+      var closeOptionNode = new Rectangle( 0, 0, optionWidth, optionHeight, 5, 5, { stroke: 'black', lineWidth: 1, fill: 'white' } );
 
       var closeWaterTowerLegs = new WaterTowerLegsNode( tankDim, tankPositionProperty, modelViewTransform, {
         legWidth: 1,
@@ -58,7 +58,7 @@ define( function( require ) {
       closeOptionNode.addChild( closeWaterTowerLegs );
 
       // open option
-      var openOptionNode = new Rectangle( 0, 0, optionWidth, optionHeight, 5, 5, {stroke: 'black', lineWidth: 1, fill: 'white'} );
+      var openOptionNode = new Rectangle( 0, 0, optionWidth, optionHeight, 5, 5, { stroke: 'black', lineWidth: 1, fill: 'white' } );
 
       var openWaterTowerLegs = new WaterTowerLegsNode( tankDim, tankPositionProperty, modelViewTransform, {
         legWidth: 1,
@@ -85,7 +85,7 @@ define( function( require ) {
       openOptionNode.addChild( openWaterTowerLegs );
       openOptionNode.addChild( waterFlow );
 
-      ABSwitch.call( this, isSluiceOpenProperty, false, closeOptionNode, true, openOptionNode, _.extend( {left: inset, top: inset}, options ) );
+      ABSwitch.call( this, isSluiceOpenProperty, false, closeOptionNode, true, openOptionNode, _.extend( { left: inset, top: inset }, options ) );
     }
 
     return inherit( ABSwitch, SluiceControlPanel );

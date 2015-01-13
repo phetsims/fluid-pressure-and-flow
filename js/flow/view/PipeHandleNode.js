@@ -47,7 +47,7 @@ define( function( require ) {
     var rightTopControlPointIndex = pipe.top.length - 2;
     var rightBottomControlPointIndex = pipe.bottom.length - 2;
 
-    var controlPoint = (isTop) ? pipe.top[controlPointIndex ] : pipe.bottom[controlPointIndex];
+    var controlPoint = (isTop) ? pipe.top[ controlPointIndex ] : pipe.bottom[ controlPointIndex ];
 
     var leftSpace = 0; // to vertically align the handles
     var imageRotation = 0;
@@ -64,12 +64,12 @@ define( function( require ) {
     if ( isTop ) {
       handleNode.touchArea = new Bounds2( handleNode.localBounds.minX - HANDLE_X_TOUCH_EXPAND,
         handleNode.localBounds.minY,
-          handleNode.localBounds.maxX + HANDLE_X_TOUCH_EXPAND, handleNode.localBounds.maxY + 40 );
+        handleNode.localBounds.maxX + HANDLE_X_TOUCH_EXPAND, handleNode.localBounds.maxY + 40 );
     }
     else {
       handleNode.touchArea = new Bounds2( handleNode.localBounds.minX - HANDLE_X_TOUCH_EXPAND,
-          handleNode.localBounds.minY + 30,
-          handleNode.localBounds.maxX + HANDLE_X_TOUCH_EXPAND, handleNode.localBounds.maxY + 60 );
+        handleNode.localBounds.minY + 30,
+        handleNode.localBounds.maxX + HANDLE_X_TOUCH_EXPAND, handleNode.localBounds.maxY + 60 );
     }
     handleNode.setRotation( imageRotation );
 
@@ -97,14 +97,14 @@ define( function( require ) {
 
           // x position is constant for a control point
           var pt = new Vector2( controlPoint.position.x,
-              controlPointDragStartY + modelViewTransform.viewToModelDeltaY( offSetY ) );
+            controlPointDragStartY + modelViewTransform.viewToModelDeltaY( offSetY ) );
 
           // limit the y to (-4,0)
           pt.y = Util.clamp( pt.y, -4, 0 );
 
           // Prevent the two ends of the cross sections from crossing each other. Set the cross section to
           // minimum when the user tries to move the handle beyond the opposite control point.
-          var oppositeControlPoint = (isTop) ? pipe.bottom[controlPointIndex] : pipe.top[controlPointIndex];
+          var oppositeControlPoint = (isTop) ? pipe.bottom[ controlPointIndex ] : pipe.top[ controlPointIndex ];
           if ( (isTop && pt.y < oppositeControlPoint.position.y ) ) {
             pt.y = oppositeControlPoint.position.y + CROSS_SECTION_MIN_HEIGHT;
           }
@@ -174,7 +174,7 @@ define( function( require ) {
             pipe.rightPipeBottomHandleY = pipeNode.rightPipeNode.bottom - CONTROL_HANDLE_OFFSET;
           }
           // trigger an update on the flux meter only if it is visible
-          if (flowModel.isFluxMeterVisible) {
+          if ( flowModel.isFluxMeterVisible ) {
             flowModel.fluxMeter.trigger( 'update' );
           }
 
