@@ -54,7 +54,7 @@ define( function( require ) {
           Util.toFixed( pressure * ATMOSPHERE_PER_PASCAL, abbreviated ? 2 : 4 ), atmString );
       }
       else if ( measureUnits === 'english' ) {
-        return  StringUtils.format( valueWithUnitsPattern,
+        return StringUtils.format( valueWithUnitsPattern,
           Util.toFixed( pressure * PSI_PER_PASCAL, abbreviated ? 2 : 4 ), psiString );
       }
     },

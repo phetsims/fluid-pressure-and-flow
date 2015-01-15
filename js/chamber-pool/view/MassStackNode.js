@@ -36,7 +36,7 @@ define( function( require ) {
 
     var placementRect = new Rectangle( 0, 0, placementRectWidth, 0 );
     var placementRectBorder = new Path( new Shape(),
-      {  stroke: '#000', lineWidth: 2, lineDash: [ 10, 5 ], fill: '#ffdcf0' } );
+      { stroke: '#000', lineWidth: 2, lineDash: [ 10, 5 ], fill: '#ffdcf0' } );
 
     this.addChild( placementRect );
     this.addChild( placementRectBorder );
@@ -82,8 +82,8 @@ define( function( require ) {
       var chamberPoolModel = this.chamberPoolModel;
       chamberPoolModel.stack.forEach( function( massModel ) {
         massModel.position = new Vector2( chamberPoolModel.poolDimensions.leftOpening.x1 + massModel.width / 2,
-            chamberPoolModel.poolDimensions.leftOpening.y2 + chamberPoolModel.leftWaterHeight -
-            chamberPoolModel.leftDisplacement + dy + massModel.height / 2 );
+          chamberPoolModel.poolDimensions.leftOpening.y2 + chamberPoolModel.leftWaterHeight -
+          chamberPoolModel.leftDisplacement + dy + massModel.height / 2 );
         dy += massModel.height;
       } );
     },

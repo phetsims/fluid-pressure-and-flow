@@ -41,7 +41,7 @@ define( function( require ) {
     this.addChild( new Rectangle(
       -grassExtension,
       grassRectYOffset,
-        grassExtension + modelViewTransform.modelToViewX( squarePoolModel.poolDimensions.x1 ),
+      grassExtension + modelViewTransform.modelToViewX( squarePoolModel.poolDimensions.x1 ),
       grassRectHeight,
       {
         fill: grassPattern,
@@ -66,13 +66,13 @@ define( function( require ) {
       .moveTo( modelViewTransform.modelToViewX( poolDimensions.x1 ) - cementWidth,
       modelViewTransform.modelToViewY( poolDimensions.y1 ) )
       .lineTo( modelViewTransform.modelToViewX( poolDimensions.x1 ) - cementWidth,
-        modelViewTransform.modelToViewY( poolDimensions.y2 ) + cementWidth )
+      modelViewTransform.modelToViewY( poolDimensions.y2 ) + cementWidth )
       .lineTo( modelViewTransform.modelToViewX( poolDimensions.x2 ) + cementWidth,
-        modelViewTransform.modelToViewY( poolDimensions.y2 ) + cementWidth )
+      modelViewTransform.modelToViewY( poolDimensions.y2 ) + cementWidth )
       .lineTo( modelViewTransform.modelToViewX( poolDimensions.x2 ) + cementWidth,
       modelViewTransform.modelToViewY( poolDimensions.y1 ) );
 
-    this.addChild( new Path( cementBorder, {  stroke: new Pattern( cementImg ), lineWidth: 4, lineJoin: 'round' } ) );
+    this.addChild( new Path( cementBorder, { stroke: new Pattern( cementImg ), lineWidth: 4, lineJoin: 'round' } ) );
 
     // add output faucet
     this.addChild( new UnderPressureFaucetNode( squarePoolModel.outputFaucet, 150, modelViewTransform ) );

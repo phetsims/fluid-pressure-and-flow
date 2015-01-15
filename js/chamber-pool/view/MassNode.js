@@ -32,7 +32,7 @@ define( function( require ) {
   function MassNode( massModel, chamberPoolModel, modelViewTransform, dragBounds ) {
 
     var massNode = this;
-    Node.call( this, { cursor: 'pointer'  } );
+    Node.call( this, { cursor: 'pointer' } );
 
     var width = modelViewTransform.modelToViewDeltaX( massModel.width );
     var height = Math.abs( modelViewTransform.modelToViewDeltaY( massModel.height ) );
@@ -59,7 +59,7 @@ define( function( require ) {
         fontWeight: 'bold'
       } ) );
 
-    var massClickOffset = {x: 0, y: 0};
+    var massClickOffset = { x: 0, y: 0 };
 
     // mass drag handler
     this.addInputListener( new SimpleDragHandler( {

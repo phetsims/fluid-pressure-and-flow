@@ -57,11 +57,11 @@ define( function( require ) {
       maxPressure: UnderPressureConstants.MAX_PRESSURE
     }, options );
 
-    Node.call( this, {cursor: 'pointer'} );
+    Node.call( this, { cursor: 'pointer' } );
 
     // Show the circular part of the gauge and the needle
     var gaugeNode = new GaugeNode( barometer.valueProperty, pressureString,
-      {min: options.minPressure, max: options.maxPressure}, {scale: 0.4} );
+      { min: options.minPressure, max: options.maxPressure }, { scale: 0.4 } );
     this.addChild( gaugeNode );
 
     var underGaugeRectangleWidth = 18;
@@ -69,7 +69,7 @@ define( function( require ) {
     var underGaugeRectangle = new Rectangle( gaugeNode.centerX - underGaugeRectangleWidth / 2, gaugeNode.bottom - 3,
       underGaugeRectangleWidth, underGaugeRectangleHeight, 1, 1, {
         fill: new LinearGradient( gaugeNode.centerX - underGaugeRectangleWidth / 2, 0,
-            gaugeNode.centerX + underGaugeRectangleWidth / 2, 0 )
+          gaugeNode.centerX + underGaugeRectangleWidth / 2, 0 )
           .addColorStop( 0, '#656570' )
           .addColorStop( 0.2, '#bdc3cf' )
           .addColorStop( 0.5, '#dee6f5' )
@@ -80,8 +80,8 @@ define( function( require ) {
     this.addChild( underGaugeRectangle );
 
     //pressure text, y position empirically determined
-    var text = new Text( '', {font: new PhetFont( 10 ), y: 40, fontWeight: 'bold'} );
-    var textBackground = new Rectangle( 0, 0, 0, 0.5, {stroke: 'black', fill: 'white'} );
+    var text = new Text( '', { font: new PhetFont( 10 ), y: 40, fontWeight: 'bold' } );
+    var textBackground = new Rectangle( 0, 0, 0, 0.5, { stroke: 'black', fill: 'white' } );
     this.addChild( textBackground );
     this.addChild( text );
 
@@ -92,10 +92,10 @@ define( function( require ) {
       .moveTo( gaugeNode.centerX - bottomTriangleShapeWidth / 2, underGaugeRectangle.rectY + underGaugeRectangleHeight )
       .lineTo( gaugeNode.centerX, bottomTriangleShapeHeight + underGaugeRectangle.rectY + underGaugeRectangleHeight )
       .lineTo( gaugeNode.centerX + bottomTriangleShapeWidth / 2,
-        underGaugeRectangle.rectY + underGaugeRectangleHeight );
+      underGaugeRectangle.rectY + underGaugeRectangleHeight );
     this.addChild( new Path( bottomTriangleShape, {
       fill: new LinearGradient( gaugeNode.centerX - bottomTriangleShapeWidth / 2, 0,
-          gaugeNode.centerX + bottomTriangleShapeWidth / 2, 0 )
+        gaugeNode.centerX + bottomTriangleShapeWidth / 2, 0 )
         .addColorStop( 0, '#656570' )
         .addColorStop( 0.5, '#dee6f5' )
         .addColorStop( 1, '#656570' ),
@@ -106,7 +106,7 @@ define( function( require ) {
 
     // Add an input listener so the BarometerNode can be dragged
     // Constrain the location so it cannot be dragged offscreen
-    this.addInputListener( new MovableDragHandler( {locationProperty: barometer.positionProperty, dragBounds: barometerDragBounds},
+    this.addInputListener( new MovableDragHandler( { locationProperty: barometer.positionProperty, dragBounds: barometerDragBounds },
       ModelViewTransform2.createIdentity(),
       {
         startDrag: function() {
@@ -121,7 +121,7 @@ define( function( require ) {
       } ) );
 
     //Update the value in the barometer value model by reading from the model.
-    Property.multilink( [barometer.positionProperty].concat( linkedProperties ), function( position ) {
+    Property.multilink( [ barometer.positionProperty ].concat( linkedProperties ), function( position ) {
       if ( barometer.positionProperty.initialValue === position ) {
         // In the initial position barometer has no value.
         // The value needs to be a number for the needle to be visible, so using 0.
@@ -136,7 +136,7 @@ define( function( require ) {
     // Update the text when the value, units or position changes.
     // If the barometer reading is 0 and it is touching the sensor panel, then only the position changes.
     // In order to trigger the text display change, need to listen to position property here as well.
-    Property.multilink( [barometer.valueProperty, measureUnitsProperty, barometer.positionProperty],
+    Property.multilink( [ barometer.valueProperty, measureUnitsProperty, barometer.positionProperty ],
       function( barometerValue, units ) {
         if ( barometer.position === barometer.positionProperty.initialValue ) {
           text.text = '-';

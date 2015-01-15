@@ -60,7 +60,7 @@ define( function( require ) {
 
     // touch areas
     var touchExpansion = 5;
-    var maxRadioButtonWidth = _.max( [ metricRadio, atmosphereRadio, englishRadio  ], function( item ) {
+    var maxRadioButtonWidth = _.max( [ metricRadio, atmosphereRadio, englishRadio ], function( item ) {
       return item.width;
     } ).width;
 

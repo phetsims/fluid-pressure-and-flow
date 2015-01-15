@@ -48,9 +48,9 @@ define( function( require ) {
         y: 0,
         height: this.maxHeight,
         leftBorderFunction: new LinearFunction( 0, this.maxHeight,
-            LEFT_CHAMBER_TOP_CENTER - WIDTH_AT_BOTTOM / 2, LEFT_CHAMBER_TOP_CENTER - WIDTH_AT_TOP / 2 ),
+          LEFT_CHAMBER_TOP_CENTER - WIDTH_AT_BOTTOM / 2, LEFT_CHAMBER_TOP_CENTER - WIDTH_AT_TOP / 2 ),
         rightBorderFunction: new LinearFunction( 0, this.maxHeight,
-            LEFT_CHAMBER_TOP_CENTER + WIDTH_AT_BOTTOM / 2, LEFT_CHAMBER_TOP_CENTER + WIDTH_AT_TOP / 2 )
+          LEFT_CHAMBER_TOP_CENTER + WIDTH_AT_BOTTOM / 2, LEFT_CHAMBER_TOP_CENTER + WIDTH_AT_TOP / 2 )
       },
       rightChamber: {
         centerTop: LEFT_CHAMBER_TOP_CENTER + SEPARATION,
@@ -59,11 +59,11 @@ define( function( require ) {
         y: 0,
         height: this.maxHeight,
         leftBorderFunction: new LinearFunction( 0, this.maxHeight,
-            LEFT_CHAMBER_TOP_CENTER + SEPARATION - WIDTH_AT_TOP / 2,
-            LEFT_CHAMBER_TOP_CENTER + SEPARATION - WIDTH_AT_BOTTOM / 2 ),
+          LEFT_CHAMBER_TOP_CENTER + SEPARATION - WIDTH_AT_TOP / 2,
+          LEFT_CHAMBER_TOP_CENTER + SEPARATION - WIDTH_AT_BOTTOM / 2 ),
         rightBorderFunction: new LinearFunction( 0, this.maxHeight,
-            LEFT_CHAMBER_TOP_CENTER + SEPARATION + WIDTH_AT_TOP / 2,
-            LEFT_CHAMBER_TOP_CENTER + SEPARATION + WIDTH_AT_BOTTOM / 2 )
+          LEFT_CHAMBER_TOP_CENTER + SEPARATION + WIDTH_AT_TOP / 2,
+          LEFT_CHAMBER_TOP_CENTER + SEPARATION + WIDTH_AT_BOTTOM / 2 )
       },
       bottomChamber: {
         x1: 5,

@@ -53,7 +53,7 @@ define( function( require ) {
 
     //Ground node
     this.addChild( new GroundNode( backgroundStartX, groundY, backgroundWidth, groundY + groundExtension, 295,
-      {topColor: '#93774C', bottomColor: '#93774C'} ) );
+      { topColor: '#93774C', bottomColor: '#93774C' } ) );
   }
 
   return inherit( Node, BackgroundNode, {} );

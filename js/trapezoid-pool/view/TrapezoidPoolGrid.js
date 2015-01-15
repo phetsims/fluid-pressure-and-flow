@@ -40,7 +40,7 @@ define( function( require ) {
                               poolHeight, labelXPosition, slantMultiplier ) {
 
     Node.call( this );
-    var fontOptions = {  font: new PhetFont( 12 ) };
+    var fontOptions = { font: new PhetFont( 12 ) };
 
     // add grid line
     this.addChild( new GridLinesNode( underPressureModel.measureUnitsProperty, modelViewTransform, poolLeftX, poolTopY,

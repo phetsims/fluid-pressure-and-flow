@@ -78,8 +78,8 @@ define( function( require ) {
     }
 
     // current scene's model
-    this.addDerivedProperty( 'currentSceneModel', ['currentScene'], function( currentScene ) {
-      return underPressureModel.sceneModels[currentScene];
+    this.addDerivedProperty( 'currentSceneModel', [ 'currentScene' ], function( currentScene ) {
+      return underPressureModel.sceneModels[ currentScene ];
     } );
 
     this.currentSceneModelProperty.link( function( currentSceneModel ) {

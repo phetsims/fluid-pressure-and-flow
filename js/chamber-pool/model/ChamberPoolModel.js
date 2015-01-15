@@ -114,9 +114,9 @@ define( function( require ) {
       new MassModel( chamberPoolModel, 500, MASS_OFFSET, chamberPoolModel.maxY + PASSAGE_SIZE / 2, PASSAGE_SIZE,
         PASSAGE_SIZE ),
       new MassModel( chamberPoolModel, 250, MASS_OFFSET + PASSAGE_SIZE + SEPARATION,
-          chamberPoolModel.maxY + PASSAGE_SIZE / 4, PASSAGE_SIZE, PASSAGE_SIZE / 2 ),
+        chamberPoolModel.maxY + PASSAGE_SIZE / 4, PASSAGE_SIZE, PASSAGE_SIZE / 2 ),
       new MassModel( chamberPoolModel, 250, MASS_OFFSET + 2 * PASSAGE_SIZE + 2 * SEPARATION,
-          chamberPoolModel.maxY + PASSAGE_SIZE / 4, PASSAGE_SIZE, PASSAGE_SIZE / 2 )
+        chamberPoolModel.maxY + PASSAGE_SIZE / 4, PASSAGE_SIZE, PASSAGE_SIZE / 2 )
     ];
 
     //When an item is added to the stack, update the total mass and equalize the mass velocities
@@ -229,7 +229,7 @@ define( function( require ) {
     isPointInsidePool: function( x, y ) {
       var keys = _.keys( this.poolDimensions );
       for ( var i = 0; i < keys.length; i++ ) {
-        var dimension = this.poolDimensions[keys[i]];
+        var dimension = this.poolDimensions[ keys[ i ] ];
         if ( x > dimension.x1 && x < dimension.x2 && y < dimension.y1 && y > dimension.y2 ) {
           return true;
         }

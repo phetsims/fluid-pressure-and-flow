@@ -125,10 +125,10 @@ define( function( require ) {
                       this.chamberPoolModel.leftDisplacement;
       var bottomLine = waterLine + this.chamberPoolModel.stack.reduce( 0, function( a, b ) {return a + b.height;} );
       var massBounds = new Bounds2(
-          this.position.x - this.width / 2,
-          this.position.y - this.height / 2,
-          this.position.x + this.width,
-          this.position.y + this.height
+        this.position.x - this.width / 2,
+        this.position.y - this.height / 2,
+        this.position.x + this.width,
+        this.position.y + this.height
       );
 
       var dropAreaBounds = new Bounds2(

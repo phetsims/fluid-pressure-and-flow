@@ -48,9 +48,9 @@ define( function( require ) {
         .lineTo( modelViewTransform.modelToViewX( trapezoidPoolModel.poolDimensions.rightChamber.leftBorderFunction( viewHeight ) ),
         topY )
         .lineTo( modelViewTransform.modelToViewX( trapezoidPoolModel.poolDimensions.rightChamber.leftBorderFunction( h ) ),
-          yMax + modelViewTransform.modelToViewDeltaY( h ) )
+        yMax + modelViewTransform.modelToViewDeltaY( h ) )
         .lineTo( modelViewTransform.modelToViewX( trapezoidPoolModel.poolDimensions.leftChamber.rightBorderFunction( h ) ),
-          yMax + modelViewTransform.modelToViewDeltaY( h ) )
+        yMax + modelViewTransform.modelToViewDeltaY( h ) )
         .lineTo( modelViewTransform.modelToViewX( trapezoidPoolModel.poolDimensions.leftChamber.rightBorderFunction( viewHeight ) ),
         topY );
 

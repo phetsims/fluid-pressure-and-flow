@@ -49,21 +49,21 @@ define( function( require ) {
       new Text( mysteryPlanet, textOptions ), { radius: 6 } );
     var touchExpansion = 4;
     var maxRadioButtonWidth = _.max( [ mysteryFluidRadio, mysteryPlanetRadio ], function( item ) {
-      return item.width;
-    } ).width + 5;
+        return item.width;
+      } ).width + 5;
 
     //touch areas
     mysteryFluidRadio.touchArea = new Bounds2(
-        mysteryFluidRadio.localBounds.minX - touchExpansion,
+      mysteryFluidRadio.localBounds.minX - touchExpansion,
       mysteryFluidRadio.localBounds.minY,
-        mysteryFluidRadio.localBounds.minX + maxRadioButtonWidth,
+      mysteryFluidRadio.localBounds.minX + maxRadioButtonWidth,
       mysteryFluidRadio.localBounds.maxY
     );
 
     mysteryPlanetRadio.touchArea = new Bounds2(
-        mysteryPlanetRadio.localBounds.minX - touchExpansion,
+      mysteryPlanetRadio.localBounds.minX - touchExpansion,
       mysteryPlanetRadio.localBounds.minY,
-        mysteryPlanetRadio.localBounds.minX + maxRadioButtonWidth,
+      mysteryPlanetRadio.localBounds.minX + maxRadioButtonWidth,
       mysteryPlanetRadio.localBounds.maxY
     );
 

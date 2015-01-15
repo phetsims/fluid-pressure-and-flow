@@ -71,7 +71,7 @@ define( function( require ) {
         underPressureModel.reset();
       },
       scale: 0.6,
-      right: this.layoutBounds.right - inset,
+      right:  this.layoutBounds.right - inset,
       bottom: this.layoutBounds.bottom - 10
     } );
     this.addChild( resetAllButton );
@@ -254,9 +254,9 @@ define( function( require ) {
     mysteryPoolView.mysteryPoolControls.choicePanel.right = gravitySlider.right;
 
     underPressureModel.currentSceneProperty.link( function( currentScene, previousScene ) {
-      scenes[currentScene].visible = true;
+      scenes[ currentScene ].visible = true;
       if ( previousScene ) {
-        scenes[previousScene].visible = false;
+        scenes[ previousScene ].visible = false;
       }
     } );
 

@@ -50,8 +50,8 @@ define( function( require ) {
     var poolHeight = poolDimensions.leftChamber.height;
 
     var labelXPosition = modelViewTransform.modelToViewX(
-        ( poolDimensions.leftChamber.centerTop + poolDimensions.leftChamber.widthTop / 2 +
-          poolDimensions.rightChamber.centerTop - poolDimensions.rightChamber.widthTop / 2 ) / 2 );
+      ( poolDimensions.leftChamber.centerTop + poolDimensions.leftChamber.widthTop / 2 +
+        poolDimensions.rightChamber.centerTop - poolDimensions.rightChamber.widthTop / 2 ) / 2 );
 
     var slantMultiplier = 0.45; // Empirically determined to make labels line up in space between the pools
 

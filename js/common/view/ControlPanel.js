@@ -42,9 +42,9 @@ define( function( require ) {
       resize: false
     }, options );
 
-    var textOptions = {font: new PhetFont( 12 )};
-    var rulerSet = [new Text( rulerString, textOptions ), this.createRulerIcon()];
-    var gridArray = [new Text( gridString, textOptions )];
+    var textOptions = { font: new PhetFont( 12 ) };
+    var rulerSet = [ new Text( rulerString, textOptions ), this.createRulerIcon() ];
+    var gridArray = [ new Text( gridString, textOptions ) ];
     var atmosphereControlNode = new AtmosphereControlNode( underPressureModel.isAtmosphereProperty );
 
     var alignOptions = {
@@ -55,35 +55,35 @@ define( function( require ) {
     var expandedWidth = atmosphereControlNode.width + 10;
 
     //align ruler icon right
-    var padWidth = expandedWidth - rulerSet[0].width - rulerSet[1].width - alignOptions.boxWidth -
+    var padWidth = expandedWidth - rulerSet[ 0 ].width - rulerSet[ 1 ].width - alignOptions.boxWidth -
                    alignOptions.spacing * 2;
-    var rulerArray = [ rulerSet[0], new HStrut( padWidth ), rulerSet[1] ];
+    var rulerArray = [ rulerSet[ 0 ], new HStrut( padWidth ), rulerSet[ 1 ] ];
 
     //resize boxes to fit max
     atmosphereControlNode.updateWidth( expandedWidth );
 
-    var rulerCheckBox = new CheckBox( new HBox( {children: rulerArray} ), underPressureModel.isRulerVisibleProperty,
+    var rulerCheckBox = new CheckBox( new HBox( { children: rulerArray } ), underPressureModel.isRulerVisibleProperty,
       alignOptions );
-    var gridCheckBox = new CheckBox( new HBox( {children: gridArray} ), underPressureModel.isGridVisibleProperty,
+    var gridCheckBox = new CheckBox( new HBox( { children: gridArray } ), underPressureModel.isGridVisibleProperty,
       alignOptions );
 
     var maxCheckBoxWidth = _.max( [ rulerCheckBox, gridCheckBox ], function( item ) {
-      return item.width;
-    } ).width + 5;
+        return item.width;
+      } ).width + 5;
 
     //touch Areas
     rulerCheckBox.touchArea = new Bounds2( rulerCheckBox.localBounds.minX - 5, rulerCheckBox.localBounds.minY,
-        rulerCheckBox.localBounds.minX + maxCheckBoxWidth, rulerCheckBox.localBounds.maxY );
+      rulerCheckBox.localBounds.minX + maxCheckBoxWidth, rulerCheckBox.localBounds.maxY );
     gridCheckBox.touchArea = new Bounds2( gridCheckBox.localBounds.minX - 5, gridCheckBox.localBounds.minY,
-        gridCheckBox.localBounds.minX + maxCheckBoxWidth, gridCheckBox.localBounds.maxY );
+      gridCheckBox.localBounds.minX + maxCheckBoxWidth, gridCheckBox.localBounds.maxY );
 
-    var checkBoxChildren = [ rulerCheckBox , gridCheckBox ];
+    var checkBoxChildren = [ rulerCheckBox, gridCheckBox ];
 
     var checkBoxes = new VBox( { align: 'left', spacing: 5, children: checkBoxChildren } );
 
     var content = new VBox( {
       spacing: 5,
-      children: [checkBoxes, atmosphereControlNode],
+      children: [ checkBoxes, atmosphereControlNode ],
       align: 'left'
     } );
 
@@ -98,7 +98,7 @@ define( function( require ) {
       var rulerHeight = 20;
       var insetsWidth = 7;
 
-      return new RulerNode( rulerWidth, rulerHeight, rulerWidth / 2, ['0', '1', '2'], '', {
+      return new RulerNode( rulerWidth, rulerHeight, rulerWidth / 2, [ '0', '1', '2' ], '', {
         insetsWidth: insetsWidth,
         minorTicksPerMajorTick: 4,
         majorTickFont: new PhetFont( 12 ),

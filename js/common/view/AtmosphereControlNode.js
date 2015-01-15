@@ -43,7 +43,7 @@ define( function( require ) {
 
     Node.call( this );
 
-    var textOptions = {font: new PhetFont( 12 )};
+    var textOptions = { font: new PhetFont( 12 ) };
 
     var atmosphereTrue = new AquaRadioButton( isAtmosphereProperty, true, new Text( onString, textOptions ), {
       radius: 6

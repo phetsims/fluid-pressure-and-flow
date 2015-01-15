@@ -67,8 +67,8 @@ define( function( require ) {
           .addColorStop( 1, '#000' ),
         endDrag: function() {
           for ( var i = 0; i < options.ticks.length; i++ ) {
-            if ( Math.abs( options.ticks[i].value - trackProperty.value ) <= 0.05 * options.ticks[i].value ) {
-              trackProperty.value = options.ticks[i].value;
+            if ( Math.abs( options.ticks[ i ].value - trackProperty.value ) <= 0.05 * options.ticks[ i ].value ) {
+              trackProperty.value = options.ticks[ i ].value;
               break;
             }
           }
@@ -93,7 +93,7 @@ define( function( require ) {
     } );
 
     plusButton.touchArea = new Bounds2( plusButton.localBounds.minX - 20, plusButton.localBounds.minY - 5,
-        plusButton.localBounds.maxX + 20, plusButton.localBounds.maxY + 20 );
+      plusButton.localBounds.maxX + 20, plusButton.localBounds.maxY + 20 );
 
     var minusButton = new ArrowButton( 'left', function propertyMinus() {
       trackProperty.set( Util.toFixedNumber( Math.max( trackProperty.get() - 1 / Math.pow( 10, options.decimals ),
@@ -103,7 +103,7 @@ define( function( require ) {
     } );
 
     minusButton.touchArea = new Bounds2( minusButton.localBounds.minX - 20, minusButton.localBounds.minY - 5,
-        minusButton.localBounds.maxX + 20, minusButton.localBounds.maxY + 20 );
+      minusButton.localBounds.maxX + 20, minusButton.localBounds.maxY + 20 );
 
     var valueLabel = new SubSupText( '', { font: new PhetFont( 10 ), pickable: false } );
     var valueField = new Rectangle( 0, 0, trackSize.width / 2, 18, 3, 3,
@@ -165,8 +165,8 @@ define( function( require ) {
     this.addChild( accordionBox );
 
     // question mark, show if unknown property
-    this.questionMark = new Node( {visible: false} );
-    this.questionMark.addChild( new Text( '?', { font: new PhetFont( 60 )} ) );
+    this.questionMark = new Node( { visible: false } );
+    this.questionMark.addChild( new Text( '?', { font: new PhetFont( 60 ) } ) );
     this.questionMark.centerX = this.content.centerX;
     this.questionMark.top = this.content.top;
     this.accordionContent.addChild( this.questionMark );
