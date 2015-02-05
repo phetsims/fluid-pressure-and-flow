@@ -70,14 +70,22 @@ define( function( require ) {
     // adding velocity meter title text
     var titleText = new Text( speedString,
       {
-        fill: 'black', font: new PhetFont( { size: 16, weight: 'normal' } ), center: innerRectangle.center, top: innerRectangle.top +
-                                                                                                                 2
+        fill: 'black',
+        font: new PhetFont( { size: 16, weight: 'normal' } ),
+        centerX: innerRectangle.centerX,
+        top: innerRectangle.top + 2
       } );
     this.addChild( titleText );
 
     // adding inner rectangle
     var innerMostRectangle = new Rectangle( 10, 0, rectangleWidth - 30, rectangleHeight - 38, 5, 5,
-      { stroke: 'white', lineWidth: 1, fill: '#ffffff', center: innerRectangle.center, top: titleText.bottom + 2 } );
+      {
+        stroke: 'white',
+        lineWidth: 1,
+        fill: '#ffffff',
+        centerX: innerRectangle.centerX,
+        top: titleText.bottom + 2
+      } );
     this.addChild( innerMostRectangle );
 
     // adding velocity measure label

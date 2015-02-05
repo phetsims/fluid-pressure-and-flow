@@ -21,7 +21,6 @@ define( function( require ) {
     // constants
     var optionWidth = 48;
     var optionHeight = 36;
-    var inset = 10;
 
     /**
      * Constructor for the sluice controller
@@ -85,7 +84,7 @@ define( function( require ) {
       openOptionNode.addChild( openWaterTowerLegs );
       openOptionNode.addChild( waterFlow );
 
-      ABSwitch.call( this, isSluiceOpenProperty, false, closeOptionNode, true, openOptionNode, _.extend( { left: inset, top: inset }, options ) );
+      ABSwitch.call( this, isSluiceOpenProperty, false, closeOptionNode, true, openOptionNode, options );
     }
 
     return inherit( ABSwitch, SluiceControlPanel );
