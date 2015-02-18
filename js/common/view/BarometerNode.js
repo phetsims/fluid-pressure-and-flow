@@ -106,9 +106,9 @@ define( function( require ) {
 
     // Add an input listener so the BarometerNode can be dragged
     // Constrain the location so it cannot be dragged offscreen
-    this.addInputListener( new MovableDragHandler( { locationProperty: barometer.positionProperty, dragBounds: barometerDragBounds },
-      ModelViewTransform2.createIdentity(),
+    this.addInputListener( new MovableDragHandler( barometer.positionProperty,
       {
+        dragBounds: barometerDragBounds,
         startDrag: function() {
           barometerNode.moveToFront();
         },
