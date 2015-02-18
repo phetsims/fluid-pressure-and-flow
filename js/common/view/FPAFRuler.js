@@ -112,10 +112,8 @@ define( function( require ) {
     var rulerDragBounds = dragBounds.withMaxX( dragBounds.maxX - options.rulerWidth );
 
     // ruler drag handlers
-    metersRuler.addInputListener( new MovableDragHandler( { locationProperty: rulerPositionProperty, dragBounds: rulerDragBounds },
-      ModelViewTransform2.createIdentity() ) );
-    feetRuler.addInputListener( new MovableDragHandler( { locationProperty: rulerPositionProperty, dragBounds: rulerDragBounds },
-      ModelViewTransform2.createIdentity() ) );
+    metersRuler.addInputListener( new MovableDragHandler( rulerPositionProperty, { dragBounds: rulerDragBounds } ) );
+    feetRuler.addInputListener( new MovableDragHandler( rulerPositionProperty, { dragBounds: rulerDragBounds } ) );
 
     this.mutate( options );
 

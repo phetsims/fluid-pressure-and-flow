@@ -159,9 +159,9 @@ define( function( require ) {
     var speedMeterDragBounds = dragBounds.withMaxX( dragBounds.maxX - rectangleWidth * options.scale );
 
     // drag handler
-    this.addInputListener( new MovableDragHandler( { locationProperty: velocitySensor.positionProperty, dragBounds: speedMeterDragBounds },
-      ModelViewTransform2.createIdentity(),
+    this.addInputListener( new MovableDragHandler( velocitySensor.positionProperty,
       {
+        dragBounds: speedMeterDragBounds,
         startDrag: function() {
           velocitySensorNode.moveToFront();
         },
