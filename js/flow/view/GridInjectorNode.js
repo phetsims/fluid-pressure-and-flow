@@ -10,7 +10,7 @@ define( function( require ) {
 
   var inherit = require( 'PHET_CORE/inherit' );
   var Node = require( 'SCENERY/nodes/Node' );
-  var RoundStickyToggleButton = require( 'SUN/Buttons/RoundStickyToggleButton' );
+  var RoundStickyToggleButton = require( 'SUN/buttons/RoundStickyToggleButton' );
   var Image = require( 'SCENERY/nodes/Image' );
 
   // images
