@@ -19,6 +19,7 @@ define( function( require ) {
   var VBox = require( 'SCENERY/nodes/VBox' );
   var AquaRadioButton = require( 'SUN/AquaRadioButton' );
   var Bounds2 = require( 'DOT/Bounds2' );
+  var DerivedProperty = require( 'AXON/DerivedProperty' );
 
   // strings
   var mysteryFluid = require( 'string!UNDER_PRESSURE/mysteryFluid' );
@@ -112,10 +113,15 @@ define( function( require ) {
     };
     this.choicePanel.resizeWidth( content.width + 10 );
 
-    mysteryPoolModel.underPressureModel.mysteryChoiceProperty.valueEquals( 'fluidDensity' ).linkAttribute(
-      mysteryPoolControls.fluidDensityComboBox, 'visible' );
-    mysteryPoolModel.underPressureModel.mysteryChoiceProperty.valueEquals( 'gravity' ).linkAttribute(
-      mysteryPoolControls.gravityComboBox, 'visible' );
+    new DerivedProperty( [mysteryPoolModel.underPressureModel.mysteryChoiceProperty],
+      function( mysteryChoice ) {
+        return mysteryChoice === 'fluidDensity';
+      } ).linkAttribute( mysteryPoolControls.fluidDensityComboBox, 'visible' );
+
+    new DerivedProperty( [mysteryPoolModel.underPressureModel.mysteryChoiceProperty],
+      function( mysteryChoice ) {
+        return mysteryChoice === 'gravity';
+      } ).linkAttribute( mysteryPoolControls.gravityComboBox, 'visible' );
   }
 
   return inherit( Node, MysteryPoolControls );
