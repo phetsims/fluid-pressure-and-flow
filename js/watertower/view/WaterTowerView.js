@@ -119,7 +119,8 @@ define( function( require ) {
       closeOnRelease: false,
 
       // Faucet is interactive in manual mode, non-interactive in 'matchLeakage' mode, see #132
-      interactiveProperty: waterTowerModel.faucetModeProperty.valueEquals( 'manual' )
+      interactiveProperty: new DerivedProperty( [waterTowerModel.faucetModeProperty],
+        function( faucetMode ) { return faucetMode === 'manual'; } )
     } );
     this.addChild( faucetNode );
 
@@ -300,7 +301,9 @@ define( function( require ) {
     } );
 
     // if the sim is paused, disable the fill button as soon as the tank is filled
-    waterTowerModel.waterTower.fluidVolumeProperty.valueEquals( waterTowerModel.waterTower.TANK_VOLUME ).link( function() {
+    new DerivedProperty( [waterTowerModel.waterTower.fluidVolumeProperty], function( fluidVolume ) {
+      return fluidVolume === waterTowerModel.waterTower.TANK_VOLUME;
+    } ).link( function() {
       if ( !waterTowerModel.isPlaying ) {
         waterTowerNode.fillButton.enabled = false;
         waterTowerModel.tankFullLevelDuration = 1;

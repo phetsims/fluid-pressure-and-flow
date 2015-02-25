@@ -17,6 +17,7 @@ define( function( require ) {
   var MovableDragHandler = require( 'SCENERY_PHET/input/MovableDragHandler' );
   var RectangularPushButton = require( 'SUN/buttons/RectangularPushButton' );
   var PhetFont = require( 'SCENERY_PHET/PhetFont' );
+  var DerivedProperty = require( 'AXON/DerivedProperty' );
 
   // strings
   var units_metersString = require( 'string!FLUID_PRESSURE_AND_FLOW/m' );
@@ -99,8 +100,10 @@ define( function( require ) {
 
     isRulerVisibleProperty.linkAttribute( this, 'visible' );
 
-    measureUnitsProperty.valueEquals( 'english' ).linkAttribute( feetRuler, 'visible' );
-    measureUnitsProperty.valueEquals( 'metric' ).linkAttribute( metersRuler, 'visible' );
+    new DerivedProperty( [measureUnitsProperty], function( measureUnits ) { return measureUnits === 'english'; } )
+      .linkAttribute( feetRuler, 'visible' );
+    new DerivedProperty( [measureUnitsProperty], function( measureUnits ) { return measureUnits === 'metric'; } )
+      .linkAttribute( metersRuler, 'visible' );
 
     rulerPositionProperty.linkAttribute( metersRuler, 'translation' );
     rulerPositionProperty.linkAttribute( feetRuler, 'translation' );
