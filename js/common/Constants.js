@@ -12,7 +12,7 @@ define( function( require ) {
 
   return {
 
-    SCREEN_VIEW_OPTIONS: { renderer: 'svg', layoutBounds: new Bounds2( 0, 0, 768, 504 ) },
+    SCREEN_VIEW_OPTIONS: { layoutBounds: new Bounds2( 0, 0, 768, 504 ) },
 
     EARTH_GRAVITY: 9.8, // m/s^2
     MIN_PRESSURE: 50000, // Pascals
