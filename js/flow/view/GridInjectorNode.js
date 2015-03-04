@@ -12,6 +12,7 @@ define( function( require ) {
   var Node = require( 'SCENERY/nodes/Node' );
   var RoundStickyToggleButton = require( 'SUN/buttons/RoundStickyToggleButton' );
   var Image = require( 'SCENERY/nodes/Image' );
+  var Property = require( 'AXON/Property' );
 
   // images
   var injectorBulbImage = require( 'image!FLUID_PRESSURE_AND_FLOW/injector-bulb-cropped.png' );
@@ -54,7 +55,14 @@ define( function( require ) {
 
     this.updateGridInjector();
 
-    isGridInjectorPressedProperty.not().linkAttribute( redButton, 'enabled' );
+    var isGridInjectorNotPressedProperty = new Property( !isGridInjectorPressedProperty.value );
+    isGridInjectorPressedProperty.link( function( pressed ) {
+      isGridInjectorNotPressedProperty.value = !pressed;
+    } );
+    isGridInjectorNotPressedProperty.link( function( notPressed ) {
+      isGridInjectorPressedProperty.value = !notPressed;
+    } );
+    isGridInjectorNotPressedProperty.linkAttribute( redButton, 'enabled' );
 
     this.mutate( options );
 
@@ -65,7 +73,7 @@ define( function( require ) {
     // reposition the grid injector
     updateGridInjector: function() {
       this.setTranslation( this.modelViewTransform.modelToViewX( this.gridInjectorX ) - X_OFFSET,
-        this.modelViewTransform.modelToViewY( this.pipe.getCrossSection( this.gridInjectorX ).yTop ) - Y_OFFSET );
+          this.modelViewTransform.modelToViewY( this.pipe.getCrossSection( this.gridInjectorX ).yTop ) - Y_OFFSET );
     }
   } );
 } );
