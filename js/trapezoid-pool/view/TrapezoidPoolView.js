@@ -23,7 +23,7 @@ define( function( require ) {
    */
   function TrapezoidPoolView( trapezoidPoolModel, modelViewTransform ) {
 
-    Node.call( this, { renderer: 'svg' } );
+    Node.call( this );
     var poolDimensions = trapezoidPoolModel.poolDimensions;
 
     // add pool back

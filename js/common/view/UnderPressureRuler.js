@@ -34,7 +34,7 @@ define( function( require ) {
   function UnderPressureRuler( underPressureModel, modelViewTransform, dragBounds ) {
 
     var underPressureRuler = this;
-    Node.call( this, { cursor: 'pointer', renderer: 'svg', cssTransform: true } );
+    Node.call( this, { cursor: 'pointer', cssTransform: true } );
 
     var closeIconRadius = 4;
     var scaleFont = new PhetFont( 12 );

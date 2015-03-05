@@ -28,7 +28,7 @@ define( function( require ) {
   function ChamberPoolView( chamberPoolModel, modelViewTransform, dragBounds ) {
 
     var chamberPoolView = this;
-    Node.call( this, { renderer: 'svg' } );
+    Node.call( this );
 
     // add pool
     this.addChild( new ChamberPoolBack( chamberPoolModel, modelViewTransform ) );

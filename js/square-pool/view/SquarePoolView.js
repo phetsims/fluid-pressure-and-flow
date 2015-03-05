@@ -23,7 +23,7 @@ define( function( require ) {
    */
   function SquarePoolView( squarePoolModel, modelViewTransform ) {
 
-    Node.call( this, { renderer: 'svg' } );
+    Node.call( this );
 
     // pool background with grass, cement, faucets
     this.addChild( new SquarePoolBack( squarePoolModel, modelViewTransform ) );

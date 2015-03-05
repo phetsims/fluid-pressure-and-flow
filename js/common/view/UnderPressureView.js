@@ -52,10 +52,7 @@ define( function( require ) {
    */
   function UnderPressureView( underPressureModel ) {
 
-    ScreenView.call( this, {
-      renderer: 'svg',
-      layoutBounds: new Bounds2( 0, 0, underPressureModel.width, underPressureModel.height )
-    } );
+    ScreenView.call( this, { layoutBounds: new Bounds2( 0, 0, underPressureModel.width, underPressureModel.height ) } );
 
     var modelViewTransform = ModelViewTransform2.createSinglePointScaleInvertedYMapping(
       Vector2.ZERO,
