@@ -18,6 +18,7 @@ define( function( require ) {
   var RectangularPushButton = require( 'SUN/buttons/RectangularPushButton' );
   var PhetFont = require( 'SCENERY_PHET/PhetFont' );
   var DerivedProperty = require( 'AXON/DerivedProperty' );
+  var PhetColorScheme = require( 'SCENERY_PHET/PhetColorScheme' );
 
   // strings
   var units_metersString = require( 'string!FLUID_PRESSURE_AND_FLOW/m' );
@@ -66,7 +67,7 @@ define( function( require ) {
       .lineTo( -closeIconRadius, closeIconRadius ), { stroke: 'white', lineWidth: 2 } );
     //close button
     var closeButton = new RectangularPushButton( {
-      baseColor: 'red',
+      baseColor: PhetColorScheme.RED_COLORBLIND,
       content: xIcon,
       // click to toggle
       listener: function() {
