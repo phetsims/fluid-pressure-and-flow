@@ -19,6 +19,7 @@ define( function( require ) {
   var RectangularPushButton = require( 'SUN/buttons/RectangularPushButton' );
   var PhetFont = require( 'SCENERY_PHET/PhetFont' );
   var Units = require( 'UNDER_PRESSURE/common/model/Units' );
+  var PhetColorScheme = require( 'SCENERY_PHET/PhetColorScheme' );
 
   // strings
   var units_metersString = require( 'string!UNDER_PRESSURE/m' );
@@ -47,7 +48,7 @@ define( function( require ) {
 
     //close button
     var closeButton = new RectangularPushButton( {
-      baseColor: 'red',
+      baseColor: PhetColorScheme.RED_COLORBLIND,
       content: xIcon,
       // click to toggle
       listener: function() {
