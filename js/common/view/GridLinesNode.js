@@ -22,7 +22,7 @@ define( function( require ) {
    * @param {number} y1
    * @param {number} x2
    * @param {number} y2
-   * @param {Object} options to pass to the underlying node
+   * @param {Object} [options] to pass to the underlying node
    * @constructor
    */
   function GridLinesNode( measureUnitsProperty, modelViewTransform, x1, y1, x2, y2, options ) {

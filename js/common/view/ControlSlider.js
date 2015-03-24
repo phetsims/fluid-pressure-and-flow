@@ -37,7 +37,7 @@ define( function( require ) {
    * @param {function} getPropertyStringFunction returns a display value
    * @param {Range} trackRange is the range of values that the trackProperty can take
    * @param {Property<boolean>} expandedProperty tracks whether the control is expanded or collapsed
-   * @param {Object} options
+   * @param {Object} [options]
    * @constructor
    */
   function ControlSlider( measureUnitsProperty, trackProperty, getPropertyStringFunction, trackRange, expandedProperty,

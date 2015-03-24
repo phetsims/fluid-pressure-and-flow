@@ -28,7 +28,7 @@ define( function( require ) {
 
   /**
    * @param {UnderPressureModel} underPressureModel of the sim.
-   * @param {Object} options
+   * @param {Object} [options]
    * @constructor
    */
   function ControlPanel( underPressureModel, options ) {

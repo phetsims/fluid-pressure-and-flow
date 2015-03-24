@@ -26,7 +26,7 @@ define( function( require ) {
 
   /**
    * @param {Property<Boolean>} isAtmosphereProperty - to select atmosphere on/off
-   * @param {Object} options
+   * @param {Object} [options]
    * @constructor
    */
   function AtmosphereControlNode( isAtmosphereProperty, options ) {
