@@ -32,7 +32,7 @@ define( function( require ) {
   /**
    *
    * @param {FlowModel} flowModel of the simulation
-   * @param {Object} options for various panel display properties
+   * @param {Object} [options] for various panel display properties
    * @constructor
    */
   function ToolsControlPanel( flowModel, options ) {

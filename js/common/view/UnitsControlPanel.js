@@ -28,7 +28,7 @@ define( function( require ) {
    * Constructor for the UnitsControlPanel.
    * @param {Property<string>} measureUnitsProperty can take values 'english' or 'metric'
    * @param {Number} width -- fixed width that the panel is supposed to take
-   * @param {Object} options for various panel display properties.
+   * @param {Object} [options] for various panel display properties.
    * @constructor
    */
   function UnitsControlPanel( measureUnitsProperty, width, options ) {

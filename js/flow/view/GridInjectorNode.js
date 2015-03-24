@@ -25,7 +25,7 @@ define( function( require ) {
    * @param {Property.<boolean>} isGridInjectorPressedProperty indicates whether the injector is pressed or not
    * @param {modelViewTransform} modelViewTransform , Transform between model and view coordinate frames
    * @param {Pipe} pipe model of the simulation
-   * @param {Object} options that can be passed on to the underlying node
+   * @param {Object} [options] that can be passed on to the underlying node
    * @constructor
    */
   function GridInjectorNode( isGridInjectorPressedProperty, modelViewTransform, pipe, options ) {
