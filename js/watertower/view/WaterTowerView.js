@@ -156,8 +156,8 @@ define( function( require ) {
       } );
 
     var measuringTape = new MeasuringTape( unitsProperty, waterTowerModel.isMeasuringTapeVisibleProperty, {
-      basePositionProperty: waterTowerModel.measuringTapePositionProperty,
-      unrolledTapeDistance: 7.35, // // in model coordinates
+      basePositionProperty: waterTowerModel.measuringTapeBasePositionProperty,
+      tipPositionProperty: waterTowerModel.measuringTapeTipPositionProperty,
       modelViewTransform: modelViewTransform,
       significantFigures: 2,
       lineColor: 'black', // color of the tapeline itself
@@ -165,7 +165,7 @@ define( function( require ) {
       tipCircleRadius: 8, // radius of the circle on the tip
       isBaseCrosshairRotating: false, // do crosshairs rotate around their own axis to line up with the tapeline
       isTipCrosshairRotating: false, // do crosshairs rotate around their own axis to line up with the tapeline
-      dragBounds: this.layoutBounds.eroded( 10 )
+      dragBounds: modelViewTransform.viewToModelBounds(this.layoutBounds.eroded( 10 ))
     } );
 
     var resetAllButton = new ResetAllButton( {

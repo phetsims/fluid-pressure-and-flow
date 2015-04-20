@@ -54,7 +54,8 @@ define( function( require ) {
         fluidDensity: Constants.WATER_DENSITY,
         fluidDensityControlExpanded: false,
         rulerPosition: new Vector2( 300, 350 ), // px
-        measuringTapePosition: new Vector2( 150, 351 ), // initial position (of crosshair near the base) of tape in view coordinates
+        measuringTapeBasePosition: new Vector2( 10, 0 ), // initial position (of crosshair near the base) of tape in model coordinates
+        measuringTapeTipPosition: new Vector2( 17, 0 ), // initial position (of crosshair  at the tip) of tape in model coordinates
         waterFlow: 'water',
         isSluiceOpen: false,
         faucetMode: 'manual', //manual or matchLeakage
