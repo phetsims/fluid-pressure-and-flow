@@ -26,9 +26,9 @@ define( function( require ) {
 
   /**
    * Main constructor
-   * @param {Property<Boolean>} isRulerVisibleProperty controls the ruler visibility
-   * @param {Property<Vector2>} rulerPositionProperty controls the ruler position
-   * @param {Property<String>} measureUnitsProperty controls the ruler view -- english/metric
+   * @param {Property.<boolean>} isRulerVisibleProperty controls the ruler visibility
+   * @param {Property.<Vector2>} rulerPositionProperty controls the ruler position
+   * @param {Property.<string>} measureUnitsProperty controls the ruler view -- english/metric
    * @param {ModelViewTransform2} modelViewTransform to convert model units to view units
    * @param {Bounds2} dragBounds for the area where the ruler can be dragged
    * @param {Object} [options] that can be passed on to the underlying node

@@ -16,10 +16,10 @@ define( function( require ) {
   var inherit = require( 'PHET_CORE/inherit' );
 
   /**
-   * @param {Number} xPosition of the particle in meters
-   * @param {Number} fractionUpPipe represents the fractional position w.r.t to the cross section height. Takes a value between (0,1).
+   * @param {number} xPosition of the particle in meters
+   * @param {number} fractionUpPipe represents the fractional position w.r.t to the cross section height. Takes a value between (0,1).
    * @param {Pipe} container holding the particle
-   * @param {Number} radius of the particle
+   * @param {number} radius of the particle
    * @param {string} color of the particle
    * @constructor
    */
@@ -52,7 +52,7 @@ define( function( require ) {
 
     /**
      * Set the particle x position
-     * @param {Number} x position in meters
+     * @param {number} x position in meters
      */
     setX: function( x ) {
       this.xPosition = x;

@@ -33,7 +33,7 @@ define( function( require ) {
    *
    * @param {ModelViewTransform2} modelViewTransform , Transform between model and view coordinate frames
    * @param {VelocitySensor} velocitySensor - model for the velocity sensor
-   * @param {Property<String>} measureUnitsProperty -- english/metric
+   * @param {Property.<string>} measureUnitsProperty -- english/metric
    * @param {Property[]} linkedProperties - the set of properties which affect the sensor value
    * @param {Function} getVelocityAt - function to be called to get the velocity at the given model coords
    * @param {Bounds2} containerBounds - bounds of container for all velocity sensors, needed to reset to initial position

@@ -24,7 +24,7 @@ define( function( require ) {
 
     /**
      * Constructor for the sluice controller
-     * @param {Property<Boolean>} isSluiceOpenProperty -- property to control the sluice gate
+     * @param {Property.<boolean>} isSluiceOpenProperty -- property to control the sluice gate
      * @param {Object} [options]
      * @constructor
      */

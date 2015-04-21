@@ -20,7 +20,7 @@ define( function( require ) {
 
   /**
    * Default constructor
-   * @param {Property<String>} faucetModeProperty controls whether the faucet is operating in manual or match leakage mode
+   * @param {Property.<string>} faucetModeProperty controls whether the faucet is operating in manual or match leakage mode
    * @param {Object} [options]
    * @constructor
    */

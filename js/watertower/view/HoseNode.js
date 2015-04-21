@@ -31,9 +31,9 @@ define( function( require ) {
   /**
    * HoseNode constructor
    * @param {Hose} hose model
-   * @param {Property<Vector2>} tankPositionProperty the bottom left of the tank frame
+   * @param {Property.<Vector2>} tankPositionProperty the bottom left of the tank frame
    * @param {ModelViewTransform2} modelViewTransform transform to convert between model and view values
-   * @param {Property<Boolean>} isHoseVisibleProperty controls the hose visibility
+   * @param {Property.<boolean>} isHoseVisibleProperty controls the hose visibility
    * @param {Object} [options]
    * @constructor
    */
@@ -226,7 +226,7 @@ define( function( require ) {
   return inherit( Node, HoseNode, {
     /**
      * Updates the hose height while ensuring that the nozzle does not go below the ground
-     * @param {Number} height to which the hose needs to be expanded or contracted.
+     * @param {number} height to which the hose needs to be expanded or contracted.
      * @private
      */
     updateHoseHeight: function( height ) {

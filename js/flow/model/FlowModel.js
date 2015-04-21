@@ -120,9 +120,9 @@ define( function( require ) {
       },
 
       /**
-       * @param {Number} x position in meters
-       * @param {Number} y position in meters
-       * @returns {Number} fluid pressure (in Pa) at the specified position
+       * @param {number} x position in meters
+       * @param {number} y position in meters
+       * @returns {number} fluid pressure (in Pa) at the specified position
        */
       getFluidPressure: function( x, y ) {
         if ( x <= this.pipe.getMinX() || x >= this.pipe.getMaxX() ) {
@@ -140,9 +140,9 @@ define( function( require ) {
       },
 
       /**
-       * @param {Number} x position in meters
-       * @param {Number} y position in meters
-       * @returns {Number} pressure (in Pa) at specified position
+       * @param {number} x position in meters
+       * @param {number} y position in meters
+       * @returns {number} pressure (in Pa) at specified position
        */
       getPressureAtCoords: function( x, y ) {
         return (y > 0) ? getStandardAirPressure( y ) : this.getFluidPressure( x, y );
@@ -150,7 +150,7 @@ define( function( require ) {
 
 
       /**
-       * @param {Number} pressure in Pa
+       * @param {number} pressure in Pa
        * @param {String} units -- can be english/metric/atmospheres
        * @returns {String} with value and units
        */
@@ -160,7 +160,7 @@ define( function( require ) {
 
       /**
        * Called by the animation loop.
-       * @param {Number} dt -- time in seconds
+       * @param {number} dt -- time in seconds
        */
       step: function( dt ) {
         // prevent sudden dt bursts when the user comes back to the tab after a while
@@ -189,7 +189,7 @@ define( function( require ) {
 
       /**
        * propagates the particles in the pipe as per their velocity. Removes any particles that cross the pipe right end.
-       * @param {Number} dt -- time in seconds
+       * @param {number} dt -- time in seconds
        */
       propagateParticles: function( dt ) {
         var x2;
@@ -267,9 +267,9 @@ define( function( require ) {
 
       /**
        * Returns the velocity at the specified point in the pipe. Returns a zero vector if the point is outside the pipe.
-       * @param {Number} x position in meters
-       * @param {Number} y position in meters
-       * @returns {Number} velocity at the position x, y
+       * @param {number} x position in meters
+       * @param {number} y position in meters
+       * @returns {number} velocity at the position x, y
        */
       getVelocityAt: function( x, y ) {
         if ( x <= this.pipe.getMinX() || x >= this.pipe.getMaxX() ) {

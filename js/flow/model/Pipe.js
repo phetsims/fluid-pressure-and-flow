@@ -196,8 +196,8 @@ define( function( require ) {
 
     /**
      * Given a global y-position, determine the fraction to the top (point at bottom = 0, point halfway up = 0.5, etc.)
-     * @param {Number} x position in meters
-     * @param {Number} y position in meters
+     * @param {number} x position in meters
+     * @param {number} y position in meters
      * @returns {*} fraction
      */
     getFractionToTop: function( x, y ) {
@@ -208,7 +208,7 @@ define( function( require ) {
 
     /**
      * Determines the cross section for a given x-coordinate by linear interpolation between the nearest nonlinear samples.
-     * @param {Number} x position in meters
+     * @param {number} x position in meters
      * @returns {PipeCrossSection} cross section of pipe
      */
     getCrossSection: function( x ) {
@@ -222,7 +222,7 @@ define( function( require ) {
 
     /**
      * Lookup the cross section immediately before the specified x-location for interpolation
-     * @param {Number} x position in meters
+     * @param {number} x position in meters
      * @returns {PipeCrossSection} if one exists
      */
     getPipePositionBefore: function( x ) {
@@ -245,7 +245,7 @@ define( function( require ) {
 
     /**
      * Lookup the cross section immediately after the specified x-location for interpolation
-     * @param {Number} x position in meters
+     * @param {number} x position in meters
      * @returns {PipeCrossSection} if one exists
      */
     getPipePositionAfter: function( x ) {
@@ -264,7 +264,7 @@ define( function( require ) {
     /**
      * Get the speed at the specified x-location in m/s.  This is before friction and vertical effects are accounted for.
      * @param { Number } x position in meters
-     * @returns {Number} speed of fluid flow at given x position
+     * @returns {number} speed of fluid flow at given x position
      */
     getSpeed: function( x ) {
       //Continuity equation: a1*v1 = a2*v2
@@ -280,14 +280,14 @@ define( function( require ) {
      * I was told that the fluid flow rate falls off quadratically, so use lagrange interpolation so that at the center of the pipe
      * the velocity is full speed, and it falls off quadratically toward the sides.
      * See http://stackoverflow.com/questions/2075013/best-way-to-find-quadratic-regression-curve-in-java
-     * @param {Number} x1
-     * @param {Number} y1
-     * @param {Number} x2
-     * @param {Number} y2
-     * @param {Number} x3
-     * @param {Number} y3
-     * @param {Number} x
-     * @returns {Number}
+     * @param {number} x1
+     * @param {number} y1
+     * @param {number} x2
+     * @param {number} y2
+     * @param {number} x3
+     * @param {number} y3
+     * @param {number} x
+     * @returns {number}
      */
     lagrange: function( x1, y1, x2, y2, x3, y3, x ) {
       return ( x - x2 ) * ( x - x3 ) / ( x1 - x2 ) / ( x1 - x3 ) * y1 +
@@ -298,8 +298,8 @@ define( function( require ) {
 
     /**
      * Get the velocity at the specified point, does not account for vertical effects or friction.
-     * @param {Number} x position in meters
-     * @param {Number} y position in meters
+     * @param {number} x position in meters
+     * @param {number} y position in meters
      * @returns {Vector2} velocity at x,y in metric units.
      */
     getVelocity: function( x, y ) {
@@ -320,9 +320,9 @@ define( function( require ) {
     /**
      * Gets the x-velocity of a particle, incorporating vertical effects.
      * If this effect is ignored, then when there is a large slope in the pipe, particles closer to the edge move much faster (which is physically incorrect).
-     * @param {Number} x position in meters
-     * @param {Number} y position in meters
-     * @returns {Number} the tweaked x-velocity
+     * @param {number} x position in meters
+     * @param {number} y position in meters
+     * @returns {number} the tweaked x-velocity
      */
     getTweakedVx: function( x, y ) {
 
@@ -356,8 +356,8 @@ define( function( require ) {
     },
 
     /**
-     * @param {Number} x position in meters
-     * @param {Number} y position in meters
+     * @param {number} x position in meters
+     * @param {number} y position in meters
      * @returns {Vector2} the velocity vector at the given point
      */
     getTweakedVelocity: function( x, y ) {
@@ -366,8 +366,8 @@ define( function( require ) {
 
     /**
      * Find the y-value for the specified x-value and fraction (0=bottom, 1=top) of the pipe
-     * @param {Number} x position in meters
-     * @param {Number} fraction is in (0,1) (0=bottom, 1=top)
+     * @param {number} x position in meters
+     * @param {number} fraction is in (0,1) (0=bottom, 1=top)
      * @returns {*}
      */
     fractionToLocation: function( x, fraction ) {
@@ -377,8 +377,8 @@ define( function( require ) {
 
     /**
      * Get the point at the specified location
-     * @param {Number} x position  is in meters
-     * @param {Number} fractionToTop is in (0,1)
+     * @param {number} x position  is in meters
+     * @param {number} fractionToTop is in (0,1)
      * @returns {Vector2} the position vector of the point
      */
     getPoint: function( x, fractionToTop ) {
@@ -387,8 +387,8 @@ define( function( require ) {
 
     /**
      * Compute the circular cross sectional area (in meters squared) at the specified location
-     * @param {Number} x position in meters
-     * @returns {Number} area of cross section at x in square meters
+     * @param {number} x position in meters
+     * @returns {number} area of cross section at x in square meters
      */
     getCrossSectionalArea: function( x ) {
       var radius = Math.abs( this.getPoint( x, 0.5 ).y - this.getPoint( x, 1 ).y );

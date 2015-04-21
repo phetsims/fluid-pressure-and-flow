@@ -30,7 +30,7 @@ define( function( require ) {
   /**
    * @param {PipeHandlesNode} pipeHandlesNode
    * @param {boolean} isTop indicates whether this handle is on top or bottom of the pipe flow line
-   * @param {Number} controlPointIndex
+   * @param {number} controlPointIndex
    * @param {ModelViewTransform2} modelViewTransform to convert between model and view co-ordinate frames
    * @constructor
    */

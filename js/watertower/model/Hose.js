@@ -16,8 +16,8 @@ define( function( require ) {
 
   /**
    * Hose constructor
-   * @param {Number} height -- total vertical length of the hose
-   * @param {Number} angle rotated (in radians) by the spout, measured from a horizontal line. Initially this will be PI/2.
+   * @param {number} height -- total vertical length of the hose
+   * @param {number} angle rotated (in radians) by the spout, measured from a horizontal line. Initially this will be PI/2.
    * @constructor
    */
 

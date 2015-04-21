@@ -18,7 +18,7 @@ define( function( require ) {
   /**
    * @param {Vector2} position of the water drop
    * @param {Vector2} velocity of the water drop
-   * @param {Number} volume of the water drop in m3
+   * @param {number} volume of the water drop in m3
    * @constructor
    */
   function WaterDrop( position, velocity, volume ) {
