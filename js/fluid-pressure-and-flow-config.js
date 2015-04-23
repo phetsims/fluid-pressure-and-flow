@@ -17,7 +17,7 @@ require.config( {
   paths: {
 
     // third-party libs
-    text: '../../sherpa/text',
+    text: '../../sherpa/text-2.0.12',
     underscore: '../../sherpa/lodash-2.4.1',
 
     // PhET plugins
