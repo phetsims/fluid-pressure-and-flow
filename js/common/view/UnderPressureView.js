@@ -244,7 +244,7 @@ define( function( require ) {
       }
     } );
 
-    this.addChild( new SceneChoiceNode( underPressureModel, { x: 5, y: 260 } ) );
+    this.addChild( new SceneChoiceNode( underPressureModel, { x: 10, y: 260 } ) );
 
     //resize mystery control panel
     mysteryPoolView.mysteryPoolControls.choicePanel.resizeWidth( controlPanel.width );

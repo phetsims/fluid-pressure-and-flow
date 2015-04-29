@@ -1,4 +1,4 @@
-// Copyright 2002-2013, University of Colorado Boulder
+// Copyright 2002-2015, University of Colorado Boulder
 
 /**
  * View for the scene chooser containing 4 image radio buttons
@@ -9,19 +9,17 @@ define( function( require ) {
   'use strict';
 
   // modules
-  var Node = require( 'SCENERY/nodes/Node' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Image = require( 'SCENERY/nodes/Image' );
-  var InOutRadioButton = require( 'SUN/InOutRadioButton' );
-  var Dimension2 = require( 'DOT/Dimension2' );
+  var RadioButtonGroup = require( 'SUN/buttons/RadioButtonGroup' );
 
   // images
-  var SquarePoolImage = require( 'image!UNDER_PRESSURE/square-pool-icon.png' );
-  var TrapezoidPoolImage = require( 'image!UNDER_PRESSURE/trapezoid-pool-icon.png' );
-  var ChamberPoolImage = require( 'image!UNDER_PRESSURE/chamber-pool-icon.png' );
-  var MysteryPoolImage = require( 'image!UNDER_PRESSURE/mystery-pool-icon.png' );
+  var squarePoolImage = require( 'image!UNDER_PRESSURE/square-pool-icon.png' );
+  var trapezoidPoolImage = require( 'image!UNDER_PRESSURE/trapezoid-pool-icon.png' );
+  var chamberPoolImage = require( 'image!UNDER_PRESSURE/chamber-pool-icon.png' );
+  var mysteryPoolImage = require( 'image!UNDER_PRESSURE/mystery-pool-icon.png' );
 
-  var ICON_SIZE = new Dimension2( 52, 37 );
+  var ICON_SCALE = 0.12; //TODO this is an excessive scale, image files should be scaled down
 
   /**
    * @param {UnderPressureModel} underPressureModel of the simulation
@@ -30,29 +28,19 @@ define( function( require ) {
    */
   function SceneChoiceNode( underPressureModel, options ) {
 
-    var sceneChoiceNode = this;
-    Node.call( this );
+    options = _.extend( {
+      orientation: 'vertical',
+      baseColor: 'white',
+      cornerRadius: 10
+    }, options );
 
-    sceneChoiceNode.addChild( createButton( SquarePoolImage, underPressureModel.currentSceneProperty, 'square', 0 ) );
-    sceneChoiceNode.addChild( createButton( TrapezoidPoolImage, underPressureModel.currentSceneProperty, 'trapezoid',
-      1 ) );
-    sceneChoiceNode.addChild( createButton( ChamberPoolImage, underPressureModel.currentSceneProperty, 'chamber', 2 ) );
-    sceneChoiceNode.addChild( createButton( MysteryPoolImage, underPressureModel.currentSceneProperty, 'mystery', 3 ) );
-
-    this.mutate( options );
+    RadioButtonGroup.call( this, underPressureModel.currentSceneProperty, [
+      { value: 'square', node: new Image( squarePoolImage, { scale: ICON_SCALE } ) },
+      { value: 'trapezoid', node: new Image( trapezoidPoolImage, { scale: ICON_SCALE } ) },
+      { value: 'chamber', node: new Image( chamberPoolImage, { scale: ICON_SCALE } ) },
+      { value: 'mystery', node: new Image( mysteryPoolImage, { scale: ICON_SCALE } ) }
+    ], options );
   }
 
-  // creates an InOutRadioButton with the given image as the icon
-  //@private
-  var createButton = function( image, controlProperty, value, index ) {
-    var iconImg = new Image( image );
-    var dy = 60;
-    iconImg.scale( ICON_SIZE.width / iconImg.width, ICON_SIZE.height / iconImg.height );
-    var iconButton = new InOutRadioButton( controlProperty, value, iconImg, { cornerRadius: 5 } );
-    iconButton.touchArea = iconButton.localBounds.dilatedXY( 0, 0 );
-    iconButton.translate( 0, dy * index );
-    return iconButton;
-  };
-
-  return inherit( Node, SceneChoiceNode );
+  return inherit( RadioButtonGroup, SceneChoiceNode );
 } );
