@@ -19,7 +19,7 @@ define( function( require ) {
   var chamberPoolImage = require( 'image!UNDER_PRESSURE/chamber-pool-icon.png' );
   var mysteryPoolImage = require( 'image!UNDER_PRESSURE/mystery-pool-icon.png' );
 
-  var ICON_SCALE = 0.12; //TODO this is an excessive scale, image files should be scaled down
+  var ICON_SCALE = 0.12; //TODO #122 this is an excessive scale, image files should be scaled down
 
   /**
    * @param {UnderPressureModel} underPressureModel of the simulation
