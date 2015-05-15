@@ -17,8 +17,8 @@ require.config( {
   paths: {
 
     // third-party libs
-    text: '../../sherpa/text-2.0.12',
-    underscore: '../../sherpa/lodash-2.4.1',
+    text: '../../sherpa/lib/text-2.0.12',
+    underscore: '../../sherpa/lib/lodash-2.4.1',
 
     // PhET plugins
     image: '../../chipper/js/requirejs-plugins/image',
