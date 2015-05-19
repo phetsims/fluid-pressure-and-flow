@@ -5,20 +5,6 @@
   "simTitleStringKey": "FLUID_PRESSURE_AND_FLOW/fluid-pressure-and-flow.name",
   "phetLibs": [
     "fluid-pressure-and-flow",
-    "assert",
-    "axon",
-    "babel",
-    "brand",
-    "chipper",
-    "dot",
-    "joist",
-    "kite",
-    "phet-core",
-    "phetcommon",
-    "scenery",
-    "scenery-phet",
-    "sherpa",
-    "sun",
     "under-pressure"
   ],
   "preload": [
