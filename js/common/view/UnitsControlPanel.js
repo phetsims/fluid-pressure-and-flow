@@ -15,7 +15,7 @@ define( function( require ) {
   var Panel = require( 'SUN/Panel' );
   var VBox = require( 'SCENERY/nodes/VBox' );
   var HBox = require( 'SCENERY/nodes/HBox' );
-  var HStrut = require( 'SUN/HStrut' );
+  var HStrut = require( 'SCENERY/nodes/HStrut' );
   var Bounds2 = require( 'DOT/Bounds2' );
 
   // strings
