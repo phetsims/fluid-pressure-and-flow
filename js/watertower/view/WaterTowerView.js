@@ -279,8 +279,8 @@ define( function( require ) {
         scaleFont: 12,
         meterUnitsSpacing: 50,
         feetUnitSpacing: 34,
-        meterTicks: _.range( 0, 30, 5 ),
-        feetTicks: _.range( 0, 100, 10 ),
+        meterTicks: _.range( 0, 31, 5 ),
+        feetTicks: _.range( 0, 101, 10 ),
         insetsWidth: 0
       } ) );
     toolsLayer.addChild( measuringTape );

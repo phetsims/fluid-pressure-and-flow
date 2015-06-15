@@ -49,7 +49,7 @@ define( function( require ) {
       scaleFont: 10,
       meterUnitsSpacing: 54, // distance between the left end of the ruler and the meter symbol in px
       feetUnitSpacing: 14, // distance between the left end of the ruler and the feet symbol in px
-      meterTicks: _.range( 0, 5, 1 ),
+      meterTicks: _.range( 0, 6, 1 ),
       feetTicks: _.range( 0, 17, 1 ),
       insetsWidth: 0
     }, options );
