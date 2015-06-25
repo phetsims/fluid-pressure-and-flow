@@ -47,8 +47,6 @@ define( function( require ) {
       meterMajorStickWidth: 1,
       feetMajorStickWidth: 0.3,
       scaleFont: 10,
-      meterUnitsSpacing: 54, // distance between the left end of the ruler and the meter symbol in px
-      feetUnitSpacing: 14, // distance between the left end of the ruler and the feet symbol in px
       meterTicks: _.range( 0, 6, 1 ),
       feetTicks: _.range( 0, 17, 1 ),
       insetsWidth: 0
@@ -82,7 +80,7 @@ define( function( require ) {
         minorTicksPerMajorTick: 4,
         unitsFont: scaleFont,
         majorTickFont: scaleFont,
-        unitsSpacing: options.meterUnitsSpacing,
+        unitsMajorTickIndex: 1,
         insetsWidth: options.insetsWidth,
         rotation: -Math.PI / 2
       } );
@@ -93,7 +91,7 @@ define( function( require ) {
       minorTicksPerMajorTick: 4,
       unitsFont: scaleFont,
       majorTickFont: scaleFont,
-      unitsSpacing: options.feetUnitSpacing,
+      unitsMajorTickIndex: 1,
       insetsWidth: options.insetsWidth,
       rotation: -Math.PI / 2
     } );

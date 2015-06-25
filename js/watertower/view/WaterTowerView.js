@@ -277,8 +277,6 @@ define( function( require ) {
         meterMajorStickWidth: 5,
         feetMajorStickWidth: 3,
         scaleFont: 12,
-        meterUnitsSpacing: 50,
-        feetUnitSpacing: 34,
         meterTicks: _.range( 0, 31, 5 ),
         feetTicks: _.range( 0, 101, 10 ),
         insetsWidth: 0
