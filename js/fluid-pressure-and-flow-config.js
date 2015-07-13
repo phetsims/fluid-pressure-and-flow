@@ -18,10 +18,10 @@ require.config( {
 
     // third-party libs
     text: '../../sherpa/lib/text-2.0.12',
-    underscore: '../../sherpa/lib/lodash-2.4.1',
 
     // PhET plugins
     image: '../../chipper/js/requirejs-plugins/image',
+    mipmap: '../../chipper/js/requirejs-plugins/mipmap',
     string: '../../chipper/js/requirejs-plugins/string',
 
     // common directories, uppercase names to identify them in require imports
