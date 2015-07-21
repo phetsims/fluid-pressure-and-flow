@@ -1,10 +1,15 @@
 handle-two-sided.png source=PhET author=gruneich
 handle-with-bar.png source=PhET author=gruneich
 handle.png source=PhET author=gruneich
+flow-mockup.png source=PhET
+grass-texture.png source=Open Clip Art notes=http://openclipart.org/detail/21212/grass-texture-by-rg1024-21212 as public domain & copied from under-pressure
 injector-bulb.png source=PhET author=gruneich
-measuring-tape.png source=PhET author=gruneich
+injector-bulb-cropped.png source=PhET author=gruneich
+measuringTape.png source=PhET author=gruneich notes=copied from GAO
 nozzle.png source=PhET author=gruneich
 pipe-left.png source=PhET author=gruneich
+pipe-left-back.png source=PhET author=gruneich
+pipe-left-front.png source=PhET author=gruneich
 pipe-right.png source=PhET author=gruneich
 pipe-segment.png source=PhET author=gruneich
 spout-handle.png source=PhET author=gruneich

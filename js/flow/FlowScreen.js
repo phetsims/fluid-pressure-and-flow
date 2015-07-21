@@ -16,7 +16,7 @@ define( function( require ) {
   var Screen = require( 'JOIST/Screen' );
 
   // images
-  var flowScreenIcon = require( 'image!FLUID_PRESSURE_AND_FLOW/flow-mockup.jpg' );
+  var flowScreenIcon = require( 'image!FLUID_PRESSURE_AND_FLOW/flow-mockup.png' );
 
   // strings
   var flowTitleString = require( 'string!FLUID_PRESSURE_AND_FLOW/flowScreenTitle' );
