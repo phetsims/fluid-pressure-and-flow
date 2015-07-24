@@ -1,8 +1,66 @@
-cement-texture-dark.jpg source=http://www.public-domain-image.com/full-image/textures-and-patterns-public-domain-images-pictures/concrete-texture-public-domain-images-pictures/cement-texture.jpg-royalty-free-stock-image.html license=public domain
-chamber-pool-icon.png source=PhET notes=created by gruneich
-grass-texture.png source=Open Clip Art notes=http://openclipart.org/detail/21212/grass-texture-by-rg1024-21212 as public domain
-handle.png source=PhET notes=drawn by NP
-mass.png source=PhET notes=NP or AP
-mystery-pool-icon.png source=PhET notes=created by gruneich
-square-pool-icon.png source=PhET notes=created by gruneich
-trapezoid-pool-icon.png source=PhET notes=created by gruneich
+{
+  "cement-texture-dark.jpg": {
+    "text": [
+      "Public Domain"
+    ],
+    "projectURL": "http://www.public-domain-image.com/full-image/textures-and-patterns-public-domain-images-pictures/concrete-texture-public-domain-images-pictures/cement-texture.jpg-royalty-free-stock-image.html",
+    "license": "Public Domain",
+    "notes": ""
+  },
+  "chamber-pool-icon.png": {
+    "text": [
+      "Copyright 2002-2015 University of Colorado Boulder"
+    ],
+    "projectURL": "http://phet.colorado.edu",
+    "license": "contact phethelp@colorado.edu",
+    "notes": "created by Bryce Gruneich"
+  },
+  "grass-texture.png": {
+    "text": [
+      "Public Domain"
+    ],
+    "projectURL": "http://openclipart.org/detail/21212/grass-texture-by-rg1024-21212",
+    "license": "Public Domain",
+    "notes": " as public domain"
+  },
+  "handle.png": {
+    "text": [
+      "Copyright 2002-2015 University of Colorado Boulder"
+    ],
+    "projectURL": "http://phet.colorado.edu",
+    "license": "contact phethelp@colorado.edu",
+    "notes": "created by Noah Podolefsky"
+  },
+  "mass.png": {
+    "text": [
+      "Copyright 2002-2015 University of Colorado Boulder"
+    ],
+    "projectURL": "http://phet.colorado.edu",
+    "license": "contact phethelp@colorado.edu",
+    "notes": "created by Noah Podolefsky or Ariel Paul"
+  },
+  "mystery-pool-icon.png": {
+    "text": [
+      "Copyright 2002-2015 University of Colorado Boulder"
+    ],
+    "projectURL": "http://phet.colorado.edu",
+    "license": "contact phethelp@colorado.edu",
+    "notes": "created by Bryce Gruneich"
+  },
+  "square-pool-icon.png": {
+    "text": [
+      "Copyright 2002-2015 University of Colorado Boulder"
+    ],
+    "projectURL": "http://phet.colorado.edu",
+    "license": "contact phethelp@colorado.edu",
+    "notes": "created by Bryce Gruneich"
+  },
+  "trapezoid-pool-icon.png": {
+    "text": [
+      "Copyright 2002-2015 University of Colorado Boulder"
+    ],
+    "projectURL": "http://phet.colorado.edu",
+    "license": "contact phethelp@colorado.edu",
+    "notes": "created by Bryce Gruneich"
+  }
+}
