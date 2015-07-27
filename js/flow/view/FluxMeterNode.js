@@ -38,7 +38,7 @@ define( function( require ) {
   var fluxUnitsEnglish = require( 'string!FLUID_PRESSURE_AND_FLOW/fluxUnitsEnglish' );
 
   // images
-  var twoSidedHandleImage = require( 'image!FLUID_PRESSURE_AND_FLOW/images/handle-two-sided.png' );
+  var twoSidedHandleImage = require( 'image!FLUID_PRESSURE_AND_FLOW/handle-two-sided.png' );
 
   /**
    * A flux meter that display flow rate, area and flux at a particular cross section

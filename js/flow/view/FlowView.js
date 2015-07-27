@@ -49,7 +49,7 @@ define( function( require ) {
   var slowMotionString = require( 'string!FLUID_PRESSURE_AND_FLOW/slowMotion' );
 
   //images
-  var grassImg = require( 'image!FLUID_PRESSURE_AND_FLOW/images/grass-texture.png' );
+  var grassImg = require( 'image!FLUID_PRESSURE_AND_FLOW/grass-texture.png' );
 
   //View layout related constants
   var inset = 10;
