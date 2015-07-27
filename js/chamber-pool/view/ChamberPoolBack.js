@@ -18,8 +18,8 @@ define( function( require ) {
   var Path = require( 'SCENERY/nodes/Path' );
 
   // images
-  var grassImg = require( 'image!UNDER_PRESSURE/images/grass-texture.png' );
-  var cementImg = require( 'image!UNDER_PRESSURE/images/cement-texture-dark.jpg' );
+  var grassImg = require( 'image!UNDER_PRESSURE/grass-texture.png' );
+  var cementImg = require( 'image!UNDER_PRESSURE/cement-texture-dark.jpg' );
 
 
   /**

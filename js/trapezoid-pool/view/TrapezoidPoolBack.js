@@ -20,8 +20,8 @@ define( function( require ) {
   var UnderPressureFaucetNode = require( 'UNDER_PRESSURE/common/view/UnderPressureFaucetNode' );
 
   // images
-  var grassImg = require( 'image!UNDER_PRESSURE/images/grass-texture.png' );
-  var cementImg = require( 'image!UNDER_PRESSURE/images/cement-texture-dark.jpg' );
+  var grassImg = require( 'image!UNDER_PRESSURE/grass-texture.png' );
+  var cementImg = require( 'image!UNDER_PRESSURE/cement-texture-dark.jpg' );
 
   /**
    * @param {TrapezoidPoolModel} trapezoidPoolModel
