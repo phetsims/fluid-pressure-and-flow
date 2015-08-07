@@ -82,7 +82,7 @@ define( function( require ) {
       ComboBox.createItem( new Text( fluidA, textOptions ), 0 ),
       ComboBox.createItem( new Text( fluidB, textOptions ), 1 ),
       ComboBox.createItem( new Text( fluidC, textOptions ), 2 )
-    ], mysteryPoolModel.fluidDensityCustom, mysteryPoolControls, {
+    ], mysteryPoolModel.customFluidDensityProperty, mysteryPoolControls, {
       itemHighlightFill: 'rgb(218,255,255)',
       y: 253,
       x: 457,
@@ -96,7 +96,7 @@ define( function( require ) {
       ComboBox.createItem( new Text( planetA, textOptions ), 0 ),
       ComboBox.createItem( new Text( planetB, textOptions ), 1 ),
       ComboBox.createItem( new Text( planetC, textOptions ), 2 )
-    ], mysteryPoolModel.gravityCustom, mysteryPoolControls, {
+    ], mysteryPoolModel.customGravityProperty, mysteryPoolControls, {
       itemHighlightFill: 'rgb(218,255,255)',
       y: this.fluidDensityComboBox.y,
       x: this.fluidDensityComboBox.x,

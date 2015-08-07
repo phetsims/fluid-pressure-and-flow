@@ -26,8 +26,8 @@ define( function( require ) {
     var mysteryPoolModel = this;
     SquarePoolModel.call( this, underPressureModel );
 
-    this.fluidDensityCustom = new Property( 0 );
-    this.gravityCustom = new Property( 0 );
+    this.customFluidDensityProperty = new Property( 0 );
+    this.customGravityProperty = new Property( 0 );
 
     this.underPressureModel = underPressureModel;
 
@@ -66,7 +66,7 @@ define( function( require ) {
       }
     } );
 
-    Property.multilink( [ this.gravityCustom, this.fluidDensityCustom ], function() {
+    Property.multilink( [ this.customGravityProperty, this.customFluidDensityProperty ], function() {
       if ( mysteryPoolModel.underPressureModel.currentScene === 'mystery' ) {
         mysteryPoolModel.updateChoiceValue();
       }
@@ -78,19 +78,19 @@ define( function( require ) {
     updateChoiceValue: function() {
 
       if ( this.underPressureModel.mysteryChoice === 'fluidDensity' ) {
-        this.underPressureModel.fluidDensity = this.fluidDensityChoices[ this.fluidDensityCustom.value ];
-        this.underPressureModel.fluidColorModel.color = this.fluidColor[ this.fluidDensityCustom.value ];
+        this.underPressureModel.fluidDensity = this.fluidDensityChoices[ this.customFluidDensityProperty.value ];
+        this.underPressureModel.fluidColorModel.color = this.fluidColor[ this.customFluidDensityProperty.value ];
       }
       else {
-        this.underPressureModel.gravity = this.gravityChoices[ this.gravityCustom.value ];
+        this.underPressureModel.gravity = this.gravityChoices[ this.customGravityProperty.value ];
         this.underPressureModel.fluidDensityProperty.notifyObserversStatic();
       }
 
     },
 
     reset: function() {
-      this.fluidDensityCustom.reset();
-      this.gravityCustom.reset();
+      this.customFluidDensityProperty.reset();
+      this.customGravityProperty.reset();
       PropertySet.prototype.reset.call( this );
       PropertySet.prototype.reset.call( this.underPressureModel );
     }
