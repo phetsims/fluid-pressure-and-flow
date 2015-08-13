@@ -19,6 +19,7 @@ define( function( require ) {
 
   // images
   var underPressureScreenIcon = require( 'image!UNDER_PRESSURE/square-pool-icon.png' );
+  var underPressureNavigationBarIcon = require( 'image!UNDER_PRESSURE/under-pressure-navbar-icon.png' );
 
   // constants
   var LAYOUT_BOUNDS = new Bounds2( 0, 0, 768, 504 );
@@ -31,7 +32,10 @@ define( function( require ) {
       function( model ) { return new UnderPressureView( model ); },
 
       // Workaround for triggering a black navigation bar
-      { backgroundColor: 'white' }
+      {
+        backgroundColor: 'white',
+        navigationBarIcon: new Image( underPressureNavigationBarIcon )
+      }
     );
   }
 
