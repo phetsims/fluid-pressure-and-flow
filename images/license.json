@@ -21,7 +21,7 @@
     ],
     "projectURL": "http://openclipart.org/detail/21212/grass-texture-by-rg1024-21212",
     "license": "Public Domain",
-    "notes": " as public domain"
+    "notes": "as public domain"
   },
   "mystery-pool-icon.png": {
     "text": [
@@ -46,5 +46,13 @@
     "projectURL": "http://phet.colorado.edu",
     "license": "contact phethelp@colorado.edu",
     "notes": "created by Bryce Gruneich"
+  },
+  "under-pressure-navbar-icon.png": {
+    "text": [
+      "Copyright 2002-2015 University of Colorado Boulder"
+    ],
+    "projectURL": "http://phet.colorado.edu",
+    "license": "contact phethelp@colorado.edu",
+    "notes": "Derived from work by Bryce Gruneich"
   }
 }
