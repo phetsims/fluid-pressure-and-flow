@@ -2,15 +2,6 @@
   "name": "fluid-pressure-and-flow",
   "version": "1.0.0-dev.19",
   "license": "GPLv3",
-  "requirejsNamespace": "FLUID_PRESSURE_AND_FLOW",
-  "simTitleStringKey": "FLUID_PRESSURE_AND_FLOW/fluid-pressure-and-flow.name",
-  "phetLibs": [
-    "fluid-pressure-and-flow",
-    "under-pressure"
-  ],
-  "preload": [
-    "../sherpa/lib/numeric-1.2.6.js"
-  ],
   "repository": {
     "type": "git",
     "url": "https://github.com/phetsims/fluid-pressure-and-flow.git"
@@ -21,5 +12,16 @@
     "grunt-contrib-jshint": "~0.6.4",
     "uglify-js": "~2.4.0",
     "requirejs": "~2.1.8"
+  },
+  "phet": {
+    "requirejsNamespace": "FLUID_PRESSURE_AND_FLOW",
+    "simTitleStringKey": "FLUID_PRESSURE_AND_FLOW/fluid-pressure-and-flow.name",
+    "phetLibs": [
+      "fluid-pressure-and-flow",
+      "under-pressure"
+    ],
+    "preload": [
+      "../sherpa/lib/numeric-1.2.6.js"
+    ]
   }
 }
