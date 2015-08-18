@@ -17,7 +17,6 @@
     "requirejsNamespace": "FLUID_PRESSURE_AND_FLOW",
     "simTitleStringKey": "FLUID_PRESSURE_AND_FLOW/fluid-pressure-and-flow.name",
     "phetLibs": [
-      "fluid-pressure-and-flow",
       "under-pressure"
     ],
     "preload": [
