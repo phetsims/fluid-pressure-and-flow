@@ -15,9 +15,6 @@
   },
   "phet": {
     "requirejsNamespace": "UNDER_PRESSURE",
-    "simTitleStringKey": "UNDER_PRESSURE/under-pressure.name",
-    "phetLibs": [
-      "under-pressure"
-    ]
+    "simTitleStringKey": "UNDER_PRESSURE/under-pressure.name"
   }
 }
