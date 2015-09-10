@@ -50,7 +50,7 @@
   "slowMotion": {
     "value": "Slow Motion"
   },
-  "under-pressure.name": {
+  "under-pressure.title": {
     "value": "Under Pressure"
   },
   "ftPerSPerS": {
@@ -61,9 +61,6 @@
   },
   "fill": {
     "value": "Fill"
-  },
-  "fluid-pressure-and-flow.name": {
-    "value": "Fluid Pressure and Flow"
   },
   "psi": {
     "value": "psi"

@@ -12,7 +12,7 @@ define( function( require ) {
   var UnderPressureScreen = require( 'UNDER_PRESSURE/UnderPressureScreen' );
 
   // strings
-  var simTitle = require( 'string!UNDER_PRESSURE/under-pressure.name' );
+  var simTitle = require( 'string!UNDER_PRESSURE/under-pressure.title' );
 
   var simOptions = {
     credits: {
