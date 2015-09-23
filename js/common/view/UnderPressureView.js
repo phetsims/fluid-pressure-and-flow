@@ -51,7 +51,7 @@ define( function( require ) {
    * @constructor
    */
   function UnderPressureView( underPressureModel ) {
-
+    var self = this;
     ScreenView.call( this, { layoutBounds: new Bounds2( 0, 0, underPressureModel.width, underPressureModel.height ) } );
 
     var modelViewTransform = ModelViewTransform2.createSinglePointScaleInvertedYMapping(
@@ -66,9 +66,10 @@ define( function( require ) {
     var resetAllButton = new ResetAllButton( {
       listener: function() {
         underPressureModel.reset();
+        self.reset();
       },
       scale: 0.6,
-      right:  this.layoutBounds.right - inset,
+      right: this.layoutBounds.right - inset,
       bottom: this.layoutBounds.bottom - 10
     } );
     this.addChild( resetAllButton );
@@ -157,10 +158,15 @@ define( function( require ) {
     } );
     this.addChild( sensorPanel );
 
+    this.resetActions = [];
     // add barometers within the sensor panel bounds
     _.each( underPressureModel.barometers, function( barometer ) {
-      barometer.positionProperty.storeInitialValue( new Vector2( sensorPanel.centerX, sensorPanel.centerY - 15 ) );
-      barometer.reset();
+      var barometerInitialValue = new Vector2( sensorPanel.centerX, sensorPanel.centerY - 15 );
+      var reset = function() {
+        barometer.position = barometerInitialValue.copy();
+      };
+      this.resetActions.push( reset );
+      reset();
 
       var barometerLinkedProperties = [
         underPressureModel.currentSceneProperty,
@@ -261,5 +267,11 @@ define( function( require ) {
     toolsLayer.moveToFront();
   }
 
-  return inherit( ScreenView, UnderPressureView );
+  return inherit( ScreenView, UnderPressureView, {
+    reset: function() {
+      for ( var i = 0; i < this.resetActions.length; i++ ) {
+        this.resetActions[ i ]();
+      }
+    }
+  } );
 } );
