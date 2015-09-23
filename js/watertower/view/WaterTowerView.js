@@ -250,7 +250,7 @@ define( function( require ) {
 
     // add barometers within the sensor panel bounds
     _.each( waterTowerModel.barometers, function( barometer ) {
-      barometer.positionProperty.storeInitialValue( new Vector2( sensorPanel.visibleBounds.centerX + 55, sensorPanel.visibleBounds.centerY - 10 ) );
+      var initialPosition = new Vector2( sensorPanel.visibleBounds.centerX + 55, sensorPanel.visibleBounds.centerY - 10 );
       barometer.reset();
       toolsLayer.addChild( new BarometerNode( modelViewTransform, barometer, waterTowerModel.measureUnitsProperty,
         [ waterTowerModel.fluidDensityProperty, waterTowerModel.waterTower.tankPositionProperty, waterTowerModel.waterTower.fluidLevelProperty ],
@@ -263,7 +263,7 @@ define( function( require ) {
 
     // add speedometers within the sensor panel bounds
     _.each( waterTowerModel.speedometers, function( velocitySensor ) {
-      velocitySensor.positionProperty.storeInitialValue( new Vector2( sensorPanel.visibleBounds.centerX - 85, sensorPanel.visibleBounds.centerY - 35 ) );
+      var initialPosition = new Vector2( sensorPanel.visibleBounds.centerX - 85, sensorPanel.visibleBounds.centerY - 35 );
       velocitySensor.positionProperty.reset();
       toolsLayer.addChild( new VelocitySensorNode( modelViewTransform, velocitySensor,
         waterTowerModel.measureUnitsProperty, [], waterTowerModel.getWaterDropVelocityAt.bind( waterTowerModel ),

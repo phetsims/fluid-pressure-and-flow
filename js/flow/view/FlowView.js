@@ -274,8 +274,7 @@ define( function( require ) {
 
     // add speedometers within the sensor panel bounds
     _.each( flowModel.speedometers, function( velocitySensor ) {
-      velocitySensor.positionProperty.storeInitialValue( new Vector2( sensorPanel.visibleBounds.centerX - 75,
-        sensorPanel.visibleBounds.centerY - 30 ) );
+      var position = new Vector2( sensorPanel.visibleBounds.centerX - 75, sensorPanel.visibleBounds.centerY - 30 );
       velocitySensor.positionProperty.reset();
 
       var velocitySensorNode = new VelocitySensorNode(
@@ -296,8 +295,7 @@ define( function( require ) {
     // add barometers within the sensor panel bounds
     _.each( flowModel.barometers, function( barometer ) {
 
-      barometer.positionProperty.storeInitialValue( new Vector2( sensorPanel.visibleBounds.centerX + 50,
-        sensorPanel.visibleBounds.centerY - 10 ) );
+      var position = new Vector2( sensorPanel.visibleBounds.centerX + 50, sensorPanel.visibleBounds.centerY - 10 );
       barometer.reset();
 
       var barometerNode = new BarometerNode(
@@ -322,11 +320,11 @@ define( function( require ) {
 
     // add the rule node
     toolsLayer.addChild( new FPAFRuler(
-        flowModel.isRulerVisibleProperty,
-        flowModel.rulerPositionProperty,
-        flowModel.measureUnitsProperty,
-        modelViewTransform,
-        this.layoutBounds )
+      flowModel.isRulerVisibleProperty,
+      flowModel.rulerPositionProperty,
+      flowModel.measureUnitsProperty,
+      modelViewTransform,
+      this.layoutBounds )
     );
 
     toolsLayer.moveToFront();
