@@ -16,7 +16,7 @@ define( function( require ) {
   var inherit = require( 'PHET_CORE/inherit' );
   var MassModel = require( 'UNDER_PRESSURE/chamber-pool/model/MassModel' );
 
-  // Constants
+  // constants
   var lastDt = 0;//to filter dt in step.
 
   //The size of the passage between the chambers
