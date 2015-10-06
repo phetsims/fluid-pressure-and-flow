@@ -1,4 +1,4 @@
-// Copyright (c) 2002 - 2014. University of Colorado Boulder
+// Copyright 2002-2014, University of Colorado Boulder
 
 /**
  * View for a single handle on the flexible middle pipe and the pipe head rims.

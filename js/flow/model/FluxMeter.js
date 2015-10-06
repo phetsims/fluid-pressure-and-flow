@@ -1,4 +1,4 @@
-// Copyright (c) 2002 - 2014. University of Colorado Boulder
+// Copyright 2002-2014, University of Colorado Boulder
 
 /**
  * Model for the flux meter tool in the flow tab of FPAF sim. Measures the flux at a given cross section

@@ -1,4 +1,4 @@
-// Copyright (c) 2002 - 2014. University of Colorado Boulder
+// Copyright 2002-2014, University of Colorado Boulder
 
 /**
  * The screen (model + view) for the Flow screen, which appears as the second screen in the "Fluid Pressure and Flow" sim.

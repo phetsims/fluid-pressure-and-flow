@@ -1,4 +1,4 @@
-// Copyright (c) 2002 - 2014. University of Colorado Boulder
+// Copyright 2002-2014, University of Colorado Boulder
 
 /**
  * View for the handles on the pipe segment.
