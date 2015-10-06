@@ -1,3 +1,5 @@
+// Copyright 2002-2013, University of Colorado Boulder
+
 /**
  * Node for the 'Water Tower' includes the tower, water, stand/legs, hose and the wheel.
  *

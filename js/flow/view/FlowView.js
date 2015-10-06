@@ -274,7 +274,6 @@ define( function( require ) {
 
     // add speedometers within the sensor panel bounds
     _.each( flowModel.speedometers, function( velocitySensor ) {
-      var position = new Vector2( sensorPanel.visibleBounds.centerX - 75, sensorPanel.visibleBounds.centerY - 30 );
       velocitySensor.positionProperty.reset();
 
       var velocitySensorNode = new VelocitySensorNode(
@@ -295,7 +294,6 @@ define( function( require ) {
     // add barometers within the sensor panel bounds
     _.each( flowModel.barometers, function( barometer ) {
 
-      var position = new Vector2( sensorPanel.visibleBounds.centerX + 50, sensorPanel.visibleBounds.centerY - 10 );
       barometer.reset();
 
       var barometerNode = new BarometerNode(
