@@ -1,4 +1,4 @@
-// Copyright (c) 2002 - 2014. University of Colorado Boulder
+// Copyright 2012-2015, University of Colorado Boulder
 
 /**
  * Model for a generic sensor with position and value.

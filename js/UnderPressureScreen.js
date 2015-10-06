@@ -1,4 +1,4 @@
-// Copyright (c) 2002 - 2014. University of Colorado Boulder
+// Copyright 2012-2015, University of Colorado Boulder
 
 /**
  * The screen (model + view) for the Under Pressure screen, which appears as a standalone sim in the "Under Pressure" sim

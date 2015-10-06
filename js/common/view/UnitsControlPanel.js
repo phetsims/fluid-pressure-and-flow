@@ -1,4 +1,4 @@
-// Copyright (c) 2002 - 2014. University of Colorado Boulder
+// Copyright 2012-2015, University of Colorado Boulder
 
 /**
  * Control panel for selecting unit systems. The available options are english, metric and atmospheres.
