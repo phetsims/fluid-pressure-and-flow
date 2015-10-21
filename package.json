@@ -1,7 +1,7 @@
 {
   "name": "fluid-pressure-and-flow",
   "version": "1.0.0-dev.19",
-  "license": "GPLv3",
+  "license": "GPL-3.0",
   "repository": {
     "type": "git",
     "url": "https://github.com/phetsims/fluid-pressure-and-flow.git"
