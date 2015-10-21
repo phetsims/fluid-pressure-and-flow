@@ -32,10 +32,8 @@ define( function( require ) {
 
   return inherit( CanvasNode, WaterDropsCanvasNode, {
 
-    // @param {CanvasContextWrapper} wrapper
-    paintCanvas: function( wrapper ) {
-      var context = wrapper.context;
-
+    // @param {CanvasRenderingContext2D} context
+    paintCanvas: function( context ) {
 
       //If the showBounds flag is enabled, it will show the bounds of the canvas
       if ( this.options.showBounds ) {
