@@ -1,7 +1,7 @@
 {
   "name": "under-pressure",
   "version": "1.1.0-dev.3",
-  "license": "GPLv3",
+  "license": "GPL-3.0",
   "repository": {
     "type": "git",
     "url": "https://github.com/phetsims/under-pressure.git"
