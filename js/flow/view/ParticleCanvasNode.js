@@ -35,7 +35,8 @@ define( function( require ) {
      * @param {CanvasRenderingContext2D} context
      */
     paintCanvas: function( context ) {
-      var particle, i;
+      var particle;
+      var i;
 
       // paint the regular particles
       for ( i = 0; i < this.particles.length; i++ ) {
