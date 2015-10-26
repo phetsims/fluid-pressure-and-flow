@@ -123,10 +123,10 @@ define( function( require ) {
       else {
         var yDiffWithPoolBottom = y - this.poolDimensions.bottomChamber.y2;
         if ( yDiffWithPoolBottom > 0 ) {
-          var x1 = this.poolDimensions.leftChamber.leftBorderFunction( yDiffWithPoolBottom ),
-            x2 = this.poolDimensions.leftChamber.rightBorderFunction( yDiffWithPoolBottom ),
-            x3 = this.poolDimensions.rightChamber.leftBorderFunction( yDiffWithPoolBottom ),
-            x4 = this.poolDimensions.rightChamber.rightBorderFunction( yDiffWithPoolBottom );
+          var x1 = this.poolDimensions.leftChamber.leftBorderFunction( yDiffWithPoolBottom );
+          var x2 = this.poolDimensions.leftChamber.rightBorderFunction( yDiffWithPoolBottom );
+          var x3 = this.poolDimensions.rightChamber.leftBorderFunction( yDiffWithPoolBottom );
+          var x4 = this.poolDimensions.rightChamber.rightBorderFunction( yDiffWithPoolBottom );
 
           //inside left or right chamber
           isInside = (x1 < x && x < x2) || (x3 < x && x < x4);
