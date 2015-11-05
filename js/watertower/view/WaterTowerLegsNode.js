@@ -27,10 +27,11 @@ define( function( require ) {
 
     Node.call( this );
 
-    this.options = _.extend( {
+    options = _.extend( {
       legWidth: 10,
       crossbeamWidth: 4
     }, options );
+    this.options = options;
 
     var legPaintOptions = { stroke: 'black', lineWidth: 1, fill: 'black' };
     var crossbeamPaintOptions = { stroke: 'black', lineWidth: this.options.crossbeamWidth };
