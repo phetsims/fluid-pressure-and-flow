@@ -31,7 +31,7 @@ define( function( require ) {
       legWidth: 10,
       crossbeamWidth: 4
     }, options );
-    this.options = options;
+    this.options = options; // @private
 
     var legPaintOptions = { stroke: 'black', lineWidth: 1, fill: 'black' };
     var crossbeamPaintOptions = { stroke: 'black', lineWidth: this.options.crossbeamWidth };
