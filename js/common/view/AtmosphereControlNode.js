@@ -32,7 +32,7 @@ define( function( require ) {
   function AtmosphereControlNode( isAtmosphereProperty, options ) {
 
     // default options
-    this.options = _.extend( {
+    options = _.extend( {
       fill: '#f2fa6a',
       stroke: 'black',
       lineWidth: 1, // width of the background border
@@ -40,6 +40,7 @@ define( function( require ) {
       yMargin: 6,
       cornerRadius: 5 // radius of the rounded corners on the background
     }, options );
+    this.options = options;
 
     Node.call( this );
 
