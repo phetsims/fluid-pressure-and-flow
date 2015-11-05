@@ -15,7 +15,7 @@ define( function( require ) {
   function WaterTower( options ) {
     var waterTower = this;
 
-    this.options = _.extend( {
+    options = _.extend( {
       initialFluidLevel: 0.8,
       tankPosition: new Vector2( 0, 0 ) // tank frame bottom left, position in meters
     }, options );
@@ -31,8 +31,8 @@ define( function( require ) {
 
     PropertySet.call( this, {
       isHoleOpen: false,
-      fluidVolume: this.TANK_VOLUME * this.options.initialFluidLevel,
-      tankPosition: this.options.tankPosition //water tank bottom left
+      fluidVolume: this.TANK_VOLUME * options.initialFluidLevel,
+      tankPosition: options.tankPosition //water tank bottom left
     } );
 
     // Size of the hole in meters
