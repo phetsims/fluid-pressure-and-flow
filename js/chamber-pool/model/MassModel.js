@@ -1,4 +1,4 @@
-// Copyright 2002-2013, University of Colorado Boulder
+// Copyright 2013-2015, University of Colorado Boulder
 
 /**
  * Model for a draggable, rectangular "mass" object containing its mass, position, width, height, velocity etc.

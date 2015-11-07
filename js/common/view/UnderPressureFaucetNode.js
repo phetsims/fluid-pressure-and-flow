@@ -1,4 +1,4 @@
-// Copyright 2002-2013, University of Colorado Boulder
+// Copyright 2013-2014, University of Colorado Boulder
 
 /**
  * Faucet node for this sim.  Extends the scenery-phet faucet component and simplifies positioning within the

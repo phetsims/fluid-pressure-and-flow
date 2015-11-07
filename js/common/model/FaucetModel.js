@@ -1,4 +1,4 @@
-// Copyright 2002-2013, University of Colorado Boulder
+// Copyright 2013-2014, University of Colorado Boulder
 
 /**
  * Model for the faucet, which is user controlled and allows fluid to flow in from the top left of the screen or down

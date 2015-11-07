@@ -1,4 +1,4 @@
-// Copyright 2002-2013, University of Colorado Boulder
+// Copyright 2013-2015, University of Colorado Boulder
 
 /**
  * View for the mystery pool controls including a radio selection for mystery planet/fluid and a drop down for selecting
