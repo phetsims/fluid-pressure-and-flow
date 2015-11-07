@@ -1,4 +1,4 @@
-// Copyright 2002-2014, University of Colorado Boulder
+// Copyright 2014-2015, University of Colorado Boulder
 
 /**
  * Model for a simple spherical particle (Modified from watertower's WaterDrop). The red dots and black grid dots

@@ -1,4 +1,4 @@
-// Copyright 2002-2014, University of Colorado Boulder
+// Copyright 2014-2015, University of Colorado Boulder
 
 /**
  * Data structure for a control point. Modified from energy-skate-park/js/model/ControlPoint.js.
