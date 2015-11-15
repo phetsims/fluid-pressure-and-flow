@@ -16,13 +16,13 @@ define( function( require ) {
   var Screen = require( 'JOIST/Screen' );
 
   // strings
-  var waterTowerTitleString = require( 'string!FLUID_PRESSURE_AND_FLOW/waterTowerScreenTitle' );
+  var waterTowerScreenTitleString = require( 'string!FLUID_PRESSURE_AND_FLOW/waterTowerScreenTitle' );
 
   // images
   var waterTowerScreenIcon = require( 'image!FLUID_PRESSURE_AND_FLOW/water-tower-mockup.png' );
 
   function WaterTowerScreen() {
-    Screen.call( this, waterTowerTitleString, new Image( waterTowerScreenIcon ),
+    Screen.call( this, waterTowerScreenTitleString, new Image( waterTowerScreenIcon ),
       function() { return new WaterTowerModel(); },
       function( model ) { return new WaterTowerView( model ); },
       { backgroundColor: 'white' }

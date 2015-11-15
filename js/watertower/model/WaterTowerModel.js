@@ -28,10 +28,9 @@ define( function( require ) {
   var getStandardAirPressure = require( 'UNDER_PRESSURE/common/model/getStandardAirPressure' );
 
   // strings
-  var densityUnitsEnglish = require( 'string!FLUID_PRESSURE_AND_FLOW/densityUnitsEnglish' );
-  var densityUnitsMetric = require( 'string!FLUID_PRESSURE_AND_FLOW/densityUnitsMetric' );
-  var valueWithUnitsPattern = require( 'string!FLUID_PRESSURE_AND_FLOW/valueWithUnitsPattern' );
-
+  var densityUnitsEnglishString = require( 'string!FLUID_PRESSURE_AND_FLOW/densityUnitsEnglish' );
+  var densityUnitsMetricString = require( 'string!FLUID_PRESSURE_AND_FLOW/densityUnitsMetric' );
+  var valueWithUnitsPatternString = require( 'string!FLUID_PRESSURE_AND_FLOW/valueWithUnitsPattern' );
 
   /**
    * Constructor for the sim model.
@@ -354,11 +353,11 @@ define( function( require ) {
 
     getFluidDensityString: function() {
       if ( this.measureUnits === 'english' ) {
-        return StringUtils.format( valueWithUnitsPattern,
-          (Units.FLUID_DENSITY_ENGLISH_PER_METRIC * this.fluidDensity).toFixed( 2 ), densityUnitsEnglish );
+        return StringUtils.format( valueWithUnitsPatternString,
+          (Units.FLUID_DENSITY_ENGLISH_PER_METRIC * this.fluidDensity).toFixed( 2 ), densityUnitsEnglishString );
       }
       else {
-        return StringUtils.format( valueWithUnitsPattern, Math.round( this.fluidDensity ), densityUnitsMetric );
+        return StringUtils.format( valueWithUnitsPatternString, Math.round( this.fluidDensity ), densityUnitsMetricString );
       }
     },
 

@@ -27,7 +27,7 @@ define( function( require ) {
   var rulerString = require( 'string!FLUID_PRESSURE_AND_FLOW/ruler' );
   var frictionString = require( 'string!FLUID_PRESSURE_AND_FLOW/friction' );
   var fluxMeterString = require( 'string!FLUID_PRESSURE_AND_FLOW/fluxMeter' );
-  var dotString = require( 'string!FLUID_PRESSURE_AND_FLOW/dots' );
+  var dotsString = require( 'string!FLUID_PRESSURE_AND_FLOW/dots' );
 
   /**
    *
@@ -52,7 +52,7 @@ define( function( require ) {
     var ruler = { label: new Text( rulerString, textOptions ), icon: createRulerIcon() };
     var friction = { label: new Text( frictionString, textOptions ) };
     var fluxMeter = { label: new Text( fluxMeterString, textOptions ) };
-    var dots = { label: new Text( dotString, textOptions ), icon: createDotsIcon() };
+    var dots = { label: new Text( dotsString, textOptions ), icon: createDotsIcon() };
 
     // compute the maximum item width
     var widestItemSpec = _.max( [ ruler, friction, fluxMeter, dots ], function( item ) {

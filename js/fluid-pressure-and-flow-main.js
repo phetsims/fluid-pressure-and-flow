@@ -16,8 +16,8 @@ define( function( require ) {
   var SimLauncher = require( 'JOIST/SimLauncher' );
 
   // strings
-  var simTitle = require( 'string!FLUID_PRESSURE_AND_FLOW/fluid-pressure-and-flow.title' );
-  var underPressureTitle = require( 'string!FLUID_PRESSURE_AND_FLOW/underPressureScreenTitle' );
+  var fluidPressureAndFlowTitleString = require( 'string!FLUID_PRESSURE_AND_FLOW/fluid-pressure-and-flow.title' );
+  var underPressureScreenTitleString = require( 'string!FLUID_PRESSURE_AND_FLOW/underPressureScreenTitle' );
 
   var simOptions = {
     credits: {
@@ -30,8 +30,8 @@ define( function( require ) {
   };
 
   SimLauncher.launch( function() {
-    var sim = new Sim( simTitle, [
-        new UnderPressureScreen( underPressureTitle ),
+    var sim = new Sim( fluidPressureAndFlowTitleString, [
+        new UnderPressureScreen( underPressureScreenTitleString ),
         new FlowScreen(),
         new WaterTowerScreen() ],
       simOptions );

@@ -25,8 +25,8 @@ define( function( require ) {
 
   // strings
   var speedString = require( 'string!FLUID_PRESSURE_AND_FLOW/speed' );
-  var mPerS = require( 'string!FLUID_PRESSURE_AND_FLOW/mPerS' );
-  var ftPerS = require( 'string!FLUID_PRESSURE_AND_FLOW/ftPerS' );
+  var mPerSString = require( 'string!FLUID_PRESSURE_AND_FLOW/mPerS' );
+  var ftPerSString = require( 'string!FLUID_PRESSURE_AND_FLOW/ftPerS' );
 
   /**
    * Main constructor for VelocitySensorNode.
@@ -191,8 +191,8 @@ define( function( require ) {
         }
         else {
           labelText.text = units === 'metric' ?
-                           velocity.magnitude().toFixed( 1 ) + ' ' + mPerS :
-                           (velocity.magnitude() * 3.28).toFixed( 1 ) + ' ' + ftPerS;
+                           velocity.magnitude().toFixed( 1 ) + ' ' + mPerSString :
+                           (velocity.magnitude() * 3.28).toFixed( 1 ) + ' ' + ftPerSString;
         }
         labelText.center = innerMostRectangle.center;
       } );

@@ -27,15 +27,15 @@ define( function( require ) {
   var Units = require( 'UNDER_PRESSURE/common/model/Units' );
 
   // strings
-  var flowRateString = require( 'string!FLUID_PRESSURE_AND_FLOW/flowRateWithColon' );
+  var flowRateWithColonString = require( 'string!FLUID_PRESSURE_AND_FLOW/flowRateWithColon' );
   var areaString = require( 'string!FLUID_PRESSURE_AND_FLOW/area' );
   var fluxString = require( 'string!FLUID_PRESSURE_AND_FLOW/flux' );
-  var rateUnitsMetric = require( 'string!FLUID_PRESSURE_AND_FLOW/rateUnitsMetric' );
-  var areaUnitsMetric = require( 'string!FLUID_PRESSURE_AND_FLOW/areaUnitsMetric' );
-  var fluxUnitsMetric = require( 'string!FLUID_PRESSURE_AND_FLOW/fluxUnitsMetric' );
-  var rateUnitsEnglish = require( 'string!FLUID_PRESSURE_AND_FLOW/rateUnitsEnglish' );
-  var areaUnitsEnglish = require( 'string!FLUID_PRESSURE_AND_FLOW/areaUnitsEnglish' );
-  var fluxUnitsEnglish = require( 'string!FLUID_PRESSURE_AND_FLOW/fluxUnitsEnglish' );
+  var rateUnitsMetricString = require( 'string!FLUID_PRESSURE_AND_FLOW/rateUnitsMetric' );
+  var areaUnitsMetricString = require( 'string!FLUID_PRESSURE_AND_FLOW/areaUnitsMetric' );
+  var fluxUnitsMetricString = require( 'string!FLUID_PRESSURE_AND_FLOW/fluxUnitsMetric' );
+  var rateUnitsEnglishString = require( 'string!FLUID_PRESSURE_AND_FLOW/rateUnitsEnglish' );
+  var areaUnitsEnglishString = require( 'string!FLUID_PRESSURE_AND_FLOW/areaUnitsEnglish' );
+  var fluxUnitsEnglishString = require( 'string!FLUID_PRESSURE_AND_FLOW/fluxUnitsEnglish' );
 
   // images
   var twoSidedHandleImage = require( 'image!FLUID_PRESSURE_AND_FLOW/handle-two-sided.png' );
@@ -66,19 +66,19 @@ define( function( require ) {
     var textOptions = { font: new PhetFont( 10 ) };
 
     // flowRate row
-    var flowRateText = new Text( flowRateString, textOptions );
+    var flowRateText = new Text( flowRateWithColonString, textOptions );
     this.flowRateValue = new Text( '', textOptions );
-    this.flowRateUnit = new SubSupText( rateUnitsMetric, textOptions );
+    this.flowRateUnit = new SubSupText( rateUnitsMetricString, textOptions );
 
     // area row
     var area = new Text( areaString, textOptions );
     this.areaValue = new Text( '', textOptions );
-    this.areaUnit = new SubSupText( areaUnitsMetric, textOptions );
+    this.areaUnit = new SubSupText( areaUnitsMetricString, textOptions );
 
     // flux row
     var flux = new Text( fluxString, textOptions );
     this.fluxValue = new Text( '', textOptions );
-    this.fluxUnit = new SubSupText( fluxUnitsMetric, textOptions );
+    this.fluxUnit = new SubSupText( fluxUnitsMetricString, textOptions );
 
     // Split the content into 3 vboxes. First vbox holds the right aligned title,
     // second the right aligned value and the third vbox holds the left aligned units text
@@ -254,26 +254,26 @@ define( function( require ) {
 
       if ( units === 'metric' ) {
         this.flowRateValue.text = this.flowModel.fluxMeter.getFlowRate().toFixed( 1 );
-        this.flowRateUnit.text = rateUnitsMetric;
+        this.flowRateUnit.text = rateUnitsMetricString;
 
         this.areaValue.text = this.flowModel.fluxMeter.getArea().toFixed( 1 );
-        this.areaUnit.text = areaUnitsMetric;
+        this.areaUnit.text = areaUnitsMetricString;
 
         this.fluxValue.text = this.flowModel.fluxMeter.getFlux().toFixed( 1 );
-        this.fluxUnit.text = fluxUnitsMetric;
+        this.fluxUnit.text = fluxUnitsMetricString;
       }
       else {
         var flowRate = this.flowModel.fluxMeter.getFlowRate() * Units.FEET_CUBE_PER_LITER;
         this.flowRateValue.text = flowRate.toFixed( 1 );
-        this.flowRateUnit.text = rateUnitsEnglish;
+        this.flowRateUnit.text = rateUnitsEnglishString;
 
         var area = this.flowModel.fluxMeter.getArea() * Units.SQUARE_FEET_PER_SQUARE_METER;
         this.areaValue.text = area.toFixed( 1 );
-        this.areaUnit.text = areaUnitsEnglish;
+        this.areaUnit.text = areaUnitsEnglishString;
 
         var flux = this.flowModel.fluxMeter.getFlux() * Units.FEET_PER_CENTIMETER;
         this.fluxValue.text = flux.toFixed( 1 );
-        this.fluxUnit.text = fluxUnitsEnglish;
+        this.fluxUnit.text = fluxUnitsEnglishString;
       }
     }
   } );

@@ -21,8 +21,8 @@ define( function( require ) {
   var PhetColorScheme = require( 'SCENERY_PHET/PhetColorScheme' );
 
   // strings
-  var units_metersString = require( 'string!FLUID_PRESSURE_AND_FLOW/m' );
-  var units_feetString = require( 'string!FLUID_PRESSURE_AND_FLOW/ft' );
+  var mString = require( 'string!FLUID_PRESSURE_AND_FLOW/m' );
+  var ftString = require( 'string!FLUID_PRESSURE_AND_FLOW/ft' );
 
   /**
    * Main constructor
@@ -76,7 +76,7 @@ define( function( require ) {
 
     // ruler in meters
     var metersRuler = new RulerNode( rulerHeight, rulerWidth, meterMajorStickWidth, options.meterTicks,
-      units_metersString, {
+      mString, {
         minorTicksPerMajorTick: 4,
         unitsFont: scaleFont,
         majorTickFont: scaleFont,
@@ -87,7 +87,7 @@ define( function( require ) {
     this.addChild( metersRuler );
 
     // ruler in feet
-    var feetRuler = new RulerNode( rulerHeight, rulerWidth, feetMajorStickWidth, options.feetTicks, units_feetString, {
+    var feetRuler = new RulerNode( rulerHeight, rulerWidth, feetMajorStickWidth, options.feetTicks, ftString, {
       minorTicksPerMajorTick: 4,
       unitsFont: scaleFont,
       majorTickFont: scaleFont,

@@ -19,10 +19,10 @@ define( function( require ) {
   var flowScreenIcon = require( 'image!FLUID_PRESSURE_AND_FLOW/flow-mockup.png' );
 
   // strings
-  var flowTitleString = require( 'string!FLUID_PRESSURE_AND_FLOW/flowScreenTitle' );
+  var flowScreenTitleString = require( 'string!FLUID_PRESSURE_AND_FLOW/flowScreenTitle' );
 
   function FlowScreen() {
-    Screen.call( this, flowTitleString, new Image( flowScreenIcon ),
+    Screen.call( this, flowScreenTitleString, new Image( flowScreenIcon ),
       function() { return new FlowModel(); },
       function( model ) { return new FlowView( model ); },
       { backgroundColor: 'white' }
