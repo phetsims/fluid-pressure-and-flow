@@ -20,7 +20,7 @@ define( function( require ) {
   var LinearGradient = require( 'SCENERY/util/LinearGradient' );
 
   // strings
-  var massLabelPattern = require( 'string!UNDER_PRESSURE/massLabelPattern' );
+  var massLabelPatternString = require( 'string!UNDER_PRESSURE/massLabelPattern' );
 
   /**
    * @param {MassModel} massModel of simulation
@@ -49,7 +49,7 @@ define( function( require ) {
     } );
     this.addChild( mass );
 
-    this.addChild( new Text( StringUtils.format( massLabelPattern, massModel.mass ),
+    this.addChild( new Text( StringUtils.format( massLabelPatternString, massModel.mass ),
       {
         x: mass.centerX - 15,
         y: mass.centerY + 3,

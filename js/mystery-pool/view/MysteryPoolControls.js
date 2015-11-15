@@ -22,14 +22,14 @@ define( function( require ) {
   var DerivedProperty = require( 'AXON/DerivedProperty' );
 
   // strings
-  var mysteryFluid = require( 'string!UNDER_PRESSURE/mysteryFluid' );
-  var mysteryPlanet = require( 'string!UNDER_PRESSURE/mysteryPlanet' );
-  var planetA = require( 'string!UNDER_PRESSURE/planetA' );
-  var planetB = require( 'string!UNDER_PRESSURE/planetB' );
-  var planetC = require( 'string!UNDER_PRESSURE/planetC' );
-  var fluidA = require( 'string!UNDER_PRESSURE/fluidA' );
-  var fluidB = require( 'string!UNDER_PRESSURE/fluidB' );
-  var fluidC = require( 'string!UNDER_PRESSURE/fluidC' );
+  var mysteryFluidString = require( 'string!UNDER_PRESSURE/mysteryFluid' );
+  var mysteryPlanetString = require( 'string!UNDER_PRESSURE/mysteryPlanet' );
+  var planetAString = require( 'string!UNDER_PRESSURE/planetA' );
+  var planetBString = require( 'string!UNDER_PRESSURE/planetB' );
+  var planetCString = require( 'string!UNDER_PRESSURE/planetC' );
+  var fluidAString = require( 'string!UNDER_PRESSURE/fluidA' );
+  var fluidBString = require( 'string!UNDER_PRESSURE/fluidB' );
+  var fluidCString = require( 'string!UNDER_PRESSURE/fluidC' );
 
   /**
    * @param {MysteryPoolModel} mysteryPoolModel
@@ -45,9 +45,9 @@ define( function( require ) {
     var background = new Rectangle( 0, 0, 0, 1, { stroke: 'gray', lineWidth: 1, fill: '#f2fa6a', pickable: false } );
 
     var mysteryFluidRadio = new AquaRadioButton( mysteryPoolModel.underPressureModel.mysteryChoiceProperty,
-      'fluidDensity', new Text( mysteryFluid, textOptions ), { radius: 6 } );
+      'fluidDensity', new Text( mysteryFluidString, textOptions ), { radius: 6 } );
     var mysteryPlanetRadio = new AquaRadioButton( mysteryPoolModel.underPressureModel.mysteryChoiceProperty, 'gravity',
-      new Text( mysteryPlanet, textOptions ), { radius: 6 } );
+      new Text( mysteryPlanetString, textOptions ), { radius: 6 } );
     var touchExpansion = 4;
     var maxRadioButtonWidth = _.max( [ mysteryFluidRadio, mysteryPlanetRadio ], function( item ) {
         return item.width;
@@ -79,9 +79,9 @@ define( function( require ) {
 
     // items
     this.fluidDensityComboBox = new ComboBox( [
-      ComboBox.createItem( new Text( fluidA, textOptions ), 0 ),
-      ComboBox.createItem( new Text( fluidB, textOptions ), 1 ),
-      ComboBox.createItem( new Text( fluidC, textOptions ), 2 )
+      ComboBox.createItem( new Text( fluidAString, textOptions ), 0 ),
+      ComboBox.createItem( new Text( fluidBString, textOptions ), 1 ),
+      ComboBox.createItem( new Text( fluidCString, textOptions ), 2 )
     ], mysteryPoolModel.customFluidDensityProperty, mysteryPoolControls, {
       itemHighlightFill: 'rgb(218,255,255)',
       y: 253,
@@ -93,9 +93,9 @@ define( function( require ) {
     this.addChild( this.fluidDensityComboBox );
 
     this.gravityComboBox = new ComboBox( [
-      ComboBox.createItem( new Text( planetA, textOptions ), 0 ),
-      ComboBox.createItem( new Text( planetB, textOptions ), 1 ),
-      ComboBox.createItem( new Text( planetC, textOptions ), 2 )
+      ComboBox.createItem( new Text( planetAString, textOptions ), 0 ),
+      ComboBox.createItem( new Text( planetBString, textOptions ), 1 ),
+      ComboBox.createItem( new Text( planetCString, textOptions ), 2 )
     ], mysteryPoolModel.customGravityProperty, mysteryPoolControls, {
       itemHighlightFill: 'rgb(218,255,255)',
       y: this.fluidDensityComboBox.y,
@@ -113,12 +113,12 @@ define( function( require ) {
     };
     this.choicePanel.resizeWidth( content.width + 10 );
 
-    new DerivedProperty( [mysteryPoolModel.underPressureModel.mysteryChoiceProperty],
+    new DerivedProperty( [ mysteryPoolModel.underPressureModel.mysteryChoiceProperty ],
       function( mysteryChoice ) {
         return mysteryChoice === 'fluidDensity';
       } ).linkAttribute( mysteryPoolControls.fluidDensityComboBox, 'visible' );
 
-    new DerivedProperty( [mysteryPoolModel.underPressureModel.mysteryChoiceProperty],
+    new DerivedProperty( [ mysteryPoolModel.underPressureModel.mysteryChoiceProperty ],
       function( mysteryChoice ) {
         return mysteryChoice === 'gravity';
       } ).linkAttribute( mysteryPoolControls.gravityComboBox, 'visible' );

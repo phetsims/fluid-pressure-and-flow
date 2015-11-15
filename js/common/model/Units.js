@@ -17,11 +17,11 @@ define( function( require ) {
   var atmString = require( 'string!UNDER_PRESSURE/atm' );
   var psiString = require( 'string!UNDER_PRESSURE/psi' );
   var kPaString = require( 'string!UNDER_PRESSURE/kPa' );
-  var valueWithUnitsPattern = require( 'string!UNDER_PRESSURE/valueWithUnitsPattern' );
-  var ftPerSPerS = require( 'string!UNDER_PRESSURE/ftPerSPerS' );
-  var mPerSPerS = require( 'string!UNDER_PRESSURE/mPerSPerS' );
-  var densityUnitsEnglish = require( 'string!UNDER_PRESSURE/densityUnitsEnglish' );
-  var densityUnitsMetric = require( 'string!UNDER_PRESSURE/densityUnitsMetric' );
+  var valueWithUnitsPatternString = require( 'string!UNDER_PRESSURE/valueWithUnitsPattern' );
+  var ftPerSPerSString = require( 'string!UNDER_PRESSURE/ftPerSPerS' );
+  var mPerSPerSString = require( 'string!UNDER_PRESSURE/mPerSPerS' );
+  var densityUnitsEnglishString = require( 'string!UNDER_PRESSURE/densityUnitsEnglish' );
+  var densityUnitsMetricString = require( 'string!UNDER_PRESSURE/densityUnitsMetric' );
 
   // constants
   var ATMOSPHERE_PER_PASCAL = 9.8692E-6;
@@ -47,14 +47,14 @@ define( function( require ) {
      */
     getPressureString: function( pressure, measureUnits, abbreviated ) {
       if ( measureUnits === 'metric' ) {
-        return StringUtils.format( valueWithUnitsPattern, Util.toFixed( pressure / 1000, abbreviated ? 1 : 3 ), kPaString );
+        return StringUtils.format( valueWithUnitsPatternString, Util.toFixed( pressure / 1000, abbreviated ? 1 : 3 ), kPaString );
       }
       else if ( measureUnits === 'atmosphere' ) {
-        return StringUtils.format( valueWithUnitsPattern,
+        return StringUtils.format( valueWithUnitsPatternString,
           Util.toFixed( pressure * ATMOSPHERE_PER_PASCAL, abbreviated ? 2 : 4 ), atmString );
       }
       else if ( measureUnits === 'english' ) {
-        return StringUtils.format( valueWithUnitsPattern,
+        return StringUtils.format( valueWithUnitsPatternString,
           Util.toFixed( pressure * PSI_PER_PASCAL, abbreviated ? 2 : 4 ), psiString );
       }
     },
@@ -68,11 +68,11 @@ define( function( require ) {
     getGravityString: function( gravity, measureUnits ) {
 
       if ( measureUnits === 'english' ) {
-        return StringUtils.format( valueWithUnitsPattern, Util.toFixed( GRAVITY_ENGLISH_PER_METRIC * gravity, 1 ),
-          ftPerSPerS );
+        return StringUtils.format( valueWithUnitsPatternString, Util.toFixed( GRAVITY_ENGLISH_PER_METRIC * gravity, 1 ),
+          ftPerSPerSString );
       }
       else {
-        return StringUtils.format( valueWithUnitsPattern, Util.toFixed( gravity, 1 ), mPerSPerS );
+        return StringUtils.format( valueWithUnitsPatternString, Util.toFixed( gravity, 1 ), mPerSPerSString );
       }
     },
 
@@ -87,14 +87,14 @@ define( function( require ) {
       var units;
       if ( measureUnits === 'english' ) {
         value = FLUID_DENSITY_ENGLISH_PER_METRIC * fluidDensity;
-        units = densityUnitsEnglish;
+        units = densityUnitsEnglishString;
       }
       else {
         value = fluidDensity;
-        units = densityUnitsMetric;
+        units = densityUnitsMetricString;
       }
 
-      return StringUtils.format( valueWithUnitsPattern, Util.toFixed( value, value >= 100 ? 0 : 1 ), units );
+      return StringUtils.format( valueWithUnitsPatternString, Util.toFixed( value, value >= 100 ? 0 : 1 ), units );
     },
 
     // converts feet to meters

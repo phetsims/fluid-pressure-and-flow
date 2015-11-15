@@ -12,7 +12,7 @@ define( function( require ) {
   var UnderPressureScreen = require( 'UNDER_PRESSURE/UnderPressureScreen' );
 
   // strings
-  var simTitle = require( 'string!UNDER_PRESSURE/under-pressure.title' );
+  var underPressureTitleString = require( 'string!UNDER_PRESSURE/under-pressure.title' );
 
   var simOptions = {
     credits: {
@@ -26,8 +26,8 @@ define( function( require ) {
   SimLauncher.launch( function() {
 
     // Create and start the sim
-    new Sim( simTitle, [
-      new UnderPressureScreen( simTitle )
+    new Sim( underPressureTitleString, [
+      new UnderPressureScreen( underPressureTitleString )
     ], simOptions ).start();
   } );
 } );

@@ -20,9 +20,9 @@ define( function( require ) {
   var StringUtils = require( 'PHETCOMMON/util/StringUtils' );
 
   // strings
-  var metersString = require( 'string!UNDER_PRESSURE/m' );
-  var feetString = require( 'string!UNDER_PRESSURE/ft' );
-  var valueWithUnitsPattern = require( 'string!UNDER_PRESSURE/valueWithUnitsPattern' );
+  var mString = require( 'string!UNDER_PRESSURE/m' );
+  var ftString = require( 'string!UNDER_PRESSURE/ft' );
+  var valueWithUnitsPatternString = require( 'string!UNDER_PRESSURE/valueWithUnitsPattern' );
 
   /**
    * @param {UnderPressureModel} underPressureModel of the sim
@@ -49,7 +49,7 @@ define( function( require ) {
     // Add the labels for meters
     var depthLabelsMeters = new Node();
     for ( var depthMeters = 0; depthMeters <= poolHeight; depthMeters++ ) {
-      var metersText = new Text( StringUtils.format( valueWithUnitsPattern, depthMeters, metersString ), fontOptions );
+      var metersText = new Text( StringUtils.format( valueWithUnitsPatternString, depthMeters, mString ), fontOptions );
       var metersLabelRect = new Rectangle( 0, 0, metersText.width + 5, metersText.height + 5, 10, 10,
         { fill: '#67a257' } );
       metersText.center = metersLabelRect.center;
@@ -62,7 +62,7 @@ define( function( require ) {
     // Add the labels for feet, adjust for loop to limit number of labels.
     var depthLabelsFeet = new Node();
     for ( var depthFeet = 0; depthFeet <= poolHeight * 3.3 + 1; depthFeet += 5 ) {
-      var feetText = new Text( StringUtils.format( valueWithUnitsPattern, depthFeet, feetString ), fontOptions );
+      var feetText = new Text( StringUtils.format( valueWithUnitsPatternString, depthFeet, ftString ), fontOptions );
       var feetLabelRect = new Rectangle( 0, 0, feetText.width + 5, feetText.height + 5, 10, 10, { fill: '#67a257' } );
       feetText.center = feetLabelRect.center;
       feetLabelRect.addChild( feetText );

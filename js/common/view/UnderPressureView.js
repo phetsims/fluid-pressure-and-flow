@@ -36,12 +36,12 @@ define( function( require ) {
   // strings
   var fluidDensityString = require( 'string!UNDER_PRESSURE/fluidDensity' );
   var gravityString = require( 'string!UNDER_PRESSURE/gravity' );
-  var EarthString = require( 'string!UNDER_PRESSURE/earth' );
-  var MarsString = require( 'string!UNDER_PRESSURE/mars' );
-  var JupiterString = require( 'string!UNDER_PRESSURE/jupiter' );
-  var GasolineString = require( 'string!UNDER_PRESSURE/gasoline' );
-  var WaterString = require( 'string!UNDER_PRESSURE/water' );
-  var HoneyString = require( 'string!UNDER_PRESSURE/honey' );
+  var earthString = require( 'string!UNDER_PRESSURE/earth' );
+  var marsString = require( 'string!UNDER_PRESSURE/mars' );
+  var jupiterString = require( 'string!UNDER_PRESSURE/jupiter' );
+  var gasolineString = require( 'string!UNDER_PRESSURE/gasoline' );
+  var waterString = require( 'string!UNDER_PRESSURE/water' );
+  var honeyString = require( 'string!UNDER_PRESSURE/honey' );
 
   //View layout related constants
   var inset = 15;
@@ -104,15 +104,15 @@ define( function( require ) {
         decimals: 1,
         ticks: [
           {
-            title: EarthString,
+            title: earthString,
             value: UnderPressureConstants.EARTH_GRAVITY
           },
           {
-            title: MarsString,
+            title: marsString,
             value: underPressureModel.gravityRange.min
           },
           {
-            title: JupiterString,
+            title: jupiterString,
             value: underPressureModel.gravityRange.max
           }
         ]
@@ -133,15 +133,15 @@ define( function( require ) {
         title: fluidDensityString,
         ticks: [
           {
-            title: WaterString,
+            title: waterString,
             value: UnderPressureConstants.WATER_DENSITY
           },
           {
-            title: GasolineString,
+            title: gasolineString,
             value: underPressureModel.fluidDensityRange.min
           },
           {
-            title: HoneyString,
+            title: honeyString,
             value: underPressureModel.fluidDensityRange.max
           }
         ]

@@ -22,8 +22,8 @@ define( function( require ) {
   var PhetColorScheme = require( 'SCENERY_PHET/PhetColorScheme' );
 
   // strings
-  var units_metersString = require( 'string!UNDER_PRESSURE/m' );
-  var units_feetString = require( 'string!UNDER_PRESSURE/ft' );
+  var mString = require( 'string!UNDER_PRESSURE/m' );
+  var ftString = require( 'string!UNDER_PRESSURE/ft' );
 
   /**
    * Constructor for the under pressure ruler.
@@ -65,7 +65,7 @@ define( function( require ) {
     var meterRulerMajorStickWidth = Math.floor( modelViewTransform.modelToViewX( 1 ) );
     var metersRuler = new RulerNode( meterRulerHeight, rulerWidth, meterRulerMajorStickWidth,
       [ '0', '1', '2', '3', '4', '5' ],
-      units_metersString, {
+      mString, {
         minorTicksPerMajorTick: 4,
         unitsSpacing: 4,
         unitsFont: scaleFont,
@@ -80,7 +80,7 @@ define( function( require ) {
     var feetRulerHeight = modelViewTransform.modelToViewX( Units.feetToMeters( 10 ) );
     var feetRulerMajorStickWidth = Math.floor( modelViewTransform.modelToViewX( Units.feetToMeters( 1 ) ) );
     var feetRuler = new RulerNode( feetRulerHeight, rulerWidth, feetRulerMajorStickWidth,
-      [ '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10' ], units_feetString, {
+      [ '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10' ], ftString, {
         minorTicksPerMajorTick: 2,
         unitsSpacing: 4,
         unitsFont: scaleFont,

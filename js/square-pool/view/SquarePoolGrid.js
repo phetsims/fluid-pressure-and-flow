@@ -19,8 +19,8 @@ define( function( require ) {
   var Units = require( 'UNDER_PRESSURE/common/model/Units' );
 
   // strings
-  var metersStringPattern = require( 'string!UNDER_PRESSURE/readoutMeters' );
-  var feetStringPattern = require( 'string!UNDER_PRESSURE/readoutFeet' );
+  var readoutMetersString = require( 'string!UNDER_PRESSURE/readoutMeters' );
+  var readoutFeetString = require( 'string!UNDER_PRESSURE/readoutFeet' );
 
   /**
    * @param {SquarePoolModel} squarePoolModel of the simulation
@@ -39,7 +39,7 @@ define( function( require ) {
     // meter labels
     var metersLabels = new Node();
     for ( var i = 0; i < 4; i++ ) {
-      metersLabels.addChild( new Text( StringUtils.format( metersStringPattern, i ), _.extend( {
+      metersLabels.addChild( new Text( StringUtils.format( readoutMetersString, i ), _.extend( {
         right: modelViewTransform.modelToViewX( poolDimensions.x1 ) - 8,
         centerY: modelViewTransform.modelToViewY( -i )
       }, fontOptions ) ) );
@@ -48,7 +48,7 @@ define( function( require ) {
     // feet labels
     var feetLabels = new Node();
     for ( i = 0; i < 11; i++ ) {
-      feetLabels.addChild( new Text( StringUtils.format( feetStringPattern, i ), _.extend( {
+      feetLabels.addChild( new Text( StringUtils.format( readoutFeetString, i ), _.extend( {
         right: modelViewTransform.modelToViewX( poolDimensions.x1 ) - 8,
         centerY: modelViewTransform.modelToViewY( -Units.feetToMeters( i ) )
       }, fontOptions ) ) );
