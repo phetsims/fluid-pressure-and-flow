@@ -24,7 +24,7 @@
     "value": "m/s<sup>2</sup>"
   },
   "densityUnitsEnglish": {
-    "value": "<html>lb/ft<sup>3</sup></html>"
+    "value": "lb/ft<sup>3</sup>"
   },
   "ruler": {
     "value": "Ruler"
@@ -138,7 +138,7 @@
     "value": "m<sup>2</sup>"
   },
   "densityUnitsMetric": {
-    "value": "<html>kg/m<sup>3</sup></html>"
+    "value": "kg/m<sup>3</sup>"
   },
   "high": {
     "value": "high"
