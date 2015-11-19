@@ -12,7 +12,7 @@
     "value": "Earth"
   },
   "fluxUnitsMetric": {
-    "value": "<html>L / (m<sup>2</sup>s)</html>"
+    "value": "L / (m<sup>2</sup>s)"
   },
   "fluidDensity": {
     "value": "Fluid Density"
@@ -30,7 +30,7 @@
     "value": "m/s<sup>2</sup>"
   },
   "densityUnitsEnglish": {
-    "value": "<html>lb/ft<sup>3</sup></html>"
+    "value": "lb/ft<sup>3</sup>"
   },
   "ruler": {
     "value": "Ruler"
@@ -105,7 +105,7 @@
     "value": "Area:"
   },
   "rateUnitsEnglish": {
-    "value": "<html>ft<sup>3</sup>/s</html>"
+    "value": "ft<sup>3</sup>/s"
   },
   "water": {
     "value": "water"
@@ -144,10 +144,10 @@
     "value": "Atmosphere"
   },
   "areaUnitsMetric": {
-    "value": "<html>m<sup>2</sup></html>"
+    "value": "m<sup>2</sup>"
   },
   "densityUnitsMetric": {
-    "value": "<html>kg/m<sup>3</sup></html>"
+    "value": "kg/m<sup>3</sup>"
   },
   "high": {
     "value": "high"
@@ -162,7 +162,7 @@
     "value": "m"
   },
   "fluxUnitsEnglish": {
-    "value": "<html>ft<sup>3</sup> / (ft<sup>2</sup> s)</html>"
+    "value": "ft<sup>3</sup> / (ft<sup>2</sup> s)"
   },
   "flow": {
     "value": "Flow"
@@ -180,7 +180,7 @@
     "value": "ft/s"
   },
   "areaUnitsEnglish": {
-    "value": "<html>ft<sup>2</sup></html>"
+    "value": "ft<sup>2</sup>"
   },
   "mars": {
     "value": "Mars"
