@@ -59,28 +59,28 @@ define( function( require ) {
     var dummyText = new Text( '', { font: new PhetFont( 3 ) } );
 
     // touch areas
-    var touchExpansion = 5;
+    var touchAreaDilation = 5;
     var maxRadioButtonWidth = _.max( [ metricRadio, atmosphereRadio, englishRadio ], function( item ) {
       return item.width;
     } ).width;
 
     //touch areas
     metricRadio.touchArea = new Bounds2(
-      ( metricRadio.localBounds.minX - touchExpansion ),
+      ( metricRadio.localBounds.minX - touchAreaDilation ),
       metricRadio.localBounds.minY,
       ( metricRadio.localBounds.minX + maxRadioButtonWidth ),
       metricRadio.localBounds.maxY
     );
 
     atmosphereRadio.touchArea = new Bounds2(
-      ( atmosphereRadio.localBounds.minX - touchExpansion ),
+      ( atmosphereRadio.localBounds.minX - touchAreaDilation ),
       atmosphereRadio.localBounds.minY,
       ( atmosphereRadio.localBounds.minX + maxRadioButtonWidth ),
       atmosphereRadio.localBounds.maxY
     );
 
     englishRadio.touchArea = new Bounds2(
-      ( englishRadio.localBounds.minX - touchExpansion ),
+      ( englishRadio.localBounds.minX - touchAreaDilation ),
       englishRadio.localBounds.minY,
       ( englishRadio.localBounds.minX + maxRadioButtonWidth ),
       englishRadio.localBounds.maxY );
