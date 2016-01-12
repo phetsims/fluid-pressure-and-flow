@@ -46,7 +46,7 @@ define( function( require ) {
         baseColor: 'red',
         stroke: 'red',
         fill: 'red',
-        touchExpansion: 10
+        touchAreaDilation: 10
       } );
 
 
