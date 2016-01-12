@@ -25,7 +25,7 @@ define( function( require ) {
   var PIPE_INITIAL_HEIGHT = 2.1; //in meters
   var PIPE_INITIAL_SCALE = 0.36;
   var CROSS_SECTION_MIN_HEIGHT = 1; //meters
-  var HANDLE_X_TOUCH_EXPAND = 30;
+  var HANDLE_TOUCH_AREA_X_DILATION = 30;
 
   /**
    * @param {PipeHandlesNode} pipeHandlesNode
@@ -62,14 +62,14 @@ define( function( require ) {
 
     // expand the touch area upwards for the top handles and downwards for bottom handles
     if ( isTop ) {
-      handleNode.touchArea = new Bounds2( handleNode.localBounds.minX - HANDLE_X_TOUCH_EXPAND,
+      handleNode.touchArea = new Bounds2( handleNode.localBounds.minX - HANDLE_TOUCH_AREA_X_DILATION,
         handleNode.localBounds.minY,
-        handleNode.localBounds.maxX + HANDLE_X_TOUCH_EXPAND, handleNode.localBounds.maxY + 40 );
+        handleNode.localBounds.maxX + HANDLE_TOUCH_AREA_X_DILATION, handleNode.localBounds.maxY + 40 );
     }
     else {
-      handleNode.touchArea = new Bounds2( handleNode.localBounds.minX - HANDLE_X_TOUCH_EXPAND,
+      handleNode.touchArea = new Bounds2( handleNode.localBounds.minX - HANDLE_TOUCH_AREA_X_DILATION,
         handleNode.localBounds.minY + 30,
-        handleNode.localBounds.maxX + HANDLE_X_TOUCH_EXPAND, handleNode.localBounds.maxY + 60 );
+        handleNode.localBounds.maxX + HANDLE_TOUCH_AREA_X_DILATION, handleNode.localBounds.maxY + 60 );
     }
     handleNode.setRotation( imageRotation );
 
