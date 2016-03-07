@@ -79,7 +79,7 @@ define( function( require ) {
     this.addChild( underGaugeRectangle );
 
     //pressure text, y position empirically determined
-    var text = new Text( '', { font: new PhetFont( 10 ), y: 40, fontWeight: 'bold' } );
+    var text = new Text( '', { font: new PhetFont( 10 ), y: 40, fontWeight: 'bold', maxWidth: 60 } );
     var textBackground = new Rectangle( 0, 0, 0, 0.5, { stroke: 'black', fill: 'white' } );
     this.addChild( textBackground );
     this.addChild( text );

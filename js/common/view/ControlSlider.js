@@ -77,7 +77,11 @@ define( function( require ) {
       var labelFont = new PhetFont( 10 );
 
       options.ticks.forEach( function( tick ) {
-        aSlider.addMajorTick( tick.value, new Text( tick.title, { font: labelFont, visible: options.ticksVisible } ) );
+        aSlider.addMajorTick( tick.value, new Text( tick.title, {
+          font: labelFont,
+          visible: options.ticksVisible,
+          maxWidth: 40
+        } ) );
       } );
       return aSlider;
     };
@@ -105,7 +109,7 @@ define( function( require ) {
     minusButton.touchArea = new Bounds2( minusButton.localBounds.minX - 20, minusButton.localBounds.minY - 5,
       minusButton.localBounds.maxX + 20, minusButton.localBounds.maxY + 20 );
 
-    var valueLabel = new SubSupText( '', { font: new PhetFont( 10 ), pickable: false } );
+    var valueLabel = new SubSupText( '', { font: new PhetFont( 10 ), pickable: false, maxWidth: 40 } );
     var valueField = new Rectangle( 0, 0, trackSize.width / 2, 18, 3, 3,
       { fill: '#FFF', stroke: 'black', lineWidth: 1, pickable: false } );
 
@@ -114,11 +118,11 @@ define( function( require ) {
 
     // Simple heuristic to expand the slider.
     // Expand the slider track to the previous track+ticks width
-    if ( hSliderWidth > trackSize.width ) {
-      trackSize.width = hSliderWidth;
-      hSlider = getSlider( trackSize );
-      valueField.setRect( 0, 0, trackSize.width / 2, 18, 3, 3 );
-    }
+    //if ( hSliderWidth > trackSize.width ) {
+    //  trackSize.width = hSliderWidth;
+    //  hSlider = getSlider( trackSize );
+    //  valueField.setRect( 0, 0, trackSize.width / 2, 18, 3, 3 );
+    //}
     hSliderWidth = hSlider.width;
     // rendering order
     this.content.addChild( valueField );
@@ -146,7 +150,10 @@ define( function( require ) {
     this.accordionContent.left = 0;
     var accordionBox = new AccordionBox( this.accordionContent,
       {
-        titleNode: new Text( options.title, { font: new PhetFont( { size: 12 } ) } ),
+        titleNode: new Text( options.title, {
+          font: new PhetFont( { size: 12 } ),
+          maxWidth: trackSize.width + 2 * options.xMargin
+        } ),
         fill: options.fill,
         stroke: 'gray',
         expandedProperty: expandedProperty,
@@ -160,7 +167,8 @@ define( function( require ) {
         buttonYMargin: 4,
         buttonXMargin: 6,
         buttonLength: 12,
-        minWidth: hSliderWidth + 2 * options.xMargin
+        minWidth: trackSize.width + 12 * options.xMargin,
+        maxWidth: trackSize.width + 12 * options.xMargin
       } );
     this.addChild( accordionBox );
 

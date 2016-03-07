@@ -40,7 +40,7 @@ define( function( require ) {
     var mysteryPoolControls = this;
     Node.call( this );
     //choice for mystery scene
-    var textOptions = { font: new PhetFont( 12 ) };
+    var textOptions = { font: new PhetFont( 12 ), maxWidth: 70 };
     this.choicePanel = new Node( { x: 625, y: 197 } );
     var background = new Rectangle( 0, 0, 0, 1, { stroke: 'gray', lineWidth: 1, fill: '#f2fa6a', pickable: false } );
 
@@ -71,7 +71,8 @@ define( function( require ) {
     var content = new VBox( {
       children: [ mysteryFluidRadio, mysteryPlanetRadio ],
       spacing: 4,
-      align: 'left'
+      align: 'left',
+      resize: false
     } );
     this.choicePanel.addChild( background );
     this.choicePanel.addChild( content );

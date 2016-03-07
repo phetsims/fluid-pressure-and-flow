@@ -44,7 +44,7 @@ define( function( require ) {
 
     Node.call( this );
 
-    var textOptions = { font: new PhetFont( 12 ) };
+    var textOptions = { font: new PhetFont( 12 ), maxWidth:80 };
 
     var atmosphereTrue = new AquaRadioButton( isAtmosphereProperty, true, new Text( onString, textOptions ), {
       radius: 6
@@ -80,7 +80,7 @@ define( function( require ) {
 
     this.updateWidth( this.contentNode.width + 2 * this.options.xMargin );
 
-    var titleNode = new Text( atmosphereString, { font: new PhetFont( 12 ), x: 3, fontWeight: 'bold' } );
+    var titleNode = new Text( atmosphereString, { font: new PhetFont( 12 ), x: 3, fontWeight: 'bold', maxWidth:100 } );
     titleNode.y = -this.options.yMargin + titleNode.height / 2 - 4;
     var titleBackground = new Rectangle( 0, titleNode.y - titleNode.height, titleNode.width + 6, titleNode.height, {
       fill: this.options.fill

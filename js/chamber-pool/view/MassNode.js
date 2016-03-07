@@ -56,7 +56,8 @@ define( function( require ) {
         font: new PhetFont( 9 ),
         fill: 'black',
         pickable: false,
-        fontWeight: 'bold'
+        fontWeight: 'bold',
+        maxWidth: width - 5
       } ) );
 
     var massClickOffset = { x: 0, y: 0 };

@@ -42,7 +42,7 @@ define( function( require ) {
       resize: false
     }, options );
 
-    var textOptions = { font: new PhetFont( 12 ) };
+    var textOptions = { font: new PhetFont( 12 ), maxWidth: 80 };
     var rulerSet = [ new Text( rulerString, textOptions ), this.createRulerIcon() ];
     var gridArray = [ new Text( gridString, textOptions ) ];
     var atmosphereControlNode = new AtmosphereControlNode( underPressureModel.isAtmosphereProperty );
