@@ -113,17 +113,15 @@ define( function( require ) {
     var valueField = new Rectangle( 0, 0, trackSize.width / 2, 18, 3, 3,
       { fill: '#FFF', stroke: 'black', lineWidth: 1, pickable: false } );
 
-
-    var hSliderWidth = hSlider.width;
-
     // Simple heuristic to expand the slider.
     // Expand the slider track to the previous track+ticks width
-    //if ( hSliderWidth > trackSize.width ) {
+    // var hSliderWidth = hSlider.width;
+    // if ( hSliderWidth > trackSize.width ) {
     //  trackSize.width = hSliderWidth;
     //  hSlider = getSlider( trackSize );
     //  valueField.setRect( 0, 0, trackSize.width / 2, 18, 3, 3 );
     //}
-    hSliderWidth = hSlider.width;
+
     // rendering order
     this.content.addChild( valueField );
     this.content.addChild( valueLabel );
