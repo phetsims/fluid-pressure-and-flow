@@ -11,6 +11,8 @@ define( function( require ) {
   'use strict';
 
   // modules
+  var Bounds2 = require( 'DOT/Bounds2' );
+  var Dimension2 = require( 'DOT/Dimension2' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Node = require( 'SCENERY/nodes/Node' );
   var GaugeNode = require( 'SCENERY_PHET/GaugeNode' );
@@ -19,6 +21,7 @@ define( function( require ) {
   var Path = require( 'SCENERY/nodes/Path' );
   var Shape = require( 'KITE/Shape' );
   var Text = require( 'SCENERY/nodes/Text' );
+  var Panel = require( 'SUN/Panel' );
   var PhetFont = require( 'SCENERY_PHET/PhetFont' );
   var MovableDragHandler = require( 'SCENERY_PHET/input/MovableDragHandler' );
   var Property = require( 'AXON/Property' );
@@ -79,13 +82,23 @@ define( function( require ) {
     this.addChild( underGaugeRectangle );
 
     //pressure text, y position empirically determined
-    var text = new Text( '', { font: new PhetFont( 10 ), y: 40, fontWeight: 'bold', maxWidth: 60 } );
-    var textBackground = new Rectangle( 0, 0, 0, 0.5, { stroke: 'black', fill: 'white' } );
-    this.addChild( textBackground );
-    this.addChild( text );
-
+    var READOUT_SIZE = new Dimension2( containerBounds.width * 0.65, 10 );
+    var text = new Text( '', { font: new PhetFont( 10 ), fontWeight: 'bold', maxWidth: READOUT_SIZE.width, maxHeight: READOUT_SIZE.height } );
+    var readoutPanel = new Panel( text, {
+      minWidth: READOUT_SIZE.width,
+      minHeight: READOUT_SIZE.height,
+      resize: false,
+      cornerRadius: 0,
+      lineWidth: 1,
+      align: 'center',
+      fill: 'white',
+      stroke: 'black'
+    } );
+    this.addChild( readoutPanel );
     var bottomTriangleShapeWidth = 6;
     var bottomTriangleShapeHeight = 12;
+    readoutPanel.centerX = gaugeNode.centerX;
+    readoutPanel.bottom = gaugeNode.bottom + 5;
 
     var bottomTriangleShape = new Shape()
       .moveTo( gaugeNode.centerX - bottomTriangleShapeWidth / 2, underGaugeRectangle.rectY + underGaugeRectangleHeight )
@@ -100,14 +113,25 @@ define( function( require ) {
         .addColorStop( 1, '#656570' ),
       top: underGaugeRectangle.bottom - 1
     } ) );
+    this.mutate( options );
 
-    var barometerDragBounds = dragBounds.withMaxX( dragBounds.maxX - ( gaugeNode.width * options.scale ) / 2 );
+    var barometerDragBounds = modelViewTransform.viewToModelBounds( new Bounds2(
+      this.width / 2,
+      this.height / 2,
+      dragBounds.width - this.width / 2,
+      dragBounds.height - this.height / 2 ) );
+
+    barometer.positionProperty.link( function ( value ){
+      barometerNode.centerX = modelViewTransform.modelToViewX( value.x );
+      barometerNode.centerY = modelViewTransform.modelToViewY( value.y );
+    });
 
     // Add an input listener so the BarometerNode can be dragged
     // Constrain the location so it cannot be dragged offscreen
     this.addInputListener( new MovableDragHandler( barometer.positionProperty,
       {
         dragBounds: barometerDragBounds,
+        modelViewTransform: modelViewTransform,
         startDrag: function() {
           barometerNode.moveToFront();
         },
@@ -121,15 +145,8 @@ define( function( require ) {
 
     //Update the value in the barometer value model by reading from the model.
     Property.multilink( [ barometer.positionProperty ].concat( linkedProperties ), function( position ) {
-      if ( barometer.positionProperty.initialValue === position ) {
-        // In the initial position barometer has no value.
-        // The value needs to be a number for the needle to be visible, so using 0.
-        barometer.value = 0;
-      }
-      else {
-        barometer.value = getPressureAt( modelViewTransform.viewToModelX( position.x ),
-          modelViewTransform.viewToModelY( position.y + (options.pressureReadOffset * options.scale) ) );
-      }
+      barometer.value = getPressureAt( position.x,
+        position.y + modelViewTransform.viewToModelY( options.pressureReadOffset * options.scale ) );
     } );
 
     // Update the text when the value, units or position changes.
@@ -137,34 +154,16 @@ define( function( require ) {
     // In order to trigger the text display change, need to listen to position property here as well.
     Property.multilink( [ barometer.valueProperty, measureUnitsProperty, barometer.positionProperty ],
       function( barometerValue, units ) {
-        if ( barometer.position === barometer.positionProperty.initialValue ) {
-          text.text = '-';
-          textBackground.setRect( 0, 0, text.width + 50, text.height + 2 );
-        }
-        else {
-          text.text = getPressureString( barometerValue, units,
-            modelViewTransform.viewToModelX( barometer.position.x ),
-            modelViewTransform.viewToModelY( barometer.position.y + (options.pressureReadOffset * options.scale) ) );
-          textBackground.setRect( 0, 0, text.width + 4, text.height + 2 );
-        }
-
-        textBackground.centerX = gaugeNode.centerX;
-        textBackground.bottom = gaugeNode.bottom;
-        text.center = textBackground.center;
+        text.text = getPressureString( barometerValue, units);
+        text.centerX = READOUT_SIZE.width / 2;
       } );
-
-    barometer.positionProperty.linkAttribute( barometerNode, 'translation' );
 
     barometerNode.touchArea = barometerNode.localBounds.dilatedXY( 0, 0 );
 
     barometer.on( 'update', function() {
-      if ( barometer.position !== barometer.positionProperty.initialValue ) {
-        barometer.value = getPressureAt( modelViewTransform.viewToModelX( barometer.position.x ),
-          modelViewTransform.viewToModelY( barometer.position.y + (options.pressureReadOffset * options.scale) ) );
-      }
+      barometer.value = getPressureAt( position.x,
+        position.y + modelViewTransform.viewToModelY( options.pressureReadOffset * options.scale ) );
     } );
-
-    this.mutate( options );
   }
 
   return inherit( Node, BarometerNode );

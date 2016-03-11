@@ -161,13 +161,6 @@ define( function( require ) {
     this.resetActions = [];
     // add barometers within the sensor panel bounds
     _.each( underPressureModel.barometers, function( barometer ) {
-      var barometerInitialValue = new Vector2( sensorPanel.centerX, sensorPanel.centerY - 15 );
-      var reset = function() {
-        barometer.position = barometerInitialValue.copy();
-      };
-      this.resetActions.push( reset );
-      reset();
-
       var barometerLinkedProperties = [
         underPressureModel.currentSceneProperty,
         underPressureModel.gravityProperty,
