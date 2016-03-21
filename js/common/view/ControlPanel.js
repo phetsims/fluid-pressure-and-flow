@@ -34,12 +34,14 @@ define( function( require ) {
   function ControlPanel( underPressureModel, options ) {
 
     options = _.extend( {
-      xMargin: 10,
+      xMargin: 7,
       yMargin: 7,
       fill: '#f2fa6a',
       stroke: 'gray',
       lineWidth: 1,
-      resize: false
+      resize: false,
+      minWidth: 120,
+      maxWidth:120
     }, options );
 
     var textOptions = { font: new PhetFont( 12 ), maxWidth: 80 };

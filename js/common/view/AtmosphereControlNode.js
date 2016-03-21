@@ -76,12 +76,12 @@ define( function( require ) {
       }
     );
     this.addChild( this.background );
-    this.addChild( this.contentNode, { y: 50 } );
+    this.addChild( this.contentNode );
 
     this.updateWidth( this.contentNode.width + 2 * this.options.xMargin );
 
     var titleNode = new Text( atmosphereString, { font: new PhetFont( 12 ), x: 3, fontWeight: 'bold', maxWidth:100 } );
-    titleNode.y = -this.options.yMargin + titleNode.height / 2 - 4;
+    titleNode.y = titleNode.height / 2 - 10;
     var titleBackground = new Rectangle( 0, titleNode.y - titleNode.height, titleNode.width + 6, titleNode.height, {
       fill: this.options.fill
     } );

@@ -83,7 +83,7 @@ define( function( require ) {
 
     //pressure text, y position empirically determined
     var READOUT_SIZE = new Dimension2( containerBounds.width * 0.65, 10 );
-    var text = new Text( '', { font: new PhetFont( 10 ), fontWeight: 'bold', maxWidth: READOUT_SIZE.width, maxHeight: READOUT_SIZE.height } );
+    var text = new Text( '', { font: new PhetFont( 10 ), fontWeight: 'bold', maxWidth: READOUT_SIZE.width *0.95 } );
     var readoutPanel = new Panel( text, {
       minWidth: READOUT_SIZE.width,
       minHeight: READOUT_SIZE.height,
@@ -161,8 +161,8 @@ define( function( require ) {
     barometerNode.touchArea = barometerNode.localBounds.dilatedXY( 0, 0 );
 
     barometer.on( 'update', function() {
-      barometer.value = getPressureAt( position.x,
-        position.y + modelViewTransform.viewToModelY( options.pressureReadOffset * options.scale ) );
+      barometer.value = getPressureAt( barometer.position.x,
+        barometer.position.y + modelViewTransform.viewToModelY( options.pressureReadOffset * options.scale ) );
     } );
   }
 

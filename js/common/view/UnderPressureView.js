@@ -153,7 +153,7 @@ define( function( require ) {
       stroke: 'gray',
       lineWidth: 1,
       fill: '#f2fa6a',
-      right: controlPanel.left - 20,
+      right: controlPanel.left - 25,
       top: controlPanel.top
     } );
     this.addChild( sensorPanel );
@@ -210,7 +210,8 @@ define( function( require ) {
 
     // adding mystery pool view
     var mysteryPoolView = new MysteryPoolView( underPressureModel.sceneModels.mystery, modelViewTransform,
-      this.layoutBounds );
+      this.layoutBounds, unitsControlPanel.bottom, unitsControlPanel.left, fluidDensitySlider.top,
+      fluidDensitySlider.left, unitsControlPanel.width );
     mysteryPoolView.visible = false;
     scenes.mystery = mysteryPoolView;
     this.addChild( mysteryPoolView );
@@ -246,8 +247,8 @@ define( function( require ) {
     this.addChild( new SceneChoiceNode( underPressureModel, { x: 10, y: 260 } ) );
 
     //resize mystery control panel
-    mysteryPoolView.mysteryPoolControls.choicePanel.resizeWidth( controlPanel.width );
-    mysteryPoolView.mysteryPoolControls.choicePanel.right = gravitySlider.right;
+    //mysteryPoolView.mysteryPoolControls.choicePanel.resizeWidth( controlPanel.width );
+    //mysteryPoolView.mysteryPoolControls.choicePanel.right = gravitySlider.right;
 
     underPressureModel.currentSceneProperty.link( function( currentScene, previousScene ) {
       scenes[ currentScene ].visible = true;
