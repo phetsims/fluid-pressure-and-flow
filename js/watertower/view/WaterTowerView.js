@@ -32,8 +32,8 @@ define( function( require ) {
   var PhetFont = require( 'SCENERY_PHET/PhetFont' );
   var Text = require( 'SCENERY/nodes/Text' );
   var FaucetNode = require( 'SCENERY_PHET/FaucetNode' );
-  var BarometerNode = require( 'UNDER_PRESSURE/common/view/BarometerNode' );
-  var ControlSlider = require( 'UNDER_PRESSURE/common/view/ControlSlider' );
+  var BarometerNode = require( 'FLUID_PRESSURE_AND_FLOW/under-pressure/view/BarometerNode' );
+  var ControlSlider = require( 'FLUID_PRESSURE_AND_FLOW/under-pressure/view/ControlSlider' );
   var ToolsControlPanel = require( 'FLUID_PRESSURE_AND_FLOW/watertower/view/ToolsControlPanel' );
   var MeasuringTape = require( 'SCENERY_PHET/MeasuringTape' );
   var SluiceControlPanel = require( 'FLUID_PRESSURE_AND_FLOW/watertower/view/SluiceControlPanel' );

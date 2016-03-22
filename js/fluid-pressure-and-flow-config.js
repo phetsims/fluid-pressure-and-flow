@@ -37,9 +37,6 @@ require.config( {
     SCENERY_PHET: '../../scenery-phet/js',
     SUN: '../../sun/js',
 
-    // under-pressure sim
-    UNDER_PRESSURE: '../../under-pressure/js',
-
     // this sim
     FLUID_PRESSURE_AND_FLOW: '.'
   },

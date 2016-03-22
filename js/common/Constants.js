@@ -1,7 +1,7 @@
 // Copyright 2014-2015, University of Colorado Boulder
 
 /**
- * Constants used in this Sim.
+ * Constants used in this Sim. All units are SI (mks) unless otherwise specified.
  * @author Siddhartha Chinthapally (Actual Concepts)
  */
 define( function( require ) {
@@ -15,8 +15,10 @@ define( function( require ) {
     SCREEN_VIEW_OPTIONS: { layoutBounds: new Bounds2( 0, 0, 768, 504 ) },
 
     EARTH_GRAVITY: 9.8, // m/s^2
+    MARS_GRAVITY: 3.71, // m/s^2
+    JUPITER_GRAVITY: 24.9, // m/s^2
     MIN_PRESSURE: 50000, // Pascals
-    MAX_PRESSURE: 250000, // Pascals
+    MAX_PRESSURE: 250000, // Pascals Check is it is 350000
 
     MIN_FLOW_RATE: 1000, // Liter per second (L/s)
     MAX_FLOW_RATE: 10000, // Liter per second (L/s)

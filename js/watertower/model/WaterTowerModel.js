@@ -13,19 +13,19 @@ define( function( require ) {
   var inherit = require( 'PHET_CORE/inherit' );
   var Range = require( 'DOT/Range' );
   var Vector2 = require( 'DOT/Vector2' );
-  var Units = require( 'UNDER_PRESSURE/common/model/Units' );
-  var Sensor = require( 'UNDER_PRESSURE/common/model/Sensor' );
+  var Units = require( 'FLUID_PRESSURE_AND_FLOW/under-pressure/model/Units' );
+  var Sensor = require( 'FLUID_PRESSURE_AND_FLOW/under-pressure/model/Sensor' );
   var VelocitySensor = require( 'FLUID_PRESSURE_AND_FLOW/common/model/VelocitySensor' );
   var WaterTower = require( 'FLUID_PRESSURE_AND_FLOW/watertower/model/WaterTower' );
   var WaterDrop = require( 'FLUID_PRESSURE_AND_FLOW/watertower/model/WaterDrop' );
-  var FluidColorModel = require( 'UNDER_PRESSURE/common/model/FluidColorModel' );
+  var FluidColorModel = require( 'FLUID_PRESSURE_AND_FLOW/under-pressure/model/FluidColorModel' );
   var StringUtils = require( 'PHETCOMMON/util/StringUtils' );
   var ObservableArray = require( 'AXON/ObservableArray' );
   var Constants = require( 'FLUID_PRESSURE_AND_FLOW/common/Constants' );
   var Property = require( 'AXON/Property' );
   var Hose = require( 'FLUID_PRESSURE_AND_FLOW/watertower/model/Hose' );
   var Util = require( 'DOT/Util' );
-  var getStandardAirPressure = require( 'UNDER_PRESSURE/common/model/getStandardAirPressure' );
+  var getStandardAirPressure = require( 'FLUID_PRESSURE_AND_FLOW/under-pressure/model/getStandardAirPressure' );
 
   // strings
   var densityUnitsEnglishString = require( 'string!FLUID_PRESSURE_AND_FLOW/densityUnitsEnglish' );
