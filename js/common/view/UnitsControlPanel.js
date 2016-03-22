@@ -1,9 +1,8 @@
 // Copyright 2014-2015, University of Colorado Boulder
 
 /**
- * View for the 'Units Control Panel' node for selecting between metric and english modes.
- *
- * @author Siddhartha Chinthapally (ActualConcepts)
+ * Control panel for selecting unit systems. The available options are english, metric and atmospheres.
+ * @author Siddhartha Chinthapally (Actual Concepts)
  */
 define( function( require ) {
   'use strict';
@@ -23,57 +22,78 @@ define( function( require ) {
   var metricString = require( 'string!FLUID_PRESSURE_AND_FLOW/metric' );
   var englishString = require( 'string!FLUID_PRESSURE_AND_FLOW/english' );
   var unitsString = require( 'string!FLUID_PRESSURE_AND_FLOW/units' );
+  var atmospheresString = require( 'string!FLUID_PRESSURE_AND_FLOW/atmospheres' );
 
   /**
-   * Constructor for the UnitsControlPanel.
-   * @param {Property.<string>} measureUnitsProperty can take values 'english' or 'metric'
+   *
+   * @param {Property<string>} measureUnitsProperty can take values 'english', 'metric' or 'atmospheres'
    * @param {number} width -- fixed width that the panel is supposed to take
-   * @param {Object} [options] for various panel display properties.
+   * @param {Object} [options]
    * @constructor
    */
   function UnitsControlPanel( measureUnitsProperty, width, options ) {
 
     options = _.extend( {
-      xMargin: 14,
-      yMargin: 4,
-      fill: '#f2fa6a ',
-      fontSize: 12,
+      xMargin: 7,
+      yMargin: 6,
+      fill: '#f2fa6a',
       stroke: 'gray',
       lineWidth: 1,
-      resize: false,
-      scale: 0.9
+      resize: false
     }, options );
 
-    var textOptions = { font: new PhetFont( options.fontSize ) };
+    var titleText = new Text( unitsString, { font: new PhetFont( 12 ), fontWeight: 'bold', maxWidth: 80 } );
 
-    var titleText = new Text( unitsString, { font: new PhetFont( options.fontSize ) } );
-    var metricRadio = new AquaRadioButton( measureUnitsProperty, 'metric', new Text( metricString, textOptions ),
-      { radius: 8 } );
-    var englishRadio = new AquaRadioButton( measureUnitsProperty, 'english', new Text( englishString, textOptions ),
-      { radius: 8 } );
+    var AQUA_RADIO_BUTTON_OPTIONS = { radius: 6, font: new PhetFont( 12 ), maxWidth: 100 };
+    var createButtonTextNode = function( text ) { return new Text( text, { font: new PhetFont( 12 ) } ); };
+
+    // Create the radio buttons
+    var metricRadio = new AquaRadioButton( measureUnitsProperty, 'metric', createButtonTextNode( metricString ),
+      AQUA_RADIO_BUTTON_OPTIONS );
+    var atmosphereRadio = new AquaRadioButton( measureUnitsProperty, 'atmosphere',
+      createButtonTextNode( atmospheresString ), AQUA_RADIO_BUTTON_OPTIONS );
+    var englishRadio = new AquaRadioButton( measureUnitsProperty, 'english', createButtonTextNode( englishString ),
+      AQUA_RADIO_BUTTON_OPTIONS );
 
     //dummy text for height
     var dummyText = new Text( '', { font: new PhetFont( 3 ) } );
-    var maxOptionWidth = (metricRadio.width > englishRadio.width) ? metricRadio.width : englishRadio.width;
 
     // touch areas
     var touchAreaDilation = 5;
-    metricRadio.touchArea = new Bounds2( metricRadio.localBounds.minX - touchAreaDilation,
-      metricRadio.localBounds.minY - touchAreaDilation, metricRadio.localBounds.minX + maxOptionWidth + touchAreaDilation,
-      metricRadio.localBounds.maxY + touchAreaDilation );
-    englishRadio.touchArea = new Bounds2( englishRadio.localBounds.minX - touchAreaDilation,
-      englishRadio.localBounds.minY - touchAreaDilation, englishRadio.localBounds.minX + maxOptionWidth + touchAreaDilation,
-      englishRadio.localBounds.maxY + touchAreaDilation );
+    var maxRadioButtonWidth = _.max( [ metricRadio, atmosphereRadio, englishRadio ], function( item ) {
+      return item.width;
+    } ).width;
+
+    //touch areas
+    metricRadio.touchArea = new Bounds2(
+      ( metricRadio.localBounds.minX - touchAreaDilation ),
+      metricRadio.localBounds.minY,
+      ( metricRadio.localBounds.minX + maxRadioButtonWidth ),
+      metricRadio.localBounds.maxY
+    );
+
+    atmosphereRadio.touchArea = new Bounds2(
+      ( atmosphereRadio.localBounds.minX - touchAreaDilation ),
+      atmosphereRadio.localBounds.minY,
+      ( atmosphereRadio.localBounds.minX + maxRadioButtonWidth ),
+      atmosphereRadio.localBounds.maxY
+    );
+
+    englishRadio.touchArea = new Bounds2(
+      ( englishRadio.localBounds.minX - touchAreaDilation ),
+      englishRadio.localBounds.minY,
+      ( englishRadio.localBounds.minX + maxRadioButtonWidth ),
+      englishRadio.localBounds.maxY );
 
     // center the title by adding space before and after. Also ensures that the panel's width is 'width'
     var createTitle = function( item ) {
-      var strutWidth = (width - item.width) / 2;
+      var strutWidth = ( width - item.width ) / 2 - options.xMargin;
       return new HBox( { children: [ new HStrut( strutWidth ), item, new HStrut( strutWidth ) ] } );
     };
 
     var content = new VBox( {
-      spacing: 11,
-      children: [ createTitle( titleText ), metricRadio, englishRadio, createTitle( dummyText ) ],
+      spacing: 4,
+      children: [ createTitle( titleText ), metricRadio, atmosphereRadio, englishRadio, createTitle( dummyText ) ],
       align: 'left'
     } );
 
