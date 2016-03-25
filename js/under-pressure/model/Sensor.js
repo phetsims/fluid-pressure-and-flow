@@ -24,5 +24,9 @@ define( function( require ) {
     } );
   }
 
-  return inherit( PropertySet, Sensor );
+  return inherit( PropertySet, Sensor, {
+    reset: function(){
+      this.positionProperty.reset();
+    }
+  } );
 } );

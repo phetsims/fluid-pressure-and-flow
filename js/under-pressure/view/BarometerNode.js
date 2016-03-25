@@ -146,7 +146,7 @@ define( function( require ) {
     //Update the value in the barometer value model by reading from the model.
     Property.multilink( [ barometer.positionProperty ].concat( linkedProperties ), function( position ) {
       barometer.value = getPressureAt( position.x,
-        position.y + modelViewTransform.viewToModelY( options.pressureReadOffset * options.scale ) );
+        position.y + modelViewTransform.viewToModelDeltaY( barometerNode.bottom - barometerNode.centerY ) );
     } );
 
     // Update the text when the value, units or position changes.
@@ -159,11 +159,6 @@ define( function( require ) {
       } );
 
     barometerNode.touchArea = barometerNode.localBounds.dilatedXY( 0, 0 );
-
-    barometer.on( 'update', function() {
-      barometer.value = getPressureAt( barometer.position.x,
-        barometer.position.y + modelViewTransform.viewToModelY( options.pressureReadOffset * options.scale ) );
-    } );
   }
 
   return inherit( Node, BarometerNode );
