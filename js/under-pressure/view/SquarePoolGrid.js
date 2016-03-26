@@ -30,7 +30,7 @@ define( function( require ) {
   function SquarePoolGrid( squarePoolModel, modelViewTransform ) {
 
     Node.call( this );
-    var fontOptions = { font: new PhetFont( 12 ), fontWeight: 'bold' };
+    var fontOptions = { font: new PhetFont( 12 ), fontWeight: 'bold', maxWidth: 60 };
     var poolDimensions = squarePoolModel.poolDimensions;
     // add grid lines
     this.addChild( new GridLinesNode( squarePoolModel.underPressureModel.measureUnitsProperty, modelViewTransform,
