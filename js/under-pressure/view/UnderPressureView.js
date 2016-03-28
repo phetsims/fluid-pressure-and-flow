@@ -18,7 +18,6 @@ define( function( require ) {
   var UnderPressureRuler = require( 'FLUID_PRESSURE_AND_FLOW/under-pressure/view/UnderPressureRuler' );
   var ModelViewTransform2 = require( 'PHETCOMMON/view/ModelViewTransform2' );
   var Vector2 = require( 'DOT/Vector2' );
-  var Bounds2 = require( 'DOT/Bounds2' );
   var ControlPanel = require( 'FLUID_PRESSURE_AND_FLOW/under-pressure/view/ControlPanel' );
   var UnitsControlPanel = require( 'FLUID_PRESSURE_AND_FLOW/common/view/UnitsControlPanel' );
   var ControlSlider = require( 'FLUID_PRESSURE_AND_FLOW/under-pressure/view/ControlSlider' );
