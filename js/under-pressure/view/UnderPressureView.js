@@ -20,11 +20,11 @@ define( function( require ) {
   var Vector2 = require( 'DOT/Vector2' );
   var ControlPanel = require( 'FLUID_PRESSURE_AND_FLOW/under-pressure/view/ControlPanel' );
   var UnitsControlPanel = require( 'FLUID_PRESSURE_AND_FLOW/common/view/UnitsControlPanel' );
-  var ControlSlider = require( 'FLUID_PRESSURE_AND_FLOW/under-pressure/view/ControlSlider' );
+  var ControlSlider = require( 'FLUID_PRESSURE_AND_FLOW/common/view/ControlSlider' );
   var SceneChoiceNode = require( 'FLUID_PRESSURE_AND_FLOW/under-pressure/view/SceneChoiceNode' );
   var ResetAllButton = require( 'SCENERY_PHET/buttons/ResetAllButton' );
   var Rectangle = require( 'SCENERY/nodes/Rectangle' );
-  var BarometerNode = require( 'FLUID_PRESSURE_AND_FLOW/under-pressure/view/BarometerNode' );
+  var BarometerNode = require( 'FLUID_PRESSURE_AND_FLOW/common/view/BarometerNode' );
   var Constants = require( 'FLUID_PRESSURE_AND_FLOW/common/Constants' );
   var SquarePoolView = require( 'FLUID_PRESSURE_AND_FLOW/under-pressure/view/SquarePoolView' );
   var TrapezoidPoolView = require( 'FLUID_PRESSURE_AND_FLOW/under-pressure/view/TrapezoidPoolView' );

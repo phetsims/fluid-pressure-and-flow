@@ -16,7 +16,7 @@ define( function( require ) {
   var GridLinesNode = require( 'FLUID_PRESSURE_AND_FLOW/under-pressure/view/GridLinesNode' );
   var StringUtils = require( 'PHETCOMMON/util/StringUtils' );
   var PhetFont = require( 'SCENERY_PHET/PhetFont' );
-  var Units = require( 'FLUID_PRESSURE_AND_FLOW/under-pressure/model/Units' );
+  var Units = require( 'FLUID_PRESSURE_AND_FLOW/common/model/Units' );
 
   // strings
   var readoutMetersString = require( 'string!FLUID_PRESSURE_AND_FLOW/readoutMeters' );

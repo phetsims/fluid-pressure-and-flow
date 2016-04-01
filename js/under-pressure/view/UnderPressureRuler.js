@@ -9,17 +9,13 @@ define( function( require ) {
   'use strict';
 
   // modules
+  var CloseButton = require( 'SCENERY_PHET/buttons/CloseButton' );
   var Node = require( 'SCENERY/nodes/Node' );
   var inherit = require( 'PHET_CORE/inherit' );
   var RulerNode = require( 'SCENERY_PHET/RulerNode' );
-  var Path = require( 'SCENERY/nodes/Path' );
-  var Shape = require( 'KITE/Shape' );
-  var Vector2 = require( 'DOT/Vector2' );
   var MovableDragHandler = require( 'SCENERY_PHET/input/MovableDragHandler' );
-  var RectangularPushButton = require( 'SUN/buttons/RectangularPushButton' );
   var PhetFont = require( 'SCENERY_PHET/PhetFont' );
-  var Units = require( 'FLUID_PRESSURE_AND_FLOW/under-pressure/model/Units' );
-  var PhetColorScheme = require( 'SCENERY_PHET/PhetColorScheme' );
+  var Units = require( 'FLUID_PRESSURE_AND_FLOW/common/model/Units' );
 
   // strings
   var mString = require( 'string!FLUID_PRESSURE_AND_FLOW/m' );
@@ -37,20 +33,11 @@ define( function( require ) {
     var underPressureRuler = this;
     Node.call( this, { cursor: 'pointer', cssTransform: true } );
 
-    var closeIconRadius = 4;
     var scaleFont = new PhetFont( 12 );
 
-    var xIcon = new Path( new Shape()
-      .moveTo( -closeIconRadius, -closeIconRadius )
-      .lineTo( closeIconRadius, closeIconRadius )
-      .moveTo( closeIconRadius, -closeIconRadius )
-      .lineTo( -closeIconRadius, closeIconRadius ), { stroke: 'white', lineWidth: 2 } );
-
     //close button
-    var closeButton = new RectangularPushButton( {
-      baseColor: PhetColorScheme.RED_COLORBLIND,
-      content: xIcon,
-      // click to toggle
+    var closeButton = new CloseButton( {
+      iconLength: 6,
       listener: function() {
         underPressureModel.isRulerVisible = false;
       }
@@ -78,7 +65,7 @@ define( function( require ) {
     // feet ruler
     // Note: make sure that major stick width and minor stick width are integers
     var feetRulerHeight = modelViewTransform.modelToViewX( Units.feetToMeters( 10 ) );
-    var feetRulerMajorStickWidth = Math.floor( modelViewTransform.modelToViewX( Units.feetToMeters( 1 ) ) );
+    var feetRulerMajorStickWidth = modelViewTransform.modelToViewX( Units.feetToMeters( 1 ) );
     var feetRuler = new RulerNode( feetRulerHeight, rulerWidth, feetRulerMajorStickWidth,
       [ '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10' ], ftString, {
         minorTicksPerMajorTick: 2,
@@ -90,7 +77,7 @@ define( function( require ) {
     );
     this.addChild( feetRuler );
 
-    closeButton.translation = new Vector2( -this.width + closeButton.width, -closeButton.height );
+    //closeButton.translation = new Vector2( -this.width + closeButton.width, -closeButton.height );
 
     underPressureModel.isRulerVisibleProperty.linkAttribute( this, 'visible' );
 

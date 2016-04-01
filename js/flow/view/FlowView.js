@@ -22,9 +22,9 @@ define( function( require ) {
   var Matrix3 = require( 'DOT/Matrix3' );
   var ToolsControlPanel = require( 'FLUID_PRESSURE_AND_FLOW/flow/view/ToolsControlPanel' );
   var UnitsControlPanel = require( 'FLUID_PRESSURE_AND_FLOW/common/view/UnitsControlPanel' );
-  var ControlSlider = require( 'FLUID_PRESSURE_AND_FLOW/under-pressure/view/ControlSlider' );
+  var ControlSlider = require( 'FLUID_PRESSURE_AND_FLOW/common/view/ControlSlider' );
   var VelocitySensorNode = require( 'FLUID_PRESSURE_AND_FLOW/common/view/VelocitySensorNode' );
-  var BarometerNode = require( 'FLUID_PRESSURE_AND_FLOW/under-pressure/view/BarometerNode' );
+  var BarometerNode = require( 'FLUID_PRESSURE_AND_FLOW/common/view/BarometerNode' );
   var FPAFRuler = require( 'FLUID_PRESSURE_AND_FLOW/common/view/FPAFRuler' );
   var Constants = require( 'FLUID_PRESSURE_AND_FLOW/common/Constants' );
   var VBox = require( 'SCENERY/nodes/VBox' );

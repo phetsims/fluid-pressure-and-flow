@@ -9,16 +9,13 @@ define( function( require ) {
   'use strict';
 
   // modules
+  var CloseButton = require( 'SCENERY_PHET/buttons/CloseButton' );
   var Node = require( 'SCENERY/nodes/Node' );
   var inherit = require( 'PHET_CORE/inherit' );
   var RulerNode = require( 'SCENERY_PHET/RulerNode' );
-  var Path = require( 'SCENERY/nodes/Path' );
-  var Shape = require( 'KITE/Shape' );
   var MovableDragHandler = require( 'SCENERY_PHET/input/MovableDragHandler' );
-  var RectangularPushButton = require( 'SUN/buttons/RectangularPushButton' );
   var PhetFont = require( 'SCENERY_PHET/PhetFont' );
   var DerivedProperty = require( 'AXON/DerivedProperty' );
-  var PhetColorScheme = require( 'SCENERY_PHET/PhetColorScheme' );
 
   // strings
   var mString = require( 'string!FLUID_PRESSURE_AND_FLOW/m' );
@@ -52,22 +49,14 @@ define( function( require ) {
       insetsWidth: 0
     }, options );
 
-    var closeIconRadius = 4;
     var rulerWidth = options.rulerWidth;
     var rulerHeight = Math.abs( modelViewTransform.modelToViewDeltaY( options.rulerHeight ) );
     var meterMajorStickWidth = Math.abs( modelViewTransform.modelToViewDeltaY( options.meterMajorStickWidth ) );
     var feetMajorStickWidth = Math.abs( modelViewTransform.modelToViewDeltaY( options.feetMajorStickWidth ) );
     var scaleFont = new PhetFont( options.scaleFont );
-    var xIcon = new Path( new Shape()
-      .moveTo( -closeIconRadius, -closeIconRadius )
-      .lineTo( closeIconRadius, closeIconRadius )
-      .moveTo( closeIconRadius, -closeIconRadius )
-      .lineTo( -closeIconRadius, closeIconRadius ), { stroke: 'white', lineWidth: 2 } );
-    //close button
-    var closeButton = new RectangularPushButton( {
-      baseColor: PhetColorScheme.RED_COLORBLIND,
-      content: xIcon,
-      // click to toggle
+
+    var closeButton = new CloseButton( {
+      iconLength: 6,
       listener: function() {
         isRulerVisibleProperty.value = false;
       }

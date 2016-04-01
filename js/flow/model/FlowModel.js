@@ -19,15 +19,15 @@ define( function( require ) {
   var Constants = require( 'FLUID_PRESSURE_AND_FLOW/common/Constants' );
   var StringUtils = require( 'PHETCOMMON/util/StringUtils' );
   var VelocitySensor = require( 'FLUID_PRESSURE_AND_FLOW/common/model/VelocitySensor' );
-  var Sensor = require( 'FLUID_PRESSURE_AND_FLOW/under-pressure/model/Sensor' );
+  var Sensor = require( 'FLUID_PRESSURE_AND_FLOW/common/model/Sensor' );
   var ObservableArray = require( 'AXON/ObservableArray' );
-  var FluidColorModel = require( 'FLUID_PRESSURE_AND_FLOW/under-pressure/model/FluidColorModel' );
-  var Units = require( 'FLUID_PRESSURE_AND_FLOW/under-pressure/model/Units' );
+  var FluidColorModel = require( 'FLUID_PRESSURE_AND_FLOW/common/model/FluidColorModel' );
+  var Units = require( 'FLUID_PRESSURE_AND_FLOW/common/model/Units' );
   var Pipe = require( 'FLUID_PRESSURE_AND_FLOW/flow/model/Pipe' );
   var Particle = require( 'FLUID_PRESSURE_AND_FLOW/flow/model/Particle' );
   var EventTimer = require( 'PHET_CORE/EventTimer' );
   var FluxMeter = require( 'FLUID_PRESSURE_AND_FLOW/flow/model/FluxMeter' );
-  var getStandardAirPressure = require( 'FLUID_PRESSURE_AND_FLOW/under-pressure/model/getStandardAirPressure' );
+  var getStandardAirPressure = require( 'FLUID_PRESSURE_AND_FLOW/common/model/getStandardAirPressure' );
 
   // strings
   var densityUnitsEnglishString = require( 'string!FLUID_PRESSURE_AND_FLOW/densityUnitsEnglish' );

@@ -12,7 +12,7 @@ define( function( require ) {
   var inherit = require( 'PHET_CORE/inherit' );
   var Node = require( 'SCENERY/nodes/Node' );
   var Line = require( 'SCENERY/nodes/Line' );
-  var Units = require( 'FLUID_PRESSURE_AND_FLOW/under-pressure/model/Units' );
+  var Units = require( 'FLUID_PRESSURE_AND_FLOW/common/model/Units' );
 
   /**
    * Draw grid lines in rect (x1, y1, x2 , y2)

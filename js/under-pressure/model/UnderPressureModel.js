@@ -13,16 +13,16 @@ define( function( require ) {
   var PropertySet = require( 'AXON/PropertySet' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Range = require( 'DOT/Range' );
-  var FluidColorModel = require( 'FLUID_PRESSURE_AND_FLOW/under-pressure/model/FluidColorModel' );
-  var Units = require( 'FLUID_PRESSURE_AND_FLOW/under-pressure/model/Units' );
+  var FluidColorModel = require( 'FLUID_PRESSURE_AND_FLOW/common/model/FluidColorModel' );
+  var Units = require( 'FLUID_PRESSURE_AND_FLOW/common/model/Units' );
   var Constants = require( 'FLUID_PRESSURE_AND_FLOW/common/Constants' );
   var Vector2 = require( 'DOT/Vector2' );
-  var Sensor = require( 'FLUID_PRESSURE_AND_FLOW/under-pressure/model/Sensor' );
+  var Sensor = require( 'FLUID_PRESSURE_AND_FLOW/common/model/Sensor' );
   var SquarePoolModel = require( 'FLUID_PRESSURE_AND_FLOW/under-pressure/model/SquarePoolModel' );
   var TrapezoidPoolModel = require( 'FLUID_PRESSURE_AND_FLOW/under-pressure/model/TrapezoidPoolModel' );
   var ChamberPoolModel = require( 'FLUID_PRESSURE_AND_FLOW/under-pressure/model/ChamberPoolModel' );
   var MysteryPoolModel = require( 'FLUID_PRESSURE_AND_FLOW/under-pressure/model/MysteryPoolModel' );
-  var getStandardAirPressure = require( 'FLUID_PRESSURE_AND_FLOW/under-pressure/model/getStandardAirPressure' );
+  var getStandardAirPressure = require( 'FLUID_PRESSURE_AND_FLOW/common/model/getStandardAirPressure' );
 
   // constants
   var NUM_BAROMETERS = 4;

@@ -9,7 +9,7 @@ define( function( require ) {
 
   // modules
   var inherit = require( 'PHET_CORE/inherit' );
-  var Sensor = require( 'FLUID_PRESSURE_AND_FLOW/under-pressure/model/Sensor' );
+  var Sensor = require( 'FLUID_PRESSURE_AND_FLOW/common/model/Sensor' );
 
   /**
    * @param {Vector2} position of the sensor

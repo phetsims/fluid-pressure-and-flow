@@ -24,7 +24,7 @@ define( function( require ) {
   var Color = require( 'SCENERY/util/Color' );
   var SimpleDragHandler = require( 'SCENERY/input/SimpleDragHandler' );
   var SubSupText = require( 'SCENERY_PHET/SubSupText' );
-  var Units = require( 'FLUID_PRESSURE_AND_FLOW/under-pressure/model/Units' );
+  var Units = require( 'FLUID_PRESSURE_AND_FLOW/common/model/Units' );
 
   // strings
   var flowRateWithColonString = require( 'string!FLUID_PRESSURE_AND_FLOW/flowRateWithColon' );
