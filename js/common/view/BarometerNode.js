@@ -145,8 +145,13 @@ define( function( require ) {
 
     //Update the value in the barometer value model by reading from the model.
     Property.multilink( [ barometer.positionProperty ].concat( linkedProperties ), function( position ) {
-      barometer.value = getPressureAt( position.x,
-        position.y + modelViewTransform.viewToModelDeltaY( barometerNode.bottom - barometerNode.centerY ) );
+      if ( barometer.positionProperty.value === barometer.positionProperty.initialValue ) {
+        barometer.value = null; // when the barometer is in the sensor panel making sure it shows no value for accessibility
+      }
+      else {
+        barometer.value = getPressureAt( position.x,
+          position.y + modelViewTransform.viewToModelDeltaY( barometerNode.bottom - barometerNode.centerY ) );
+      }
     } );
 
     // Update the text when the value, units or position changes.
@@ -154,8 +159,14 @@ define( function( require ) {
     // In order to trigger the text display change, need to listen to position property here as well.
     Property.multilink( [ barometer.valueProperty, measureUnitsProperty, barometer.positionProperty ],
       function( barometerValue, units ) {
-        text.text = getPressureString( barometerValue, units);
-        text.centerX = READOUT_SIZE.width / 2;
+        if ( barometer.positionProperty.value === barometer.positionProperty.initialValue || barometerValue === null) {
+          text.text = '-'; // showing no value when barometer is in the sensor panel
+          text.centerX = READOUT_SIZE.width / 2;
+        }
+        else {
+          text.text = getPressureString( barometerValue, units );
+          text.centerX = READOUT_SIZE.width / 2;
+        }
       } );
 
     barometerNode.touchArea = barometerNode.localBounds.dilatedXY( 0, 0 );

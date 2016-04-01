@@ -135,7 +135,7 @@ define( function( require ) {
      * @returns {number}
      */
     getPressureAtCoords: function( x, y ) {
-      var pressure = 0;
+      var pressure = null;
       var currentModel = this.currentSceneModel;
       if ( y > 0 ) {
         pressure = this.getAirPressure( y );
