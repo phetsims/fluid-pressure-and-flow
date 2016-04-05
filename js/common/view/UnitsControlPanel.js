@@ -45,7 +45,7 @@ define( function( require ) {
     var titleText = new Text( unitsString, { font: new PhetFont( 12 ), fontWeight: 'bold', maxWidth: 80 } );
 
     var AQUA_RADIO_BUTTON_OPTIONS = { radius: 6, font: new PhetFont( 12 ), maxWidth: 100 };
-    var createButtonTextNode = function( text ) { return new Text( text, { font: new PhetFont( 12 ) } ); };
+    var createButtonTextNode = function( text ) { return new Text( text, { font: new PhetFont( 12 ), maxWidth: 80 } ); };
 
     // Create the radio buttons
     var metricRadio = new AquaRadioButton( measureUnitsProperty, 'metric', createButtonTextNode( metricString ),
