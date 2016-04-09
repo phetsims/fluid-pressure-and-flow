@@ -39,7 +39,10 @@ define( function( require ) {
       fill: '#f2fa6a',
       stroke: 'gray',
       lineWidth: 1,
-      resize: false
+      resize: false,
+      maxWidth: 120,
+      minWidth: 120,
+      align: 'left'
     }, options );
 
     var titleText = new Text( unitsString, { font: new PhetFont( 12 ), fontWeight: 'bold', maxWidth: 80 } );
@@ -85,15 +88,9 @@ define( function( require ) {
       ( englishRadio.localBounds.minX + maxRadioButtonWidth ),
       englishRadio.localBounds.maxY );
 
-    // center the title by adding space before and after. Also ensures that the panel's width is 'width'
-    var createTitle = function( item ) {
-      var strutWidth = ( width - item.width ) / 2 - options.xMargin;
-      return new HBox( { children: [ new HStrut( strutWidth ), item, new HStrut( strutWidth ) ] } );
-    };
-
     var content = new VBox( {
       spacing: 4,
-      children: [ createTitle( titleText ), metricRadio, atmosphereRadio, englishRadio, createTitle( dummyText ) ],
+      children: [ titleText, metricRadio, atmosphereRadio, englishRadio, dummyText ],
       align: 'left'
     } );
 

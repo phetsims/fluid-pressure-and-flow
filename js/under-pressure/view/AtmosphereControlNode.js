@@ -63,40 +63,14 @@ define( function( require ) {
       spacing: 10
     } );
 
-    this.background = new Rectangle(
-      -this.options.xMargin,
-      -this.options.yMargin,
-      (this.contentNode.width + 2 * this.options.xMargin),
-      (this.contentNode.height + 2 * this.options.yMargin),
-      this.options.cornerRadius, this.options.cornerRadius,
-      {
-        stroke: this.options.stroke,
-        lineWidth: this.options.lineWidth,
-        fill: this.options.fill
-      }
-    );
-    this.addChild( this.background );
-    this.addChild( this.contentNode );
+    var titleNode = new Text( atmosphereString, { font: new PhetFont( 14 ), fontWeight: 'bold', maxWidth:100 } );
 
-    var titleNode = new Text( atmosphereString, { font: new PhetFont( 12 ), x: 3, fontWeight: 'bold', maxWidth:80 } );
-    titleNode.centerY = this.background.top;
-    var titleBackground = new Rectangle( 0, titleNode.y - titleNode.height, titleNode.width + 6, titleNode.height, {
-      fill: this.options.fill
-    } );
-
-    this.addChild( titleBackground );
+    this.contentNode.top = titleNode.bottom + 5;
     this.addChild( titleNode );
+    this.addChild( this.contentNode );
 
     this.mutate( this.options );
   }
 
-  return inherit( Node, AtmosphereControlNode, {
-
-    updateWidth: function( width ) {
-      this.background.setRect( -this.options.xMargin, -this.options.yMargin, width, this.background.height,
-        this.options.cornerRadius, this.options.cornerRadius );
-      this.contentNode.centerX = this.background.centerX;
-      this.contentNode.centerY = this.background.centerY + this.options.yMargin / 2;
-    }
-  } );
+  return inherit( Node, AtmosphereControlNode );
 } );

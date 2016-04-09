@@ -54,7 +54,7 @@ define( function( require ) {
     }, options );
 
     Node.call( this );
-    var trackSize = new Dimension2( 100, 6 );
+    var trackSize = new Dimension2( 115, 6 );
 
     var getSlider = function( trackSize ) {
       var aSlider = new HSlider( trackProperty, trackRange, {
@@ -80,7 +80,7 @@ define( function( require ) {
         aSlider.addMajorTick( tick.value, new Text( tick.title, {
           font: labelFont,
           visible: options.ticksVisible,
-          maxWidth: 25
+          maxWidth: 35
         } ) );
       } );
       return aSlider;
@@ -109,18 +109,9 @@ define( function( require ) {
     minusButton.touchArea = new Bounds2( minusButton.localBounds.minX - 20, minusButton.localBounds.minY - 5,
       minusButton.localBounds.maxX + 20, minusButton.localBounds.maxY + 20 );
 
-    var valueLabel = new SubSupText( '', { font: new PhetFont( 10 ), pickable: false, maxWidth: 40 } );
-    var valueField = new Rectangle( 0, 0, trackSize.width / 2, 18, 3, 3,
+    var valueLabel = new SubSupText( '', { font: new PhetFont( 12 ), pickable: false, maxWidth: 60 } );
+    var valueField = new Rectangle( 0, 0, trackSize.width * 0.6, 18, 3, 3,
       { fill: '#FFF', stroke: 'black', lineWidth: 1, pickable: false } );
-
-    // Simple heuristic to expand the slider.
-    // Expand the slider track to the previous track+ticks width
-    // var hSliderWidth = hSlider.width;
-    // if ( hSliderWidth > trackSize.width ) {
-    //  trackSize.width = hSliderWidth;
-    //  hSlider = getSlider( trackSize );
-    //  valueField.setRect( 0, 0, trackSize.width / 2, 18, 3, 3 );
-    //}
 
     // rendering order
     this.content.addChild( valueField );

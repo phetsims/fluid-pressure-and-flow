@@ -54,15 +54,11 @@ define( function( require ) {
       spacing: 5
     };
 
-    var expandedWidth = atmosphereControlNode.width + 10;
 
     //align ruler icon right
-    var padWidth = expandedWidth - rulerSet[ 0 ].width - rulerSet[ 1 ].width - alignOptions.boxWidth -
+    var padWidth = options.maxWidth - rulerSet[ 0 ].width - rulerSet[ 1 ].width - alignOptions.boxWidth -
                    alignOptions.spacing * 2;
     var rulerArray = [ rulerSet[ 0 ], new HStrut( padWidth ), rulerSet[ 1 ] ];
-
-    //resize boxes to fit max
-    atmosphereControlNode.updateWidth( expandedWidth );
 
     var rulerCheckBox = new CheckBox( new HBox( { children: rulerArray } ), underPressureModel.isRulerVisibleProperty,
       alignOptions );

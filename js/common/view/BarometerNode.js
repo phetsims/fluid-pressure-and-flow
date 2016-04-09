@@ -82,19 +82,21 @@ define( function( require ) {
     this.addChild( underGaugeRectangle );
 
     //pressure text, y position empirically determined
-    var READOUT_SIZE = new Dimension2( containerBounds.width * 0.65, 10 );
-    var text = new Text( '', { font: new PhetFont( 10 ), fontWeight: 'bold', maxWidth: READOUT_SIZE.width *0.95 } );
+    var READOUT_SIZE = new Dimension2( containerBounds.width * 0.9, 18 );
+    var text = new Text( '', { font: new PhetFont( 12 ), fontWeight: 'bold', maxWidth: READOUT_SIZE.width * 0.9 } );
     var readoutPanel = new Panel( text, {
       minWidth: READOUT_SIZE.width,
+      maxWidth: READOUT_SIZE.width,
       minHeight: READOUT_SIZE.height,
+      maxHeight: READOUT_SIZE.height,
       resize: false,
-      cornerRadius: 0,
+      cornerRadius: 5,
       lineWidth: 1,
       align: 'center',
       fill: 'white',
-      stroke: 'black'
+      xMargin: 0
     } );
-    this.addChild( readoutPanel );
+
     var bottomTriangleShapeWidth = 6;
     var bottomTriangleShapeHeight = 12;
     readoutPanel.centerX = gaugeNode.centerX;
@@ -113,6 +115,7 @@ define( function( require ) {
         .addColorStop( 1, '#656570' ),
       top: underGaugeRectangle.bottom - 1
     } ) );
+    this.addChild( readoutPanel );
     this.mutate( options );
 
     var barometerDragBounds = modelViewTransform.viewToModelBounds( new Bounds2(
@@ -166,6 +169,7 @@ define( function( require ) {
         else {
           text.text = getPressureString( barometerValue, units );
           text.centerX = READOUT_SIZE.width / 2;
+          text.centerY = READOUT_SIZE.height * 0.7;
         }
       } );
 
