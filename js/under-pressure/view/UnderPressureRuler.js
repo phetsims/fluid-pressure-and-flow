@@ -10,6 +10,7 @@ define( function( require ) {
 
   // modules
   var CloseButton = require( 'SCENERY_PHET/buttons/CloseButton' );
+  var fluidPressureAndFlow = require( 'FLUID_PRESSURE_AND_FLOW/fluidPressureAndFlow' );
   var Node = require( 'SCENERY/nodes/Node' );
   var inherit = require( 'PHET_CORE/inherit' );
   var RulerNode = require( 'SCENERY_PHET/RulerNode' );
@@ -99,6 +100,8 @@ define( function( require ) {
     metersRuler.addInputListener( new MovableDragHandler( underPressureModel.rulerPositionProperty, { dragBounds: dragBounds } ) );
     feetRuler.addInputListener( new MovableDragHandler( underPressureModel.rulerPositionProperty, { dragBounds: dragBounds } ) );
   }
+
+  fluidPressureAndFlow.register( 'UnderPressureRuler', UnderPressureRuler );
 
   return inherit( Node, UnderPressureRuler );
 } );

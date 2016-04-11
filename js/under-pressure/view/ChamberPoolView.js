@@ -10,6 +10,7 @@ define( function( require ) {
   'use strict';
 
   // modules
+  var fluidPressureAndFlow = require( 'FLUID_PRESSURE_AND_FLOW/fluidPressureAndFlow' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Node = require( 'SCENERY/nodes/Node' );
   var ChamberPoolBack = require( 'FLUID_PRESSURE_AND_FLOW/under-pressure/view/ChamberPoolBack' );
@@ -58,6 +59,8 @@ define( function( require ) {
     this.addChild( new TrapezoidPoolGrid( chamberPoolModel.underPressureModel, modelViewTransform, poolLeftX, poolTopY,
       poolRightX, poolBottomY, poolHeight, labelXPosition, 0 ) );
   }
+
+  fluidPressureAndFlow.register( 'ChamberPoolView', ChamberPoolView );
 
   return inherit( Node, ChamberPoolView );
 } );

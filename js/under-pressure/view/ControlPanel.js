@@ -9,6 +9,7 @@ define( function( require ) {
   'use strict';
 
   // modules
+  var fluidPressureAndFlow = require( 'FLUID_PRESSURE_AND_FLOW/fluidPressureAndFlow' );
   var inherit = require( 'PHET_CORE/inherit' );
   var VBox = require( 'SCENERY/nodes/VBox' );
   var HBox = require( 'SCENERY/nodes/HBox' );
@@ -87,6 +88,8 @@ define( function( require ) {
 
     Panel.call( this, content, options );
   }
+
+  fluidPressureAndFlow.register( 'ControlPanel', ControlPanel );
 
   return inherit( Panel, ControlPanel, {
 

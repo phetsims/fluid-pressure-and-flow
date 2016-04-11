@@ -10,6 +10,7 @@ define( function( require ) {
   'use strict';
 
   // modules
+  var fluidPressureAndFlow = require( 'FLUID_PRESSURE_AND_FLOW/fluidPressureAndFlow' );
   var inherit = require( 'PHET_CORE/inherit' );
   var SquarePoolModel = require( 'FLUID_PRESSURE_AND_FLOW/under-pressure/model/SquarePoolModel' );
   var Property = require( 'AXON/Property' );
@@ -72,6 +73,8 @@ define( function( require ) {
       }
     } );
   }
+
+  fluidPressureAndFlow.register( 'MysteryPoolModel', MysteryPoolModel );
 
   return inherit( SquarePoolModel, MysteryPoolModel, {
 

@@ -9,6 +9,7 @@ define( function( require ) {
   'use strict';
 
   //modules
+  var fluidPressureAndFlow = require( 'FLUID_PRESSURE_AND_FLOW/fluidPressureAndFlow' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Node = require( 'SCENERY/nodes/Node' );
   var SquarePoolBack = require( 'FLUID_PRESSURE_AND_FLOW/under-pressure/view/SquarePoolBack' );
@@ -40,6 +41,8 @@ define( function( require ) {
     // add grid
     this.addChild( new SquarePoolGrid( squarePoolModel, modelViewTransform ) );
   }
+
+  fluidPressureAndFlow.register( 'SquarePoolView', SquarePoolView );
 
   return inherit( Node, SquarePoolView );
 } );

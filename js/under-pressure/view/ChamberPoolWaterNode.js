@@ -8,6 +8,7 @@ define( function( require ) {
   'use strict';
 
   // modules
+  var fluidPressureAndFlow = require( 'FLUID_PRESSURE_AND_FLOW/fluidPressureAndFlow' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Node = require( 'SCENERY/nodes/Node' );
   var Shape = require( 'KITE/Shape' );
@@ -73,6 +74,8 @@ define( function( require ) {
 
     this.addChild( waterPath );
   }
+
+  fluidPressureAndFlow.register( 'ChamberPoolWaterNode', ChamberPoolWaterNode );
 
   return inherit( Node, ChamberPoolWaterNode );
 } );

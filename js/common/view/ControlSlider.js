@@ -15,6 +15,7 @@ define( function( require ) {
   // modules
   var ArrowButton = require( 'SCENERY_PHET/buttons/ArrowButton' );
   var Dimension2 = require( 'DOT/Dimension2' );
+  var fluidPressureAndFlow = require( 'FLUID_PRESSURE_AND_FLOW/fluidPressureAndFlow' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Node = require( 'SCENERY/nodes/Node' );
   var Rectangle = require( 'SCENERY/nodes/Rectangle' );
@@ -182,6 +183,8 @@ define( function( require ) {
 
     this.mutate( options );
   }
+
+  fluidPressureAndFlow.register( 'ControlSlider', ControlSlider );
 
   return inherit( Node, ControlSlider, {
     // hide the slider and show the question mark

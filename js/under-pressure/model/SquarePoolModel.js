@@ -10,6 +10,7 @@ define( function( require ) {
   'use strict';
 
   // modules
+  var fluidPressureAndFlow = require( 'FLUID_PRESSURE_AND_FLOW/fluidPressureAndFlow' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Vector2 = require( 'DOT/Vector2' );
   var PoolWithFaucetsModel = require( 'FLUID_PRESSURE_AND_FLOW/under-pressure/model/PoolWithFaucetsModel' );
@@ -44,6 +45,8 @@ define( function( require ) {
       y2: -this.maxHeight  // pool bottom y
     };
   }
+
+  fluidPressureAndFlow.register( 'SquarePoolModel', SquarePoolModel );
 
   return inherit( PoolWithFaucetsModel, SquarePoolModel, {
 

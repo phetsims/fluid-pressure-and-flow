@@ -10,6 +10,7 @@ define( function( require ) {
   'use strict';
 
   // modules
+  var fluidPressureAndFlow = require( 'FLUID_PRESSURE_AND_FLOW/fluidPressureAndFlow' );
   var Node = require( 'SCENERY/nodes/Node' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Text = require( 'SCENERY/nodes/Text' );
@@ -64,6 +65,8 @@ define( function( require ) {
 
     squarePoolModel.underPressureModel.isGridVisibleProperty.linkAttribute( this, 'visible' );
   }
+
+  fluidPressureAndFlow.register( 'SquarePoolGrid', SquarePoolGrid );
 
   return inherit( Node, SquarePoolGrid );
 } );

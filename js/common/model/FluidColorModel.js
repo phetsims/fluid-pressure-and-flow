@@ -11,6 +11,7 @@ define( function( require ) {
   'use strict';
 
   // modules
+  var fluidPressureAndFlow = require( 'FLUID_PRESSURE_AND_FLOW/fluidPressureAndFlow' );
   var PropertySet = require( 'AXON/PropertySet' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Color = require( 'SCENERY/util/Color' );
@@ -59,6 +60,8 @@ define( function( require ) {
       }
     } );
   }
+
+  fluidPressureAndFlow.register( 'FluidColorModel', FluidColorModel );
 
   return inherit( PropertySet, FluidColorModel );
 } );

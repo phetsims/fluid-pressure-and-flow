@@ -12,6 +12,7 @@ define( function( require ) {
   'use strict';
 
   // modules
+  var fluidPressureAndFlow = require( 'FLUID_PRESSURE_AND_FLOW/fluidPressureAndFlow' );
   var inherit = require( 'PHET_CORE/inherit' );
   var BackgroundNode = require( 'FLUID_PRESSURE_AND_FLOW/under-pressure/view/BackgroundNode' );
   var ScreenView = require( 'JOIST/ScreenView' );
@@ -259,6 +260,8 @@ define( function( require ) {
     toolsLayer.addChild( new UnderPressureRuler( underPressureModel, modelViewTransform, this.layoutBounds ) );
     toolsLayer.moveToFront();
   }
+
+  fluidPressureAndFlow.register( 'UnderPressureView', UnderPressureView );
 
   return inherit( ScreenView, UnderPressureView, {
     reset: function() {

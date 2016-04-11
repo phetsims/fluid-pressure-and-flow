@@ -9,6 +9,7 @@ define( function( require ) {
   'use strict';
 
   // modules
+  var fluidPressureAndFlow = require( 'FLUID_PRESSURE_AND_FLOW/fluidPressureAndFlow' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Node = require( 'SCENERY/nodes/Node' );
   var TrapezoidPoolBack = require( 'FLUID_PRESSURE_AND_FLOW/under-pressure/view/TrapezoidPoolBack' );
@@ -59,6 +60,8 @@ define( function( require ) {
     this.addChild( new TrapezoidPoolGrid( trapezoidPoolModel.underPressureModel, modelViewTransform, poolLeftX,
       poolTopY, poolRightX, poolBottomY, poolHeight, labelXPosition, slantMultiplier ) );
   }
+
+  fluidPressureAndFlow.register( 'TrapezoidPoolView', TrapezoidPoolView );
 
   return inherit( Node, TrapezoidPoolView );
 } );

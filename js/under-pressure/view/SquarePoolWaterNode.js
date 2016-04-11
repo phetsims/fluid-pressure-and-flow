@@ -10,6 +10,7 @@ define( function( require ) {
   'use strict';
 
   // modules
+  var fluidPressureAndFlow = require( 'FLUID_PRESSURE_AND_FLOW/fluidPressureAndFlow' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Rectangle = require( 'SCENERY/nodes/Rectangle' );
 
@@ -39,6 +40,8 @@ define( function( require ) {
       squarePoolWaterNode.setRect( xMin, yMax - viewHeight, viewWidth, viewHeight );
     } );
   }
+
+  fluidPressureAndFlow.register( 'SquarePoolWaterNode', SquarePoolWaterNode );
 
   return inherit( Rectangle, SquarePoolWaterNode );
 } );

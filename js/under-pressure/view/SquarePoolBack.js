@@ -9,6 +9,7 @@ define( function( require ) {
   'use strict';
 
   // modules
+  var fluidPressureAndFlow = require( 'FLUID_PRESSURE_AND_FLOW/fluidPressureAndFlow' );
   var Node = require( 'SCENERY/nodes/Node' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Pattern = require( 'SCENERY/util/Pattern' );
@@ -91,6 +92,8 @@ define( function( require ) {
     // add input faucet node
     this.addChild( new UnderPressureFaucetNode( squarePoolModel.inputFaucet, 3000, modelViewTransform ) );
   }
+
+  fluidPressureAndFlow.register( 'SquarePoolBack', SquarePoolBack );
 
   return inherit( Node, SquarePoolBack );
 } );

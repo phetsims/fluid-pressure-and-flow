@@ -10,6 +10,7 @@ define( function( require ) {
   'use strict';
 
   // modules
+  var fluidPressureAndFlow = require( 'FLUID_PRESSURE_AND_FLOW/fluidPressureAndFlow' );
   var Node = require( 'SCENERY/nodes/Node' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Pattern = require( 'SCENERY/util/Pattern' );
@@ -148,6 +149,8 @@ define( function( require ) {
     // add input faucet
     this.addChild( new UnderPressureFaucetNode( trapezoidPoolModel.inputFaucet, 3000, modelViewTransform ) );
   }
+
+  fluidPressureAndFlow.register( 'TrapezoidPoolBack', TrapezoidPoolBack );
 
   return inherit( Node, TrapezoidPoolBack );
 } );

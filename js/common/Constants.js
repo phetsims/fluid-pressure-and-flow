@@ -9,8 +9,9 @@ define( function( require ) {
 
   // modules
   var Bounds2 = require( 'DOT/Bounds2' );
+  var fluidPressureAndFlow = require( 'FLUID_PRESSURE_AND_FLOW/fluidPressureAndFlow' );
 
-  return {
+  var Constants = {
 
     SCREEN_VIEW_OPTIONS: { layoutBounds: new Bounds2( 0, 0, 768, 504 ) },
 
@@ -32,4 +33,8 @@ define( function( require ) {
     EARTH_AIR_PRESSURE: 101325,
     EARTH_AIR_PRESSURE_AT_500_FT: 99490
   };
+
+  fluidPressureAndFlow.register( 'Constants', Constants );
+
+  return Constants;
 } );

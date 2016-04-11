@@ -8,6 +8,7 @@ define( function( require ) {
   'use strict';
 
   // modules
+  var fluidPressureAndFlow = require( 'FLUID_PRESSURE_AND_FLOW/fluidPressureAndFlow' );
   var inherit = require( 'PHET_CORE/inherit' );
   var AquaRadioButton = require( 'SUN/AquaRadioButton' );
   var Text = require( 'SCENERY/nodes/Text' );
@@ -96,6 +97,8 @@ define( function( require ) {
 
     Panel.call( this, content, options );
   }
+
+  fluidPressureAndFlow.register( 'UnitsControlPanel', UnitsControlPanel );
 
   return inherit( Panel, UnitsControlPanel );
 } );

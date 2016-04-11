@@ -10,6 +10,7 @@ define( function( require ) {
   'use strict';
 
   // modules
+  var fluidPressureAndFlow = require( 'FLUID_PRESSURE_AND_FLOW/fluidPressureAndFlow' );
   var Node = require( 'SCENERY/nodes/Node' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Rectangle = require( 'SCENERY/nodes/Rectangle' );
@@ -55,6 +56,8 @@ define( function( require ) {
     this.addChild( new GroundNode( backgroundStartX, groundY, backgroundWidth, groundY + groundExtension, 295,
       { topColor: '#93774C', bottomColor: '#93774C' } ) );
   }
+
+  fluidPressureAndFlow.register( 'BackgroundNode', BackgroundNode );
 
   return inherit( Node, BackgroundNode, {} );
 } );

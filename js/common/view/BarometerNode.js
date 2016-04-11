@@ -13,6 +13,7 @@ define( function( require ) {
   // modules
   var Bounds2 = require( 'DOT/Bounds2' );
   var Dimension2 = require( 'DOT/Dimension2' );
+  var fluidPressureAndFlow = require( 'FLUID_PRESSURE_AND_FLOW/fluidPressureAndFlow' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Node = require( 'SCENERY/nodes/Node' );
   var GaugeNode = require( 'SCENERY_PHET/GaugeNode' );
@@ -175,6 +176,8 @@ define( function( require ) {
 
     barometerNode.touchArea = barometerNode.localBounds.dilatedXY( 0, 0 );
   }
+
+  fluidPressureAndFlow.register( 'BarometerNode', BarometerNode );
 
   return inherit( Node, BarometerNode );
 } );

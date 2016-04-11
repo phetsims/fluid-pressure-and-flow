@@ -10,6 +10,7 @@ define( function( require ) {
   'use strict';
 
   // modules
+  var fluidPressureAndFlow = require( 'FLUID_PRESSURE_AND_FLOW/fluidPressureAndFlow' );
   var StringUtils = require( 'PHETCOMMON/util/StringUtils' );
   var Util = require( 'DOT/Util' );
 
@@ -30,7 +31,7 @@ define( function( require ) {
   var GRAVITY_ENGLISH_PER_METRIC = 32.16 / 9.80665; //http://evaosd.fartoomuch.info/library/units.htm
   var FLUID_DENSITY_ENGLISH_PER_METRIC = 62.4 / 1000.0;
 
-  return {
+  var Units =  {
 
     FLUID_DENSITY_ENGLISH_PER_METRIC: FLUID_DENSITY_ENGLISH_PER_METRIC,
     FLUID_FlOW_RATE_ENGLISH_PER_METRIC: 35.3 / 1000,
@@ -102,4 +103,8 @@ define( function( require ) {
       return feet / FEET_PER_METER;
     }
   };
+
+  fluidPressureAndFlow.register( 'Units', Units );
+
+  return Units;
 } );

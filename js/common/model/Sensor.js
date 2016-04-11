@@ -9,6 +9,7 @@ define( function( require ) {
   'use strict';
 
   // modules
+  var fluidPressureAndFlow = require( 'FLUID_PRESSURE_AND_FLOW/fluidPressureAndFlow' );
   var PropertySet = require( 'AXON/PropertySet' );
   var inherit = require( 'PHET_CORE/inherit' );
 
@@ -23,6 +24,8 @@ define( function( require ) {
       value: value
     } );
   }
+
+  fluidPressureAndFlow.register( 'Sensor', Sensor );
 
   return inherit( PropertySet, Sensor, {
     reset: function(){

@@ -9,6 +9,7 @@ define( function( require ) {
   'use strict';
 
   // modules
+  var fluidPressureAndFlow = require( 'FLUID_PRESSURE_AND_FLOW/fluidPressureAndFlow' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Node = require( 'SCENERY/nodes/Node' );
   var Line = require( 'SCENERY/nodes/Line' );
@@ -73,6 +74,8 @@ define( function( require ) {
 
     this.mutate( options );
   }
+
+  fluidPressureAndFlow.register( 'GridLinesNode', GridLinesNode );
 
   return inherit( Node, GridLinesNode );
 } );

@@ -9,6 +9,7 @@ define( function( require ) {
   'use strict';
 
   // modules
+  var fluidPressureAndFlow = require( 'FLUID_PRESSURE_AND_FLOW/fluidPressureAndFlow' );
   var Node = require( 'SCENERY/nodes/Node' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Pattern = require( 'SCENERY/util/Pattern' );
@@ -141,6 +142,8 @@ define( function( require ) {
       fill: '#f3f0e9'
     } ) );
   }
+
+  fluidPressureAndFlow.register( 'ChamberPoolBack', ChamberPoolBack );
 
   return inherit( Node, ChamberPoolBack );
 } );

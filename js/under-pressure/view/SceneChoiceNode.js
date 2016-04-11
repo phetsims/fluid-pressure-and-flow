@@ -9,6 +9,7 @@ define( function( require ) {
   'use strict';
 
   // modules
+  var fluidPressureAndFlow = require( 'FLUID_PRESSURE_AND_FLOW/fluidPressureAndFlow' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Image = require( 'SCENERY/nodes/Image' );
   var RadioButtonGroup = require( 'SUN/buttons/RadioButtonGroup' );
@@ -41,6 +42,8 @@ define( function( require ) {
       { value: 'mystery', node: new Image( mysteryPoolImage, { scale: ICON_SCALE } ) }
     ], options );
   }
+
+  fluidPressureAndFlow.register( 'SceneChoiceNode', SceneChoiceNode );
 
   return inherit( RadioButtonGroup, SceneChoiceNode );
 } );

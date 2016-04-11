@@ -11,6 +11,7 @@ define( function( require ) {
   'use strict';
 
   // modules
+  var fluidPressureAndFlow = require( 'FLUID_PRESSURE_AND_FLOW/fluidPressureAndFlow' );
   var inherit = require( 'PHET_CORE/inherit' );
   var FaucetNode = require( 'SCENERY_PHET/FaucetNode' );
 
@@ -30,6 +31,8 @@ define( function( require ) {
       tapToDispenseInterval: 250
     } );
   }
+
+  fluidPressureAndFlow.register( 'UnderPressureFaucetNode', UnderPressureFaucetNode );
 
   return inherit( FaucetNode, UnderPressureFaucetNode );
 } );

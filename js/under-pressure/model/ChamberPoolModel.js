@@ -11,6 +11,7 @@ define( function( require ) {
   'use strict';
 
   // modules
+  var fluidPressureAndFlow = require( 'FLUID_PRESSURE_AND_FLOW/fluidPressureAndFlow' );
   var PropertySet = require( 'AXON/PropertySet' );
   var ObservableArray = require( 'AXON/ObservableArray' );
   var inherit = require( 'PHET_CORE/inherit' );
@@ -147,6 +148,8 @@ define( function( require ) {
     } );
 
   }
+
+  fluidPressureAndFlow.register( 'ChamberPoolModel', ChamberPoolModel );
 
   return inherit( PropertySet, ChamberPoolModel, {
 

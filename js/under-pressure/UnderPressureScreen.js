@@ -10,6 +10,7 @@ define( function( require ) {
   'use strict';
 
   // modules
+  var fluidPressureAndFlow = require( 'FLUID_PRESSURE_AND_FLOW/fluidPressureAndFlow' );
   var UnderPressureModel = require( 'FLUID_PRESSURE_AND_FLOW/under-pressure/model/UnderPressureModel' );
   var UnderPressureView = require( 'FLUID_PRESSURE_AND_FLOW/under-pressure/view/UnderPressureView' );
   var inherit = require( 'PHET_CORE/inherit' );
@@ -29,6 +30,8 @@ define( function( require ) {
       { backgroundColor: 'white' }
     );
   }
+
+  fluidPressureAndFlow.register( 'UnderPressureScreen', UnderPressureScreen );
 
   return inherit( Screen, UnderPressureScreen );
 } );
