@@ -82,8 +82,8 @@ define( function( require ) {
     this.addChild( underGaugeRectangle );
 
     //pressure text, y position empirically determined
-    var READOUT_SIZE = new Dimension2( containerBounds.width * 0.9, 18 );
-    var text = new Text( '', { font: new PhetFont( 12 ), fontWeight: 'bold', maxWidth: READOUT_SIZE.width * 0.9 } );
+    var READOUT_SIZE = new Dimension2( containerBounds.width * 0.8, 18 );
+    var text = new Text( '', { font: new PhetFont( 12 ), fontWeight: 'bold', maxWidth: READOUT_SIZE.width * 0.95 } );
     var readoutPanel = new Panel( text, {
       minWidth: READOUT_SIZE.width,
       maxWidth: READOUT_SIZE.width,
