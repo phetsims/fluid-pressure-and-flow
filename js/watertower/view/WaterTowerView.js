@@ -27,7 +27,7 @@ define( function( require ) {
   var VBox = require( 'SCENERY/nodes/VBox' );
   var Node = require( 'SCENERY/nodes/Node' );
   var PlayPauseButton = require( 'SCENERY_PHET/buttons/PlayPauseButton' );
-  var StepButton = require( 'SCENERY_PHET/buttons/StepButton' );
+  var StepForwardButton = require( 'SCENERY_PHET/buttons/StepForwardButton' );
   var AquaRadioButton = require( 'SUN/AquaRadioButton' );
   var PhetFont = require( 'SCENERY_PHET/PhetFont' );
   var Text = require( 'SCENERY/nodes/Text' );
@@ -213,7 +213,7 @@ define( function( require ) {
     this.addChild( sluiceControlPanel );
 
     // add play pause button and step button
-    var stepButton = new StepButton( function() {
+    var stepButton = new StepForwardButton( function() {
       waterTowerModel.stepInternal( 0.016 );
     }, waterTowerModel.isPlayingProperty, {
       stroke: 'black',
