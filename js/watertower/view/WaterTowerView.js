@@ -216,9 +216,10 @@ define( function( require ) {
     var stepButton = new StepButton( function() {
       waterTowerModel.stepInternal( 0.016 );
     }, waterTowerModel.isPlayingProperty, {
-      stroke: 'black', fill: '#005566', right: fluidDensityControlSlider.left -
-                                               inset, bottom: fluidDensityControlSlider.bottom -
-                                               inset
+      stroke: 'black',
+      fill: '#005566',
+      right: fluidDensityControlSlider.left - inset,
+      bottom: fluidDensityControlSlider.bottom - inset
     } );
 
     this.addChild( stepButton );
