@@ -158,6 +158,17 @@ define( function( require ) {
       }
     } );
 
+    // update barometer value when weights are added to chamber pool
+    barometer.on( 'update', function() {
+      if ( barometer.positionProperty.value === barometer.positionProperty.initialValue ) {
+        barometer.value = null; // when the barometer is in the sensor panel making sure it shows no value for accessibility
+      }
+      else {
+        barometer.value = getPressureAt( barometer.position.x,
+          barometer.position.y + modelViewTransform.viewToModelDeltaY( barometerNode.bottom - barometerNode.centerY ) );
+      }
+    } );
+
     // Update the text when the value, units or position changes.
     // If the barometer reading is 0 and it is touching the sensor panel, then only the position changes.
     // In order to trigger the text display change, need to listen to position property here as well.
