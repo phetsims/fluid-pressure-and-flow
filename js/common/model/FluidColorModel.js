@@ -32,11 +32,11 @@ define( function( require ) {
     var fluidColorModel = this;
 
     var getRedLow = new LinearFunction( fluidDensityRange.min, Constants.WATER_DENSITY, GAS_COLOR.red,
-      WATER_COLOR.red );
+      WATER_COLOR.red ); // @private
     var getGreenLow = new LinearFunction( fluidDensityRange.min, Constants.WATER_DENSITY, GAS_COLOR.green,
-      WATER_COLOR.green );
+      WATER_COLOR.green ); // @private
     var getBlueLow = new LinearFunction( fluidDensityRange.min, Constants.WATER_DENSITY, GAS_COLOR.blue,
-      WATER_COLOR.blue );
+      WATER_COLOR.blue ); // @private
 
     var getRedHigh = new LinearFunction( Constants.WATER_DENSITY, fluidDensityRange.max, WATER_COLOR.red,
       HONEY_COLOR.red );
