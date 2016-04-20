@@ -50,16 +50,17 @@ define( function( require ) {
     } );
     this.addChild( mass );
 
-    this.addChild( new Text( StringUtils.format( massLabelPatternString, massModel.mass ),
+    var massText = new Text( StringUtils.format( massLabelPatternString, massModel.mass ),
       {
-        x: mass.centerX - 15,
-        y: mass.centerY + 3,
+        //x: mass.centerX - 15,
+        //y: mass.centerY + 3,
         font: new PhetFont( 9 ),
         fill: 'black',
         pickable: false,
         fontWeight: 'bold',
         maxWidth: width - 5
-      } ) );
+      } );
+    this.addChild( massText );
 
     var massClickOffset = { x: 0, y: 0 };
 
@@ -88,6 +89,8 @@ define( function( require ) {
       if ( !chamberPoolModel.isDragging ) {
         massNode.translation = new Vector2( modelViewTransform.modelToViewX( position.x ),
           modelViewTransform.modelToViewY( position.y ) );
+        massText.centerX = mass.centerX;
+        massText.centerY = mass.centerY;
       }
     } );
   }

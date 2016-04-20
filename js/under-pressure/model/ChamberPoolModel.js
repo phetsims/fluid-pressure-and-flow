@@ -166,26 +166,24 @@ define( function( require ) {
      * @param {number} dt -- time in seconds
      */
     step: function( dt ) {
+      var self = this;
+      var nominalDt = 1 / 60;
 
-      // init lastDt value
-      if ( !lastDt ) {
-        lastDt = dt;
-      }
-
-      if ( Math.abs( lastDt - dt ) > lastDt * 0.3 ) {
-        dt = lastDt;
-      }
-      else {
-        lastDt = dt;
-      }
+      dt = Math.min( dt, nominalDt * 4 ); // Handling large dt so that masses doesn't float upward
 
       // Update each of the masses
-      var steps = 10;
+      var steps = 10; // these steps are oly used for masses inside the pool to make sure they reach equilibrium state on iPad
       this.masses.forEach( function( mass ) {
-        for ( var i = 0; i < steps; i++ ) {
-          mass.step( dt / steps );
+        if ( self.stack.contains( mass ) ) {
+          for ( var i = 0; i < steps; i++ ) {
+            mass.step( dt / steps );
+          }
+        }
+        else{
+          mass.step( dt );
         }
       } );
+
 
       // If there are any masses stacked, update the water height
       if ( this.stackMass ) {
