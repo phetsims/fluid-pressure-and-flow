@@ -18,7 +18,6 @@ define( function( require ) {
   var MassModel = require( 'FLUID_PRESSURE_AND_FLOW/under-pressure/model/MassModel' );
 
   // constants
-  var lastDt = 0;//to filter dt in step.
 
   //The size of the passage between the chambers
   var PASSAGE_SIZE = 0.5;
