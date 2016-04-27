@@ -68,9 +68,9 @@ define( function( require ) {
         underPressureModel.reset();
         self.reset();
       },
-      scale: 0.6,
+      radius: 18,
       right: this.layoutBounds.right - inset,
-      bottom: this.layoutBounds.bottom - 10
+      bottom: this.layoutBounds.bottom - 5
     } );
     this.addChild( resetAllButton );
 
@@ -128,7 +128,7 @@ define( function( require ) {
       underPressureModel.fluidDensityRange,
       underPressureModel.fluidDensityControlExpandedProperty, {
         right: resetAllButton.right,
-        bottom: gravitySlider.top - 8,
+        bottom: gravitySlider.top - 5,
 
         title: fluidDensityString,
         ticks: [

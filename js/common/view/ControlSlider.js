@@ -138,10 +138,9 @@ define( function( require ) {
     this.accordionContent = new Node();
     this.accordionContent.addChild( this.content );
     this.accordionContent.left = 0;
-    var accordionBox = new AccordionBox( this.accordionContent,
-      {
-        titleNode: new Text( options.title, {
-          font: new PhetFont( { size: 12 } ),
+    var accordionBox = new AccordionBox( this.accordionContent, {
+      titleNode: new Text( options.title, {
+          font: new PhetFont( { size: 13 } ),
           maxWidth: trackSize.width + 2 * options.xMargin
         } ),
         fill: options.fill,
