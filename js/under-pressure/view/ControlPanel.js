@@ -64,10 +64,6 @@ define( function( require ) {
     var gridCheckBox = new CheckBox( new HBox( { children: gridArray } ), underPressureModel.isGridVisibleProperty,
       alignOptions );
 
-    var maxCheckBoxWidth = _.max( [ rulerCheckBox, gridCheckBox ], function( item ) {
-        return item.width;
-      } ).width + 5;
-
     // touch areas, empirically determined
     rulerCheckBox.touchArea = rulerCheckBox.bounds.dilatedY( 1 );
     gridCheckBox.touchArea = gridCheckBox.bounds.dilatedY( 3 );

@@ -13,7 +13,6 @@ define( function( require ) {
 
   // modules
   var AquaRadioButton = require( 'SUN/AquaRadioButton' );
-  var Bounds2 = require( 'DOT/Bounds2' );
   var ComboBox = require( 'SUN/ComboBox' );
   var DerivedProperty = require( 'AXON/DerivedProperty' );
   var fluidPressureAndFlow = require( 'FLUID_PRESSURE_AND_FLOW/fluidPressureAndFlow' );

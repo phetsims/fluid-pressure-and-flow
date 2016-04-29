@@ -15,7 +15,6 @@ define( function( require ) {
   var PhetFont = require( 'SCENERY_PHET/PhetFont' );
   var Panel = require( 'SUN/Panel' );
   var VBox = require( 'SCENERY/nodes/VBox' );
-  var Bounds2 = require( 'DOT/Bounds2' );
 
   // strings
   var metricString = require( 'string!FLUID_PRESSURE_AND_FLOW/metric' );
