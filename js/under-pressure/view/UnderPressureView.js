@@ -72,6 +72,7 @@ define( function( require ) {
         self.reset();
       },
       radius: 18,
+      touchAreaDilation: 5,
       right: this.layoutBounds.right - INSET,
       bottom: this.layoutBounds.bottom - 5
     } );

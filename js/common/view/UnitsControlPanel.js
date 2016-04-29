@@ -23,6 +23,9 @@ define( function( require ) {
   var unitsString = require( 'string!FLUID_PRESSURE_AND_FLOW/units' );
   var atmospheresString = require( 'string!FLUID_PRESSURE_AND_FLOW/atmospheres' );
 
+  // constants
+  var RADIO_BUTTON_TOUCH_DILATION_Y = 2; // empirically determined
+
   /**
    *
    * @param {Property<string>} measureUnitsProperty can take values 'english', 'metric' or 'atmospheres'
@@ -53,32 +56,10 @@ define( function( require ) {
     var englishRadio = new AquaRadioButton( measureUnitsProperty, 'english', createButtonTextNode( englishString ),
       AQUA_RADIO_BUTTON_OPTIONS );
 
-    // touch areas
-    var touchAreaDilation = 5;
-    var maxRadioButtonWidth = _.max( [ metricRadio, atmosphereRadio, englishRadio ], function( item ) {
-      return item.width;
-    } ).width;
-
     //touch areas
-    metricRadio.touchArea = new Bounds2(
-      ( metricRadio.localBounds.minX - touchAreaDilation ),
-      metricRadio.localBounds.minY,
-      ( metricRadio.localBounds.minX + maxRadioButtonWidth ),
-      metricRadio.localBounds.maxY
-    );
-
-    atmosphereRadio.touchArea = new Bounds2(
-      ( atmosphereRadio.localBounds.minX - touchAreaDilation ),
-      atmosphereRadio.localBounds.minY,
-      ( atmosphereRadio.localBounds.minX + maxRadioButtonWidth ),
-      atmosphereRadio.localBounds.maxY
-    );
-
-    englishRadio.touchArea = new Bounds2(
-      ( englishRadio.localBounds.minX - touchAreaDilation ),
-      englishRadio.localBounds.minY,
-      ( englishRadio.localBounds.minX + maxRadioButtonWidth ),
-      englishRadio.localBounds.maxY );
+    metricRadio.touchArea = metricRadio.bounds.dilatedY( RADIO_BUTTON_TOUCH_DILATION_Y );
+    atmosphereRadio.touchArea = atmosphereRadio.bounds.dilatedY( RADIO_BUTTON_TOUCH_DILATION_Y );
+    englishRadio.touchArea = englishRadio.bounds.dilatedY( RADIO_BUTTON_TOUCH_DILATION_Y );
 
     var content = new VBox( {
       spacing: 5,

@@ -21,7 +21,6 @@ define( function( require ) {
   var PhetFont = require( 'SCENERY_PHET/PhetFont' );
   var AtmosphereControlNode = require( 'FLUID_PRESSURE_AND_FLOW/under-pressure/view/AtmosphereControlNode' );
   var RulerNode = require( 'SCENERY_PHET/RulerNode' );
-  var Bounds2 = require( 'DOT/Bounds2' );
   var VStrut = require( 'SCENERY/nodes/VStrut' );
 
   // strings
@@ -69,11 +68,9 @@ define( function( require ) {
         return item.width;
       } ).width + 5;
 
-    //touch Areas
-    rulerCheckBox.touchArea = new Bounds2( rulerCheckBox.localBounds.minX - 5, rulerCheckBox.localBounds.minY,
-      rulerCheckBox.localBounds.minX + maxCheckBoxWidth, rulerCheckBox.localBounds.maxY );
-    gridCheckBox.touchArea = new Bounds2( gridCheckBox.localBounds.minX - 5, gridCheckBox.localBounds.minY,
-      gridCheckBox.localBounds.minX + maxCheckBoxWidth, gridCheckBox.localBounds.maxY );
+    // touch areas, empirically determined
+    rulerCheckBox.touchArea = rulerCheckBox.bounds.dilatedY( 1 );
+    gridCheckBox.touchArea = gridCheckBox.bounds.dilatedY( 3 );
 
     var checkBoxChildren = [ rulerCheckBox, gridCheckBox ];
 

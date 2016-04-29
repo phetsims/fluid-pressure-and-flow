@@ -34,6 +34,9 @@ define( function( require ) {
   var fluidBString = require( 'string!FLUID_PRESSURE_AND_FLOW/fluidB' );
   var fluidCString = require( 'string!FLUID_PRESSURE_AND_FLOW/fluidC' );
 
+  // constants
+  var RADIO_BUTTON_TOUCH_DILATION_Y = 2; // empirically determined
+
   /**
    * @param mysteryPoolModel
    * @param modelViewTransform
@@ -63,25 +66,10 @@ define( function( require ) {
       'fluidDensity', new Text( mysteryFluidString, textOptions ), { radius: 6 } );
     var mysteryPlanetRadio = new AquaRadioButton( mysteryPoolModel.underPressureModel.mysteryChoiceProperty, 'gravity',
       new Text( mysteryPlanetString, textOptions ), { radius: 6 } );
-    var touchAreaDilation = 4;
-    var maxRadioButtonWidth = _.max( [ mysteryFluidRadio, mysteryPlanetRadio ], function( item ) {
-        return item.width;
-      } ).width + 5;
 
     //touch areas
-    mysteryFluidRadio.touchArea = new Bounds2(
-      mysteryFluidRadio.localBounds.minX - touchAreaDilation,
-      mysteryFluidRadio.localBounds.minY,
-      mysteryFluidRadio.localBounds.minX + maxRadioButtonWidth,
-      mysteryFluidRadio.localBounds.maxY
-    );
-
-    mysteryPlanetRadio.touchArea = new Bounds2(
-      mysteryPlanetRadio.localBounds.minX - touchAreaDilation,
-      mysteryPlanetRadio.localBounds.minY,
-      mysteryPlanetRadio.localBounds.minX + maxRadioButtonWidth,
-      mysteryPlanetRadio.localBounds.maxY
-    );
+    mysteryFluidRadio.touchArea = mysteryFluidRadio.bounds.dilatedY( RADIO_BUTTON_TOUCH_DILATION_Y );
+    mysteryPlanetRadio.touchArea = mysteryPlanetRadio.bounds.dilatedY( RADIO_BUTTON_TOUCH_DILATION_Y );
 
     var content = new VBox( {
       children: [ mysteryFluidRadio, mysteryPlanetRadio ],

@@ -54,9 +54,9 @@ define( function( require ) {
       radius: 6
     } );
 
-    //touch areas
-    atmosphereTrue.touchArea = atmosphereTrue.localBounds.dilatedXY( 0, 0 );
-    atmosphereFalse.touchArea = atmosphereFalse.localBounds.dilatedXY( 0, 0 );
+    // touch areas, empirically determined
+    atmosphereTrue.touchArea = atmosphereTrue.localBounds.dilatedXY( 4, 4 );
+    atmosphereFalse.touchArea = atmosphereFalse.localBounds.dilatedXY( 4, 4 );
 
     this.contentNode = new HBox( {
       children: [ atmosphereTrue, atmosphereFalse ],
