@@ -42,10 +42,14 @@ define( function( require ) {
       align: 'left'
     }, options );
 
-    var titleText = new Text( unitsString, { font: new PhetFont( 12 ), fontWeight: 'bold', maxWidth: 80 } );
+    var maxControlWidth = ( options.maxWidth * 0.9 ) || 200; // the fallback value is fairly arbitrary
 
-    var AQUA_RADIO_BUTTON_OPTIONS = { radius: 6, font: new PhetFont( 12 ), maxWidth: 100 };
-    var createButtonTextNode = function( text ) { return new Text( text, { font: new PhetFont( 12 ), maxWidth: 80 } ); };
+    var titleText = new Text( unitsString, { font: new PhetFont( 12 ), fontWeight: 'bold', maxWidth: maxControlWidth } );
+
+    var AQUA_RADIO_BUTTON_OPTIONS = { radius: 6, font: new PhetFont( 12 ) };
+    var createButtonTextNode = function( text ) {
+      return new Text( text, { font: new PhetFont( 12 ), maxWidth: maxControlWidth * 0.8 } );
+    };
 
     // Create the radio buttons
     var metricRadio = new AquaRadioButton( measureUnitsProperty, 'metric', createButtonTextNode( metricString ),

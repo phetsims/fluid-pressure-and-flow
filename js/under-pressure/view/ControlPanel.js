@@ -36,6 +36,7 @@ define( function( require ) {
 
     options = _.extend( {
       yMargin: 7,
+      xMargin: 5,
       fill: '#f2fa6a',
       stroke: 'gray',
       lineWidth: 1,
@@ -44,17 +45,20 @@ define( function( require ) {
       maxWidth: 150
     }, options );
 
-    var textOptions = { font: new PhetFont( 12 ), maxWidth: 80 };
+    var maxControlWidth = ( options.maxWidth * 0.9 ) || 200; // the fallback value is fairly arbitrary
+    var textOptions = { font: new PhetFont( 12 ), maxWidth: maxControlWidth };
     var rulerSet = [ new Text( rulerString, textOptions ), this.createRulerIcon() ];
     var gridArray = [ new Text( gridString, textOptions ) ];
-    var atmosphereControlNode = new AtmosphereControlNode( underPressureModel.isAtmosphereProperty );
+    var atmosphereControlNode = new AtmosphereControlNode( underPressureModel.isAtmosphereProperty, {
+      maxWidth: options.maxWidth
+    } );
 
     var alignOptions = {
       boxWidth: 15,
       spacing: 5
     };
 
-    //align ruler icon right
+    // align ruler icon right
     var padWidth = options.maxWidth - rulerSet[ 0 ].width - rulerSet[ 1 ].width - alignOptions.boxWidth -
                    alignOptions.spacing * 2;
     var rulerArray = [ rulerSet[ 0 ], new HStrut( padWidth ), rulerSet[ 1 ] ];

@@ -58,7 +58,7 @@ define( function( require ) {
     //choice for mystery scene
     var textOptions = {
       font: new PhetFont( 12 ),
-      maxWidth: 75 // empirically determined
+      maxWidth: width * 0.8
     };
 
     var mysteryFluidRadio = new AquaRadioButton( mysteryPoolModel.underPressureModel.mysteryChoiceProperty,
