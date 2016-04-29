@@ -69,7 +69,7 @@ define( function( require ) {
     this.barometers = [];
 
     for ( var i = 0; i < NUM_BAROMETERS; i++ ) {
-      this.barometers.push( new Sensor( new Vector2( 7.965, 2.5 ), 0 ) );
+      this.barometers.push( new Sensor( new Vector2( 7.75, 2.5 ), 0 ) );
     }
 
     // current scene's model

@@ -30,17 +30,13 @@ define( function( require ) {
    * @param {Object} [options]
    * @constructor
    */
-  function UnitsControlPanel( measureUnitsProperty, width, options ) {
+  function UnitsControlPanel( measureUnitsProperty, options ) {
 
     options = _.extend( {
-      xMargin: 7,
-      yMargin: 6,
       fill: '#f2fa6a',
       stroke: 'gray',
       lineWidth: 1,
       resize: false,
-      maxWidth: 120,
-      minWidth: 120,
       align: 'left'
     }, options );
 
@@ -56,9 +52,6 @@ define( function( require ) {
       createButtonTextNode( atmospheresString ), AQUA_RADIO_BUTTON_OPTIONS );
     var englishRadio = new AquaRadioButton( measureUnitsProperty, 'english', createButtonTextNode( englishString ),
       AQUA_RADIO_BUTTON_OPTIONS );
-
-    //dummy text for height
-    var dummyText = new Text( '', { font: new PhetFont( 3 ) } );
 
     // touch areas
     var touchAreaDilation = 5;
@@ -88,8 +81,8 @@ define( function( require ) {
       englishRadio.localBounds.maxY );
 
     var content = new VBox( {
-      spacing: 4,
-      children: [ titleText, metricRadio, atmosphereRadio, englishRadio, dummyText ],
+      spacing: 5,
+      children: [ titleText, metricRadio, atmosphereRadio, englishRadio ],
       align: 'left'
     } );
 

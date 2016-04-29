@@ -43,8 +43,11 @@ define( function( require ) {
   var waterString = require( 'string!FLUID_PRESSURE_AND_FLOW/water' );
   var honeyString = require( 'string!FLUID_PRESSURE_AND_FLOW/honey' );
 
-  //View layout related constants
-  var inset = 15;
+  // constants
+  var INSET = 15;
+  var CONTROL_PANEL_WIDTH = 140; // empirically determined to look good and leave some space for translation
+  var CONTROL_PANEL_CORNER_RADIUS = 7;
+  var CONTROL_PANEL_X_MARGIN = 7;
 
   /**
    * @param {UnderPressureModel} underPressureModel of the sim
@@ -69,13 +72,20 @@ define( function( require ) {
         self.reset();
       },
       radius: 18,
-      right: this.layoutBounds.right - inset,
+      right: this.layoutBounds.right - INSET,
       bottom: this.layoutBounds.bottom - 5
     } );
     this.addChild( resetAllButton );
 
     //control panel
-    var controlPanel = new ControlPanel( underPressureModel, { right: resetAllButton.right, top: 5, cornerRadius: 7 } );
+    var controlPanel = new ControlPanel( underPressureModel, {
+      right: resetAllButton.right,
+      top: 5,
+      cornerRadius: CONTROL_PANEL_CORNER_RADIUS,
+      xMargin: CONTROL_PANEL_X_MARGIN,
+      minWidth: CONTROL_PANEL_WIDTH,
+      maxWidth: CONTROL_PANEL_WIDTH
+    } );
     this.addChild( controlPanel );
 
     // all the movable tools are added to this layer
@@ -83,11 +93,13 @@ define( function( require ) {
     this.addChild( toolsLayer );
 
     // units panel
-    var unitsControlPanel = new UnitsControlPanel( underPressureModel.measureUnitsProperty, controlPanel.width, {
-      yMargin: 2,
+    var unitsControlPanel = new UnitsControlPanel( underPressureModel.measureUnitsProperty, {
       right: resetAllButton.right,
       top: controlPanel.bottom + 6,
-      cornerRadius: 7
+      cornerRadius: CONTROL_PANEL_CORNER_RADIUS,
+      xMargin: CONTROL_PANEL_X_MARGIN,
+      minWidth: CONTROL_PANEL_WIDTH,
+      maxWidth: CONTROL_PANEL_WIDTH
     } );
     this.addChild( unitsControlPanel );
 
@@ -153,7 +165,8 @@ define( function( require ) {
       stroke: 'gray',
       lineWidth: 1,
       fill: '#f2fa6a',
-      right: controlPanel.left - 25,
+      cornerRadius: CONTROL_PANEL_CORNER_RADIUS,
+      right: controlPanel.left - 20,
       top: controlPanel.top
     } );
     this.addChild( sensorPanel );

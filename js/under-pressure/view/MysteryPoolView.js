@@ -85,7 +85,7 @@ define( function( require ) {
 
     var content = new VBox( {
       children: [ mysteryFluidRadio, mysteryPlanetRadio ],
-      spacing: 4,
+      spacing: 5,
       align: 'left',
       resize: false
     } );

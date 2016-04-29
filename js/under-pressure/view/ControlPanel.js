@@ -22,6 +22,7 @@ define( function( require ) {
   var AtmosphereControlNode = require( 'FLUID_PRESSURE_AND_FLOW/under-pressure/view/AtmosphereControlNode' );
   var RulerNode = require( 'SCENERY_PHET/RulerNode' );
   var Bounds2 = require( 'DOT/Bounds2' );
+  var VStrut = require( 'SCENERY/nodes/VStrut' );
 
   // strings
   var gridString = require( 'string!FLUID_PRESSURE_AND_FLOW/grid' );
@@ -35,14 +36,13 @@ define( function( require ) {
   function ControlPanel( underPressureModel, options ) {
 
     options = _.extend( {
-      xMargin: 7,
       yMargin: 7,
       fill: '#f2fa6a',
       stroke: 'gray',
       lineWidth: 1,
       resize: false,
-      minWidth: 120,
-      maxWidth:120
+      minWidth: 150,
+      maxWidth: 150
     }, options );
 
     var textOptions = { font: new PhetFont( 12 ), maxWidth: 80 };
@@ -51,10 +51,9 @@ define( function( require ) {
     var atmosphereControlNode = new AtmosphereControlNode( underPressureModel.isAtmosphereProperty );
 
     var alignOptions = {
-      boxWidth: 12,
+      boxWidth: 15,
       spacing: 5
     };
-
 
     //align ruler icon right
     var padWidth = options.maxWidth - rulerSet[ 0 ].width - rulerSet[ 1 ].width - alignOptions.boxWidth -
@@ -82,7 +81,7 @@ define( function( require ) {
 
     var content = new VBox( {
       spacing: 5,
-      children: [ checkBoxes, atmosphereControlNode ],
+      children: [ checkBoxes, new VStrut( 2 ), atmosphereControlNode ],
       align: 'left'
     } );
 
