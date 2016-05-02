@@ -81,7 +81,8 @@ define( function( require ) {
         aSlider.addMajorTick( tick.value, new Text( tick.title, {
           font: labelFont,
           visible: options.ticksVisible,
-          maxWidth: 35
+          maxWidth: 35,
+          pickable: false
         } ) );
       } );
       return aSlider;
