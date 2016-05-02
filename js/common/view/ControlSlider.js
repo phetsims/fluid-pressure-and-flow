@@ -75,7 +75,7 @@ define( function( require ) {
           }
         }
       } );
-      var labelFont = new PhetFont( 10 );
+      var labelFont = new PhetFont( 9.5 );
 
       options.ticks.forEach( function( tick ) {
         aSlider.addMajorTick( tick.value, new Text( tick.title, {
