@@ -50,21 +50,22 @@ define( function( require ) {
   function MysteryPoolView( mysteryPoolModel, modelViewTransform, bounds, bottom, left, fluidDensityTop, fluidDensityLeft, width ) {
 
     SquarePoolView.call( this, mysteryPoolModel, modelViewTransform );
-    //this.mysteryPoolControls = new MysteryPoolControls( mysteryPoolModel, bottom );
-    //this.addChild( this.mysteryPoolControls );
 
     var mysteryPoolControls = this;
-    //Node.call( this );
-    //choice for mystery scene
-    var textOptions = {
+    var radioButtonTextOptions = {
       font: new PhetFont( 12 ),
       maxWidth: width * 0.8
     };
 
+    var comboBoxTextOptions = {
+      font: new PhetFont( 12 ),
+      maxWidth: width * 0.5
+    };
+
     var mysteryFluidRadio = new AquaRadioButton( mysteryPoolModel.underPressureModel.mysteryChoiceProperty,
-      'fluidDensity', new Text( mysteryFluidString, textOptions ), { radius: 6 } );
+      'fluidDensity', new Text( mysteryFluidString, radioButtonTextOptions ), { radius: 6 } );
     var mysteryPlanetRadio = new AquaRadioButton( mysteryPoolModel.underPressureModel.mysteryChoiceProperty, 'gravity',
-      new Text( mysteryPlanetString, textOptions ), { radius: 6 } );
+      new Text( mysteryPlanetString, radioButtonTextOptions ), { radius: 6 } );
 
     //touch areas
     mysteryFluidRadio.touchArea = mysteryFluidRadio.bounds.dilatedY( RADIO_BUTTON_TOUCH_DILATION_Y );
@@ -89,18 +90,15 @@ define( function( require ) {
       minWidth: width,
       maxWidth: width
     } );
-    //var background = new Rectangle( 0, 0, 0, 1, { stroke: 'gray', lineWidth: 1, fill: '#f2fa6a', pickable: false } );
-    //this.choicePanel.addChild( background );
-    //this.choicePanel.addChild( content );
     choicePanel.top = bottom + 5;
     choicePanel.left = left;
     this.addChild( choicePanel );
 
     // items
     this.fluidDensityComboBox = new ComboBox( [
-      ComboBox.createItem( new Text( fluidAString, textOptions ), 0 ),
-      ComboBox.createItem( new Text( fluidBString, textOptions ), 1 ),
-      ComboBox.createItem( new Text( fluidCString, textOptions ), 2 )
+      ComboBox.createItem( new Text( fluidAString, comboBoxTextOptions ), 0 ),
+      ComboBox.createItem( new Text( fluidBString, comboBoxTextOptions ), 1 ),
+      ComboBox.createItem( new Text( fluidCString, comboBoxTextOptions ), 2 )
     ], mysteryPoolModel.customFluidDensityProperty, mysteryPoolControls, {
       itemHighlightFill: 'rgb(218,255,255)',
       visible: false
@@ -112,9 +110,9 @@ define( function( require ) {
     this.addChild( this.fluidDensityComboBox );
 
     this.gravityComboBox = new ComboBox( [
-      ComboBox.createItem( new Text( planetAString, textOptions ), 0 ),
-      ComboBox.createItem( new Text( planetBString, textOptions ), 1 ),
-      ComboBox.createItem( new Text( planetCString, textOptions ), 2 )
+      ComboBox.createItem( new Text( planetAString, comboBoxTextOptions ), 0 ),
+      ComboBox.createItem( new Text( planetBString, comboBoxTextOptions ), 1 ),
+      ComboBox.createItem( new Text( planetCString, comboBoxTextOptions ), 2 )
     ], mysteryPoolModel.customGravityProperty, mysteryPoolControls, {
       itemHighlightFill: 'rgb(218,255,255)',
       visible: false
@@ -125,13 +123,6 @@ define( function( require ) {
     this.gravityComboBox.top = this.fluidDensityComboBox.top;
     this.addChild( this.gravityComboBox );
 
-    //this.choicePanel.resizeWidth = function( width ) {
-    //  background.setRect( 0, 0, width, content.height + 6, 5, 5 );
-    //  content.centerX = background.centerX - 4;
-    //  content.centerY = background.centerY;
-    //};
-    //this.choicePanel.resizeWidth( content.width + 10 );
-
     new DerivedProperty( [ mysteryPoolModel.underPressureModel.mysteryChoiceProperty ],
       function( mysteryChoice ) {
         return mysteryChoice === 'fluidDensity';
@@ -141,7 +132,6 @@ define( function( require ) {
       function( mysteryChoice ) {
         return mysteryChoice === 'gravity';
       } ).linkAttribute( mysteryPoolControls.gravityComboBox, 'visible' );
-
   }
 
   fluidPressureAndFlow.register( 'MysteryPoolView', MysteryPoolView );
