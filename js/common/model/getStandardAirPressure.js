@@ -9,6 +9,7 @@
 define( function( require ) {
   'use strict';
 
+  // modules
   var fluidPressureAndFlow = require( 'FLUID_PRESSURE_AND_FLOW/fluidPressureAndFlow' );
   var Util = require( 'DOT/Util' );
   var Constants = require( 'FLUID_PRESSURE_AND_FLOW/common/Constants' );

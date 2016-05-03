@@ -10,8 +10,6 @@ define( function( require ) {
   'use strict';
 
   // modules
-
-
   var DerivedProperty = require( 'AXON/DerivedProperty' );
   var inherit = require( 'PHET_CORE/inherit' );
   var ScreenView = require( 'JOIST/ScreenView' );
