@@ -159,7 +159,8 @@ define( function( require ) {
       buttonXMargin: 6,
       buttonLength: 12,
       minWidth: trackSize.width + 12 * options.xMargin,
-      maxWidth: trackSize.width + 12 * options.xMargin
+      maxWidth: trackSize.width + 12 * options.xMargin,
+      buttonTouchAreaYDilation: 2 // empirically determined so that it does not overlap touch area of arrow button
     } );
     this.addChild( accordionBox );
 
