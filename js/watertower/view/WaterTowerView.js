@@ -10,6 +10,7 @@ define( function( require ) {
   'use strict';
 
   // modules
+  var fluidPressureAndFlow = require( 'FLUID_PRESSURE_AND_FLOW/fluidPressureAndFlow' );
   var DerivedProperty = require( 'AXON/DerivedProperty' );
   var inherit = require( 'PHET_CORE/inherit' );
   var ScreenView = require( 'JOIST/ScreenView' );
@@ -117,7 +118,7 @@ define( function( require ) {
       closeOnRelease: false,
 
       // Faucet is interactive in manual mode, non-interactive in 'matchLeakage' mode, see #132
-      interactiveProperty: new DerivedProperty( [waterTowerModel.faucetModeProperty],
+      interactiveProperty: new DerivedProperty( [ waterTowerModel.faucetModeProperty ],
         function( faucetMode ) { return faucetMode === 'manual'; } )
     } );
     this.addChild( faucetNode );
@@ -129,7 +130,10 @@ define( function( require ) {
     } ) );
 
     // tools control panel
-    this.toolsControlPanel = new ToolsControlPanel( waterTowerModel, { right: this.layoutBounds.right - inset, top: inset } );
+    this.toolsControlPanel = new ToolsControlPanel( waterTowerModel, {
+      right: this.layoutBounds.right - inset,
+      top: inset
+    } );
     this.addChild( this.toolsControlPanel );
     this.addChild( new UnitsControlPanel( waterTowerModel.measureUnitsProperty, this.toolsControlPanel.width, {
       left: this.toolsControlPanel.left, xMargin: 10, yMargin: 10, fontSize: 14,
@@ -163,7 +167,7 @@ define( function( require ) {
       tipCircleRadius: 8, // radius of the circle on the tip
       isBaseCrosshairRotating: false, // do crosshairs rotate around their own axis to line up with the tapeline
       isTipCrosshairRotating: false, // do crosshairs rotate around their own axis to line up with the tapeline
-      dragBounds: modelViewTransform.viewToModelBounds(this.layoutBounds.eroded( 10 ))
+      dragBounds: modelViewTransform.viewToModelBounds( this.layoutBounds.eroded( 10 ) )
     } );
 
     var resetAllButton = new ResetAllButton( {
@@ -205,7 +209,7 @@ define( function( require ) {
       xMargin: 10,
       yMargin: 15,
       fill: '#1F5EFF',
-      right:  waterTowerNode.right + 36,
+      right: waterTowerNode.right + 36,
       bottom: this.layoutBounds.bottom - 70
     } );
     this.addChild( sluiceControlPanel );
@@ -296,7 +300,7 @@ define( function( require ) {
     } );
 
     // if the sim is paused, disable the fill button as soon as the tank is filled
-    new DerivedProperty( [waterTowerModel.waterTower.fluidVolumeProperty], function( fluidVolume ) {
+    new DerivedProperty( [ waterTowerModel.waterTower.fluidVolumeProperty ], function( fluidVolume ) {
       return fluidVolume === waterTowerModel.waterTower.TANK_VOLUME;
     } ).link( function() {
       if ( !waterTowerModel.isPlaying ) {
@@ -316,8 +320,9 @@ define( function( require ) {
       }
     } );
     toolsLayer.moveToFront();
-
   }
+
+  fluidPressureAndFlow.register( 'WaterTowerView', WaterTowerView );
 
   return inherit( ScreenView, WaterTowerView, {
     step: function( dt ) {

@@ -9,6 +9,7 @@ define( function( require ) {
   'use strict';
 
   // modules
+  var fluidPressureAndFlow = require( 'FLUID_PRESSURE_AND_FLOW/fluidPressureAndFlow' );
   var inherit = require( 'PHET_CORE/inherit' );
   var VBox = require( 'SCENERY/nodes/VBox' );
   var HBox = require( 'SCENERY/nodes/HBox' );
@@ -35,7 +36,7 @@ define( function( require ) {
    * @param {Object} [options] for various panel display properties
    * @constructor
    */
-  function ToolsControlPanel( flowModel, options ) {
+  function FlowToolsControlPanel( flowModel, options ) {
 
     options = _.extend( {
       xMargin: 10,
@@ -126,5 +127,7 @@ define( function( require ) {
     return new Node( { children: [ dot1, dot2 ] } );
   };
 
-  return inherit( Panel, ToolsControlPanel );
+  fluidPressureAndFlow.register( 'FlowToolsControlPanel', FlowToolsControlPanel );
+
+  return inherit( Panel, FlowToolsControlPanel );
 } );

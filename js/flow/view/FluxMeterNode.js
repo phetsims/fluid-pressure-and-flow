@@ -9,6 +9,7 @@ define( function( require ) {
   'use strict';
 
   // modules
+  var fluidPressureAndFlow = require( 'FLUID_PRESSURE_AND_FLOW/fluidPressureAndFlow' );
   var inherit = require( 'PHET_CORE/inherit' );
   var VBox = require( 'SCENERY/nodes/VBox' );
   var HBox = require( 'SCENERY/nodes/HBox' );
@@ -132,8 +133,8 @@ define( function( require ) {
       stroke: 'blue'
     } );
     this.ellipse2 = new Path( new Shape().ellipticalArc( initialCenterX, centerY, radiusY, this.radiusX, Math.PI / 2,
-        Math.PI,
-        0, false ),
+      Math.PI,
+      0, false ),
       {
         lineWidth: 5,
         stroke: new Color( 0, 0, 255, 0.5 )
@@ -143,9 +144,7 @@ define( function( require ) {
     this.addChild( this.ellipse );
 
     // the line connecting the ring and the display panel
-    var upperLineShape = new Shape().
-      moveTo( this.ellipse2.centerX - 3, this.ellipse2.centerY - 20 ).
-      lineTo( this.ellipse2.right, this.ellipse2.top );
+    var upperLineShape = new Shape().moveTo( this.ellipse2.centerX - 3, this.ellipse2.centerY - 20 ).lineTo( this.ellipse2.right, this.ellipse2.top );
 
     this.upperLine = new Path( upperLineShape,
       {
@@ -160,9 +159,7 @@ define( function( require ) {
     this.displayPanel.left = fluxMeterNode.upperLine.left - 50;
 
     // the line connecting the ring and the bottom handle
-    var lowerLineShape = new Shape().
-      moveTo( this.ellipse2.centerX - 3, this.ellipse2.centerY + 20 ).
-      lineTo( this.ellipse2.centerX - 3, this.ellipse2.centerY + 60 );
+    var lowerLineShape = new Shape().moveTo( this.ellipse2.centerX - 3, this.ellipse2.centerY + 20 ).lineTo( this.ellipse2.centerX - 3, this.ellipse2.centerY + 60 );
 
     this.lowerLine = new Path( lowerLineShape,
       {
@@ -207,6 +204,8 @@ define( function( require ) {
 
     this.mutate( options );
   }
+
+  fluidPressureAndFlow.register( 'FluxMeterNode', FluxMeterNode );
 
   return inherit( Panel, FluxMeterNode, {
 

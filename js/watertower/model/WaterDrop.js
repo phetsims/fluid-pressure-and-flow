@@ -8,6 +8,7 @@ define( function( require ) {
   'use strict';
 
   // modules
+  var fluidPressureAndFlow = require( 'FLUID_PRESSURE_AND_FLOW/fluidPressureAndFlow' );
   var PropertySet = require( 'AXON/PropertySet' );
   var Util = require( 'DOT/Util' );
   var inherit = require( 'PHET_CORE/inherit' );
@@ -37,6 +38,8 @@ define( function( require ) {
       return Util.cubeRoot( (3 * volume) / (4 * Math.PI) );
     } );
   }
+
+  fluidPressureAndFlow.register( 'WaterDrop', WaterDrop );
 
   return inherit( PropertySet, WaterDrop, {
     step: function( dt ) {

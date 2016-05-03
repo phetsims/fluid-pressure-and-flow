@@ -11,6 +11,7 @@ define( function( require ) {
   'use strict';
 
   // modules
+  var fluidPressureAndFlow = require( 'FLUID_PRESSURE_AND_FLOW/fluidPressureAndFlow' );
   var inherit = require( 'PHET_CORE/inherit' );
   var PropertySet = require( 'AXON/PropertySet' );
   var Util = require( 'DOT/Util' );
@@ -90,6 +91,8 @@ define( function( require ) {
     this.dirty = true;
 
   }
+
+  fluidPressureAndFlow.register( 'Pipe', Pipe );
 
   return inherit( PropertySet, Pipe, {
 

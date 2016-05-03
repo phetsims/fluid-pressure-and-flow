@@ -10,6 +10,7 @@ define( function( require ) {
   'use strict';
 
   // modules
+  var fluidPressureAndFlow = require( 'FLUID_PRESSURE_AND_FLOW/fluidPressureAndFlow' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Node = require( 'SCENERY/nodes/Node' );
   var SimpleDragHandler = require( 'SCENERY/input/SimpleDragHandler' );
@@ -124,6 +125,8 @@ define( function( require ) {
     } ) );
 
   }
+
+  fluidPressureAndFlow.register( 'PipeMainDragHandle', PipeMainDragHandle );
 
   return inherit( Node, PipeMainDragHandle );
 } );

@@ -9,6 +9,7 @@ define( function( require ) {
   'use strict';
 
   // modules
+  var fluidPressureAndFlow = require( 'FLUID_PRESSURE_AND_FLOW/fluidPressureAndFlow' );
   var inherit = require( 'PHET_CORE/inherit' );
   var PropertySet = require( 'AXON/PropertySet' );
   var Vector2 = require( 'DOT/Vector2' );
@@ -25,6 +26,8 @@ define( function( require ) {
       position: new Vector2( x, y )
     } );
   }
+
+  fluidPressureAndFlow.register( 'PipeControlPoint', PipeControlPoint );
 
   return inherit( PropertySet, PipeControlPoint );
 } );

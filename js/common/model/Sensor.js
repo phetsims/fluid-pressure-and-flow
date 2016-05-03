@@ -28,7 +28,7 @@ define( function( require ) {
   fluidPressureAndFlow.register( 'Sensor', Sensor );
 
   return inherit( PropertySet, Sensor, {
-    reset: function(){
+    reset: function() {
       this.positionProperty.reset();
     }
   } );

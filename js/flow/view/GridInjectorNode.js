@@ -9,6 +9,7 @@ define( function( require ) {
   'use strict';
 
   // modules
+  var fluidPressureAndFlow = require( 'FLUID_PRESSURE_AND_FLOW/fluidPressureAndFlow' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Node = require( 'SCENERY/nodes/Node' );
   var RoundStickyToggleButton = require( 'SUN/buttons/RoundStickyToggleButton' );
@@ -69,12 +70,14 @@ define( function( require ) {
 
   }
 
+  fluidPressureAndFlow.register( 'GridInjectorNode', GridInjectorNode );
+
   return inherit( Node, GridInjectorNode, {
 
     // reposition the grid injector
     updateGridInjector: function() {
       this.setTranslation( this.modelViewTransform.modelToViewX( this.gridInjectorX ) - X_OFFSET,
-          this.modelViewTransform.modelToViewY( this.pipe.getCrossSection( this.gridInjectorX ).yTop ) - Y_OFFSET );
+        this.modelViewTransform.modelToViewY( this.pipe.getCrossSection( this.gridInjectorX ).yTop ) - Y_OFFSET );
     }
   } );
 } );

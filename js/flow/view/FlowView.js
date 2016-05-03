@@ -9,6 +9,7 @@ define( function( require ) {
   'use strict';
 
   // modules
+  var fluidPressureAndFlow = require( 'FLUID_PRESSURE_AND_FLOW/fluidPressureAndFlow' );
   var inherit = require( 'PHET_CORE/inherit' );
   var ScreenView = require( 'JOIST/ScreenView' );
   var ModelViewTransform2 = require( 'PHETCOMMON/view/ModelViewTransform2' );
@@ -20,7 +21,7 @@ define( function( require ) {
   var GroundNode = require( 'SCENERY_PHET/GroundNode' );
   var Pattern = require( 'SCENERY/util/Pattern' );
   var Matrix3 = require( 'DOT/Matrix3' );
-  var ToolsControlPanel = require( 'FLUID_PRESSURE_AND_FLOW/flow/view/ToolsControlPanel' );
+  var FlowToolsControlPanel = require( 'FLUID_PRESSURE_AND_FLOW/flow/view/FlowToolsControlPanel' );
   var UnitsControlPanel = require( 'FLUID_PRESSURE_AND_FLOW/common/view/UnitsControlPanel' );
   var ControlSlider = require( 'FLUID_PRESSURE_AND_FLOW/common/view/ControlSlider' );
   var VelocitySensorNode = require( 'FLUID_PRESSURE_AND_FLOW/common/view/VelocitySensorNode' );
@@ -101,7 +102,7 @@ define( function( require ) {
     } ) );
 
     // tools control panel
-    var toolsControlPanel = new ToolsControlPanel( flowModel, { right: this.layoutBounds.right - 7, top: 7 } );
+    var toolsControlPanel = new FlowToolsControlPanel( flowModel, { right: this.layoutBounds.right - 7, top: 7 } );
     this.addChild( toolsControlPanel );
 
     // all the movable tools are added to this layer
@@ -327,6 +328,8 @@ define( function( require ) {
 
     toolsLayer.moveToFront();
   }
+
+  fluidPressureAndFlow.register( 'FlowView', FlowView );
 
   return inherit( ScreenView, FlowView, {
 

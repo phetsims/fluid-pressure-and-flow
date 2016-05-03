@@ -107,7 +107,7 @@ define( function( require ) {
       .moveTo( gaugeNode.centerX - bottomTriangleShapeWidth / 2, underGaugeRectangle.rectY + underGaugeRectangleHeight )
       .lineTo( gaugeNode.centerX, bottomTriangleShapeHeight + underGaugeRectangle.rectY + underGaugeRectangleHeight )
       .lineTo( gaugeNode.centerX + bottomTriangleShapeWidth / 2,
-      underGaugeRectangle.rectY + underGaugeRectangleHeight );
+        underGaugeRectangle.rectY + underGaugeRectangleHeight );
     this.addChild( new Path( bottomTriangleShape, {
       fill: new LinearGradient( gaugeNode.centerX - bottomTriangleShapeWidth / 2, 0,
         gaugeNode.centerX + bottomTriangleShapeWidth / 2, 0 )
@@ -125,10 +125,10 @@ define( function( require ) {
       dragBounds.width - this.width / 2,
       dragBounds.height - this.height / 2 ) );
 
-    barometer.positionProperty.link( function ( value ){
+    barometer.positionProperty.link( function( value ) {
       barometerNode.centerX = modelViewTransform.modelToViewX( value.x );
       barometerNode.centerY = modelViewTransform.modelToViewY( value.y );
-    });
+    } );
 
     // Add an input listener so the BarometerNode can be dragged
     // Constrain the location so it cannot be dragged offscreen
@@ -174,7 +174,7 @@ define( function( require ) {
     // In order to trigger the text display change, need to listen to position property here as well.
     Property.multilink( [ barometer.valueProperty, measureUnitsProperty, barometer.positionProperty ],
       function( barometerValue, units ) {
-        if ( barometer.positionProperty.value === barometer.positionProperty.initialValue || barometerValue === null) {
+        if ( barometer.positionProperty.value === barometer.positionProperty.initialValue || barometerValue === null ) {
           text.text = '-'; // showing no value when barometer is in the sensor panel
           text.centerX = READOUT_SIZE.width / 2;
         }

@@ -8,6 +8,7 @@ define( function( require ) {
   'use strict';
 
   // modules
+  var fluidPressureAndFlow = require( 'FLUID_PRESSURE_AND_FLOW/fluidPressureAndFlow' );
   var PropertySet = require( 'AXON/PropertySet' );
   var Vector2 = require( 'DOT/Vector2' );
   var inherit = require( 'PHET_CORE/inherit' );
@@ -45,6 +46,8 @@ define( function( require ) {
       return fluidVolume >= waterTower.TANK_VOLUME;
     } );
   }
+
+  fluidPressureAndFlow.register( 'WaterTower', WaterTower );
 
   return inherit( PropertySet, WaterTower, {
     fill: function() {

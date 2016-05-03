@@ -9,6 +9,7 @@ define( function( require ) {
   'use strict';
 
   // modules
+  var fluidPressureAndFlow = require( 'FLUID_PRESSURE_AND_FLOW/fluidPressureAndFlow' );
   var inherit = require( 'PHET_CORE/inherit' );
   var VBox = require( 'SCENERY/nodes/VBox' );
   var HBox = require( 'SCENERY/nodes/HBox' );
@@ -101,7 +102,13 @@ define( function( require ) {
       lineWidth: 1,
       fill: '#00FF00'
     } );
-    icon.addChild( new Image( nozzleImg, { cursor: 'pointer', rotation: Math.PI / 2, scale: 0.8, left: icon.right, bottom: icon.bottom + 3 } ) );
+    icon.addChild( new Image( nozzleImg, {
+      cursor: 'pointer',
+      rotation: Math.PI / 2,
+      scale: 0.8,
+      left: icon.right,
+      bottom: icon.bottom + 3
+    } ) );
     return icon;
   };
 
@@ -113,10 +120,12 @@ define( function( require ) {
       stroke: '#E05F20',
       lineWidth: 2,
       left: icon.right + 12,
-      top:  icon.bottom + 12
+      top: icon.bottom + 12
     } ) );
     return icon;
   };
+
+  fluidPressureAndFlow.register( 'ToolsControlPanel', ToolsControlPanel );
 
   return inherit( Panel, ToolsControlPanel );
 } );

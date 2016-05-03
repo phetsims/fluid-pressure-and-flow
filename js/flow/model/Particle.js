@@ -13,6 +13,7 @@ define( function( require ) {
   'use strict';
 
   // modules
+  var fluidPressureAndFlow = require( 'FLUID_PRESSURE_AND_FLOW/fluidPressureAndFlow' );
   var inherit = require( 'PHET_CORE/inherit' );
 
   /**
@@ -37,6 +38,8 @@ define( function( require ) {
     this.radius = radius; // in meters
     this.color = color;
   }
+
+  fluidPressureAndFlow.register( 'Particle', Particle );
 
   return inherit( Object, Particle, {
 

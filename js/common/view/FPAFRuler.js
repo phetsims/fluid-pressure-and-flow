@@ -9,6 +9,7 @@ define( function( require ) {
   'use strict';
 
   // modules
+  var fluidPressureAndFlow = require( 'FLUID_PRESSURE_AND_FLOW/fluidPressureAndFlow' );
   var CloseButton = require( 'SCENERY_PHET/buttons/CloseButton' );
   var Node = require( 'SCENERY/nodes/Node' );
   var inherit = require( 'PHET_CORE/inherit' );
@@ -88,9 +89,9 @@ define( function( require ) {
 
     isRulerVisibleProperty.linkAttribute( this, 'visible' );
 
-    new DerivedProperty( [measureUnitsProperty], function( measureUnits ) { return measureUnits === 'english'; } )
+    new DerivedProperty( [ measureUnitsProperty ], function( measureUnits ) { return measureUnits === 'english'; } )
       .linkAttribute( feetRuler, 'visible' );
-    new DerivedProperty( [measureUnitsProperty], function( measureUnits ) { return measureUnits === 'metric'; } )
+    new DerivedProperty( [ measureUnitsProperty ], function( measureUnits ) { return measureUnits === 'metric'; } )
       .linkAttribute( metersRuler, 'visible' );
 
     rulerPositionProperty.linkAttribute( metersRuler, 'translation' );
@@ -106,8 +107,9 @@ define( function( require ) {
     feetRuler.addInputListener( new MovableDragHandler( rulerPositionProperty, { dragBounds: rulerDragBounds } ) );
 
     this.mutate( options );
-
   }
+
+  fluidPressureAndFlow.register( 'FPAFRuler', FPAFRuler );
 
   return inherit( Node, FPAFRuler );
 } );

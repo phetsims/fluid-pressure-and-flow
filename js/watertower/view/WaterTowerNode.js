@@ -9,6 +9,7 @@ define( function( require ) {
   'use strict';
 
   // modules
+  var fluidPressureAndFlow = require( 'FLUID_PRESSURE_AND_FLOW/fluidPressureAndFlow' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Node = require( 'SCENERY/nodes/Node' );
   var Path = require( 'SCENERY/nodes/Path' );
@@ -74,7 +75,10 @@ define( function( require ) {
       .lineTo( modelViewTransform.modelToViewX( 2 * waterTower.TANK_RADIUS ), modelViewTransform.modelToViewY( 0 ) )
       .lineTo( modelViewTransform.modelToViewX( 2 * waterTower.TANK_RADIUS ), modelViewTransform.modelToViewY( waterTower.fluidLevel ) )
       .lineTo( modelViewTransform.modelToViewX( 0 ), modelViewTransform.modelToViewY( waterTower.fluidLevel ) ).close();
-    this.waterShapeNode = new Path( waterShape, { bottom: this.waterTankFrame.bottom - 2, fill: fluidColorModel.color } );
+    this.waterShapeNode = new Path( waterShape, {
+      bottom: this.waterTankFrame.bottom - 2,
+      fill: fluidColorModel.color
+    } );
     this.addChild( this.waterShapeNode );
 
     this.addChild( this.waterTankFrame );
@@ -93,7 +97,12 @@ define( function( require ) {
     handleNode.touchArea = handleNode.localBounds.dilatedXY( 20, 20 );
 
     //add the wheel and rope
-    var wheelNode = new Image( wheelImage, { cursor: 'pointer', scale: 0.4, bottom: this.waterTankFrame.top, right: this.waterTankFrame.right + 3 } );
+    var wheelNode = new Image( wheelImage, {
+      cursor: 'pointer',
+      scale: 0.4,
+      bottom: this.waterTankFrame.top,
+      right: this.waterTankFrame.right + 3
+    } );
     this.addChild( wheelNode );
     this.addChild( new Path( Shape.lineSegment( 0, this.waterTankFrame.height - modelViewTransform.modelToViewDeltaX( waterTower.HOLE_SIZE * 1.5 ), 0, 0 ), {
       right: wheelNode.right,
@@ -177,6 +186,8 @@ define( function( require ) {
 
     this.mutate( options );
   }
+
+  fluidPressureAndFlow.register( 'WaterTowerNode', WaterTowerNode );
 
   return inherit( Node, WaterTowerNode );
 

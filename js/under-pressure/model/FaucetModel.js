@@ -40,5 +40,6 @@ define( function( require ) {
   }
 
   fluidPressureAndFlow.register( 'FaucetModel', FaucetModel );
+
   return inherit( PropertySet, FaucetModel );
 } );

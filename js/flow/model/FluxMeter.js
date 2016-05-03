@@ -10,6 +10,7 @@ define( function( require ) {
   'use strict';
 
   // modules
+  var fluidPressureAndFlow = require( 'FLUID_PRESSURE_AND_FLOW/fluidPressureAndFlow' );
   var inherit = require( 'PHET_CORE/inherit' );
   var PropertySet = require( 'AXON/PropertySet' );
 
@@ -28,6 +29,8 @@ define( function( require ) {
       xPosition: -6.5 //in meters
     } );
   }
+
+  fluidPressureAndFlow.register( 'FluxMeter', FluxMeter );
 
   return inherit( PropertySet, FluxMeter, {
 

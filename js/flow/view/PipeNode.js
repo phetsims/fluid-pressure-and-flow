@@ -9,6 +9,7 @@ define( function( require ) {
   'use strict';
 
   // modules
+  var fluidPressureAndFlow = require( 'FLUID_PRESSURE_AND_FLOW/fluidPressureAndFlow' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Node = require( 'SCENERY/nodes/Node' );
   var Path = require( 'SCENERY/nodes/Path' );
@@ -139,6 +140,8 @@ define( function( require ) {
     // init the flexible middle pipe flow line shape
     this.updatePipeFlowLineShape();
   }
+
+  fluidPressureAndFlow.register( 'PipeNode', PipeNode );
 
   return inherit( Node, PipeNode,
     {

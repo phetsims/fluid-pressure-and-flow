@@ -9,6 +9,7 @@ define( function( require ) {
   'use strict';
 
   // modules
+  var fluidPressureAndFlow = require( 'FLUID_PRESSURE_AND_FLOW/fluidPressureAndFlow' );
   var PropertySet = require( 'AXON/PropertySet' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Range = require( 'DOT/Range' );
@@ -112,6 +113,8 @@ define( function( require ) {
     this.newHoseDrops = [];
   }
 
+  fluidPressureAndFlow.register( 'WaterTowerModel', WaterTowerModel );
+
   return inherit( PropertySet, WaterTowerModel, {
 
     // Resets all model elements
@@ -197,7 +200,7 @@ define( function( require ) {
         if ( (this.faucetMode === 'manual' && this.isFaucetEnabled && this.faucetFlowRate > 0) ||
              (this.faucetMode === 'matchLeakage' && this.isSluiceOpen && this.waterTower.fluidVolume > 0) ) {
           newFaucetDrop = new WaterDrop( this.faucetPosition.copy().plus( new Vector2( Math.random() * 0.2 - 0.1,
-              1.5 ) ), new Vector2( 0, 0 ),
+            1.5 ) ), new Vector2( 0, 0 ),
             this.faucetMode === 'manual' ? this.faucetFlowRate * 0.016 : this.leakageVolume );
           this.faucetDrops.push( newFaucetDrop );
           this.newFaucetDrops.push( newFaucetDrop );
@@ -274,8 +277,8 @@ define( function( require ) {
         // check if the faucetDrops hit the fluidLevel
         if ( this.faucetDrops.get( i ).position.y < this.waterTower.tankPosition.y +
                                                     ((this.waterTower.fluidLevel > this.faucetDrops.get( i ).radius) ?
-                                                     this.waterTower.fluidLevel + this.faucetDrops.get( i ).radius :
-                                                     0.3 + this.faucetDrops.get( i ).radius) ) {
+                                                    this.waterTower.fluidLevel + this.faucetDrops.get( i ).radius :
+                                                    0.3 + this.faucetDrops.get( i ).radius) ) {
           this.dropsToRemove.push( this.faucetDrops.get( i ) );
 
           if ( this.waterTower.fluidVolume < this.waterTower.TANK_VOLUME ) {

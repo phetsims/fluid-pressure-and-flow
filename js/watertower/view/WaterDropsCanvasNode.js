@@ -9,6 +9,7 @@ define( function( require ) {
   'use strict';
 
   // modules
+  var fluidPressureAndFlow = require( 'FLUID_PRESSURE_AND_FLOW/fluidPressureAndFlow' );
   var inherit = require( 'PHET_CORE/inherit' );
   var CanvasNode = require( 'SCENERY/nodes/CanvasNode' );
 
@@ -29,6 +30,8 @@ define( function( require ) {
     CanvasNode.call( this, options );
     this.invalidatePaint();
   }
+
+  fluidPressureAndFlow.register( 'WaterDropsCanvasNode', WaterDropsCanvasNode );
 
   return inherit( CanvasNode, WaterDropsCanvasNode, {
 

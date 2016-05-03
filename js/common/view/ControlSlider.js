@@ -141,25 +141,25 @@ define( function( require ) {
     this.accordionContent.left = 0;
     var accordionBox = new AccordionBox( this.accordionContent, {
       titleNode: new Text( options.title, {
-          font: new PhetFont( { size: 13 } ),
-          maxWidth: trackSize.width + 2 * options.xMargin
-        } ),
-        fill: options.fill,
-        stroke: 'gray',
-        expandedProperty: expandedProperty,
-        contentAlign: 'center',
-        titleAlign: options.titleAlign,
-        buttonAlign: 'left',
-        cornerRadius: 4,
-        contentYSpacing: 2,
-        contentYMargin: 5,
-        contentXMargin: 4,
-        buttonYMargin: 4,
-        buttonXMargin: 6,
-        buttonLength: 12,
-        minWidth: trackSize.width + 12 * options.xMargin,
-        maxWidth: trackSize.width + 12 * options.xMargin
-      } );
+        font: new PhetFont( { size: 13 } ),
+        maxWidth: trackSize.width + 2 * options.xMargin
+      } ),
+      fill: options.fill,
+      stroke: 'gray',
+      expandedProperty: expandedProperty,
+      contentAlign: 'center',
+      titleAlign: options.titleAlign,
+      buttonAlign: 'left',
+      cornerRadius: 4,
+      contentYSpacing: 2,
+      contentYMargin: 5,
+      contentXMargin: 4,
+      buttonYMargin: 4,
+      buttonXMargin: 6,
+      buttonLength: 12,
+      minWidth: trackSize.width + 12 * options.xMargin,
+      maxWidth: trackSize.width + 12 * options.xMargin
+    } );
     this.addChild( accordionBox );
 
     // question mark, show if unknown property

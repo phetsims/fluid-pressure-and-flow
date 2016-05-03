@@ -13,6 +13,7 @@ define( function( require ) {
   'use strict';
 
   // modules
+  var fluidPressureAndFlow = require( 'FLUID_PRESSURE_AND_FLOW/fluidPressureAndFlow' );
   var Image = require( 'SCENERY/nodes/Image' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Path = require( 'SCENERY/nodes/Path' );
@@ -183,7 +184,7 @@ define( function( require ) {
 
     shape = shape.lineTo( modelViewTransform.modelToViewX( hose.elbowLowerX ), modelViewTransform.modelToViewY( hose.elbowLowerY ) )
       .arc( modelViewTransform.modelToViewX( hose.elbowInnerX ), modelViewTransform.modelToViewY( hose.elbowInnerY ), modelViewTransform.modelToViewDeltaX( hose.width ),
-      Math.PI / 2, hose.angleWithVertical, true );
+        Math.PI / 2, hose.angleWithVertical, true );
 
     return shape;
   };
@@ -218,10 +219,12 @@ define( function( require ) {
     }
     shape = shape.lineTo( modelViewTransform.modelToViewX( hose.elbowLowerX ), modelViewTransform.modelToViewY( hose.elbowLowerY ) )
       .arc( modelViewTransform.modelToViewX( hose.elbowInnerX ), modelViewTransform.modelToViewY( hose.elbowInnerY ), modelViewTransform.modelToViewDeltaX( hose.width ),
-      Math.PI / 2, hose.angleWithVertical, true );
+        Math.PI / 2, hose.angleWithVertical, true );
 
     return shape;
   };
+
+  fluidPressureAndFlow.register( 'HoseNode', HoseNode );
 
   return inherit( Node, HoseNode, {
     /**

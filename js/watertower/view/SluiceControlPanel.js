@@ -8,6 +8,7 @@ define( function( require ) {
     'use strict';
 
     // modules
+  var fluidPressureAndFlow = require( 'FLUID_PRESSURE_AND_FLOW/fluidPressureAndFlow' );
     var inherit = require( 'PHET_CORE/inherit' );
     var Path = require( 'SCENERY/nodes/Path' );
     var Shape = require( 'KITE/Shape' );
@@ -36,7 +37,11 @@ define( function( require ) {
       var tankPositionProperty = new Property( new Vector2( 0, 0.7 * tankDim ) );
 
       // close option
-      var closeOptionNode = new Rectangle( 0, 0, optionWidth, optionHeight, 5, 5, { stroke: 'black', lineWidth: 1, fill: 'white' } );
+      var closeOptionNode = new Rectangle( 0, 0, optionWidth, optionHeight, 5, 5, {
+        stroke: 'black',
+        lineWidth: 1,
+        fill: 'white'
+      } );
 
       var closeWaterTowerLegs = new WaterTowerLegsNode( tankDim, tankPositionProperty, modelViewTransform, {
         legWidth: 1,
@@ -57,7 +62,11 @@ define( function( require ) {
       closeOptionNode.addChild( closeWaterTowerLegs );
 
       // open option
-      var openOptionNode = new Rectangle( 0, 0, optionWidth, optionHeight, 5, 5, { stroke: 'black', lineWidth: 1, fill: 'white' } );
+      var openOptionNode = new Rectangle( 0, 0, optionWidth, optionHeight, 5, 5, {
+        stroke: 'black',
+        lineWidth: 1,
+        fill: 'white'
+      } );
 
       var openWaterTowerLegs = new WaterTowerLegsNode( tankDim, tankPositionProperty, modelViewTransform, {
         legWidth: 1,
@@ -86,6 +95,8 @@ define( function( require ) {
 
       ABSwitch.call( this, isSluiceOpenProperty, false, closeOptionNode, true, openOptionNode, options );
     }
+
+  fluidPressureAndFlow.register( 'SluiceControlPanel', SluiceControlPanel );
 
     return inherit( ABSwitch, SluiceControlPanel );
   }

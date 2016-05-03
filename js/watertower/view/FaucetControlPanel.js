@@ -8,6 +8,7 @@ define( function( require ) {
   'use strict';
 
   // modules
+  var fluidPressureAndFlow = require( 'FLUID_PRESSURE_AND_FLOW/fluidPressureAndFlow' );
   var inherit = require( 'PHET_CORE/inherit' );
   var VBox = require( 'SCENERY/nodes/VBox' );
   var AquaRadioButton = require( 'SUN/AquaRadioButton' );
@@ -40,6 +41,8 @@ define( function( require ) {
 
     this.mutate( options );
   }
+
+  fluidPressureAndFlow.register( 'FaucetControlPanel', FaucetControlPanel );
 
   return inherit( VBox, FaucetControlPanel );
 } );

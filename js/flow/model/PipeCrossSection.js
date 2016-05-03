@@ -10,6 +10,7 @@ define( function( require ) {
   'use strict';
 
   // modules
+  var fluidPressureAndFlow = require( 'FLUID_PRESSURE_AND_FLOW/fluidPressureAndFlow' );
   var inherit = require( 'PHET_CORE/inherit' );
 
   /**
@@ -24,6 +25,8 @@ define( function( require ) {
     this.yBottom = yBottom;
     this.yTop = yTop;
   }
+
+  fluidPressureAndFlow.register( 'PipeCrossSection', PipeCrossSection );
 
   return inherit( Object, PipeCrossSection, {
 

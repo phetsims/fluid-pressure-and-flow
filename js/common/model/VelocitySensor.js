@@ -8,6 +8,7 @@ define( function( require ) {
   'use strict';
 
   // modules
+  var fluidPressureAndFlow = require( 'FLUID_PRESSURE_AND_FLOW/fluidPressureAndFlow' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Sensor = require( 'FLUID_PRESSURE_AND_FLOW/common/model/Sensor' );
 
@@ -22,6 +23,8 @@ define( function( require ) {
       return value.magnitude() > 0;
     } );
   }
+
+  fluidPressureAndFlow.register( 'VelocitySensor', VelocitySensor );
 
   return inherit( Sensor, VelocitySensor );
 } );

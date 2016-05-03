@@ -9,6 +9,7 @@ define( function( require ) {
   'use strict';
 
   // modules
+  var fluidPressureAndFlow = require( 'FLUID_PRESSURE_AND_FLOW/fluidPressureAndFlow' );
   var WaterTowerModel = require( 'FLUID_PRESSURE_AND_FLOW/watertower/model/WaterTowerModel' );
   var WaterTowerView = require( 'FLUID_PRESSURE_AND_FLOW/watertower/view/WaterTowerView' );
   var inherit = require( 'PHET_CORE/inherit' );
@@ -28,6 +29,8 @@ define( function( require ) {
       { backgroundColor: 'white' }
     );
   }
+
+  fluidPressureAndFlow.register( 'WaterTowerScreen', WaterTowerScreen );
 
   return inherit( Screen, WaterTowerScreen );
 } );
