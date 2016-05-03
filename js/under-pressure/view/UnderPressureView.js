@@ -115,6 +115,7 @@ define( function( require ) {
         bottom: resetAllButton.top - 5,
         title: gravityString,
         decimals: 1,
+        labelMaxWidth: 30,
         ticks: [
           {
             title: earthString,

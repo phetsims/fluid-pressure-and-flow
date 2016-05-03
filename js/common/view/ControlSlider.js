@@ -51,7 +51,8 @@ define( function( require ) {
       thumbSize: new Dimension2( 12, 25 ),
       ticks: [],
       ticksVisible: true,
-      titleAlign: 'left'
+      titleAlign: 'left',
+      labelMaxWidth: 35
     }, options );
 
     Node.call( this );
@@ -81,7 +82,7 @@ define( function( require ) {
         aSlider.addMajorTick( tick.value, new Text( tick.title, {
           font: labelFont,
           visible: options.ticksVisible,
-          maxWidth: 35,
+          maxWidth: options.labelMaxWidth,
           pickable: false
         } ) );
       } );
