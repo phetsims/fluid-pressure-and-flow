@@ -67,9 +67,9 @@ define( function( require ) {
           LEFT_CHAMBER_TOP_CENTER + SEPARATION + WIDTH_AT_BOTTOM / 2 )
       },
       bottomChamber: {
-        x1: 5,
+        x1: 4,
         y1: -this.maxHeight + 0.21,
-        x2: 8,
+        x2: 6,
         y2: -this.maxHeight
       }
     };
