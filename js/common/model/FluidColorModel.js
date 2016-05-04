@@ -39,14 +39,14 @@ define( function( require ) {
       WATER_COLOR.blue ); // @private
 
     var getRedHigh = new LinearFunction( Constants.WATER_DENSITY, fluidDensityRange.max, WATER_COLOR.red,
-      HONEY_COLOR.red );
+      HONEY_COLOR.red ); // @private
     var getGreenHigh = new LinearFunction( Constants.WATER_DENSITY, fluidDensityRange.max,
-      WATER_COLOR.green, HONEY_COLOR.green );
+      WATER_COLOR.green, HONEY_COLOR.green ); // @private
     var getBlueHigh = new LinearFunction( Constants.WATER_DENSITY, fluidDensityRange.max, WATER_COLOR.blue,
-      HONEY_COLOR.blue );
+      HONEY_COLOR.blue ); // @private
 
     PropertySet.call( this, {
-      color: WATER_COLOR
+      color: WATER_COLOR // @public (read-only)
     } );
 
     // For low density values, vary between gasoline and water.

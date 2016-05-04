@@ -57,6 +57,7 @@ define( function( require ) {
 
     var chamberPoolModel = this;
     PropertySet.call( this, {
+      // @public
       leftDisplacement: 0, //displacement from default height
       stackMass: 0
     } );
@@ -65,14 +66,15 @@ define( function( require ) {
 
     //Use the length ratio instead of area ratio because the quadratic factor makes it too hard to see the
     // water move on the right, and decreases the pressure effect too much to see it
-    this.lengthRatio = RIGHT_OPENING_WIDTH / LEFT_OPENING_WIDTH;
+    this.lengthRatio = RIGHT_OPENING_WIDTH / LEFT_OPENING_WIDTH; // @public
 
     //default left opening water height
-    this.leftWaterHeight = DEFAULT_HEIGHT - CHAMBER_HEIGHT;
+    this.leftWaterHeight = DEFAULT_HEIGHT - CHAMBER_HEIGHT; // @public
 
     //masses can't have y-coord more that this, sky height - grass height
-    this.maxY = 0.05;
+    this.maxY = 0.05; // @public
 
+    // @public
     this.poolDimensions = {
       leftChamber: {
         x1: LEFT_CHAMBER_X,
@@ -107,8 +109,9 @@ define( function( require ) {
     };
 
     //List of masses that are currently stacked
-    this.stack = new ObservableArray();
+    this.stack = new ObservableArray(); // @public
 
+    // @public
     //List of all available masses
     this.masses = [
       new MassModel( chamberPoolModel, 500, MASS_OFFSET, chamberPoolModel.maxY + PASSAGE_SIZE / 2, PASSAGE_SIZE,
@@ -152,8 +155,8 @@ define( function( require ) {
 
   return inherit( PropertySet, ChamberPoolModel, {
 
+    // @public
     reset: function() {
-
       this.stack.clear();
       this.masses.forEach( function( mass ) {
         mass.reset();
@@ -161,6 +164,7 @@ define( function( require ) {
     },
 
     /**
+     * @public
      * Steps the chamber pool dimensions forward in time by dt seconds
      * @param {number} dt -- time in seconds
      */
@@ -205,6 +209,7 @@ define( function( require ) {
     },
 
     /**
+     * @public
      * Returns height of the water above the given position
      * @param {number} x position in meters
      * @param {number} y position in meters
@@ -221,6 +226,7 @@ define( function( require ) {
     },
 
     /**
+     * @public
      * Returns true if the given point is inside the chamber pool, false otherwise.
      * @param {number} x position in meters
      * @param {number} y position in meters

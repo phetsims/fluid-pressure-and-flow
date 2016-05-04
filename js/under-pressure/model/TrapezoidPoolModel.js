@@ -29,18 +29,19 @@ define( function( require ) {
   function TrapezoidPoolModel( underPressureModel ) {
 
     //constants
-    this.maxHeight = 3; // meters
-    this.maxVolume = this.maxHeight; // Liters
+    this.maxHeight = 3; // @public - meters
+    this.maxVolume = this.maxHeight; // @public - Liters
 
     var inputFaucetX = 3.19;
     var inputFaucetY = 0.44;
     var outputFaucetX = 7.5;
     var outputFaucetY = -3.45;
-    this.inputFaucet = new FaucetModel( new Vector2( inputFaucetX, inputFaucetY ), 1, 0.42 );
-    this.outputFaucet = new FaucetModel( new Vector2( outputFaucetX, outputFaucetY ), 1, 0.3 );
+    this.inputFaucet = new FaucetModel( new Vector2( inputFaucetX, inputFaucetY ), 1, 0.42 ); // @public
+    this.outputFaucet = new FaucetModel( new Vector2( outputFaucetX, outputFaucetY ), 1, 0.3 ); // @public
 
     this.underPressureModel = underPressureModel;
 
+    // @public
     this.poolDimensions = {
       leftChamber: {
         centerTop: LEFT_CHAMBER_TOP_CENTER,
@@ -73,6 +74,8 @@ define( function( require ) {
         y2: -this.maxHeight
       }
     };
+
+    // @public
     //key coordinates of complex figure
     this.verticles = {
       x1top: this.poolDimensions.leftChamber.centerTop - this.poolDimensions.leftChamber.widthTop / 2,
@@ -101,6 +104,7 @@ define( function( require ) {
   return inherit( PoolWithFaucetsModel, TrapezoidPoolModel, {
 
     /**
+     * @public
      * Returns height of the water above the given position
      * @param {number} x position in meters
      * @param {number} y position in meters
@@ -111,6 +115,7 @@ define( function( require ) {
     },
 
     /**
+     * @public
      * Returns true if the given point is inside the trapezoid pool, false otherwise.
      * @param {number} x position in meters
      * @param {number} y position in meters

@@ -32,12 +32,11 @@ define( function( require ) {
 
     var underPressureModel = this;
 
-
-
-    this.gravityRange = new Range( Constants.MARS_GRAVITY, Constants.JUPITER_GRAVITY );
-    this.fluidDensityRange = new Range( Constants.GASOLINE_DENSITY, Constants.HONEY_DENSITY );
+    this.gravityRange = new Range( Constants.MARS_GRAVITY, Constants.JUPITER_GRAVITY ); // @public
+    this.fluidDensityRange = new Range( Constants.GASOLINE_DENSITY, Constants.HONEY_DENSITY ); // @public
 
     PropertySet.call( this, {
+        // @public
         isAtmosphere: true,
         isRulerVisible: false,
         isGridVisible: false,
@@ -58,15 +57,15 @@ define( function( require ) {
       }
     );
 
-    this.sceneModels = {};
+    this.sceneModels = {}; // @public
     this.sceneModels.square = new SquarePoolModel( underPressureModel );
     this.sceneModels.trapezoid = new TrapezoidPoolModel( underPressureModel );
     this.sceneModels.chamber = new ChamberPoolModel( underPressureModel );
     this.sceneModels.mystery = new MysteryPoolModel( underPressureModel );
 
-    this.fluidColorModel = new FluidColorModel( this.fluidDensityProperty, this.fluidDensityRange );
+    this.fluidColorModel = new FluidColorModel( this.fluidDensityProperty, this.fluidDensityRange ); // @public
 
-    this.barometers = [];
+    this.barometers = []; // @public
 
     for ( var i = 0; i < NUM_BAROMETERS; i++ ) {
       this.barometers.push( new Sensor( new Vector2( 7.75, 2.5 ), 0 ) );
@@ -88,14 +87,15 @@ define( function( require ) {
   return inherit( PropertySet, UnderPressureModel, {
 
     /**
+     * @public
      * @param {number} dt seconds
      */
     step: function( dt ) {
       this.currentSceneModel.step( dt );
     },
 
+    // @public
     reset: function() {
-
       PropertySet.prototype.reset.call( this );
 
       this.sceneModels.square.reset();
@@ -109,6 +109,7 @@ define( function( require ) {
     },
 
     /**
+     * @public
      * Returns the air pressure (in Pa) at the given height.
      * @param {number} height in meters
      * @returns {number}
@@ -123,6 +124,7 @@ define( function( require ) {
     },
 
     /**
+     * @public
      * Returns the pressure (in Pa) exerted by a fluid column of given height.
      * @param {number} height of the fluid column
      * @returns {number}
@@ -132,6 +134,7 @@ define( function( require ) {
     },
 
     /**
+     * @public
      * Returns the pressure (in Pa) at the given position.
      * @param {number} x position in meters
      * @param {number} y position in meters
@@ -159,6 +162,7 @@ define( function( require ) {
     },
 
     /**
+     * @public
      * @param {number} pressure in Pa
      * @param {string} units -- can be english/metric/atmospheres
      * @returns {string}
@@ -167,10 +171,12 @@ define( function( require ) {
       return Units.getPressureString( pressure, units, false );
     },
 
+    // @public
     getGravityString: function() {
       return Units.getGravityString( this.gravity, this.measureUnits );
     },
 
+    // @public
     getFluidDensityString: function() {
       return Units.getFluidDensityString( this.fluidDensity, this.measureUnits );
     }

@@ -29,6 +29,7 @@ define( function( require ) {
     this.spoutWidth = 1.35 * scale;
 
     PropertySet.call( this, {
+      // @public
       flowRate: 0,
       enabled: true
     } );

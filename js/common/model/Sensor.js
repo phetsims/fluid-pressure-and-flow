@@ -20,8 +20,8 @@ define( function( require ) {
    */
   function Sensor( position, value ) {
     PropertySet.call( this, {
-      position: position,
-      value: value
+      position: position, // @public
+      value: value // @public
     } );
   }
 

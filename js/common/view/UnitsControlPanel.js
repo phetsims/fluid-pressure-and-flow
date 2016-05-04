@@ -26,9 +26,7 @@ define( function( require ) {
   var RADIO_BUTTON_TOUCH_DILATION_Y = 2; // empirically determined
 
   /**
-   *
    * @param {Property<string>} measureUnitsProperty can take values 'english', 'metric' or 'atmospheres'
-   * @param {number} width -- fixed width that the panel is supposed to take
    * @param {Object} [options]
    * @constructor
    */

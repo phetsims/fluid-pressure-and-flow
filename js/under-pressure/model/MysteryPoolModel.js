@@ -27,16 +27,16 @@ define( function( require ) {
     var mysteryPoolModel = this;
     SquarePoolModel.call( this, underPressureModel );
 
-    this.customFluidDensityProperty = new Property( 0 );
-    this.customGravityProperty = new Property( 0 );
+    this.customFluidDensityProperty = new Property( 0 ); // @public
+    this.customGravityProperty = new Property( 0 ); // @public
 
     this.underPressureModel = underPressureModel;
 
     //custom gravity and density for mystery pool
-    this.fluidDensityChoices = [ 1700, 840, 1100 ];
-    this.gravityChoices = [ 20, 14, 6.5 ];
+    this.fluidDensityChoices = [ 1700, 840, 1100 ]; // @public
+    this.gravityChoices = [ 20, 14, 6.5 ]; // @public
 
-    this.fluidColor = [ new Color( 113, 35, 136 ), new Color( 179, 115, 176 ), new Color( 60, 29, 71 ) ];
+    this.fluidColor = [ new Color( 113, 35, 136 ), new Color( 179, 115, 176 ), new Color( 60, 29, 71 ) ]; // @public
 
     var oldGravity;
     var oldFluidDensity;
@@ -78,8 +78,8 @@ define( function( require ) {
 
   return inherit( SquarePoolModel, MysteryPoolModel, {
 
+    // @public
     updateChoiceValue: function() {
-
       if ( this.underPressureModel.mysteryChoice === 'fluidDensity' ) {
         this.underPressureModel.fluidDensity = this.fluidDensityChoices[ this.customFluidDensityProperty.value ];
         this.underPressureModel.fluidColorModel.color = this.fluidColor[ this.customFluidDensityProperty.value ];
@@ -91,6 +91,7 @@ define( function( require ) {
 
     },
 
+    // @public
     reset: function() {
       this.customFluidDensityProperty.reset();
       this.customGravityProperty.reset();

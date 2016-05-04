@@ -38,18 +38,18 @@ define( function( require ) {
     this.mass = mass;
 
     // all coordinates in meters
-    this.width = width;
-    this.height = height;
+    this.width = width; // @publlic
+    this.height = height; // @public
 
     PropertySet.call( this, {
-
+      // @public
       // The position is the center of the block.
       position: new Vector2( x, y ),
       isDragging: false
     } );
 
-    this.isFalling = false;
-    this.velocity = 0;
+    this.isFalling = false; // @private
+    this.velocity = 0; // @private
 
     this.isDraggingProperty.link( function( isDragging ) {
 
@@ -79,6 +79,7 @@ define( function( require ) {
 
   return inherit( PropertySet, MassModel, {
 
+    // @public
     step: function( dt ) {
       var acceleration;
 
@@ -122,7 +123,7 @@ define( function( require ) {
       }
     },
 
-    // checks if the mass intersects with the the target drop area.
+    // @public -- checks if the mass intersects with the the target drop area.
     isInTargetDroppedArea: function() {
       var waterLine = this.chamberPoolModel.poolDimensions.leftOpening.y2 + this.chamberPoolModel.leftWaterHeight -
                       this.chamberPoolModel.leftDisplacement;
@@ -143,12 +144,12 @@ define( function( require ) {
       return massBounds.intersectsBounds( dropAreaBounds );
     },
 
-    // If the user drops the mass underground or above a pool opening, it will teleport back to its initial location.
+    // @private - If the user drops the mass underground or above a pool opening, it will teleport back to its initial location.
     cannotFall: function() {
       return this.position.y < this.chamberPoolModel.maxY - this.height / 2 || this.isMassOverOpening();
     },
 
-    // checks if the mass is over the left or the right opening
+    // @private - checks if the mass is over the left or the right opening
     isMassOverOpening: function() {
       var left = this.position.x;
       var right = this.position.x + this.width / 2;

@@ -23,21 +23,23 @@ define( function( require ) {
   function SquarePoolModel( underPressureModel ) {
 
     //constants
-    this.maxHeight = 3; // Meters
-    this.maxVolume = this.maxHeight; // Liters
+    this.maxHeight = 3; // @public - Meters
+    this.maxVolume = this.maxHeight; // @public - Liters
 
     var inputFaucetX = 2.7;
     var inputFaucetY = 0.44;
     var outputFaucetX = 6.6;
     var outputFaucetY = -3.45;
-    this.inputFaucet = new FaucetModel( new Vector2( inputFaucetX, inputFaucetY ), 1, 0.42 );
-    this.outputFaucet = new FaucetModel( new Vector2( outputFaucetX, outputFaucetY ), 1, 0.3 );
+    this.inputFaucet = new FaucetModel( new Vector2( inputFaucetX, inputFaucetY ), 1, 0.42 ); // @public
+    this.outputFaucet = new FaucetModel( new Vector2( outputFaucetX, outputFaucetY ), 1, 0.3 ); // @public
 
     this.underPressureModel = underPressureModel;
 
     PoolWithFaucetsModel.call( this, this.underPressureModel, this.inputFaucet, this.outputFaucet, this.maxVolume );
     var poolLeftX = 2.3;
     var poolRightX = 6;
+
+    // @public
     this.poolDimensions = {
       x1: poolLeftX,
       y1: 0, // pool top y
@@ -51,6 +53,7 @@ define( function( require ) {
   return inherit( PoolWithFaucetsModel, SquarePoolModel, {
 
     /**
+     * @public
      * Returns height of the water above the given position
      * @param {number} x position in meters
      * @param {number} y position in meters
@@ -61,6 +64,7 @@ define( function( require ) {
     },
 
     /**
+     * @public
      * Returns true if the given point is inside the square pool, false otherwise.
      * @param {number} x position in meters
      * @param {number} y position in meters

@@ -27,7 +27,7 @@ define( function( require ) {
     PropertySet.call( this, {
       // Note: Each scene could have a different volume. If we use currentVolumeProperty from the underPressureModel
       // instead of this property then volume changes in one scene will reflect in the other.
-      volume: 1.5 //L
+      volume: 1.5 //L @public
     } );
 
     // Enable faucets and dropper based on amount of solution in the beaker.
@@ -43,6 +43,7 @@ define( function( require ) {
   return inherit( PropertySet, PoolWithFaucetsModel, {
 
     /**
+     * @public
      * Step the pool model forward in time by dt seconds.
      * @param {number} dt -- time in seconds
      */
@@ -52,6 +53,7 @@ define( function( require ) {
     },
 
     /**
+     * @public
      * Add liquid to the pool based on the input faucet's flow rate and dt.
      * @param {number} dt -- time in seconds
      */
@@ -63,6 +65,7 @@ define( function( require ) {
     },
 
     /**
+     * @public
      * Remove liquid from the pool based on the output faucet's flow rate and dt.
      * @param {number} dt -- time in seconds
      */
