@@ -32,7 +32,7 @@ define( function( require ) {
   function UnderPressureRuler( underPressureModel, modelViewTransform, dragBounds ) {
 
     var underPressureRuler = this;
-    Node.call( this, { cursor: 'pointer', cssTransform: true } );
+    Node.call( this, { cursor: 'pointer' } );
 
     var scaleFont = new PhetFont( 12 );
 
