@@ -37,41 +37,39 @@ define( function( require ) {
     var grassPattern = new Pattern( grassImg ).setTransformMatrix( Matrix3.scale( 0.25 ) );
     var grassRectYOffset = 1;
     var grassRectHeight = 10;
-    var grassExtension = 1000;
+    var grassExtension = 2000;
+    var backgroundGrassWidth = 5000;
     var poolDimensions = trapezoidPoolModel.poolDimensions;
 
-    this.addChild( new Rectangle(
+    var grassRectangle = new Rectangle(
       -grassExtension,
       grassRectYOffset,
-      grassExtension + modelViewTransform.modelToViewX( trapezoidPoolModel.verticles.x1top ),
+      backgroundGrassWidth,
       grassRectHeight,
       {
         fill: grassPattern,
         y: modelViewTransform.modelToViewY( 0 ) - grassRectHeight
       }
-    ) );
+    );
 
-    this.addChild( new Rectangle(
+    grassRectangle.clipArea = new Shape()
+      .rect( -grassExtension,
+      grassRectYOffset,
+      grassExtension + modelViewTransform.modelToViewX( trapezoidPoolModel.verticles.x1top ),
+      grassRectHeight )
+      .moveTo( modelViewTransform.modelToViewX( trapezoidPoolModel.verticles.x2top ), grassRectYOffset )
+      .rect(
       modelViewTransform.modelToViewX( trapezoidPoolModel.verticles.x2top ),
       grassRectYOffset,
-      modelViewTransform.modelToViewX( trapezoidPoolModel.verticles.x3top - trapezoidPoolModel.verticles.x2top ),
-      grassRectHeight,
-      {
-        fill: grassPattern,
-        y: modelViewTransform.modelToViewY( 0 ) - grassRectHeight
-      }
-    ) );
-
-    this.addChild( new Rectangle(
+      modelViewTransform.modelToViewDeltaX( trapezoidPoolModel.verticles.x3top - trapezoidPoolModel.verticles.x2top ),
+      grassRectHeight )
+      .moveTo(modelViewTransform.modelToViewX( trapezoidPoolModel.verticles.x4top ), grassRectYOffset )
+      .rect(
       modelViewTransform.modelToViewX( trapezoidPoolModel.verticles.x4top ),
       grassRectYOffset,
       grassExtension,
-      grassRectHeight,
-      {
-        fill: grassPattern,
-        y: modelViewTransform.modelToViewY( 0 ) - grassRectHeight
-      }
-    ) );
+      grassRectHeight );
+    this.addChild(grassRectangle);
 
     // cement border
     var cementWidth = 2;

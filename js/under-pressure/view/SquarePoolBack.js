@@ -35,31 +35,34 @@ define( function( require ) {
     var grassPattern = new Pattern( grassImg ).setTransformMatrix( Matrix3.scale( 0.25 ) );
     var grassRectYOffset = 1;
     var grassRectHeight = 10;
-    var grassExtension = 1000;
+    var grassExtension = 2000;
+    var backgroundGrassWidth = 5000;
     var poolDimensions = squarePoolModel.poolDimensions;
 
-    // grass on the left of the pool
-    this.addChild( new Rectangle(
+    var grassRectangle = new Rectangle(
       -grassExtension,
       grassRectYOffset,
-      grassExtension + modelViewTransform.modelToViewX( squarePoolModel.poolDimensions.x1 ),
+      backgroundGrassWidth,
       grassRectHeight,
       {
         fill: grassPattern,
         y: modelViewTransform.modelToViewY( 0 ) - grassRectHeight
       }
-    ) );
+    );
 
-    // grass on the right of the pool
-    this.addChild( new Rectangle(
+    grassRectangle.clipArea = new Shape()
+      .rect(
+      -grassExtension,
+      grassRectYOffset,
+      grassExtension + modelViewTransform.modelToViewX( squarePoolModel.poolDimensions.x1 ),
+      grassRectHeight )
+      .moveTo( modelViewTransform.modelToViewX( poolDimensions.x2 ), grassRectYOffset )
+      .rect(
       modelViewTransform.modelToViewX( poolDimensions.x2 ),
       grassRectYOffset,
       grassExtension,
-      grassRectHeight,
-      {
-        fill: grassPattern,
-        y: modelViewTransform.modelToViewY( 0 ) - grassRectHeight
-      } ) );
+      grassRectHeight );
+    this.addChild(grassRectangle);
 
     //cement border
     var cementWidth = 2;
