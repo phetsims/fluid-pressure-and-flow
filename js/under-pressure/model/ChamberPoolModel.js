@@ -172,10 +172,10 @@ define( function( require ) {
       var self = this;
       var nominalDt = 1 / 60;
 
-      dt = Math.min( dt, nominalDt * 4 ); // Handling large dt so that masses doesn't float upward
+      dt = Math.min( dt, nominalDt * 3 ); // Handling large dt so that masses doesn't float upward
 
       // Update each of the masses
-      var steps = 10; // these steps are oly used for masses inside the pool to make sure they reach equilibrium state on iPad
+      var steps = 15; // these steps are oly used for masses inside the pool to make sure they reach equilibrium state on iPad
       this.masses.forEach( function( mass ) {
         if ( self.stack.contains( mass ) ) {
           for ( var i = 0; i < steps; i++ ) {

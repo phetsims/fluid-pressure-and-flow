@@ -84,7 +84,7 @@ define( function( require ) {
       var acceleration;
 
       // move the masses only when the velocity is greater than than this, see #60
-      var epsilonVelocity = 0.01;
+      var epsilonVelocity = 0.05;
 
       if ( this.chamberPoolModel.stack.contains( this ) ) {
 

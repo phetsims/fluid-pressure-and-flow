@@ -91,6 +91,7 @@ define( function( require ) {
      * @param {number} dt seconds
      */
     step: function( dt ) {
+      this.fluidColorModel.step();
       this.currentSceneModel.step( dt );
     },
 

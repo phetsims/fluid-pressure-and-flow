@@ -30,19 +30,20 @@ define( function( require ) {
    */
   function FluidColorModel( fluidDensityProperty, fluidDensityRange ) {
     var fluidColorModel = this;
+    this.fluidDensityProperty = fluidDensityProperty;
 
-    var getRedLow = new LinearFunction( fluidDensityRange.min, Constants.WATER_DENSITY, GAS_COLOR.red,
+    this.getRedLow = new LinearFunction( fluidDensityRange.min, Constants.WATER_DENSITY, GAS_COLOR.red,
       WATER_COLOR.red ); // @private
-    var getGreenLow = new LinearFunction( fluidDensityRange.min, Constants.WATER_DENSITY, GAS_COLOR.green,
+    this.getGreenLow = new LinearFunction( fluidDensityRange.min, Constants.WATER_DENSITY, GAS_COLOR.green,
       WATER_COLOR.green ); // @private
-    var getBlueLow = new LinearFunction( fluidDensityRange.min, Constants.WATER_DENSITY, GAS_COLOR.blue,
+    this.getBlueLow = new LinearFunction( fluidDensityRange.min, Constants.WATER_DENSITY, GAS_COLOR.blue,
       WATER_COLOR.blue ); // @private
 
-    var getRedHigh = new LinearFunction( Constants.WATER_DENSITY, fluidDensityRange.max, WATER_COLOR.red,
+    this.getRedHigh = new LinearFunction( Constants.WATER_DENSITY, fluidDensityRange.max, WATER_COLOR.red,
       HONEY_COLOR.red ); // @private
-    var getGreenHigh = new LinearFunction( Constants.WATER_DENSITY, fluidDensityRange.max,
+    this.getGreenHigh = new LinearFunction( Constants.WATER_DENSITY, fluidDensityRange.max,
       WATER_COLOR.green, HONEY_COLOR.green ); // @private
-    var getBlueHigh = new LinearFunction( Constants.WATER_DENSITY, fluidDensityRange.max, WATER_COLOR.blue,
+    this.getBlueHigh = new LinearFunction( Constants.WATER_DENSITY, fluidDensityRange.max, WATER_COLOR.blue,
       HONEY_COLOR.blue ); // @private
 
     PropertySet.call( this, {
@@ -51,17 +52,26 @@ define( function( require ) {
 
     // For low density values, vary between gasoline and water.
     // For high density values vary between water and honey.
+    this.densityChanged = false;
     fluidDensityProperty.link( function( density ) {
-      if ( density < Constants.WATER_DENSITY ) {
-        fluidColorModel.color = new Color( getRedLow( density ), getGreenLow( density ), getBlueLow( density ) );
-      }
-      else {
-        fluidColorModel.color = new Color( getRedHigh( density ), getGreenHigh( density ), getBlueHigh( density ) );
-      }
+      fluidColorModel.densityChanged = true;
     } );
   }
 
   fluidPressureAndFlow.register( 'FluidColorModel', FluidColorModel );
 
-  return inherit( PropertySet, FluidColorModel );
+  return inherit( PropertySet, FluidColorModel, {
+    step: function(){
+      if ( this.densityChanged ) {
+        var density = this.fluidDensityProperty.get();
+        if ( density < Constants.WATER_DENSITY ) {
+          this.color = new Color( this.getRedLow( density ), this.getGreenLow( density ), this.getBlueLow( density ) );
+        }
+        else {
+          this.color = new Color( this.getRedHigh( density ), this.getGreenHigh( density ), this.getBlueHigh( density ) );
+        }
+        this.densityChanged = false;
+      }
+    }
+  } );
 } );
