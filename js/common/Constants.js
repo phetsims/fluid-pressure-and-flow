@@ -24,6 +24,8 @@ define( function( require ) {
     MIN_FLOW_RATE: 1000, // Liter per second (L/s)
     MAX_FLOW_RATE: 10000, // Liter per second (L/s)
 
+    MAX_POOL_HEIGHT: 3,
+
     // density values of fluids in kg/cubic mt
     GASOLINE_DENSITY: 700,
     HONEY_DENSITY: 1420,

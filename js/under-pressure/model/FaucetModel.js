@@ -26,7 +26,7 @@ define( function( require ) {
     this.location = location;
     this.maxFlowRate = maxFlowRate;
     this.scale = scale;
-    this.spoutWidth = 1.35 * scale;
+    this.spoutWidth = 1.35 * scale; // empirically determined
 
     PropertySet.call( this, {
       // @public

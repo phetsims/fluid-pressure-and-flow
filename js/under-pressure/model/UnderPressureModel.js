@@ -68,6 +68,7 @@ define( function( require ) {
     this.barometers = []; // @public
 
     for ( var i = 0; i < NUM_BAROMETERS; i++ ) {
+      // initial position of barometer on screen adjacent to control panel above ground
       this.barometers.push( new Sensor( new Vector2( 7.75, 2.5 ), 0 ) );
     }
 

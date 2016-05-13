@@ -25,6 +25,7 @@ define( function( require ) {
   function BackgroundNode( underPressureModel, modelViewTransform ) {
     Node.call( this );
 
+    // empirically determined
     var backgroundStartX = -2000;
     var backgroundWidth = 5000;
     var skyExtension = 5000;

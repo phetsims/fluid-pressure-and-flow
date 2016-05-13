@@ -9,6 +9,7 @@ define( function( require ) {
   'use strict';
 
   // modules
+  var Constants = require( 'FLUID_PRESSURE_AND_FLOW/common/Constants' );
   var fluidPressureAndFlow = require( 'FLUID_PRESSURE_AND_FLOW/fluidPressureAndFlow' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Vector2 = require( 'DOT/Vector2' );
@@ -16,7 +17,8 @@ define( function( require ) {
   var FaucetModel = require( 'FLUID_PRESSURE_AND_FLOW/under-pressure/model/FaucetModel' );
   var LinearFunction = require( 'DOT/LinearFunction' );
 
-// constants
+  // constants
+  // empirically determined to match the visual appearance from design document
   var WIDTH_AT_TOP = 0.7; //meters,
   var WIDTH_AT_BOTTOM = 3.15; //meters,
   var LEFT_CHAMBER_TOP_CENTER = 3.2; //meters,
@@ -29,9 +31,11 @@ define( function( require ) {
   function TrapezoidPoolModel( underPressureModel ) {
 
     //constants
-    this.maxHeight = 3; // @public - meters
+    this.maxHeight = Constants.MAX_POOL_HEIGHT; // @public - meters
     this.maxVolume = this.maxHeight; // @public - Liters
 
+    // empirically determined to make sure input faucet is above ground , output faucet is below ground and output
+    // faucet is attached to the pool
     var inputFaucetX = 3.19;
     var inputFaucetY = 0.44;
     var outputFaucetX = 7.5;

@@ -11,6 +11,7 @@ define( function( require ) {
   'use strict';
 
   // modules
+  var Constants = require( 'FLUID_PRESSURE_AND_FLOW/common/Constants' );
   var fluidPressureAndFlow = require( 'FLUID_PRESSURE_AND_FLOW/fluidPressureAndFlow' );
   var PropertySet = require( 'AXON/PropertySet' );
   var ObservableArray = require( 'AXON/ObservableArray' );
@@ -18,6 +19,7 @@ define( function( require ) {
   var MassModel = require( 'FLUID_PRESSURE_AND_FLOW/under-pressure/model/MassModel' );
 
   // constants
+  // empirically determined to match the visual appearance from design document
 
   //The size of the passage between the chambers
   var PASSAGE_SIZE = 0.5;
@@ -31,7 +33,6 @@ define( function( require ) {
   //Height of each chamber, physics not working properly to vary these independently
   var CHAMBER_HEIGHT = 1.3;
 
-  //from mockup
   //left chamber start x
   var LEFT_CHAMBER_X = 1.55;
   var LEFT_CHAMBER_WIDTH = 2.8;
@@ -46,7 +47,7 @@ define( function( require ) {
   var DEFAULT_HEIGHT = 2.3; //meters, without load
 
   //The entire apparatus is this tall
-  var MAX_HEIGHT = 3; // meters
+  var MAX_HEIGHT = Constants.MAX_POOL_HEIGHT; // meters
 
 
   /**
@@ -172,7 +173,7 @@ define( function( require ) {
       var self = this;
       var nominalDt = 1 / 60;
 
-      dt = Math.min( dt, nominalDt * 3 ); // Handling large dt so that masses doesn't float upward
+      dt = Math.min( dt, nominalDt * 3 ); // Handling large dt so that masses doesn't float upward, empirically determined
 
       // Update each of the masses
       var steps = 15; // these steps are oly used for masses inside the pool to make sure they reach equilibrium state on iPad

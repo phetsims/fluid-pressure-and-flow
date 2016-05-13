@@ -10,6 +10,7 @@ define( function( require ) {
   'use strict';
 
   // modules
+  var Constants = require( 'FLUID_PRESSURE_AND_FLOW/common/Constants' );
   var fluidPressureAndFlow = require( 'FLUID_PRESSURE_AND_FLOW/fluidPressureAndFlow' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Vector2 = require( 'DOT/Vector2' );
@@ -21,11 +22,11 @@ define( function( require ) {
    * @constructor
    */
   function SquarePoolModel( underPressureModel ) {
-
-    //constants
-    this.maxHeight = 3; // @public - Meters
+    this.maxHeight = Constants.MAX_POOL_HEIGHT; // @public - Meters
     this.maxVolume = this.maxHeight; // @public - Liters
 
+    // empirically determined to make sure input faucet is above ground , output faucet is below ground and output
+    // faucet is attached to the pool
     var inputFaucetX = 2.7;
     var inputFaucetY = 0.44;
     var outputFaucetX = 6.6;
@@ -36,6 +37,8 @@ define( function( require ) {
     this.underPressureModel = underPressureModel;
 
     PoolWithFaucetsModel.call( this, this.underPressureModel, this.inputFaucet, this.outputFaucet, this.maxVolume );
+
+    // empirically determined to match the visual appearance from design document
     var poolLeftX = 2.3;
     var poolRightX = 6;
 

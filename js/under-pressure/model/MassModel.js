@@ -83,7 +83,7 @@ define( function( require ) {
     step: function( dt ) {
       var acceleration;
 
-      // move the masses only when the velocity is greater than than this, see #60
+      // move the masses only when the velocity is greater than than this, see #60 for under-pressure repo
       var epsilonVelocity = 0.05;
 
       if ( this.chamberPoolModel.stack.contains( this ) ) {
