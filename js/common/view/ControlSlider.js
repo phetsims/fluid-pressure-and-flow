@@ -63,18 +63,7 @@ define( function( require ) {
         trackSize: trackSize,
         thumbSize: options.thumbSize,
         majorTickLineWidth: (options.ticksVisible ? 1 : 0),
-        majorTickLength: 15,
-        trackFill: new LinearGradient( 0, 0, trackSize.width, 0 )
-          .addColorStop( 0, '#fff' )
-          .addColorStop( 1, '#000' ),
-        endDrag: function() {
-          for ( var i = 0; i < options.ticks.length; i++ ) {
-            if ( Math.abs( options.ticks[ i ].value - trackProperty.value ) <= 0.05 * options.ticks[ i ].value ) {
-              trackProperty.value = options.ticks[ i ].value;
-              break;
-            }
-          }
-        }
+        majorTickLength: 15
       } );
       var labelFont = new PhetFont( 9.5 );
 
