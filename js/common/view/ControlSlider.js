@@ -24,7 +24,6 @@ define( function( require ) {
   var PhetFont = require( 'SCENERY_PHET/PhetFont' );
   var HSlider = require( 'SUN/HSlider' );
   var AccordionBox = require( 'SUN/AccordionBox' );
-  var LinearGradient = require( 'SCENERY/util/LinearGradient' );
   var Util = require( 'DOT/Util' );
   var Bounds2 = require( 'DOT/Bounds2' );
 
@@ -148,7 +147,6 @@ define( function( require ) {
       buttonXMargin: 6,
       buttonLength: 12,
       minWidth: trackSize.width + 12 * options.xMargin,
-      maxWidth: trackSize.width + 12 * options.xMargin,
       buttonTouchAreaYDilation: 2 // empirically determined so that it does not overlap touch area of arrow button
     } );
     this.addChild( accordionBox );
