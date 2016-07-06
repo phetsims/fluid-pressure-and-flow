@@ -193,7 +193,8 @@ define( function( require ) {
       }
     } );
     // add play pause button and step button
-    var stepButton = new StepForwardButton( flowModel.isPlayingProperty, {
+    var stepButton = new StepForwardButton( {
+      playingProperty: flowModel.isPlayingProperty,
       listener: function() {
         flowModel.timer.step( 0.016 );
         flowModel.propagateParticles( 0.016 );
