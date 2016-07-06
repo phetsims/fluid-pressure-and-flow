@@ -193,21 +193,18 @@ define( function( require ) {
       }
     } );
     // add play pause button and step button
-    var stepButton = new StepForwardButton(
-      function() {
+    var stepButton = new StepForwardButton( flowModel.isPlayingProperty, {
+      listener: function() {
         flowModel.timer.step( 0.016 );
         flowModel.propagateParticles( 0.016 );
         flowView.pipeNode.particlesLayer.step();
       },
-      flowModel.isPlayingProperty,
-      {
-        radius: 12,
-        stroke: 'black',
-        fill: '#005566',
-        right: fluidDensityControlNode.left - 82,
-        bottom: this.layoutBounds.bottom - 14
-      }
-    );
+      radius: 12,
+      stroke: 'black',
+      fill: '#005566',
+      right: fluidDensityControlNode.left - 82,
+      bottom: this.layoutBounds.bottom - 14
+    } );
 
     this.addChild( stepButton );
 

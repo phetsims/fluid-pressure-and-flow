@@ -215,9 +215,8 @@ define( function( require ) {
     this.addChild( sluiceControlPanel );
 
     // add play pause button and step button
-    var stepButton = new StepForwardButton( function() {
-      waterTowerModel.stepInternal( 0.016 );
-    }, waterTowerModel.isPlayingProperty, {
+    var stepButton = new StepForwardButton( waterTowerModel.isPlayingProperty, {
+      listener: function() { waterTowerModel.stepInternal( 0.016 ); },
       stroke: 'black',
       fill: '#005566',
       right: fluidDensityControlSlider.left - inset,
