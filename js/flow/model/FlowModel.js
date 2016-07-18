@@ -15,7 +15,7 @@ define( function( require ) {
   var fluidPressureAndFlow = require( 'FLUID_PRESSURE_AND_FLOW/fluidPressureAndFlow' );
   var PropertySet = require( 'AXON/PropertySet' );
   var inherit = require( 'PHET_CORE/inherit' );
-  var Range = require( 'DOT/Range' );
+  var RangeWithValue = require( 'DOT/RangeWithValue' );
   var Vector2 = require( 'DOT/Vector2' );
   var Constants = require( 'FLUID_PRESSURE_AND_FLOW/common/Constants' );
   var StringUtils = require( 'PHETCOMMON/util/StringUtils' );
@@ -49,8 +49,8 @@ define( function( require ) {
   function FlowModel() {
     var flowModel = this;
 
-    this.fluidDensityRange = new Range( Constants.GASOLINE_DENSITY, Constants.HONEY_DENSITY );
-    this.flowRateRange = new Range( Constants.MIN_FLOW_RATE, Constants.MAX_FLOW_RATE );
+    this.fluidDensityRange = new RangeWithValue( Constants.GASOLINE_DENSITY, Constants.HONEY_DENSITY );
+    this.flowRateRange = new RangeWithValue( Constants.MIN_FLOW_RATE, Constants.MAX_FLOW_RATE );
 
     PropertySet.call( this, {
         isRulerVisible: false,

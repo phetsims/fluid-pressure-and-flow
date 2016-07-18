@@ -13,7 +13,7 @@ define( function( require ) {
   var fluidPressureAndFlow = require( 'FLUID_PRESSURE_AND_FLOW/fluidPressureAndFlow' );
   var PropertySet = require( 'AXON/PropertySet' );
   var inherit = require( 'PHET_CORE/inherit' );
-  var Range = require( 'DOT/Range' );
+  var RangeWithValue = require( 'DOT/RangeWithValue' );
   var FluidColorModel = require( 'FLUID_PRESSURE_AND_FLOW/common/model/FluidColorModel' );
   var Units = require( 'FLUID_PRESSURE_AND_FLOW/common/model/Units' );
   var Constants = require( 'FLUID_PRESSURE_AND_FLOW/common/Constants' );
@@ -32,8 +32,8 @@ define( function( require ) {
 
     var underPressureModel = this;
 
-    this.gravityRange = new Range( Constants.MARS_GRAVITY, Constants.JUPITER_GRAVITY ); // @public
-    this.fluidDensityRange = new Range( Constants.GASOLINE_DENSITY, Constants.HONEY_DENSITY ); // @public
+    this.gravityRange = new RangeWithValue( Constants.MARS_GRAVITY, Constants.JUPITER_GRAVITY ); // @public
+    this.fluidDensityRange = new RangeWithValue( Constants.GASOLINE_DENSITY, Constants.HONEY_DENSITY ); // @public
 
     PropertySet.call( this, {
         // @public

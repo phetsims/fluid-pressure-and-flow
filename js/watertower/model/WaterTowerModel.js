@@ -12,7 +12,7 @@ define( function( require ) {
   var fluidPressureAndFlow = require( 'FLUID_PRESSURE_AND_FLOW/fluidPressureAndFlow' );
   var PropertySet = require( 'AXON/PropertySet' );
   var inherit = require( 'PHET_CORE/inherit' );
-  var Range = require( 'DOT/Range' );
+  var RangeWithValue = require( 'DOT/RangeWithValue' );
   var Vector2 = require( 'DOT/Vector2' );
   var Units = require( 'FLUID_PRESSURE_AND_FLOW/common/model/Units' );
   var Sensor = require( 'FLUID_PRESSURE_AND_FLOW/common/model/Sensor' );
@@ -40,7 +40,7 @@ define( function( require ) {
    */
   function WaterTowerModel() {
 
-    this.fluidDensityRange = new Range( Constants.GASOLINE_DENSITY, Constants.HONEY_DENSITY );
+    this.fluidDensityRange = new RangeWithValue( Constants.GASOLINE_DENSITY, Constants.HONEY_DENSITY );
 
     PropertySet.call( this, {
         isRulerVisible: false,
