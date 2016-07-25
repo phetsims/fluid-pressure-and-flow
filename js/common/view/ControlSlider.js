@@ -13,7 +13,7 @@ define( function( require ) {
   'use strict';
 
   // modules
-  var ArrowButton = require( 'SCENERY_PHET/buttons/ArrowButton' );
+  var ArrowButton = require( 'SUN/buttons/ArrowButton' );
   var Dimension2 = require( 'DOT/Dimension2' );
   var fluidPressureAndFlow = require( 'FLUID_PRESSURE_AND_FLOW/fluidPressureAndFlow' );
   var inherit = require( 'PHET_CORE/inherit' );
