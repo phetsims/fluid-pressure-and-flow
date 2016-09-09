@@ -24,10 +24,17 @@ define( function( require ) {
   var underPressureScreenTitleString = require( 'string!FLUID_PRESSURE_AND_FLOW/underPressureScreenTitle' );
 
   function UnderPressureScreen() {
-    Screen.call( this, underPressureScreenTitleString, new Image( underPressureScreenIcon ),
+
+    var options = {
+      name: underPressureScreenTitleString,
+      backgroundColor: 'white',
+      homeScreenIcon: new Image( underPressureScreenIcon )
+    };
+
+    Screen.call( this,
       function() { return new UnderPressureModel(); },
       function( model ) { return new UnderPressureView( model ); },
-      { backgroundColor: 'white' }
+      options
     );
   }
 

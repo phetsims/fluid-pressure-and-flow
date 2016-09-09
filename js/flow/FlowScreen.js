@@ -23,10 +23,17 @@ define( function( require ) {
   var flowScreenTitleString = require( 'string!FLUID_PRESSURE_AND_FLOW/flowScreenTitle' );
 
   function FlowScreen() {
-    Screen.call( this, flowScreenTitleString, new Image( flowScreenIcon ),
+
+    var options = {
+      name: flowScreenTitleString,
+      backgroundColor: 'white',
+      homeScreenIcon: new Image( flowScreenIcon )
+    };
+
+    Screen.call( this,
       function() { return new FlowModel(); },
       function( model ) { return new FlowView( model ); },
-      { backgroundColor: 'white' }
+      options
     );
   }
 

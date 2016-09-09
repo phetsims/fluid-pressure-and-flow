@@ -23,10 +23,17 @@ define( function( require ) {
   var waterTowerScreenIcon = require( 'image!FLUID_PRESSURE_AND_FLOW/water-tower-mockup.png' );
 
   function WaterTowerScreen() {
-    Screen.call( this, waterTowerScreenTitleString, new Image( waterTowerScreenIcon ),
+
+    var options = {
+      name: waterTowerScreenTitleString,
+      backgroundColor: 'white',
+      homeScreenIcon: new Image( waterTowerScreenIcon )
+    };
+
+    Screen.call( this,
       function() { return new WaterTowerModel(); },
       function( model ) { return new WaterTowerView( model ); },
-      { backgroundColor: 'white' }
+      options
     );
   }
 
