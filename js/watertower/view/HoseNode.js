@@ -39,7 +39,7 @@ define( function( require ) {
    * @constructor
    */
   function HoseNode( hose, tankPositionProperty, modelViewTransform, isHoseVisibleProperty, options ) {
-    var hoseNode = this;
+    var self = this;
     Node.call( this );
 
     this.hose = hose;
@@ -73,12 +73,12 @@ define( function( require ) {
     var initialHeight;
     this.handleNode.addInputListener( new SimpleDragHandler( {
       start: function( e ) {
-        initialHeight = hoseNode.hose.height;
-        clickYOffset = hoseNode.globalToParentPoint( e.pointer.point ).y;
+        initialHeight = self.hose.height;
+        clickYOffset = self.globalToParentPoint( e.pointer.point ).y;
       },
       drag: function( e ) {
-        var deltaY = hoseNode.globalToParentPoint( e.pointer.point ).y - clickYOffset;
-        hoseNode.updateHoseHeight( -modelViewTransform.viewToModelDeltaY( deltaY ) + initialHeight );
+        var deltaY = self.globalToParentPoint( e.pointer.point ).y - clickYOffset;
+        self.updateHoseHeight( -modelViewTransform.viewToModelDeltaY( deltaY ) + initialHeight );
       }
     } ) );
 
@@ -109,24 +109,24 @@ define( function( require ) {
     this.spoutHandle.addInputListener( new SimpleDragHandler( {
       start: function( e ) {
 
-        startY = hoseNode.globalToParentPoint( e.pointer.point ).y;
-        startX = hoseNode.globalToParentPoint( e.pointer.point ).x;
+        startY = self.globalToParentPoint( e.pointer.point ).y;
+        startX = self.globalToParentPoint( e.pointer.point ).x;
 
-        initialHoseAngle = hoseNode.hose.angle * 180 / Math.PI;
+        initialHoseAngle = self.hose.angle * 180 / Math.PI;
 
-        var deltaY = hoseNode.modelViewTransform.modelToViewY( hoseNode.hose.rotationPivotY + hoseNode.tankPositionProperty.value.y ) - startY;
-        var deltaX = hoseNode.modelViewTransform.modelToViewX( hoseNode.hose.rotationPivotX + hoseNode.tankPositionProperty.value.x + 10 ) - startX;
+        var deltaY = self.modelViewTransform.modelToViewY( self.hose.rotationPivotY + self.tankPositionProperty.value.y ) - startY;
+        var deltaX = self.modelViewTransform.modelToViewX( self.hose.rotationPivotX + self.tankPositionProperty.value.x + 10 ) - startX;
 
         startPointAngle = Math.atan2( deltaY, deltaX );
       },
 
       drag: function( e ) {
 
-        var endY = hoseNode.globalToParentPoint( e.pointer.point ).y;
-        var endX = hoseNode.globalToParentPoint( e.pointer.point ).x;
+        var endY = self.globalToParentPoint( e.pointer.point ).y;
+        var endX = self.globalToParentPoint( e.pointer.point ).x;
 
-        var deltaY = hoseNode.modelViewTransform.modelToViewY( hoseNode.hose.rotationPivotY + hoseNode.tankPositionProperty.value.y ) - endY;
-        var deltaX = hoseNode.modelViewTransform.modelToViewX( hoseNode.hose.rotationPivotX + hoseNode.tankPositionProperty.value.x + 10 ) - endX;
+        var deltaY = self.modelViewTransform.modelToViewY( self.hose.rotationPivotY + self.tankPositionProperty.value.y ) - endY;
+        var deltaX = self.modelViewTransform.modelToViewX( self.hose.rotationPivotX + self.tankPositionProperty.value.x + 10 ) - endX;
 
         if ( deltaY > 0 ) {
           return;
@@ -137,17 +137,17 @@ define( function( require ) {
 
         var angleToUpdate = initialHoseAngle - angleMoved;
         angleToUpdate = angleToUpdate > 90 ? 90 : angleToUpdate < 0 ? 0 : angleToUpdate;
-        hoseNode.hose.angle = Math.PI * (angleToUpdate) / 180;
+        self.hose.angle = Math.PI * (angleToUpdate) / 180;
       }
     } ) );
 
     // add observers
     isHoseVisibleProperty.linkAttribute( this, 'visible' );
 
-    hoseNode.setTranslation( modelViewTransform.modelToViewX( this.hose.initialPosition.x ), modelViewTransform.modelToViewY( this.hose.initialPosition.y ) );
+    self.setTranslation( modelViewTransform.modelToViewX( this.hose.initialPosition.x ), modelViewTransform.modelToViewY( this.hose.initialPosition.y ) );
 
     this.hose.on( 'updated', function() {
-      hoseNode.update();
+      self.update();
     } );
 
     this.mutate( options );

@@ -29,7 +29,7 @@ define( function( require ) {
    * @constructor
    */
   function FluidColorModel( fluidDensityProperty, fluidDensityRange ) {
-    var fluidColorModel = this;
+    var self = this;
     this.fluidDensityProperty = fluidDensityProperty;
 
     this.getRedLow = new LinearFunction( fluidDensityRange.min, Constants.WATER_DENSITY, GAS_COLOR.red,
@@ -54,7 +54,7 @@ define( function( require ) {
     // For high density values vary between water and honey.
     this.densityChanged = false;
     fluidDensityProperty.link( function( density ) {
-      fluidColorModel.densityChanged = true;
+      self.densityChanged = true;
     } );
   }
 

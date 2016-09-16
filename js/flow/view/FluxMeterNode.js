@@ -50,7 +50,7 @@ define( function( require ) {
    */
   function FluxMeterNode( flowModel, modelViewTransform, options ) {
 
-    var fluxMeterNode = this;
+    var self = this;
     Node.call( this );
 
     options = _.extend( {
@@ -156,7 +156,7 @@ define( function( require ) {
 
     this.addChild( this.upperLine );
     this.displayPanel.bottom = this.upperLine.top;
-    this.displayPanel.left = fluxMeterNode.upperLine.left - 50;
+    this.displayPanel.left = self.upperLine.left - 50;
 
     // the line connecting the ring and the bottom handle
     var lowerLineShape = new Shape().moveTo( this.ellipse2.centerX - 3, this.ellipse2.centerY + 20 ).lineTo( this.ellipse2.centerX - 3, this.ellipse2.centerY + 60 );
@@ -181,25 +181,25 @@ define( function( require ) {
 
     Property.multilink( [ flowModel.pipe.flowRateProperty, flowModel.measureUnitsProperty ],
       function( flowRate, units ) {
-        fluxMeterNode.updateDisplayPanel( units );
+        self.updateDisplayPanel( units );
       } );
 
     flowModel.fluxMeter.xPositionProperty.link( function() {
-      fluxMeterNode.updateFluxMeter();
+      self.updateFluxMeter();
     } );
 
     // flux meter drag handle
     this.handle.addInputListener( new SimpleDragHandler( {
       drag: function( e ) {
-        fluxMeterNode.moveToFront();
-        var x = fluxMeterNode.globalToParentPoint( e.pointer.point ).x;
+        self.moveToFront();
+        var x = self.globalToParentPoint( e.pointer.point ).x;
         x = x < 46 ? 46 : x > 698 ? 698 : x; // min, max view values (emperically determined)
         flowModel.fluxMeter.xPosition = modelViewTransform.viewToModelX( x );
       }
     } ) );
 
     flowModel.fluxMeter.on( 'update', function() {
-      fluxMeterNode.updateFluxMeter();
+      self.updateFluxMeter();
     } );
 
     this.mutate( options );

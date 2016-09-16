@@ -23,7 +23,7 @@ define( function( require ) {
    */
 
   function MassStackNode( chamberPoolModel, modelViewTransform ) {
-    var massStackNode = this;
+    var self = this;
 
     this.chamberPoolModel = chamberPoolModel;
     Node.call( this, {
@@ -43,8 +43,8 @@ define( function( require ) {
     this.addChild( placementRectBorder );
 
     chamberPoolModel.leftDisplacementProperty.link( function( displacement ) {
-      massStackNode.bottom = modelViewTransform.modelToViewY( chamberPoolModel.poolDimensions.leftOpening.y2 +
-                                                              chamberPoolModel.leftWaterHeight - displacement );
+      self.bottom = modelViewTransform.modelToViewY( chamberPoolModel.poolDimensions.leftOpening.y2 +
+                                                     chamberPoolModel.leftWaterHeight - displacement );
     } );
 
     // If a mass is being dragged by the user, show the dotted line drop region where it can be placed in the chamber pool.
@@ -53,7 +53,7 @@ define( function( require ) {
         if ( isDragging ) {
           var placementRectHeight = Math.abs( modelViewTransform.modelToViewDeltaY( massModel.height ) );
           var placementRectY1 = -placementRectHeight +
-                                modelViewTransform.modelToViewDeltaY( massStackNode.totalHeight );
+                                modelViewTransform.modelToViewDeltaY( self.totalHeight );
 
           placementRectBorder.shape = new Shape().moveTo( 0, placementRectY1 )
             .lineTo( 0, placementRectY1 + placementRectHeight )
@@ -70,9 +70,9 @@ define( function( require ) {
     } );
 
     chamberPoolModel.stack.addListeners( function() {
-      massStackNode.updateMassStack();
+      self.updateMassStack();
     }, function() {
-      massStackNode.updateMassStack();
+      self.updateMassStack();
     } );
   }
 

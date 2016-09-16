@@ -62,7 +62,7 @@ define( function( require ) {
    * @constructor
    */
   function WaterTowerView( waterTowerModel ) {
-    var waterTowerScreenView = this;
+    var self = this;
     ScreenView.call( this, Constants.SCREEN_VIEW_OPTIONS );
 
     var textOptions = { font: new PhetFont( 14 ) };
@@ -88,12 +88,12 @@ define( function( require ) {
       canvasBounds: new Bounds2( 0, 0, 850, 350 )
     } );
 
-    waterTowerScreenView.addChild( this.hoseDropsLayer );
+    self.addChild( this.hoseDropsLayer );
 
     this.waterTowerDropsLayer = new WaterDropsCanvasNode( waterTowerModel.waterTowerDrops, waterTowerModel.fluidColorModel, waterTowerModel.modelViewTransform, {
       canvasBounds: new Bounds2( 0, 0, 500, 350 )
     } );
-    waterTowerScreenView.addChild( this.waterTowerDropsLayer );
+    self.addChild( this.waterTowerDropsLayer );
     // add background -- earth
     this.addChild( new GroundNode( -5000, groundY, 10000, 10000, groundY + 50 ) );
 
@@ -108,7 +108,7 @@ define( function( require ) {
     this.faucetDropsLayer = new WaterDropsCanvasNode( waterTowerModel.faucetDrops, waterTowerModel.fluidColorModel, waterTowerModel.modelViewTransform, {
       canvasBounds: new Bounds2( 50, 0, 150, 350 )
     } );
-    waterTowerScreenView.addChild( this.faucetDropsLayer );
+    self.addChild( this.faucetDropsLayer );
 
     var faucetNode = new FaucetNode( 30, waterTowerModel.faucetFlowRateProperty, waterTowerModel.isFaucetEnabledProperty, {
       horizontalPipeLength: 1500,
@@ -173,7 +173,7 @@ define( function( require ) {
     var resetAllButton = new ResetAllButton( {
       listener: function() {
         waterTowerModel.reset();
-        waterTowerScreenView.hoseNode.reset();
+        self.hoseNode.reset();
         measuringTape.reset();
         waterTowerNode.fillButton.enabled = true;
       },

@@ -49,7 +49,7 @@ define( function( require ) {
       scale: 1
     }, options );
 
-    var velocitySensorNode = this;
+    var self = this;
     Node.call( this, { cursor: 'pointer', pickable: true } );
 
     var rectangleWidth = 100;
@@ -153,7 +153,7 @@ define( function( require ) {
           this.arrowShape.right = outerRectangle.centerX + arrowWidth / 2 * Math.sin( Math.abs( velocity.angle() ) );
         }
       }
-    }.bind( velocitySensorNode ) );
+    }.bind( self ) );
 
     velocitySensor.isArrowVisibleProperty.linkAttribute( this.arrowShape, 'visible' );
     var speedMeterDragBounds = dragBounds.withMaxX( dragBounds.maxX - rectangleWidth * options.scale );
@@ -163,7 +163,7 @@ define( function( require ) {
       {
         dragBounds: speedMeterDragBounds,
         startDrag: function() {
-          velocitySensorNode.moveToFront();
+          self.moveToFront();
         },
         endDrag: function() {
           // check intersection only with the outer rectangle.
@@ -171,12 +171,12 @@ define( function( require ) {
           if ( containerBounds.intersectsBounds( Bounds2.rect( velocitySensor.position.x, velocitySensor.position.y,
               rectangleWidth, rectangleHeight ).eroded( 5 ) ) ) {
             velocitySensor.positionProperty.reset();
-            velocitySensorNode.moveToBack();
+            self.moveToBack();
           }
         }
       } ) );
 
-    velocitySensor.positionProperty.linkAttribute( velocitySensorNode, 'translation' );
+    velocitySensor.positionProperty.linkAttribute( self, 'translation' );
 
     Property.multilink( [ velocitySensor.positionProperty ].concat( linkedProperties ), function( position ) {
       velocitySensor.value = getVelocityAt( modelViewTransform.viewToModelX( position.x +

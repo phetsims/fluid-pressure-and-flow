@@ -30,7 +30,7 @@ define( function( require ) {
 
   function UnderPressureModel() {
 
-    var underPressureModel = this;
+    var self = this;
 
     this.gravityRange = new RangeWithValue( Constants.MARS_GRAVITY, Constants.JUPITER_GRAVITY ); // @public
     this.fluidDensityRange = new RangeWithValue( Constants.GASOLINE_DENSITY, Constants.HONEY_DENSITY ); // @public
@@ -58,10 +58,10 @@ define( function( require ) {
     );
 
     this.sceneModels = {}; // @public
-    this.sceneModels.square = new SquarePoolModel( underPressureModel );
-    this.sceneModels.trapezoid = new TrapezoidPoolModel( underPressureModel );
-    this.sceneModels.chamber = new ChamberPoolModel( underPressureModel );
-    this.sceneModels.mystery = new MysteryPoolModel( underPressureModel );
+    this.sceneModels.square = new SquarePoolModel( self );
+    this.sceneModels.trapezoid = new TrapezoidPoolModel( self );
+    this.sceneModels.chamber = new ChamberPoolModel( self );
+    this.sceneModels.mystery = new MysteryPoolModel( self );
 
     this.fluidColorModel = new FluidColorModel( this.fluidDensityProperty, this.fluidDensityRange ); // @public
 
@@ -74,11 +74,11 @@ define( function( require ) {
 
     // current scene's model
     this.addDerivedProperty( 'currentSceneModel', [ 'currentScene' ], function( currentScene ) {
-      return underPressureModel.sceneModels[ currentScene ];
+      return self.sceneModels[ currentScene ];
     } );
 
     this.currentSceneModelProperty.link( function( currentSceneModel ) {
-      underPressureModel.currentVolume = currentSceneModel.volume;
+      self.currentVolume = currentSceneModel.volume;
     } );
 
   }

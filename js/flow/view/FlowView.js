@@ -62,7 +62,7 @@ define( function( require ) {
    */
   function FlowView( flowModel ) {
 
-    var flowView = this;
+    var self = this;
     ScreenView.call( this, Constants.SCREEN_VIEW_OPTIONS );
 
     // view co-ordinates (370,140) map to model origin (0,0) with inverted y-axis (y grows up in the model)
@@ -141,7 +141,7 @@ define( function( require ) {
     var resetAllButton = new ResetAllButton( {
       listener: function() {
         flowModel.reset();
-        flowView.pipeNode.reset();
+        self.pipeNode.reset();
         pipeHandlesNode.reset();
       },
       radius: 18,
@@ -198,7 +198,7 @@ define( function( require ) {
       listener: function() {
         flowModel.timer.step( 0.016 );
         flowModel.propagateParticles( 0.016 );
-        flowView.pipeNode.particlesLayer.step();
+        self.pipeNode.particlesLayer.step();
       },
       radius: 12,
       stroke: 'black',

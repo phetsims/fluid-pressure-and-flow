@@ -32,7 +32,7 @@ define( function( require ) {
    */
   function MassNode( massModel, chamberPoolModel, modelViewTransform, dragBounds ) {
 
-    var massNode = this;
+    var self = this;
     Node.call( this, { cursor: 'pointer' } );
 
     var width = modelViewTransform.modelToViewDeltaX( massModel.width );
@@ -69,25 +69,25 @@ define( function( require ) {
       //When dragging across it in a mobile device, pick it up
       allowTouchSnag: true,
       start: function( event ) {
-        massClickOffset.x = massNode.globalToParentPoint( event.pointer.point ).x - event.currentTarget.x;
-        massClickOffset.y = massNode.globalToParentPoint( event.pointer.point ).y - event.currentTarget.y;
-        massNode.moveToFront();
+        massClickOffset.x = self.globalToParentPoint( event.pointer.point ).x - event.currentTarget.x;
+        massClickOffset.y = self.globalToParentPoint( event.pointer.point ).y - event.currentTarget.y;
+        self.moveToFront();
         massModel.isDragging = true;
       },
       end: function() {
-        massModel.position = modelViewTransform.viewToModelPosition( massNode.translation );
+        massModel.position = modelViewTransform.viewToModelPosition( self.translation );
         massModel.isDragging = false;
       },
       //Translate on drag events
       drag: function( event ) {
-        var point = massNode.globalToParentPoint( event.pointer.point ).subtract( massClickOffset );
-        massNode.translation = dragBounds.getClosestPoint( point.x, point.y );
+        var point = self.globalToParentPoint( event.pointer.point ).subtract( massClickOffset );
+        self.translation = dragBounds.getClosestPoint( point.x, point.y );
       }
     } ) );
 
     massModel.positionProperty.link( function( position ) {
       if ( !chamberPoolModel.isDragging ) {
-        massNode.translation = new Vector2( modelViewTransform.modelToViewX( position.x ),
+        self.translation = new Vector2( modelViewTransform.modelToViewX( position.x ),
           modelViewTransform.modelToViewY( position.y ) );
         massText.centerX = mass.centerX;
         massText.centerY = mass.centerY;

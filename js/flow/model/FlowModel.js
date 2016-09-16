@@ -47,7 +47,7 @@ define( function( require ) {
    * @constructor
    */
   function FlowModel() {
-    var flowModel = this;
+    var self = this;
 
     this.fluidDensityRange = new RangeWithValue( Constants.GASOLINE_DENSITY, Constants.HONEY_DENSITY );
     this.flowRateRange = new RangeWithValue( Constants.MIN_FLOW_RATE, Constants.MAX_FLOW_RATE );
@@ -89,15 +89,15 @@ define( function( require ) {
     this.gridInjectorElapsedTimeInPressedModeProperty.link( function() {
 
       //The grid injector can only be fired every so often, in order to prevent too many black particles in the pipe
-      if ( flowModel.gridInjectorElapsedTimeInPressedMode > 5 ) {
-        flowModel.isGridInjectorPressed = false;
-        flowModel.gridInjectorElapsedTimeInPressedMode = 0;
+      if ( self.gridInjectorElapsedTimeInPressedMode > 5 ) {
+        self.isGridInjectorPressed = false;
+        self.gridInjectorElapsedTimeInPressedMode = 0;
       }
     } );
 
     // call stepInternal at a rate of 10 times per second
     this.timer = new EventTimer( new EventTimer.UniformEventModel( 10, Math.random ), function() {
-      flowModel.createParticle();
+      self.createParticle();
     } );
   }
 

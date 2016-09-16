@@ -56,7 +56,7 @@ define( function( require ) {
    */
   function ChamberPoolModel( underPressureModel ) {
 
-    var chamberPoolModel = this;
+    var self = this;
     PropertySet.call( this, {
       // @public
       leftDisplacement: 0, //displacement from default height
@@ -115,31 +115,31 @@ define( function( require ) {
     // @public
     //List of all available masses
     this.masses = [
-      new MassModel( chamberPoolModel, 500, MASS_OFFSET, chamberPoolModel.maxY + PASSAGE_SIZE / 2, PASSAGE_SIZE,
+      new MassModel( self, 500, MASS_OFFSET, self.maxY + PASSAGE_SIZE / 2, PASSAGE_SIZE,
         PASSAGE_SIZE ),
-      new MassModel( chamberPoolModel, 250, MASS_OFFSET + PASSAGE_SIZE + SEPARATION,
-        chamberPoolModel.maxY + PASSAGE_SIZE / 4, PASSAGE_SIZE, PASSAGE_SIZE / 2 ),
-      new MassModel( chamberPoolModel, 250, MASS_OFFSET + 2 * PASSAGE_SIZE + 2 * SEPARATION,
-        chamberPoolModel.maxY + PASSAGE_SIZE / 4, PASSAGE_SIZE, PASSAGE_SIZE / 2 )
+      new MassModel( self, 250, MASS_OFFSET + PASSAGE_SIZE + SEPARATION,
+        self.maxY + PASSAGE_SIZE / 4, PASSAGE_SIZE, PASSAGE_SIZE / 2 ),
+      new MassModel( self, 250, MASS_OFFSET + 2 * PASSAGE_SIZE + 2 * SEPARATION,
+        self.maxY + PASSAGE_SIZE / 4, PASSAGE_SIZE, PASSAGE_SIZE / 2 )
     ];
 
     //When an item is added to the stack, update the total mass and equalize the mass velocities
     this.stack.addItemAddedListener( function( massModel ) {
-      chamberPoolModel.stackMass = chamberPoolModel.stackMass + massModel.mass;
+      self.stackMass = self.stackMass + massModel.mass;
 
       var maxVelocity = 0;
       //must equalize velocity of each mass
-      chamberPoolModel.stack.forEach( function( mass ) {
+      self.stack.forEach( function( mass ) {
         maxVelocity = Math.max( mass.velocity, maxVelocity );
       } );
-      chamberPoolModel.stack.forEach( function( mass ) {
+      self.stack.forEach( function( mass ) {
         mass.velocity = maxVelocity;
       } );
     } );
 
     //When an item is removed from the stack, update the total mass.
     this.stack.addItemRemovedListener( function( massModel ) {
-      chamberPoolModel.stackMass = chamberPoolModel.stackMass - massModel.mass;
+      self.stackMass = self.stackMass - massModel.mass;
     } );
 
     this.leftDisplacementProperty.link( function() {

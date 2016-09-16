@@ -28,7 +28,7 @@ define( function( require ) {
    */
   function ChamberPoolView( chamberPoolModel, modelViewTransform, dragBounds ) {
 
-    var chamberPoolView = this;
+    var self = this;
     Node.call( this );
 
     // add pool
@@ -39,7 +39,7 @@ define( function( require ) {
 
     // add masses
     chamberPoolModel.masses.forEach( function( massModel ) {
-      chamberPoolView.addChild( new MassNode( massModel, chamberPoolModel, modelViewTransform, dragBounds ) );
+      self.addChild( new MassNode( massModel, chamberPoolModel, modelViewTransform, dragBounds ) );
     } );
     // add mass stack
     this.addChild( new MassStackNode( chamberPoolModel, modelViewTransform ) );

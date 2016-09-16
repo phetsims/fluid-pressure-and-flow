@@ -31,7 +31,7 @@ define( function( require ) {
    */
   function UnderPressureRuler( underPressureModel, modelViewTransform, dragBounds ) {
 
-    var underPressureRuler = this;
+    var self = this;
     Node.call( this, { cursor: 'pointer' } );
 
     var scaleFont = new PhetFont( 12 );
@@ -92,7 +92,7 @@ define( function( require ) {
     underPressureModel.rulerPositionProperty.linkAttribute( feetRuler, 'translation' );
 
     underPressureModel.rulerPositionProperty.link( function( rulerPosition ) {
-      underPressureRuler.moveToFront();
+      self.moveToFront();
       closeButton.setTranslation( rulerPosition.x - 50, rulerPosition.y - closeButton.height );
     } );
 

@@ -51,7 +51,7 @@ define( function( require ) {
    */
   function BarometerNode( modelViewTransform, barometer, measureUnitsProperty, linkedProperties, getPressureAt,
                           getPressureString, containerBounds, dragBounds, options ) {
-    var barometerNode = this;
+    var self = this;
 
     options = _.extend( {
       pressureReadOffset: 53, //distance between center and reading tip of the barometer in view co-ordinates
@@ -126,8 +126,8 @@ define( function( require ) {
       dragBounds.height - this.height / 2 ) );
 
     barometer.positionProperty.link( function( value ) {
-      barometerNode.centerX = modelViewTransform.modelToViewX( value.x );
-      barometerNode.centerY = modelViewTransform.modelToViewY( value.y );
+      self.centerX = modelViewTransform.modelToViewX( value.x );
+      self.centerY = modelViewTransform.modelToViewY( value.y );
     } );
 
     // Add an input listener so the BarometerNode can be dragged
@@ -137,12 +137,12 @@ define( function( require ) {
         dragBounds: barometerDragBounds,
         modelViewTransform: modelViewTransform,
         startDrag: function() {
-          barometerNode.moveToFront();
+          self.moveToFront();
         },
         endDrag: function() {
-          if ( containerBounds.intersectsBounds( barometerNode.visibleBounds ) ) {
+          if ( containerBounds.intersectsBounds( self.visibleBounds ) ) {
             barometer.positionProperty.reset();
-            barometerNode.moveToBack();
+            self.moveToBack();
           }
         }
       } ) );
@@ -154,7 +154,7 @@ define( function( require ) {
       }
       else {
         barometer.value = getPressureAt( position.x,
-          position.y + modelViewTransform.viewToModelDeltaY( barometerNode.bottom - barometerNode.centerY ) );
+          position.y + modelViewTransform.viewToModelDeltaY( self.bottom - self.centerY ) );
       }
     } );
 
@@ -165,7 +165,7 @@ define( function( require ) {
       }
       else {
         barometer.value = getPressureAt( barometer.position.x,
-          barometer.position.y + modelViewTransform.viewToModelDeltaY( barometerNode.bottom - barometerNode.centerY ) );
+          barometer.position.y + modelViewTransform.viewToModelDeltaY( self.bottom - self.centerY ) );
       }
     } );
 
@@ -185,7 +185,7 @@ define( function( require ) {
         }
       } );
 
-    barometerNode.touchArea = barometerNode.localBounds.dilatedXY( 0, 0 );
+    self.touchArea = self.localBounds.dilatedXY( 0, 0 );
   }
 
   fluidPressureAndFlow.register( 'BarometerNode', BarometerNode );

@@ -40,7 +40,7 @@ define( function( require ) {
   function PipeHandlesNode( flowModel, pipeNode, gridInjectorNode, modelViewTransform, layoutBounds ) {
 
     Node.call( this );
-    var pipeHandlesNode = this;
+    var self = this;
     this.flowModel = flowModel;
     this.pipeNode = pipeNode;
     this.layoutBounds = layoutBounds;
@@ -88,25 +88,25 @@ define( function( require ) {
       right: this.rightPipeMainHandleNode
     };
 
-    this.addChild( new PipeMainDragHandle( pipeHandlesNode, 'left', modelViewTransform ) );
-    this.addChild( new PipeMainDragHandle( pipeHandlesNode, 'right', modelViewTransform ) );
+    this.addChild( new PipeMainDragHandle( self, 'left', modelViewTransform ) );
+    this.addChild( new PipeMainDragHandle( self, 'right', modelViewTransform ) );
 
     var i;
     var pipeHandleNode;
     for ( i = 1; i < pipe.top.length - 1; i++ ) {
-      pipeHandleNode = new PipeHandleNode( pipeHandlesNode, true, i, modelViewTransform );
+      pipeHandleNode = new PipeHandleNode( self, true, i, modelViewTransform );
       topControlHandleNodes.push( pipeHandleNode );
       this.addChild( pipeHandleNode );
     }
 
     for ( i = 1; i < pipe.bottom.length - 1; i++ ) {
-      pipeHandleNode = new PipeHandleNode( pipeHandlesNode, false, i, modelViewTransform );
+      pipeHandleNode = new PipeHandleNode( self, false, i, modelViewTransform );
       bottomControlHandleNodes.push( pipeHandleNode );
       this.addChild( pipeHandleNode );
     }
 
-    flowModel.pipe.leftPipeMainHandleYPositionProperty.linkAttribute( pipeHandlesNode.leftPipeMainHandleNode, 'y' );
-    flowModel.pipe.rightPipeMainHandleYPositionProperty.linkAttribute( pipeHandlesNode.rightPipeMainHandleNode, 'y' );
+    flowModel.pipe.leftPipeMainHandleYPositionProperty.linkAttribute( self.leftPipeMainHandleNode, 'y' );
+    flowModel.pipe.rightPipeMainHandleYPositionProperty.linkAttribute( self.rightPipeMainHandleNode, 'y' );
     Property.multilink( [ pipe.leftPipeTopHandleYProperty, pipe.leftPipeBottomHandleYProperty ],
       function( leftTop, leftBottom ) {
         topControlHandleNodes[ 0 ].bottom = leftTop;
