@@ -22,7 +22,7 @@ define( function( require ) {
   function ChamberPoolWaterNode( chamberPoolModel, modelViewTransform ) {
     Node.call( this );
 
-    var waterPath = new Path();
+    var waterPath = new Path( null );
     var poolDimensions = chamberPoolModel.poolDimensions;
 
     //calculated view coordinates for water

@@ -24,7 +24,7 @@ define( function( require ) {
   function TrapezoidPoolWaterNode( trapezoidPoolModel, modelViewTransform ) {
 
     Node.call( this );
-    var waterPath = new Path();
+    var waterPath = new Path( null );
 
     var yMax = Math.abs( modelViewTransform.modelToViewY( trapezoidPoolModel.poolDimensions.leftChamber.y -
                                                           trapezoidPoolModel.poolDimensions.leftChamber.height ) );//bottom y coord of pool, px
