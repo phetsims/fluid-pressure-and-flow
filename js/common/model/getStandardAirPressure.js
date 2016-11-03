@@ -16,8 +16,8 @@ define( function( require ) {
 
   /**
    * Calculates the standard air pressure by linearly extrapolating the known values for height = 0m & height = 150m
-   * @param {Number} height (in meters) at which the air pressure needs to be calculated
-   * @returns {Number} standard air pressure at the specified height from ground
+   * @param {number} height (in meters) at which the air pressure needs to be calculated
+   * @returns {number} standard air pressure at the specified height from ground
    */
   var getStandardAirPressure = function( height ) {
     //Note: 150 meters is 500 feet

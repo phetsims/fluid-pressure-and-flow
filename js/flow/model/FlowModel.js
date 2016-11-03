@@ -154,8 +154,8 @@ define( function( require ) {
 
       /**
        * @param {number} pressure in Pa
-       * @param {String} units -- can be english/metric/atmospheres
-       * @returns {String} with value and units
+       * @param {string} units -- can be english/metric/atmospheres
+       * @returns {string} with value and units
        */
       getPressureString: function( pressure, units ) {
         return Units.getPressureString( pressure, units );

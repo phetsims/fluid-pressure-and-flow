@@ -19,7 +19,7 @@ define( function( require ) {
    * @param {UnderPressureModel} underPressureModel of the sim.
    * @param {FaucetModel} inputFaucet that fills the pool
    * @param {FaucetModel} outputFaucet that drains the pool
-   * @param {Number} maxVolume of the pool in liters
+   * @param {number} maxVolume of the pool in liters
    * @constructor
    */
   function PoolWithFaucetsModel( underPressureModel, inputFaucet, outputFaucet, maxVolume ) {
