@@ -114,8 +114,6 @@ define( function( require ) {
     // relative layout, everything relative to the track
     valueField.centerX = this.content.centerX;
     valueField.bottom = hSlider.top - 5;
-    valueLabel.centerX = valueField.centerX;
-    valueLabel.centerY = valueField.centerY - 3;
 
     // plus button to the right of the value
     plusButton.left = valueField.right + PLUS_MINUS_SPACING;
