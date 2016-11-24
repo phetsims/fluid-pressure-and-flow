@@ -16,6 +16,8 @@ define( function( require ) {
   var inherit = require( 'PHET_CORE/inherit' );
   var Image = require( 'SCENERY/nodes/Image' );
   var Screen = require( 'JOIST/Screen' );
+  var Property = require( 'AXON/Property' );
+  var Color = require( 'SCENERY/util/Color' );
 
   // images
   var underPressureScreenIcon = require( 'image!FLUID_PRESSURE_AND_FLOW/under-pressure.png' );
@@ -27,7 +29,7 @@ define( function( require ) {
 
     var options = {
       name: underPressureScreenTitleString,
-      backgroundColor: 'white',
+      backgroundColorProperty: new Property( Color.toColor( 'white' ) ),
       homeScreenIcon: new Image( underPressureScreenIcon )
     };
 

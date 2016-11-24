@@ -15,6 +15,8 @@ define( function( require ) {
   var inherit = require( 'PHET_CORE/inherit' );
   var Image = require( 'SCENERY/nodes/Image' );
   var Screen = require( 'JOIST/Screen' );
+  var Property = require( 'AXON/Property' );
+  var Color = require( 'SCENERY/util/Color' );
 
   // strings
   var waterTowerScreenTitleString = require( 'string!FLUID_PRESSURE_AND_FLOW/waterTowerScreenTitle' );
@@ -26,7 +28,7 @@ define( function( require ) {
 
     var options = {
       name: waterTowerScreenTitleString,
-      backgroundColor: 'white',
+      backgroundColorProperty: new Property( Color.toColor( 'white' ) ),
       homeScreenIcon: new Image( waterTowerScreenIcon )
     };
 
