@@ -69,9 +69,10 @@ define( function( require ) {
       } );
     } );
 
-    chamberPoolModel.stack.addListeners( function() {
+    chamberPoolModel.stack.addItemAddedListener( function() {
       self.updateMassStack();
-    }, function() {
+    } );
+    chamberPoolModel.stack.addItemRemovedListener( function() {
       self.updateMassStack();
     } );
   }
