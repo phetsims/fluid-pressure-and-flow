@@ -16,7 +16,6 @@ define( function( require ) {
   var Image = require( 'SCENERY/nodes/Image' );
   var Screen = require( 'JOIST/Screen' );
   var Property = require( 'AXON/Property' );
-  var Color = require( 'SCENERY/util/Color' );
 
   // strings
   var waterTowerScreenTitleString = require( 'string!FLUID_PRESSURE_AND_FLOW/waterTowerScreenTitle' );
@@ -28,7 +27,7 @@ define( function( require ) {
 
     var options = {
       name: waterTowerScreenTitleString,
-      backgroundColorProperty: new Property( Color.toColor( 'white' ) ),
+      backgroundColorProperty: new Property( 'white' ),
       homeScreenIcon: new Image( waterTowerScreenIcon )
     };
 

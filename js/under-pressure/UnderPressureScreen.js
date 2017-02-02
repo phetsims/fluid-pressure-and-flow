@@ -17,7 +17,6 @@ define( function( require ) {
   var Image = require( 'SCENERY/nodes/Image' );
   var Screen = require( 'JOIST/Screen' );
   var Property = require( 'AXON/Property' );
-  var Color = require( 'SCENERY/util/Color' );
 
   // images
   var underPressureScreenIcon = require( 'image!FLUID_PRESSURE_AND_FLOW/under-pressure.png' );
@@ -29,7 +28,7 @@ define( function( require ) {
 
     var options = {
       name: underPressureScreenTitleString,
-      backgroundColorProperty: new Property( Color.toColor( 'white' ) ),
+      backgroundColorProperty: new Property( 'white' ),
       homeScreenIcon: new Image( underPressureScreenIcon )
     };
 
