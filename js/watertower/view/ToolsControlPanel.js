@@ -60,7 +60,7 @@ define( function( require ) {
     var hose = { label: new Text( hoseString, textOptions ), icon: createHoseIcon() };
 
     // compute the maximum item width
-    var widestItemSpec = _.max( [ ruler, measuringTape, hose ], function( item ) { return item.label.width + item.icon.width; } );
+    var widestItemSpec = _.maxBy( [ ruler, measuringTape, hose ], function( item ) { return item.label.width + item.icon.width; } );
     var maxWidth = widestItemSpec.label.width + widestItemSpec.icon.width;
 
     // pad inserts a spacing node (HStrut) so that the text, space and image together occupy a certain fixed width.

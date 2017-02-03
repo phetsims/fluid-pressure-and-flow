@@ -56,7 +56,7 @@ define( function( require ) {
     var dots = { label: new Text( dotsString, textOptions ), icon: createDotsIcon() };
 
     // compute the maximum item width
-    var widestItemSpec = _.max( [ ruler, friction, fluxMeter, dots ], function( item ) {
+    var widestItemSpec = _.maxBy( [ ruler, friction, fluxMeter, dots ], function( item ) {
       return item.label.width + ((item.icon) ? item.icon.width : 0);
     } );
     var maxWidth = widestItemSpec.label.width + ((widestItemSpec.icon) ? widestItemSpec.icon.width : 0);
@@ -83,7 +83,7 @@ define( function( require ) {
       checkBoxOptions );
     var dotsCheckBox = new CheckBox( createItem( dots ), flowModel.isDotsVisibleProperty, checkBoxOptions );
 
-    var maxCheckBoxWidth = _.max( [ rulerCheckBox, frictionCheckBox, fluxMeterCheckBox, dotsCheckBox ],
+    var maxCheckBoxWidth = _.maxBy( [ rulerCheckBox, frictionCheckBox, fluxMeterCheckBox, dotsCheckBox ],
         function( item ) {
           return item.width;
         } ).width + 5;
