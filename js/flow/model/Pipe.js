@@ -201,7 +201,7 @@ define( function( require ) {
      * Given a global y-position, determine the fraction to the top (point at bottom = 0, point halfway up = 0.5, etc.)
      * @param {number} x position in meters
      * @param {number} y position in meters
-     * @returns {*} fraction
+     * @returns {number} fraction
      */
     getFractionToTop: function( x, y ) {
       var position = this.getCrossSection( x );
@@ -371,7 +371,7 @@ define( function( require ) {
      * Find the y-value for the specified x-value and fraction (0=bottom, 1=top) of the pipe
      * @param {number} x position in meters
      * @param {number} fraction is in (0,1) (0=bottom, 1=top)
-     * @returns {*}
+     * @returns {number}
      */
     fractionToLocation: function( x, fraction ) {
       var position = this.getCrossSection( x );
