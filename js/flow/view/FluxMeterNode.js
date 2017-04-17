@@ -24,7 +24,7 @@ define( function( require ) {
   var Shape = require( 'KITE/Shape' );
   var Color = require( 'SCENERY/util/Color' );
   var SimpleDragHandler = require( 'SCENERY/input/SimpleDragHandler' );
-  var SubSupText = require( 'SCENERY_PHET/SubSupText' );
+  var RichText = require( 'SCENERY_PHET/RichText' );
   var Units = require( 'FLUID_PRESSURE_AND_FLOW/common/model/Units' );
 
   // strings
@@ -69,17 +69,17 @@ define( function( require ) {
     // flowRate row
     var flowRateText = new Text( flowRateWithColonString, textOptions );
     this.flowRateValue = new Text( '', textOptions );
-    this.flowRateUnit = new SubSupText( rateUnitsMetricString, textOptions );
+    this.flowRateUnit = new RichText( rateUnitsMetricString, textOptions );
 
     // area row
     var area = new Text( areaString, textOptions );
     this.areaValue = new Text( '', textOptions );
-    this.areaUnit = new SubSupText( areaUnitsMetricString, textOptions );
+    this.areaUnit = new RichText( areaUnitsMetricString, textOptions );
 
     // flux row
     var flux = new Text( fluxString, textOptions );
     this.fluxValue = new Text( '', textOptions );
-    this.fluxUnit = new SubSupText( fluxUnitsMetricString, textOptions );
+    this.fluxUnit = new RichText( fluxUnitsMetricString, textOptions );
 
     // Split the content into 3 vboxes. First vbox holds the right aligned title,
     // second the right aligned value and the third vbox holds the left aligned units text

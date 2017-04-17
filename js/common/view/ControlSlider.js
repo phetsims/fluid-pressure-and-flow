@@ -20,7 +20,7 @@ define( function( require ) {
   var Node = require( 'SCENERY/nodes/Node' );
   var Rectangle = require( 'SCENERY/nodes/Rectangle' );
   var Text = require( 'SCENERY/nodes/Text' );
-  var SubSupText = require( 'SCENERY_PHET/SubSupText' );
+  var RichText = require( 'SCENERY_PHET/RichText' );
   var PhetFont = require( 'SCENERY_PHET/PhetFont' );
   var HSlider = require( 'SUN/HSlider' );
   var AccordionBox = require( 'SUN/AccordionBox' );
@@ -100,7 +100,7 @@ define( function( require ) {
     minusButton.touchArea = new Bounds2( minusButton.localBounds.minX - 20, minusButton.localBounds.minY - 5,
       minusButton.localBounds.maxX + 20, minusButton.localBounds.maxY + 20 );
 
-    var valueLabel = new SubSupText( '', { font: new PhetFont( 12 ), pickable: false, maxWidth: 60 } );
+    var valueLabel = new RichText( '', { font: new PhetFont( 12 ), pickable: false, maxWidth: 60 } );
     var valueField = new Rectangle( 0, 0, trackSize.width * 0.6, 18, 3, 3,
       { fill: '#FFF', stroke: 'black', lineWidth: 1, pickable: false } );
 
