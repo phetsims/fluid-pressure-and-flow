@@ -43,7 +43,7 @@ define( function( require ) {
       fill: new LinearGradient( -width / 2, 0, width, 0 )
         .addColorStop( 0, '#8C8D8D' )
         .addColorStop( 0.3, '#C0C1C2' )
-        .addColorStop( 0.5, '# F0F1F1' )
+        .addColorStop( 0.5, '#F0F1F1' )
         .addColorStop( 0.6, '#F8F8F7' ),
       stroke: '#918e8e',
       lineWidth: 1
