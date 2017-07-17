@@ -34,7 +34,7 @@ define( function( require ) {
   var BarometerNode = require( 'FLUID_PRESSURE_AND_FLOW/common/view/BarometerNode' );
   var ControlSlider = require( 'FLUID_PRESSURE_AND_FLOW/common/view/ControlSlider' );
   var ToolsControlPanel = require( 'FLUID_PRESSURE_AND_FLOW/watertower/view/ToolsControlPanel' );
-  var MeasuringTape = require( 'SCENERY_PHET/MeasuringTape' );
+  var MeasuringTapeNode = require( 'SCENERY_PHET/MeasuringTapeNode' );
   var SluiceControlPanel = require( 'FLUID_PRESSURE_AND_FLOW/watertower/view/SluiceControlPanel' );
   var UnitsControlPanel = require( 'FLUID_PRESSURE_AND_FLOW/common/view/UnitsControlPanel' );
   var FPAFRuler = require( 'FLUID_PRESSURE_AND_FLOW/common/view/FPAFRuler' );
@@ -157,7 +157,7 @@ define( function( require ) {
         return units;
       } );
 
-    var measuringTape = new MeasuringTape( unitsProperty, waterTowerModel.isMeasuringTapeVisibleProperty, {
+    var measuringTapeNode = new MeasuringTapeNode( unitsProperty, waterTowerModel.isMeasuringTapeVisibleProperty, {
       basePositionProperty: waterTowerModel.measuringTapeBasePositionProperty,
       tipPositionProperty: waterTowerModel.measuringTapeTipPositionProperty,
       modelViewTransform: modelViewTransform,
@@ -174,7 +174,7 @@ define( function( require ) {
       listener: function() {
         waterTowerModel.reset();
         self.hoseNode.reset();
-        measuringTape.reset();
+        measuringTapeNode.reset();
         waterTowerNode.fillButton.enabled = true;
       },
       right: this.layoutBounds.right - inset,
@@ -282,7 +282,7 @@ define( function( require ) {
         feetTicks: _.range( 0, 101, 10 ),
         insetsWidth: 0
       } ) );
-    toolsLayer.addChild( measuringTape );
+    toolsLayer.addChild( measuringTapeNode );
 
 
     waterTowerModel.isSluiceOpenProperty.link( function( isSluiceOpen ) {
