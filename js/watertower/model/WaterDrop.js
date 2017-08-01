@@ -52,14 +52,14 @@ define( function( require ) {
       var initialVelocityY = this.velocity.y;
 
       this.velocity.setY( this.velocity.y + accelerationY * dt );
-      this.velocityProperty._notifyObservers();
+      this.velocityProperty._notifyListeners();
 
       // d = (v_f + v_i) * dt/2; assuming constant acceleration
       var displacementX = (this.velocity.x + initialVelocityX) * dt / 2;
       var displacementY = (this.velocity.y + initialVelocityY) * dt / 2;
 
       this.position.setXY( this.position.x + displacementX, this.position.y + displacementY );
-      this.positionProperty._notifyObservers();
+      this.positionProperty._notifyListeners();
     },
 
     /**

@@ -86,7 +86,7 @@ define( function( require ) {
       }
       else {
         this.underPressureModel.gravity = this.gravityChoices[ this.customGravityProperty.value ];
-        this.underPressureModel.fluidDensityProperty.notifyObserversStatic();
+        this.underPressureModel.fluidDensityProperty.notifyListenersStatic();
       }
 
     },

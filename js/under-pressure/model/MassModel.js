@@ -103,7 +103,7 @@ define( function( require ) {
         this.velocity = (this.velocity + acceleration * dt) * frictionCoefficient;
         if ( Math.abs( this.velocity ) > epsilonVelocity ) {
           this.position.y += this.velocity * dt;
-          this.positionProperty.notifyObserversStatic();
+          this.positionProperty.notifyListenersStatic();
         }
       }
       else if ( this.isFalling && !this.isDragging ) {
@@ -118,7 +118,7 @@ define( function( require ) {
             this.isFalling = false;
             this.velocity = 0;
           }
-          this.positionProperty.notifyObserversStatic();
+          this.positionProperty.notifyListenersStatic();
         }
       }
     },
