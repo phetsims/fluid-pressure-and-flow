@@ -11,7 +11,7 @@ define( function( require ) {
   // modules
   var fluidPressureAndFlow = require( 'FLUID_PRESSURE_AND_FLOW/fluidPressureAndFlow' );
   var FlowModel = require( 'FLUID_PRESSURE_AND_FLOW/flow/model/FlowModel' );
-  var FlowView = require( 'FLUID_PRESSURE_AND_FLOW/flow/view/FlowView' );
+  var FlowScreenView = require( 'FLUID_PRESSURE_AND_FLOW/flow/view/FlowScreenView' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Image = require( 'SCENERY/nodes/Image' );
   var Screen = require( 'JOIST/Screen' );
@@ -33,7 +33,7 @@ define( function( require ) {
 
     Screen.call( this,
       function() { return new FlowModel(); },
-      function( model ) { return new FlowView( model ); },
+      function( model ) { return new FlowScreenView( model ); },
       options
     );
   }

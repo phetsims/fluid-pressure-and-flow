@@ -60,7 +60,7 @@ define( function( require ) {
    * @param {FlowModel} flowModel of the simulation
    * @constructor
    */
-  function FlowView( flowModel ) {
+  function FlowScreenView( flowModel ) {
 
     var self = this;
     ScreenView.call( this, Constants.SCREEN_VIEW_OPTIONS );
@@ -327,9 +327,9 @@ define( function( require ) {
     toolsLayer.moveToFront();
   }
 
-  fluidPressureAndFlow.register( 'FlowView', FlowView );
+  fluidPressureAndFlow.register( 'FlowScreenView', FlowScreenView );
 
-  return inherit( ScreenView, FlowView, {
+  return inherit( ScreenView, FlowScreenView, {
 
     /**
      * Called by the animation loop.
