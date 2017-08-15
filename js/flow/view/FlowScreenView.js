@@ -110,7 +110,7 @@ define( function( require ) {
     this.addChild( toolsLayer );
 
     // units control panel
-    var unitsControlPanel = new UnitsControlPanel( flowModel.measureUnitsProperty, 50,
+    var unitsControlPanel = new UnitsControlPanel( flowModel.measureUnitsProperty,
       { right: toolsControlPanel.left - 7, top: toolsControlPanel.top } );
     this.addChild( unitsControlPanel );
 

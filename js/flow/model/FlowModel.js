@@ -70,7 +70,7 @@ define( function( require ) {
 
     this.barometers = [];
     for ( var i = 0; i < NUMBER_BAROMETERS; i++ ) {
-      this.barometers.push( new Sensor( new Vector2( 0, 0 ), 0 ) );
+      this.barometers.push( new Sensor( new Vector2( 2.5, 1.8 ), 0 ) );
     }
 
     this.speedometers = [];
@@ -88,7 +88,7 @@ define( function( require ) {
 
     this.gridInjectorElapsedTimeInPressedModeProperty.link( function() {
 
-      //The grid injector can only be fired every so often, in order to prevent too many black particles in the pipe
+      //  The grid injector can only be fired every so often, in order to prevent too many black particles in the pipe
       if ( self.gridInjectorElapsedTimeInPressedMode > 5 ) {
         self.isGridInjectorPressed = false;
         self.gridInjectorElapsedTimeInPressedMode = 0;
