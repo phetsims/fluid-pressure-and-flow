@@ -23,8 +23,9 @@ define( function( require ) {
       leadDesign: 'Sam Reid',
       softwareDevelopment: 'Sam Reid, John Blanco',
       team: 'Bryce Gruneich, Trish Loeblein, Ariel Paul, Kathy Perkins, Rachel Pepper, Noah Podolefsky',
-      thanks: 'Thanks to Mobile Learner Labs and Actual Concepts for working with the PhET development team\nto convert this simulation to HTML5.',
-      qualityAssurance: 'Steele Dalton, Oliver Nix, Oliver Orejola, Arnab Purkayastha,\n Amy Rouinfar, Bryan Yoelin'
+      thanks: 'Thanks to Mobile Learner Labs and Actual Concepts for working with the PhET development team to convert ' +
+              'this simulation to HTML5.',
+      qualityAssurance: 'Steele Dalton, Oliver Nix, Oliver Orejola, Arnab Purkayastha, Amy Rouinfar, Bryan Yoelin'
     }
   };
 
