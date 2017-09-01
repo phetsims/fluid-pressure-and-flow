@@ -95,8 +95,8 @@ define( function( require ) {
 
     this.spoutAndNozzle = new Node( {
       children: [ nozzle, this.spoutHandle ],
-      bottom: this.modelViewTransform.modelToViewDeltaY( this.hose.nozzleAttachmentOuterY ) + 116 + 40 * Math.cos( this.hose.angle ),
-      left: this.modelViewTransform.modelToViewX( this.hose.nozzleAttachmentOuterX ) - 19 * Math.sin( this.hose.angle ),
+      bottom: this.modelViewTransform.modelToViewDeltaY( this.hose.nozzleAttachmentOuterY ) + 116 + 40 * Math.cos( this.hose.angleProperty.value ),
+      left: this.modelViewTransform.modelToViewX( this.hose.nozzleAttachmentOuterX ) - 19 * Math.sin( this.hose.angleProperty.value ),
       rotation: this.hose.angleWithVertical
     } );
 
@@ -112,7 +112,7 @@ define( function( require ) {
         startY = self.globalToParentPoint( e.pointer.point ).y;
         startX = self.globalToParentPoint( e.pointer.point ).x;
 
-        initialHoseAngle = self.hose.angle * 180 / Math.PI;
+        initialHoseAngle = self.hose.angleProperty.value * 180 / Math.PI;
 
         var deltaY = self.modelViewTransform.modelToViewY( self.hose.rotationPivotY + self.tankPositionProperty.value.y ) - startY;
         var deltaX = self.modelViewTransform.modelToViewX( self.hose.rotationPivotX + self.tankPositionProperty.value.x + 10 ) - startX;
@@ -137,7 +137,7 @@ define( function( require ) {
 
         var angleToUpdate = initialHoseAngle - angleMoved;
         angleToUpdate = angleToUpdate > 90 ? 90 : angleToUpdate < 0 ? 0 : angleToUpdate;
-        self.hose.angle = Math.PI * (angleToUpdate) / 180;
+        self.hose.angleProperty.value = Math.PI * (angleToUpdate) / 180;
       }
     } ) );
 
@@ -259,8 +259,8 @@ define( function( require ) {
       }
 
       this.spoutAndNozzle.setRotation( this.hose.angleWithVertical );
-      this.spoutAndNozzle.bottom = this.modelViewTransform.modelToViewDeltaY( this.hose.nozzleAttachmentOuterY ) + 116 + 29 * Math.cos( this.hose.angle );
-      this.spoutAndNozzle.left = this.modelViewTransform.modelToViewX( this.hose.nozzleAttachmentOuterX ) - 19 * Math.sin( this.hose.angle );
+      this.spoutAndNozzle.bottom = this.modelViewTransform.modelToViewDeltaY( this.hose.nozzleAttachmentOuterY ) + 116 + 29 * Math.cos( this.hose.angleProperty.value );
+      this.spoutAndNozzle.left = this.modelViewTransform.modelToViewX( this.hose.nozzleAttachmentOuterX ) - 19 * Math.sin( this.hose.angleProperty.value );
     },
 
     reset: function() {

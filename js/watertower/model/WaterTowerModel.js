@@ -255,8 +255,8 @@ define( function( require ) {
             newHoseDrop = new WaterDrop( new Vector2( this.hose.rotationPivotX + this.waterTower.tankPosition.x +
                                                       2 * this.waterTower.TANK_RADIUS - 0.1 + Math.random() * 0.2 - 0.1,
                 y + Math.random() * 0.2 - 0.1 ),
-              new Vector2( this.velocityMagnitude * Math.cos( this.hose.angle ),
-                this.velocityMagnitude * Math.sin( this.hose.angle ) ), this.leakageVolume );
+              new Vector2( this.velocityMagnitude * Math.cos( this.hose.angleProperty.value ),
+                this.velocityMagnitude * Math.sin( this.hose.angleProperty.value ) ), this.leakageVolume );
 
             this.hoseDrops.push( newHoseDrop );
             newHoseDrop.step( this.accumulatedDt );
