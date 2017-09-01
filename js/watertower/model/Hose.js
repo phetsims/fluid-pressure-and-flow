@@ -9,11 +9,11 @@ define( function( require ) {
   'use strict';
 
   // modules
-  var fluidPressureAndFlow = require( 'FLUID_PRESSURE_AND_FLOW/fluidPressureAndFlow' );
-  var inherit = require( 'PHET_CORE/inherit' );
-  var PropertySet = require( 'AXON/PropertySet' );
+  var Events = require( 'AXON/Events' );
   var Property = require( 'AXON/Property' );
   var Vector2 = require( 'DOT/Vector2' );
+  var fluidPressureAndFlow = require( 'FLUID_PRESSURE_AND_FLOW/fluidPressureAndFlow' );
+  var inherit = require( 'PHET_CORE/inherit' );
 
   /**
    * Hose constructor
@@ -23,8 +23,10 @@ define( function( require ) {
    */
 
   function Hose( height, angle ) {
-    //Layout parameters for the Hose
 
+    Events.call( this );
+
+    // Layout parameters for the Hose
     this.L1 = 6.3; // length of the horizontal portion of the hose from the tank hole
     this.H2 = 2.1; // length of the vertical/horizontal portion of the hose attached to the spout and nozzle (not including spout/nozzle)
     this.width = 1.5; // diameter of the hose
@@ -37,13 +39,11 @@ define( function( require ) {
 
     this.H3 = 3.5; // spout height
 
-    PropertySet.call( this, {
-
-      // height increases downwards, decreases when the hose goes up. It will be negative when the hose is above the hole
-      height: height
-    } );
-
+    // @public
     this.angleProperty = new Property( angle );
+
+    // @public height increases downwards, decreases when the hose goes up. It will be negative when the hose is above the hole
+    this.heightProperty = new Property( height );
 
     this.update();
 
@@ -55,7 +55,7 @@ define( function( require ) {
 
   fluidPressureAndFlow.register( 'Hose', Hose );
 
-  return inherit( PropertySet, Hose, {
+  return inherit( Events, Hose, {
 
     /**
      * @private
@@ -67,7 +67,7 @@ define( function( require ) {
 
       this.angleWithVertical = Math.PI / 2 - angle;
       this.rotationPivotX = this.hoseLengthX;
-      this.rotationPivotY = -this.height + this.H2;
+      this.rotationPivotY = -this.heightProperty.value + this.H2;
       this.nozzleAttachmentOuterX = this.rotationPivotX - this.H3 * Math.cos( angle ) + this.width / 2 * Math.sin( angle );
       this.nozzleAttachmentOuterY = this.rotationPivotY - this.H3 * Math.sin( angle ) - this.width / 2 * Math.cos( angle );
       this.elbowOuterX = this.nozzleAttachmentOuterX - this.H2 * Math.cos( angle );
@@ -79,6 +79,15 @@ define( function( require ) {
       this.elbowLowerX = this.elbowOuterX - this.width * Math.sin( angle );
       this.elbowLowerY = this.elbowOuterY - (this.width - this.width * Math.cos( angle ));
       this.trigger( 'updated' );
+    },
+
+    /**
+     * @public
+     * reset the public model properties
+     */
+    reset: function() {
+      this.angleProperty.reset();
+      this.heightProperty.reset();
     }
   } );
 } );

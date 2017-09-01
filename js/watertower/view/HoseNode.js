@@ -73,7 +73,7 @@ define( function( require ) {
     var initialHeight;
     this.handleNode.addInputListener( new SimpleDragHandler( {
       start: function( e ) {
-        initialHeight = self.hose.height;
+        initialHeight = self.hose.heightProperty.value;
         clickYOffset = self.globalToParentPoint( e.pointer.point ).y;
       },
       drag: function( e ) {
@@ -236,7 +236,7 @@ define( function( require ) {
       height = height > this.tankPositionProperty.value.y + 2 ? this.tankPositionProperty.value.y + 2 :
                height < this.tankPositionProperty.value.y - 25 ? this.tankPositionProperty.value.y - 25 : height;
 
-      this.hose.height = height;
+      this.hose.heightProperty.value = height;
     },
 
     /**
