@@ -150,10 +150,10 @@ define( function( require ) {
     //Update the value in the barometer value model by reading from the model.
     Property.multilink( [ barometer.positionProperty ].concat( linkedProperties ), function( position ) {
       if ( barometer.positionProperty.value === barometer.positionProperty.initialValue ) {
-        barometer.value = null; // when the barometer is in the sensor panel making sure it shows no value for accessibility
+        barometer.valueProperty.value = null; // when the barometer is in the sensor panel making sure it shows no value for accessibility
       }
       else {
-        barometer.value = getPressureAt( position.x,
+        barometer.valueProperty.value = getPressureAt( position.x,
           position.y + modelViewTransform.viewToModelDeltaY( self.bottom - self.centerY ) );
       }
     } );
@@ -161,11 +161,10 @@ define( function( require ) {
     // update barometer value when weights are added to chamber pool
     barometer.on( 'update', function() {
       if ( barometer.positionProperty.value === barometer.positionProperty.initialValue ) {
-        barometer.value = null; // when the barometer is in the sensor panel making sure it shows no value for accessibility
+        barometer.valueProperty.value = null; // when the barometer is in the sensor panel making sure it shows no value for accessibility
       }
       else {
-        barometer.value = getPressureAt( barometer.position.x,
-          barometer.position.y + modelViewTransform.viewToModelDeltaY( self.bottom - self.centerY ) );
+        barometer.valueProperty.value = getPressureAt( barometer.positionProperty.value.x, barometer.positionProperty.value.y + modelViewTransform.viewToModelDeltaY( self.bottom - self.centerY ) );
       }
     } );
 

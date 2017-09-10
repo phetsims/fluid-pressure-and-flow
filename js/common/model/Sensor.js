@@ -9,8 +9,9 @@ define( function( require ) {
   'use strict';
 
   // modules
+  var Events = require( 'AXON/Events' );
+  var Property = require( 'AXON/Property' );
   var fluidPressureAndFlow = require( 'FLUID_PRESSURE_AND_FLOW/fluidPressureAndFlow' );
-  var PropertySet = require( 'AXON/PropertySet' );
   var inherit = require( 'PHET_CORE/inherit' );
 
   /**
@@ -19,17 +20,25 @@ define( function( require ) {
    * @constructor
    */
   function Sensor( position, value ) {
-    PropertySet.call( this, {
-      position: position, // @public
-      value: value // @public
-    } );
+
+    // @public (Property.<Vector2>}
+    this.positionProperty = new Property( position );
+
+    // @public (Object}
+    this.valueProperty = new Property( value );
+
+    Property.preventGetSet( this, 'position' );
+    Property.preventGetSet( this, 'value' );
+
+    Events.call( this );// TODO: Use Emitters
   }
 
   fluidPressureAndFlow.register( 'Sensor', Sensor );
 
-  return inherit( PropertySet, Sensor, {
+  return inherit( Events, Sensor, {
     reset: function() {
       this.positionProperty.reset();
+      this.valueProperty.reset();
     }
   } );
 } );

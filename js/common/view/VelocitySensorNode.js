@@ -117,13 +117,13 @@ define( function( require ) {
 
     // arrow shape
     var arrowWidth = 6;
-    this.arrowShape = new Path( new ArrowShape( 0, 0, modelViewTransform.modelToViewDeltaX( velocitySensor.value.x ),
-      modelViewTransform.modelToViewDeltaY( velocitySensor.value.y ) ), { fill: 'blue' } );
+    this.arrowShape = new Path( new ArrowShape( 0, 0, modelViewTransform.modelToViewDeltaX( velocitySensor.valueProperty.value.x ),
+      modelViewTransform.modelToViewDeltaY( velocitySensor.valueProperty.value.y ) ), { fill: 'blue' } );
     this.addChild( this.arrowShape );
 
     velocitySensor.valueProperty.link( function( velocity ) {
-      this.arrowShape.setShape( new ArrowShape( 0, 0, modelViewTransform.modelToViewDeltaX( velocitySensor.value.x ),
-        modelViewTransform.modelToViewDeltaY( velocitySensor.value.y ),
+      this.arrowShape.setShape( new ArrowShape( 0, 0, modelViewTransform.modelToViewDeltaX( velocitySensor.valueProperty.value.x ),
+        modelViewTransform.modelToViewDeltaY( velocitySensor.valueProperty.value.y ),
         { tailWidth: arrowWidth, headWidth: 2 * arrowWidth, headHeight: 2 * arrowWidth } ) );
 
       // set the arrowShape path position so that the center of the tail coincides with the tip of the sensor
@@ -168,7 +168,7 @@ define( function( require ) {
         endDrag: function() {
           // check intersection only with the outer rectangle.
           // Add a 5px tolerance. See https://github.com/phetsims/fluid-pressure-and-flow/issues/105
-          if ( containerBounds.intersectsBounds( Bounds2.rect( velocitySensor.position.x, velocitySensor.position.y,
+          if ( containerBounds.intersectsBounds( Bounds2.rect( velocitySensor.positionProperty.value.x, velocitySensor.positionProperty.value.y,
               rectangleWidth, rectangleHeight ).eroded( 5 ) ) ) {
             velocitySensor.positionProperty.reset();
             self.moveToBack();
@@ -179,15 +179,15 @@ define( function( require ) {
     velocitySensor.positionProperty.linkAttribute( self, 'translation' );
 
     Property.multilink( [ velocitySensor.positionProperty ].concat( linkedProperties ), function( position ) {
-      velocitySensor.value = getVelocityAt( modelViewTransform.viewToModelX( position.x +
-                                                                             rectangleWidth / 2 * options.scale ),
+      velocitySensor.valueProperty.value = getVelocityAt( modelViewTransform.viewToModelX( position.x +
+                                                                                           rectangleWidth / 2 * options.scale ),
         modelViewTransform.viewToModelY( position.y + ( rectangleHeight + triangleHeight ) * options.scale ) );
     } );
 
     // Update the text when the value or units changes.
     Property.multilink( [ velocitySensor.valueProperty, measureUnitsProperty, velocitySensor.positionProperty ],
       function( velocity, units ) {
-        if ( velocitySensor.positionProperty.initialValue === velocitySensor.position ) {
+        if ( velocitySensor.positionProperty.initialValue.equals( velocitySensor.positionProperty.value ) ) {
           labelText.text = '-';
         }
         else {
@@ -199,9 +199,9 @@ define( function( require ) {
       } );
 
     velocitySensor.on( 'update', function() {
-      velocitySensor.value = getVelocityAt(
-        modelViewTransform.viewToModelX( velocitySensor.position.x + rectangleWidth / 2 * options.scale ),
-        modelViewTransform.viewToModelY( velocitySensor.position.y +
+      velocitySensor.valueProperty.value = getVelocityAt(
+        modelViewTransform.viewToModelX( velocitySensor.positionProperty.value.x + rectangleWidth / 2 * options.scale ),
+        modelViewTransform.viewToModelY( velocitySensor.positionProperty.value.y +
                                          ( rectangleHeight + triangleHeight ) * options.scale )
       );
     } );

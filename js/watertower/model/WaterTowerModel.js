@@ -347,9 +347,9 @@ define( function( require ) {
            (this.hoseDrops.length > 0 || this.waterTowerDrops.length > 0 || this.faucetDrops.length > 0) ) {
         this.accumulatedDtForSensors -= 0.1;
         for ( var k = 0; k < this.speedometers.length; k++ ) {
-          this.speedometers[ k ].value = this.getWaterDropVelocityAt( this.modelViewTransform.viewToModelX( this.speedometers[ k ].position.x +
-                                                                                                            50 ),
-            this.modelViewTransform.viewToModelY( this.speedometers[ k ].position.y + 72 ) );
+          this.speedometers[ k ].valueProperty.value = this.getWaterDropVelocityAt( this.modelViewTransform.viewToModelX( this.speedometers[ k ].positionProperty.value.x +
+                                                                                                                          50 ),
+            this.modelViewTransform.viewToModelY( this.speedometers[ k ].positionProperty.value.y + 72 ) );
         }
       }
     },
