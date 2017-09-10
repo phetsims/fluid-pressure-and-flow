@@ -71,11 +71,11 @@ define( function( require ) {
           yLow = pt.y - pipe.leftPipeScale / PIPE_INITIAL_SCALE * PIPE_INITIAL_HEIGHT / 2;
 
           // set the left pipe top and bottom control point
-          x = pipe.top[ leftTopControlPointIndex ].position.x;
-          pipe.top[ leftTopControlPointIndex ].position = new Vector2( x, yUp );
-          pipe.bottom[ leftBottomControlPointIndex ].position = new Vector2( x, yLow );
+          x = pipe.top[ leftTopControlPointIndex ].positionProperty.value.x;
+          pipe.top[ leftTopControlPointIndex ].positionProperty.value = new Vector2( x, yUp );
+          pipe.bottom[ leftBottomControlPointIndex ].positionProperty.value = new Vector2( x, yLow );
 
-          pipe.leftPipeYPosition = modelViewTransform.modelToViewY( pipe.top[ leftTopControlPointIndex ].position.y ) -
+          pipe.leftPipeYPosition = modelViewTransform.modelToViewY( pipe.top[ leftTopControlPointIndex ].positionProperty.value.y ) -
                                    pipeNode.leftPipeYOffset * pipe.leftPipeScale;
 
           // set the left pipe  top/bottom control point handle positions
@@ -90,10 +90,10 @@ define( function( require ) {
           yLow = pt.y - ( pipe.rightPipeScale / PIPE_INITIAL_SCALE ) * PIPE_INITIAL_HEIGHT / 2;
 
           // set the right pipe top and bottom control points positions
-          x = pipe.top[ rightTopControlPointIndex ].position.x;
-          pipe.top[ rightTopControlPointIndex ].position = new Vector2( x, yUp );
-          pipe.bottom[ rightBottomControlPointIndex ].position = new Vector2( x, yLow );
-          pipe.rightPipeYPosition = modelViewTransform.modelToViewY( pipe.top[ rightTopControlPointIndex ].position.y ) -
+          x = pipe.top[ rightTopControlPointIndex ].positionProperty.value.x;
+          pipe.top[ rightTopControlPointIndex ].positionProperty.value = new Vector2( x, yUp );
+          pipe.bottom[ rightBottomControlPointIndex ].positionProperty.value = new Vector2( x, yLow );
+          pipe.rightPipeYPosition = modelViewTransform.modelToViewY( pipe.top[ rightTopControlPointIndex ].positionProperty.value.y ) -
                                     pipeNode.rightPipeYOffset * pipe.rightPipeScale;
 
           // set the right pipe top/bottom control point handle positions

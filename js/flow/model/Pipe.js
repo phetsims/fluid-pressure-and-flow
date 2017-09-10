@@ -129,8 +129,8 @@ define( function( require ) {
       // compute the spline for the pipe top line
       for ( i = 0; i < this.top.length; i++ ) {
         u[ i ] = i / this.top.length;
-        xTop[ i ] = this.top[ i ].position.x;
-        yTop[ i ] = this.top[ i ].position.y;
+        xTop[ i ] = this.top[ i ].positionProperty.value.x;
+        yTop[ i ] = this.top[ i ].positionProperty.value.y;
       }
       var xSplineTop = numeric.spline( u, xTop );
       var ySplineTop = numeric.spline( u, yTop );
@@ -138,8 +138,8 @@ define( function( require ) {
       // compute the spline for the pipe bottom line
       for ( i = 0; i < this.bottom.length; i++ ) {
         u[ i ] = i / this.bottom.length;
-        xBottom[ i ] = this.bottom[ i ].position.x;
-        yBottom[ i ] = this.bottom[ i ].position.y;
+        xBottom[ i ] = this.bottom[ i ].positionProperty.value.x;
+        yBottom[ i ] = this.bottom[ i ].positionProperty.value.y;
       }
       var xSplineBottom = numeric.spline( u, xBottom );
       var ySplineBottom = numeric.spline( u, yBottom );
@@ -189,12 +189,12 @@ define( function( require ) {
 
     // return the xPosition of the right most control point
     getMaxX: function() {
-      return this.top[ this.top.length - 1 ].position.x;
+      return this.top[ this.top.length - 1 ].positionProperty.value.x;
     },
 
     // return the xPosition of the left most control point
     getMinX: function() {
-      return this.top[ 0 ].position.x;
+      return this.top[ 0 ].positionProperty.value.x;
     },
 
     /**

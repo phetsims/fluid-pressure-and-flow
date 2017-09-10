@@ -52,7 +52,7 @@ define( function( require ) {
 
     var leftSpace = 0; // to vertically align the handles
     var imageRotation = 0;
-    if ( controlPoint.position.y < -2 ) {
+    if ( controlPoint.positionProperty.value.y < -2 ) {
       leftSpace = -13;
     }
     else {
@@ -90,14 +90,14 @@ define( function( require ) {
       {
         start: function( event ) {
           dragStartY = controlHandleNode.globalToParentPoint( event.pointer.point ).y;
-          controlPointDragStartY = controlPoint.position.y;
+          controlPointDragStartY = controlPoint.positionProperty.value.y;
         },
 
         drag: function( event ) {
           var offSetY = controlHandleNode.globalToParentPoint( event.pointer.point ).y - dragStartY;
 
           // x position is constant for a control point
-          var pt = new Vector2( controlPoint.position.x,
+          var pt = new Vector2( controlPoint.positionProperty.value.x,
             controlPointDragStartY + modelViewTransform.viewToModelDeltaY( offSetY ) );
 
           // limit the y to (-4,0)
@@ -106,17 +106,17 @@ define( function( require ) {
           // Prevent the two ends of the cross sections from crossing each other. Set the cross section to
           // minimum when the user tries to move the handle beyond the opposite control point.
           var oppositeControlPoint = (isTop) ? pipe.bottom[ controlPointIndex ] : pipe.top[ controlPointIndex ];
-          if ( (isTop && pt.y < oppositeControlPoint.position.y ) ) {
-            pt.y = oppositeControlPoint.position.y + CROSS_SECTION_MIN_HEIGHT;
+          if ( (isTop && pt.y < oppositeControlPoint.positionProperty.value.y ) ) {
+            pt.y = oppositeControlPoint.positionProperty.value.y + CROSS_SECTION_MIN_HEIGHT;
           }
-          else if ( (!isTop && pt.y > oppositeControlPoint.position.y ) ) {
-            pt.y = oppositeControlPoint.position.y - CROSS_SECTION_MIN_HEIGHT;
+          else if ( (!isTop && pt.y > oppositeControlPoint.positionProperty.value.y ) ) {
+            pt.y = oppositeControlPoint.positionProperty.value.y - CROSS_SECTION_MIN_HEIGHT;
           }
 
           // ensure that the cross section is at least 1 meter
-          var yDiff = Math.abs( ( oppositeControlPoint.position.y ) - pt.y );
+          var yDiff = Math.abs( ( oppositeControlPoint.positionProperty.value.y ) - pt.y );
           if ( yDiff >= CROSS_SECTION_MIN_HEIGHT ) {
-            controlPoint.position = pt;
+            controlPoint.positionProperty.value = pt;
             // When a control point is dragged, mark the pipe as dirty and update the pipe flow line shape
             pipe.dirty = true;
             pipeNode.updatePipeFlowLineShape();
@@ -129,13 +129,13 @@ define( function( require ) {
                (controlPointIndex === leftTopControlPointIndex && isTop) ) {
 
             // calculate the pipe scale
-            pipeExpansionFactor = ( pipe.getCrossSection( pipe.top[ leftTopControlPointIndex ].position.x ).getHeight()) /
+            pipeExpansionFactor = ( pipe.getCrossSection( pipe.top[ leftTopControlPointIndex ].positionProperty.value.x ).getHeight()) /
                                   PIPE_INITIAL_HEIGHT;
 
             // limit the scaling to 0.18 on the lower side
             pipe.leftPipeScale = Math.max( pipeExpansionFactor * PIPE_INITIAL_SCALE, 0.18 );
 
-            pipe.leftPipeYPosition = modelViewTransform.modelToViewY( pipe.top[ leftTopControlPointIndex ].position.y ) -
+            pipe.leftPipeYPosition = modelViewTransform.modelToViewY( pipe.top[ leftTopControlPointIndex ].positionProperty.value.y ) -
                                      pipeNode.leftPipeYOffset * pipe.leftPipeScale;
 
 
@@ -146,13 +146,13 @@ define( function( require ) {
           if ( (controlPointIndex === rightBottomControlPointIndex && !isTop) ||
                (controlPointIndex === rightTopControlPointIndex && isTop) ) {
 
-            var pipeHeight = pipe.getCrossSection( pipe.top[ rightTopControlPointIndex ].position.x ).getHeight();
+            var pipeHeight = pipe.getCrossSection( pipe.top[ rightTopControlPointIndex ].positionProperty.value.x ).getHeight();
             pipeExpansionFactor = pipeHeight / PIPE_INITIAL_HEIGHT;
 
             // limit the scaling to 0.18 on the lower side
             pipe.rightPipeScale = Math.max( pipeExpansionFactor * PIPE_INITIAL_SCALE, 0.18 );
 
-            pipe.rightPipeYPosition = modelViewTransform.modelToViewY( pipe.top[ rightTopControlPointIndex ].position.y ) -
+            pipe.rightPipeYPosition = modelViewTransform.modelToViewY( pipe.top[ rightTopControlPointIndex ].positionProperty.value.y ) -
                                       ( pipeNode.rightPipeYOffset * pipe.rightPipeScale );
 
             flowModel.pipe.rightPipeMainHandleYPosition = pipeNode.rightPipeNode.centerY;
