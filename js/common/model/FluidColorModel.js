@@ -11,12 +11,12 @@ define( function( require ) {
   'use strict';
 
   // modules
-  var fluidPressureAndFlow = require( 'FLUID_PRESSURE_AND_FLOW/fluidPressureAndFlow' );
-  var PropertySet = require( 'AXON/PropertySet' );
-  var inherit = require( 'PHET_CORE/inherit' );
-  var Color = require( 'SCENERY/util/Color' );
+  var Property = require( 'AXON/Property' );
   var LinearFunction = require( 'DOT/LinearFunction' );
   var Constants = require( 'FLUID_PRESSURE_AND_FLOW/common/Constants' );
+  var fluidPressureAndFlow = require( 'FLUID_PRESSURE_AND_FLOW/fluidPressureAndFlow' );
+  var inherit = require( 'PHET_CORE/inherit' );
+  var Color = require( 'SCENERY/util/Color' );
 
   // Color constants, from the Java version
   var GAS_COLOR = new Color( 149, 142, 139 );
@@ -46,9 +46,9 @@ define( function( require ) {
     this.getBlueHigh = new LinearFunction( Constants.WATER_DENSITY, fluidDensityRange.max, WATER_COLOR.blue,
       HONEY_COLOR.blue ); // @private
 
-    PropertySet.call( this, {
-      color: WATER_COLOR // @public (read-only)
-    } );
+    // @public (read-only)
+    this.colorProperty = new Property( WATER_COLOR );
+    Property.preventGetSet( this, 'color' );
 
     // For low density values, vary between gasoline and water.
     // For high density values vary between water and honey.
@@ -60,15 +60,22 @@ define( function( require ) {
 
   fluidPressureAndFlow.register( 'FluidColorModel', FluidColorModel );
 
-  return inherit( PropertySet, FluidColorModel, {
-    step: function(){
+  return inherit( Object, FluidColorModel, {
+
+    /**
+     * @public
+     */
+    reset: function() {
+      this.colorProperty.reset();
+    },
+    step: function() {
       if ( this.densityChanged ) {
         var density = this.fluidDensityProperty.get();
         if ( density < Constants.WATER_DENSITY ) {
-          this.color = new Color( this.getRedLow( density ), this.getGreenLow( density ), this.getBlueLow( density ) );
+          this.colorProperty.value = new Color( this.getRedLow( density ), this.getGreenLow( density ), this.getBlueLow( density ) );
         }
         else {
-          this.color = new Color( this.getRedHigh( density ), this.getGreenHigh( density ), this.getBlueHigh( density ) );
+          this.colorProperty.value = new Color( this.getRedHigh( density ), this.getGreenHigh( density ), this.getBlueHigh( density ) );
         }
         this.densityChanged = false;
       }

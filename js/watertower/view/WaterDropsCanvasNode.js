@@ -44,7 +44,7 @@ define( function( require ) {
         context.fillRect( this.options.canvasBounds.minX, this.options.canvasBounds.minY, this.options.canvasBounds.maxX, this.options.canvasBounds.maxY );
       }
 
-      context.fillStyle = this.fluidColorModel.color.toCSS();
+      context.fillStyle = this.fluidColorModel.colorProperty.value.toCSS();
       var drop;
       for ( var i = 0; i < this.waterDrops.length; i++ ) {
         drop = this.waterDrops.get( i );

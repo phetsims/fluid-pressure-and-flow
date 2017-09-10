@@ -77,7 +77,7 @@ define( function( require ) {
       .lineTo( modelViewTransform.modelToViewX( 0 ), modelViewTransform.modelToViewY( waterTower.fluidLevel ) ).close();
     this.waterShapeNode = new Path( waterShape, {
       bottom: this.waterTankFrame.bottom - 2,
-      fill: fluidColorModel.color
+      fill: fluidColorModel.colorProperty.value
     } );
     this.addChild( this.waterShapeNode );
 

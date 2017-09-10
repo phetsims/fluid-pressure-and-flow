@@ -82,7 +82,7 @@ define( function( require ) {
     updateChoiceValue: function() {
       if ( this.underPressureModel.mysteryChoice === 'fluidDensity' ) {
         this.underPressureModel.fluidDensity = this.fluidDensityChoices[ this.customFluidDensityProperty.value ];
-        this.underPressureModel.fluidColorModel.color = this.fluidColor[ this.customFluidDensityProperty.value ];
+        this.underPressureModel.fluidColorModel.colorProperty.value = this.fluidColor[ this.customFluidDensityProperty.value ];
       }
       else {
         this.underPressureModel.gravity = this.gravityChoices[ this.customGravityProperty.value ];
