@@ -118,8 +118,8 @@ define( function( require ) {
       lineWidth: 2
     } );
 
-    var yTop = modelViewTransform.modelToViewY( flowModel.pipe.fractionToLocation( flowModel.fluxMeter.xPosition, 1 ) );
-    var yBottom = modelViewTransform.modelToViewY( flowModel.pipe.fractionToLocation( flowModel.fluxMeter.xPosition,
+    var yTop = modelViewTransform.modelToViewY( flowModel.pipe.fractionToLocation( flowModel.fluxMeter.xPositionProperty.value, 1 ) );
+    var yBottom = modelViewTransform.modelToViewY( flowModel.pipe.fractionToLocation( flowModel.fluxMeter.xPositionProperty.value,
       0 ) );
     var centerY = ( yTop + yBottom ) / 2;
     var radiusY = ( yBottom - yTop ) / 2;
@@ -194,7 +194,7 @@ define( function( require ) {
         self.moveToFront();
         var x = self.globalToParentPoint( e.pointer.point ).x;
         x = x < 46 ? 46 : x > 698 ? 698 : x; // min, max view values (emperically determined)
-        flowModel.fluxMeter.xPosition = modelViewTransform.viewToModelX( x );
+        flowModel.fluxMeter.xPositionProperty.value = modelViewTransform.viewToModelX( x );
       }
     } ) );
 
@@ -216,10 +216,10 @@ define( function( require ) {
     updateFluxMeter: function() {
 
       var yTop = this.modelViewTransform.modelToViewY( this.flowModel.pipe.fractionToLocation(
-        this.flowModel.fluxMeter.xPosition, 1 ) );
+        this.flowModel.fluxMeter.xPositionProperty.value, 1 ) );
       var yBottom = this.modelViewTransform.modelToViewY( this.flowModel.pipe.fractionToLocation(
-        this.flowModel.fluxMeter.xPosition, 0 ) );
-      var centerX = this.modelViewTransform.modelToViewX( this.flowModel.fluxMeter.xPosition );
+        this.flowModel.fluxMeter.xPositionProperty.value, 0 ) );
+      var centerX = this.modelViewTransform.modelToViewX( this.flowModel.fluxMeter.xPositionProperty.value );
       var centerY = ( yTop + yBottom ) / 2;
       var radiusY = ( yBottom - yTop ) / 2;
 

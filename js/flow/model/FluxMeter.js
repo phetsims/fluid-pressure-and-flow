@@ -10,9 +10,10 @@ define( function( require ) {
   'use strict';
 
   // modules
+  var Events = require( 'AXON/Events' );
+  var Property = require( 'AXON/Property' );
   var fluidPressureAndFlow = require( 'FLUID_PRESSURE_AND_FLOW/fluidPressureAndFlow' );
   var inherit = require( 'PHET_CORE/inherit' );
-  var PropertySet = require( 'AXON/PropertySet' );
 
   /**
    * Constructor for the flux meter.
@@ -23,21 +24,27 @@ define( function( require ) {
 
     // pipe that the flux meter attaches to and measures
     this.pipe = pipe;
-    PropertySet.call( this, {
 
-      //The flux meter can be dragged horizontally across the pipe
-      xPosition: -6.5 //in meters
-    } );
+    // @public {Property.<number>} in meters. The flux meter can be dragged horizontally across the pipe
+    this.xPositionProperty = new Property( -6.5 );
+
+    Property.preventGetSet( this, 'xPosition' );
+
+    Events.call( this );
   }
 
   fluidPressureAndFlow.register( 'FluxMeter', FluxMeter );
 
-  return inherit( PropertySet, FluxMeter, {
+  return inherit( Events, FluxMeter, {
+
+    reset: function() {
+      this.xPositionProperty.reset();
+    },
 
     // Compute the area as the pi * r * r of the pipe at the cross section where the flux meter is currently positioned
     // Returns the area in meters squared
     getArea: function() {
-      return this.pipe.getCrossSectionalArea( this.xPosition );
+      return this.pipe.getCrossSectionalArea( this.xPositionProperty.value );
     },
 
     // Returns the flow rate in liters per sec (L/s)
