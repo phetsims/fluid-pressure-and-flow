@@ -11,16 +11,16 @@ define( function( require ) {
   // modules
   var CloseButton = require( 'SCENERY_PHET/buttons/CloseButton' );
   var fluidPressureAndFlow = require( 'FLUID_PRESSURE_AND_FLOW/fluidPressureAndFlow' );
-  var Node = require( 'SCENERY/nodes/Node' );
   var inherit = require( 'PHET_CORE/inherit' );
-  var RulerNode = require( 'SCENERY_PHET/RulerNode' );
   var MovableDragHandler = require( 'SCENERY_PHET/input/MovableDragHandler' );
+  var Node = require( 'SCENERY/nodes/Node' );
   var PhetFont = require( 'SCENERY_PHET/PhetFont' );
+  var RulerNode = require( 'SCENERY_PHET/RulerNode' );
   var Units = require( 'FLUID_PRESSURE_AND_FLOW/common/model/Units' );
 
   // strings
-  var mString = require( 'string!FLUID_PRESSURE_AND_FLOW/m' );
   var ftString = require( 'string!FLUID_PRESSURE_AND_FLOW/ft' );
+  var mString = require( 'string!FLUID_PRESSURE_AND_FLOW/m' );
 
   /**
    * Constructor for the under pressure ruler.

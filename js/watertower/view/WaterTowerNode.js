@@ -15,14 +15,14 @@ define( function( require ) {
   var Path = require( 'SCENERY/nodes/Path' );
   var Vector2 = require( 'DOT/Vector2' );
 
-  var Shape = require( 'KITE/Shape' );
-  var Rectangle = require( 'SCENERY/nodes/Rectangle' );
   var Image = require( 'SCENERY/nodes/Image' );
   var LinearGradient = require( 'SCENERY/util/LinearGradient' );
-  var SimpleDragHandler = require( 'SCENERY/input/SimpleDragHandler' );
-  var WaterTowerLegsNode = require( 'FLUID_PRESSURE_AND_FLOW/watertower/view/WaterTowerLegsNode' );
-  var TextPushButton = require( 'SUN/buttons/TextPushButton' );
   var PhetFont = require( 'SCENERY_PHET/PhetFont' );
+  var Rectangle = require( 'SCENERY/nodes/Rectangle' );
+  var Shape = require( 'KITE/Shape' );
+  var SimpleDragHandler = require( 'SCENERY/input/SimpleDragHandler' );
+  var TextPushButton = require( 'SUN/buttons/TextPushButton' );
+  var WaterTowerLegsNode = require( 'FLUID_PRESSURE_AND_FLOW/watertower/view/WaterTowerLegsNode' );
 
   //images
   var handleImage = require( 'image!FLUID_PRESSURE_AND_FLOW/handle.png' );

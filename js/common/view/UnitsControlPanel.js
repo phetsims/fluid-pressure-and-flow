@@ -8,19 +8,19 @@ define( function( require ) {
   'use strict';
 
   // modules
+  var AquaRadioButton = require( 'SUN/AquaRadioButton' );
   var fluidPressureAndFlow = require( 'FLUID_PRESSURE_AND_FLOW/fluidPressureAndFlow' );
   var inherit = require( 'PHET_CORE/inherit' );
-  var AquaRadioButton = require( 'SUN/AquaRadioButton' );
-  var Text = require( 'SCENERY/nodes/Text' );
-  var PhetFont = require( 'SCENERY_PHET/PhetFont' );
   var Panel = require( 'SUN/Panel' );
+  var PhetFont = require( 'SCENERY_PHET/PhetFont' );
+  var Text = require( 'SCENERY/nodes/Text' );
   var VBox = require( 'SCENERY/nodes/VBox' );
 
   // strings
-  var metricString = require( 'string!FLUID_PRESSURE_AND_FLOW/metric' );
-  var englishString = require( 'string!FLUID_PRESSURE_AND_FLOW/english' );
-  var unitsString = require( 'string!FLUID_PRESSURE_AND_FLOW/units' );
   var atmospheresString = require( 'string!FLUID_PRESSURE_AND_FLOW/atmospheres' );
+  var englishString = require( 'string!FLUID_PRESSURE_AND_FLOW/english' );
+  var metricString = require( 'string!FLUID_PRESSURE_AND_FLOW/metric' );
+  var unitsString = require( 'string!FLUID_PRESSURE_AND_FLOW/units' );
 
   // constants
   var RADIO_BUTTON_TOUCH_DILATION_Y = 2; // empirically determined

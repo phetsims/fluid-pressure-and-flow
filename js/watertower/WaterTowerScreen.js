@@ -10,12 +10,12 @@ define( function( require ) {
 
   // modules
   var fluidPressureAndFlow = require( 'FLUID_PRESSURE_AND_FLOW/fluidPressureAndFlow' );
+  var Image = require( 'SCENERY/nodes/Image' );
+  var inherit = require( 'PHET_CORE/inherit' );
+  var Property = require( 'AXON/Property' );
+  var Screen = require( 'JOIST/Screen' );
   var WaterTowerModel = require( 'FLUID_PRESSURE_AND_FLOW/watertower/model/WaterTowerModel' );
   var WaterTowerView = require( 'FLUID_PRESSURE_AND_FLOW/watertower/view/WaterTowerView' );
-  var inherit = require( 'PHET_CORE/inherit' );
-  var Image = require( 'SCENERY/nodes/Image' );
-  var Screen = require( 'JOIST/Screen' );
-  var Property = require( 'AXON/Property' );
 
   // strings
   var waterTowerScreenTitleString = require( 'string!FLUID_PRESSURE_AND_FLOW/waterTowerScreenTitle' );

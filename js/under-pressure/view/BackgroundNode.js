@@ -11,11 +11,11 @@ define( function( require ) {
 
   // modules
   var fluidPressureAndFlow = require( 'FLUID_PRESSURE_AND_FLOW/fluidPressureAndFlow' );
-  var Node = require( 'SCENERY/nodes/Node' );
+  var GroundNode = require( 'SCENERY_PHET/GroundNode' );
   var inherit = require( 'PHET_CORE/inherit' );
+  var Node = require( 'SCENERY/nodes/Node' );
   var Rectangle = require( 'SCENERY/nodes/Rectangle' );
   var SkyNode = require( 'SCENERY_PHET/SkyNode' );
-  var GroundNode = require( 'SCENERY_PHET/GroundNode' );
 
   /**
    * @param {UnderPressureModel} underPressureModel of the sim

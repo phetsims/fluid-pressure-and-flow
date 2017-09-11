@@ -12,30 +12,30 @@ define( function( require ) {
   'use strict';
 
   // modules
-  var fluidPressureAndFlow = require( 'FLUID_PRESSURE_AND_FLOW/fluidPressureAndFlow' );
-  var PropertySet = require( 'AXON/PropertySet' );
-  var inherit = require( 'PHET_CORE/inherit' );
-  var RangeWithValue = require( 'DOT/RangeWithValue' );
-  var Vector2 = require( 'DOT/Vector2' );
   var Constants = require( 'FLUID_PRESSURE_AND_FLOW/common/Constants' );
-  var StringUtils = require( 'PHETCOMMON/util/StringUtils' );
-  var VelocitySensor = require( 'FLUID_PRESSURE_AND_FLOW/common/model/VelocitySensor' );
-  var Sensor = require( 'FLUID_PRESSURE_AND_FLOW/common/model/Sensor' );
-  var ObservableArray = require( 'AXON/ObservableArray' );
-  var FluidColorModel = require( 'FLUID_PRESSURE_AND_FLOW/common/model/FluidColorModel' );
-  var Units = require( 'FLUID_PRESSURE_AND_FLOW/common/model/Units' );
-  var Pipe = require( 'FLUID_PRESSURE_AND_FLOW/flow/model/Pipe' );
-  var Particle = require( 'FLUID_PRESSURE_AND_FLOW/flow/model/Particle' );
   var EventTimer = require( 'PHET_CORE/EventTimer' );
+  var FluidColorModel = require( 'FLUID_PRESSURE_AND_FLOW/common/model/FluidColorModel' );
+  var fluidPressureAndFlow = require( 'FLUID_PRESSURE_AND_FLOW/fluidPressureAndFlow' );
   var FluxMeter = require( 'FLUID_PRESSURE_AND_FLOW/flow/model/FluxMeter' );
   var getStandardAirPressure = require( 'FLUID_PRESSURE_AND_FLOW/common/model/getStandardAirPressure' );
+  var inherit = require( 'PHET_CORE/inherit' );
+  var ObservableArray = require( 'AXON/ObservableArray' );
+  var Particle = require( 'FLUID_PRESSURE_AND_FLOW/flow/model/Particle' );
+  var Pipe = require( 'FLUID_PRESSURE_AND_FLOW/flow/model/Pipe' );
+  var PropertySet = require( 'AXON/PropertySet' );
+  var RangeWithValue = require( 'DOT/RangeWithValue' );
+  var Sensor = require( 'FLUID_PRESSURE_AND_FLOW/common/model/Sensor' );
+  var StringUtils = require( 'PHETCOMMON/util/StringUtils' );
+  var Units = require( 'FLUID_PRESSURE_AND_FLOW/common/model/Units' );
+  var Vector2 = require( 'DOT/Vector2' );
+  var VelocitySensor = require( 'FLUID_PRESSURE_AND_FLOW/common/model/VelocitySensor' );
 
   // strings
   var densityUnitsEnglishString = require( 'string!FLUID_PRESSURE_AND_FLOW/densityUnitsEnglish' );
   var densityUnitsMetricString = require( 'string!FLUID_PRESSURE_AND_FLOW/densityUnitsMetric' );
-  var valueWithUnitsPatternString = require( 'string!FLUID_PRESSURE_AND_FLOW/valueWithUnitsPattern' );
-  var rateUnitsMetricString = require( 'string!FLUID_PRESSURE_AND_FLOW/rateUnitsMetric' );
   var rateUnitsEnglishString = require( 'string!FLUID_PRESSURE_AND_FLOW/rateUnitsEnglish' );
+  var rateUnitsMetricString = require( 'string!FLUID_PRESSURE_AND_FLOW/rateUnitsMetric' );
+  var valueWithUnitsPatternString = require( 'string!FLUID_PRESSURE_AND_FLOW/valueWithUnitsPattern' );
 
   // constants
   var NUMBER_BAROMETERS = 2;

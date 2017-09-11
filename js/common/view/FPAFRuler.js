@@ -9,18 +9,18 @@ define( function( require ) {
   'use strict';
 
   // modules
-  var fluidPressureAndFlow = require( 'FLUID_PRESSURE_AND_FLOW/fluidPressureAndFlow' );
   var CloseButton = require( 'SCENERY_PHET/buttons/CloseButton' );
-  var Node = require( 'SCENERY/nodes/Node' );
-  var inherit = require( 'PHET_CORE/inherit' );
-  var RulerNode = require( 'SCENERY_PHET/RulerNode' );
-  var MovableDragHandler = require( 'SCENERY_PHET/input/MovableDragHandler' );
-  var PhetFont = require( 'SCENERY_PHET/PhetFont' );
   var DerivedProperty = require( 'AXON/DerivedProperty' );
+  var fluidPressureAndFlow = require( 'FLUID_PRESSURE_AND_FLOW/fluidPressureAndFlow' );
+  var inherit = require( 'PHET_CORE/inherit' );
+  var MovableDragHandler = require( 'SCENERY_PHET/input/MovableDragHandler' );
+  var Node = require( 'SCENERY/nodes/Node' );
+  var PhetFont = require( 'SCENERY_PHET/PhetFont' );
+  var RulerNode = require( 'SCENERY_PHET/RulerNode' );
 
   // strings
-  var mString = require( 'string!FLUID_PRESSURE_AND_FLOW/m' );
   var ftString = require( 'string!FLUID_PRESSURE_AND_FLOW/ft' );
+  var mString = require( 'string!FLUID_PRESSURE_AND_FLOW/m' );
 
   /**
    * Main constructor

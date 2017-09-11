@@ -14,8 +14,8 @@ define( function( require ) {
   var inherit = require( 'PHET_CORE/inherit' );
   var Node = require( 'SCENERY/nodes/Node' );
   var SimpleDragHandler = require( 'SCENERY/input/SimpleDragHandler' );
-  var Vector2 = require( 'DOT/Vector2' );
   var Util = require( 'DOT/Util' );
+  var Vector2 = require( 'DOT/Vector2' );
 
   // constants
   var CONTROL_HANDLE_OFFSET = 2;

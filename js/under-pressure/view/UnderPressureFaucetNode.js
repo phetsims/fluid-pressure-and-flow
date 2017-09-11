@@ -11,9 +11,9 @@ define( function( require ) {
   'use strict';
 
   // modules
+  var FaucetNode = require( 'SCENERY_PHET/FaucetNode' );
   var fluidPressureAndFlow = require( 'FLUID_PRESSURE_AND_FLOW/fluidPressureAndFlow' );
   var inherit = require( 'PHET_CORE/inherit' );
-  var FaucetNode = require( 'SCENERY_PHET/FaucetNode' );
 
   /**
    * @param {Faucet} faucet model

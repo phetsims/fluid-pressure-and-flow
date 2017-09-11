@@ -10,10 +10,10 @@ define( function( require ) {
   // modules
   var fluidPressureAndFlow = require( 'FLUID_PRESSURE_AND_FLOW/fluidPressureAndFlow' );
   var inherit = require( 'PHET_CORE/inherit' );
-  var Rectangle = require( 'SCENERY/nodes/Rectangle' );
   var Node = require( 'SCENERY/nodes/Node' );
-  var Shape = require( 'KITE/Shape' );
   var Path = require( 'SCENERY/nodes/Path' );
+  var Rectangle = require( 'SCENERY/nodes/Rectangle' );
+  var Shape = require( 'KITE/Shape' );
   var Vector2 = require( 'DOT/Vector2' );
 
   /**

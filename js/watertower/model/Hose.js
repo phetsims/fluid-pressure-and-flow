@@ -10,10 +10,10 @@ define( function( require ) {
 
   // modules
   var Events = require( 'AXON/Events' );
-  var Property = require( 'AXON/Property' );
-  var Vector2 = require( 'DOT/Vector2' );
   var fluidPressureAndFlow = require( 'FLUID_PRESSURE_AND_FLOW/fluidPressureAndFlow' );
   var inherit = require( 'PHET_CORE/inherit' );
+  var Property = require( 'AXON/Property' );
+  var Vector2 = require( 'DOT/Vector2' );
 
   /**
    * Hose constructor

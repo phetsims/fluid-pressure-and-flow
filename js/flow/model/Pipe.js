@@ -13,12 +13,12 @@ define( function( require ) {
   // modules
   var fluidPressureAndFlow = require( 'FLUID_PRESSURE_AND_FLOW/fluidPressureAndFlow' );
   var inherit = require( 'PHET_CORE/inherit' );
-  var PropertySet = require( 'AXON/PropertySet' );
-  var Util = require( 'DOT/Util' );
-  var Vector2 = require( 'DOT/Vector2' );
   var PipeControlPoint = require( 'FLUID_PRESSURE_AND_FLOW/flow/model/PipeControlPoint' );
   var PipeCrossSection = require( 'FLUID_PRESSURE_AND_FLOW/flow/model/PipeCrossSection' );
+  var PropertySet = require( 'AXON/PropertySet' );
   var SplineEvaluation = require( 'FLUID_PRESSURE_AND_FLOW/flow/model/SplineEvaluation' );
+  var Util = require( 'DOT/Util' );
+  var Vector2 = require( 'DOT/Vector2' );
 
   // constants
   var CROSS_SECTION_MIN_HEIGHT = 1; //m

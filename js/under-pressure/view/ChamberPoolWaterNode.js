@@ -11,8 +11,8 @@ define( function( require ) {
   var fluidPressureAndFlow = require( 'FLUID_PRESSURE_AND_FLOW/fluidPressureAndFlow' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Node = require( 'SCENERY/nodes/Node' );
-  var Shape = require( 'KITE/Shape' );
   var Path = require( 'SCENERY/nodes/Path' );
+  var Shape = require( 'KITE/Shape' );
 
   /**
    * @param {ChamberPoolModel} chamberPoolModel

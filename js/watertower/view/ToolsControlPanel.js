@@ -9,29 +9,29 @@ define( function( require ) {
   'use strict';
 
   // modules
-  var fluidPressureAndFlow = require( 'FLUID_PRESSURE_AND_FLOW/fluidPressureAndFlow' );
-  var inherit = require( 'PHET_CORE/inherit' );
-  var VBox = require( 'SCENERY/nodes/VBox' );
-  var HBox = require( 'SCENERY/nodes/HBox' );
-  var Shape = require( 'KITE/Shape' );
-  var HStrut = require( 'SCENERY/nodes/HStrut' );
-  var Panel = require( 'SUN/Panel' );
   var CheckBox = require( 'SUN/CheckBox' );
-  var Text = require( 'SCENERY/nodes/Text' );
+  var fluidPressureAndFlow = require( 'FLUID_PRESSURE_AND_FLOW/fluidPressureAndFlow' );
+  var HBox = require( 'SCENERY/nodes/HBox' );
+  var HStrut = require( 'SCENERY/nodes/HStrut' );
+  var Image = require( 'SCENERY/nodes/Image' );
+  var inherit = require( 'PHET_CORE/inherit' );
+  var Panel = require( 'SUN/Panel' );
+  var Path = require( 'SCENERY/nodes/Path' );
   var PhetFont = require( 'SCENERY_PHET/PhetFont' );
   var RulerNode = require( 'SCENERY_PHET/RulerNode' );
-  var Path = require( 'SCENERY/nodes/Path' );
-  var Image = require( 'SCENERY/nodes/Image' );
+  var Shape = require( 'KITE/Shape' );
+  var Text = require( 'SCENERY/nodes/Text' );
+  var VBox = require( 'SCENERY/nodes/VBox' );
 
   // strings
+  var hoseString = require( 'string!FLUID_PRESSURE_AND_FLOW/hose' );
   var measuringTapeString = require( 'string!FLUID_PRESSURE_AND_FLOW/measuringTape' );
   var rulerString = require( 'string!FLUID_PRESSURE_AND_FLOW/ruler' );
-  var hoseString = require( 'string!FLUID_PRESSURE_AND_FLOW/hose' );
 
   // images
   //image
-  var nozzleImg = require( 'image!FLUID_PRESSURE_AND_FLOW/nozzle.png' );
   var measuringTapeImg = require( 'image!FLUID_PRESSURE_AND_FLOW/measuringTape.png' );
+  var nozzleImg = require( 'image!FLUID_PRESSURE_AND_FLOW/nozzle.png' );
 
 
   /**

@@ -10,11 +10,11 @@ define( function( require ) {
 
   // modules
   var fluidPressureAndFlow = require( 'FLUID_PRESSURE_AND_FLOW/fluidPressureAndFlow' );
+  var Image = require( 'SCENERY/nodes/Image' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Node = require( 'SCENERY/nodes/Node' );
-  var RoundStickyToggleButton = require( 'SUN/buttons/RoundStickyToggleButton' );
-  var Image = require( 'SCENERY/nodes/Image' );
   var Property = require( 'AXON/Property' );
+  var RoundStickyToggleButton = require( 'SUN/buttons/RoundStickyToggleButton' );
 
   // images
   var injectorBulbImage = require( 'image!FLUID_PRESSURE_AND_FLOW/injector-bulb-cropped.png' );

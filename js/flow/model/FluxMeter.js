@@ -11,9 +11,9 @@ define( function( require ) {
 
   // modules
   var Events = require( 'AXON/Events' );
-  var Property = require( 'AXON/Property' );
   var fluidPressureAndFlow = require( 'FLUID_PRESSURE_AND_FLOW/fluidPressureAndFlow' );
   var inherit = require( 'PHET_CORE/inherit' );
+  var Property = require( 'AXON/Property' );
 
   /**
    * Constructor for the flux meter.

@@ -9,24 +9,24 @@ define( function( require ) {
   'use strict';
 
   // modules
-  var fluidPressureAndFlow = require( 'FLUID_PRESSURE_AND_FLOW/fluidPressureAndFlow' );
-  var PropertySet = require( 'AXON/PropertySet' );
-  var inherit = require( 'PHET_CORE/inherit' );
-  var RangeWithValue = require( 'DOT/RangeWithValue' );
-  var Vector2 = require( 'DOT/Vector2' );
-  var Units = require( 'FLUID_PRESSURE_AND_FLOW/common/model/Units' );
-  var Sensor = require( 'FLUID_PRESSURE_AND_FLOW/common/model/Sensor' );
-  var VelocitySensor = require( 'FLUID_PRESSURE_AND_FLOW/common/model/VelocitySensor' );
-  var WaterTower = require( 'FLUID_PRESSURE_AND_FLOW/watertower/model/WaterTower' );
-  var WaterDrop = require( 'FLUID_PRESSURE_AND_FLOW/watertower/model/WaterDrop' );
-  var FluidColorModel = require( 'FLUID_PRESSURE_AND_FLOW/common/model/FluidColorModel' );
-  var StringUtils = require( 'PHETCOMMON/util/StringUtils' );
-  var ObservableArray = require( 'AXON/ObservableArray' );
   var Constants = require( 'FLUID_PRESSURE_AND_FLOW/common/Constants' );
-  var Property = require( 'AXON/Property' );
-  var Hose = require( 'FLUID_PRESSURE_AND_FLOW/watertower/model/Hose' );
-  var Util = require( 'DOT/Util' );
+  var FluidColorModel = require( 'FLUID_PRESSURE_AND_FLOW/common/model/FluidColorModel' );
+  var fluidPressureAndFlow = require( 'FLUID_PRESSURE_AND_FLOW/fluidPressureAndFlow' );
   var getStandardAirPressure = require( 'FLUID_PRESSURE_AND_FLOW/common/model/getStandardAirPressure' );
+  var Hose = require( 'FLUID_PRESSURE_AND_FLOW/watertower/model/Hose' );
+  var inherit = require( 'PHET_CORE/inherit' );
+  var ObservableArray = require( 'AXON/ObservableArray' );
+  var Property = require( 'AXON/Property' );
+  var PropertySet = require( 'AXON/PropertySet' );
+  var RangeWithValue = require( 'DOT/RangeWithValue' );
+  var Sensor = require( 'FLUID_PRESSURE_AND_FLOW/common/model/Sensor' );
+  var StringUtils = require( 'PHETCOMMON/util/StringUtils' );
+  var Units = require( 'FLUID_PRESSURE_AND_FLOW/common/model/Units' );
+  var Util = require( 'DOT/Util' );
+  var Vector2 = require( 'DOT/Vector2' );
+  var VelocitySensor = require( 'FLUID_PRESSURE_AND_FLOW/common/model/VelocitySensor' );
+  var WaterDrop = require( 'FLUID_PRESSURE_AND_FLOW/watertower/model/WaterDrop' );
+  var WaterTower = require( 'FLUID_PRESSURE_AND_FLOW/watertower/model/WaterTower' );
 
   // strings
   var densityUnitsEnglishString = require( 'string!FLUID_PRESSURE_AND_FLOW/densityUnitsEnglish' );

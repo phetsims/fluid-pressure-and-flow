@@ -11,12 +11,12 @@ define( function( require ) {
   'use strict';
 
   // modules
-  var Property = require( 'AXON/Property' );
-  var LinearFunction = require( 'DOT/LinearFunction' );
+  var Color = require( 'SCENERY/util/Color' );
   var Constants = require( 'FLUID_PRESSURE_AND_FLOW/common/Constants' );
   var fluidPressureAndFlow = require( 'FLUID_PRESSURE_AND_FLOW/fluidPressureAndFlow' );
   var inherit = require( 'PHET_CORE/inherit' );
-  var Color = require( 'SCENERY/util/Color' );
+  var LinearFunction = require( 'DOT/LinearFunction' );
+  var Property = require( 'AXON/Property' );
 
   // Color constants, from the Java version
   var GAS_COLOR = new Color( 149, 142, 139 );

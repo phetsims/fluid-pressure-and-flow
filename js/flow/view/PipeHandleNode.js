@@ -9,14 +9,14 @@ define( function( require ) {
   'use strict';
 
   // modules
+  var Bounds2 = require( 'DOT/Bounds2' );
   var fluidPressureAndFlow = require( 'FLUID_PRESSURE_AND_FLOW/fluidPressureAndFlow' );
+  var Image = require( 'SCENERY/nodes/Image' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Node = require( 'SCENERY/nodes/Node' );
-  var Image = require( 'SCENERY/nodes/Image' );
   var SimpleDragHandler = require( 'SCENERY/input/SimpleDragHandler' );
-  var Vector2 = require( 'DOT/Vector2' );
-  var Bounds2 = require( 'DOT/Bounds2' );
   var Util = require( 'DOT/Util' );
+  var Vector2 = require( 'DOT/Vector2' );
 
   // images
   var handleImage = require( 'image!FLUID_PRESSURE_AND_FLOW/handle-with-bar.png' );

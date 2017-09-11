@@ -11,13 +11,13 @@ define( function( require ) {
   'use strict';
 
   // modules
+  var Bounds2 = require( 'DOT/Bounds2' );
   var fluidPressureAndFlow = require( 'FLUID_PRESSURE_AND_FLOW/fluidPressureAndFlow' );
+  var Image = require( 'SCENERY/nodes/Image' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Node = require( 'SCENERY/nodes/Node' );
-  var Image = require( 'SCENERY/nodes/Image' );
-  var Bounds2 = require( 'DOT/Bounds2' );
-  var PipeMainDragHandle = require( 'FLUID_PRESSURE_AND_FLOW/flow/view/PipeMainDragHandle' );
   var PipeHandleNode = require( 'FLUID_PRESSURE_AND_FLOW/flow/view/PipeHandleNode' );
+  var PipeMainDragHandle = require( 'FLUID_PRESSURE_AND_FLOW/flow/view/PipeMainDragHandle' );
   var Property = require( 'AXON/Property' );
 
   // images

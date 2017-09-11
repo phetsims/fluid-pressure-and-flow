@@ -11,18 +11,18 @@ define( function( require ) {
 
   // modules
   var fluidPressureAndFlow = require( 'FLUID_PRESSURE_AND_FLOW/fluidPressureAndFlow' );
-  var Node = require( 'SCENERY/nodes/Node' );
   var inherit = require( 'PHET_CORE/inherit' );
+  var Matrix3 = require( 'DOT/Matrix3' );
+  var Node = require( 'SCENERY/nodes/Node' );
+  var Path = require( 'SCENERY/nodes/Path' );
   var Pattern = require( 'SCENERY/util/Pattern' );
   var Rectangle = require( 'SCENERY/nodes/Rectangle' );
-  var Matrix3 = require( 'DOT/Matrix3' );
   var Shape = require( 'KITE/Shape' );
-  var Path = require( 'SCENERY/nodes/Path' );
   var UnderPressureFaucetNode = require( 'FLUID_PRESSURE_AND_FLOW/under-pressure/view/UnderPressureFaucetNode' );
 
   // images
-  var grassImg = require( 'image!FLUID_PRESSURE_AND_FLOW/grass-texture.png' );
   var cementImg = require( 'image!FLUID_PRESSURE_AND_FLOW/cement-texture-dark.jpg' );
+  var grassImg = require( 'image!FLUID_PRESSURE_AND_FLOW/grass-texture.png' );
 
   /**
    * @param {TrapezoidPoolModel} trapezoidPoolModel

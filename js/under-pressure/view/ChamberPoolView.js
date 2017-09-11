@@ -10,13 +10,13 @@ define( function( require ) {
   'use strict';
 
   // modules
-  var fluidPressureAndFlow = require( 'FLUID_PRESSURE_AND_FLOW/fluidPressureAndFlow' );
-  var inherit = require( 'PHET_CORE/inherit' );
-  var Node = require( 'SCENERY/nodes/Node' );
   var ChamberPoolBack = require( 'FLUID_PRESSURE_AND_FLOW/under-pressure/view/ChamberPoolBack' );
   var ChamberPoolWaterNode = require( 'FLUID_PRESSURE_AND_FLOW/under-pressure/view/ChamberPoolWaterNode' );
+  var fluidPressureAndFlow = require( 'FLUID_PRESSURE_AND_FLOW/fluidPressureAndFlow' );
+  var inherit = require( 'PHET_CORE/inherit' );
   var MassNode = require( 'FLUID_PRESSURE_AND_FLOW/under-pressure/view/MassNode' );
   var MassStackNode = require( 'FLUID_PRESSURE_AND_FLOW/under-pressure/view/MassStackNode' );
+  var Node = require( 'SCENERY/nodes/Node' );
   var TrapezoidPoolGrid = require( 'FLUID_PRESSURE_AND_FLOW/under-pressure/view/TrapezoidPoolGrid' );
 
   /**

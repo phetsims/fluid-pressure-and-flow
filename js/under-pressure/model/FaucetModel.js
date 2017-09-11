@@ -11,8 +11,8 @@ define( function( require ) {
 
   // modules
   var fluidPressureAndFlow = require( 'FLUID_PRESSURE_AND_FLOW/fluidPressureAndFlow' );
-  var PropertySet = require( 'AXON/PropertySet' );
   var inherit = require( 'PHET_CORE/inherit' );
+  var PropertySet = require( 'AXON/PropertySet' );
 
   /**
    * @param {Vector2} location center of output pipe

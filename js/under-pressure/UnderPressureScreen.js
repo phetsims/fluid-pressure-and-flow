@@ -11,12 +11,12 @@ define( function( require ) {
 
   // modules
   var fluidPressureAndFlow = require( 'FLUID_PRESSURE_AND_FLOW/fluidPressureAndFlow' );
+  var Image = require( 'SCENERY/nodes/Image' );
+  var inherit = require( 'PHET_CORE/inherit' );
+  var Property = require( 'AXON/Property' );
+  var Screen = require( 'JOIST/Screen' );
   var UnderPressureModel = require( 'FLUID_PRESSURE_AND_FLOW/under-pressure/model/UnderPressureModel' );
   var UnderPressureView = require( 'FLUID_PRESSURE_AND_FLOW/under-pressure/view/UnderPressureView' );
-  var inherit = require( 'PHET_CORE/inherit' );
-  var Image = require( 'SCENERY/nodes/Image' );
-  var Screen = require( 'JOIST/Screen' );
-  var Property = require( 'AXON/Property' );
 
   // images
   var underPressureScreenIcon = require( 'image!FLUID_PRESSURE_AND_FLOW/under-pressure.png' );

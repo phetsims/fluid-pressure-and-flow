@@ -9,13 +9,13 @@ define( function( require ) {
   'use strict';
 
   // modules
+  var FaucetFluidNode = require( 'FLUID_PRESSURE_AND_FLOW/under-pressure/view/FaucetFluidNode' );
   var fluidPressureAndFlow = require( 'FLUID_PRESSURE_AND_FLOW/fluidPressureAndFlow' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Node = require( 'SCENERY/nodes/Node' );
   var TrapezoidPoolBack = require( 'FLUID_PRESSURE_AND_FLOW/under-pressure/view/TrapezoidPoolBack' );
-  var FaucetFluidNode = require( 'FLUID_PRESSURE_AND_FLOW/under-pressure/view/FaucetFluidNode' );
-  var TrapezoidPoolWaterNode = require( 'FLUID_PRESSURE_AND_FLOW/under-pressure/view/TrapezoidPoolWaterNode' );
   var TrapezoidPoolGrid = require( 'FLUID_PRESSURE_AND_FLOW/under-pressure/view/TrapezoidPoolGrid' );
+  var TrapezoidPoolWaterNode = require( 'FLUID_PRESSURE_AND_FLOW/under-pressure/view/TrapezoidPoolWaterNode' );
 
   /**
    * @param {TrapezoidPoolModel} trapezoidPoolModel

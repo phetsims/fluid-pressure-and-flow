@@ -10,24 +10,24 @@ define( function( require ) {
   'use strict';
 
   // modules
-  var fluidPressureAndFlow = require( 'FLUID_PRESSURE_AND_FLOW/fluidPressureAndFlow' );
-  var inherit = require( 'PHET_CORE/inherit' );
-  var Node = require( 'SCENERY/nodes/Node' );
-  var Rectangle = require( 'SCENERY/nodes/Rectangle' );
-  var Text = require( 'SCENERY/nodes/Text' );
-  var PhetFont = require( 'SCENERY_PHET/PhetFont' );
-  var MovableDragHandler = require( 'SCENERY_PHET/input/MovableDragHandler' );
-  var Property = require( 'AXON/Property' );
-  var Shape = require( 'KITE/Shape' );
-  var Path = require( 'SCENERY/nodes/Path' );
-  var LinearGradient = require( 'SCENERY/util/LinearGradient' );
   var ArrowShape = require( 'SCENERY_PHET/ArrowShape' );
   var Bounds2 = require( 'DOT/Bounds2' );
+  var fluidPressureAndFlow = require( 'FLUID_PRESSURE_AND_FLOW/fluidPressureAndFlow' );
+  var inherit = require( 'PHET_CORE/inherit' );
+  var LinearGradient = require( 'SCENERY/util/LinearGradient' );
+  var MovableDragHandler = require( 'SCENERY_PHET/input/MovableDragHandler' );
+  var Node = require( 'SCENERY/nodes/Node' );
+  var Path = require( 'SCENERY/nodes/Path' );
+  var PhetFont = require( 'SCENERY_PHET/PhetFont' );
+  var Property = require( 'AXON/Property' );
+  var Rectangle = require( 'SCENERY/nodes/Rectangle' );
+  var Shape = require( 'KITE/Shape' );
+  var Text = require( 'SCENERY/nodes/Text' );
 
   // strings
-  var speedString = require( 'string!FLUID_PRESSURE_AND_FLOW/speed' );
-  var mPerSString = require( 'string!FLUID_PRESSURE_AND_FLOW/mPerS' );
   var ftPerSString = require( 'string!FLUID_PRESSURE_AND_FLOW/ftPerS' );
+  var mPerSString = require( 'string!FLUID_PRESSURE_AND_FLOW/mPerS' );
+  var speedString = require( 'string!FLUID_PRESSURE_AND_FLOW/speed' );
 
   /**
    * Main constructor for VelocitySensorNode.

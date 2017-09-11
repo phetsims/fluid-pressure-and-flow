@@ -9,13 +9,13 @@ define( function( require ) {
   'use strict';
 
   // modules
-  var fluidPressureAndFlow = require( 'FLUID_PRESSURE_AND_FLOW/fluidPressureAndFlow' );
   var FlowModel = require( 'FLUID_PRESSURE_AND_FLOW/flow/model/FlowModel' );
   var FlowScreenView = require( 'FLUID_PRESSURE_AND_FLOW/flow/view/FlowScreenView' );
-  var inherit = require( 'PHET_CORE/inherit' );
+  var fluidPressureAndFlow = require( 'FLUID_PRESSURE_AND_FLOW/fluidPressureAndFlow' );
   var Image = require( 'SCENERY/nodes/Image' );
-  var Screen = require( 'JOIST/Screen' );
+  var inherit = require( 'PHET_CORE/inherit' );
   var Property = require( 'AXON/Property' );
+  var Screen = require( 'JOIST/Screen' );
 
   // images
   var flowScreenIcon = require( 'image!FLUID_PRESSURE_AND_FLOW/flow-mockup.png' );

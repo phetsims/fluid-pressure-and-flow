@@ -9,11 +9,11 @@ define( function( require ) {
   'use strict';
 
   // modules
-  var WaterTowerScreen = require( 'FLUID_PRESSURE_AND_FLOW/watertower/WaterTowerScreen' );
   var FlowScreen = require( 'FLUID_PRESSURE_AND_FLOW/flow/FlowScreen' );
-  var UnderPressureScreen = require( 'FLUID_PRESSURE_AND_FLOW/under-pressure/UnderPressureScreen' );
   var Sim = require( 'JOIST/Sim' );
   var SimLauncher = require( 'JOIST/SimLauncher' );
+  var UnderPressureScreen = require( 'FLUID_PRESSURE_AND_FLOW/under-pressure/UnderPressureScreen' );
+  var WaterTowerScreen = require( 'FLUID_PRESSURE_AND_FLOW/watertower/WaterTowerScreen' );
 
   // strings
   var fluidPressureAndFlowTitleString = require( 'string!FLUID_PRESSURE_AND_FLOW/fluid-pressure-and-flow.title' );

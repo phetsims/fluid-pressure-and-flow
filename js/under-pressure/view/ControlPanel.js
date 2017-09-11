@@ -9,18 +9,18 @@ define( function( require ) {
   'use strict';
 
   // modules
-  var fluidPressureAndFlow = require( 'FLUID_PRESSURE_AND_FLOW/fluidPressureAndFlow' );
-  var inherit = require( 'PHET_CORE/inherit' );
-  var VBox = require( 'SCENERY/nodes/VBox' );
-  var HBox = require( 'SCENERY/nodes/HBox' );
-  var Shape = require( 'KITE/Shape' );
-  var Panel = require( 'SUN/Panel' );
-  var HStrut = require( 'SCENERY/nodes/HStrut' );
-  var CheckBox = require( 'SUN/CheckBox' );
-  var Text = require( 'SCENERY/nodes/Text' );
-  var PhetFont = require( 'SCENERY_PHET/PhetFont' );
   var AtmosphereControlNode = require( 'FLUID_PRESSURE_AND_FLOW/under-pressure/view/AtmosphereControlNode' );
+  var CheckBox = require( 'SUN/CheckBox' );
+  var fluidPressureAndFlow = require( 'FLUID_PRESSURE_AND_FLOW/fluidPressureAndFlow' );
+  var HBox = require( 'SCENERY/nodes/HBox' );
+  var HStrut = require( 'SCENERY/nodes/HStrut' );
+  var inherit = require( 'PHET_CORE/inherit' );
+  var Panel = require( 'SUN/Panel' );
+  var PhetFont = require( 'SCENERY_PHET/PhetFont' );
   var RulerNode = require( 'SCENERY_PHET/RulerNode' );
+  var Shape = require( 'KITE/Shape' );
+  var Text = require( 'SCENERY/nodes/Text' );
+  var VBox = require( 'SCENERY/nodes/VBox' );
   var VStrut = require( 'SCENERY/nodes/VStrut' );
 
   // strings

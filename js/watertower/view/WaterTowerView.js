@@ -10,49 +10,49 @@ define( function( require ) {
   'use strict';
 
   // modules
-  var fluidPressureAndFlow = require( 'FLUID_PRESSURE_AND_FLOW/fluidPressureAndFlow' );
-  var DerivedProperty = require( 'AXON/DerivedProperty' );
-  var inherit = require( 'PHET_CORE/inherit' );
-  var ScreenView = require( 'JOIST/ScreenView' );
-  var ModelViewTransform2 = require( 'PHETCOMMON/view/ModelViewTransform2' );
-  var Vector2 = require( 'DOT/Vector2' );
   var Bounds2 = require( 'DOT/Bounds2' );
+  var DerivedProperty = require( 'AXON/DerivedProperty' );
+  var fluidPressureAndFlow = require( 'FLUID_PRESSURE_AND_FLOW/fluidPressureAndFlow' );
+  var inherit = require( 'PHET_CORE/inherit' );
+  var ModelViewTransform2 = require( 'PHETCOMMON/view/ModelViewTransform2' );
+  var ScreenView = require( 'JOIST/ScreenView' );
+  var Vector2 = require( 'DOT/Vector2' );
 
-  var SkyNode = require( 'SCENERY_PHET/SkyNode' );
-  var GroundNode = require( 'SCENERY_PHET/GroundNode' );
-  var WaterDropsCanvasNode = require( 'FLUID_PRESSURE_AND_FLOW/watertower/view/WaterDropsCanvasNode' );
-  var ResetAllButton = require( 'SCENERY_PHET/buttons/ResetAllButton' );
-  var Rectangle = require( 'SCENERY/nodes/Rectangle' );
-  var VBox = require( 'SCENERY/nodes/VBox' );
-  var Node = require( 'SCENERY/nodes/Node' );
-  var PlayPauseButton = require( 'SCENERY_PHET/buttons/PlayPauseButton' );
-  var StepForwardButton = require( 'SCENERY_PHET/buttons/StepForwardButton' );
   var AquaRadioButton = require( 'SUN/AquaRadioButton' );
-  var PhetFont = require( 'SCENERY_PHET/PhetFont' );
-  var Text = require( 'SCENERY/nodes/Text' );
-  var FaucetNode = require( 'SCENERY_PHET/FaucetNode' );
   var BarometerNode = require( 'FLUID_PRESSURE_AND_FLOW/common/view/BarometerNode' );
-  var ControlSlider = require( 'FLUID_PRESSURE_AND_FLOW/common/view/ControlSlider' );
-  var ToolsControlPanel = require( 'FLUID_PRESSURE_AND_FLOW/watertower/view/ToolsControlPanel' );
-  var MeasuringTapeNode = require( 'SCENERY_PHET/MeasuringTapeNode' );
-  var SluiceControlPanel = require( 'FLUID_PRESSURE_AND_FLOW/watertower/view/SluiceControlPanel' );
-  var UnitsControlPanel = require( 'FLUID_PRESSURE_AND_FLOW/common/view/UnitsControlPanel' );
-  var FPAFRuler = require( 'FLUID_PRESSURE_AND_FLOW/common/view/FPAFRuler' );
-  var WaterTowerNode = require( 'FLUID_PRESSURE_AND_FLOW/watertower/view/WaterTowerNode' );
-  var HoseNode = require( 'FLUID_PRESSURE_AND_FLOW/watertower/view/HoseNode' );
-  var VelocitySensorNode = require( 'FLUID_PRESSURE_AND_FLOW/common/view/VelocitySensorNode' );
-  var FaucetControlPanel = require( 'FLUID_PRESSURE_AND_FLOW/watertower/view/FaucetControlPanel' );
   var Constants = require( 'FLUID_PRESSURE_AND_FLOW/common/Constants' );
+  var ControlSlider = require( 'FLUID_PRESSURE_AND_FLOW/common/view/ControlSlider' );
+  var FaucetControlPanel = require( 'FLUID_PRESSURE_AND_FLOW/watertower/view/FaucetControlPanel' );
+  var FaucetNode = require( 'SCENERY_PHET/FaucetNode' );
+  var FPAFRuler = require( 'FLUID_PRESSURE_AND_FLOW/common/view/FPAFRuler' );
+  var GroundNode = require( 'SCENERY_PHET/GroundNode' );
+  var HoseNode = require( 'FLUID_PRESSURE_AND_FLOW/watertower/view/HoseNode' );
+  var MeasuringTapeNode = require( 'SCENERY_PHET/MeasuringTapeNode' );
+  var Node = require( 'SCENERY/nodes/Node' );
+  var PhetFont = require( 'SCENERY_PHET/PhetFont' );
+  var PlayPauseButton = require( 'SCENERY_PHET/buttons/PlayPauseButton' );
+  var Rectangle = require( 'SCENERY/nodes/Rectangle' );
+  var ResetAllButton = require( 'SCENERY_PHET/buttons/ResetAllButton' );
+  var SkyNode = require( 'SCENERY_PHET/SkyNode' );
+  var SluiceControlPanel = require( 'FLUID_PRESSURE_AND_FLOW/watertower/view/SluiceControlPanel' );
+  var StepForwardButton = require( 'SCENERY_PHET/buttons/StepForwardButton' );
+  var Text = require( 'SCENERY/nodes/Text' );
+  var ToolsControlPanel = require( 'FLUID_PRESSURE_AND_FLOW/watertower/view/ToolsControlPanel' );
+  var UnitsControlPanel = require( 'FLUID_PRESSURE_AND_FLOW/common/view/UnitsControlPanel' );
+  var VBox = require( 'SCENERY/nodes/VBox' );
+  var VelocitySensorNode = require( 'FLUID_PRESSURE_AND_FLOW/common/view/VelocitySensorNode' );
+  var WaterDropsCanvasNode = require( 'FLUID_PRESSURE_AND_FLOW/watertower/view/WaterDropsCanvasNode' );
+  var WaterTowerNode = require( 'FLUID_PRESSURE_AND_FLOW/watertower/view/WaterTowerNode' );
 
   //strings
+  var feetString = require( 'string!FLUID_PRESSURE_AND_FLOW/feet' );
   var fluidDensityString = require( 'string!FLUID_PRESSURE_AND_FLOW/fluidDensity' );
   var gasolineString = require( 'string!FLUID_PRESSURE_AND_FLOW/gasoline' );
-  var waterString = require( 'string!FLUID_PRESSURE_AND_FLOW/water' );
   var honeyString = require( 'string!FLUID_PRESSURE_AND_FLOW/honey' );
+  var metersString = require( 'string!FLUID_PRESSURE_AND_FLOW/meters' );
   var normalString = require( 'string!FLUID_PRESSURE_AND_FLOW/normal' );
   var slowMotionString = require( 'string!FLUID_PRESSURE_AND_FLOW/slowMotion' );
-  var feetString = require( 'string!FLUID_PRESSURE_AND_FLOW/feet' );
-  var metersString = require( 'string!FLUID_PRESSURE_AND_FLOW/meters' );
+  var waterString = require( 'string!FLUID_PRESSURE_AND_FLOW/water' );
 
   //View layout related constants
   var inset = 10;

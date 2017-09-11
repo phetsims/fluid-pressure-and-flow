@@ -10,15 +10,15 @@ define( function( require ) {
 
   // modules
   var fluidPressureAndFlow = require( 'FLUID_PRESSURE_AND_FLOW/fluidPressureAndFlow' );
-  var inherit = require( 'PHET_CORE/inherit' );
   var Image = require( 'SCENERY/nodes/Image' );
+  var inherit = require( 'PHET_CORE/inherit' );
   var RadioButtonGroup = require( 'SUN/buttons/RadioButtonGroup' );
 
   // images
-  var squarePoolImage = require( 'image!FLUID_PRESSURE_AND_FLOW/square-pool-icon.png' );
-  var trapezoidPoolImage = require( 'image!FLUID_PRESSURE_AND_FLOW/trapezoid-pool-icon.png' );
   var chamberPoolImage = require( 'image!FLUID_PRESSURE_AND_FLOW/chamber-pool-icon.png' );
   var mysteryPoolImage = require( 'image!FLUID_PRESSURE_AND_FLOW/mystery-pool-icon.png' );
+  var squarePoolImage = require( 'image!FLUID_PRESSURE_AND_FLOW/square-pool-icon.png' );
+  var trapezoidPoolImage = require( 'image!FLUID_PRESSURE_AND_FLOW/trapezoid-pool-icon.png' );
 
   var ICON_SCALE = 0.5;
 

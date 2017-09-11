@@ -11,17 +11,17 @@ define( function( require ) {
 
   // modules
   var fluidPressureAndFlow = require( 'FLUID_PRESSURE_AND_FLOW/fluidPressureAndFlow' );
-  var Node = require( 'SCENERY/nodes/Node' );
-  var inherit = require( 'PHET_CORE/inherit' );
-  var Text = require( 'SCENERY/nodes/Text' );
   var GridLinesNode = require( 'FLUID_PRESSURE_AND_FLOW/under-pressure/view/GridLinesNode' );
-  var StringUtils = require( 'PHETCOMMON/util/StringUtils' );
+  var inherit = require( 'PHET_CORE/inherit' );
+  var Node = require( 'SCENERY/nodes/Node' );
   var PhetFont = require( 'SCENERY_PHET/PhetFont' );
+  var StringUtils = require( 'PHETCOMMON/util/StringUtils' );
+  var Text = require( 'SCENERY/nodes/Text' );
   var Units = require( 'FLUID_PRESSURE_AND_FLOW/common/model/Units' );
 
   // strings
-  var readoutMetersString = require( 'string!FLUID_PRESSURE_AND_FLOW/readoutMeters' );
   var readoutFeetString = require( 'string!FLUID_PRESSURE_AND_FLOW/readoutFeet' );
+  var readoutMetersString = require( 'string!FLUID_PRESSURE_AND_FLOW/readoutMeters' );
 
   /**
    * @param {SquarePoolModel} squarePoolModel of the simulation

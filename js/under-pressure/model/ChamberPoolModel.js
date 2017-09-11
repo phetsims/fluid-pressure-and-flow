@@ -13,10 +13,10 @@ define( function( require ) {
   // modules
   var Constants = require( 'FLUID_PRESSURE_AND_FLOW/common/Constants' );
   var fluidPressureAndFlow = require( 'FLUID_PRESSURE_AND_FLOW/fluidPressureAndFlow' );
-  var PropertySet = require( 'AXON/PropertySet' );
-  var ObservableArray = require( 'AXON/ObservableArray' );
   var inherit = require( 'PHET_CORE/inherit' );
   var MassModel = require( 'FLUID_PRESSURE_AND_FLOW/under-pressure/model/MassModel' );
+  var ObservableArray = require( 'AXON/ObservableArray' );
+  var PropertySet = require( 'AXON/PropertySet' );
 
   // constants
   // empirically determined to match the visual appearance from design document

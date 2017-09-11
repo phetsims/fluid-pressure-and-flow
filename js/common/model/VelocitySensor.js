@@ -9,10 +9,10 @@ define( function( require ) {
 
   // modules
   var DerivedProperty = require( 'AXON/DerivedProperty' );
-  var Property = require( 'AXON/Property' );
-  var Sensor = require( 'FLUID_PRESSURE_AND_FLOW/common/model/Sensor' );
   var fluidPressureAndFlow = require( 'FLUID_PRESSURE_AND_FLOW/fluidPressureAndFlow' );
   var inherit = require( 'PHET_CORE/inherit' );
+  var Property = require( 'AXON/Property' );
+  var Sensor = require( 'FLUID_PRESSURE_AND_FLOW/common/model/Sensor' );
 
   /**
    * @param {Vector2} position of the sensor

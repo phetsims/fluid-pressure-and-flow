@@ -12,21 +12,21 @@ define( function( require ) {
 
   // modules
   var Bounds2 = require( 'DOT/Bounds2' );
+  var Constants = require( 'FLUID_PRESSURE_AND_FLOW/common/Constants' );
   var Dimension2 = require( 'DOT/Dimension2' );
   var fluidPressureAndFlow = require( 'FLUID_PRESSURE_AND_FLOW/fluidPressureAndFlow' );
-  var inherit = require( 'PHET_CORE/inherit' );
-  var Node = require( 'SCENERY/nodes/Node' );
   var GaugeNode = require( 'SCENERY_PHET/GaugeNode' );
-  var Rectangle = require( 'SCENERY/nodes/Rectangle' );
+  var inherit = require( 'PHET_CORE/inherit' );
   var LinearGradient = require( 'SCENERY/util/LinearGradient' );
+  var MovableDragHandler = require( 'SCENERY_PHET/input/MovableDragHandler' );
+  var Node = require( 'SCENERY/nodes/Node' );
+  var Panel = require( 'SUN/Panel' );
   var Path = require( 'SCENERY/nodes/Path' );
+  var PhetFont = require( 'SCENERY_PHET/PhetFont' );
+  var Property = require( 'AXON/Property' );
+  var Rectangle = require( 'SCENERY/nodes/Rectangle' );
   var Shape = require( 'KITE/Shape' );
   var Text = require( 'SCENERY/nodes/Text' );
-  var Panel = require( 'SUN/Panel' );
-  var PhetFont = require( 'SCENERY_PHET/PhetFont' );
-  var MovableDragHandler = require( 'SCENERY_PHET/input/MovableDragHandler' );
-  var Property = require( 'AXON/Property' );
-  var Constants = require( 'FLUID_PRESSURE_AND_FLOW/common/Constants' );
 
   // strings
   var pressureString = require( 'string!FLUID_PRESSURE_AND_FLOW/pressure' );

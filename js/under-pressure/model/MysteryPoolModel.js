@@ -10,12 +10,12 @@ define( function( require ) {
   'use strict';
 
   // modules
+  var Color = require( 'SCENERY/util/Color' );
   var fluidPressureAndFlow = require( 'FLUID_PRESSURE_AND_FLOW/fluidPressureAndFlow' );
   var inherit = require( 'PHET_CORE/inherit' );
-  var SquarePoolModel = require( 'FLUID_PRESSURE_AND_FLOW/under-pressure/model/SquarePoolModel' );
   var Property = require( 'AXON/Property' );
   var PropertySet = require( 'AXON/PropertySet' );
-  var Color = require( 'SCENERY/util/Color' );
+  var SquarePoolModel = require( 'FLUID_PRESSURE_AND_FLOW/under-pressure/model/SquarePoolModel' );
 
 
   /**

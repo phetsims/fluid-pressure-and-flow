@@ -11,11 +11,11 @@ define( function( require ) {
 
   // modules
   var Constants = require( 'FLUID_PRESSURE_AND_FLOW/common/Constants' );
+  var FaucetModel = require( 'FLUID_PRESSURE_AND_FLOW/under-pressure/model/FaucetModel' );
   var fluidPressureAndFlow = require( 'FLUID_PRESSURE_AND_FLOW/fluidPressureAndFlow' );
   var inherit = require( 'PHET_CORE/inherit' );
-  var Vector2 = require( 'DOT/Vector2' );
   var PoolWithFaucetsModel = require( 'FLUID_PRESSURE_AND_FLOW/under-pressure/model/PoolWithFaucetsModel' );
-  var FaucetModel = require( 'FLUID_PRESSURE_AND_FLOW/under-pressure/model/FaucetModel' );
+  var Vector2 = require( 'DOT/Vector2' );
 
   /**
    * @param {UnderPressureModel} underPressureModel of the simulation

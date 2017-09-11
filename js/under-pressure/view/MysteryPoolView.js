@@ -16,22 +16,22 @@ define( function( require ) {
   var ComboBox = require( 'SUN/ComboBox' );
   var DerivedProperty = require( 'AXON/DerivedProperty' );
   var fluidPressureAndFlow = require( 'FLUID_PRESSURE_AND_FLOW/fluidPressureAndFlow' );
+  var inherit = require( 'PHET_CORE/inherit' );
   var Panel = require( 'SUN/Panel' );
   var PhetFont = require( 'SCENERY_PHET/PhetFont' );
-  var inherit = require( 'PHET_CORE/inherit' );
   var SquarePoolView = require( 'FLUID_PRESSURE_AND_FLOW/under-pressure/view/SquarePoolView' );
   var Text = require( 'SCENERY/nodes/Text' );
   var VBox = require( 'SCENERY/nodes/VBox' );
 
   // strings
+  var fluidAString = require( 'string!FLUID_PRESSURE_AND_FLOW/fluidA' );
+  var fluidBString = require( 'string!FLUID_PRESSURE_AND_FLOW/fluidB' );
+  var fluidCString = require( 'string!FLUID_PRESSURE_AND_FLOW/fluidC' );
   var mysteryFluidString = require( 'string!FLUID_PRESSURE_AND_FLOW/mysteryFluid' );
   var mysteryPlanetString = require( 'string!FLUID_PRESSURE_AND_FLOW/mysteryPlanet' );
   var planetAString = require( 'string!FLUID_PRESSURE_AND_FLOW/planetA' );
   var planetBString = require( 'string!FLUID_PRESSURE_AND_FLOW/planetB' );
   var planetCString = require( 'string!FLUID_PRESSURE_AND_FLOW/planetC' );
-  var fluidAString = require( 'string!FLUID_PRESSURE_AND_FLOW/fluidA' );
-  var fluidBString = require( 'string!FLUID_PRESSURE_AND_FLOW/fluidB' );
-  var fluidCString = require( 'string!FLUID_PRESSURE_AND_FLOW/fluidC' );
 
   // constants
   var RADIO_BUTTON_TOUCH_DILATION_Y = 2; // empirically determined

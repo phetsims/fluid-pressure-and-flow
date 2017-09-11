@@ -11,14 +11,14 @@ define( function( require ) {
   // modules
   var fluidPressureAndFlow = require( 'FLUID_PRESSURE_AND_FLOW/fluidPressureAndFlow' );
   var inherit = require( 'PHET_CORE/inherit' );
-  var Rectangle = require( 'SCENERY/nodes/Rectangle' );
-  var Node = require( 'SCENERY/nodes/Node' );
-  var SimpleDragHandler = require( 'SCENERY/input/SimpleDragHandler' );
-  var Vector2 = require( 'DOT/Vector2' );
-  var Text = require( 'SCENERY/nodes/Text' );
-  var StringUtils = require( 'PHETCOMMON/util/StringUtils' );
-  var PhetFont = require( 'SCENERY_PHET/PhetFont' );
   var LinearGradient = require( 'SCENERY/util/LinearGradient' );
+  var Node = require( 'SCENERY/nodes/Node' );
+  var PhetFont = require( 'SCENERY_PHET/PhetFont' );
+  var Rectangle = require( 'SCENERY/nodes/Rectangle' );
+  var SimpleDragHandler = require( 'SCENERY/input/SimpleDragHandler' );
+  var StringUtils = require( 'PHETCOMMON/util/StringUtils' );
+  var Text = require( 'SCENERY/nodes/Text' );
+  var Vector2 = require( 'DOT/Vector2' );
 
   // strings
   var massLabelPatternString = require( 'string!FLUID_PRESSURE_AND_FLOW/massLabelPattern' );

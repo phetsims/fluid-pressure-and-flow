@@ -11,18 +11,18 @@ define( function( require ) {
   'use strict';
 
   // modules
+  var AquaRadioButton = require( 'SUN/AquaRadioButton' );
   var fluidPressureAndFlow = require( 'FLUID_PRESSURE_AND_FLOW/fluidPressureAndFlow' );
+  var HBox = require( 'SCENERY/nodes/HBox' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Node = require( 'SCENERY/nodes/Node' );
-  var Text = require( 'SCENERY/nodes/Text' );
   var PhetFont = require( 'SCENERY_PHET/PhetFont' );
-  var HBox = require( 'SCENERY/nodes/HBox' );
-  var AquaRadioButton = require( 'SUN/AquaRadioButton' );
+  var Text = require( 'SCENERY/nodes/Text' );
 
   // strings
   var atmosphereString = require( 'string!FLUID_PRESSURE_AND_FLOW/atmosphere' );
-  var onString = require( 'string!FLUID_PRESSURE_AND_FLOW/on' );
   var offString = require( 'string!FLUID_PRESSURE_AND_FLOW/off' );
+  var onString = require( 'string!FLUID_PRESSURE_AND_FLOW/on' );
 
   /**
    * @param {Property<Boolean>} isAtmosphereProperty - to select atmosphere on/off

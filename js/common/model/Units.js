@@ -16,13 +16,13 @@ define( function( require ) {
 
   // strings
   var atmString = require( 'string!FLUID_PRESSURE_AND_FLOW/atm' );
-  var psiString = require( 'string!FLUID_PRESSURE_AND_FLOW/psi' );
-  var kPaString = require( 'string!FLUID_PRESSURE_AND_FLOW/kPa' );
-  var valueWithUnitsPatternString = require( 'string!FLUID_PRESSURE_AND_FLOW/valueWithUnitsPattern' );
-  var ftPerSPerSString = require( 'string!FLUID_PRESSURE_AND_FLOW/ftPerSPerS' );
-  var mPerSPerSString = require( 'string!FLUID_PRESSURE_AND_FLOW/mPerSPerS' );
   var densityUnitsEnglishString = require( 'string!FLUID_PRESSURE_AND_FLOW/densityUnitsEnglish' );
   var densityUnitsMetricString = require( 'string!FLUID_PRESSURE_AND_FLOW/densityUnitsMetric' );
+  var ftPerSPerSString = require( 'string!FLUID_PRESSURE_AND_FLOW/ftPerSPerS' );
+  var kPaString = require( 'string!FLUID_PRESSURE_AND_FLOW/kPa' );
+  var mPerSPerSString = require( 'string!FLUID_PRESSURE_AND_FLOW/mPerSPerS' );
+  var psiString = require( 'string!FLUID_PRESSURE_AND_FLOW/psi' );
+  var valueWithUnitsPatternString = require( 'string!FLUID_PRESSURE_AND_FLOW/valueWithUnitsPattern' );
 
   // constants
   var ATMOSPHERE_PER_PASCAL = 9.8692E-6;

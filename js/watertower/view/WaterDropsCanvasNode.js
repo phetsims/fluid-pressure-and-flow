@@ -9,9 +9,9 @@ define( function( require ) {
   'use strict';
 
   // modules
+  var CanvasNode = require( 'SCENERY/nodes/CanvasNode' );
   var fluidPressureAndFlow = require( 'FLUID_PRESSURE_AND_FLOW/fluidPressureAndFlow' );
   var inherit = require( 'PHET_CORE/inherit' );
-  var CanvasNode = require( 'SCENERY/nodes/CanvasNode' );
 
   /**
    * A canvas node to render a set of water drops.

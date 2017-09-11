@@ -12,17 +12,17 @@ define( function( require ) {
 
   // modules
   var fluidPressureAndFlow = require( 'FLUID_PRESSURE_AND_FLOW/fluidPressureAndFlow' );
-  var Node = require( 'SCENERY/nodes/Node' );
-  var inherit = require( 'PHET_CORE/inherit' );
-  var Text = require( 'SCENERY/nodes/Text' );
   var GridLinesNode = require( 'FLUID_PRESSURE_AND_FLOW/under-pressure/view/GridLinesNode' );
+  var inherit = require( 'PHET_CORE/inherit' );
+  var Node = require( 'SCENERY/nodes/Node' );
   var PhetFont = require( 'SCENERY_PHET/PhetFont' );
   var Rectangle = require( 'SCENERY/nodes/Rectangle' );
   var StringUtils = require( 'PHETCOMMON/util/StringUtils' );
+  var Text = require( 'SCENERY/nodes/Text' );
 
   // strings
-  var mString = require( 'string!FLUID_PRESSURE_AND_FLOW/m' );
   var ftString = require( 'string!FLUID_PRESSURE_AND_FLOW/ft' );
+  var mString = require( 'string!FLUID_PRESSURE_AND_FLOW/m' );
   var valueWithUnitsPatternString = require( 'string!FLUID_PRESSURE_AND_FLOW/valueWithUnitsPattern' );
 
   /**

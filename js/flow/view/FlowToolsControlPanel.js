@@ -9,26 +9,26 @@ define( function( require ) {
   'use strict';
 
   // modules
-  var fluidPressureAndFlow = require( 'FLUID_PRESSURE_AND_FLOW/fluidPressureAndFlow' );
-  var inherit = require( 'PHET_CORE/inherit' );
-  var VBox = require( 'SCENERY/nodes/VBox' );
-  var HBox = require( 'SCENERY/nodes/HBox' );
-  var Shape = require( 'KITE/Shape' );
-  var HStrut = require( 'SCENERY/nodes/HStrut' );
-  var Panel = require( 'SUN/Panel' );
+  var Bounds2 = require( 'DOT/Bounds2' );
   var CheckBox = require( 'SUN/CheckBox' );
-  var Text = require( 'SCENERY/nodes/Text' );
+  var Circle = require( 'SCENERY/nodes/Circle' );
+  var fluidPressureAndFlow = require( 'FLUID_PRESSURE_AND_FLOW/fluidPressureAndFlow' );
+  var HBox = require( 'SCENERY/nodes/HBox' );
+  var HStrut = require( 'SCENERY/nodes/HStrut' );
+  var inherit = require( 'PHET_CORE/inherit' );
+  var Node = require( 'SCENERY/nodes/Node' );
+  var Panel = require( 'SUN/Panel' );
   var PhetFont = require( 'SCENERY_PHET/PhetFont' );
   var RulerNode = require( 'SCENERY_PHET/RulerNode' );
-  var Circle = require( 'SCENERY/nodes/Circle' );
-  var Node = require( 'SCENERY/nodes/Node' );
-  var Bounds2 = require( 'DOT/Bounds2' );
+  var Shape = require( 'KITE/Shape' );
+  var Text = require( 'SCENERY/nodes/Text' );
+  var VBox = require( 'SCENERY/nodes/VBox' );
 
   // strings
-  var rulerString = require( 'string!FLUID_PRESSURE_AND_FLOW/ruler' );
-  var frictionString = require( 'string!FLUID_PRESSURE_AND_FLOW/friction' );
-  var fluxMeterString = require( 'string!FLUID_PRESSURE_AND_FLOW/fluxMeter' );
   var dotsString = require( 'string!FLUID_PRESSURE_AND_FLOW/dots' );
+  var fluxMeterString = require( 'string!FLUID_PRESSURE_AND_FLOW/fluxMeter' );
+  var frictionString = require( 'string!FLUID_PRESSURE_AND_FLOW/friction' );
+  var rulerString = require( 'string!FLUID_PRESSURE_AND_FLOW/ruler' );
 
   /**
    *

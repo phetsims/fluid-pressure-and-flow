@@ -8,12 +8,12 @@ define( function( require ) {
   'use strict';
 
   // modules
+  var AquaRadioButton = require( 'SUN/AquaRadioButton' );
   var fluidPressureAndFlow = require( 'FLUID_PRESSURE_AND_FLOW/fluidPressureAndFlow' );
   var inherit = require( 'PHET_CORE/inherit' );
-  var VBox = require( 'SCENERY/nodes/VBox' );
-  var AquaRadioButton = require( 'SUN/AquaRadioButton' );
-  var Text = require( 'SCENERY/nodes/Text' );
   var PhetFont = require( 'SCENERY_PHET/PhetFont' );
+  var Text = require( 'SCENERY/nodes/Text' );
+  var VBox = require( 'SCENERY/nodes/VBox' );
 
   // strings
   var manualString = require( 'string!FLUID_PRESSURE_AND_FLOW/manual' );

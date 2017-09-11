@@ -12,36 +12,36 @@ define( function( require ) {
   'use strict';
 
   // modules
+  var BackgroundNode = require( 'FLUID_PRESSURE_AND_FLOW/under-pressure/view/BackgroundNode' );
+  var BarometerNode = require( 'FLUID_PRESSURE_AND_FLOW/common/view/BarometerNode' );
+  var ChamberPoolView = require( 'FLUID_PRESSURE_AND_FLOW/under-pressure/view/ChamberPoolView' );
+  var Constants = require( 'FLUID_PRESSURE_AND_FLOW/common/Constants' );
+  var ControlPanel = require( 'FLUID_PRESSURE_AND_FLOW/under-pressure/view/ControlPanel' );
+  var ControlSlider = require( 'FLUID_PRESSURE_AND_FLOW/common/view/ControlSlider' );
   var fluidPressureAndFlow = require( 'FLUID_PRESSURE_AND_FLOW/fluidPressureAndFlow' );
   var inherit = require( 'PHET_CORE/inherit' );
-  var BackgroundNode = require( 'FLUID_PRESSURE_AND_FLOW/under-pressure/view/BackgroundNode' );
-  var ScreenView = require( 'JOIST/ScreenView' );
-  var UnderPressureRuler = require( 'FLUID_PRESSURE_AND_FLOW/under-pressure/view/UnderPressureRuler' );
   var ModelViewTransform2 = require( 'PHETCOMMON/view/ModelViewTransform2' );
-  var Vector2 = require( 'DOT/Vector2' );
-  var ControlPanel = require( 'FLUID_PRESSURE_AND_FLOW/under-pressure/view/ControlPanel' );
-  var UnitsControlPanel = require( 'FLUID_PRESSURE_AND_FLOW/common/view/UnitsControlPanel' );
-  var ControlSlider = require( 'FLUID_PRESSURE_AND_FLOW/common/view/ControlSlider' );
-  var SceneChoiceNode = require( 'FLUID_PRESSURE_AND_FLOW/under-pressure/view/SceneChoiceNode' );
-  var ResetAllButton = require( 'SCENERY_PHET/buttons/ResetAllButton' );
-  var Rectangle = require( 'SCENERY/nodes/Rectangle' );
-  var BarometerNode = require( 'FLUID_PRESSURE_AND_FLOW/common/view/BarometerNode' );
-  var Constants = require( 'FLUID_PRESSURE_AND_FLOW/common/Constants' );
-  var SquarePoolView = require( 'FLUID_PRESSURE_AND_FLOW/under-pressure/view/SquarePoolView' );
-  var TrapezoidPoolView = require( 'FLUID_PRESSURE_AND_FLOW/under-pressure/view/TrapezoidPoolView' );
-  var ChamberPoolView = require( 'FLUID_PRESSURE_AND_FLOW/under-pressure/view/ChamberPoolView' );
   var MysteryPoolView = require( 'FLUID_PRESSURE_AND_FLOW/under-pressure/view/MysteryPoolView' );
   var Node = require( 'SCENERY/nodes/Node' );
+  var Rectangle = require( 'SCENERY/nodes/Rectangle' );
+  var ResetAllButton = require( 'SCENERY_PHET/buttons/ResetAllButton' );
+  var SceneChoiceNode = require( 'FLUID_PRESSURE_AND_FLOW/under-pressure/view/SceneChoiceNode' );
+  var ScreenView = require( 'JOIST/ScreenView' );
+  var SquarePoolView = require( 'FLUID_PRESSURE_AND_FLOW/under-pressure/view/SquarePoolView' );
+  var TrapezoidPoolView = require( 'FLUID_PRESSURE_AND_FLOW/under-pressure/view/TrapezoidPoolView' );
+  var UnderPressureRuler = require( 'FLUID_PRESSURE_AND_FLOW/under-pressure/view/UnderPressureRuler' );
+  var UnitsControlPanel = require( 'FLUID_PRESSURE_AND_FLOW/common/view/UnitsControlPanel' );
+  var Vector2 = require( 'DOT/Vector2' );
 
   // strings
-  var fluidDensityString = require( 'string!FLUID_PRESSURE_AND_FLOW/fluidDensity' );
-  var gravityString = require( 'string!FLUID_PRESSURE_AND_FLOW/gravity' );
   var earthString = require( 'string!FLUID_PRESSURE_AND_FLOW/earth' );
-  var marsString = require( 'string!FLUID_PRESSURE_AND_FLOW/mars' );
-  var jupiterString = require( 'string!FLUID_PRESSURE_AND_FLOW/jupiter' );
+  var fluidDensityString = require( 'string!FLUID_PRESSURE_AND_FLOW/fluidDensity' );
   var gasolineString = require( 'string!FLUID_PRESSURE_AND_FLOW/gasoline' );
-  var waterString = require( 'string!FLUID_PRESSURE_AND_FLOW/water' );
+  var gravityString = require( 'string!FLUID_PRESSURE_AND_FLOW/gravity' );
   var honeyString = require( 'string!FLUID_PRESSURE_AND_FLOW/honey' );
+  var jupiterString = require( 'string!FLUID_PRESSURE_AND_FLOW/jupiter' );
+  var marsString = require( 'string!FLUID_PRESSURE_AND_FLOW/mars' );
+  var waterString = require( 'string!FLUID_PRESSURE_AND_FLOW/water' );
 
   // constants
   var INSET = 15;

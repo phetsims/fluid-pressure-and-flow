@@ -8,16 +8,16 @@ define( function( require ) {
   'use strict';
 
   // modules
+  var ABSwitch = require( 'SUN/ABSwitch' );
   var fluidPressureAndFlow = require( 'FLUID_PRESSURE_AND_FLOW/fluidPressureAndFlow' );
   var inherit = require( 'PHET_CORE/inherit' );
-  var Path = require( 'SCENERY/nodes/Path' );
-  var Shape = require( 'KITE/Shape' );
-  var Rectangle = require( 'SCENERY/nodes/Rectangle' );
-  var ABSwitch = require( 'SUN/ABSwitch' );
-  var WaterTowerLegsNode = require( 'FLUID_PRESSURE_AND_FLOW/watertower/view/WaterTowerLegsNode' );
-  var Vector2 = require( 'DOT/Vector2' );
-  var Property = require( 'AXON/Property' );
   var ModelViewTransform2 = require( 'PHETCOMMON/view/ModelViewTransform2' );
+  var Path = require( 'SCENERY/nodes/Path' );
+  var Property = require( 'AXON/Property' );
+  var Rectangle = require( 'SCENERY/nodes/Rectangle' );
+  var Shape = require( 'KITE/Shape' );
+  var Vector2 = require( 'DOT/Vector2' );
+  var WaterTowerLegsNode = require( 'FLUID_PRESSURE_AND_FLOW/watertower/view/WaterTowerLegsNode' );
 
   // constants
   var optionWidth = 48;

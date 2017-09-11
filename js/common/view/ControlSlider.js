@@ -13,19 +13,19 @@ define( function( require ) {
   'use strict';
 
   // modules
+  var AccordionBox = require( 'SUN/AccordionBox' );
   var ArrowButton = require( 'SUN/buttons/ArrowButton' );
+  var Bounds2 = require( 'DOT/Bounds2' );
   var Dimension2 = require( 'DOT/Dimension2' );
   var fluidPressureAndFlow = require( 'FLUID_PRESSURE_AND_FLOW/fluidPressureAndFlow' );
+  var HSlider = require( 'SUN/HSlider' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Node = require( 'SCENERY/nodes/Node' );
-  var Rectangle = require( 'SCENERY/nodes/Rectangle' );
-  var Text = require( 'SCENERY/nodes/Text' );
-  var RichText = require( 'SCENERY/nodes/RichText' );
   var PhetFont = require( 'SCENERY_PHET/PhetFont' );
-  var HSlider = require( 'SUN/HSlider' );
-  var AccordionBox = require( 'SUN/AccordionBox' );
+  var Rectangle = require( 'SCENERY/nodes/Rectangle' );
+  var RichText = require( 'SCENERY/nodes/RichText' );
+  var Text = require( 'SCENERY/nodes/Text' );
   var Util = require( 'DOT/Util' );
-  var Bounds2 = require( 'DOT/Bounds2' );
 
   // constants
   var PLUS_MINUS_SPACING = 6;

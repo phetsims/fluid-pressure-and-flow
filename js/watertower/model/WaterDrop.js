@@ -9,9 +9,9 @@ define( function( require ) {
 
   // modules
   var fluidPressureAndFlow = require( 'FLUID_PRESSURE_AND_FLOW/fluidPressureAndFlow' );
+  var inherit = require( 'PHET_CORE/inherit' );
   var PropertySet = require( 'AXON/PropertySet' );
   var Util = require( 'DOT/Util' );
-  var inherit = require( 'PHET_CORE/inherit' );
 
   // constants
   var Constants = require( 'FLUID_PRESSURE_AND_FLOW/common/Constants' );

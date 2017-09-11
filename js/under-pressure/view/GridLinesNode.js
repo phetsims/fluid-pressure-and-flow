@@ -11,8 +11,8 @@ define( function( require ) {
   // modules
   var fluidPressureAndFlow = require( 'FLUID_PRESSURE_AND_FLOW/fluidPressureAndFlow' );
   var inherit = require( 'PHET_CORE/inherit' );
-  var Node = require( 'SCENERY/nodes/Node' );
   var Line = require( 'SCENERY/nodes/Line' );
+  var Node = require( 'SCENERY/nodes/Node' );
   var Units = require( 'FLUID_PRESSURE_AND_FLOW/common/model/Units' );
 
   /**
