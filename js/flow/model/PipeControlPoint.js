@@ -21,7 +21,9 @@ define( function( require ) {
    * @constructor
    */
   function PipeControlPoint( x, y ) {
+
     this.positionProperty = new Property( new Vector2( x, y ) );
+    Property.preventGetSet( this, 'position' );
   }
 
   fluidPressureAndFlow.register( 'PipeControlPoint', PipeControlPoint );

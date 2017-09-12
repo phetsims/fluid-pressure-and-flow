@@ -28,6 +28,8 @@ define( function( require ) {
     // @public {Property.<number>} in meters. The flux meter can be dragged horizontally across the pipe
     this.xPositionProperty = new Property( -6.5 );
 
+    Property.preventGetSet( this, 'xPosition' );
+
     Events.call( this );
   }
 

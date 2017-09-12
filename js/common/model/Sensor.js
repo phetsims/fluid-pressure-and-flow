@@ -27,6 +27,9 @@ define( function( require ) {
     // @public (Object}
     this.valueProperty = new Property( value );
 
+    Property.preventGetSet( this, 'position' );
+    Property.preventGetSet( this, 'value' );
+
     Events.call( this );// TODO: Use Emitters
   }
 
