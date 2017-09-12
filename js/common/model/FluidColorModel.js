@@ -48,7 +48,6 @@ define( function( require ) {
 
     // @public (read-only)
     this.colorProperty = new Property( WATER_COLOR );
-    Property.preventGetSet( this, 'color' );
 
     // For low density values, vary between gasoline and water.
     // For high density values vary between water and honey.
