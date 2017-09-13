@@ -15,7 +15,6 @@ define( function( require ) {
   var fluidPressureAndFlow = require( 'FLUID_PRESSURE_AND_FLOW/fluidPressureAndFlow' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Property = require( 'AXON/Property' );
-  var PropertySet = require( 'AXON/PropertySet' );
   var Vector2 = require( 'DOT/Vector2' );
 
   // constants
@@ -47,9 +46,8 @@ define( function( require ) {
     this.positionProperty = new Property( new Vector2( x, y ) );
     Property.preventGetSet( this, 'position' );
 
-    PropertySet.call( this, {
-      isDragging: false
-    } );
+    this.isDraggingProperty = new Property( false );
+    Property.preventGetSet( this, 'isDragging' );
 
     this.isFalling = false; // @private
     this.velocity = 0; // @private
@@ -80,7 +78,7 @@ define( function( require ) {
 
   fluidPressureAndFlow.register( 'MassModel', MassModel );
 
-  return inherit( PropertySet, MassModel, {
+  return inherit( Object, MassModel, {
 
     // @public
     step: function( dt ) {
@@ -109,7 +107,7 @@ define( function( require ) {
           this.positionProperty.notifyListenersStatic();
         }
       }
-      else if ( this.isFalling && !this.isDragging ) {
+      else if ( this.isFalling && !this.isDraggingProperty.value ) {
         acceleration = -this.chamberPoolModel.underPressureModel.gravity;
         this.velocity = this.velocity + acceleration * dt;
         if ( Math.abs( this.velocity ) > epsilonVelocity ) {
@@ -150,6 +148,15 @@ define( function( require ) {
     // @private - If the user drops the mass underground or above a pool opening, it will teleport back to its initial location.
     cannotFall: function() {
       return this.positionProperty.value.y < this.chamberPoolModel.maxY - this.height / 2 || this.isMassOverOpening();
+    },
+
+    /**
+     * Restore the initial conditions
+     * @public
+     */
+    reset: function() {
+      this.positionProperty.reset();
+      this.isDraggingProperty.reset();
     },
 
     // @private - checks if the mass is over the left or the right opening

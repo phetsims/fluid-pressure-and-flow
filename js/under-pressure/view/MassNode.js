@@ -72,11 +72,11 @@ define( function( require ) {
         massClickOffset.x = self.globalToParentPoint( event.pointer.point ).x - event.currentTarget.x;
         massClickOffset.y = self.globalToParentPoint( event.pointer.point ).y - event.currentTarget.y;
         self.moveToFront();
-        massModel.isDragging = true;
+        massModel.isDraggingProperty.value = true;
       },
       end: function() {
         massModel.positionProperty.value = modelViewTransform.viewToModelPosition( self.translation );
-        massModel.isDragging = false;
+        massModel.isDraggingProperty.value = false;
       },
       //Translate on drag events
       drag: function( event ) {

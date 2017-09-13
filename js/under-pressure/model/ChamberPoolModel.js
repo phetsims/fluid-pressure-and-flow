@@ -17,7 +17,6 @@ define( function( require ) {
   var MassModel = require( 'FLUID_PRESSURE_AND_FLOW/under-pressure/model/MassModel' );
   var ObservableArray = require( 'AXON/ObservableArray' );
   var Property = require( 'AXON/Property' );
-  var PropertySet = require( 'AXON/PropertySet' );
 
   // constants
   // empirically determined to match the visual appearance from design document
@@ -153,7 +152,7 @@ define( function( require ) {
 
   fluidPressureAndFlow.register( 'ChamberPoolModel', ChamberPoolModel );
 
-  return inherit( PropertySet, ChamberPoolModel, {
+  return inherit( Object, ChamberPoolModel, {
 
     // @public
     reset: function() {
