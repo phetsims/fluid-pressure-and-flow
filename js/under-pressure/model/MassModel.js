@@ -89,7 +89,7 @@ define( function( require ) {
       if ( this.chamberPoolModel.stack.contains( this ) ) {
 
         //use newton’s laws to equalize pressure/force at interface
-        var m = this.chamberPoolModel.stackMass;
+        var m = this.chamberPoolModel.stackMassProperty.value;
         var rho = this.chamberPoolModel.underPressureModel.fluidDensity;
         var g = this.chamberPoolModel.underPressureModel.gravity;
 

@@ -58,11 +58,10 @@ define( function( require ) {
 
     var self = this;
     this.leftDisplacementProperty = new Property( 0 ); //displacement from default height
-    PropertySet.call( this, {
-      // @public
-      stackMass: 0
-    } );
+    this.stackMassProperty = new Property( 0 );
+    PropertySet.call( this, {} );
     Property.preventGetSet( this, 'leftDisplacement' );
+    Property.preventGetSet( this, 'stackMass' );
 
     this.underPressureModel = underPressureModel;
 
@@ -126,7 +125,7 @@ define( function( require ) {
 
     //When an item is added to the stack, update the total mass and equalize the mass velocities
     this.stack.addItemAddedListener( function( massModel ) {
-      self.stackMass = self.stackMass + massModel.mass;
+      self.stackMassProperty.value = self.stackMassProperty.value + massModel.mass;
 
       var maxVelocity = 0;
       //must equalize velocity of each mass
@@ -140,7 +139,7 @@ define( function( require ) {
 
     //When an item is removed from the stack, update the total mass.
     this.stack.addItemRemovedListener( function( massModel ) {
-      self.stackMass = self.stackMass - massModel.mass;
+      self.stackMassProperty.value = self.stackMassProperty.value - massModel.mass;
     } );
 
     this.leftDisplacementProperty.link( function() {
@@ -190,9 +189,8 @@ define( function( require ) {
         }
       } );
 
-
       // If there are any masses stacked, update the water height
-      if ( this.stackMass ) {
+      if ( this.stackMassProperty.value ) {
         var minY = 0; // some max value
         this.stack.forEach( function( massModel ) {
           minY = Math.min( massModel.position.y - massModel.height / 2, minY );
