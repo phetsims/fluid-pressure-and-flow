@@ -16,6 +16,7 @@ define( function( require ) {
   var inherit = require( 'PHET_CORE/inherit' );
   var MassModel = require( 'FLUID_PRESSURE_AND_FLOW/under-pressure/model/MassModel' );
   var ObservableArray = require( 'AXON/ObservableArray' );
+  var Property = require( 'AXON/Property' );
   var PropertySet = require( 'AXON/PropertySet' );
 
   // constants
@@ -49,7 +50,6 @@ define( function( require ) {
   //The entire apparatus is this tall
   var MAX_HEIGHT = Constants.MAX_POOL_HEIGHT; // meters
 
-
   /**
    * @param {UnderPressureModel} underPressureModel -- model for the sim.
    * @constructor
@@ -57,11 +57,12 @@ define( function( require ) {
   function ChamberPoolModel( underPressureModel ) {
 
     var self = this;
+    this.leftDisplacementProperty = new Property( 0 ); //displacement from default height
     PropertySet.call( this, {
       // @public
-      leftDisplacement: 0, //displacement from default height
       stackMass: 0
     } );
+    Property.preventGetSet( this, 'leftDisplacement' );
 
     this.underPressureModel = underPressureModel;
 
@@ -159,6 +160,7 @@ define( function( require ) {
     // @public
     reset: function() {
       this.stack.clear();
+      this.leftDisplacementProperty.reset();
       this.masses.forEach( function( mass ) {
         mass.reset();
       } );
@@ -183,7 +185,7 @@ define( function( require ) {
             mass.step( dt / steps );
           }
         }
-        else{
+        else {
           mass.step( dt );
         }
       } );
@@ -195,16 +197,16 @@ define( function( require ) {
         this.stack.forEach( function( massModel ) {
           minY = Math.min( massModel.position.y - massModel.height / 2, minY );
         } );
-        this.leftDisplacement = Math.max( this.poolDimensions.leftOpening.y2 + this.leftWaterHeight - minY, 0 );
+        this.leftDisplacementProperty.value = Math.max( this.poolDimensions.leftOpening.y2 + this.leftWaterHeight - minY, 0 );
       }
       else {
         //no masses, water must get to equilibrium
         //move back toward zero displacement.  Note, this does not use correct newtonian dynamics, just a simple heuristic
-        if ( this.leftDisplacement >= 0 ) {
-          this.leftDisplacement -= this.leftDisplacement / 10;
+        if ( this.leftDisplacementProperty.value >= 0 ) {
+          this.leftDisplacementProperty.value -= this.leftDisplacementProperty.value / 10;
         }
         else {
-          this.leftDisplacement = 0;
+          this.leftDisplacementProperty.value = 0;
         }
       }
     },
@@ -218,11 +220,11 @@ define( function( require ) {
      */
     getWaterHeightAboveY: function( x, y ) {
       if ( this.poolDimensions.leftOpening.x1 < x && x < this.poolDimensions.leftOpening.x2 &&
-           y > this.poolDimensions.leftChamber.y2 + DEFAULT_HEIGHT - this.leftDisplacement ) {
+           y > this.poolDimensions.leftChamber.y2 + DEFAULT_HEIGHT - this.leftDisplacementProperty.value ) {
         return 0;
       }
       else {
-        return this.poolDimensions.leftChamber.y2 + DEFAULT_HEIGHT + this.leftDisplacement / this.lengthRatio - y;
+        return this.poolDimensions.leftChamber.y2 + DEFAULT_HEIGHT + this.leftDisplacementProperty.value / this.lengthRatio - y;
       }
     },
 

@@ -87,7 +87,7 @@ define( function( require ) {
       chamberPoolModel.stack.forEach( function( massModel ) {
         massModel.position = new Vector2( chamberPoolModel.poolDimensions.leftOpening.x1 + massModel.width / 2,
           chamberPoolModel.poolDimensions.leftOpening.y2 + chamberPoolModel.leftWaterHeight -
-          chamberPoolModel.leftDisplacement + dy + massModel.height / 2 );
+          chamberPoolModel.leftDisplacementProperty.value + dy + massModel.height / 2 );
         dy += massModel.height;
       } );
     },
