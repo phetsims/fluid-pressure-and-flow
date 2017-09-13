@@ -85,7 +85,7 @@ define( function( require ) {
       var dy = 0;
       var chamberPoolModel = this.chamberPoolModel;
       chamberPoolModel.stack.forEach( function( massModel ) {
-        massModel.position = new Vector2( chamberPoolModel.poolDimensions.leftOpening.x1 + massModel.width / 2,
+        massModel.positionProperty.value = new Vector2( chamberPoolModel.poolDimensions.leftOpening.x1 + massModel.width / 2,
           chamberPoolModel.poolDimensions.leftOpening.y2 + chamberPoolModel.leftWaterHeight -
           chamberPoolModel.leftDisplacementProperty.value + dy + massModel.height / 2 );
         dy += massModel.height;

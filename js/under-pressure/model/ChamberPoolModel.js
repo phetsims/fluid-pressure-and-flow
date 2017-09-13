@@ -193,7 +193,7 @@ define( function( require ) {
       if ( this.stackMassProperty.value ) {
         var minY = 0; // some max value
         this.stack.forEach( function( massModel ) {
-          minY = Math.min( massModel.position.y - massModel.height / 2, minY );
+          minY = Math.min( massModel.positionProperty.value.y - massModel.height / 2, minY );
         } );
         this.leftDisplacementProperty.value = Math.max( this.poolDimensions.leftOpening.y2 + this.leftWaterHeight - minY, 0 );
       }

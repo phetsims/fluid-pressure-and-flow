@@ -14,6 +14,7 @@ define( function( require ) {
   var Bounds2 = require( 'DOT/Bounds2' );
   var fluidPressureAndFlow = require( 'FLUID_PRESSURE_AND_FLOW/fluidPressureAndFlow' );
   var inherit = require( 'PHET_CORE/inherit' );
+  var Property = require( 'AXON/Property' );
   var PropertySet = require( 'AXON/PropertySet' );
   var Vector2 = require( 'DOT/Vector2' );
 
@@ -41,10 +42,12 @@ define( function( require ) {
     this.width = width; // @public
     this.height = height; // @public
 
+    // @public
+    // The position is the center of the block.
+    this.positionProperty = new Property( new Vector2( x, y ) );
+    Property.preventGetSet( this, 'position' );
+
     PropertySet.call( this, {
-      // @public
-      // The position is the center of the block.
-      position: new Vector2( x, y ),
       isDragging: false
     } );
 
@@ -102,7 +105,7 @@ define( function( require ) {
         acceleration = force / m;
         this.velocity = (this.velocity + acceleration * dt) * frictionCoefficient;
         if ( Math.abs( this.velocity ) > epsilonVelocity ) {
-          this.position.y += this.velocity * dt;
+          this.positionProperty.value.y += this.velocity * dt;
           this.positionProperty.notifyListenersStatic();
         }
       }
@@ -110,11 +113,11 @@ define( function( require ) {
         acceleration = -this.chamberPoolModel.underPressureModel.gravity;
         this.velocity = this.velocity + acceleration * dt;
         if ( Math.abs( this.velocity ) > epsilonVelocity ) {
-          this.position.y += this.velocity * dt;
+          this.positionProperty.value.y += this.velocity * dt;
 
           // If it landed, then stop the block.
-          if ( this.position.y < this.chamberPoolModel.maxY + this.height / 2 ) {
-            this.position.y = this.chamberPoolModel.maxY + this.height / 2;
+          if ( this.positionProperty.value.y < this.chamberPoolModel.maxY + this.height / 2 ) {
+            this.positionProperty.value.y = this.chamberPoolModel.maxY + this.height / 2;
             this.isFalling = false;
             this.velocity = 0;
           }
@@ -129,10 +132,10 @@ define( function( require ) {
                       this.chamberPoolModel.leftDisplacementProperty.value;
       var bottomLine = waterLine + this.chamberPoolModel.stack.reduce( 0, function( a, b ) {return a + b.height;} );
       var massBounds = new Bounds2(
-        this.position.x - this.width / 2,
-        this.position.y - this.height / 2,
-        this.position.x + this.width,
-        this.position.y + this.height
+        this.positionProperty.value.x - this.width / 2,
+        this.positionProperty.value.y - this.height / 2,
+        this.positionProperty.value.x + this.width,
+        this.positionProperty.value.y + this.height
       );
 
       var dropAreaBounds = new Bounds2(
@@ -146,13 +149,13 @@ define( function( require ) {
 
     // @private - If the user drops the mass underground or above a pool opening, it will teleport back to its initial location.
     cannotFall: function() {
-      return this.position.y < this.chamberPoolModel.maxY - this.height / 2 || this.isMassOverOpening();
+      return this.positionProperty.value.y < this.chamberPoolModel.maxY - this.height / 2 || this.isMassOverOpening();
     },
 
     // @private - checks if the mass is over the left or the right opening
     isMassOverOpening: function() {
-      var left = this.position.x;
-      var right = this.position.x + this.width / 2;
+      var left = this.positionProperty.value.x;
+      var right = this.positionProperty.value.x + this.width / 2;
       var dimensions = this.chamberPoolModel.poolDimensions;
       return ( dimensions.leftOpening.x1 < left && left < dimensions.leftOpening.x2 ) ||
              ( dimensions.leftOpening.x1 < right && right < dimensions.leftOpening.x2 ) ||

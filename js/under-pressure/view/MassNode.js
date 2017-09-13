@@ -75,7 +75,7 @@ define( function( require ) {
         massModel.isDragging = true;
       },
       end: function() {
-        massModel.position = modelViewTransform.viewToModelPosition( self.translation );
+        massModel.positionProperty.value = modelViewTransform.viewToModelPosition( self.translation );
         massModel.isDragging = false;
       },
       //Translate on drag events
