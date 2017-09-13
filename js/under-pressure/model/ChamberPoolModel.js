@@ -59,7 +59,6 @@ define( function( require ) {
     var self = this;
     this.leftDisplacementProperty = new Property( 0 ); //displacement from default height
     this.stackMassProperty = new Property( 0 );
-    PropertySet.call( this, {} );
     Property.preventGetSet( this, 'leftDisplacement' );
     Property.preventGetSet( this, 'stackMass' );
 
@@ -160,6 +159,7 @@ define( function( require ) {
     reset: function() {
       this.stack.clear();
       this.leftDisplacementProperty.reset();
+      this.stackMassProperty.reset();
       this.masses.forEach( function( mass ) {
         mass.reset();
       } );
