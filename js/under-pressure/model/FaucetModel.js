@@ -36,7 +36,6 @@ define( function( require ) {
     // @public
     this.enabledProperty = new Property( true );
     Property.preventGetSet( this, 'enabled' );
-    PropertySet.call( this, {} );
 
     // when disabled, turn off the faucet.
     this.enabledProperty.onValue( false, function() {
