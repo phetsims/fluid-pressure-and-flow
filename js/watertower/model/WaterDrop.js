@@ -12,7 +12,6 @@ define( function( require ) {
   var fluidPressureAndFlow = require( 'FLUID_PRESSURE_AND_FLOW/fluidPressureAndFlow' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Property = require( 'AXON/Property' );
-  var PropertySet = require( 'AXON/PropertySet' );
   var Util = require( 'DOT/Util' );
 
   // constants
@@ -46,7 +45,7 @@ define( function( require ) {
 
   fluidPressureAndFlow.register( 'WaterDrop', WaterDrop );
 
-  return inherit( PropertySet, WaterDrop, {
+  return inherit( Object, WaterDrop, {
     step: function( dt ) {
 
       //Math is done component-wise to avoid too many allocations, see https://github.com/phetsims/fluid-pressure-and-flow/issues/46
