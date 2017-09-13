@@ -275,14 +275,14 @@ define( function( require ) {
         }
 
         // check if the faucetDrops hit the fluidLevel
-        if ( this.faucetDrops.get( i ).position.y < this.waterTower.tankPosition.y +
-                                                    ((this.waterTower.fluidLevel > this.faucetDrops.get( i ).radius) ?
-                                                    this.waterTower.fluidLevel + this.faucetDrops.get( i ).radius :
-                                                    0.3 + this.faucetDrops.get( i ).radius) ) {
+        if ( this.faucetDrops.get( i ).positionProperty.value.y < this.waterTower.tankPosition.y +
+                                                                  ((this.waterTower.fluidLevel > this.faucetDrops.get( i ).radius) ?
+                                                                  this.waterTower.fluidLevel + this.faucetDrops.get( i ).radius :
+                                                                  0.3 + this.faucetDrops.get( i ).radius) ) {
           this.dropsToRemove.push( this.faucetDrops.get( i ) );
 
           if ( this.waterTower.fluidVolume < this.waterTower.TANK_VOLUME ) {
-            this.waterTower.fluidVolume = this.waterTower.fluidVolume + this.faucetDrops.get( i ).volume;
+            this.waterTower.fluidVolume = this.waterTower.fluidVolume + this.faucetDrops.get( i ).volumeProperty.value;
           }
 
           if ( this.waterTower.fluidVolume > this.waterTower.TANK_VOLUME ) {
@@ -314,7 +314,7 @@ define( function( require ) {
         }
 
         //remove them as soon as they go below the ground
-        if ( this.waterTowerDrops.get( i ).position.y < 0 ) {
+        if ( this.waterTowerDrops.get( i ).positionProperty.value.y < 0 ) {
           this.dropsToRemove.push( this.waterTowerDrops.get( i ) );
         }
       }
@@ -332,7 +332,7 @@ define( function( require ) {
           this.hoseDrops.get( i ).step( dt );
         }
         //remove them as soon as they hit the ground
-        if ( this.hoseDrops.get( i ).position.y < 0 ) {
+        if ( this.hoseDrops.get( i ).positionProperty.value.y < 0 ) {
           this.dropsToRemove.push( this.hoseDrops.get( i ) );
         }
       }
@@ -375,14 +375,14 @@ define( function( require ) {
 
       for ( var i = 0, j = waterDrops.length; i < j; i++ ) {
         if ( waterDrops.get( i ).contains( new Vector2( x, y ) ) ) {
-          return waterDrops.get( i ).velocity;
+          return waterDrops.get( i ).velocityProperty.value;
         }
       }
 
       waterDrops = this.hoseDrops;
       for ( i = 0, j = waterDrops.length; i < j; i++ ) {
         if ( waterDrops.get( i ).contains( new Vector2( x, y ) ) ) {
-          return waterDrops.get( i ).velocity;
+          return waterDrops.get( i ).velocityProperty.value;
         }
       }
 

@@ -49,11 +49,9 @@ define( function( require ) {
       for ( var i = 0; i < this.waterDrops.length; i++ ) {
         drop = this.waterDrops.get( i );
         context.beginPath();
-        context.arc( this.modelViewTransform.modelToViewX( drop.position.x ), this.modelViewTransform.modelToViewY( drop.position.y ), this.modelViewTransform.modelToViewDeltaX( drop.radius ), 0, 2 * Math.PI, true );
+        context.arc( this.modelViewTransform.modelToViewX( drop.positionProperty.value.x ), this.modelViewTransform.modelToViewY( drop.positionProperty.value.y ), this.modelViewTransform.modelToViewDeltaX( drop.radiusProperty.value ), 0, 2 * Math.PI, true );
         context.fill();
       }
-
-
     },
 
     step: function( dt ) {

@@ -8,8 +8,10 @@ define( function( require ) {
   'use strict';
 
   // modules
+  var DerivedProperty = require( 'AXON/DerivedProperty' );
   var fluidPressureAndFlow = require( 'FLUID_PRESSURE_AND_FLOW/fluidPressureAndFlow' );
   var inherit = require( 'PHET_CORE/inherit' );
+  var Property = require( 'AXON/Property' );
   var PropertySet = require( 'AXON/PropertySet' );
   var Util = require( 'DOT/Util' );
 
@@ -24,17 +26,20 @@ define( function( require ) {
    */
   function WaterDrop( position, velocity, volume ) {
 
-    PropertySet.call( this, {
-      position: position,
-      velocity: velocity,
-      volume: volume
-    } );
+    this.positionProperty = new Property( position );
+    Property.preventGetSet( this, 'position' );
+
+    this.velocityProperty = new Property( velocity );
+    Property.preventGetSet( this, 'velocity' );
+
+    this.volumeProperty = new Property( volume );
+    Property.preventGetSet( this, 'volume' );
 
     // node holds a reference to the waterdrop node. This is used to remove the view element when the water drop is no longer necessary.
     // This is a shortcut to prevent having removal listeners for individual drops.
     this.node = null;
 
-    this.addDerivedProperty( 'radius', [ 'volume' ], function( volume ) {
+    this.radiusProperty = new DerivedProperty( [ this.volumeProperty ], function( volume ) {
       return Util.cubeRoot( (3 * volume) / (4 * Math.PI) );
     } );
   }
@@ -48,17 +53,17 @@ define( function( require ) {
       // v_f = v_i + a * dt
       var accelerationY = -Constants.EARTH_GRAVITY;
 
-      var initialVelocityX = this.velocity.x;
-      var initialVelocityY = this.velocity.y;
+      var initialVelocityX = this.velocityProperty.value.x;
+      var initialVelocityY = this.velocityProperty.value.y;
 
-      this.velocity.setY( this.velocity.y + accelerationY * dt );
+      this.velocityProperty.value.setY( this.velocityProperty.value.y + accelerationY * dt );
       this.velocityProperty._notifyListeners();
 
       // d = (v_f + v_i) * dt/2; assuming constant acceleration
-      var displacementX = (this.velocity.x + initialVelocityX) * dt / 2;
-      var displacementY = (this.velocity.y + initialVelocityY) * dt / 2;
+      var displacementX = (this.velocityProperty.value.x + initialVelocityX) * dt / 2;
+      var displacementY = (this.velocityProperty.value.y + initialVelocityY) * dt / 2;
 
-      this.position.setXY( this.position.x + displacementX, this.position.y + displacementY );
+      this.positionProperty.value.setXY( this.positionProperty.value.x + displacementX, this.positionProperty.value.y + displacementY );
       this.positionProperty._notifyListeners();
     },
 
@@ -67,7 +72,7 @@ define( function( require ) {
      * @param {Vector2} point
      */
     contains: function( point ) {
-      return point.distanceXY( this.position.x, this.position.y ) < this.radius;
+      return point.distanceXY( this.positionProperty.value.x, this.positionProperty.value.y ) < this.radius;
     }
   } );
 } );
