@@ -148,8 +148,8 @@ define( function( require ) {
 
       //add the fluid pressure if the point is inside the fluid in the tank
       if ( this.isPointInWater( x, y ) ) {
-        pressure = getStandardAirPressure( this.waterTower.tankPosition.y + this.waterTower.fluidLevel ) +
-                   this.getFluidPressure( this.waterTower.tankPosition.y + this.waterTower.fluidLevel - y );
+        pressure = getStandardAirPressure( this.waterTower.tankPositionProperty.value.y + this.waterTower.fluidLevelProperty.value ) +
+                   this.getFluidPressure( this.waterTower.tankPositionProperty.value.y + this.waterTower.fluidLevelProperty.value - y );
       }
 
       return pressure;
@@ -160,9 +160,9 @@ define( function( require ) {
     },
 
     isPointInWater: function( x, y ) {
-      return (x > this.waterTower.tankPosition.x &&
-              x < this.waterTower.tankPosition.x + 2 * this.waterTower.TANK_RADIUS &&
-              y > this.waterTower.tankPosition.y && y < this.waterTower.tankPosition.y + this.waterTower.fluidLevel);
+      return (x > this.waterTower.tankPositionProperty.value.x &&
+              x < this.waterTower.tankPositionProperty.value.x + 2 * this.waterTower.TANK_RADIUS &&
+              y > this.waterTower.tankPositionProperty.value.y && y < this.waterTower.tankPositionProperty.value.y + this.waterTower.fluidLevelProperty.value);
     },
 
     // Called by the animation loop.
@@ -198,7 +198,7 @@ define( function( require ) {
       while ( this.accumulatedDt > 0.016 ) {
         this.accumulatedDt -= 0.016;
         if ( (this.faucetMode === 'manual' && this.isFaucetEnabled && this.faucetFlowRate > 0) ||
-             (this.faucetMode === 'matchLeakage' && this.isSluiceOpen && this.waterTower.fluidVolume > 0) ) {
+             (this.faucetMode === 'matchLeakage' && this.isSluiceOpen && this.waterTower.fluidVolumeProperty.value > 0) ) {
           newFaucetDrop = new WaterDrop( this.faucetPosition.copy().plus( new Vector2( Math.random() * 0.2 - 0.1,
             1.5 ) ), new Vector2( 0, 0 ),
             this.faucetMode === 'manual' ? this.faucetFlowRate * 0.016 : this.leakageVolume );
@@ -209,20 +209,20 @@ define( function( require ) {
 
         // Add watertower drops if the tank is open and there is enough fluid in the tank to be visible on the tower
         // Note: If fluid volume is very low (the fluid level is less than 1px height) then sometimes it doesn't show on the tower, but is visible with a magnifier
-        if ( this.isSluiceOpen && this.waterTower.fluidVolume > 0 && !this.isHoseVisible ) {
+        if ( this.isSluiceOpen && this.waterTower.fluidVolumeProperty.value > 0 && !this.isHoseVisible ) {
 
-          this.velocityMagnitude = Math.sqrt( 2 * Constants.EARTH_GRAVITY * this.waterTower.fluidLevel );
+          this.velocityMagnitude = Math.sqrt( 2 * Constants.EARTH_GRAVITY * this.waterTower.fluidLevelProperty.value );
 
           waterVolumeExpelled = this.velocityMagnitude * 2.8 * 0.016;
 
-          remainingVolume = this.waterTower.fluidVolume;
+          remainingVolume = this.waterTower.fluidVolumeProperty.value;
           this.leakageVolume = remainingVolume > waterVolumeExpelled ? waterVolumeExpelled : remainingVolume;
           var dropVolume = this.leakageVolume;
           var radius = Util.cubeRoot( (3 * this.leakageVolume) / (4 * Math.PI) );
 
           // when the fluid level is less than the sluice hole, ensure that the water drops are not bigger than the fluid level
-          if ( this.waterTower.fluidLevel < this.waterTower.HOLE_SIZE && radius > this.waterTower.fluidLevel / 2 ) {
-            radius = this.waterTower.fluidLevel / 2;
+          if ( this.waterTower.fluidLevelProperty.value < this.waterTower.HOLE_SIZE && radius > this.waterTower.fluidLevelProperty.value / 2 ) {
+            radius = this.waterTower.fluidLevelProperty.value / 2;
             // ensure a minimum radius so that the water drop is visible on the screen
             if ( radius < 0.1 ) {
               radius = 0.1;
@@ -230,29 +230,29 @@ define( function( require ) {
             dropVolume = 4 * Math.PI * radius * radius * radius / 3;
           }
 
-          newWaterDrop = new WaterDrop( this.waterTower.tankPosition.plus( new Vector2( 2 * this.waterTower.TANK_RADIUS,
+          newWaterDrop = new WaterDrop( this.waterTower.tankPositionProperty.value.plus( new Vector2( 2 * this.waterTower.TANK_RADIUS,
             0.25 + radius ) ), new Vector2( this.velocityMagnitude, 0 ), dropVolume );
           this.waterTowerDrops.push( newWaterDrop );
           newWaterDrop.step( this.accumulatedDt );
           this.newWaterTowerDrops.push( newWaterDrop );
 
-          this.waterTower.fluidVolume = this.waterTower.fluidVolume - this.leakageVolume;
+          this.waterTower.fluidVolumeProperty.value = this.waterTower.fluidVolumeProperty.value - this.leakageVolume;
 
         }
 
         // Add hose drops if the tank is open and there is fluid in the tank to be visible on the tower and the hose is visible
         // Note: If fluid volume is very low (the fluid level is less than 1px height) then sometimes it doesn't show on the tower, but is visible with a magnifier
-        if ( this.isSluiceOpen && this.waterTower.fluidVolume > 0 && this.isHoseVisible ) {
+        if ( this.isSluiceOpen && this.waterTower.fluidVolumeProperty.value > 0 && this.isHoseVisible ) {
           this.leakageVolume = 0;
-          var y = this.hose.rotationPivotY + this.waterTower.tankPosition.y + 0.1;
-          if ( y < this.waterTower.fluidLevel + this.waterTower.tankPosition.y ) {
+          var y = this.hose.rotationPivotY + this.waterTower.tankPositionProperty.value.y + 0.1;
+          if ( y < this.waterTower.fluidLevelProperty.value + this.waterTower.tankPositionProperty.value.y ) {
             this.velocityMagnitude = Math.sqrt( 2 * Constants.EARTH_GRAVITY *
-                                                (this.waterTower.tankPosition.y + this.waterTower.fluidLevel - y) );
+                                                (this.waterTower.tankPositionProperty.value.y + this.waterTower.fluidLevelProperty.value - y) );
             waterVolumeExpelled = this.velocityMagnitude * 2.8 * 0.016;
-            remainingVolume = this.waterTower.fluidVolume;
+            remainingVolume = this.waterTower.fluidVolumeProperty.value;
             this.leakageVolume = remainingVolume > waterVolumeExpelled ? waterVolumeExpelled : remainingVolume;
 
-            newHoseDrop = new WaterDrop( new Vector2( this.hose.rotationPivotX + this.waterTower.tankPosition.x +
+            newHoseDrop = new WaterDrop( new Vector2( this.hose.rotationPivotX + this.waterTower.tankPositionProperty.value.x +
                                                       2 * this.waterTower.TANK_RADIUS - 0.1 + Math.random() * 0.2 - 0.1,
                 y + Math.random() * 0.2 - 0.1 ),
               new Vector2( this.velocityMagnitude * Math.cos( this.hose.angleProperty.value ),
@@ -261,7 +261,7 @@ define( function( require ) {
             this.hoseDrops.push( newHoseDrop );
             newHoseDrop.step( this.accumulatedDt );
             this.newHoseDrops.push( newHoseDrop );
-            this.waterTower.fluidVolume = this.waterTower.fluidVolume - this.leakageVolume;
+            this.waterTower.fluidVolumeProperty.value = this.waterTower.fluidVolumeProperty.value - this.leakageVolume;
 
           }
         }
@@ -275,25 +275,25 @@ define( function( require ) {
         }
 
         // check if the faucetDrops hit the fluidLevel
-        if ( this.faucetDrops.get( i ).positionProperty.value.y < this.waterTower.tankPosition.y +
-                                                                  ((this.waterTower.fluidLevel > this.faucetDrops.get( i ).radius) ?
-                                                                  this.waterTower.fluidLevel + this.faucetDrops.get( i ).radius :
+        if ( this.faucetDrops.get( i ).positionProperty.value.y < this.waterTower.tankPositionProperty.value.y +
+                                                                  ((this.waterTower.fluidLevelProperty.value > this.faucetDrops.get( i ).radius) ?
+                                                                  this.waterTower.fluidLevelProperty.value + this.faucetDrops.get( i ).radius :
                                                                   0.3 + this.faucetDrops.get( i ).radius) ) {
           this.dropsToRemove.push( this.faucetDrops.get( i ) );
 
-          if ( this.waterTower.fluidVolume < this.waterTower.TANK_VOLUME ) {
-            this.waterTower.fluidVolume = this.waterTower.fluidVolume + this.faucetDrops.get( i ).volumeProperty.value;
+          if ( this.waterTower.fluidVolumeProperty.value < this.waterTower.TANK_VOLUME ) {
+            this.waterTower.fluidVolumeProperty.value = this.waterTower.fluidVolumeProperty.value + this.faucetDrops.get( i ).volumeProperty.value;
           }
 
-          if ( this.waterTower.fluidVolume > this.waterTower.TANK_VOLUME ) {
-            this.waterTower.fluidVolume = this.waterTower.TANK_VOLUME;
+          if ( this.waterTower.fluidVolumeProperty.value > this.waterTower.TANK_VOLUME ) {
+            this.waterTower.fluidVolumeProperty.value = this.waterTower.TANK_VOLUME;
           }
         }
       }
 
       // Update the value only when it is less than 1. We are only interested in the 1 sec boundary.
       // Otherwise it will trigger too many updates.
-      if ( this.waterTower.fluidVolume >= 0.995 * this.waterTower.TANK_VOLUME ) {
+      if ( this.waterTower.fluidVolumeProperty.value >= 0.995 * this.waterTower.TANK_VOLUME ) {
         if ( this.tankFullLevelDuration < 0.2 ) {
           this.tankFullLevelDuration += dt;
         }

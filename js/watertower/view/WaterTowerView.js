@@ -311,7 +311,7 @@ define( function( require ) {
 
     // Handles the case when switching from play to pause or viceversa
     waterTowerModel.isPlayingProperty.link( function( isPlaying ) {
-      if ( waterTowerModel.waterTower.fluidVolume >= waterTowerModel.waterTower.TANK_VOLUME ) {
+      if ( waterTowerModel.waterTower.fluidVolumeProperty.value >= waterTowerModel.waterTower.TANK_VOLUME ) {
         waterTowerModel.tankFullLevelDuration = 1;
         if ( !isPlaying ) {
           // disable the fill button if the tank is full and switching from play to pause

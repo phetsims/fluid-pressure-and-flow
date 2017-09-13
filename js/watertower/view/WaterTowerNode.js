@@ -73,8 +73,8 @@ define( function( require ) {
     var waterShape = new Shape()
       .moveTo( modelViewTransform.modelToViewX( 0 ), modelViewTransform.modelToViewY( 0 ) )
       .lineTo( modelViewTransform.modelToViewX( 2 * waterTower.TANK_RADIUS ), modelViewTransform.modelToViewY( 0 ) )
-      .lineTo( modelViewTransform.modelToViewX( 2 * waterTower.TANK_RADIUS ), modelViewTransform.modelToViewY( waterTower.fluidLevel ) )
-      .lineTo( modelViewTransform.modelToViewX( 0 ), modelViewTransform.modelToViewY( waterTower.fluidLevel ) ).close();
+      .lineTo( modelViewTransform.modelToViewX( 2 * waterTower.TANK_RADIUS ), modelViewTransform.modelToViewY( waterTower.fluidLevelProperty.value ) )
+      .lineTo( modelViewTransform.modelToViewX( 0 ), modelViewTransform.modelToViewY( waterTower.fluidLevelProperty.value ) ).close();
     this.waterShapeNode = new Path( waterShape, {
       bottom: this.waterTankFrame.bottom - 2,
       fill: fluidColorModel.colorProperty.value
@@ -150,7 +150,7 @@ define( function( require ) {
     handleNode.addInputListener( new SimpleDragHandler( {
       start: function( e ) {
         clickYOffset = self.globalToParentPoint( e.pointer.point ).y;
-        initialY = waterTower.tankPosition.y;
+        initialY = waterTower.tankPositionProperty.value.y;
         initialHeight = hoseNode.hose.heightProperty.value;
       },
       drag: function( e ) {
@@ -159,10 +159,10 @@ define( function( require ) {
         var newY = initialY + deltaY;
         newY = newY > 13 ? 13 : newY < 0 ? 0 : newY;
         deltaY = newY - initialY;
-        self.waterTower.tankPosition = new Vector2( self.waterTower.tankPosition.x, newY );
+        self.waterTower.tankPositionProperty.value = new Vector2( self.waterTower.tankPositionProperty.value.x, newY );
 
         hoseNode.hose.heightProperty.value = initialHeight + deltaY;
-        hoseNode.setY( modelViewTransform.modelToViewY( self.waterTower.tankPosition.y ) - 117 );
+        hoseNode.setY( modelViewTransform.modelToViewY( self.waterTower.tankPositionProperty.value.y ) - 117 );
       }
     } ) );
 
@@ -174,15 +174,15 @@ define( function( require ) {
       var waterShape = new Shape()
         .moveTo( modelViewTransform.modelToViewX( 0 ), modelViewTransform.modelToViewY( 0 ) )
         .lineTo( modelViewTransform.modelToViewX( 2 * waterTower.TANK_RADIUS ), modelViewTransform.modelToViewY( 0 ) )
-        .lineTo( modelViewTransform.modelToViewX( 2 * waterTower.TANK_RADIUS ), modelViewTransform.modelToViewY( waterTower.fluidLevel ) )
-        .lineTo( modelViewTransform.modelToViewX( 0 ), modelViewTransform.modelToViewY( waterTower.fluidLevel ) ).close();
+        .lineTo( modelViewTransform.modelToViewX( 2 * waterTower.TANK_RADIUS ), modelViewTransform.modelToViewY( waterTower.fluidLevelProperty.value ) )
+        .lineTo( modelViewTransform.modelToViewX( 0 ), modelViewTransform.modelToViewY( waterTower.fluidLevelProperty.value ) ).close();
       self.waterShapeNode.setShape( waterShape );
     } );
 
 
     fluidColorModel.colorProperty.linkAttribute( self.waterShapeNode, 'fill' );
 
-    this.setTranslation( modelViewTransform.modelToViewDeltaX( waterTower.tankPosition.x ), -modelViewTransform.modelToViewDeltaY( waterTower.tankPosition.y ) );
+    this.setTranslation( modelViewTransform.modelToViewDeltaX( waterTower.tankPositionProperty.value.x ), -modelViewTransform.modelToViewDeltaY( waterTower.tankPositionProperty.value.y ) );
 
     this.mutate( options );
   }

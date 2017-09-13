@@ -8,9 +8,10 @@ define( function( require ) {
   'use strict';
 
   // modules
+  var DerivedProperty = require( 'AXON/DerivedProperty' );
   var fluidPressureAndFlow = require( 'FLUID_PRESSURE_AND_FLOW/fluidPressureAndFlow' );
   var inherit = require( 'PHET_CORE/inherit' );
-  var PropertySet = require( 'AXON/PropertySet' );
+  var Property = require( 'AXON/Property' );
   var Vector2 = require( 'DOT/Vector2' );
 
   function WaterTower( options ) {
@@ -30,28 +31,40 @@ define( function( require ) {
     // Assume the tank is a cylinder and compute the max volume
     this.TANK_VOLUME = Math.PI * this.TANK_RADIUS * this.TANK_RADIUS * this.TANK_HEIGHT;
 
-    PropertySet.call( this, {
-      isHoleOpen: false,
-      fluidVolume: this.TANK_VOLUME * options.initialFluidLevel,
-      tankPosition: options.tankPosition //water tank bottom left
-    } );
+    this.isHoleOpenProperty = new Property( false ); // TODO: Is this unused?
+    Property.preventGetSet( this, 'isHoleOpen' );
+    this.fluidVolumeProperty = new Property( this.TANK_VOLUME * options.initialFluidLevel );
+    Property.preventGetSet( this, 'fluidVolume' );
+    this.tankPositionProperty = new Property( options.tankPosition ); //water tank bottom left
+    Property.preventGetSet( this, 'tankPosition' );
 
     // Size of the hole in meters
     this.HOLE_SIZE = 1;
-    this.addDerivedProperty( 'fluidLevel', [ 'fluidVolume' ], function( fluidVolume ) {
+    this.fluidLevelProperty = new DerivedProperty( [ this.fluidVolumeProperty ], function( fluidVolume ) {
       return fluidVolume / (Math.PI * self.TANK_RADIUS * self.TANK_RADIUS);
     } );
 
-    this.addDerivedProperty( 'isFull', [ 'fluidVolume' ], function( fluidVolume ) {
+    // TODO: Is this used?
+    this.isFullProperty = new DerivedProperty( [ this.fluidVolumeProperty ], function( fluidVolume ) {
       return fluidVolume >= self.TANK_VOLUME;
     } );
   }
 
   fluidPressureAndFlow.register( 'WaterTower', WaterTower );
 
-  return inherit( PropertySet, WaterTower, {
+  return inherit( Object, WaterTower, {
+
+    /**
+     * Restore to initial conditions.
+     * @public
+     */
+    reset: function() {
+      this.isHoleOpenProperty.reset();
+      this.fluidVolumeProperty.reset();
+      this.tankPositionProperty.reset();
+    },
     fill: function() {
-      this.fluidVolume = this.TANK_VOLUME;
+      this.fluidVolumeProperty.value = this.TANK_VOLUME;
     }
   } );
 } );
