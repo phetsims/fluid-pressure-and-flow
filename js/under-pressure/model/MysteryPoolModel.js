@@ -14,9 +14,7 @@ define( function( require ) {
   var fluidPressureAndFlow = require( 'FLUID_PRESSURE_AND_FLOW/fluidPressureAndFlow' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Property = require( 'AXON/Property' );
-  var PropertySet = require( 'AXON/PropertySet' );
   var SquarePoolModel = require( 'FLUID_PRESSURE_AND_FLOW/under-pressure/model/SquarePoolModel' );
-
 
   /**
    * @param {UnderPressureModel} underPressureModel of the sim.
@@ -95,8 +93,7 @@ define( function( require ) {
     reset: function() {
       this.customFluidDensityProperty.reset();
       this.customGravityProperty.reset();
-      PropertySet.prototype.reset.call( this );
-      PropertySet.prototype.reset.call( this.underPressureModel );
+      SquarePoolModel.prototype.reset.call( this );
     }
   } );
 } );

@@ -36,7 +36,7 @@ define( function( require ) {
     squarePoolModel.underPressureModel.fluidColorModel.colorProperty.linkAttribute( self, 'fill' );
 
     squarePoolModel.volumeProperty.link( function() {
-      viewHeight = maxHeight * squarePoolModel.volume / squarePoolModel.maxVolume;
+      viewHeight = maxHeight * squarePoolModel.volumeProperty.value / squarePoolModel.maxVolume;
       self.setRect( xMin, yMax - viewHeight, viewWidth, viewHeight );
     } );
   }

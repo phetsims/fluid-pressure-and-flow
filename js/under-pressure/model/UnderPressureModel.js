@@ -78,7 +78,7 @@ define( function( require ) {
     } );
 
     this.currentSceneModelProperty.link( function( currentSceneModel ) {
-      self.currentVolume = currentSceneModel.volume;
+      self.currentVolume = currentSceneModel.volumeProperty.value;
     } );
 
   }

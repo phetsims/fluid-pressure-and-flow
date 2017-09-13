@@ -13,7 +13,7 @@ define( function( require ) {
   // modules
   var fluidPressureAndFlow = require( 'FLUID_PRESSURE_AND_FLOW/fluidPressureAndFlow' );
   var inherit = require( 'PHET_CORE/inherit' );
-  var PropertySet = require( 'AXON/PropertySet' );
+  var Property = require( 'AXON/Property' );
 
   /**
    * @param {UnderPressureModel} underPressureModel of the sim.
@@ -24,11 +24,11 @@ define( function( require ) {
    */
   function PoolWithFaucetsModel( underPressureModel, inputFaucet, outputFaucet, maxVolume ) {
 
-    PropertySet.call( this, {
-      // Note: Each scene could have a different volume. If we use currentVolumeProperty from the underPressureModel
-      // instead of this property then volume changes in one scene will reflect in the other.
-      volume: 1.5 //L @public
-    } );
+    // Note: Each scene could have a different volume. If we use currentVolumeProperty from the underPressureModel
+    // instead of this property then volume changes in one scene will reflect in the other.
+    //L @public
+    this.volumeProperty = new Property( 1.5 );
+    Property.preventGetSet( this, 'volume' );
 
     // Enable faucets and dropper based on amount of solution in the beaker.
     this.volumeProperty.link( function( volume ) {
@@ -40,7 +40,15 @@ define( function( require ) {
 
   fluidPressureAndFlow.register( 'PoolWithFaucetsModel', PoolWithFaucetsModel );
 
-  return inherit( PropertySet, PoolWithFaucetsModel, {
+  return inherit( Object, PoolWithFaucetsModel, {
+
+    /**
+     * Restores initial conditions.
+     * @public
+     */
+    reset: function() {
+      this.volumeProperty.reset();
+    },
 
     /**
      * @public
@@ -60,7 +68,7 @@ define( function( require ) {
     addLiquid: function( dt ) {
       var deltaVolume = this.inputFaucet.flowRateProperty.value * dt;
       if ( deltaVolume > 0 ) {
-        this.volume = Math.min( this.maxVolume, this.volume + deltaVolume );
+        this.volumeProperty.value = Math.min( this.maxVolume, this.volumeProperty.value + deltaVolume );
       }
     },
 
@@ -72,7 +80,7 @@ define( function( require ) {
     removeLiquid: function( dt ) {
       var deltaVolume = this.outputFaucet.flowRateProperty.value * dt;
       if ( deltaVolume > 0 ) {
-        this.volume = Math.max( 0, this.volume - deltaVolume );
+        this.volumeProperty.value = Math.max( 0, this.volumeProperty.value - deltaVolume );
       }
     }
   } );

@@ -115,7 +115,7 @@ define( function( require ) {
      * @returns {number} height of the water above the y
      */
     getWaterHeightAboveY: function( x, y ) {
-      return this.maxHeight * this.volume / this.maxVolume + this.poolDimensions.bottomChamber.y2 - y;
+      return this.maxHeight * this.volumeProperty.value / this.maxVolume + this.poolDimensions.bottomChamber.y2 - y;
     },
 
     /**
