@@ -58,7 +58,7 @@ define( function( require ) {
      * @param {number} dt -- time in seconds
      */
     addLiquid: function( dt ) {
-      var deltaVolume = this.inputFaucet.flowRate * dt;
+      var deltaVolume = this.inputFaucet.flowRateProperty.value * dt;
       if ( deltaVolume > 0 ) {
         this.volume = Math.min( this.maxVolume, this.volume + deltaVolume );
       }
@@ -70,7 +70,7 @@ define( function( require ) {
      * @param {number} dt -- time in seconds
      */
     removeLiquid: function( dt ) {
-      var deltaVolume = this.outputFaucet.flowRate * dt;
+      var deltaVolume = this.outputFaucet.flowRateProperty.value * dt;
       if ( deltaVolume > 0 ) {
         this.volume = Math.max( 0, this.volume - deltaVolume );
       }

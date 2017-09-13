@@ -29,7 +29,7 @@ define( function( require ) {
     this.viewWidth = 0;
 
     var redrawRect = function() {
-      if ( faucet.flowRate === 0 ) {
+      if ( faucet.flowRateProperty.value === 0 ) {
         self.setRect( 0, 0, 0, 0 );
       }
       else {

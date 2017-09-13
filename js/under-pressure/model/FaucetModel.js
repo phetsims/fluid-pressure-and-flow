@@ -12,6 +12,7 @@ define( function( require ) {
   // modules
   var fluidPressureAndFlow = require( 'FLUID_PRESSURE_AND_FLOW/fluidPressureAndFlow' );
   var inherit = require( 'PHET_CORE/inherit' );
+  var Property = require( 'AXON/Property' );
   var PropertySet = require( 'AXON/PropertySet' );
 
   /**
@@ -28,15 +29,17 @@ define( function( require ) {
     this.scale = scale;
     this.spoutWidth = 1.35 * scale; // empirically determined
 
+    // @public
+    this.flowRateProperty = new Property( 0 );
+    Property.preventGetSet( this, 'flowRate' );
     PropertySet.call( this, {
       // @public
-      flowRate: 0,
       enabled: true
     } );
 
     // when disabled, turn off the faucet.
     this.enabledProperty.onValue( false, function() {
-      self.flowRate = 0;
+      self.flowRateProperty.value = 0;
     } );
   }
 
