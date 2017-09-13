@@ -38,7 +38,7 @@ define( function( require ) {
     this.mass = mass;
 
     // all coordinates in meters
-    this.width = width; // @publlic
+    this.width = width; // @public
     this.height = height; // @public
 
     PropertySet.call( this, {
