@@ -67,40 +67,40 @@ define( function( require ) {
         if ( dragHandlePosition === 'left' ) {
           // Left handle
           // calculate top and bottom control point positions
-          yUp = pt.y + pipe.leftPipeScale / PIPE_INITIAL_SCALE * PIPE_INITIAL_HEIGHT / 2;
-          yLow = pt.y - pipe.leftPipeScale / PIPE_INITIAL_SCALE * PIPE_INITIAL_HEIGHT / 2;
+          yUp = pt.y + pipe.leftPipeScaleProperty.value / PIPE_INITIAL_SCALE * PIPE_INITIAL_HEIGHT / 2;
+          yLow = pt.y - pipe.leftPipeScaleProperty.value / PIPE_INITIAL_SCALE * PIPE_INITIAL_HEIGHT / 2;
 
           // set the left pipe top and bottom control point
           x = pipe.top[ leftTopControlPointIndex ].positionProperty.value.x;
           pipe.top[ leftTopControlPointIndex ].positionProperty.value = new Vector2( x, yUp );
           pipe.bottom[ leftBottomControlPointIndex ].positionProperty.value = new Vector2( x, yLow );
 
-          pipe.leftPipeYPosition = modelViewTransform.modelToViewY( pipe.top[ leftTopControlPointIndex ].positionProperty.value.y ) -
-                                   pipeNode.leftPipeYOffset * pipe.leftPipeScale;
+          pipe.leftPipeYPositionProperty.value = modelViewTransform.modelToViewY( pipe.top[ leftTopControlPointIndex ].positionProperty.value.y ) -
+                                                 pipeNode.leftPipeYOffset * pipe.leftPipeScaleProperty.value;
 
           // set the left pipe  top/bottom control point handle positions
-          pipe.leftPipeTopHandleY = pipeNode.leftPipeNode.top + CONTROL_HANDLE_OFFSET;
-          pipe.leftPipeBottomHandleY = pipeNode.leftPipeNode.bottom - CONTROL_HANDLE_OFFSET;
-          flowModel.pipe.leftPipeMainHandleYPosition = pipeNode.leftPipeNode.centerY;
+          pipe.leftPipeTopHandleYProperty.value = pipeNode.leftPipeNode.top + CONTROL_HANDLE_OFFSET;
+          pipe.leftPipeBottomHandleYProperty.value = pipeNode.leftPipeNode.bottom - CONTROL_HANDLE_OFFSET;
+          flowModel.pipe.leftPipeMainHandleYPositionProperty.value = pipeNode.leftPipeNode.centerY;
         }
         else {
           // Right handle
           // calculate  top and bottom control point positions
-          yUp = pt.y + ( pipe.rightPipeScale / PIPE_INITIAL_SCALE ) * PIPE_INITIAL_HEIGHT / 2;
-          yLow = pt.y - ( pipe.rightPipeScale / PIPE_INITIAL_SCALE ) * PIPE_INITIAL_HEIGHT / 2;
+          yUp = pt.y + ( pipe.rightPipeScaleProperty.value / PIPE_INITIAL_SCALE ) * PIPE_INITIAL_HEIGHT / 2;
+          yLow = pt.y - ( pipe.rightPipeScaleProperty.value / PIPE_INITIAL_SCALE ) * PIPE_INITIAL_HEIGHT / 2;
 
           // set the right pipe top and bottom control points positions
           x = pipe.top[ rightTopControlPointIndex ].positionProperty.value.x;
           pipe.top[ rightTopControlPointIndex ].positionProperty.value = new Vector2( x, yUp );
           pipe.bottom[ rightBottomControlPointIndex ].positionProperty.value = new Vector2( x, yLow );
-          pipe.rightPipeYPosition = modelViewTransform.modelToViewY( pipe.top[ rightTopControlPointIndex ].positionProperty.value.y ) -
-                                    pipeNode.rightPipeYOffset * pipe.rightPipeScale;
+          pipe.rightPipeYPositionProperty.value = modelViewTransform.modelToViewY( pipe.top[ rightTopControlPointIndex ].positionProperty.value.y ) -
+                                                  pipeNode.rightPipeYOffset * pipe.rightPipeScaleProperty.value;
 
           // set the right pipe top/bottom control point handle positions
-          pipe.rightPipeTopHandleY = pipeNode.rightPipeNode.top + CONTROL_HANDLE_OFFSET;
-          pipe.rightPipeBottomHandleY = pipeNode.rightPipeNode.bottom - CONTROL_HANDLE_OFFSET;
+          pipe.rightPipeTopHandleYProperty.value = pipeNode.rightPipeNode.top + CONTROL_HANDLE_OFFSET;
+          pipe.rightPipeBottomHandleYProperty.value = pipeNode.rightPipeNode.bottom - CONTROL_HANDLE_OFFSET;
 
-          flowModel.pipe.rightPipeMainHandleYPosition = pipeNode.rightPipeNode.centerY;
+          flowModel.pipe.rightPipeMainHandleYPositionProperty.value = pipeNode.rightPipeNode.centerY;
         }
 
         // reposition the particles when the sim is paused and the handle is dragged

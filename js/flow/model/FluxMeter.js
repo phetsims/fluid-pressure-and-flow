@@ -49,7 +49,7 @@ define( function( require ) {
 
     // Returns the flow rate in liters per sec (L/s)
     getFlowRate: function() {
-      return this.pipe.flowRate;
+      return this.pipe.flowRateProperty.value;
     },
 
     //Assume incompressible fluid (like water), so the flow rate must remain constant throughout the pipe

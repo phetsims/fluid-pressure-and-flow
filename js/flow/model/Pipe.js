@@ -15,7 +15,7 @@ define( function( require ) {
   var inherit = require( 'PHET_CORE/inherit' );
   var PipeControlPoint = require( 'FLUID_PRESSURE_AND_FLOW/flow/model/PipeControlPoint' );
   var PipeCrossSection = require( 'FLUID_PRESSURE_AND_FLOW/flow/model/PipeCrossSection' );
-  var PropertySet = require( 'AXON/PropertySet' );
+  var Property = require( 'AXON/Property' );
   var SplineEvaluation = require( 'FLUID_PRESSURE_AND_FLOW/flow/model/SplineEvaluation' );
   var Util = require( 'DOT/Util' );
   var Vector2 = require( 'DOT/Vector2' );
@@ -41,20 +41,30 @@ define( function( require ) {
   function Pipe() {
     var mainHandleInitialY = (TOP_HANDLE_INITIAL_Y + BOTTOM_HANDLE_INITIAL_Y) / 2;
 
-    PropertySet.call( this, {
-      flowRate: 5000, // rate of fluid flow in Liter per second (L/s)
-      friction: false, // flag indicating whether friction should slow particles near the edges
-      rightPipeYPosition: PIPE_INITIAL_Y, //tracks the right pipe's vertical position in pixel
-      leftPipeYPosition: PIPE_INITIAL_Y,
-      leftPipeMainHandleYPosition: mainHandleInitialY,
-      rightPipeMainHandleYPosition: mainHandleInitialY,
-      leftPipeScale: PIPE_INITIAL_SCALE,
-      rightPipeScale: PIPE_INITIAL_SCALE,
-      leftPipeTopHandleY: TOP_HANDLE_INITIAL_Y,
-      leftPipeBottomHandleY: BOTTOM_HANDLE_INITIAL_Y,
-      rightPipeTopHandleY: TOP_HANDLE_INITIAL_Y,
-      rightPipeBottomHandleY: BOTTOM_HANDLE_INITIAL_Y
-    } );
+    this.flowRateProperty = new Property( 5000 ); // rate of fluid flow in Liter per second (L/s)
+    Property.preventGetSet( this, 'flowRate' );
+    this.frictionProperty = new Property( false ); // flag indicating whether friction should slow particles near the edges
+    Property.preventGetSet( this, 'friction' );
+    this.rightPipeYPositionProperty = new Property( PIPE_INITIAL_Y ); //tracks the right pipe's vertical position in pixel
+    Property.preventGetSet( this, 'rightPipeYPosition' );
+    this.leftPipeYPositionProperty = new Property( PIPE_INITIAL_Y );
+    Property.preventGetSet( this, 'leftPipeYPosition' );
+    this.leftPipeMainHandleYPositionProperty = new Property( mainHandleInitialY );
+    Property.preventGetSet( this, 'leftPipeMainHandleYPosition' );
+    this.rightPipeMainHandleYPositionProperty = new Property( mainHandleInitialY );
+    Property.preventGetSet( this, 'rightPipeMainHandleYPosition' );
+    this.leftPipeScaleProperty = new Property( PIPE_INITIAL_SCALE );
+    Property.preventGetSet( this, 'leftPipeScale' );
+    this.rightPipeScaleProperty = new Property( PIPE_INITIAL_SCALE );
+    Property.preventGetSet( this, 'rightPipeScale' );
+    this.leftPipeTopHandleYProperty = new Property( TOP_HANDLE_INITIAL_Y );
+    Property.preventGetSet( this, 'leftPipeTopHandleY' );
+    this.leftPipeBottomHandleYProperty = new Property( BOTTOM_HANDLE_INITIAL_Y );
+    Property.preventGetSet( this, 'leftPipeBottomHandleY' );
+    this.rightPipeTopHandleYProperty = new Property( TOP_HANDLE_INITIAL_Y );
+    Property.preventGetSet( this, 'rightPipeTopHandleY' );
+    this.rightPipeBottomHandleYProperty = new Property( BOTTOM_HANDLE_INITIAL_Y );
+    Property.preventGetSet( this, 'rightPipeBottomHandleY' );
 
     // cross-sections that the user can manipulate to deform the pipe.
     var controlCrossSections = [
@@ -94,7 +104,7 @@ define( function( require ) {
 
   fluidPressureAndFlow.register( 'Pipe', Pipe );
 
-  return inherit( PropertySet, Pipe, {
+  return inherit( Object, Pipe, {
 
     // reset the pipe
     reset: function() {
@@ -104,7 +114,19 @@ define( function( require ) {
         this.bottom[ i ].reset();
       }
       this.dirty = true;
-      PropertySet.prototype.reset.call( this );
+
+      this.flowRateProperty.reset();
+      this.frictionProperty.reset();
+      this.rightPipeYPositionProperty.reset();
+      this.leftPipeYPositionProperty.reset();
+      this.leftPipeMainHandleYPositionProperty.reset();
+      this.rightPipeMainHandleYPositionProperty.reset();
+      this.leftPipeScaleProperty.reset();
+      this.rightPipeScaleProperty.reset();
+      this.leftPipeTopHandleYProperty.reset();
+      this.leftPipeBottomHandleYProperty.reset();
+      this.rightPipeTopHandleYProperty.reset();
+      this.rightPipeBottomHandleYProperty.reset();
     },
 
     /**
@@ -276,7 +298,7 @@ define( function( require ) {
       var crossSectionRadius = crossSectionDiameter / 2;
       var crossSectionArea = Math.PI * crossSectionRadius * crossSectionRadius;
       // use rate of fluid flow in volume (m^3) per second
-      return ( this.flowRate / 1000 ) / crossSectionArea;
+      return ( this.flowRateProperty.value / 1000 ) / crossSectionArea;
     },
 
     /**
@@ -347,7 +369,7 @@ define( function( require ) {
       // If friction is enabled, then scale down quadratically (like a parabola) as you get further from the center of the pipe.
       // But instead of reaching zero velocity at the edge of the pipe (which could cause particles to pile up indefinitely), extend the region
       // a small epsilon past the (0..1) pipe range
-      if ( this.friction ) {
+      if ( this.frictionProperty.value ) {
         var epsilon = 0.2;
         var fractionToTop = this.getFractionToTop( x, y );
         var scaleFactor = this.lagrange( -epsilon, 0, 0.5, 1, 1 + epsilon, 0, fractionToTop );

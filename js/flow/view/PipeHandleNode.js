@@ -133,13 +133,13 @@ define( function( require ) {
                                   PIPE_INITIAL_HEIGHT;
 
             // limit the scaling to 0.18 on the lower side
-            pipe.leftPipeScale = Math.max( pipeExpansionFactor * PIPE_INITIAL_SCALE, 0.18 );
+            pipe.leftPipeScaleProperty.value = Math.max( pipeExpansionFactor * PIPE_INITIAL_SCALE, 0.18 );
 
-            pipe.leftPipeYPosition = modelViewTransform.modelToViewY( pipe.top[ leftTopControlPointIndex ].positionProperty.value.y ) -
-                                     pipeNode.leftPipeYOffset * pipe.leftPipeScale;
+            pipe.leftPipeYPositionProperty.value = modelViewTransform.modelToViewY( pipe.top[ leftTopControlPointIndex ].positionProperty.value.y ) -
+                                                   pipeNode.leftPipeYOffset * pipe.leftPipeScaleProperty.value;
 
 
-            flowModel.pipe.leftPipeMainHandleYPosition = pipeNode.leftPipeNode.centerY;
+            flowModel.pipe.leftPipeMainHandleYPositionProperty.value = pipeNode.leftPipeNode.centerY;
           }
 
           // handle the right  pipe scaling
@@ -150,12 +150,12 @@ define( function( require ) {
             pipeExpansionFactor = pipeHeight / PIPE_INITIAL_HEIGHT;
 
             // limit the scaling to 0.18 on the lower side
-            pipe.rightPipeScale = Math.max( pipeExpansionFactor * PIPE_INITIAL_SCALE, 0.18 );
+            pipe.rightPipeScaleProperty.value = Math.max( pipeExpansionFactor * PIPE_INITIAL_SCALE, 0.18 );
 
-            pipe.rightPipeYPosition = modelViewTransform.modelToViewY( pipe.top[ rightTopControlPointIndex ].positionProperty.value.y ) -
-                                      ( pipeNode.rightPipeYOffset * pipe.rightPipeScale );
+            pipe.rightPipeYPositionProperty.value = modelViewTransform.modelToViewY( pipe.top[ rightTopControlPointIndex ].positionProperty.value.y ) -
+                                                    ( pipeNode.rightPipeYOffset * pipe.rightPipeScaleProperty.value );
 
-            flowModel.pipe.rightPipeMainHandleYPosition = pipeNode.rightPipeNode.centerY;
+            flowModel.pipe.rightPipeMainHandleYPositionProperty.value = pipeNode.rightPipeNode.centerY;
           }
 
           // reposition the particles when the sim is paused and the handle is dragged
@@ -166,13 +166,13 @@ define( function( require ) {
           // setting the left/right  pipe top/bottom  control point handle positions when left/right pipe  scale.
           if ( controlPointIndex === leftTopControlPointIndex || controlPointIndex === leftBottomControlPointIndex ) {
 
-            pipe.leftPipeTopHandleY = pipeNode.leftPipeNode.top + CONTROL_HANDLE_OFFSET;
-            pipe.leftPipeBottomHandleY = pipeNode.leftPipeNode.bottom - CONTROL_HANDLE_OFFSET;
+            pipe.leftPipeTopHandleYProperty.value = pipeNode.leftPipeNode.top + CONTROL_HANDLE_OFFSET;
+            pipe.leftPipeBottomHandleYProperty.value = pipeNode.leftPipeNode.bottom - CONTROL_HANDLE_OFFSET;
           }
           else if ( controlPointIndex === rightTopControlPointIndex ||
                     controlPointIndex === rightBottomControlPointIndex ) {
-            pipe.rightPipeTopHandleY = pipeNode.rightPipeNode.top + CONTROL_HANDLE_OFFSET;
-            pipe.rightPipeBottomHandleY = pipeNode.rightPipeNode.bottom - CONTROL_HANDLE_OFFSET;
+            pipe.rightPipeTopHandleYProperty.value = pipeNode.rightPipeNode.top + CONTROL_HANDLE_OFFSET;
+            pipe.rightPipeBottomHandleYProperty.value = pipeNode.rightPipeNode.bottom - CONTROL_HANDLE_OFFSET;
           }
           // trigger an update on the flux meter only if it is visible
           if ( flowModel.isFluxMeterVisibleProperty.value ) {

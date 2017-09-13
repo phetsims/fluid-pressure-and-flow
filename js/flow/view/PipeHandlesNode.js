@@ -54,7 +54,7 @@ define( function( require ) {
     // add handle to drag the left pipe
     this.leftPipeMainHandleNode = new Image( handleImage,
       {
-        y: flowModel.pipe.leftPipeMainHandleYPosition,
+        y: flowModel.pipe.leftPipeMainHandleYPositionProperty.value,
         x: layoutBounds.minX - LEFT_PIPE_DRAG_HANDLE_OFFSET,
         cursor: 'pointer',
         scale: 0.32
@@ -73,7 +73,7 @@ define( function( require ) {
     // add handle to drag the right pipe
     this.rightPipeMainHandleNode = new Image( handleImage,
       {
-        y: flowModel.pipe.rightPipeMainHandleYPosition,
+        y: flowModel.pipe.rightPipeMainHandleYPositionProperty.value,
         x: layoutBounds.maxX - RIGHT_PIPE_DRAG_HANDLE_OFFSET,
         cursor: 'pointer',
         scale: 0.32

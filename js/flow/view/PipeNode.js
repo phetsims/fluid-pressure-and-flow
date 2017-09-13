@@ -65,14 +65,14 @@ define( function( require ) {
     this.leftPipeNode = new Node( {
       children: [ leftPipeHead, leftPipeSegment ],
       x: leftPipeX,
-      y: flowModel.pipe.leftPipeYPosition,
-      scale: flowModel.pipe.leftPipeScale
+      y: flowModel.pipe.leftPipeYPositionProperty.value,
+      scale: flowModel.pipe.leftPipeScaleProperty.value
     } );
 
     this.leftPipeBackNode = new Image( leftPipeBackImage, {
       x: leftPipeX,
-      y: flowModel.pipe.leftPipeYPosition,
-      scale: flowModel.pipe.leftPipeScale
+      y: flowModel.pipe.leftPipeYPositionProperty.value,
+      scale: flowModel.pipe.leftPipeScaleProperty.value
     } );
 
     // shape for the pipelines
@@ -102,8 +102,8 @@ define( function( require ) {
     this.rightPipeNode = new Node( {
       children: [ rightPipeHead, rightPipeMiddle ],
       x: layoutBounds.maxX - self.rightPipeLeftOffset,
-      y: flowModel.pipe.rightPipeYPosition,
-      scale: flowModel.pipe.rightPipeScale
+      y: flowModel.pipe.rightPipeYPositionProperty.value,
+      scale: flowModel.pipe.rightPipeScaleProperty.value
     } );
 
     // order of different layers within pipe Node -- leftPipeBackNode, pipeFluidNode, preParticleLayer, pipeFlowLine,

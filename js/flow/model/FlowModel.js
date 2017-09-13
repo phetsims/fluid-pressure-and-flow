@@ -281,10 +281,10 @@ define( function( require ) {
       getFluidFlowRateString: function() {
         if ( this.measureUnitsProperty.value === 'english' ) {
           return StringUtils.format( valueWithUnitsPatternString,
-            (Units.FLUID_FlOW_RATE_ENGLISH_PER_METRIC * this.pipe.flowRate).toFixed( 2 ), rateUnitsEnglishString );
+            (Units.FLUID_FlOW_RATE_ENGLISH_PER_METRIC * this.pipe.flowRateProperty.value).toFixed( 2 ), rateUnitsEnglishString );
         }
         else {
-          return StringUtils.format( valueWithUnitsPatternString, Math.round( this.pipe.flowRate ), rateUnitsMetricString );
+          return StringUtils.format( valueWithUnitsPatternString, Math.round( this.pipe.flowRateProperty.value ), rateUnitsMetricString );
         }
       },
 
