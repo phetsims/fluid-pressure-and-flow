@@ -22,7 +22,7 @@ define( function( require ) {
   var ObservableArray = require( 'AXON/ObservableArray' );
   var Particle = require( 'FLUID_PRESSURE_AND_FLOW/flow/model/Particle' );
   var Pipe = require( 'FLUID_PRESSURE_AND_FLOW/flow/model/Pipe' );
-  var PropertySet = require( 'AXON/PropertySet' );
+  var Property = require( 'AXON/Property' );
   var RangeWithValue = require( 'DOT/RangeWithValue' );
   var Sensor = require( 'FLUID_PRESSURE_AND_FLOW/common/model/Sensor' );
   var StringUtils = require( 'PHETCOMMON/util/StringUtils' );
@@ -52,21 +52,30 @@ define( function( require ) {
     this.fluidDensityRange = new RangeWithValue( Constants.GASOLINE_DENSITY, Constants.HONEY_DENSITY );
     this.flowRateRange = new RangeWithValue( Constants.MIN_FLOW_RATE, Constants.MAX_FLOW_RATE );
 
-    PropertySet.call( this, {
-        isRulerVisible: false,
-        isFluxMeterVisible: false,
-        isGridInjectorPressed: false,
-        gridInjectorElapsedTimeInPressedMode: 0, // elapsed sim time (in sec) for which the injector remained pressed
-        isDotsVisible: true,
-        isPlaying: true,// Whether the sim is paused or running
-        measureUnits: 'metric', //metric, english
-        fluidDensity: Constants.WATER_DENSITY,
-        fluidDensityControlExpanded: false,
-        flowRateControlExpanded: false,
-        rulerPosition: new Vector2( 300, 344 ), // px
-        speed: 'normal' //speed of the model, either 'normal' or 'slow'
-      }
-    );
+    this.isRulerVisibleProperty = new Property( false ); // TODO: Appears unused
+    Property.preventGetSet( this, 'isRulerVisible' );
+    this.isFluxMeterVisibleProperty = new Property( false );
+    Property.preventGetSet( this, 'isFluxMeterVisible' );
+    this.isGridInjectorPressedProperty = new Property( false );
+    Property.preventGetSet( this, 'isGridInjectorPressed' );
+    this.gridInjectorElapsedTimeInPressedModeProperty = new Property( 0 ); // elapsed sim time (in sec) for which the injector remained pressed
+    Property.preventGetSet( this, 'gridInjectorElapsedTimeInPressedMode' );
+    this.isDotsVisibleProperty = new Property( true );
+    Property.preventGetSet( this, 'isDotsVisible' );
+    this.isPlayingProperty = new Property( true );// Whether the sim is paused or running
+    Property.preventGetSet( this, 'isPlaying' );
+    this.measureUnitsProperty = new Property( 'metric' ); //metric, english
+    Property.preventGetSet( this, 'measureUnits' );
+    this.fluidDensityProperty = new Property( Constants.WATER_DENSITY );
+    Property.preventGetSet( this, 'fluidDensity' );
+    this.fluidDensityControlExpandedProperty = new Property( false ); // TODO: appears unused
+    Property.preventGetSet( this, 'fluidDensityControlExpanded' );
+    this.flowRateControlExpandedProperty = new Property( false ); // TODO: appears unused
+    Property.preventGetSet( this, 'flowRateControlExpanded' );
+    this.rulerPositionProperty = new Property( new Vector2( 300, 344 ) ); // px // TODO: Appears unused
+    Property.preventGetSet( this, 'rulerPosition' );
+    this.speedProperty = new Property( 'normal' ); //speed of the model, either 'normal' or 'slow'
+    Property.preventGetSet( this, 'speed' );
 
     this.barometers = [];
     for ( var i = 0; i < NUMBER_BAROMETERS; i++ ) {
@@ -89,9 +98,9 @@ define( function( require ) {
     this.gridInjectorElapsedTimeInPressedModeProperty.link( function() {
 
       //  The grid injector can only be fired every so often, in order to prevent too many black particles in the pipe
-      if ( self.gridInjectorElapsedTimeInPressedMode > 5 ) {
-        self.isGridInjectorPressed = false;
-        self.gridInjectorElapsedTimeInPressedMode = 0;
+      if ( self.gridInjectorElapsedTimeInPressedModeProperty.value > 5 ) {
+        self.isGridInjectorPressedProperty.value = false;
+        self.gridInjectorElapsedTimeInPressedModeProperty.value = 0;
       }
     } );
 
@@ -103,11 +112,22 @@ define( function( require ) {
 
   fluidPressureAndFlow.register( 'FlowModel', FlowModel );
 
-  return inherit( PropertySet, FlowModel, {
+  return inherit( Object, FlowModel, {
 
       // Resets all model elements
       reset: function() {
-        PropertySet.prototype.reset.call( this );
+        this.isRulerVisibleProperty.reset();
+        this.isFluxMeterVisibleProperty.reset();
+        this.isGridInjectorPressedProperty.reset();
+        this.gridInjectorElapsedTimeInPressedModeProperty.reset();
+        this.isDotsVisibleProperty.reset();
+        this.isPlayingProperty.reset();
+        this.measureUnitsProperty.reset();
+        this.fluidDensityProperty.reset();
+        this.fluidDensityControlExpandedProperty.reset();
+        this.flowRateControlExpandedProperty.reset();
+        this.rulerPositionProperty.reset();
+        this.speedProperty.reset();
 
         _.each( this.barometers, function( barometer ) {
           barometer.reset();
@@ -136,8 +156,8 @@ define( function( require ) {
 
         if ( y > crossSection.yBottom + 0.05 && y < crossSection.yTop - 0.05 ) {
           var vSquared = this.pipe.getVelocity( x, y ).magnitudeSquared();
-          return getStandardAirPressure( 0 ) - y * Constants.EARTH_GRAVITY * this.fluidDensity -
-                 0.5 * this.fluidDensity * vSquared;
+          return getStandardAirPressure( 0 ) - y * Constants.EARTH_GRAVITY * this.fluidDensityProperty.value -
+                 0.5 * this.fluidDensityProperty.value * vSquared;
         }
         return 0;
       },
@@ -169,19 +189,19 @@ define( function( require ) {
         // prevent sudden dt bursts when the user comes back to the tab after a while
         dt = ( dt > 0.04 ) ? 0.04 : dt;
 
-        if ( this.isPlaying ) {
-          var adjustedDT = this.speed === 'normal' ? dt : dt * 0.33;
+        if ( this.isPlayingProperty.value ) {
+          var adjustedDT = this.speedProperty.value === 'normal' ? dt : dt * 0.33;
           this.timer.step( adjustedDT );
           this.propagateParticles( adjustedDT );
-          if ( this.isGridInjectorPressed ) {
-            this.gridInjectorElapsedTimeInPressedMode += adjustedDT;
+          if ( this.isGridInjectorPressedProperty.value ) {
+            this.gridInjectorElapsedTimeInPressedModeProperty.value += adjustedDT;
           }
         }
       },
 
       // creates a red particle at the left most pipe location and a random y fraction between [0.15, 0.85) within the pipe
       createParticle: function() {
-        if ( this.isDotsVisible ) {
+        if ( this.isDotsVisibleProperty.value ) {
 
           // create particles in the [0.15, 0.85) range so that they don't touch the pipe
           var fraction = 0.15 + Math.random() * 0.7;
@@ -244,12 +264,12 @@ define( function( require ) {
        * @returns {string} with value and units
        */
       getFluidDensityString: function() {
-        if ( this.measureUnits === 'english' ) {
+        if ( this.measureUnitsProperty.value === 'english' ) {
           return StringUtils.format( valueWithUnitsPatternString,
-            (Units.FLUID_DENSITY_ENGLISH_PER_METRIC * this.fluidDensity).toFixed( 2 ), densityUnitsEnglishString );
+            (Units.FLUID_DENSITY_ENGLISH_PER_METRIC * this.fluidDensityProperty.value).toFixed( 2 ), densityUnitsEnglishString );
         }
         else {
-          return StringUtils.format( valueWithUnitsPatternString, Math.round( this.fluidDensity ), densityUnitsMetricString );
+          return StringUtils.format( valueWithUnitsPatternString, Math.round( this.fluidDensityProperty.value ), densityUnitsMetricString );
         }
       },
 
@@ -259,7 +279,7 @@ define( function( require ) {
        * @returns {string} with value and units
        */
       getFluidFlowRateString: function() {
-        if ( this.measureUnits === 'english' ) {
+        if ( this.measureUnitsProperty.value === 'english' ) {
           return StringUtils.format( valueWithUnitsPatternString,
             (Units.FLUID_FlOW_RATE_ENGLISH_PER_METRIC * this.pipe.flowRate).toFixed( 2 ), rateUnitsEnglishString );
         }

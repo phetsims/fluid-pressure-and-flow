@@ -159,7 +159,7 @@ define( function( require ) {
           }
 
           // reposition the particles when the sim is paused and the handle is dragged
-          if ( !flowModel.isPlaying ) {
+          if ( !flowModel.isPlayingProperty.value ) {
             pipeNode.particlesLayer.step();
           }
 
@@ -175,7 +175,7 @@ define( function( require ) {
             pipe.rightPipeBottomHandleY = pipeNode.rightPipeNode.bottom - CONTROL_HANDLE_OFFSET;
           }
           // trigger an update on the flux meter only if it is visible
-          if ( flowModel.isFluxMeterVisible ) {
+          if ( flowModel.isFluxMeterVisibleProperty.value ) {
             flowModel.fluxMeter.trigger( 'update' );
           }
 

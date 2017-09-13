@@ -240,7 +240,7 @@ define( function( require ) {
       this.handle.top = this.lowerLine.bottom - 3;
       this.handle.left = this.lowerLine.right - 16;
 
-      this.updateDisplayPanel( this.flowModel.measureUnits );
+      this.updateDisplayPanel( this.flowModel.measureUnitsProperty.value );
 
     },
 

@@ -164,7 +164,7 @@ define( function( require ) {
         ticks: [
           {
             title: waterString,
-            value: flowModel.fluidDensity
+            value: flowModel.fluidDensityProperty.value
           },
           {
             title: gasolineString,
@@ -335,7 +335,7 @@ define( function( require ) {
      * Called by the animation loop.
      */
     step: function() {
-      if ( this.flowModel.isPlaying ) {
+      if ( this.flowModel.isPlayingProperty.value ) {
         this.pipeNode.particlesLayer.step();
       }
     }
