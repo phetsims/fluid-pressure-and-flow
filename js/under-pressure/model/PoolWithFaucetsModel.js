@@ -32,8 +32,8 @@ define( function( require ) {
 
     // Enable faucets and dropper based on amount of solution in the beaker.
     this.volumeProperty.link( function( volume ) {
-      inputFaucet.enabled = ( volume < maxVolume );
-      outputFaucet.enabled = ( volume > 0 );
+      inputFaucet.enabledProperty.value = ( volume < maxVolume );
+      outputFaucet.enabledProperty.value = ( volume > 0 );
       underPressureModel.currentVolume = volume;
     } );
   }
