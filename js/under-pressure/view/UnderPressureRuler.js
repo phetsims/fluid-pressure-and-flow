@@ -40,7 +40,7 @@ define( function( require ) {
     var closeButton = new CloseButton( {
       iconLength: 6,
       listener: function() {
-        underPressureModel.isRulerVisible = false;
+        underPressureModel.isRulerVisibleProperty.value = false;
       }
     } );
     this.addChild( closeButton );

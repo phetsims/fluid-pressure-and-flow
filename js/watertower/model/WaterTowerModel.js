@@ -355,7 +355,7 @@ define( function( require ) {
     },
 
     getFluidDensityString: function() {
-      if ( this.measureUnits === 'english' ) {
+      if ( this.measureUnitsProperty.value === 'english' ) {
         return StringUtils.format( valueWithUnitsPatternString,
           (Units.FLUID_DENSITY_ENGLISH_PER_METRIC * this.fluidDensity).toFixed( 2 ), densityUnitsEnglishString );
       }

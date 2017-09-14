@@ -58,6 +58,9 @@ define( function( require ) {
     var self = this;
     this.leftDisplacementProperty = new Property( 0 ); //displacement from default height
     this.stackMassProperty = new Property( 0 );
+
+    // @public (read-only)
+    this.volumeProperty = new Property( 1 );// TODO: what should this number be?  Does it even matter?  I don't think it has any bearing on the model.
     Property.preventGetSet( this, 'leftDisplacement' );
     Property.preventGetSet( this, 'stackMass' );
 

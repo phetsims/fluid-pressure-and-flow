@@ -91,8 +91,8 @@ define( function( require ) {
 
         //use newton’s laws to equalize pressure/force at interface
         var m = this.chamberPoolModel.stackMassProperty.value;
-        var rho = this.chamberPoolModel.underPressureModel.fluidDensity;
-        var g = this.chamberPoolModel.underPressureModel.gravity;
+        var rho = this.chamberPoolModel.underPressureModel.fluidDensityProperty.value;
+        var g = this.chamberPoolModel.underPressureModel.gravityProperty.value;
 
         //difference between water levels in left and right opening
         var h = this.chamberPoolModel.leftDisplacementProperty.value +
@@ -108,7 +108,7 @@ define( function( require ) {
         }
       }
       else if ( this.isFalling && !this.isDraggingProperty.value ) {
-        acceleration = -this.chamberPoolModel.underPressureModel.gravity;
+        acceleration = -this.chamberPoolModel.underPressureModel.gravityProperty.value;
         this.velocity = this.velocity + acceleration * dt;
         if ( Math.abs( this.velocity ) > epsilonVelocity ) {
           this.positionProperty.value.y += this.velocity * dt;

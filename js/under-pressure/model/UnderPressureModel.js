@@ -12,12 +12,13 @@ define( function( require ) {
   // modules
   var ChamberPoolModel = require( 'FLUID_PRESSURE_AND_FLOW/under-pressure/model/ChamberPoolModel' );
   var Constants = require( 'FLUID_PRESSURE_AND_FLOW/common/Constants' );
+  var DerivedProperty = require( 'AXON/DerivedProperty' );
   var FluidColorModel = require( 'FLUID_PRESSURE_AND_FLOW/common/model/FluidColorModel' );
   var fluidPressureAndFlow = require( 'FLUID_PRESSURE_AND_FLOW/fluidPressureAndFlow' );
   var getStandardAirPressure = require( 'FLUID_PRESSURE_AND_FLOW/common/model/getStandardAirPressure' );
   var inherit = require( 'PHET_CORE/inherit' );
   var MysteryPoolModel = require( 'FLUID_PRESSURE_AND_FLOW/under-pressure/model/MysteryPoolModel' );
-  var PropertySet = require( 'AXON/PropertySet' );
+  var Property = require( 'AXON/Property' );
   var RangeWithValue = require( 'DOT/RangeWithValue' );
   var Sensor = require( 'FLUID_PRESSURE_AND_FLOW/common/model/Sensor' );
   var SquarePoolModel = require( 'FLUID_PRESSURE_AND_FLOW/under-pressure/model/SquarePoolModel' );
@@ -35,27 +36,37 @@ define( function( require ) {
     this.gravityRange = new RangeWithValue( Constants.MARS_GRAVITY, Constants.JUPITER_GRAVITY ); // @public
     this.fluidDensityRange = new RangeWithValue( Constants.GASOLINE_DENSITY, Constants.HONEY_DENSITY ); // @public
 
-    PropertySet.call( this, {
-        // @public
-        isAtmosphere: true,
-        isRulerVisible: false,
-        isGridVisible: false,
-        measureUnits: 'metric', //metric, english or atmosphere
-        gravity: Constants.EARTH_GRAVITY,
-        fluidDensity: Constants.WATER_DENSITY,
-        currentScene: 'square', // name of the current screen. Can take values square/trapezoid/chamber/mystery.
+    // @public
+    this.isAtmosphereProperty = new Property( true );
+    this.isRulerVisibleProperty = new Property( false );
+    this.isGridVisibleProperty = new Property( false ); // TODO: is this used?
+    this.measureUnitsProperty = new Property( 'metric' ); //metric, english or atmosphere
+    this.gravityProperty = new Property( Constants.EARTH_GRAVITY );
+    this.fluidDensityProperty = new Property( Constants.WATER_DENSITY );
+    this.currentSceneProperty = new Property( 'square' ); // name of the current screen. Can take values square/trapezoid/chamber/mystery.
 
-        // This is just a "simulated" derived property that depends on currentScene and the volume in the current scene.
-        // This property is passed to barometer so that it can react to changes in the volume.
-        // This way Barometer doesn't need to know about the different scenes and can depend only on
-        // UnderPressureModel's properties.
-        currentVolume: 0, //L, volume of liquid in currentScene
-        rulerPosition: new Vector2( 300, 100 ), // ruler initial position above the ground and center of square pool
-        mysteryChoice: 'fluidDensity', //for mystery-pool, gravity of fluidDensity
-        fluidDensityControlExpanded: true,//For the accordion box
-        gravityControlExpanded: true //For the accordion box
-      }
-    );
+    // currentVolume is just a "simulated" derived property that depends on currentScene and the volume in the current scene.
+    // This property is passed to barometer so that it can react to changes in the volume.
+    // This way Barometer doesn't need to know about the different scenes and can depend only on
+    // UnderPressureModel's properties.
+    this.currentVolumeProperty = new Property( 0 ); //L, volume of liquid in currentScene
+    this.rulerPositionProperty = new Property( new Vector2( 300, 100 ) ); // ruler initial position above the ground and center of square pool // TODO: is this used?
+    this.mysteryChoiceProperty = new Property( 'fluidDensity' ); //for mystery-pool, gravity of fluidDensity
+    this.fluidDensityControlExpandedProperty = new Property( true );//For the accordion box
+    this.gravityControlExpandedProperty = new Property( true );//For the accordion box
+
+    Property.preventGetSet( this, 'isAtmosphere' );
+    Property.preventGetSet( this, 'isRulerVisible' );
+    Property.preventGetSet( this, 'isGridVisible' );
+    Property.preventGetSet( this, 'measureUnits' );
+    Property.preventGetSet( this, 'gravity' );
+    Property.preventGetSet( this, 'fluidDensity' );
+    Property.preventGetSet( this, 'currentScene' );
+    Property.preventGetSet( this, 'currentVolume' );
+    Property.preventGetSet( this, 'rulerPosition' );
+    Property.preventGetSet( this, 'mysteryChoice' );
+    Property.preventGetSet( this, 'fluidDensityControlExpanded' );
+    Property.preventGetSet( this, 'gravityControlExpanded' );
 
     this.sceneModels = {}; // @public
     this.sceneModels.square = new SquarePoolModel( self );
@@ -73,19 +84,19 @@ define( function( require ) {
     }
 
     // current scene's model
-    this.addDerivedProperty( 'currentSceneModel', [ 'currentScene' ], function( currentScene ) {
+    this.currentSceneModelProperty = new DerivedProperty( [ this.currentSceneProperty ], function( currentScene ) {
       return self.sceneModels[ currentScene ];
     } );
+    Property.preventGetSet( this, 'currentSceneModel' );
 
     this.currentSceneModelProperty.link( function( currentSceneModel ) {
-      self.currentVolume = currentSceneModel.volumeProperty.value;
+      self.currentVolumeProperty.value = currentSceneModel.volumeProperty.value;
     } );
-
   }
 
   fluidPressureAndFlow.register( 'UnderPressureModel', UnderPressureModel );
 
-  return inherit( PropertySet, UnderPressureModel, {
+  return inherit( Object, UnderPressureModel, {
 
     /**
      * @public
@@ -93,12 +104,23 @@ define( function( require ) {
      */
     step: function( dt ) {
       this.fluidColorModel.step();
-      this.currentSceneModel.step( dt );
+      this.currentSceneModelProperty.value.step( dt );
     },
 
     // @public
     reset: function() {
-      PropertySet.prototype.reset.call( this );
+      this.isAtmosphereProperty.reset();
+      this.isRulerVisibleProperty.reset();
+      this.isGridVisibleProperty.reset();
+      this.measureUnitsProperty.reset();
+      this.gravityProperty.reset();
+      this.fluidDensityProperty.reset();
+      this.currentSceneProperty.reset();
+      this.currentVolumeProperty.reset();
+      this.rulerPositionProperty.reset();
+      this.mysteryChoiceProperty.reset();
+      this.fluidDensityControlExpandedProperty.reset();
+      this.gravityControlExpandedProperty.reset();
 
       this.sceneModels.square.reset();
       this.sceneModels.trapezoid.reset();
@@ -117,11 +139,11 @@ define( function( require ) {
      * @returns {number}
      */
     getAirPressure: function( height ) {
-      if ( !this.isAtmosphere ) {
+      if ( !this.isAtmosphereProperty.value ) {
         return 0;
       }
       else {
-        return getStandardAirPressure( height ) * this.gravity / Constants.EARTH_GRAVITY;
+        return getStandardAirPressure( height ) * this.gravityProperty.value / Constants.EARTH_GRAVITY;
       }
     },
 
@@ -132,7 +154,7 @@ define( function( require ) {
      * @returns {number}
      */
     getWaterPressure: function( height ) {
-      return height * this.gravity * this.fluidDensity;
+      return height * this.gravityProperty.value * this.fluidDensityProperty.value;
     },
 
     /**
@@ -144,7 +166,7 @@ define( function( require ) {
      */
     getPressureAtCoords: function( x, y ) {
       var pressure = null;
-      var currentModel = this.currentSceneModel;
+      var currentModel = this.currentSceneModelProperty.value;
       if ( y > 0 ) {
         pressure = this.getAirPressure( y );
       }
@@ -175,12 +197,12 @@ define( function( require ) {
 
     // @public
     getGravityString: function() {
-      return Units.getGravityString( this.gravity, this.measureUnits );
+      return Units.getGravityString( this.gravityProperty.value, this.measureUnitsProperty.value );
     },
 
     // @public
     getFluidDensityString: function() {
-      return Units.getFluidDensityString( this.fluidDensity, this.measureUnits );
+      return Units.getFluidDensityString( this.fluidDensityProperty.value, this.measureUnitsProperty.value );
     }
   } );
 } );

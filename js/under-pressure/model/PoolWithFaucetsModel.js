@@ -34,7 +34,7 @@ define( function( require ) {
     this.volumeProperty.link( function( volume ) {
       inputFaucet.enabledProperty.value = ( volume < maxVolume );
       outputFaucet.enabledProperty.value = ( volume > 0 );
-      underPressureModel.currentVolume = volume;
+      underPressureModel.currentVolumeProperty.value = volume;
     } );
   }
 

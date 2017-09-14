@@ -40,13 +40,13 @@ define( function( require ) {
     var oldFluidDensity;
     this.underPressureModel.currentSceneProperty.link( function( scene, oldScene ) {
       if ( scene === 'mystery' ) {
-        oldGravity = self.underPressureModel.gravity;
-        oldFluidDensity = self.underPressureModel.fluidDensity;
+        oldGravity = self.underPressureModel.gravityProperty.value;
+        oldFluidDensity = self.underPressureModel.fluidDensityProperty.value;
         self.updateChoiceValue();
       }
       else if ( oldScene === 'mystery' ) {
-        self.underPressureModel.gravity = oldGravity;
-        self.underPressureModel.fluidDensity = oldFluidDensity;
+        self.underPressureModel.gravityProperty.value = oldGravity;
+        self.underPressureModel.fluidDensityProperty.value = oldFluidDensity;
       }
     } );
 
@@ -60,13 +60,13 @@ define( function( require ) {
         self.underPressureModel.fluidDensityProperty.reset();
       }
       // Update mystery quantity.
-      if ( self.underPressureModel.currentScene === 'mystery' ) {
+      if ( self.underPressureModel.currentSceneProperty.value === 'mystery' ) {
         self.updateChoiceValue();
       }
     } );
 
     Property.multilink( [ this.customGravityProperty, this.customFluidDensityProperty ], function() {
-      if ( self.underPressureModel.currentScene === 'mystery' ) {
+      if ( self.underPressureModel.currentSceneProperty.value === 'mystery' ) {
         self.updateChoiceValue();
       }
     } );
@@ -78,12 +78,12 @@ define( function( require ) {
 
     // @public
     updateChoiceValue: function() {
-      if ( this.underPressureModel.mysteryChoice === 'fluidDensity' ) {
-        this.underPressureModel.fluidDensity = this.fluidDensityChoices[ this.customFluidDensityProperty.value ];
+      if ( this.underPressureModel.mysteryChoiceProperty.value === 'fluidDensity' ) {
+        this.underPressureModel.fluidDensityProperty.value = this.fluidDensityChoices[ this.customFluidDensityProperty.value ];
         this.underPressureModel.fluidColorModel.colorProperty.value = this.fluidColor[ this.customFluidDensityProperty.value ];
       }
       else {
-        this.underPressureModel.gravity = this.gravityChoices[ this.customGravityProperty.value ];
+        this.underPressureModel.gravityProperty.value = this.gravityChoices[ this.customGravityProperty.value ];
         this.underPressureModel.fluidDensityProperty.notifyListenersStatic();
       }
 

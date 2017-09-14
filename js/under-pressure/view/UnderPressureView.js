@@ -232,7 +232,7 @@ define( function( require ) {
     this.addChild( mysteryPoolView );
 
     underPressureModel.mysteryChoiceProperty.link( function( choice ) {
-      if ( underPressureModel.currentScene === 'mystery' ) {
+      if ( underPressureModel.currentSceneProperty.value === 'mystery' ) {
         if ( choice === 'gravity' ) {
           gravitySlider.disable();
           fluidDensitySlider.enable();
@@ -246,7 +246,7 @@ define( function( require ) {
 
     underPressureModel.currentSceneProperty.link( function( currentScene ) {
       if ( currentScene === 'mystery' ) {
-        if ( underPressureModel.mysteryChoice === 'gravity' ) {
+        if ( underPressureModel.mysteryChoiceProperty.value === 'gravity' ) {
           gravitySlider.disable();
         }
         else {
