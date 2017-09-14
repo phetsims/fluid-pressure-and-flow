@@ -44,10 +44,8 @@ define( function( require ) {
     // @public
     // The position is the center of the block.
     this.positionProperty = new Property( new Vector2( x, y ) );
-    Property.preventGetSet( this, 'position' );
 
     this.isDraggingProperty = new Property( false );
-    Property.preventGetSet( this, 'isDragging' );
 
     this.isFalling = false; // @private
     this.velocity = 0; // @private

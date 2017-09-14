@@ -28,7 +28,6 @@ define( function( require ) {
     // instead of this property then volume changes in one scene will reflect in the other.
     //L @public
     this.volumeProperty = new Property( 1.5 );
-    Property.preventGetSet( this, 'volume' );
 
     // Enable faucets and dropper based on amount of solution in the beaker.
     this.volumeProperty.link( function( volume ) {

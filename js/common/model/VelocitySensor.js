@@ -11,7 +11,6 @@ define( function( require ) {
   var DerivedProperty = require( 'AXON/DerivedProperty' );
   var fluidPressureAndFlow = require( 'FLUID_PRESSURE_AND_FLOW/fluidPressureAndFlow' );
   var inherit = require( 'PHET_CORE/inherit' );
-  var Property = require( 'AXON/Property' );
   var Sensor = require( 'FLUID_PRESSURE_AND_FLOW/common/model/Sensor' );
 
   /**
@@ -26,8 +25,6 @@ define( function( require ) {
     this.isArrowVisibleProperty = new DerivedProperty( [ this.valueProperty ], function( value ) {
       return value.magnitude() > 0;
     } );
-
-    Property.preventGetSet( this, 'isArrowVisible' );
   }
 
   fluidPressureAndFlow.register( 'VelocitySensor', VelocitySensor );

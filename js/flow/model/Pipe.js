@@ -42,29 +42,17 @@ define( function( require ) {
     var mainHandleInitialY = (TOP_HANDLE_INITIAL_Y + BOTTOM_HANDLE_INITIAL_Y) / 2;
 
     this.flowRateProperty = new Property( 5000 ); // rate of fluid flow in Liter per second (L/s)
-    Property.preventGetSet( this, 'flowRate' );
     this.frictionProperty = new Property( false ); // flag indicating whether friction should slow particles near the edges
-    Property.preventGetSet( this, 'friction' );
     this.rightPipeYPositionProperty = new Property( PIPE_INITIAL_Y ); //tracks the right pipe's vertical position in pixel
-    Property.preventGetSet( this, 'rightPipeYPosition' );
     this.leftPipeYPositionProperty = new Property( PIPE_INITIAL_Y );
-    Property.preventGetSet( this, 'leftPipeYPosition' );
     this.leftPipeMainHandleYPositionProperty = new Property( mainHandleInitialY );
-    Property.preventGetSet( this, 'leftPipeMainHandleYPosition' );
     this.rightPipeMainHandleYPositionProperty = new Property( mainHandleInitialY );
-    Property.preventGetSet( this, 'rightPipeMainHandleYPosition' );
     this.leftPipeScaleProperty = new Property( PIPE_INITIAL_SCALE );
-    Property.preventGetSet( this, 'leftPipeScale' );
     this.rightPipeScaleProperty = new Property( PIPE_INITIAL_SCALE );
-    Property.preventGetSet( this, 'rightPipeScale' );
     this.leftPipeTopHandleYProperty = new Property( TOP_HANDLE_INITIAL_Y );
-    Property.preventGetSet( this, 'leftPipeTopHandleY' );
     this.leftPipeBottomHandleYProperty = new Property( BOTTOM_HANDLE_INITIAL_Y );
-    Property.preventGetSet( this, 'leftPipeBottomHandleY' );
     this.rightPipeTopHandleYProperty = new Property( TOP_HANDLE_INITIAL_Y );
-    Property.preventGetSet( this, 'rightPipeTopHandleY' );
     this.rightPipeBottomHandleYProperty = new Property( BOTTOM_HANDLE_INITIAL_Y );
-    Property.preventGetSet( this, 'rightPipeBottomHandleY' );
 
     // cross-sections that the user can manipulate to deform the pipe.
     var controlCrossSections = [

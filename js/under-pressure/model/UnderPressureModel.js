@@ -55,19 +55,6 @@ define( function( require ) {
     this.fluidDensityControlExpandedProperty = new Property( true );//For the accordion box
     this.gravityControlExpandedProperty = new Property( true );//For the accordion box
 
-    Property.preventGetSet( this, 'isAtmosphere' );
-    Property.preventGetSet( this, 'isRulerVisible' );
-    Property.preventGetSet( this, 'isGridVisible' );
-    Property.preventGetSet( this, 'measureUnits' );
-    Property.preventGetSet( this, 'gravity' );
-    Property.preventGetSet( this, 'fluidDensity' );
-    Property.preventGetSet( this, 'currentScene' );
-    Property.preventGetSet( this, 'currentVolume' );
-    Property.preventGetSet( this, 'rulerPosition' );
-    Property.preventGetSet( this, 'mysteryChoice' );
-    Property.preventGetSet( this, 'fluidDensityControlExpanded' );
-    Property.preventGetSet( this, 'gravityControlExpanded' );
-
     this.sceneModels = {}; // @public
     this.sceneModels.square = new SquarePoolModel( self );
     this.sceneModels.trapezoid = new TrapezoidPoolModel( self );
@@ -87,7 +74,6 @@ define( function( require ) {
     this.currentSceneModelProperty = new DerivedProperty( [ this.currentSceneProperty ], function( currentScene ) {
       return self.sceneModels[ currentScene ];
     } );
-    Property.preventGetSet( this, 'currentSceneModel' );
 
     this.currentSceneModelProperty.link( function( currentSceneModel ) {
       self.currentVolumeProperty.value = currentSceneModel.volumeProperty.value;

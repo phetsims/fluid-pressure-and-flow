@@ -30,11 +30,9 @@ define( function( require ) {
 
     // @public
     this.flowRateProperty = new Property( 0 );
-    Property.preventGetSet( this, 'flowRate' );
 
     // @public
     this.enabledProperty = new Property( true );
-    Property.preventGetSet( this, 'enabled' );
 
     // when disabled, turn off the faucet.
     this.enabledProperty.onValue( false, function() {

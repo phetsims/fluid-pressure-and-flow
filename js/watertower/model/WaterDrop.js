@@ -26,13 +26,8 @@ define( function( require ) {
   function WaterDrop( position, velocity, volume ) {
 
     this.positionProperty = new Property( position );
-    Property.preventGetSet( this, 'position' );
-
     this.velocityProperty = new Property( velocity );
-    Property.preventGetSet( this, 'velocity' );
-
     this.volumeProperty = new Property( volume );
-    Property.preventGetSet( this, 'volume' );
 
     // node holds a reference to the waterdrop node. This is used to remove the view element when the water drop is no longer necessary.
     // This is a shortcut to prevent having removal listeners for individual drops.

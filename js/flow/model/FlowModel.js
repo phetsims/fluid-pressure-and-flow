@@ -53,29 +53,17 @@ define( function( require ) {
     this.flowRateRange = new RangeWithValue( Constants.MIN_FLOW_RATE, Constants.MAX_FLOW_RATE );
 
     this.isRulerVisibleProperty = new Property( false ); // TODO: Appears unused
-    Property.preventGetSet( this, 'isRulerVisible' );
     this.isFluxMeterVisibleProperty = new Property( false );
-    Property.preventGetSet( this, 'isFluxMeterVisible' );
     this.isGridInjectorPressedProperty = new Property( false );
-    Property.preventGetSet( this, 'isGridInjectorPressed' );
     this.gridInjectorElapsedTimeInPressedModeProperty = new Property( 0 ); // elapsed sim time (in sec) for which the injector remained pressed
-    Property.preventGetSet( this, 'gridInjectorElapsedTimeInPressedMode' );
     this.isDotsVisibleProperty = new Property( true );
-    Property.preventGetSet( this, 'isDotsVisible' );
     this.isPlayingProperty = new Property( true );// Whether the sim is paused or running
-    Property.preventGetSet( this, 'isPlaying' );
     this.measureUnitsProperty = new Property( 'metric' ); //metric, english
-    Property.preventGetSet( this, 'measureUnits' );
     this.fluidDensityProperty = new Property( Constants.WATER_DENSITY );
-    Property.preventGetSet( this, 'fluidDensity' );
     this.fluidDensityControlExpandedProperty = new Property( false ); // TODO: appears unused
-    Property.preventGetSet( this, 'fluidDensityControlExpanded' );
     this.flowRateControlExpandedProperty = new Property( false ); // TODO: appears unused
-    Property.preventGetSet( this, 'flowRateControlExpanded' );
     this.rulerPositionProperty = new Property( new Vector2( 300, 344 ) ); // px // TODO: Appears unused
-    Property.preventGetSet( this, 'rulerPosition' );
     this.speedProperty = new Property( 'normal' ); //speed of the model, either 'normal' or 'slow'
-    Property.preventGetSet( this, 'speed' );
 
     this.barometers = [];
     for ( var i = 0; i < NUMBER_BAROMETERS; i++ ) {

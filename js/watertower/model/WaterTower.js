@@ -32,11 +32,8 @@ define( function( require ) {
     this.TANK_VOLUME = Math.PI * this.TANK_RADIUS * this.TANK_RADIUS * this.TANK_HEIGHT;
 
     this.isHoleOpenProperty = new Property( false ); // TODO: Is this unused?
-    Property.preventGetSet( this, 'isHoleOpen' );
     this.fluidVolumeProperty = new Property( this.TANK_VOLUME * options.initialFluidLevel );
-    Property.preventGetSet( this, 'fluidVolume' );
     this.tankPositionProperty = new Property( options.tankPosition ); //water tank bottom left
-    Property.preventGetSet( this, 'tankPosition' );
 
     // Size of the hole in meters
     this.HOLE_SIZE = 1;

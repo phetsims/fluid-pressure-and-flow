@@ -42,43 +42,24 @@ define( function( require ) {
     this.fluidDensityRange = new RangeWithValue( Constants.GASOLINE_DENSITY, Constants.HONEY_DENSITY );
 
     this.isRulerVisibleProperty = new Property( false );
-    Property.preventGetSet( this, 'isRulerVisible' );
     this.isMeasuringTapeVisibleProperty = new Property( false );
-    Property.preventGetSet( this, 'isMeasuringTapeVisible' );
     this.isSpeedometerVisibleProperty = new Property( true );
-    Property.preventGetSet( this, 'isSpeedometerVisible' );
     this.isHoseVisibleProperty = new Property( false );
-    Property.preventGetSet( this, 'isHoseVisible' );
     this.isPlayingProperty = new Property( true );//Whether the sim is paused or running
-    Property.preventGetSet( this, 'isPlaying' );
     this.faucetFlowRateProperty = new Property( 0 );// cubic meter/sec
-    Property.preventGetSet( this, 'faucetFlowRate' );
     this.isFaucetEnabledProperty = new Property( true );
-    Property.preventGetSet( this, 'isFaucetEnabled' );
     this.measureUnitsProperty = new Property( 'metric' );//metric, english
-    Property.preventGetSet( this, 'measureUnits' );
     this.fluidDensityProperty = new Property( Constants.WATER_DENSITY );
-    Property.preventGetSet( this, 'fluidDensity' );
     this.fluidDensityControlExpandedProperty = new Property( false );
-    Property.preventGetSet( this, 'fluidDensityControlExpanded' );
     this.rulerPositionProperty = new Property( new Vector2( 300, 350 ) ); // px
-    Property.preventGetSet( this, 'rulerPosition' );
     this.measuringTapeBasePositionProperty = new Property( new Vector2( 10, 0 ) ); // initial position (of crosshair near the base) of tape in model coordinates
-    Property.preventGetSet( this, 'measuringTapeBasePosition' );
     this.measuringTapeTipPositionProperty = new Property( new Vector2( 17, 0 ) ); // initial position (of crosshair  at the tip) of tape in model coordinates
-    Property.preventGetSet( this, 'measuringTapeTipPosition' );
     this.waterFlowProperty = new Property( 'water' );
-    Property.preventGetSet( this, 'waterFlow' );
     this.isSluiceOpenProperty = new Property( false );
-    Property.preventGetSet( this, 'isSluiceOpen' );
     this.faucetModeProperty = new Property( 'manual' ); //manual or matchLeakage
-    Property.preventGetSet( this, 'faucetMode' );
     this.scaleProperty = new Property( 1 ); // scale coefficient
-    Property.preventGetSet( this, 'scale' );
     this.speedProperty = new Property( 'normal' ); //speed of the model, either 'normal' or 'slow'
-    Property.preventGetSet( this, 'speed' );
     this.tankFullLevelDurationProperty = new Property( 0 );// the number of seconds tank has been full for. This property is used to enable/disable the fill button. // Fill button is disabled only when the tank has been full for at least 1 sec
-    Property.preventGetSet( this, 'tankFullLevelDuration' );
 
     // position the tank frame at (1, 1.5). (0, 0) is the left most point on the ground.
     this.waterTower = new WaterTower( { tankPosition: new Vector2( 7, 11.1 ) } ); //INITIAL_Y is 15 in java
