@@ -13,7 +13,6 @@ define( function( require ) {
   var fluidPressureAndFlow = require( 'FLUID_PRESSURE_AND_FLOW/fluidPressureAndFlow' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Property = require( 'AXON/Property' );
-  var PropertySet = require( 'AXON/PropertySet' );
 
   /**
    * @param {Vector2} location center of output pipe
@@ -45,5 +44,5 @@ define( function( require ) {
 
   fluidPressureAndFlow.register( 'FaucetModel', FaucetModel );
 
-  return inherit( PropertySet, FaucetModel );
+  return inherit( Object, FaucetModel );
 } );

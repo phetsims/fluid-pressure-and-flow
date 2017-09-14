@@ -4,7 +4,7 @@
  * Model for a simple spherical particle (Modified from watertower's WaterDrop). The red dots and black grid dots
  * in flow sim are modelled as Particles. Model contains properties for radius, color, position etc.
  *
- * Since so many particles are moving in every frame, it is too much overhead to model them using PropertySet.link,
+ * Since so many particles are moving in every frame, it is too much overhead to model them using Property.link,
  * and they are rendered in a CanvasNode.  Hence the values are modeled directly as attributes (without axon Properties).
  *
  * @author Siddhartha Chinthapally (Actual Concepts)
