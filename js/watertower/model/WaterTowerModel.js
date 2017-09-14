@@ -17,7 +17,6 @@ define( function( require ) {
   var inherit = require( 'PHET_CORE/inherit' );
   var ObservableArray = require( 'AXON/ObservableArray' );
   var Property = require( 'AXON/Property' );
-  var PropertySet = require( 'AXON/PropertySet' );
   var RangeWithValue = require( 'DOT/RangeWithValue' );
   var Sensor = require( 'FLUID_PRESSURE_AND_FLOW/common/model/Sensor' );
   var StringUtils = require( 'PHETCOMMON/util/StringUtils' );
@@ -42,32 +41,44 @@ define( function( require ) {
 
     this.fluidDensityRange = new RangeWithValue( Constants.GASOLINE_DENSITY, Constants.HONEY_DENSITY );
 
-    PropertySet.call( this, {
-        isRulerVisible: false,
-        isMeasuringTapeVisible: false,
-        isSpeedometerVisible: true,
-        isHoseVisible: false,
-        isPlaying: true,//Whether the sim is paused or running
-        faucetFlowRate: 0, // cubic meter/sec
-        isFaucetEnabled: true,
-        measureUnits: 'metric', //metric, english
-        fluidDensity: Constants.WATER_DENSITY,
-        fluidDensityControlExpanded: false,
-        rulerPosition: new Vector2( 300, 350 ), // px
-        measuringTapeBasePosition: new Vector2( 10, 0 ), // initial position (of crosshair near the base) of tape in model coordinates
-        measuringTapeTipPosition: new Vector2( 17, 0 ), // initial position (of crosshair  at the tip) of tape in model coordinates
-        waterFlow: 'water',
-        isSluiceOpen: false,
-        faucetMode: 'manual', //manual or matchLeakage
-        scale: 1, // scale coefficient
-        //speed of the model, either 'normal' or 'slow'
-        speed: 'normal',
-        // the number of seconds tank has been full for. This property is used to enable/disable the fill button.
-        // Fill button is disabled only when the tank has been full for at least 1 sec
-        tankFullLevelDuration: 0
-      }
-    );
-
+    this.isRulerVisibleProperty = new Property( false );
+    Property.preventGetSet( this, 'isRulerVisible' );
+    this.isMeasuringTapeVisibleProperty = new Property( false );
+    Property.preventGetSet( this, 'isMeasuringTapeVisible' );
+    this.isSpeedometerVisibleProperty = new Property( true );
+    Property.preventGetSet( this, 'isSpeedometerVisible' );
+    this.isHoseVisibleProperty = new Property( false );
+    Property.preventGetSet( this, 'isHoseVisible' );
+    this.isPlayingProperty = new Property( true );//Whether the sim is paused or running
+    Property.preventGetSet( this, 'isPlaying' );
+    this.faucetFlowRateProperty = new Property( 0 );// cubic meter/sec
+    Property.preventGetSet( this, 'faucetFlowRate' );
+    this.isFaucetEnabledProperty = new Property( true );
+    Property.preventGetSet( this, 'isFaucetEnabled' );
+    this.measureUnitsProperty = new Property( 'metric' );//metric, english
+    Property.preventGetSet( this, 'measureUnits' );
+    this.fluidDensityProperty = new Property( Constants.WATER_DENSITY );
+    Property.preventGetSet( this, 'fluidDensity' );
+    this.fluidDensityControlExpandedProperty = new Property( false );
+    Property.preventGetSet( this, 'fluidDensityControlExpanded' );
+    this.rulerPositionProperty = new Property( new Vector2( 300, 350 ) ); // px
+    Property.preventGetSet( this, 'rulerPosition' );
+    this.measuringTapeBasePositionProperty = new Property( new Vector2( 10, 0 ) ); // initial position (of crosshair near the base) of tape in model coordinates
+    Property.preventGetSet( this, 'measuringTapeBasePosition' );
+    this.measuringTapeTipPositionProperty = new Property( new Vector2( 17, 0 ) ); // initial position (of crosshair  at the tip) of tape in model coordinates
+    Property.preventGetSet( this, 'measuringTapeTipPosition' );
+    this.waterFlowProperty = new Property( 'water' );
+    Property.preventGetSet( this, 'waterFlow' );
+    this.isSluiceOpenProperty = new Property( false );
+    Property.preventGetSet( this, 'isSluiceOpen' );
+    this.faucetModeProperty = new Property( 'manual' ); //manual or matchLeakage
+    Property.preventGetSet( this, 'faucetMode' );
+    this.scaleProperty = new Property( 1 ); // scale coefficient
+    Property.preventGetSet( this, 'scale' );
+    this.speedProperty = new Property( 'normal' ); //speed of the model, either 'normal' or 'slow'
+    Property.preventGetSet( this, 'speed' );
+    this.tankFullLevelDurationProperty = new Property( 0 );// the number of seconds tank has been full for. This property is used to enable/disable the fill button. // Fill button is disabled only when the tank has been full for at least 1 sec
+    Property.preventGetSet( this, 'tankFullLevelDuration' );
 
     // position the tank frame at (1, 1.5). (0, 0) is the left most point on the ground.
     this.waterTower = new WaterTower( { tankPosition: new Vector2( 7, 11.1 ) } ); //INITIAL_Y is 15 in java
@@ -92,13 +103,13 @@ define( function( require ) {
 
     Property.multilink( [ this.waterTower.isFullProperty, this.faucetModeProperty ], function( isFull, faucetMode ) {
       if ( faucetMode === 'manual' ) {
-        this.isFaucetEnabled = !isFull;
+        this.isFaucetEnabledProperty.value = !isFull;
         if ( isFull ) {
-          this.faucetFlowRate = 0;
+          this.faucetFlowRateProperty.value = 0;
         }
       }
       else {
-        this.isFaucetEnabled = false;
+        this.isFaucetEnabledProperty.value = false;
       }
     }.bind( this ) );
 
@@ -115,11 +126,29 @@ define( function( require ) {
 
   fluidPressureAndFlow.register( 'WaterTowerModel', WaterTowerModel );
 
-  return inherit( PropertySet, WaterTowerModel, {
+  return inherit( Object, WaterTowerModel, {
 
     // Resets all model elements
     reset: function() {
-      PropertySet.prototype.reset.call( this );
+      this.isRulerVisibleProperty.reset();
+      this.isMeasuringTapeVisibleProperty.reset();
+      this.isSpeedometerVisibleProperty.reset();
+      this.isHoseVisibleProperty.reset();
+      this.isPlayingProperty.reset();
+      this.faucetFlowRateProperty.reset();
+      this.isFaucetEnabledProperty.reset();
+      this.measureUnitsProperty.reset();
+      this.fluidDensityProperty.reset();
+      this.fluidDensityControlExpandedProperty.reset();
+      this.rulerPositionProperty.reset();
+      this.measuringTapeBasePositionProperty.reset();
+      this.measuringTapeTipPositionProperty.reset();
+      this.waterFlowProperty.reset();
+      this.isSluiceOpenProperty.reset();
+      this.faucetModeProperty.reset();
+      this.scaleProperty.reset();
+      this.speedProperty.reset();
+      this.tankFullLevelDurationProperty.reset();
 
       _.each( this.barometers, function( barometer ) {
         barometer.reset();
@@ -135,7 +164,7 @@ define( function( require ) {
     },
 
     getFluidPressure: function( height ) {
-      return height * 9.8 * this.fluidDensity;
+      return height * 9.8 * this.fluidDensityProperty.value;
     },
 
     getPressureAtCoords: function( x, y ) {
@@ -169,8 +198,8 @@ define( function( require ) {
     step: function( dt ) {
       // prevent sudden dt bursts on slow devices or when the user comes back to the tab after a while
       dt = ( dt > 0.04 ) ? 0.04 : dt;
-      if ( this.isPlaying ) {
-        if ( this.speed === 'normal' ) {
+      if ( this.isPlayingProperty.value ) {
+        if ( this.speedProperty.value === 'normal' ) {
           this.stepInternal( dt );
         }
         else {
@@ -197,11 +226,11 @@ define( function( require ) {
 
       while ( this.accumulatedDt > 0.016 ) {
         this.accumulatedDt -= 0.016;
-        if ( (this.faucetMode === 'manual' && this.isFaucetEnabled && this.faucetFlowRate > 0) ||
-             (this.faucetMode === 'matchLeakage' && this.isSluiceOpen && this.waterTower.fluidVolumeProperty.value > 0) ) {
+        if ( (this.faucetModeProperty.value === 'manual' && this.isFaucetEnabledProperty.value && this.faucetFlowRateProperty.value > 0) ||
+             (this.faucetModeProperty.value === 'matchLeakage' && this.isSluiceOpenProperty.value && this.waterTower.fluidVolumeProperty.value > 0) ) {
           newFaucetDrop = new WaterDrop( this.faucetPosition.copy().plus( new Vector2( Math.random() * 0.2 - 0.1,
             1.5 ) ), new Vector2( 0, 0 ),
-            this.faucetMode === 'manual' ? this.faucetFlowRate * 0.016 : this.leakageVolume );
+            this.faucetModeProperty.value === 'manual' ? this.faucetFlowRateProperty.value * 0.016 : this.leakageVolume );
           this.faucetDrops.push( newFaucetDrop );
           this.newFaucetDrops.push( newFaucetDrop );
           newFaucetDrop.step( this.accumulatedDt );
@@ -209,7 +238,7 @@ define( function( require ) {
 
         // Add watertower drops if the tank is open and there is enough fluid in the tank to be visible on the tower
         // Note: If fluid volume is very low (the fluid level is less than 1px height) then sometimes it doesn't show on the tower, but is visible with a magnifier
-        if ( this.isSluiceOpen && this.waterTower.fluidVolumeProperty.value > 0 && !this.isHoseVisible ) {
+        if ( this.isSluiceOpenProperty.value && this.waterTower.fluidVolumeProperty.value > 0 && !this.isHoseVisibleProperty.value ) {
 
           this.velocityMagnitude = Math.sqrt( 2 * Constants.EARTH_GRAVITY * this.waterTower.fluidLevelProperty.value );
 
@@ -242,7 +271,7 @@ define( function( require ) {
 
         // Add hose drops if the tank is open and there is fluid in the tank to be visible on the tower and the hose is visible
         // Note: If fluid volume is very low (the fluid level is less than 1px height) then sometimes it doesn't show on the tower, but is visible with a magnifier
-        if ( this.isSluiceOpen && this.waterTower.fluidVolumeProperty.value > 0 && this.isHoseVisible ) {
+        if ( this.isSluiceOpenProperty.value && this.waterTower.fluidVolumeProperty.value > 0 && this.isHoseVisibleProperty.value ) {
           this.leakageVolume = 0;
           var y = this.hose.rotationPivotY + this.waterTower.tankPositionProperty.value.y + 0.1;
           if ( y < this.waterTower.fluidLevelProperty.value + this.waterTower.tankPositionProperty.value.y ) {
@@ -254,7 +283,7 @@ define( function( require ) {
 
             newHoseDrop = new WaterDrop( new Vector2( this.hose.rotationPivotX + this.waterTower.tankPositionProperty.value.x +
                                                       2 * this.waterTower.TANK_RADIUS - 0.1 + Math.random() * 0.2 - 0.1,
-                y + Math.random() * 0.2 - 0.1 ),
+              y + Math.random() * 0.2 - 0.1 ),
               new Vector2( this.velocityMagnitude * Math.cos( this.hose.angleProperty.value ),
                 this.velocityMagnitude * Math.sin( this.hose.angleProperty.value ) ), this.leakageVolume );
 
@@ -294,12 +323,12 @@ define( function( require ) {
       // Update the value only when it is less than 1. We are only interested in the 1 sec boundary.
       // Otherwise it will trigger too many updates.
       if ( this.waterTower.fluidVolumeProperty.value >= 0.995 * this.waterTower.TANK_VOLUME ) {
-        if ( this.tankFullLevelDuration < 0.2 ) {
-          this.tankFullLevelDuration += dt;
+        if ( this.tankFullLevelDurationProperty.value < 0.2 ) {
+          this.tankFullLevelDurationProperty.value += dt;
         }
       }
       else {
-        this.tankFullLevelDuration = 0;
+        this.tankFullLevelDurationProperty.value = 0;
       }
 
       if ( this.dropsToRemove.length > 0 ) {
@@ -357,10 +386,10 @@ define( function( require ) {
     getFluidDensityString: function() {
       if ( this.measureUnitsProperty.value === 'english' ) {
         return StringUtils.format( valueWithUnitsPatternString,
-          (Units.FLUID_DENSITY_ENGLISH_PER_METRIC * this.fluidDensity).toFixed( 2 ), densityUnitsEnglishString );
+          (Units.FLUID_DENSITY_ENGLISH_PER_METRIC * this.fluidDensityProperty.value).toFixed( 2 ), densityUnitsEnglishString );
       }
       else {
-        return StringUtils.format( valueWithUnitsPatternString, Math.round( this.fluidDensity ), densityUnitsMetricString );
+        return StringUtils.format( valueWithUnitsPatternString, Math.round( this.fluidDensityProperty.value ), densityUnitsMetricString );
       }
     },
 

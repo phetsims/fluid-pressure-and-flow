@@ -190,7 +190,7 @@ define( function( require ) {
       ticks: [
         {
           title: waterString,
-          value: waterTowerModel.fluidDensity
+          value: waterTowerModel.fluidDensityProperty.value
         },
         {
           title: gasolineString,
@@ -296,23 +296,23 @@ define( function( require ) {
 
     waterTowerModel.tankFullLevelDurationProperty.link( function( tankFullLevelDuration ) {
       waterTowerNode.fillButton.enabled = (tankFullLevelDuration < 0.2);
-      waterTowerModel.isFaucetEnabled = (tankFullLevelDuration < 0.2);
+      waterTowerModel.isFaucetEnabledProperty.value = (tankFullLevelDuration < 0.2);
     } );
 
     // if the sim is paused, disable the fill button as soon as the tank is filled
     new DerivedProperty( [ waterTowerModel.waterTower.fluidVolumeProperty ], function( fluidVolume ) {
       return fluidVolume === waterTowerModel.waterTower.TANK_VOLUME;
     } ).link( function() {
-      if ( !waterTowerModel.isPlaying ) {
+      if ( !waterTowerModel.isPlayingProperty.value ) {
         waterTowerNode.fillButton.enabled = false;
-        waterTowerModel.tankFullLevelDuration = 1;
+        waterTowerModel.tankFullLevelDurationProperty.value = 1;
       }
     } );
 
     // Handles the case when switching from play to pause or viceversa
     waterTowerModel.isPlayingProperty.link( function( isPlaying ) {
       if ( waterTowerModel.waterTower.fluidVolumeProperty.value >= waterTowerModel.waterTower.TANK_VOLUME ) {
-        waterTowerModel.tankFullLevelDuration = 1;
+        waterTowerModel.tankFullLevelDurationProperty.value = 1;
         if ( !isPlaying ) {
           // disable the fill button if the tank is full and switching from play to pause
           waterTowerNode.fillButton.enabled = false;
