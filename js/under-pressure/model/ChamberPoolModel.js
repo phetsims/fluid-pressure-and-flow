@@ -144,7 +144,7 @@ define( function( require ) {
     this.leftDisplacementProperty.link( function() {
       // trigger barometers update
       _.each( underPressureModel.barometers, function( barometer ) {
-        barometer.trigger( 'update' );
+        barometer.updatedEmitter.emit();
       } );
 
     } );

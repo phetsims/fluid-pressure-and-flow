@@ -44,7 +44,7 @@ define( function( require ) {
   var WaterDropsCanvasNode = require( 'FLUID_PRESSURE_AND_FLOW/watertower/view/WaterDropsCanvasNode' );
   var WaterTowerNode = require( 'FLUID_PRESSURE_AND_FLOW/watertower/view/WaterTowerNode' );
 
-  //strings
+  //  strings
   var feetString = require( 'string!FLUID_PRESSURE_AND_FLOW/feet' );
   var fluidDensityString = require( 'string!FLUID_PRESSURE_AND_FLOW/fluidDensity' );
   var gasolineString = require( 'string!FLUID_PRESSURE_AND_FLOW/gasoline' );
@@ -54,7 +54,7 @@ define( function( require ) {
   var slowMotionString = require( 'string!FLUID_PRESSURE_AND_FLOW/slowMotion' );
   var waterString = require( 'string!FLUID_PRESSURE_AND_FLOW/water' );
 
-  //View layout related constants
+  // View layout related constants
   var inset = 10;
 
   /**

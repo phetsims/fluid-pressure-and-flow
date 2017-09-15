@@ -114,12 +114,15 @@ define( function( require ) {
         flowModel.fluxMeter.trigger( 'update' );
 
         // update the velocity sensors
-        flowModel.speedometers[ 0 ].trigger( 'update' );
-        flowModel.speedometers[ 1 ].trigger( 'update' );
+        flowModel.speedometers.forEach( function( speedometer ) {
+          speedometer.updateEmitter.emit();
+        } );
 
         // update the barometers
-        flowModel.barometers[ 0 ].trigger( 'update' );
-        flowModel.barometers[ 1 ].trigger( 'update' );
+        flowModel.barometers.forEach( function( barometer ) {
+          barometer.updateEmitter.emit();
+        } );
+
         pipeHandlesNode.gridInjectorNode.updateGridInjector();
       }
     } ) );

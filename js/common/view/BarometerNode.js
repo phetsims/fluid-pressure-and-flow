@@ -159,7 +159,7 @@ define( function( require ) {
     } );
 
     // update barometer value when weights are added to chamber pool
-    barometer.on( 'update', function() {
+    barometer.updateEmitter.addListener( function() {
       if ( barometer.positionProperty.value === barometer.positionProperty.initialValue ) {
         barometer.valueProperty.value = null; // when the barometer is in the sensor panel making sure it shows no value for accessibility
       }

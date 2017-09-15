@@ -198,7 +198,7 @@ define( function( require ) {
         labelText.center = innerMostRectangle.center;
       } );
 
-    velocitySensor.on( 'update', function() {
+    velocitySensor.updateEmitter.addListener( function() {
       velocitySensor.valueProperty.value = getVelocityAt(
         modelViewTransform.viewToModelX( velocitySensor.positionProperty.value.x + rectangleWidth / 2 * options.scale ),
         modelViewTransform.viewToModelY( velocitySensor.positionProperty.value.y +
