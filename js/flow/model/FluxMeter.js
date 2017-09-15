@@ -10,7 +10,7 @@ define( function( require ) {
   'use strict';
 
   // modules
-  var Events = require( 'AXON/Events' );
+  var Emitter = require( 'AXON/Emitter' );
   var fluidPressureAndFlow = require( 'FLUID_PRESSURE_AND_FLOW/fluidPressureAndFlow' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Property = require( 'AXON/Property' );
@@ -28,12 +28,13 @@ define( function( require ) {
     // @public {Property.<number>} in meters. The flux meter can be dragged horizontally across the pipe
     this.xPositionProperty = new Property( -6.5 );
 
-    Events.call( this );
+    // @public
+    this.updateEmitter = new Emitter();
   }
 
   fluidPressureAndFlow.register( 'FluxMeter', FluxMeter );
 
-  return inherit( Events, FluxMeter, {
+  return inherit( Object, FluxMeter, {
 
     reset: function() {
       this.xPositionProperty.reset();

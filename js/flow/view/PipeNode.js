@@ -203,7 +203,7 @@ define( function( require ) {
         // mark pipe as dirty for getting new spline cross sections
         this.flowModel.pipe.dirty = true;
         this.updatePipeFlowLineShape();
-        this.flowModel.fluxMeter.trigger( 'update' );
+        this.flowModel.fluxMeter.updateEmitter.emit();
       }
     } );
 } );

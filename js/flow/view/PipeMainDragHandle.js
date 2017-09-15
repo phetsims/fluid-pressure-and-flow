@@ -111,7 +111,7 @@ define( function( require ) {
         // When a control point is dragged, update the pipe flow line shape and the node shape
         pipe.dirty = true;
         pipeNode.updatePipeFlowLineShape();
-        flowModel.fluxMeter.trigger( 'update' );
+        flowModel.fluxMeter.updateEmitter.emit();
 
         // update the velocity sensors
         flowModel.speedometers.forEach( function( speedometer ) {

@@ -174,9 +174,9 @@ define( function( require ) {
             pipe.rightPipeTopHandleYProperty.value = pipeNode.rightPipeNode.top + CONTROL_HANDLE_OFFSET;
             pipe.rightPipeBottomHandleYProperty.value = pipeNode.rightPipeNode.bottom - CONTROL_HANDLE_OFFSET;
           }
-          // trigger an update on the flux meter only if it is visible
+          // emit an update on the flux meter only if it is visible
           if ( flowModel.isFluxMeterVisibleProperty.value ) {
-            flowModel.fluxMeter.trigger( 'update' );
+            flowModel.fluxMeter.updateEmitter.emit();
           }
 
           flowModel.speedometers.forEach( function( speedometer ) {

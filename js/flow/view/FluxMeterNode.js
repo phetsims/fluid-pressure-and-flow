@@ -198,7 +198,7 @@ define( function( require ) {
       }
     } ) );
 
-    flowModel.fluxMeter.on( 'update', function() {
+    flowModel.fluxMeter.updateEmitter.addListener( function() {
       self.updateFluxMeter();
     } );
 

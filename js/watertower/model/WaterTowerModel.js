@@ -302,7 +302,7 @@ define( function( require ) {
       }
 
       // Update the value only when it is less than 1. We are only interested in the 1 sec boundary.
-      // Otherwise it will trigger too many updates.
+      // Otherwise it will emit too many updates.
       if ( this.waterTower.fluidVolumeProperty.value >= 0.995 * this.waterTower.TANK_VOLUME ) {
         if ( this.tankFullLevelDurationProperty.value < 0.2 ) {
           this.tankFullLevelDurationProperty.value += dt;
