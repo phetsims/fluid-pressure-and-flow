@@ -9,7 +9,7 @@ define( function( require ) {
   'use strict';
 
   // modules
-  var Events = require( 'AXON/Events' );
+  var Emitter = require( 'AXON/Emitter' );
   var fluidPressureAndFlow = require( 'FLUID_PRESSURE_AND_FLOW/fluidPressureAndFlow' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Property = require( 'AXON/Property' );
@@ -23,8 +23,6 @@ define( function( require ) {
    */
 
   function Hose( height, angle ) {
-
-    Events.call( this );
 
     // Layout parameters for the Hose
     this.L1 = 6.3; // length of the horizontal portion of the hose from the tank hole
@@ -45,6 +43,9 @@ define( function( require ) {
     // @public height increases downwards, decreases when the hose goes up. It will be negative when the hose is above the hole
     this.heightProperty = new Property( height );
 
+    // @public emitted when the update function is called.
+    this.updatedEmitter = new Emitter();
+
     this.update();
 
     Property.multilink( [ this.heightProperty, this.angleProperty ], function() {
@@ -55,7 +56,7 @@ define( function( require ) {
 
   fluidPressureAndFlow.register( 'Hose', Hose );
 
-  return inherit( Events, Hose, {
+  return inherit( Object, Hose, {
 
     /**
      * @private
@@ -78,7 +79,7 @@ define( function( require ) {
       this.elbowInnerY = this.nozzleAttachmentInnerY - this.H2 * Math.sin( angle );
       this.elbowLowerX = this.elbowOuterX - this.width * Math.sin( angle );
       this.elbowLowerY = this.elbowOuterY - (this.width - this.width * Math.cos( angle ));
-      this.trigger( 'updated' );
+      this.updatedEmitter.emit();
     },
 
     /**

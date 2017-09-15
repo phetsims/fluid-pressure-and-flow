@@ -67,7 +67,7 @@ define( function( require ) {
       centerX: modelViewTransform.modelToViewX( this.handleNodeCenterX )
     } );
     this.addChild( this.handleNode );
-    this.handleNode.touchArea = this.handleNode.localBounds.dilatedXY( 20, 20 );
+      this.handleNode.touchArea = this.handleNode.localBounds.dilatedXY( 20, 20 );
 
     var clickYOffset;
     var initialHeight;
@@ -146,7 +146,7 @@ define( function( require ) {
 
     self.setTranslation( modelViewTransform.modelToViewX( this.hose.initialPosition.x ), modelViewTransform.modelToViewY( this.hose.initialPosition.y ) );
 
-    this.hose.on( 'updated', function() {
+    this.hose.updatedEmitter.addListener( function() {
       self.update();
     } );
 
