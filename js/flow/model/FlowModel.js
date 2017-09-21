@@ -1,4 +1,4 @@
-// Copyright 2014-2015, University of Colorado Boulder
+// Copyright 2014-2017, University of Colorado Boulder
 
 /**
  * Model for the Flow tab in Fluid Pressure and Flow (FPAF) simulation. The model includes values for various view

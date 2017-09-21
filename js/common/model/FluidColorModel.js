@@ -1,4 +1,4 @@
-// Copyright 2014-2015, University of Colorado Boulder
+// Copyright 2014-2017, University of Colorado Boulder
 
 /**
  * Change fluid color when fluid density changes. For a given density the fluid color is got by linearly interpolating

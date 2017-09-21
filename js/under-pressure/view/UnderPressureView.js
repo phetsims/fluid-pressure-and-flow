@@ -1,4 +1,4 @@
-// Copyright 2013-2015, University of Colorado Boulder
+// Copyright 2013-2017, University of Colorado Boulder
 
 /**
  *  Main view for the under-pressure sim. The view contains 4 scenes: square pool, chamber pool, trapezoid and a
