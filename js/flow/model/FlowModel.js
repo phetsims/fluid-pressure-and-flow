@@ -40,6 +40,7 @@ define( function( require ) {
   // constants
   var NUMBER_BAROMETERS = 2;
   var NUMBER_VELOCITY_SENSORS = 2;
+  var SECONDS_THAT_GRID_INJECTOR_IS_IN_PRESSED_MODE = 4;
 
   /**
    * Constructor for the sim model.
@@ -83,10 +84,10 @@ define( function( require ) {
     this.flowParticles = new ObservableArray();
     this.gridParticles = new ObservableArray();
 
-    this.gridInjectorElapsedTimeInPressedModeProperty.link( function() {
+    this.gridInjectorElapsedTimeInPressedModeProperty.link( function( elapsedTime ) {
 
       //  The grid injector can only be fired every so often, in order to prevent too many black particles in the pipe
-      if ( self.gridInjectorElapsedTimeInPressedModeProperty.value > 5 ) {
+      if ( elapsedTime > SECONDS_THAT_GRID_INJECTOR_IS_IN_PRESSED_MODE ) {
         self.isGridInjectorPressedProperty.value = false;
         self.gridInjectorElapsedTimeInPressedModeProperty.value = 0;
       }

@@ -1,7 +1,7 @@
 // Copyright 2013-2017, University of Colorado Boulder
 
 /**
- *  Main view for the under-pressure sim. The view contains 4 scenes: square pool, chamber pool, trapezoid and a
+ *  Main view for the under-pressure screen. The view contains 4 scenes: square pool, chamber pool, trapezoid and a
  *  mystery pool. There is a scene selector to switch between the views. There are panels to control the fluid density
  *  and gravity and tools to measure pressure and length. Supports viewing values in english, metric or atmosphere units.
  *
