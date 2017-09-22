@@ -27,6 +27,7 @@ define( function( require ) {
   var Sensor = require( 'FLUID_PRESSURE_AND_FLOW/common/model/Sensor' );
   var StringUtils = require( 'PHETCOMMON/util/StringUtils' );
   var Units = require( 'FLUID_PRESSURE_AND_FLOW/common/model/Units' );
+  var Util = require( 'DOT/Util' );
   var Vector2 = require( 'DOT/Vector2' );
   var VelocitySensor = require( 'FLUID_PRESSURE_AND_FLOW/common/model/VelocitySensor' );
 
@@ -258,7 +259,7 @@ define( function( require ) {
             (Units.FLUID_DENSITY_ENGLISH_PER_METRIC * this.fluidDensityProperty.value).toFixed( 2 ), densityUnitsEnglishString );
         }
         else {
-          return StringUtils.format( valueWithUnitsPatternString, Math.round( this.fluidDensityProperty.value ), densityUnitsMetricString );
+          return StringUtils.format( valueWithUnitsPatternString, Util.roundSymmetric( this.fluidDensityProperty.value ), densityUnitsMetricString );
         }
       },
 
@@ -273,7 +274,7 @@ define( function( require ) {
             (Units.FLUID_FlOW_RATE_ENGLISH_PER_METRIC * this.pipe.flowRateProperty.value).toFixed( 2 ), rateUnitsEnglishString );
         }
         else {
-          return StringUtils.format( valueWithUnitsPatternString, Math.round( this.pipe.flowRateProperty.value ), rateUnitsMetricString );
+          return StringUtils.format( valueWithUnitsPatternString, Util.roundSymmetric( this.pipe.flowRateProperty.value ), rateUnitsMetricString );
         }
       },
 

@@ -370,7 +370,7 @@ define( function( require ) {
           (Units.FLUID_DENSITY_ENGLISH_PER_METRIC * this.fluidDensityProperty.value).toFixed( 2 ), densityUnitsEnglishString );
       }
       else {
-        return StringUtils.format( valueWithUnitsPatternString, Math.round( this.fluidDensityProperty.value ), densityUnitsMetricString );
+        return StringUtils.format( valueWithUnitsPatternString, Util.roundSymmetric( this.fluidDensityProperty.value ), densityUnitsMetricString );
       }
     },
 
