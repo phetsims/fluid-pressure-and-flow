@@ -29,8 +29,7 @@ define( function( require ) {
   var rulerString = require( 'string!FLUID_PRESSURE_AND_FLOW/ruler' );
 
   // images
-  //image
-  var measuringTapeImg = require( 'image!FLUID_PRESSURE_AND_FLOW/measuringTape.png' );
+  var measuringTapeImg = require( 'image!SCENERY_PHET/measuringTape.png' );
   var nozzleImg = require( 'image!FLUID_PRESSURE_AND_FLOW/nozzle.png' );
 
 
