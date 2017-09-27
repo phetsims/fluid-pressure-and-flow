@@ -50,13 +50,13 @@ define( function( require ) {
 
     // itemSpec describes the pieces that make up an item in the control panel,
     // conforms to the contract: { label: {Node}, icon: {Node} (optional) }
-    var ruler = { label: new Text( rulerString, textOptions ), icon: createRulerIcon() };
-    var friction = { label: new Text( frictionString, textOptions ) };
-    var fluxMeter = { label: new Text( fluxMeterString, textOptions ) };
-    var dots = { label: new Text( dotsString, textOptions ), icon: createDotsIcon() };
+    var rulerSpec = { label: new Text( rulerString, textOptions ), icon: createRulerIcon() };
+    var frictionSpec = { label: new Text( frictionString, textOptions ) };
+    var fluxMeterSpec = { label: new Text( fluxMeterString, textOptions ) };
+    var dotsSpec = { label: new Text( dotsString, textOptions ), icon: createDotsIcon() };
 
     // compute the maximum item width
-    var widestItemSpec = _.maxBy( [ ruler, friction, fluxMeter, dots ], function( item ) {
+    var widestItemSpec = _.maxBy( [ rulerSpec, frictionSpec, fluxMeterSpec, dotsSpec ], function( item ) {
       return item.label.width + ((item.icon) ? item.icon.width : 0);
     } );
     var maxWidth = widestItemSpec.label.width + ((widestItemSpec.icon) ? widestItemSpec.icon.width : 0);
@@ -77,11 +77,11 @@ define( function( require ) {
       spacing: 2
     };
 
-    var rulerCheckBox = new CheckBox( createItem( ruler ), flowModel.isRulerVisibleProperty, checkBoxOptions );
-    var frictionCheckBox = new CheckBox( createItem( friction ), flowModel.pipe.frictionProperty, checkBoxOptions );
-    var fluxMeterCheckBox = new CheckBox( createItem( fluxMeter ), flowModel.isFluxMeterVisibleProperty,
+    var rulerCheckBox = new CheckBox( createItem( rulerSpec ), flowModel.isRulerVisibleProperty, checkBoxOptions );
+    var frictionCheckBox = new CheckBox( createItem( frictionSpec ), flowModel.pipe.frictionProperty, checkBoxOptions );
+    var fluxMeterCheckBox = new CheckBox( createItem( fluxMeterSpec ), flowModel.isFluxMeterVisibleProperty,
       checkBoxOptions );
-    var dotsCheckBox = new CheckBox( createItem( dots ), flowModel.isDotsVisibleProperty, checkBoxOptions );
+    var dotsCheckBox = new CheckBox( createItem( dotsSpec ), flowModel.isDotsVisibleProperty, checkBoxOptions );
 
     var maxCheckBoxWidth = _.maxBy( [ rulerCheckBox, frictionCheckBox, fluxMeterCheckBox, dotsCheckBox ],
         function( item ) {

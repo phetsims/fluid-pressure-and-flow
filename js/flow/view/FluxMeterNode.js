@@ -261,7 +261,7 @@ define( function( require ) {
         this.fluxValue.text = this.flowModel.fluxMeter.getFlux().toFixed( 1 );
         this.fluxUnit.text = fluxUnitsMetricString;
       }
-      else {
+      else { // use english for either english or atmospheres
         var flowRate = this.flowModel.fluxMeter.getFlowRate() * Units.FEET_CUBE_PER_LITER;
         this.flowRateValue.text = flowRate.toFixed( 1 );
         this.flowRateUnit.text = rateUnitsEnglishString;

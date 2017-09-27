@@ -51,21 +51,36 @@ define( function( require ) {
   function FlowModel() {
     var self = this;
 
+    // @public (read-only)
     this.fluidDensityRange = new RangeWithValue( Constants.GASOLINE_DENSITY, Constants.HONEY_DENSITY );
     this.flowRateRange = new RangeWithValue( Constants.MIN_FLOW_RATE, Constants.MAX_FLOW_RATE );
 
-    this.isRulerVisibleProperty = new Property( false ); // TODO: Appears unused
+
+    // @public
+    this.isRulerVisibleProperty = new Property( false );
     this.isFluxMeterVisibleProperty = new Property( false );
     this.isGridInjectorPressedProperty = new Property( false );
-    this.gridInjectorElapsedTimeInPressedModeProperty = new Property( 0 ); // elapsed sim time (in sec) for which the injector remained pressed
+
+    // elapsed sim time (in sec) for which the injector has been pressed
+    this.gridInjectorElapsedTimeInPressedModeProperty = new Property( 0 );
     this.isDotsVisibleProperty = new Property( true );
-    this.isPlayingProperty = new Property( true );// Whether the sim is paused or running
-    this.measureUnitsProperty = new Property( 'metric' ); //metric, english
-    this.fluidDensityProperty = new Property( Constants.WATER_DENSITY );
-    this.fluidDensityControlExpandedProperty = new Property( false ); // TODO: appears unused
-    this.flowRateControlExpandedProperty = new Property( false ); // TODO: appears unused
-    this.rulerPositionProperty = new Property( new Vector2( 300, 344 ) ); // px // TODO: Appears unused
-    this.speedProperty = new Property( 'normal' ); //speed of the model, either 'normal' or 'slow'
+    this.isPlayingProperty = new Property( true ); // Whether the sim is paused or running
+
+    // {Property.<string>} - can be either "metric" "atmospheres or "english"
+    this.measureUnitsProperty = new Property( 'metric' );
+    this.fluidDensityProperty = new Property( Constants.WATER_DENSITY ); // {Property.<number>}
+
+    // Used to default the density accordion box to be closed
+    this.fluidDensityControlExpandedProperty = new Property( false );
+
+    // Used to default the flow rate accordion boxes to be closed
+    this.flowRateControlExpandedProperty = new Property( false );
+
+    // in px, here set the default position of the ruler on display
+    this.rulerPositionProperty = new Property( new Vector2( 300, 344 ) );
+
+    // {Property.<string>} - speed of the model, either 'normal' or 'slow'
+    this.speedProperty = new Property( 'normal' );
 
     this.barometers = [];
     for ( var i = 0; i < NUMBER_BAROMETERS; i++ ) {
@@ -85,6 +100,12 @@ define( function( require ) {
     this.flowParticles = new ObservableArray();
     this.gridParticles = new ObservableArray();
 
+    // call stepInternal at a rate of 10 times per second
+    this.timer = new EventTimer( new EventTimer.UniformEventModel( 10, Math.random ), function() {
+      self.createParticle();
+    } );
+    // end @public members
+
     this.gridInjectorElapsedTimeInPressedModeProperty.link( function( elapsedTime ) {
 
       //  The grid injector can only be fired every so often, in order to prevent too many black particles in the pipe
@@ -92,11 +113,6 @@ define( function( require ) {
         self.isGridInjectorPressedProperty.value = false;
         self.gridInjectorElapsedTimeInPressedModeProperty.value = 0;
       }
-    } );
-
-    // call stepInternal at a rate of 10 times per second
-    this.timer = new EventTimer( new EventTimer.UniformEventModel( 10, Math.random ), function() {
-      self.createParticle();
     } );
   }
 
@@ -180,7 +196,7 @@ define( function( require ) {
         dt = ( dt > 0.04 ) ? 0.04 : dt;
 
         if ( this.isPlayingProperty.value ) {
-          var adjustedDT = this.speedProperty.value === 'normal' ? dt : dt * 0.33;
+          var adjustedDT = this.speedProperty.value === 'normal' ? dt : dt * 0.33; // if not 'normal' then it is 'slow'
           this.timer.step( adjustedDT );
           this.propagateParticles( adjustedDT );
           if ( this.isGridInjectorPressedProperty.value ) {
