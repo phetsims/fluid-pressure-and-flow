@@ -63,7 +63,7 @@ define( function( require ) {
     } );
     this.addChild( outerRectangle );
 
-    //second rectangle
+    // second rectangle
     var innerRectangle = new Rectangle( 2, 2, rectangleWidth - 4, rectangleHeight - 4, 10, 10, { fill: '#C5631E' } );
     this.addChild( innerRectangle );
 
