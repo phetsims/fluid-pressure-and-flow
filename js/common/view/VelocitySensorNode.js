@@ -177,14 +177,12 @@ define( function( require ) {
               rectangleWidth, rectangleHeight ).eroded( 5 ) ) ) {
 
             if ( options.initialPosition ) {
-
-
               velocitySensor.positionProperty.value = options.initialPosition;
+              self.visible = false; // TODO does this want to be in all cases, not just for toolbox?
             }
             else {
               velocitySensor.positionProperty.reset();
             }
-
 
             self.moveToBack();
           }

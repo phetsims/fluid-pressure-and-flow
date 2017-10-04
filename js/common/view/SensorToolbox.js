@@ -47,10 +47,6 @@ define( function( require ) {
       Bounds2.EVERYTHING,// never used for the icon
       { scale: 0.9, isIcon: true }
     );
-    velocitySensorIcon.addInputListener( SimpleDragHandler.createForwardingListener( function( event ) {
-
-      console.log( event.pointer.point.x, event.pointer.point.y );
-    } ) );
 
     var barometerIcon = new BarometerNode(
       ModelViewTransform2.createIdentity(),
@@ -78,8 +74,7 @@ define( function( require ) {
     this.velocitySensorNodes = []; // @private
 
     // add velocitySensors within the sensor panel bounds
-    // TODO implement for more than just 1 speedometer
-    _.each( [ model.speedometers[ 0 ] ], function( velocitySensor ) {
+    _.each( model.speedometers, function( velocitySensor ) {
       // velocitySensor.positionProperty.reset();
 
       var velocitySensorNode = new VelocitySensorNode(
@@ -103,14 +98,19 @@ define( function( require ) {
 
       self.velocitySensorNodes.push( velocitySensorNode );
       screenView.addChild( velocitySensorNode );
-
-      velocitySensorIcon.addInputListener( SimpleDragHandler.createForwardingListener( function( event ) {
-        velocitySensorNode.visible = true;
-        velocitySensorNode.moveToFront();
-        velocitySensorNode.dragListener.startDrag( event );
-        console.log( event.pointer.point.x, event.pointer.point.y );
-      } ) );
     } );
+
+    velocitySensorIcon.addInputListener( SimpleDragHandler.createForwardingListener( function( event ) {
+
+      var velocitySensorNode = getNextInvisibleSensor( self.velocitySensorNodes);
+
+      if( !velocitySensorNode){
+        return; // there is nothing to forward to because all sensors are already out and visible.
+      }
+      velocitySensorNode.visible = true;
+      velocitySensorNode.moveToFront();
+      velocitySensorNode.dragListener.startDrag( event );
+    } ) );
 
     // TODO add barometer logic
     // add barometers within the sensor panel bounds
@@ -138,7 +138,21 @@ define( function( require ) {
     //
     // } );
 
+  }
 
+  /**
+   * Given a list of nodes, return the next first sensor in the list that is invisible
+   * @param {Array.<Node>} sensors
+   * @returns {Node|null} sensor - the first invisible sensor
+   */
+  function getNextInvisibleSensor( sensors){
+    for ( var i = 0; i < sensors.length; i++ ) {
+      var sensor = sensors[ i ];
+      if( !sensor.visible){
+        return sensor;
+      }
+    }
+    return null; // return null if there was nothing visible in the array.
   }
 
   fluidPressureAndFlow.register( 'SensorToolbox', SensorToolbox );
