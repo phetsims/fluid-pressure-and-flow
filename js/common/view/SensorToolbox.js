@@ -60,7 +60,7 @@ define( function( require ) {
       {
         minPressure: Constants.MIN_PRESSURE,
         maxPressure: Constants.MAX_PRESSURE,
-        pickable: false
+        isIcon: true
       }
     );
 
@@ -68,14 +68,12 @@ define( function( require ) {
     var container = new HBox( { children: [ velocitySensorIcon, barometerIcon ], spacing: 10 } );
     Panel.call( this, container, options );
 
-
     // TODO, make sure that this is the best way to get the location of the icon in units that the sensor's positionProperty can use
     var velocitySensorInitialPosition = velocitySensorIcon.localToGlobalPoint( new Vector2( velocitySensorIcon.x, velocitySensorIcon.y ) );
     this.velocitySensorNodes = []; // @private
 
     // add velocitySensors within the sensor panel bounds
     _.each( model.speedometers, function( velocitySensor ) {
-      // velocitySensor.positionProperty.reset();
 
       var velocitySensorNode = new VelocitySensorNode(
         modelViewTransform,
@@ -93,7 +91,8 @@ define( function( require ) {
       );
 
       // center the real velocity sensor on the icon.
-      velocitySensor.positionProperty._initialValue = velocitySensorInitialPosition; // TODO, just a hack until I find something better.
+      // TODO, just a hack until I find something better. I'm not sure why this is different from barometers
+      velocitySensor.positionProperty._initialValue = velocitySensorInitialPosition;
       velocitySensor.positionProperty.value = velocitySensorInitialPosition;
 
       self.velocitySensorNodes.push( velocitySensorNode );
@@ -102,9 +101,9 @@ define( function( require ) {
 
     velocitySensorIcon.addInputListener( SimpleDragHandler.createForwardingListener( function( event ) {
 
-      var velocitySensorNode = getNextInvisibleSensor( self.velocitySensorNodes);
+      var velocitySensorNode = getNextInvisibleSensor( self.velocitySensorNodes );
 
-      if( !velocitySensorNode){
+      if ( !velocitySensorNode ) {
         return; // there is nothing to forward to because all sensors are already out and visible.
       }
       velocitySensorNode.visible = true;
@@ -112,32 +111,47 @@ define( function( require ) {
       velocitySensorNode.dragListener.startDrag( event );
     } ) );
 
-    // TODO add barometer logic
-    // add barometers within the sensor panel bounds
-    // _.each( model.barometers, function( barometer ) {
-    //
-    //   // barometer.reset();
-    //
-    //   var barometerNode = new BarometerNode(
-    //     modelViewTransform,
-    //     barometer,
-    //     model.measureUnitsProperty,
-    //     [ model.fluidDensityProperty, model.pipe.flowRateProperty, model.pipe.frictionProperty ],
-    //     model.getPressureAtCoords.bind( model ),
-    //     model.getPressureString.bind( model ),
-    //     self.visibleBounds,
-    //     screenView.layoutBounds,
-    //     {
-    //       minPressure: Constants.MIN_PRESSURE,
-    //       maxPressure: Constants.MAX_PRESSURE,
-    //       scale: 0.9,
-    //     }
-    //   );
-    //
-    //   screenView.addChild( barometerNode );
-    //
-    // } );
 
+    // TODO, make sure that this is the best way to get the location of the icon in units that the sensor's positionProperty can use
+    this.barometerNodes = []; // @private
+
+    // add barometers within the sensor panel bounds
+    _.each( model.barometers, function( barometer ) {
+
+      var barometerNode = new BarometerNode(
+        modelViewTransform,
+        barometer,
+        model.measureUnitsProperty,
+        [ model.fluidDensityProperty, model.pipe.flowRateProperty, model.pipe.frictionProperty ],
+        model.getPressureAtCoords.bind( model ),
+        model.getPressureString.bind( model ),
+        self.visibleBounds,
+        screenView.layoutBounds,
+        {
+          minPressure: Constants.MIN_PRESSURE,
+          maxPressure: Constants.MAX_PRESSURE,
+          scale: 0.9,
+          visible: false,
+          initialPosition: barometer.positionProperty.get()
+        }
+      );
+
+      self.barometerNodes.push( barometerNode );
+      screenView.addChild( barometerNode );
+
+    } );
+
+    barometerIcon.addInputListener( SimpleDragHandler.createForwardingListener( function( event ) {
+
+      var barometerNode = getNextInvisibleSensor( self.barometerNodes );
+
+      if ( !barometerNode ) {
+        return; // there is nothing to forward to because all sensors are already out and visible.
+      }
+      barometerNode.visible = true;
+      barometerNode.moveToFront();
+      barometerNode.dragListener.startDrag( event );
+    } ) );
   }
 
   /**
@@ -145,10 +159,10 @@ define( function( require ) {
    * @param {Array.<Node>} sensors
    * @returns {Node|null} sensor - the first invisible sensor
    */
-  function getNextInvisibleSensor( sensors){
+  function getNextInvisibleSensor( sensors ) {
     for ( var i = 0; i < sensors.length; i++ ) {
       var sensor = sensors[ i ];
-      if( !sensor.visible){
+      if ( !sensor.visible ) {
         return sensor;
       }
     }
@@ -161,6 +175,9 @@ define( function( require ) {
 
     reset: function() {
       this.velocitySensorNodes.forEach( function( sensor ) {
+        sensor.visible = false;
+      } );
+      this.barometerNodes.forEach( function( sensor ) {
         sensor.visible = false;
       } );
     }

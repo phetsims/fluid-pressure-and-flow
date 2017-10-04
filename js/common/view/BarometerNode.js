@@ -57,7 +57,8 @@ define( function( require ) {
       pressureReadOffset: 53, //distance between center and reading tip of the barometer in view co-ordinates
       scale: 1,
       minPressure: Constants.MIN_PRESSURE,
-      maxPressure: Constants.MAX_PRESSURE
+      maxPressure: Constants.MAX_PRESSURE,
+      initialPosition: null // TODO figure out a better way to reset the barometer to have the position of the icon
     }, options );
 
     Node.call( this, { cursor: 'pointer' } );
@@ -132,7 +133,7 @@ define( function( require ) {
 
     // Add an input listener so the BarometerNode can be dragged
     // Constrain the location so it cannot be dragged offscreen
-    this.addInputListener( new MovableDragHandler( barometer.positionProperty,
+    this.dragListener = new MovableDragHandler( barometer.positionProperty,
       {
         dragBounds: barometerDragBounds,
         modelViewTransform: modelViewTransform,
@@ -141,13 +142,22 @@ define( function( require ) {
         },
         endDrag: function() {
           if ( containerBounds.intersectsBounds( self.visibleBounds ) ) {
-            barometer.positionProperty.reset();
+
+            if ( options.initialPosition ) {
+              barometer.positionProperty.value = options.initialPosition;
+              self.visible = false; // TODO does this want to be in all cases, not just for toolbox?
+            }
+            else {
+              barometer.positionProperty.reset();
+            }
+
             self.moveToBack();
           }
         }
-      } ) );
+      } );
+    !options.isIcon && this.addInputListener( this.dragListener );
 
-    //Update the value in the barometer value model by reading from the model.
+    // Update the value in the barometer value model by reading from the model.
     Property.multilink( [ barometer.positionProperty ].concat( linkedProperties ), function( position ) {
       if ( barometer.positionProperty.value === barometer.positionProperty.initialValue ) {
         barometer.valueProperty.value = null; // when the barometer is in the sensor panel making sure it shows no value for accessibility
