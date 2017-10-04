@@ -10,7 +10,6 @@ define( function( require ) {
 
   // modules
   var AquaRadioButton = require( 'SUN/AquaRadioButton' );
-  var BarometerNode = require( 'FLUID_PRESSURE_AND_FLOW/common/view/BarometerNode' );
   var Bounds2 = require( 'DOT/Bounds2' );
   var Constants = require( 'FLUID_PRESSURE_AND_FLOW/common/Constants' );
   var ControlSlider = require( 'FLUID_PRESSURE_AND_FLOW/common/view/ControlSlider' );
@@ -38,7 +37,7 @@ define( function( require ) {
   var UnitsControlPanel = require( 'FLUID_PRESSURE_AND_FLOW/common/view/UnitsControlPanel' );
   var VBox = require( 'SCENERY/nodes/VBox' );
   var Vector2 = require( 'DOT/Vector2' );
-  var VelocitySensorNode = require( 'FLUID_PRESSURE_AND_FLOW/common/view/VelocitySensorNode' );
+  var SensorToolbox = require( 'FLUID_PRESSURE_AND_FLOW/common/view/SensorToolbox' );
 
   // strings
   var flowRateString = require( 'string!FLUID_PRESSURE_AND_FLOW/flowRate' );
@@ -143,6 +142,7 @@ define( function( require ) {
         flowModel.reset();
         self.pipeNode.reset();
         pipeHandlesNode.reset();
+        sensorPanel.reset();
       },
       radius: 18,
       bottom: this.layoutBounds.bottom - 7,
@@ -181,7 +181,7 @@ define( function( require ) {
     this.addChild( fluidDensityControlNode );
 
     // add the sensors panel
-    var sensorPanel = new Rectangle( 0, 0, 167, 85, 10, 10, {
+    var sensorPanel = new SensorToolbox( flowModel, modelViewTransform, this, {
       stroke: 'gray', lineWidth: 1, fill: '#f2fa6a',
       right: unitsControlPanel.left - 4, top: toolsControlPanel.top
     } );
@@ -271,49 +271,7 @@ define( function( require ) {
       } );
     this.addChild( flowRateControlNode );
 
-    // add speedometers within the sensor panel bounds
-    _.each( flowModel.speedometers, function( velocitySensor ) {
-      velocitySensor.positionProperty.reset();
 
-      var velocitySensorNode = new VelocitySensorNode(
-        modelViewTransform,
-        velocitySensor,
-        flowModel.measureUnitsProperty,
-        [ flowModel.pipe.flowRateProperty, flowModel.pipe.frictionProperty ],
-        flowModel.getVelocityAt.bind( flowModel ),
-        sensorPanel.visibleBounds,
-        this.layoutBounds,
-        { scale: 0.9 }
-      );
-
-      toolsLayer.addChild( velocitySensorNode );
-
-    }.bind( this ) );
-
-    // add barometers within the sensor panel bounds
-    _.each( flowModel.barometers, function( barometer ) {
-
-      barometer.reset();
-
-      var barometerNode = new BarometerNode(
-        modelViewTransform,
-        barometer,
-        flowModel.measureUnitsProperty,
-        [ flowModel.fluidDensityProperty, flowModel.pipe.flowRateProperty, flowModel.pipe.frictionProperty ],
-        flowModel.getPressureAtCoords.bind( flowModel ),
-        flowModel.getPressureString.bind( flowModel ),
-        sensorPanel.visibleBounds,
-        this.layoutBounds,
-        {
-          minPressure: Constants.MIN_PRESSURE,
-          maxPressure: Constants.MAX_PRESSURE,
-          scale: 0.9
-        }
-      );
-
-      toolsLayer.addChild( barometerNode );
-
-    }.bind( this ) );
 
     // add the rule node
     toolsLayer.addChild( new FPAFRuler(

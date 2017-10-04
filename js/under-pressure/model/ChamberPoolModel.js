@@ -146,9 +146,7 @@ define( function( require ) {
       _.each( underPressureModel.barometers, function( barometer ) {
         barometer.updateEmitter.emit();
       } );
-
     } );
-
   }
 
   fluidPressureAndFlow.register( 'ChamberPoolModel', ChamberPoolModel );

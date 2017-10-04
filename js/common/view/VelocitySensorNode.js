@@ -46,11 +46,16 @@ define( function( require ) {
                                getVelocityAt, containerBounds, dragBounds, options ) {
 
     options = _.extend( {
-      scale: 1
+      scale: 1,
+      isIcon: false, // if just using as an icon, don't add listeners to it and whatnot
+      initialPosition: null // TODO figure out a better way to reset the velocitySensor to have the position of the icon
     }, options );
 
     var self = this;
     Node.call( this, { cursor: 'pointer', pickable: true } );
+
+    this.options = options; // @private
+    this.velocitySensor = velocitySensor; // @private
 
     var rectangleWidth = 100;
     var rectangleHeight = 56;
@@ -159,7 +164,7 @@ define( function( require ) {
     var speedMeterDragBounds = dragBounds.withMaxX( dragBounds.maxX - rectangleWidth * options.scale );
 
     // drag handler
-    this.addInputListener( new MovableDragHandler( velocitySensor.positionProperty,
+    this.dragListener = new MovableDragHandler( velocitySensor.positionProperty,
       {
         dragBounds: speedMeterDragBounds,
         startDrag: function() {
@@ -170,14 +175,26 @@ define( function( require ) {
           // Add a 5px tolerance. See https://github.com/phetsims/fluid-pressure-and-flow/issues/105
           if ( containerBounds.intersectsBounds( Bounds2.rect( velocitySensor.positionProperty.value.x, velocitySensor.positionProperty.value.y,
               rectangleWidth, rectangleHeight ).eroded( 5 ) ) ) {
-            velocitySensor.positionProperty.reset();
+
+            if ( options.initialPosition ) {
+
+
+              velocitySensor.positionProperty.value = options.initialPosition;
+            }
+            else {
+              velocitySensor.positionProperty.reset();
+            }
+
+
             self.moveToBack();
           }
         }
-      } ) );
+      } );
+    !options.isIcon && this.addInputListener( this.dragListener );
 
     velocitySensor.positionProperty.linkAttribute( self, 'translation' );
 
+    // update the value of the
     Property.multilink( [ velocitySensor.positionProperty ].concat( linkedProperties ), function( position ) {
       velocitySensor.valueProperty.value = getVelocityAt( modelViewTransform.viewToModelX( position.x +
                                                                                            rectangleWidth / 2 * options.scale ),
@@ -185,6 +202,7 @@ define( function( require ) {
     } );
 
     // Update the text when the value or units changes.
+    // TODO is the positionProperty needed in this multilink?
     Property.multilink( [ velocitySensor.valueProperty, measureUnitsProperty, velocitySensor.positionProperty ],
       function( velocity, units ) {
         if ( velocitySensor.positionProperty.initialValue.equals( velocitySensor.positionProperty.value ) ) {
