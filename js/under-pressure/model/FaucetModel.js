@@ -35,8 +35,10 @@ define( function( require ) {
     this.enabledProperty = new Property( true );
 
     // when disabled, turn off the faucet.
-    this.enabledProperty.onValue( false, function() {
-      self.flowRateProperty.value = 0;
+    this.enabledProperty.link( function( enabled ) {
+      if ( !enabled ) {
+        self.flowRateProperty.value = 0;
+      }
     } );
   }
 
