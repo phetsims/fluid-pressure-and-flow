@@ -31,13 +31,13 @@ define( function( require ) {
   var Rectangle = require( 'SCENERY/nodes/Rectangle' );
   var ResetAllButton = require( 'SCENERY_PHET/buttons/ResetAllButton' );
   var ScreenView = require( 'JOIST/ScreenView' );
+  var SensorToolbox = require( 'FLUID_PRESSURE_AND_FLOW/common/view/SensorToolbox' );
   var SkyNode = require( 'SCENERY_PHET/SkyNode' );
   var StepForwardButton = require( 'SCENERY_PHET/buttons/StepForwardButton' );
   var Text = require( 'SCENERY/nodes/Text' );
   var UnitsControlPanel = require( 'FLUID_PRESSURE_AND_FLOW/common/view/UnitsControlPanel' );
   var VBox = require( 'SCENERY/nodes/VBox' );
   var Vector2 = require( 'DOT/Vector2' );
-  var SensorToolbox = require( 'FLUID_PRESSURE_AND_FLOW/common/view/SensorToolbox' );
 
   // strings
   var flowRateString = require( 'string!FLUID_PRESSURE_AND_FLOW/flowRate' );
