@@ -113,9 +113,9 @@ define( function( require ) {
     this.addChild( outerTriangleShapeNode );
 
     var innerTriangleShapeNode = new Path( new Shape()
-      .moveTo( innerRectangle.centerX + 8 - ((triangleWidth) / 2), innerMostRectangle.rectY + 1 )
-      .lineTo( innerRectangle.centerX + 5, (triangleHeight ) + innerMostRectangle.rectY - 4 )
-      .lineTo( innerRectangle.centerX + (triangleWidth) / 2, innerMostRectangle.rectY + 1 ), {
+      .moveTo( innerRectangle.centerX + 8 - ( ( triangleWidth ) / 2 ), innerMostRectangle.rectY + 1 )
+      .lineTo( innerRectangle.centerX + 5, ( triangleHeight ) + innerMostRectangle.rectY - 4 )
+      .lineTo( innerRectangle.centerX + ( triangleWidth ) / 2, innerMostRectangle.rectY + 1 ), {
       fill: '#C5631E', center: outerTriangleShapeNode.center, stroke: '#C5631E'
     } );
     this.addChild( innerTriangleShapeNode );
@@ -163,7 +163,7 @@ define( function( require ) {
     velocitySensor.isArrowVisibleProperty.linkAttribute( this.arrowShape, 'visible' );
     var speedMeterDragBounds = dragBounds.withMaxX( dragBounds.maxX - rectangleWidth * options.scale );
 
-    // drag handler
+    // @public - drag handler
     this.dragListener = new MovableDragHandler( velocitySensor.positionProperty,
       {
         dragBounds: speedMeterDragBounds,
@@ -209,7 +209,7 @@ define( function( require ) {
         else {
           labelText.text = units === 'metric' ?
                            velocity.magnitude().toFixed( 1 ) + ' ' + mPerSString :
-                           (velocity.magnitude() * 3.28).toFixed( 1 ) + ' ' + ftPerSString;
+                           ( velocity.magnitude() * 3.28 ).toFixed( 1 ) + ' ' + ftPerSString;
         }
         labelText.center = innerMostRectangle.center;
       } );

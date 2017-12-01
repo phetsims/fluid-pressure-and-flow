@@ -90,6 +90,9 @@ define( function( require ) {
         }
       );
 
+      // show the sensor icon whenever this velocity sensor is hidden back into the toolbox
+      velocitySensorNode.addInputListener( getMakeIconVisibleListener( velocitySensorNode, velocitySensorIcon ) );
+
       // center the real velocity sensor on the icon.
       // TODO, just a hack until I find something better. I'm not sure why this is different from barometers
       velocitySensor.positionProperty._initialValue = velocitySensorInitialPosition;
@@ -100,15 +103,7 @@ define( function( require ) {
     } );
 
     velocitySensorIcon.addInputListener( SimpleDragHandler.createForwardingListener( function( event ) {
-
-      var velocitySensorNode = getNextInvisibleSensor( self.velocitySensorNodes );
-
-      if ( !velocitySensorNode ) {
-        return; // there is nothing to forward to because all sensors are already out and visible.
-      }
-      velocitySensorNode.visible = true;
-      velocitySensorNode.moveToFront();
-      velocitySensorNode.dragListener.startDrag( event );
+      handleSensorVisibilityAndDrag( self.velocitySensorNodes, velocitySensorIcon, event );
     } ) );
 
 
@@ -136,37 +131,79 @@ define( function( require ) {
         }
       );
 
+      // show the sensor icon whenever this barometer is hidden back into the toolbox
+      barometerNode.addInputListener( getMakeIconVisibleListener( barometerNode, barometerIcon ) );
+
       self.barometerNodes.push( barometerNode );
       screenView.addChild( barometerNode );
 
     } );
 
     barometerIcon.addInputListener( SimpleDragHandler.createForwardingListener( function( event ) {
+      handleSensorVisibilityAndDrag( self.barometerNodes, barometerIcon, event );
 
-      var barometerNode = getNextInvisibleSensor( self.barometerNodes );
-
-      if ( !barometerNode ) {
-        return; // there is nothing to forward to because all sensors are already out and visible.
-      }
-      barometerNode.visible = true;
-      barometerNode.moveToFront();
-      barometerNode.dragListener.startDrag( event );
     } ) );
   }
 
   /**
-   * Given a list of nodes, return the next first sensor in the list that is invisible
+   * update the visibility of the next invisible sensor. Adjust the icon's visibility if all sensors are visible, and
+   * manage the drag accordingly for the sensor
    * @param {Array.<Node>} sensors
+   * @param {Node} icon
+   * @param {Event} event
    * @returns {Node|null} sensor - the first invisible sensor
    */
-  function getNextInvisibleSensor( sensors ) {
+  function handleSensorVisibilityAndDrag( sensors, icon, event ) {
+
+
+    // Get the first sensor in the list that is invisible
+    var getFirstInvisible = function() {
+      for ( var i = 0; i < sensors.length; i++ ) {
+        var sensor = sensors[ i ];
+        if ( !sensor.visible ) {
+          return sensor;
+        }
+      }
+      assert && assert( false, 'There should always be an invisible sensor if forwarding an event.' );
+    };
+
+    var nextInvisibleSensor = getFirstInvisible();
+
+    nextInvisibleSensor.visible = true;
+    nextInvisibleSensor.moveToFront();
+    nextInvisibleSensor.dragListener.startDrag( event );
+
+
+    var visibleSensors = 0;
     for ( var i = 0; i < sensors.length; i++ ) {
       var sensor = sensors[ i ];
-      if ( !sensor.visible ) {
-        return sensor;
+      if ( sensor.visible ) {
+        visibleSensors += 1;
       }
     }
-    return null; // return null if there was nothing visible in the array.
+
+    icon.visible = !( visibleSensors === sensors.length );
+  }
+
+  /**
+   * Given a sensor and it's icon, get the listener needed to show the icon when the sensor is made invisible
+   * (put back in the tool box).
+   * @param sensorNode
+   * @param icon
+   * @returns {{up: function, cancel: function}} - the listener object
+   */
+  function getMakeIconVisibleListener( sensorNode, icon ) {
+    var makeSensorVisible = function() {
+      if ( sensorNode.visible === false ) {
+        icon.visible = true;
+      }
+    };
+
+    // TODO: SR is the 'up' event robust enough here? I'm trying to add on to the enddrag of the sensorNode
+    return {
+      up: makeSensorVisible,
+      cancel: makeSensorVisible,
+    };
   }
 
   fluidPressureAndFlow.register( 'SensorToolbox', SensorToolbox );

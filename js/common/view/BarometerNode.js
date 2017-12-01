@@ -131,6 +131,7 @@ define( function( require ) {
       self.centerY = modelViewTransform.modelToViewY( value.y );
     } );
 
+    // @public
     // Add an input listener so the BarometerNode can be dragged
     // Constrain the location so it cannot be dragged offscreen
     this.dragListener = new MovableDragHandler( barometer.positionProperty,
