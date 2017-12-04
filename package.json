@@ -16,6 +16,11 @@
     ],
     "preload": [
       "../sherpa/lib/numeric-1.2.6.js"
-    ]
+    ],
+    "runnable": true,
+    "supportedBrands": [
+      "phet"
+    ],
+    "simulation": true
   }
 }
