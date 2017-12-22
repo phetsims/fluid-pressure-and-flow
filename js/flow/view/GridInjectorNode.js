@@ -40,16 +40,15 @@ define( function( require ) {
 
     var injector = new Image( injectorBulbImage, { scale: 0.35 } );
 
-    var redButton = new RoundStickyToggleButton( false, true, isGridInjectorPressedProperty,
-      {
-        radius: 25,
-        centerX: injector.centerX,
-        top: injector.top + 31,
-        baseColor: 'red',
-        stroke: 'red',
-        fill: 'red',
-        touchAreaDilation: 10
-      } );
+    var redButton = new RoundStickyToggleButton( false, true, isGridInjectorPressedProperty, {
+      radius: 25,
+      centerX: injector.centerX,
+      top: injector.top + 31,
+      baseColor: 'red',
+      stroke: 'red',
+      fill: 'red',
+      touchAreaDilation: 10
+    } );
 
 
     this.addChild( injector );
