@@ -187,7 +187,7 @@ define( function( require ) {
 
   /**
    * Given a sensor and it's icon, get the listener needed to show the icon when the sensor is made invisible
-   * (put back in the tool box).
+   * (put back in the toolbox).
    * @param sensorNode
    * @param icon
    * @returns {{up: function, cancel: function}} - the listener object
