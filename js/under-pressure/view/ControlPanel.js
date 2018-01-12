@@ -10,7 +10,7 @@ define( function( require ) {
 
   // modules
   var AtmosphereControlNode = require( 'FLUID_PRESSURE_AND_FLOW/under-pressure/view/AtmosphereControlNode' );
-  var CheckBox = require( 'SUN/CheckBox' );
+  var Checkbox = require( 'SUN/Checkbox' );
   var fluidPressureAndFlow = require( 'FLUID_PRESSURE_AND_FLOW/fluidPressureAndFlow' );
   var HBox = require( 'SCENERY/nodes/HBox' );
   var HStrut = require( 'SCENERY/nodes/HStrut' );
@@ -63,22 +63,22 @@ define( function( require ) {
                    alignOptions.spacing * 2;
     var rulerArray = [ rulerSet[ 0 ], new HStrut( padWidth ), rulerSet[ 1 ] ];
 
-    var rulerCheckBox = new CheckBox( new HBox( { children: rulerArray } ), underPressureModel.isRulerVisibleProperty,
+    var rulerCheckbox = new Checkbox( new HBox( { children: rulerArray } ), underPressureModel.isRulerVisibleProperty,
       alignOptions );
-    var gridCheckBox = new CheckBox( new HBox( { children: gridArray } ), underPressureModel.isGridVisibleProperty,
+    var gridCheckbox = new Checkbox( new HBox( { children: gridArray } ), underPressureModel.isGridVisibleProperty,
       alignOptions );
 
     // touch areas, empirically determined
-    rulerCheckBox.touchArea = rulerCheckBox.bounds.dilatedY( 1 );
-    gridCheckBox.touchArea = gridCheckBox.bounds.dilatedY( 3 );
+    rulerCheckbox.touchArea = rulerCheckbox.bounds.dilatedY( 1 );
+    gridCheckbox.touchArea = gridCheckbox.bounds.dilatedY( 3 );
 
-    var checkBoxChildren = [ rulerCheckBox, gridCheckBox ];
+    var checkboxChildren = [ rulerCheckbox, gridCheckbox ];
 
-    var checkBoxes = new VBox( { align: 'left', spacing: 5, children: checkBoxChildren } );
+    var checkboxes = new VBox( { align: 'left', spacing: 5, children: checkboxChildren } );
 
     var content = new VBox( {
       spacing: 5,
-      children: [ checkBoxes, new VStrut( 2 ), atmosphereControlNode ],
+      children: [ checkboxes, new VStrut( 2 ), atmosphereControlNode ],
       align: 'left'
     } );
 

@@ -10,7 +10,7 @@ define( function( require ) {
 
   // modules
   var Bounds2 = require( 'DOT/Bounds2' );
-  var CheckBox = require( 'SUN/CheckBox' );
+  var Checkbox = require( 'SUN/Checkbox' );
   var Circle = require( 'SCENERY/nodes/Circle' );
   var fluidPressureAndFlow = require( 'FLUID_PRESSURE_AND_FLOW/fluidPressureAndFlow' );
   var HBox = require( 'SCENERY/nodes/HBox' );
@@ -72,41 +72,41 @@ define( function( require ) {
       }
     };
 
-    var checkBoxOptions = {
+    var checkboxOptions = {
       boxWidth: 15,
       spacing: 2
     };
 
-    var rulerCheckBox = new CheckBox( createItem( rulerSpec ), flowModel.isRulerVisibleProperty, checkBoxOptions );
-    var frictionCheckBox = new CheckBox( createItem( frictionSpec ), flowModel.pipe.frictionProperty, checkBoxOptions );
-    var fluxMeterCheckBox = new CheckBox( createItem( fluxMeterSpec ), flowModel.isFluxMeterVisibleProperty,
-      checkBoxOptions );
-    var dotsCheckBox = new CheckBox( createItem( dotsSpec ), flowModel.isDotsVisibleProperty, checkBoxOptions );
+    var rulerCheckbox = new Checkbox( createItem( rulerSpec ), flowModel.isRulerVisibleProperty, checkboxOptions );
+    var frictionCheckbox = new Checkbox( createItem( frictionSpec ), flowModel.pipe.frictionProperty, checkboxOptions );
+    var fluxMeterCheckbox = new Checkbox( createItem( fluxMeterSpec ), flowModel.isFluxMeterVisibleProperty,
+      checkboxOptions );
+    var dotsCheckbox = new Checkbox( createItem( dotsSpec ), flowModel.isDotsVisibleProperty, checkboxOptions );
 
-    var maxCheckBoxWidth = _.maxBy( [ rulerCheckBox, frictionCheckBox, fluxMeterCheckBox, dotsCheckBox ],
+    var maxCheckboxWidth = _.maxBy( [ rulerCheckbox, frictionCheckbox, fluxMeterCheckbox, dotsCheckbox ],
         function( item ) {
           return item.width;
         } ).width + 5;
 
     //touch Areas
-    rulerCheckBox.touchArea = new Bounds2( rulerCheckBox.localBounds.minX - 5, rulerCheckBox.localBounds.minY,
-      rulerCheckBox.localBounds.minX + maxCheckBoxWidth, rulerCheckBox.localBounds.maxY );
-    frictionCheckBox.touchArea = new Bounds2( frictionCheckBox.localBounds.minX - 5, frictionCheckBox.localBounds.minY,
-      frictionCheckBox.localBounds.minX + maxCheckBoxWidth, frictionCheckBox.localBounds.maxY );
-    fluxMeterCheckBox.touchArea = new Bounds2( fluxMeterCheckBox.localBounds.minX - 5,
-      fluxMeterCheckBox.localBounds.minY,
-      fluxMeterCheckBox.localBounds.minX + maxCheckBoxWidth, fluxMeterCheckBox.localBounds.maxY );
-    dotsCheckBox.touchArea = new Bounds2( dotsCheckBox.localBounds.minX - 5, dotsCheckBox.localBounds.minY,
-      dotsCheckBox.localBounds.minX + maxCheckBoxWidth, dotsCheckBox.localBounds.maxY );
+    rulerCheckbox.touchArea = new Bounds2( rulerCheckbox.localBounds.minX - 5, rulerCheckbox.localBounds.minY,
+      rulerCheckbox.localBounds.minX + maxCheckboxWidth, rulerCheckbox.localBounds.maxY );
+    frictionCheckbox.touchArea = new Bounds2( frictionCheckbox.localBounds.minX - 5, frictionCheckbox.localBounds.minY,
+      frictionCheckbox.localBounds.minX + maxCheckboxWidth, frictionCheckbox.localBounds.maxY );
+    fluxMeterCheckbox.touchArea = new Bounds2( fluxMeterCheckbox.localBounds.minX - 5,
+      fluxMeterCheckbox.localBounds.minY,
+      fluxMeterCheckbox.localBounds.minX + maxCheckboxWidth, fluxMeterCheckbox.localBounds.maxY );
+    dotsCheckbox.touchArea = new Bounds2( dotsCheckbox.localBounds.minX - 5, dotsCheckbox.localBounds.minY,
+      dotsCheckbox.localBounds.minX + maxCheckboxWidth, dotsCheckbox.localBounds.maxY );
 
     // pad all the rows so the text nodes are left aligned and the icons is right aligned
 
-    var checkBoxes = new VBox( {
+    var checkboxes = new VBox( {
       align: 'left', spacing: 4,
-      children: [ rulerCheckBox, frictionCheckBox, fluxMeterCheckBox, dotsCheckBox ]
+      children: [ rulerCheckbox, frictionCheckbox, fluxMeterCheckbox, dotsCheckbox ]
     } );
 
-    Panel.call( this, checkBoxes, options );
+    Panel.call( this, checkboxes, options );
   }
 
   //Create an icon for the ruler check box

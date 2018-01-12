@@ -9,7 +9,7 @@ define( function( require ) {
   'use strict';
 
   // modules
-  var CheckBox = require( 'SUN/CheckBox' );
+  var Checkbox = require( 'SUN/Checkbox' );
   var fluidPressureAndFlow = require( 'FLUID_PRESSURE_AND_FLOW/fluidPressureAndFlow' );
   var HBox = require( 'SCENERY/nodes/HBox' );
   var HStrut = require( 'SCENERY/nodes/HStrut' );
@@ -68,20 +68,20 @@ define( function( require ) {
       return new HBox( { children: [ itemSpec.label, new HStrut( strutWidth ), itemSpec.icon ] } );
     };
 
-    var checkBoxOptions = {
+    var checkboxOptions = {
       boxWidth: 18,
       spacing: 5
     };
 
     // pad all the rows so the text nodes are left aligned and the icons is right aligned
-    var checkBoxChildren = [
-      new CheckBox( createItem( ruler ), waterTowerModel.isRulerVisibleProperty, checkBoxOptions ),
-      new CheckBox( createItem( measuringTape ), waterTowerModel.isMeasuringTapeVisibleProperty, checkBoxOptions ),
-      new CheckBox( createItem( hose ), waterTowerModel.isHoseVisibleProperty, checkBoxOptions )
+    var checkboxChildren = [
+      new Checkbox( createItem( ruler ), waterTowerModel.isRulerVisibleProperty, checkboxOptions ),
+      new Checkbox( createItem( measuringTape ), waterTowerModel.isMeasuringTapeVisibleProperty, checkboxOptions ),
+      new Checkbox( createItem( hose ), waterTowerModel.isHoseVisibleProperty, checkboxOptions )
     ];
-    var checkBoxes = new VBox( { align: 'left', spacing: 10, children: checkBoxChildren } );
+    var checkboxes = new VBox( { align: 'left', spacing: 10, children: checkboxChildren } );
 
-    Panel.call( this, checkBoxes, options );
+    Panel.call( this, checkboxes, options );
   }
 
   //Create an icon for the ruler check box
