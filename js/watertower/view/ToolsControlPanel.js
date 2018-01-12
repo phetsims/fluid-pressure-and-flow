@@ -84,7 +84,7 @@ define( function( require ) {
     Panel.call( this, checkboxes, options );
   }
 
-  //Create an icon for the ruler check box
+  //Create an icon for the ruler checkbox
   var createRulerIcon = function() {
     return new RulerNode( 30, 20, 15, [ '0', '1', '2' ], '', {
       insetsWidth: 7,

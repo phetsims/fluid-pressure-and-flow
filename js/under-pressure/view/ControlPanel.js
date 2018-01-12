@@ -89,7 +89,7 @@ define( function( require ) {
 
   return inherit( Panel, ControlPanel, {
 
-    //Create an icon for the ruler check box
+    //Create an icon for the ruler checkbox
     createRulerIcon: function() {
       var rulerWidth = 30;
       var rulerHeight = 20;

@@ -109,7 +109,7 @@ define( function( require ) {
     Panel.call( this, checkboxes, options );
   }
 
-  //Create an icon for the ruler check box
+  //Create an icon for the ruler checkbox
   var createRulerIcon = function() {
     return new RulerNode( 13, 10, 12, [ '0', '1' ], '', {
       insetsWidth: 5,
@@ -120,7 +120,7 @@ define( function( require ) {
     } );
   };
 
-  //Create an icon for the dots check box
+  //Create an icon for the dots checkbox
   var createDotsIcon = function() {
     var dot1 = new Circle( 3, { fill: 'red' } );
     var dot2 = new Circle( 3, { fill: 'red', left: dot1.right + 4 } );

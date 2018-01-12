@@ -100,7 +100,7 @@ define( function( require ) {
       bottom: groundNode.top
     } ) );
 
-    // Control panel with check boxes to toggle tools on the screen
+    // Control panel with checkboxes to toggle tools on the screen
     var toolsControlPanel = new FlowToolsControlPanel( flowModel, { right: this.layoutBounds.right - 7, top: 7 } );
     this.addChild( toolsControlPanel );
 
