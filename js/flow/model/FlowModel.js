@@ -101,7 +101,7 @@ define( function( require ) {
     this.gridParticles = new ObservableArray();
 
     // call stepInternal at a rate of 10 times per second
-    this.timer = new EventTimer( new EventTimer.UniformEventModel( 10, Math.random ), function() {
+    this.timer = new EventTimer( new EventTimer.UniformEventModel( 10, phet.joist.random.nextDouble.bind( phet.joist.random ) ), function() {
       self.createParticle();
     } );
     // end @public members
@@ -210,7 +210,7 @@ define( function( require ) {
         if ( this.isDotsVisibleProperty.value ) {
 
           // create particles in the [0.15, 0.85) range so that they don't touch the pipe
-          var fraction = 0.15 + Math.random() * 0.7;
+          var fraction = 0.15 + phet.joist.random.nextDouble() * 0.7;
           this.flowParticles.push( new Particle( this.pipe.getMinX(), fraction, this.pipe, 0.1, 'red' ) );
         }
       },
