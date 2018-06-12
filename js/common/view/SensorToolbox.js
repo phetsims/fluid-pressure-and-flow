@@ -202,7 +202,7 @@ define( function( require ) {
     // TODO: SR is the 'up' event robust enough here? I'm trying to add on to the enddrag of the sensorNode
     return {
       up: makeSensorVisible,
-      cancel: makeSensorVisible,
+      cancel: makeSensorVisible
     };
   }
 
