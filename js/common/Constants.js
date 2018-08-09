@@ -17,7 +17,7 @@ define( function( require ) {
 
     EARTH_GRAVITY: 9.8, // m/s^2
     MARS_GRAVITY: 3.71, // m/s^2
-    JUPITER_GRAVITY: 24.9, // m/s^2
+    JUPITER_GRAVITY: 24.79, // m/s^2
     MIN_PRESSURE: 50000, // Pascals
     MAX_PRESSURE: 250000, // Pascals Check is it is 350000
 
