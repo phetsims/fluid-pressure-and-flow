@@ -59,7 +59,7 @@ define( function( require ) {
     // @public
     this.isRulerVisibleProperty = new Property( false );
     this.isFluxMeterVisibleProperty = new Property( false );
-    this.isGridInjectorPressedProperty = new Property( false );
+    this.isGridInjectorPressedProperty = new Property( false, { reentrant: true } );
 
     // elapsed sim time (in sec) for which the injector has been pressed
     this.gridInjectorElapsedTimeInPressedModeProperty = new Property( 0 );
@@ -174,7 +174,7 @@ define( function( require ) {
        * @returns {number} pressure (in Pa) at specified position
        */
       getPressureAtCoords: function( x, y ) {
-        return (y > 0) ? getStandardAirPressure( y ) : this.getFluidPressure( x, y );
+        return ( y > 0 ) ? getStandardAirPressure( y ) : this.getFluidPressure( x, y );
       },
 
 
@@ -272,7 +272,7 @@ define( function( require ) {
       getFluidDensityString: function() {
         if ( this.measureUnitsProperty.value === 'english' ) {
           return StringUtils.format( valueWithUnitsPatternString,
-            (Units.FLUID_DENSITY_ENGLISH_PER_METRIC * this.fluidDensityProperty.value).toFixed( 2 ), densityUnitsEnglishString );
+            ( Units.FLUID_DENSITY_ENGLISH_PER_METRIC * this.fluidDensityProperty.value ).toFixed( 2 ), densityUnitsEnglishString );
         }
         else {
           return StringUtils.format( valueWithUnitsPatternString, Util.roundSymmetric( this.fluidDensityProperty.value ), densityUnitsMetricString );
@@ -287,7 +287,7 @@ define( function( require ) {
       getFluidFlowRateString: function() {
         if ( this.measureUnitsProperty.value === 'english' ) {
           return StringUtils.format( valueWithUnitsPatternString,
-            (Units.FLUID_FlOW_RATE_ENGLISH_PER_METRIC * this.pipe.flowRateProperty.value).toFixed( 2 ), rateUnitsEnglishString );
+            ( Units.FLUID_FlOW_RATE_ENGLISH_PER_METRIC * this.pipe.flowRateProperty.value ).toFixed( 2 ), rateUnitsEnglishString );
         }
         else {
           return StringUtils.format( valueWithUnitsPatternString, Util.roundSymmetric( this.pipe.flowRateProperty.value ), rateUnitsMetricString );
@@ -327,7 +327,7 @@ define( function( require ) {
           for ( var j = 0; j < NUM_ROWS; j++ ) {
 
             // ensure the particle's y fraction is between [0.1, 0.9], so they aren't too close to the edge of the pipe.
-            var fraction = 0.1 * (j + 1);
+            var fraction = 0.1 * ( j + 1 );
             this.gridParticles.push( new Particle( x, fraction, this.pipe, 0.06, 'black' ) );
           }
         }

@@ -56,7 +56,7 @@ define( function( require ) {
 
     this.updateGridInjector();
 
-    var isGridInjectorNotPressedProperty = new Property( !isGridInjectorPressedProperty.value );
+    var isGridInjectorNotPressedProperty = new Property( !isGridInjectorPressedProperty.value, { reentrant: true } );
     isGridInjectorPressedProperty.link( function( pressed ) {
       isGridInjectorNotPressedProperty.value = !pressed;
     } );
