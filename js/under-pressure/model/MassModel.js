@@ -122,7 +122,7 @@ define( function( require ) {
       }
     },
 
-    // @public -- checks if the mass intersects with the the target drop area.
+    // @public -- checks if the mass intersects with the target drop area.
     isInTargetDroppedArea: function() {
       var waterLine = this.chamberPoolModel.poolDimensions.leftOpening.y2 + this.chamberPoolModel.leftWaterHeight -
                       this.chamberPoolModel.leftDisplacementProperty.value;
