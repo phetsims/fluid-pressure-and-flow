@@ -216,7 +216,7 @@ define( function( require ) {
 
     // add play pause button and step button
     var stepButton = new StepForwardButton( {
-      playingProperty: waterTowerModel.isPlayingProperty,
+      isPlayingProperty: waterTowerModel.isPlayingProperty,
       listener: function() { waterTowerModel.stepInternal( 0.016 ); },
       stroke: 'black',
       fill: '#005566',
