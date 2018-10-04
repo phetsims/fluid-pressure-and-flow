@@ -17,7 +17,7 @@ define( function( require ) {
   var inherit = require( 'PHET_CORE/inherit' );
   var ObservableArray = require( 'AXON/ObservableArray' );
   var Property = require( 'AXON/Property' );
-  var RangeWithValue = require( 'DOT/RangeWithValue' );
+  var Range = require( 'DOT/Range' );
   var Sensor = require( 'FLUID_PRESSURE_AND_FLOW/common/model/Sensor' );
   var StringUtils = require( 'PHETCOMMON/util/StringUtils' );
   var Units = require( 'FLUID_PRESSURE_AND_FLOW/common/model/Units' );
@@ -39,7 +39,7 @@ define( function( require ) {
    */
   function WaterTowerModel() {
 
-    this.fluidDensityRange = new RangeWithValue( Constants.GASOLINE_DENSITY, Constants.HONEY_DENSITY );
+    this.fluidDensityRange = new Range( Constants.GASOLINE_DENSITY, Constants.HONEY_DENSITY );
 
     this.isRulerVisibleProperty = new Property( false );
     this.isMeasuringTapeVisibleProperty = new Property( false );

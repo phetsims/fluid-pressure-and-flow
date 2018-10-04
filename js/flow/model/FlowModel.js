@@ -23,7 +23,7 @@ define( function( require ) {
   var Particle = require( 'FLUID_PRESSURE_AND_FLOW/flow/model/Particle' );
   var Pipe = require( 'FLUID_PRESSURE_AND_FLOW/flow/model/Pipe' );
   var Property = require( 'AXON/Property' );
-  var RangeWithValue = require( 'DOT/RangeWithValue' );
+  var Range = require( 'DOT/Range' );
   var Sensor = require( 'FLUID_PRESSURE_AND_FLOW/common/model/Sensor' );
   var StringUtils = require( 'PHETCOMMON/util/StringUtils' );
   var Units = require( 'FLUID_PRESSURE_AND_FLOW/common/model/Units' );
@@ -52,8 +52,8 @@ define( function( require ) {
     var self = this;
 
     // @public (read-only)
-    this.fluidDensityRange = new RangeWithValue( Constants.GASOLINE_DENSITY, Constants.HONEY_DENSITY );
-    this.flowRateRange = new RangeWithValue( Constants.MIN_FLOW_RATE, Constants.MAX_FLOW_RATE );
+    this.fluidDensityRange = new Range( Constants.GASOLINE_DENSITY, Constants.HONEY_DENSITY );
+    this.flowRateRange = new Range( Constants.MIN_FLOW_RATE, Constants.MAX_FLOW_RATE );
 
 
     // @public

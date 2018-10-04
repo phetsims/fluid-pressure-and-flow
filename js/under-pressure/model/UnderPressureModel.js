@@ -19,7 +19,7 @@ define( function( require ) {
   var inherit = require( 'PHET_CORE/inherit' );
   var MysteryPoolModel = require( 'FLUID_PRESSURE_AND_FLOW/under-pressure/model/MysteryPoolModel' );
   var Property = require( 'AXON/Property' );
-  var RangeWithValue = require( 'DOT/RangeWithValue' );
+  var Range = require( 'DOT/Range' );
   var Sensor = require( 'FLUID_PRESSURE_AND_FLOW/common/model/Sensor' );
   var SquarePoolModel = require( 'FLUID_PRESSURE_AND_FLOW/under-pressure/model/SquarePoolModel' );
   var TrapezoidPoolModel = require( 'FLUID_PRESSURE_AND_FLOW/under-pressure/model/TrapezoidPoolModel' );
@@ -33,8 +33,8 @@ define( function( require ) {
 
     var self = this;
 
-    this.gravityRange = new RangeWithValue( Constants.MARS_GRAVITY, Constants.JUPITER_GRAVITY ); // @public
-    this.fluidDensityRange = new RangeWithValue( Constants.GASOLINE_DENSITY, Constants.HONEY_DENSITY ); // @public
+    this.gravityRange = new Range( Constants.MARS_GRAVITY, Constants.JUPITER_GRAVITY ); // @public
+    this.fluidDensityRange = new Range( Constants.GASOLINE_DENSITY, Constants.HONEY_DENSITY ); // @public
 
     // @public
     this.isAtmosphereProperty = new Property( true );
