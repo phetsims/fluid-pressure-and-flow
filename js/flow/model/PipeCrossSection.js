@@ -15,9 +15,9 @@ define( function( require ) {
 
   /**
    * Represents a vertical cross section/slice of the pipe.
-   * @param {number} x represents the x value of the cross section
-   * @param {number} yBottom represents the bottom most point of the cross section
-   * @param {number} yTop represents the top most point of the cross section
+   * @param {number} x - represents the x value of the cross section
+   * @param {number} yBottom - represents the bottom most point of the cross section
+   * @param {number} yTop - represents the top most point of the cross section
    * @constructor
    */
   function PipeCrossSection( x, yBottom, yTop ) {

@@ -136,7 +136,7 @@ define( function( require ) {
     /**
      * @public
      * Returns the pressure (in Pa) exerted by a fluid column of given height.
-     * @param {number} height of the fluid column
+     * @param {number} height - of the fluid column
      * @returns {number}
      */
     getWaterPressure: function( height ) {
@@ -146,8 +146,8 @@ define( function( require ) {
     /**
      * @public
      * Returns the pressure (in Pa) at the given position.
-     * @param {number} x position in meters
-     * @param {number} y position in meters
+     * @param {number} x - position in meters
+     * @param {number} y - position in meters
      * @returns {number}
      */
     getPressureAtCoords: function( x, y ) {

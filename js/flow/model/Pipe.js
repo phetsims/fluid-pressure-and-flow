@@ -209,8 +209,8 @@ define( function( require ) {
 
     /**
      * Given a global y-position, determine the fraction to the top (point at bottom = 0, point halfway up = 0.5, etc.)
-     * @param {number} x position in meters
-     * @param {number} y position in meters
+     * @param {number} x - position in meters
+     * @param {number} y - position in meters
      * @returns {number} fraction
      */
     getFractionToTop: function( x, y ) {
@@ -221,7 +221,7 @@ define( function( require ) {
 
     /**
      * Determines the cross section for a given x-coordinate by linear interpolation between the nearest nonlinear samples.
-     * @param {number} x position in meters
+     * @param {number} x - position in meters
      * @returns {PipeCrossSection} cross section of pipe
      */
     getCrossSection: function( x ) {
@@ -235,7 +235,7 @@ define( function( require ) {
 
     /**
      * Lookup the cross section immediately before the specified x-location for interpolation
-     * @param {number} x position in meters
+     * @param {number} x - position in meters
      * @returns {PipeCrossSection} if one exists
      */
     getPipePositionBefore: function( x ) {
@@ -258,7 +258,7 @@ define( function( require ) {
 
     /**
      * Lookup the cross section immediately after the specified x-location for interpolation
-     * @param {number} x position in meters
+     * @param {number} x - position in meters
      * @returns {PipeCrossSection} if one exists
      */
     getPipePositionAfter: function( x ) {
@@ -276,7 +276,7 @@ define( function( require ) {
 
     /**
      * Get the speed at the specified x-location in m/s.  This is before friction and vertical effects are accounted for.
-     * @param { Number } x position in meters
+     * @param { Number } x - position in meters
      * @returns {number} speed of fluid flow at given x position
      */
     getSpeed: function( x ) {
@@ -311,8 +311,8 @@ define( function( require ) {
 
     /**
      * Get the velocity at the specified point, does not account for vertical effects or friction.
-     * @param {number} x position in meters
-     * @param {number} y position in meters
+     * @param {number} x - position in meters
+     * @param {number} y - position in meters
      * @returns {Vector2} velocity at x,y in metric units.
      */
     getVelocity: function( x, y ) {
@@ -333,8 +333,8 @@ define( function( require ) {
     /**
      * Gets the x-velocity of a particle, incorporating vertical effects.
      * If this effect is ignored, then when there is a large slope in the pipe, particles closer to the edge move much faster (which is physically incorrect).
-     * @param {number} x position in meters
-     * @param {number} y position in meters
+     * @param {number} x - position in meters
+     * @param {number} y - position in meters
      * @returns {number} the tweaked x-velocity
      */
     getTweakedVx: function( x, y ) {
@@ -369,8 +369,8 @@ define( function( require ) {
     },
 
     /**
-     * @param {number} x position in meters
-     * @param {number} y position in meters
+     * @param {number} x - position in meters
+     * @param {number} y - position in meters
      * @returns {Vector2} the velocity vector at the given point
      */
     getTweakedVelocity: function( x, y ) {
@@ -379,8 +379,8 @@ define( function( require ) {
 
     /**
      * Find the y-value for the specified x-value and fraction (0=bottom, 1=top) of the pipe
-     * @param {number} x position in meters
-     * @param {number} fraction is in (0,1) (0=bottom, 1=top)
+     * @param {number} x - position in meters
+     * @param {number} fraction - is in (0,1) (0=bottom, 1=top)
      * @returns {number}
      */
     fractionToLocation: function( x, fraction ) {
@@ -400,7 +400,7 @@ define( function( require ) {
 
     /**
      * Compute the circular cross sectional area (in meters squared) at the specified location
-     * @param {number} x position in meters
+     * @param {number} x - position in meters
      * @returns {number} area of cross section at x in square meters
      */
     getCrossSectionalArea: function( x ) {

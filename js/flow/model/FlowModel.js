@@ -149,8 +149,8 @@ define( function( require ) {
       },
 
       /**
-       * @param {number} x position in meters
-       * @param {number} y position in meters
+       * @param {number} x - position in meters
+       * @param {number} y - position in meters
        * @returns {number} fluid pressure (in Pa) at the specified position
        */
       getFluidPressure: function( x, y ) {
@@ -169,8 +169,8 @@ define( function( require ) {
       },
 
       /**
-       * @param {number} x position in meters
-       * @param {number} y position in meters
+       * @param {number} x - position in meters
+       * @param {number} y - position in meters
        * @returns {number} pressure (in Pa) at specified position
        */
       getPressureAtCoords: function( x, y ) {
@@ -296,8 +296,8 @@ define( function( require ) {
 
       /**
        * Returns the velocity at the specified point in the pipe. Returns a zero vector if the point is outside the pipe.
-       * @param {number} x position in meters
-       * @param {number} y position in meters
+       * @param {number} x - position in meters
+       * @param {number} y - position in meters
        * @returns {number} velocity at the position x, y
        */
       getVelocityAt: function( x, y ) {

@@ -16,8 +16,8 @@ define( function( require ) {
 
   /**
    * A control point that can be dragged around to change the shape of the pipe
-   * @param {number} x position of the control point
-   * @param {number} y position of the control point
+   * @param {number} x - position of the control point
+   * @param {number} y - position of the control point
    * @constructor
    */
   function PipeControlPoint( x, y ) {
