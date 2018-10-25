@@ -24,6 +24,7 @@ define( function( require ) {
   var Path = require( 'SCENERY/nodes/Path' );
   var PhetFont = require( 'SCENERY_PHET/PhetFont' );
   var Property = require( 'AXON/Property' );
+  var Range = require( 'DOT/Range' );
   var Rectangle = require( 'SCENERY/nodes/Rectangle' );
   var Shape = require( 'KITE/Shape' );
   var Text = require( 'SCENERY/nodes/Text' );
@@ -65,7 +66,7 @@ define( function( require ) {
 
     // Show the circular part of the gauge and the needle
     var gaugeNode = new GaugeNode( barometer.valueProperty, pressureString,
-      { min: options.minPressure, max: options.maxPressure }, { scale: 0.4 } );
+      new Range( options.minPressure, options.maxPressure ), { scale: 0.4 } );
     this.addChild( gaugeNode );
 
     var underGaugeRectangleWidth = 18;
