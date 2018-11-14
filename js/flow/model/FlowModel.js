@@ -62,7 +62,9 @@ define( function( require ) {
     this.isGridInjectorPressedProperty = new Property( false, { reentrant: true } );
 
     // elapsed sim time (in sec) for which the injector has been pressed
-    this.gridInjectorElapsedTimeInPressedModeProperty = new Property( 0 );
+    this.gridInjectorElapsedTimeInPressedModeProperty = new Property( 0, {
+      reentrant: true
+    } );
     this.isDotsVisibleProperty = new Property( true );
     this.isPlayingProperty = new Property( true ); // Whether the sim is paused or running
 
