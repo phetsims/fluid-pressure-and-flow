@@ -66,7 +66,7 @@ define( function( require ) {
 
     // Show the circular part of the gauge and the needle
     var gaugeNode = new GaugeNode( barometer.valueProperty, pressureString,
-      new Range( options.minPressure, options.maxPressure ), { scale: 0.4 } );
+      new Range( options.minPressure, options.maxPressure ), { radius: 67, scale: 0.4 } );
     this.addChild( gaugeNode );
 
     var underGaugeRectangleWidth = 18;
