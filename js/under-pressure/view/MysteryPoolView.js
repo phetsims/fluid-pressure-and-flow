@@ -100,7 +100,7 @@ define( function( require ) {
       ComboBox.createItem( new Text( fluidBString, comboBoxTextOptions ), 1 ),
       ComboBox.createItem( new Text( fluidCString, comboBoxTextOptions ), 2 )
     ], mysteryPoolModel.customFluidDensityProperty, self, {
-      itemHighlightFill: 'rgb(218,255,255)',
+      highlightFill: 'rgb(218,255,255)',
       visible: false
     } );
 
@@ -114,7 +114,7 @@ define( function( require ) {
       ComboBox.createItem( new Text( planetBString, comboBoxTextOptions ), 1 ),
       ComboBox.createItem( new Text( planetCString, comboBoxTextOptions ), 2 )
     ], mysteryPoolModel.customGravityProperty, self, {
-      itemHighlightFill: 'rgb(218,255,255)',
+      highlightFill: 'rgb(218,255,255)',
       visible: false
     } );
 
