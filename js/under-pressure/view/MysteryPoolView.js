@@ -114,6 +114,7 @@ define( function( require ) {
       ComboBox.createItem( new Text( planetBString, comboBoxTextOptions ), 1 ),
       ComboBox.createItem( new Text( planetCString, comboBoxTextOptions ), 2 )
     ], mysteryPoolModel.customGravityProperty, self, {
+      cornerRadius: 8,
       highlightFill: 'rgb(218,255,255)',
       visible: false
     } );
