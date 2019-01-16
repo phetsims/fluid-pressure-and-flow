@@ -18,6 +18,7 @@ define( function( require ) {
   var GaugeNode = require( 'SCENERY_PHET/GaugeNode' );
   var inherit = require( 'PHET_CORE/inherit' );
   var LinearGradient = require( 'SCENERY/util/LinearGradient' );
+  var MathSymbols = require( 'SCENERY_PHET/MathSymbols' );
   var MovableDragHandler = require( 'SCENERY_PHET/input/MovableDragHandler' );
   var Node = require( 'SCENERY/nodes/Node' );
   var Panel = require( 'SUN/Panel' );
@@ -186,7 +187,7 @@ define( function( require ) {
     Property.multilink( [ barometer.valueProperty, measureUnitsProperty, barometer.positionProperty ],
       function( barometerValue, units ) {
         if ( barometer.positionProperty.value === barometer.positionProperty.initialValue || barometerValue === null ) {
-          text.text = '-'; // showing no value when barometer is in the sensor panel
+          text.text = MathSymbols.NO_VALUE; // showing no value when barometer is in the sensor panel
           text.centerX = READOUT_SIZE.width / 2;
         }
         else {

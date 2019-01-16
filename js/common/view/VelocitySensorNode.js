@@ -15,6 +15,7 @@ define( function( require ) {
   var fluidPressureAndFlow = require( 'FLUID_PRESSURE_AND_FLOW/fluidPressureAndFlow' );
   var inherit = require( 'PHET_CORE/inherit' );
   var LinearGradient = require( 'SCENERY/util/LinearGradient' );
+  var MathSymbols = require( 'SCENERY_PHET/MathSymbols' );
   var MovableDragHandler = require( 'SCENERY_PHET/input/MovableDragHandler' );
   var Node = require( 'SCENERY/nodes/Node' );
   var Path = require( 'SCENERY/nodes/Path' );
@@ -204,7 +205,7 @@ define( function( require ) {
     Property.multilink( [ velocitySensor.valueProperty, measureUnitsProperty, velocitySensor.positionProperty ],
       function( velocity, units ) {
         if ( velocitySensor.positionProperty.initialValue.equals( velocitySensor.positionProperty.value ) ) {
-          labelText.text = '-';
+          labelText.text = MathSymbols.NO_VALUE;
         }
         else {
           labelText.text = units === 'metric' ?
