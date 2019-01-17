@@ -14,6 +14,7 @@ define( function( require ) {
   // modules
   var AquaRadioButton = require( 'SUN/AquaRadioButton' );
   var ComboBox = require( 'SUN/ComboBox' );
+  var ComboBoxItem = require( 'SUN/ComboBoxItem' );
   var DerivedProperty = require( 'AXON/DerivedProperty' );
   var fluidPressureAndFlow = require( 'FLUID_PRESSURE_AND_FLOW/fluidPressureAndFlow' );
   var inherit = require( 'PHET_CORE/inherit' );
@@ -96,9 +97,9 @@ define( function( require ) {
 
     // items
     this.fluidDensityComboBox = new ComboBox( [
-      ComboBox.createItem( new Text( fluidAString, comboBoxTextOptions ), 0 ),
-      ComboBox.createItem( new Text( fluidBString, comboBoxTextOptions ), 1 ),
-      ComboBox.createItem( new Text( fluidCString, comboBoxTextOptions ), 2 )
+      new ComboBoxItem( new Text( fluidAString, comboBoxTextOptions ), 0 ),
+      new ComboBoxItem( new Text( fluidBString, comboBoxTextOptions ), 1 ),
+      new ComboBoxItem( new Text( fluidCString, comboBoxTextOptions ), 2 )
     ], mysteryPoolModel.customFluidDensityProperty, self, {
       highlightFill: 'rgb(218,255,255)',
       visible: false
@@ -110,9 +111,9 @@ define( function( require ) {
     this.addChild( this.fluidDensityComboBox );
 
     this.gravityComboBox = new ComboBox( [
-      ComboBox.createItem( new Text( planetAString, comboBoxTextOptions ), 0 ),
-      ComboBox.createItem( new Text( planetBString, comboBoxTextOptions ), 1 ),
-      ComboBox.createItem( new Text( planetCString, comboBoxTextOptions ), 2 )
+      new ComboBoxItem( new Text( planetAString, comboBoxTextOptions ), 0 ),
+      new ComboBoxItem( new Text( planetBString, comboBoxTextOptions ), 1 ),
+      new ComboBoxItem( new Text( planetCString, comboBoxTextOptions ), 2 )
     ], mysteryPoolModel.customGravityProperty, self, {
       cornerRadius: 8,
       highlightFill: 'rgb(218,255,255)',
