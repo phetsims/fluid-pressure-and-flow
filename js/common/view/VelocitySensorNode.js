@@ -138,25 +138,25 @@ define( function( require ) {
         // so set the bottom of the arrow to the tip of the sensor
         if ( velocity.y >= 0 ) {
           this.arrowShape.bottom = outerTriangleShapeNode.bottom +
-                                   arrowWidth / 2 * Math.cos( Math.abs( velocity.angle() ) );
+                                   arrowWidth / 2 * Math.cos( Math.abs( velocity.angle ) );
         }
         else {
           // if the velocity y component is negative then the arrow will face down,
           // so set the top of the arrow to the tip of the sensor
           this.arrowShape.top = outerTriangleShapeNode.bottom -
-                                arrowWidth / 2 * Math.cos( Math.abs( velocity.angle() ) );
+                                arrowWidth / 2 * Math.cos( Math.abs( velocity.angle ) );
         }
 
         // if the velocity x component is positive then the arrow will direct towards right
         // so set the left of the arrow to the tip of the sensor
         if ( velocity.x > 0 ) {
-          this.arrowShape.left = outerRectangle.centerX - arrowWidth / 2 * Math.sin( Math.abs( velocity.angle() ) );
+          this.arrowShape.left = outerRectangle.centerX - arrowWidth / 2 * Math.sin( Math.abs( velocity.angle ) );
         }
         else if ( velocity.x === 0 ) {
           this.arrowShape.left = outerRectangle.centerX - arrowWidth;
         }
         else {
-          this.arrowShape.right = outerRectangle.centerX + arrowWidth / 2 * Math.sin( Math.abs( velocity.angle() ) );
+          this.arrowShape.right = outerRectangle.centerX + arrowWidth / 2 * Math.sin( Math.abs( velocity.angle ) );
         }
       }
     }.bind( self ) );
