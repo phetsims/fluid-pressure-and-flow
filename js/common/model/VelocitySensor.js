@@ -23,7 +23,7 @@ define( function( require ) {
 
     // @public
     this.isArrowVisibleProperty = new DerivedProperty( [ this.valueProperty ], function( value ) {
-      return value.magnitude() > 0;
+      return value.magnitude > 0;
     } );
   }
 
