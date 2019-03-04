@@ -143,9 +143,11 @@ define( function( require ) {
       contentXMargin: 4,
       buttonYMargin: 4,
       buttonXMargin: 6,
-      buttonLength: 12,
       minWidth: trackSize.width + 12 * options.xMargin,
-      buttonTouchAreaYDilation: 2 // empirically determined so that it does not overlap touch area of arrow button
+      expandCollapseButtonOptions: {
+        sideLength: 12,
+        touchAreaYDilation: 2 // empirically determined so that it does not overlap touch area of arrow button
+      }
     } );
     this.addChild( accordionBox );
 
