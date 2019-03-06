@@ -163,7 +163,7 @@ define( function( require ) {
         var crossSection = this.pipe.getCrossSection( x );
 
         if ( y > crossSection.yBottom + 0.05 && y < crossSection.yTop - 0.05 ) {
-          var vSquared = this.pipe.getVelocity( x, y ).magnitudeSquared();
+          var vSquared = this.pipe.getVelocity( x, y ).magnitudeSquared;
           return getStandardAirPressure( 0 ) - y * Constants.EARTH_GRAVITY * this.fluidDensityProperty.value -
                  0.5 * this.fluidDensityProperty.value * vSquared;
         }
