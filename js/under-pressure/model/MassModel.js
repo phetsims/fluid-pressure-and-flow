@@ -16,6 +16,7 @@ define( function( require ) {
   var inherit = require( 'PHET_CORE/inherit' );
   var Property = require( 'AXON/Property' );
   var Vector2 = require( 'DOT/Vector2' );
+  var Vector2Property = require( 'DOT/Vector2Property' );
 
   // constants
   var frictionCoefficient = 0.98;
@@ -43,7 +44,7 @@ define( function( require ) {
 
     // @public
     // The position is the center of the block.
-    this.positionProperty = new Property( new Vector2( x, y ) );
+    this.positionProperty = new Vector2Property( new Vector2( x, y ) );
 
     this.isDraggingProperty = new Property( false );
 

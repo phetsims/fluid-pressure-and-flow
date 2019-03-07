@@ -29,6 +29,7 @@ define( function( require ) {
   var Units = require( 'FLUID_PRESSURE_AND_FLOW/common/model/Units' );
   var Util = require( 'DOT/Util' );
   var Vector2 = require( 'DOT/Vector2' );
+  var Vector2Property = require( 'DOT/Vector2Property' );
   var VelocitySensor = require( 'FLUID_PRESSURE_AND_FLOW/common/model/VelocitySensor' );
 
   // strings
@@ -79,7 +80,7 @@ define( function( require ) {
     this.flowRateControlExpandedProperty = new Property( false );
 
     // in px, here set the default position of the ruler on display
-    this.rulerPositionProperty = new Property( new Vector2( 300, 344 ) );
+    this.rulerPositionProperty = new Vector2Property( new Vector2( 300, 344 ) );
 
     // {Property.<string>} - speed of the model, either 'normal' or 'slow'
     this.speedProperty = new Property( 'normal' );

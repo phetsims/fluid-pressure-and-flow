@@ -13,10 +13,10 @@ define( function( require ) {
   var inherit = require( 'PHET_CORE/inherit' );
   var ModelViewTransform2 = require( 'PHETCOMMON/view/ModelViewTransform2' );
   var Path = require( 'SCENERY/nodes/Path' );
-  var Property = require( 'AXON/Property' );
   var Rectangle = require( 'SCENERY/nodes/Rectangle' );
   var Shape = require( 'KITE/Shape' );
   var Vector2 = require( 'DOT/Vector2' );
+  var Vector2Property = require( 'DOT/Vector2Property' );
   var WaterTowerLegsNode = require( 'FLUID_PRESSURE_AND_FLOW/watertower/view/WaterTowerLegsNode' );
 
   // constants
@@ -34,7 +34,7 @@ define( function( require ) {
     // these things are used to create WaterTowerLegsNode
     var modelViewTransform = ModelViewTransform2.createSinglePointScaleInvertedYMapping( Vector2.ZERO, Vector2.ZERO, 1 ); // identity with y-axis inverted
     var tankDim = optionWidth * 0.33;
-    var tankPositionProperty = new Property( new Vector2( 0, 0.7 * tankDim ) );
+    var tankPositionProperty = new Vector2Property( new Vector2( 0, 0.7 * tankDim ) );
 
     // close option
     var closeOptionNode = new Rectangle( 0, 0, optionWidth, optionHeight, 5, 5, {

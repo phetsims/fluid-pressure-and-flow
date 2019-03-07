@@ -23,6 +23,7 @@ define( function( require ) {
   var Units = require( 'FLUID_PRESSURE_AND_FLOW/common/model/Units' );
   var Util = require( 'DOT/Util' );
   var Vector2 = require( 'DOT/Vector2' );
+  var Vector2Property = require( 'DOT/Vector2Property' );
   var VelocitySensor = require( 'FLUID_PRESSURE_AND_FLOW/common/model/VelocitySensor' );
   var WaterDrop = require( 'FLUID_PRESSURE_AND_FLOW/watertower/model/WaterDrop' );
   var WaterTower = require( 'FLUID_PRESSURE_AND_FLOW/watertower/model/WaterTower' );
@@ -51,9 +52,9 @@ define( function( require ) {
     this.measureUnitsProperty = new Property( 'metric' );//metric, english
     this.fluidDensityProperty = new Property( Constants.WATER_DENSITY );
     this.fluidDensityControlExpandedProperty = new Property( false );
-    this.rulerPositionProperty = new Property( new Vector2( 300, 350 ) ); // px
-    this.measuringTapeBasePositionProperty = new Property( new Vector2( 10, 0 ) ); // initial position (of crosshair near the base) of tape in model coordinates
-    this.measuringTapeTipPositionProperty = new Property( new Vector2( 17, 0 ) ); // initial position (of crosshair  at the tip) of tape in model coordinates
+    this.rulerPositionProperty = new Vector2Property( new Vector2( 300, 350 ) ); // px
+    this.measuringTapeBasePositionProperty = new Vector2Property( new Vector2( 10, 0 ) ); // initial position (of crosshair near the base) of tape in model coordinates
+    this.measuringTapeTipPositionProperty = new Vector2Property( new Vector2( 17, 0 ) ); // initial position (of crosshair  at the tip) of tape in model coordinates
     this.waterFlowProperty = new Property( 'water' );
     this.isSluiceOpenProperty = new Property( false );
     this.faucetModeProperty = new Property( 'manual' ); //manual or matchLeakage

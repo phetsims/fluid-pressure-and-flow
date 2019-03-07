@@ -25,6 +25,7 @@ define( function( require ) {
   var TrapezoidPoolModel = require( 'FLUID_PRESSURE_AND_FLOW/under-pressure/model/TrapezoidPoolModel' );
   var Units = require( 'FLUID_PRESSURE_AND_FLOW/common/model/Units' );
   var Vector2 = require( 'DOT/Vector2' );
+  var Vector2Property = require( 'DOT/Vector2Property' );
 
   // constants
   var NUM_BAROMETERS = 4;
@@ -50,7 +51,7 @@ define( function( require ) {
     // This way Barometer doesn't need to know about the different scenes and can depend only on
     // UnderPressureModel's properties.
     this.currentVolumeProperty = new Property( 0 ); //L, volume of liquid in currentScene
-    this.rulerPositionProperty = new Property( new Vector2( 300, 100 ) ); // ruler initial position above the ground and center of square pool // TODO: is this used?
+    this.rulerPositionProperty = new Vector2Property( new Vector2( 300, 100 ) ); // ruler initial position above the ground and center of square pool // TODO: is this used?
     this.mysteryChoiceProperty = new Property( 'fluidDensity' ); //for mystery-pool, gravity of fluidDensity
     this.fluidDensityControlExpandedProperty = new Property( true );//For the accordion box
     this.gravityControlExpandedProperty = new Property( true );//For the accordion box

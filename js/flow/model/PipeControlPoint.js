@@ -11,8 +11,8 @@ define( function( require ) {
   // modules
   var fluidPressureAndFlow = require( 'FLUID_PRESSURE_AND_FLOW/fluidPressureAndFlow' );
   var inherit = require( 'PHET_CORE/inherit' );
-  var Property = require( 'AXON/Property' );
   var Vector2 = require( 'DOT/Vector2' );
+  var Vector2Property = require( 'DOT/Vector2Property' );
 
   /**
    * A control point that can be dragged around to change the shape of the pipe
@@ -21,7 +21,7 @@ define( function( require ) {
    * @constructor
    */
   function PipeControlPoint( x, y ) {
-    this.positionProperty = new Property( new Vector2( x, y ) );
+    this.positionProperty = new Vector2Property( new Vector2( x, y ) );
   }
 
   fluidPressureAndFlow.register( 'PipeControlPoint', PipeControlPoint );
