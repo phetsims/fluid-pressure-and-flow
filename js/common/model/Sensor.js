@@ -13,6 +13,7 @@ define( function( require ) {
   var fluidPressureAndFlow = require( 'FLUID_PRESSURE_AND_FLOW/fluidPressureAndFlow' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Property = require( 'AXON/Property' );
+  var Vector2Property = require( 'DOT/Vector2Property' );
 
   /**
    * @param {Vector2} position of the sensor
@@ -21,8 +22,8 @@ define( function( require ) {
    */
   function Sensor( position, value ) {
 
-    // @public {Property.<Vector2>}
-    this.positionProperty = new Property( position );
+    // @public
+    this.positionProperty = new Vector2Property( position );
 
     // @public {Object}
     this.valueProperty = new Property( value );
