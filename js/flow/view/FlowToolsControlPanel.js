@@ -15,7 +15,6 @@ define( require => {
   const fluidPressureAndFlow = require( 'FLUID_PRESSURE_AND_FLOW/fluidPressureAndFlow' );
   const HBox = require( 'SCENERY/nodes/HBox' );
   const HStrut = require( 'SCENERY/nodes/HStrut' );
-  const inherit = require( 'PHET_CORE/inherit' );
   const Node = require( 'SCENERY/nodes/Node' );
   const Panel = require( 'SUN/Panel' );
   const PhetFont = require( 'SCENERY_PHET/PhetFont' );
@@ -30,82 +29,83 @@ define( require => {
   const frictionString = require( 'string!FLUID_PRESSURE_AND_FLOW/friction' );
   const rulerString = require( 'string!FLUID_PRESSURE_AND_FLOW/ruler' );
 
-  /**
-   *
-   * @param {FlowModel} flowModel of the simulation
-   * @param {Object} [options] for various panel display properties
-   * @constructor
-   */
-  function FlowToolsControlPanel( flowModel, options ) {
+  class FlowToolsControlPanel extends Panel {
 
-    options = _.extend( {
-      xMargin: 10,
-      yMargin: 7,
-      fill: '#f2fa6a ',
-      stroke: 'gray',
-      lineWidth: 1
-    }, options );
+    /**
+     * @param {FlowModel} flowModel of the simulation
+     * @param {Object} [options] for various panel display properties
+     */
+    constructor( flowModel, options ) {
 
-    const textOptions = { font: new PhetFont( 10 ) };
+      options = _.extend( {
+        xMargin: 10,
+        yMargin: 7,
+        fill: '#f2fa6a ',
+        stroke: 'gray',
+        lineWidth: 1
+      }, options );
 
-    // itemSpec describes the pieces that make up an item in the control panel,
-    // conforms to the contract: { label: {Node}, icon: {Node} (optional) }
-    const rulerSpec = { label: new Text( rulerString, textOptions ), icon: createRulerIcon() };
-    const frictionSpec = { label: new Text( frictionString, textOptions ) };
-    const fluxMeterSpec = { label: new Text( fluxMeterString, textOptions ) };
-    const dotsSpec = { label: new Text( dotsString, textOptions ), icon: createDotsIcon() };
+      const textOptions = { font: new PhetFont( 10 ) };
 
-    // compute the maximum item width
-    const widestItemSpec = _.maxBy( [ rulerSpec, frictionSpec, fluxMeterSpec, dotsSpec ], item => {
-      return item.label.width + ((item.icon) ? item.icon.width : 0);
-    } );
-    const maxWidth = widestItemSpec.label.width + ((widestItemSpec.icon) ? widestItemSpec.icon.width : 0);
+      // itemSpec describes the pieces that make up an item in the control panel,
+      // conforms to the contract: { label: {Node}, icon: {Node} (optional) }
+      const rulerSpec = { label: new Text( rulerString, textOptions ), icon: createRulerIcon() };
+      const frictionSpec = { label: new Text( frictionString, textOptions ) };
+      const fluxMeterSpec = { label: new Text( fluxMeterString, textOptions ) };
+      const dotsSpec = { label: new Text( dotsString, textOptions ), icon: createDotsIcon() };
 
-    // pad inserts a spacing node (HStrut) so that the text, space and image together occupy a certain fixed width.
-    function createItem( itemSpec ) {
-      if ( itemSpec.icon ) {
-        const strutWidth = maxWidth - itemSpec.label.width - itemSpec.icon.width + 17;
-        return new HBox( { children: [ itemSpec.label, new HStrut( strutWidth ), itemSpec.icon ] } );
+      // compute the maximum item width
+      const widestItemSpec = _.maxBy( [ rulerSpec, frictionSpec, fluxMeterSpec, dotsSpec ], item => {
+        return item.label.width + ( ( item.icon ) ? item.icon.width : 0 );
+      } );
+      const maxWidth = widestItemSpec.label.width + ( ( widestItemSpec.icon ) ? widestItemSpec.icon.width : 0 );
+
+      // pad inserts a spacing node (HStrut) so that the text, space and image together occupy a certain fixed width.
+      function createItem( itemSpec ) {
+        if ( itemSpec.icon ) {
+          const strutWidth = maxWidth - itemSpec.label.width - itemSpec.icon.width + 17;
+          return new HBox( { children: [ itemSpec.label, new HStrut( strutWidth ), itemSpec.icon ] } );
+        }
+        else {
+          return new HBox( { children: [ itemSpec.label ] } );
+        }
       }
-      else {
-        return new HBox( { children: [ itemSpec.label ] } );
-      }
+
+      const checkboxOptions = {
+        boxWidth: 15,
+        spacing: 2
+      };
+
+      const rulerCheckbox = new Checkbox( createItem( rulerSpec ), flowModel.isRulerVisibleProperty, checkboxOptions );
+      const frictionCheckbox = new Checkbox( createItem( frictionSpec ), flowModel.pipe.frictionProperty, checkboxOptions );
+      const fluxMeterCheckbox = new Checkbox( createItem( fluxMeterSpec ), flowModel.isFluxMeterVisibleProperty,
+        checkboxOptions );
+      const dotsCheckbox = new Checkbox( createItem( dotsSpec ), flowModel.isDotsVisibleProperty, checkboxOptions );
+
+      const maxCheckboxWidth = _.maxBy( [ rulerCheckbox, frictionCheckbox, fluxMeterCheckbox, dotsCheckbox ],
+        item => { return item.width; }
+      ).width + 5;
+
+      //touch Areas
+      rulerCheckbox.touchArea = new Bounds2( rulerCheckbox.localBounds.minX - 5, rulerCheckbox.localBounds.minY,
+        rulerCheckbox.localBounds.minX + maxCheckboxWidth, rulerCheckbox.localBounds.maxY );
+      frictionCheckbox.touchArea = new Bounds2( frictionCheckbox.localBounds.minX - 5, frictionCheckbox.localBounds.minY,
+        frictionCheckbox.localBounds.minX + maxCheckboxWidth, frictionCheckbox.localBounds.maxY );
+      fluxMeterCheckbox.touchArea = new Bounds2( fluxMeterCheckbox.localBounds.minX - 5,
+        fluxMeterCheckbox.localBounds.minY,
+        fluxMeterCheckbox.localBounds.minX + maxCheckboxWidth, fluxMeterCheckbox.localBounds.maxY );
+      dotsCheckbox.touchArea = new Bounds2( dotsCheckbox.localBounds.minX - 5, dotsCheckbox.localBounds.minY,
+        dotsCheckbox.localBounds.minX + maxCheckboxWidth, dotsCheckbox.localBounds.maxY );
+
+      // pad all the rows so the text nodes are left aligned and the icons is right aligned
+
+      const checkboxes = new VBox( {
+        align: 'left', spacing: 4,
+        children: [ rulerCheckbox, frictionCheckbox, fluxMeterCheckbox, dotsCheckbox ]
+      } );
+
+      super( checkboxes, options );
     }
-
-    const checkboxOptions = {
-      boxWidth: 15,
-      spacing: 2
-    };
-
-    const rulerCheckbox = new Checkbox( createItem( rulerSpec ), flowModel.isRulerVisibleProperty, checkboxOptions );
-    const frictionCheckbox = new Checkbox( createItem( frictionSpec ), flowModel.pipe.frictionProperty, checkboxOptions );
-    const fluxMeterCheckbox = new Checkbox( createItem( fluxMeterSpec ), flowModel.isFluxMeterVisibleProperty,
-      checkboxOptions );
-    const dotsCheckbox = new Checkbox( createItem( dotsSpec ), flowModel.isDotsVisibleProperty, checkboxOptions );
-
-    const maxCheckboxWidth = _.maxBy( [ rulerCheckbox, frictionCheckbox, fluxMeterCheckbox, dotsCheckbox ],
-      item => { return item.width; }
-    ).width + 5;
-
-    //touch Areas
-    rulerCheckbox.touchArea = new Bounds2( rulerCheckbox.localBounds.minX - 5, rulerCheckbox.localBounds.minY,
-      rulerCheckbox.localBounds.minX + maxCheckboxWidth, rulerCheckbox.localBounds.maxY );
-    frictionCheckbox.touchArea = new Bounds2( frictionCheckbox.localBounds.minX - 5, frictionCheckbox.localBounds.minY,
-      frictionCheckbox.localBounds.minX + maxCheckboxWidth, frictionCheckbox.localBounds.maxY );
-    fluxMeterCheckbox.touchArea = new Bounds2( fluxMeterCheckbox.localBounds.minX - 5,
-      fluxMeterCheckbox.localBounds.minY,
-      fluxMeterCheckbox.localBounds.minX + maxCheckboxWidth, fluxMeterCheckbox.localBounds.maxY );
-    dotsCheckbox.touchArea = new Bounds2( dotsCheckbox.localBounds.minX - 5, dotsCheckbox.localBounds.minY,
-      dotsCheckbox.localBounds.minX + maxCheckboxWidth, dotsCheckbox.localBounds.maxY );
-
-    // pad all the rows so the text nodes are left aligned and the icons is right aligned
-
-    const checkboxes = new VBox( {
-      align: 'left', spacing: 4,
-      children: [ rulerCheckbox, frictionCheckbox, fluxMeterCheckbox, dotsCheckbox ]
-    } );
-
-    Panel.call( this, checkboxes, options );
   }
 
   // Create an icon for the ruler checkbox
@@ -126,7 +126,5 @@ define( require => {
     return new Node( { children: [ dot1, dot2 ] } );
   }
 
-  fluidPressureAndFlow.register( 'FlowToolsControlPanel', FlowToolsControlPanel );
-
-  return inherit( Panel, FlowToolsControlPanel );
+  return fluidPressureAndFlow.register( 'FlowToolsControlPanel', FlowToolsControlPanel );
 } );

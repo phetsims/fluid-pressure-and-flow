@@ -3,6 +3,8 @@
 /**
  * View for the flux meter tool. Looks like a ring around the pipe with a display panel at the top and a drag handle
  * at the bottom. The ring is rendered in two layers so that particles can pass through the ring.
+ * A flux meter that display flow rate, area and flux at a particular cross section.
+ *
  * @author Siddhartha Chinthapally (Actual Concepts)
  */
 define( require => {
@@ -14,7 +16,6 @@ define( require => {
   const HBox = require( 'SCENERY/nodes/HBox' );
   const HStrut = require( 'SCENERY/nodes/HStrut' );
   const Image = require( 'SCENERY/nodes/Image' );
-  const inherit = require( 'PHET_CORE/inherit' );
   const Node = require( 'SCENERY/nodes/Node' );
   const Panel = require( 'SUN/Panel' );
   const Path = require( 'SCENERY/nodes/Path' );
@@ -41,178 +42,173 @@ define( require => {
   // images
   const twoSidedHandleImage = require( 'image!FLUID_PRESSURE_AND_FLOW/handle-two-sided.png' );
 
-  /**
-   * A flux meter that display flow rate, area and flux at a particular cross section
-   * @param {FlowModel} flowModel of the simulation
-   * @param {ModelViewTransform2} modelViewTransform to convert between model and view co-ordinates
-   * @param {Object} [options] that can be passed on to the underlying node
-   * @constructor
-   */
-  function FluxMeterNode( flowModel, modelViewTransform, options ) {
+  class FluxMeterNode extends Node {
 
-    Node.call( this );
+    /**
+     * @param {FlowModel} flowModel of the simulation
+     * @param {ModelViewTransform2} modelViewTransform to convert between model and view co-ordinates
+     * @param {Object} [options] that can be passed on to the underlying node
+     */
+    constructor( flowModel, modelViewTransform, options ) {
 
-    options = _.extend( {
-      xMargin: 10,
-      yMargin: 10,
-      fill: '#f2fa6a ',
-      stroke: 'blue',
-      lineWidth: 2
-    }, options );
+      super();
 
-
-    this.flowModel = flowModel;
-    this.modelViewTransform = modelViewTransform;
-    const textOptions = { font: new PhetFont( 10 ) };
-
-    // flowRate row
-    const flowRateText = new Text( flowRateWithColonString, textOptions );
-    this.flowRateValue = new Text( '', textOptions );
-    this.flowRateUnit = new RichText( rateUnitsMetricString, textOptions );
-
-    // area row
-    const area = new Text( areaString, textOptions );
-    this.areaValue = new Text( '', textOptions );
-    this.areaUnit = new RichText( areaUnitsMetricString, textOptions );
-
-    // flux row
-    const flux = new Text( fluxString, textOptions );
-    this.fluxValue = new Text( '', textOptions );
-    this.fluxUnit = new RichText( fluxUnitsMetricString, textOptions );
-
-    // Split the content into 3 vboxes. First vbox holds the right aligned title,
-    // second the right aligned value and the third vbox holds the left aligned units text
-    const content = new HBox( {
-      spacing: 5,
-      children: [
-        new VBox( {
-          align: 'right', children: [
-            new HBox( { children: [ new HStrut( 4 ), flowRateText ] } ),
-            new HBox( { children: [ new HStrut( 4 ), area ] } ),
-            new HBox( { children: [ new HStrut( 4 ), flux ] } )
-          ]
-        } ),
-        new VBox( {
-          align: 'right', children: [
-            new HBox( { children: [ new HStrut( 4 ), this.flowRateValue ] } ),
-            new HBox( { children: [ new HStrut( 4 ), this.areaValue ] } ),
-            new HBox( { children: [ new HStrut( 4 ), this.fluxValue ] } )
-          ]
-        } ),
-        new VBox( {
-          align: 'left', children: [
-            this.flowRateUnit,
-            this.areaUnit,
-            this.fluxUnit
-          ]
-        } )
-      ]
-    } );
-
-    this.displayPanel = new Panel( content, {
-      xMargin: 7,
-      yMargin: 6,
-      fill: '#f2fa6a ',
-      stroke: 'blue',
-      lineWidth: 2
-    } );
-
-    const yTop = modelViewTransform.modelToViewY( flowModel.pipe.fractionToLocation( flowModel.fluxMeter.xPositionProperty.value, 1 ) );
-    const yBottom = modelViewTransform.modelToViewY( flowModel.pipe.fractionToLocation( flowModel.fluxMeter.xPositionProperty.value,
-      0 ) );
-    const centerY = ( yTop + yBottom ) / 2;
-    const radiusY = ( yBottom - yTop ) / 2;
-    const initialCenterX = 60; // initial center x of ellipse
-    this.radiusX = 6; // x radius for the ellipse is  always constant
-
-    // split the ring into two ellipses
-    this.ellipse = new Path( new Shape().ellipticalArc( initialCenterX, centerY, radiusY, this.radiusX, Math.PI / 2,
-      0, Math.PI, false ), {
-      lineWidth: 5,
-      stroke: 'blue'
-    } );
-    this.ellipse2 = new Path( new Shape().ellipticalArc( initialCenterX, centerY, radiusY, this.radiusX, Math.PI / 2,
-      Math.PI,
-      0, false ),
-      {
-        lineWidth: 5,
-        stroke: new Color( 0, 0, 255, 0.5 )
-      } );
-
-    // add only the first ellipse. The second ellipse is added by the pipe node.
-    this.addChild( this.ellipse );
-
-    // the line connecting the ring and the display panel
-    const upperLineShape = new Shape().moveTo( this.ellipse2.centerX - 3, this.ellipse2.centerY - 20 ).lineTo( this.ellipse2.right, this.ellipse2.top );
-
-    this.upperLine = new Path( upperLineShape,
-      {
+      options = _.extend( {
+        xMargin: 10,
+        yMargin: 10,
+        fill: '#f2fa6a ',
         stroke: 'blue',
-        lineWidth: 3,
-        left: this.ellipse.right - 1,
-        bottom: this.ellipse2.top + 3
+        lineWidth: 2
+      }, options );
+
+      this.flowModel = flowModel;
+      this.modelViewTransform = modelViewTransform;
+      const textOptions = { font: new PhetFont( 10 ) };
+
+      // flowRate row
+      const flowRateText = new Text( flowRateWithColonString, textOptions );
+      this.flowRateValue = new Text( '', textOptions );
+      this.flowRateUnit = new RichText( rateUnitsMetricString, textOptions );
+
+      // area row
+      const area = new Text( areaString, textOptions );
+      this.areaValue = new Text( '', textOptions );
+      this.areaUnit = new RichText( areaUnitsMetricString, textOptions );
+
+      // flux row
+      const flux = new Text( fluxString, textOptions );
+      this.fluxValue = new Text( '', textOptions );
+      this.fluxUnit = new RichText( fluxUnitsMetricString, textOptions );
+
+      // Split the content into 3 vboxes. First vbox holds the right aligned title,
+      // second the right aligned value and the third vbox holds the left aligned units text
+      const content = new HBox( {
+        spacing: 5,
+        children: [
+          new VBox( {
+            align: 'right', children: [
+              new HBox( { children: [ new HStrut( 4 ), flowRateText ] } ),
+              new HBox( { children: [ new HStrut( 4 ), area ] } ),
+              new HBox( { children: [ new HStrut( 4 ), flux ] } )
+            ]
+          } ),
+          new VBox( {
+            align: 'right', children: [
+              new HBox( { children: [ new HStrut( 4 ), this.flowRateValue ] } ),
+              new HBox( { children: [ new HStrut( 4 ), this.areaValue ] } ),
+              new HBox( { children: [ new HStrut( 4 ), this.fluxValue ] } )
+            ]
+          } ),
+          new VBox( {
+            align: 'left', children: [
+              this.flowRateUnit,
+              this.areaUnit,
+              this.fluxUnit
+            ]
+          } )
+        ]
       } );
 
-    this.addChild( this.upperLine );
-    this.displayPanel.bottom = this.upperLine.top;
-    this.displayPanel.left = this.upperLine.left - 50;
-
-    // the line connecting the ring and the bottom handle
-    const lowerLineShape = new Shape().moveTo( this.ellipse2.centerX - 3, this.ellipse2.centerY + 20 ).lineTo( this.ellipse2.centerX - 3, this.ellipse2.centerY + 60 );
-
-    this.lowerLine = new Path( lowerLineShape,
-      {
-        stroke: 'blue', lineWidth: 2,
-        top: this.ellipse2.bottom,
-        left: this.ellipse.right - 1
-      } );
-    this.addChild( this.lowerLine );
-
-    this.handle = new Image( twoSidedHandleImage,
-      { cursor: 'pointer', top: this.lowerLine.bottom, left: this.lowerLine.right - 16, scale: 0.35 } );
-    this.handle.touchArea = this.handle.localBounds.dilatedXY( 20, 20 );
-
-    this.addChild( this.handle );
-
-    this.addChild( this.displayPanel );
-
-    flowModel.isFluxMeterVisibleProperty.linkAttribute( this, 'visible' );
-
-    Property.multilink( [ flowModel.pipe.flowRateProperty, flowModel.measureUnitsProperty ],
-      ( flowRate, units ) => {
-        this.updateDisplayPanel( units );
+      this.displayPanel = new Panel( content, {
+        xMargin: 7,
+        yMargin: 6,
+        fill: '#f2fa6a ',
+        stroke: 'blue',
+        lineWidth: 2
       } );
 
-    flowModel.fluxMeter.xPositionProperty.link( () => {
-      this.updateFluxMeter();
-    } );
+      const yTop = modelViewTransform.modelToViewY( flowModel.pipe.fractionToLocation( flowModel.fluxMeter.xPositionProperty.value, 1 ) );
+      const yBottom = modelViewTransform.modelToViewY( flowModel.pipe.fractionToLocation( flowModel.fluxMeter.xPositionProperty.value,
+        0 ) );
+      const centerY = ( yTop + yBottom ) / 2;
+      const radiusY = ( yBottom - yTop ) / 2;
+      const initialCenterX = 60; // initial center x of ellipse
+      this.radiusX = 6; // x radius for the ellipse is  always constant
 
-    // flux meter drag handle
-    this.handle.addInputListener( new SimpleDragHandler( {
-      drag: event => {
-        this.moveToFront();
-        let x = this.globalToParentPoint( event.pointer.point ).x;
-        x = x < 46 ? 46 : x > 698 ? 698 : x; // min, max view values (emperically determined)
-        flowModel.fluxMeter.xPositionProperty.value = modelViewTransform.viewToModelX( x );
-      }
-    } ) );
+      // split the ring into two ellipses
+      this.ellipse = new Path( new Shape().ellipticalArc( initialCenterX, centerY, radiusY, this.radiusX, Math.PI / 2,
+        0, Math.PI, false ), {
+        lineWidth: 5,
+        stroke: 'blue'
+      } );
+      this.ellipse2 = new Path( new Shape().ellipticalArc( initialCenterX, centerY, radiusY, this.radiusX, Math.PI / 2,
+        Math.PI,
+        0, false ),
+        {
+          lineWidth: 5,
+          stroke: new Color( 0, 0, 255, 0.5 )
+        } );
 
-    flowModel.fluxMeter.updateEmitter.addListener( () => {
-      this.updateFluxMeter();
-    } );
+      // add only the first ellipse. The second ellipse is added by the pipe node.
+      this.addChild( this.ellipse );
 
-    this.mutate( options );
-  }
+      // the line connecting the ring and the display panel
+      const upperLineShape = new Shape().moveTo( this.ellipse2.centerX - 3, this.ellipse2.centerY - 20 ).lineTo( this.ellipse2.right, this.ellipse2.top );
 
-  fluidPressureAndFlow.register( 'FluxMeterNode', FluxMeterNode );
+      this.upperLine = new Path( upperLineShape,
+        {
+          stroke: 'blue',
+          lineWidth: 3,
+          left: this.ellipse.right - 1,
+          bottom: this.ellipse2.top + 3
+        } );
 
-  return inherit( Panel, FluxMeterNode, {
+      this.addChild( this.upperLine );
+      this.displayPanel.bottom = this.upperLine.top;
+      this.displayPanel.left = this.upperLine.left - 50;
+
+      // the line connecting the ring and the bottom handle
+      const lowerLineShape = new Shape().moveTo( this.ellipse2.centerX - 3, this.ellipse2.centerY + 20 ).lineTo( this.ellipse2.centerX - 3, this.ellipse2.centerY + 60 );
+
+      this.lowerLine = new Path( lowerLineShape,
+        {
+          stroke: 'blue', lineWidth: 2,
+          top: this.ellipse2.bottom,
+          left: this.ellipse.right - 1
+        } );
+      this.addChild( this.lowerLine );
+
+      this.handle = new Image( twoSidedHandleImage,
+        { cursor: 'pointer', top: this.lowerLine.bottom, left: this.lowerLine.right - 16, scale: 0.35 } );
+      this.handle.touchArea = this.handle.localBounds.dilatedXY( 20, 20 );
+
+      this.addChild( this.handle );
+
+      this.addChild( this.displayPanel );
+
+      flowModel.isFluxMeterVisibleProperty.linkAttribute( this, 'visible' );
+
+      Property.multilink( [ flowModel.pipe.flowRateProperty, flowModel.measureUnitsProperty ],
+        ( flowRate, units ) => {
+          this.updateDisplayPanel( units );
+        } );
+
+      flowModel.fluxMeter.xPositionProperty.link( () => {
+        this.updateFluxMeter();
+      } );
+
+      // flux meter drag handle
+      this.handle.addInputListener( new SimpleDragHandler( {
+        drag: event => {
+          this.moveToFront();
+          let x = this.globalToParentPoint( event.pointer.point ).x;
+          x = x < 46 ? 46 : x > 698 ? 698 : x; // min, max view values (emperically determined)
+          flowModel.fluxMeter.xPositionProperty.value = modelViewTransform.viewToModelX( x );
+        }
+      } ) );
+
+      flowModel.fluxMeter.updateEmitter.addListener( () => {
+        this.updateFluxMeter();
+      } );
+
+      this.mutate( options );
+    }
 
     /**
      * Redraws the flux meter's ellipses based on the pipe shape at that x position
      * @private
      */
-    updateFluxMeter: function() {
+    updateFluxMeter() {
 
       const yTop = this.modelViewTransform.modelToViewY( this.flowModel.pipe.fractionToLocation(
         this.flowModel.fluxMeter.xPositionProperty.value, 1 ) );
@@ -240,15 +236,14 @@ define( require => {
       this.handle.left = this.lowerLine.right - 16;
 
       this.updateDisplayPanel( this.flowModel.measureUnitsProperty.value );
-
-    },
+    }
 
     /**
      * Updates the display text in the panel as per the new x position
      * @param {string} units can be metric/english
      * @private
      */
-    updateDisplayPanel: function( units ) {
+    updateDisplayPanel( units ) {
 
       if ( units === 'metric' ) {
         this.flowRateValue.text = this.flowModel.fluxMeter.getFlowRate().toFixed( 1 );
@@ -274,5 +269,7 @@ define( require => {
         this.fluxUnit.text = fluxUnitsEnglishString;
       }
     }
-  } );
+  }
+
+  return fluidPressureAndFlow.register( 'FluxMeterNode', FluxMeterNode );
 } );

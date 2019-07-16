@@ -10,34 +10,31 @@ define( require => {
   // modules
   const CanvasNode = require( 'SCENERY/nodes/CanvasNode' );
   const fluidPressureAndFlow = require( 'FLUID_PRESSURE_AND_FLOW/fluidPressureAndFlow' );
-  const inherit = require( 'PHET_CORE/inherit' );
 
-  /**
-   * A particle layer rendered on canvas
-   * @param {ObservableArray<Particle>} particles that need to be rendered on the canvas
-   * @param {ObservableArray<Particle>} gridParticles that need to be rendered on the canvas
-   * @param {ModelViewTransform2} modelViewTransform to convert between model and view co-ordinate frames
-   * @param {Object} [options] that can be passed on to the underlying node
-   * @constructor
-   */
-  function ParticleCanvasNode( particles, gridParticles, modelViewTransform, options ) {
+  class ParticleCanvasNode extends CanvasNode {
 
-    this.particles = particles;
-    this.gridParticles = gridParticles;
-    this.modelViewTransform = modelViewTransform;
-    CanvasNode.call( this, options );
-    this.invalidatePaint();
-  }
+    /**
+     * @param {ObservableArray<Particle>} particles that need to be rendered on the canvas
+     * @param {ObservableArray<Particle>} gridParticles that need to be rendered on the canvas
+     * @param {ModelViewTransform2} modelViewTransform to convert between model and view co-ordinate frames
+     * @param {Object} [options]
+     */
+    constructor( particles, gridParticles, modelViewTransform, options ) {
 
-  fluidPressureAndFlow.register( 'ParticleCanvasNode', ParticleCanvasNode );
+      super( options );
 
-  return inherit( CanvasNode, ParticleCanvasNode, {
+      this.particles = particles;
+      this.gridParticles = gridParticles;
+      this.modelViewTransform = modelViewTransform;
+
+      this.invalidatePaint();
+    }
 
     /**
      * Paints the particles on the canvas node.
      * @param {CanvasRenderingContext2D} context
      */
-    paintCanvas: function( context ) {
+    paintCanvas( context ) {
 
       // paint the regular particles
       for ( let i = 0; i < this.particles.length; i++ ) {
@@ -61,11 +58,12 @@ define( require => {
         context.fill();
       }
 
-    },
-
-    step: function() {
-      this.invalidatePaint();
     }
 
-  } );
+    step() {
+      this.invalidatePaint();
+    }
+  }
+
+  return fluidPressureAndFlow.register( 'ParticleCanvasNode', ParticleCanvasNode );
 } );

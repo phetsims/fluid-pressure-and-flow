@@ -59,7 +59,5 @@ define( require => {
 
   const SplineEvaluation = { atNumber: atNumber, atArray: atArray };
 
-  fluidPressureAndFlow.register( 'SplineEvaluation', SplineEvaluation );
-
-  return SplineEvaluation;
+  return fluidPressureAndFlow.register( 'SplineEvaluation', SplineEvaluation );
 } );

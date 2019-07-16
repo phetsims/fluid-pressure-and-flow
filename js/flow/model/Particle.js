@@ -14,51 +14,49 @@ define( require => {
 
   // modules
   const fluidPressureAndFlow = require( 'FLUID_PRESSURE_AND_FLOW/fluidPressureAndFlow' );
-  const inherit = require( 'PHET_CORE/inherit' );
 
-  /**
-   * @param {number} xPosition of the particle in meters
-   * @param {number} fractionUpPipe represents the fractional position w.r.t to the cross section height. Takes a value between (0,1).
-   * @param {Pipe} container holding the particle
-   * @param {number} radius of the particle
-   * @param {string} color of the particle
-   * @constructor
-   */
-  function Particle( xPosition, fractionUpPipe, container, radius, color ) {
+  class Particle {
 
-    // position along the pipe's horizontal axis.
-    this.xPosition = xPosition;
+    /**
+     * @param {number} xPosition of the particle in meters
+     * @param {number} fractionUpPipe represents the fractional position w.r.t to the cross section height. Takes a value between (0,1).
+     * @param {Pipe} container holding the particle
+     * @param {number} radius of the particle
+     * @param {string} color of the particle
+     */
+    constructor( xPosition, fractionUpPipe, container, radius, color ) {
 
-    // how far up the pipe, 0 = bottom, 1 = top
-    this.fractionUpPipe = fractionUpPipe;
+      // position along the pipe's horizontal axis.
+      this.xPosition = xPosition;
 
-    // the pipe within which the particle travels
-    this.container = container;
+      // how far up the pipe, 0 = bottom, 1 = top
+      this.fractionUpPipe = fractionUpPipe;
 
-    this.radius = radius; // in meters
-    this.color = color;
-  }
+      // the pipe within which the particle travels
+      this.container = container;
 
-  fluidPressureAndFlow.register( 'Particle', Particle );
-
-  return inherit( Object, Particle, {
+      this.radius = radius; // in meters
+      this.color = color;
+    }
 
     // get particle x position
-    getX: function() {
+    getX() {
       return this.xPosition;
-    },
+    }
 
     // get particle Y position
-    getY: function() {
+    getY() {
       return this.container.fractionToLocation( this.xPosition, this.fractionUpPipe );
-    },
+    }
 
     /**
      * Set the particle x position
      * @param {number} x position in meters
      */
-    setX: function( x ) {
+    setX( x ) {
       this.xPosition = x;
     }
-  } );
+  }
+
+  return fluidPressureAndFlow.register( 'Particle', Particle );
 } );

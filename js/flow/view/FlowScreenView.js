@@ -3,6 +3,7 @@
 /**
  * View for the Fluid Pressure and Flow sim's Flow tab. The view contains a flexible pipe that can be dragged
  * and scaled using handles, particles to show the fluid flow and tools to measure flux, area, length, velocity etc.
+ *
  * @author Siddhartha Chinthapally (Actual Concepts).
  */
 define( require => {

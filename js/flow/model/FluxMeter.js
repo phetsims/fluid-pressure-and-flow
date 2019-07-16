@@ -1,8 +1,9 @@
-// Copyright 2014-2017, University of Colorado Boulder
+// Copyright 2014-2019, University of Colorado Boulder
 
 /**
  * Model for the flux meter tool in the flow tab of FPAF sim. Measures the flux at a given cross section
  * using the cross section area and flow rate. All units are in metric.
+ *
  * @author Siddhartha Chinthapally (Actual Concepts)
  */
 
@@ -12,49 +13,46 @@ define( require => {
   // modules
   const Emitter = require( 'AXON/Emitter' );
   const fluidPressureAndFlow = require( 'FLUID_PRESSURE_AND_FLOW/fluidPressureAndFlow' );
-  const inherit = require( 'PHET_CORE/inherit' );
   const Property = require( 'AXON/Property' );
 
-  /**
-   * Constructor for the flux meter.
-   * @param {Pipe} pipe for which the flux needs to be measured at a particular cross section.
-   * @constructor
-   */
-  function FluxMeter( pipe ) {
+  class FluxMeter {
 
-    // pipe that the flux meter attaches to and measures
-    this.pipe = pipe;
+    /**
+     * @param {Pipe} pipe for which the flux needs to be measured at a particular cross section.
+     */
+    constructor( pipe ) {
 
-    // @public {Property.<number>} in meters. The flux meter can be dragged horizontally across the pipe
-    this.xPositionProperty = new Property( -6.5 );
+      // pipe that the flux meter attaches to and measures
+      this.pipe = pipe;
 
-    // @public
-    this.updateEmitter = new Emitter();
-  }
+      // @public {Property.<number>} in meters. The flux meter can be dragged horizontally across the pipe
+      this.xPositionProperty = new Property( -6.5 );
 
-  fluidPressureAndFlow.register( 'FluxMeter', FluxMeter );
+      // @public
+      this.updateEmitter = new Emitter();
+    }
 
-  return inherit( Object, FluxMeter, {
-
-    reset: function() {
+    reset() {
       this.xPositionProperty.reset();
-    },
+    }
 
     // Compute the area as the pi * r * r of the pipe at the cross section where the flux meter is currently positioned
     // Returns the area in meters squared
-    getArea: function() {
+    getArea() {
       return this.pipe.getCrossSectionalArea( this.xPositionProperty.value );
-    },
+    }
 
     // Returns the flow rate in liters per sec (L/s)
-    getFlowRate: function() {
+    getFlowRate() {
       return this.pipe.flowRateProperty.value;
-    },
+    }
 
     //Assume incompressible fluid (like water), so the flow rate must remain constant throughout the pipe
     //flux = rate / area
-    getFlux: function() {
+    getFlux() {
       return this.getFlowRate() / this.getArea();
     }
-  } );
+  }
+
+  return fluidPressureAndFlow.register( 'FluxMeter', FluxMeter );
 } );
