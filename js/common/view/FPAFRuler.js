@@ -2,6 +2,7 @@
 
 /**
  * Ruler Node. Supports english and metric views of the ruler.
+ *
  * @author Shakhov Vasily (Mlearner)
  * @author Siddhartha Chinthapally (Actual Concepts).
  */

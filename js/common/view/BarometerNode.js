@@ -3,6 +3,7 @@
 /**
  * Barometer Node with a gauge and needle to display the pressure.
  * Also has a text box to display the pressure value.
+ *
  * @author Vasily Shakhov (Mlearner)
  * @author Siddhartha Chinthapally (ActualConcepts)
  * @author Sam Reid

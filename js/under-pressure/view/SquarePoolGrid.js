@@ -3,6 +3,7 @@
 /**
  * View for the grid in Square Pool which shows horizontal lines along the pool indicating the depth.
  * Supports both english and metric units.
+ *
  * @author Vasily Shakhov (Mlearner)
  * @author Siddhartha Chinthapally (Actual Concepts)
  */

@@ -2,6 +2,7 @@
 
 /**
  * main Model for trapezoid pool screen.
+ *
  * @author Vasily Shakhov (Mlearner)
  * @author Siddhartha Chinthapally (Actual Concepts)
  */

@@ -2,9 +2,9 @@
 
 /**
  * View for the pipe consisting of the right and left pipe heads and a flexible middle pipe created using splines.
+ *
  * @author Siddhartha Chinthapally (Actual Concepts).
  */
-
 define( require => {
   'use strict';
 

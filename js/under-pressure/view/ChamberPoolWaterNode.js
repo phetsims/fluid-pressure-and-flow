@@ -2,6 +2,7 @@
 
 /**
  * View for water in Chamber Pool
+ *
  * @author Vasily Shakhov (Mlearner)
  */
 define( require => {

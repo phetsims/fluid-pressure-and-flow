@@ -2,6 +2,7 @@
 
 /**
  * View for trapezoid pool.
+ *
  * @author Vasily Shakhov (Mlearner)
  * @author Siddhartha Chinthapally (Actual Concepts)
  */

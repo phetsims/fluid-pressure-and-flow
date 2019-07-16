@@ -2,8 +2,9 @@
 
 /**
  * View for the grid in trapezoid and chamber pools which shows horizontal lines along the pool indicating the depth.
- * Callouts indicating depth are shown on the lines with an option (slantMultiplier) to show them horizontally displaced compared with
- * the ones on the above and below lines. Supports both english and metric units.
+ * Callouts indicating depth are shown on the lines with an option (slantMultiplier) to show them horizontally displaced
+ * compared with the ones on the above and below lines. Supports both english and metric units.
+ *
  * @author Vasily Shakhov (Mlearner)
  * @author Siddhartha Chinthapally (Actual Concepts)
  */

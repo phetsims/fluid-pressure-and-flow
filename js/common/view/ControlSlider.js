@@ -6,6 +6,7 @@
  * It can be expanded or collapsed using a plus/minus button at top left.
  * Has support to show ticks for important values and snaps to these values when the value is within 5% of a tick.
  * Triggers a callback function to update the display value when trackProperty or unitsProperty changes.
+ *
  * @author Anton Ulyanov, Vasily Shakhov (Mlearner)
  * @author Siddhartha Chinthapally (Actual Concepts)
  */

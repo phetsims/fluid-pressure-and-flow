@@ -2,10 +2,10 @@
 
 /**
  * View for the handles on the pipe segment.
- * Handles on the left/right pipe segment are used for dragging the pipe up/down .
+ * Handles on the left/right pipe segment are used for dragging the pipe up/down.
+ *
  * @author Siddhartha Chinthapally (Actual Concepts).
  */
-
 define( require => {
   'use strict';
 

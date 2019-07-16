@@ -6,7 +6,6 @@
  * 
  * @author Siddhartha Chinthapally (Actual Concepts)
  */
-
 define( require => {
   'use strict';
 

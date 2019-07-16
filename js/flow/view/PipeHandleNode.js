@@ -2,9 +2,9 @@
 
 /**
  * View for a single handle on the flexible middle pipe and the pipe head rims.
+ *
  * @author Siddhartha Chinthapally (Actual Concepts).
  */
-
 define( require => {
   'use strict';
 

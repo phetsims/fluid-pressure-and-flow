@@ -1,10 +1,10 @@
 // Copyright 2014-2017, University of Colorado Boulder
 
 /**
- * The screen (model + view) for the Flow screen, which appears as the second screen in the "Fluid Pressure and Flow" sim.
+ * The Flow screen, which appears as the second screen in the "Fluid Pressure and Flow" sim.
+ *
  * @author Siddhartha Chinthapally (Actual Concepts)
  */
-
 define( require => {
   'use strict';
 
