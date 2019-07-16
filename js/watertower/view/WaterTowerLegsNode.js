@@ -34,8 +34,8 @@ define( function( require ) {
     }, options );
     this.options = options; // @private
 
-    var legPaintOptions = { stroke: 'black', lineWidth: 1, fill: 'black' };
-    var crossbeamPaintOptions = { stroke: 'black', lineWidth: this.options.crossbeamWidth };
+    const legPaintOptions = { stroke: 'black', lineWidth: 1, fill: 'black' };
+    const crossbeamPaintOptions = { stroke: 'black', lineWidth: this.options.crossbeamWidth };
 
     this.waterTowerWidth = width;
     this.waterTowerHeight = 0;  // will be set to correct value by tankPositionProperty observer below
@@ -67,18 +67,18 @@ define( function( require ) {
      */
     updateShape: function() {
 
-      var width = this.waterTowerWidth;
-      var height = this.waterTowerHeight;
-      var leftLegTopX = width * 0.2;
-      var rightLegTopX = width * 0.8;
-      var options = this.options;
+      const width = this.waterTowerWidth;
+      const height = this.waterTowerHeight;
+      const leftLegTopX = width * 0.2;
+      const rightLegTopX = width * 0.8;
+      const options = this.options;
 
       // use 1 instead of 0 when the height is 0. This is to prevent divide by zero and other problems.
-      var fLeftLegX = function( y ) {
+      const fLeftLegX = function( y ) {
         return Util.linear( 0, height > 0 ? height : 1, leftLegTopX, 0, y ); //y1, y2, x1, x2
       };
 
-      var fRightLegX = function( y ) {
+      const fRightLegX = function( y ) {
         return Util.linear( 0, height > 0 ? height : 1, rightLegTopX, width, y );
       };
 

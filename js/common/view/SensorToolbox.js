@@ -37,7 +37,7 @@ define( function( require ) {
     }, options );
 
     // create icons, not real sensors
-    var velocitySensorIcon = new VelocitySensorNode(
+    const velocitySensorIcon = new VelocitySensorNode(
       ModelViewTransform2.createIdentity(),
       new VelocitySensor( new Vector2( 0, 0 ), new Vector2( 0, 0 ) ),
       model.measureUnitsProperty,
@@ -48,7 +48,7 @@ define( function( require ) {
       { scale: 0.9, isIcon: true }
     );
 
-    var barometerIcon = new BarometerNode(
+    const barometerIcon = new BarometerNode(
       ModelViewTransform2.createIdentity(),
       new Sensor( new Vector2( 0, 0 ), new Vector2( 0, 0 ) ),
       model.measureUnitsProperty,
@@ -65,17 +65,17 @@ define( function( require ) {
     );
 
     // Create the panel from the icons
-    var container = new HBox( { children: [ velocitySensorIcon, barometerIcon ], spacing: 10 } );
+    const container = new HBox( { children: [ velocitySensorIcon, barometerIcon ], spacing: 10 } );
     Panel.call( this, container, options );
 
     // TODO, make sure that this is the best way to get the location of the icon in units that the sensor's positionProperty can use
-    var velocitySensorInitialPosition = velocitySensorIcon.localToGlobalPoint( new Vector2( velocitySensorIcon.x, velocitySensorIcon.y ) );
+    const velocitySensorInitialPosition = velocitySensorIcon.localToGlobalPoint( new Vector2( velocitySensorIcon.x, velocitySensorIcon.y ) );
     this.velocitySensorNodes = []; // @private
 
     // add velocitySensors within the sensor panel bounds
     _.each( model.speedometers, function( velocitySensor ) {
 
-      var velocitySensorNode = new VelocitySensorNode(
+      const velocitySensorNode = new VelocitySensorNode(
         modelViewTransform,
         velocitySensor,
         model.measureUnitsProperty,
@@ -113,7 +113,7 @@ define( function( require ) {
     // add barometers within the sensor panel bounds
     _.each( model.barometers, function( barometer ) {
 
-      var barometerNode = new BarometerNode(
+      const barometerNode = new BarometerNode(
         modelViewTransform,
         barometer,
         model.measureUnitsProperty,
@@ -155,11 +155,10 @@ define( function( require ) {
    */
   function handleSensorVisibilityAndDrag( sensors, icon, event ) {
 
-
     // Get the first sensor in the list that is invisible
-    var getFirstInvisible = function() {
-      for ( var i = 0; i < sensors.length; i++ ) {
-        var sensor = sensors[ i ];
+    const getFirstInvisible = function() {
+      for ( let i = 0; i < sensors.length; i++ ) {
+        const sensor = sensors[ i ];
         if ( !sensor.visible ) {
           return sensor;
         }
@@ -167,16 +166,14 @@ define( function( require ) {
       assert && assert( false, 'There should always be an invisible sensor if forwarding an event.' );
     };
 
-    var nextInvisibleSensor = getFirstInvisible();
-
+    const nextInvisibleSensor = getFirstInvisible();
     nextInvisibleSensor.visible = true;
     nextInvisibleSensor.moveToFront();
     nextInvisibleSensor.dragListener.startDrag( event );
 
-
-    var visibleSensors = 0;
-    for ( var i = 0; i < sensors.length; i++ ) {
-      var sensor = sensors[ i ];
+    let visibleSensors = 0;
+    for ( let i = 0; i < sensors.length; i++ ) {
+      const sensor = sensors[ i ];
       if ( sensor.visible ) {
         visibleSensors += 1;
       }
@@ -193,7 +190,7 @@ define( function( require ) {
    * @returns {{up: function, cancel: function}} - the listener object
    */
   function getMakeIconVisibleListener( sensorNode, icon ) {
-    var makeSensorVisible = function() {
+    const makeSensorVisible = function() {
       if ( sensorNode.visible === false ) {
         icon.visible = true;
       }

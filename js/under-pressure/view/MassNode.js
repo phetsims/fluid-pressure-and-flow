@@ -35,11 +35,11 @@ define( function( require ) {
     var self = this;
     Node.call( this, { cursor: 'pointer' } );
 
-    var width = modelViewTransform.modelToViewDeltaX( massModel.width );
-    var height = Math.abs( modelViewTransform.modelToViewDeltaY( massModel.height ) );
+    const width = modelViewTransform.modelToViewDeltaX( massModel.width );
+    const height = Math.abs( modelViewTransform.modelToViewDeltaY( massModel.height ) );
 
     // add mass rectangle
-    var mass = new Rectangle( -width / 2, -height / 2, width, height, {
+    const mass = new Rectangle( -width / 2, -height / 2, width, height, {
       fill: new LinearGradient( -width / 2, 0, width, 0 )
         .addColorStop( 0, '#8C8D8D' )
         .addColorStop( 0.3, '#C0C1C2' )
@@ -50,7 +50,7 @@ define( function( require ) {
     } );
     this.addChild( mass );
 
-    var massText = new Text( StringUtils.format( massLabelPatternString, massModel.mass ),
+    const massText = new Text( StringUtils.format( massLabelPatternString, massModel.mass ),
       {
         //x: mass.centerX - 15,
         //y: mass.centerY + 3,
@@ -62,7 +62,7 @@ define( function( require ) {
       } );
     this.addChild( massText );
 
-    var massClickOffset = { x: 0, y: 0 };
+    const massClickOffset = { x: 0, y: 0 };
 
     // mass drag handler
     this.addInputListener( new SimpleDragHandler( {
@@ -80,7 +80,7 @@ define( function( require ) {
       },
       //Translate on drag events
       drag: function( event ) {
-        var point = self.globalToParentPoint( event.pointer.point ).subtract( massClickOffset );
+        const point = self.globalToParentPoint( event.pointer.point ).subtract( massClickOffset );
         self.translation = dragBounds.getClosestPoint( point.x, point.y );
       }
     } ) );

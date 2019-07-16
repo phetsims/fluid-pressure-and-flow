@@ -32,17 +32,17 @@ define( function( require ) {
 
     Node.call( this );
 
-    var pipeNode = pipeHandlesNode.pipeNode;
-    var flowModel = pipeHandlesNode.flowModel;
-    var pipe = flowModel.pipe;
+    const pipeNode = pipeHandlesNode.pipeNode;
+    const flowModel = pipeHandlesNode.flowModel;
+    const pipe = flowModel.pipe;
 
-    var leftTopControlPointIndex = 1;
-    var leftBottomControlPointIndex = 1;
-    var rightTopControlPointIndex = pipe.top.length - 2;
-    var rightBottomControlPointIndex = pipe.bottom.length - 2;
+    const leftTopControlPointIndex = 1;
+    const leftBottomControlPointIndex = 1;
+    const rightTopControlPointIndex = pipe.top.length - 2;
+    const rightBottomControlPointIndex = pipe.bottom.length - 2;
 
-    var initialMainHandleY;
-    var dragStartY;
+    let initialMainHandleY;
+    let dragStartY;
 
     // left and right side of pipe main handles dragging
     pipeHandlesNode.pipeMainDragHandles[ dragHandlePosition ].addInputListener( new SimpleDragHandler( {
@@ -53,17 +53,17 @@ define( function( require ) {
                              pipeNode.rightPipeNode.centerY;
       },
       drag: function( e ) {
-        var currentDragPoint = pipeHandlesNode.pipeMainDragHandles[ dragHandlePosition ].globalToParentPoint( e.pointer.point );
-        var offSetY = currentDragPoint.y - dragStartY;
-        var pt = modelViewTransform.viewToModelPosition( currentDragPoint );
+        const currentDragPoint = pipeHandlesNode.pipeMainDragHandles[ dragHandlePosition ].globalToParentPoint( e.pointer.point );
+        const offSetY = currentDragPoint.y - dragStartY;
+        const pt = modelViewTransform.viewToModelPosition( currentDragPoint );
         pt.y = modelViewTransform.viewToModelY( initialMainHandleY + offSetY );
 
         // limit the pipe drag between [ -3, -1 ]
         pt.y = Util.clamp( pt.y, -3, -1 );
 
-        var yUp;
-        var yLow;
-        var x;
+        let yUp;
+        let yLow;
+        let x;
         if ( dragHandlePosition === 'left' ) {
           // Left handle
           // calculate top and bottom control point positions

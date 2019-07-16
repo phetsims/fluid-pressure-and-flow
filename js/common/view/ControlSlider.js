@@ -55,16 +55,16 @@ define( function( require ) {
     }, options );
 
     Node.call( this );
-    var trackSize = new Dimension2( 115, 6 );
+    const trackSize = new Dimension2( 115, 6 );
 
-    var getSlider = function( trackSize ) {
-      var aSlider = new HSlider( trackProperty, trackRange, {
+    function getSlider( trackSize ) {
+      const aSlider = new HSlider( trackProperty, trackRange, {
         trackSize: trackSize,
         thumbSize: options.thumbSize,
         majorTickLineWidth: (options.ticksVisible ? 1 : 0),
         majorTickLength: 15
       } );
-      var labelFont = new PhetFont( 9.5 );
+      const labelFont = new PhetFont( 9.5 );
 
       options.ticks.forEach( function( tick ) {
         aSlider.addMajorTick( tick.value, new Text( tick.title, {
@@ -75,12 +75,12 @@ define( function( require ) {
         } ) );
       } );
       return aSlider;
-    };
+    }
 
-    var hSlider = getSlider( trackSize );
+    const hSlider = getSlider( trackSize );
     this.content = new Node();
 
-    var plusButton = new ArrowButton( 'right', function propertyPlus() {
+    const plusButton = new ArrowButton( 'right', function propertyPlus() {
       trackProperty.set( Util.toFixedNumber( Math.min( trackProperty.get() + 1 / Math.pow( 10, options.decimals ),
         trackRange.max ), options.decimals ) );
     }, {
@@ -90,7 +90,7 @@ define( function( require ) {
     plusButton.touchArea = new Bounds2( plusButton.localBounds.minX - 20, plusButton.localBounds.minY - 5,
       plusButton.localBounds.maxX + 20, plusButton.localBounds.maxY + 20 );
 
-    var minusButton = new ArrowButton( 'left', function propertyMinus() {
+    const minusButton = new ArrowButton( 'left', function propertyMinus() {
       trackProperty.set( Util.toFixedNumber( Math.max( trackProperty.get() - 1 / Math.pow( 10, options.decimals ),
         trackRange.min ), options.decimals ) );
     }, {
@@ -100,8 +100,8 @@ define( function( require ) {
     minusButton.touchArea = new Bounds2( minusButton.localBounds.minX - 20, minusButton.localBounds.minY - 5,
       minusButton.localBounds.maxX + 20, minusButton.localBounds.maxY + 20 );
 
-    var valueLabel = new RichText( '', { font: new PhetFont( 12 ), pickable: false, maxWidth: 60 } );
-    var valueField = new Rectangle( 0, 0, trackSize.width * 0.6, 18, 3, 3,
+    const valueLabel = new RichText( '', { font: new PhetFont( 12 ), pickable: false, maxWidth: 60 } );
+    const valueField = new Rectangle( 0, 0, trackSize.width * 0.6, 18, 3, 3,
       { fill: '#FFF', stroke: 'black', lineWidth: 1, pickable: false } );
 
     // rendering order
@@ -126,7 +126,7 @@ define( function( require ) {
     this.accordionContent = new Node();
     this.accordionContent.addChild( this.content );
     this.accordionContent.left = 0;
-    var accordionBox = new AccordionBox( this.accordionContent, {
+    const accordionBox = new AccordionBox( this.accordionContent, {
       titleNode: new Text( options.title, {
         font: new PhetFont( { size: 13 } ),
         maxWidth: trackSize.width + 2 * options.xMargin

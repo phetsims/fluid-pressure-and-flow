@@ -38,20 +38,20 @@ define( function( require ) {
   function PipeHandleNode( pipeHandlesNode, isTop, controlPointIndex, modelViewTransform ) {
 
     Node.call( this );
-    var flowModel = pipeHandlesNode.flowModel;
-    var pipeNode = pipeHandlesNode.pipeNode;
+    const flowModel = pipeHandlesNode.flowModel;
+    const pipeNode = pipeHandlesNode.pipeNode;
 
-    var pipe = flowModel.pipe;
+    const pipe = flowModel.pipe;
 
-    var leftTopControlPointIndex = 1;
-    var leftBottomControlPointIndex = 1;
-    var rightTopControlPointIndex = pipe.top.length - 2;
-    var rightBottomControlPointIndex = pipe.bottom.length - 2;
+    const leftTopControlPointIndex = 1;
+    const leftBottomControlPointIndex = 1;
+    const rightTopControlPointIndex = pipe.top.length - 2;
+    const rightBottomControlPointIndex = pipe.bottom.length - 2;
 
-    var controlPoint = (isTop) ? pipe.top[ controlPointIndex ] : pipe.bottom[ controlPointIndex ];
+    const controlPoint = (isTop) ? pipe.top[ controlPointIndex ] : pipe.bottom[ controlPointIndex ];
 
-    var leftSpace = 0; // to vertically align the handles
-    var imageRotation = 0;
+    let leftSpace = 0; // to vertically align the handles
+    let imageRotation = 0;
     if ( controlPoint.positionProperty.value.y < -2 ) {
       leftSpace = -13;
     }
@@ -59,7 +59,7 @@ define( function( require ) {
       imageRotation = Math.PI;
       leftSpace = 19;
     }
-    var handleNode = new Image( handleImage, { left: leftSpace, cursor: 'pointer', scale: 0.32 } );
+    const handleNode = new Image( handleImage, { left: leftSpace, cursor: 'pointer', scale: 0.32 } );
 
     // expand the touch area upwards for the top handles and downwards for bottom handles
     if ( isTop ) {
@@ -76,7 +76,7 @@ define( function( require ) {
 
     // handleNode is in charge of performing the rotation for the top control handles, whereas
     // the parent node controlHandleNode is in change of doing the translations
-    var controlHandleNode = new Node( { children: [ handleNode ] } );
+    const controlHandleNode = new Node( { children: [ handleNode ] } );
     this.addChild( controlHandleNode );
 
     controlPoint.positionProperty.link( function( position ) {
@@ -84,8 +84,9 @@ define( function( require ) {
         modelViewTransform.modelToViewY( position.y ) );
     } );
 
-    var dragStartY;
-    var controlPointDragStartY; // the model y value of the control point at drag start
+    let dragStartY;
+    let controlPointDragStartY; // the model y value of the control point at drag start
+
     controlHandleNode.addInputListener( new SimpleDragHandler(
       {
         start: function( event ) {
@@ -94,10 +95,10 @@ define( function( require ) {
         },
 
         drag: function( event ) {
-          var offSetY = controlHandleNode.globalToParentPoint( event.pointer.point ).y - dragStartY;
+          const offSetY = controlHandleNode.globalToParentPoint( event.pointer.point ).y - dragStartY;
 
           // x position is constant for a control point
-          var pt = new Vector2( controlPoint.positionProperty.value.x,
+          const pt = new Vector2( controlPoint.positionProperty.value.x,
             controlPointDragStartY + modelViewTransform.viewToModelDeltaY( offSetY ) );
 
           // limit the y to (-4,0)
@@ -105,7 +106,7 @@ define( function( require ) {
 
           // Prevent the two ends of the cross sections from crossing each other. Set the cross section to
           // minimum when the user tries to move the handle beyond the opposite control point.
-          var oppositeControlPoint = (isTop) ? pipe.bottom[ controlPointIndex ] : pipe.top[ controlPointIndex ];
+          const oppositeControlPoint = (isTop) ? pipe.bottom[ controlPointIndex ] : pipe.top[ controlPointIndex ];
           if ( (isTop && pt.y < oppositeControlPoint.positionProperty.value.y ) ) {
             pt.y = oppositeControlPoint.positionProperty.value.y + CROSS_SECTION_MIN_HEIGHT;
           }
@@ -114,7 +115,7 @@ define( function( require ) {
           }
 
           // ensure that the cross section is at least 1 meter
-          var yDiff = Math.abs( ( oppositeControlPoint.positionProperty.value.y ) - pt.y );
+          const yDiff = Math.abs( ( oppositeControlPoint.positionProperty.value.y ) - pt.y );
           if ( yDiff >= CROSS_SECTION_MIN_HEIGHT ) {
             controlPoint.positionProperty.value = pt;
             // When a control point is dragged, mark the pipe as dirty and update the pipe flow line shape
@@ -123,8 +124,8 @@ define( function( require ) {
             pipeHandlesNode.gridInjectorNode.updateGridInjector();
           }
 
-          var pipeExpansionFactor;
           // handle the left pipe scaling
+          let pipeExpansionFactor;
           if ( (controlPointIndex === leftBottomControlPointIndex && !isTop) ||
                (controlPointIndex === leftTopControlPointIndex && isTop) ) {
 
@@ -146,7 +147,7 @@ define( function( require ) {
           if ( (controlPointIndex === rightBottomControlPointIndex && !isTop) ||
                (controlPointIndex === rightTopControlPointIndex && isTop) ) {
 
-            var pipeHeight = pipe.getCrossSection( pipe.top[ rightTopControlPointIndex ].positionProperty.value.x ).getHeight();
+            const pipeHeight = pipe.getCrossSection( pipe.top[ rightTopControlPointIndex ].positionProperty.value.x ).getHeight();
             pipeExpansionFactor = pipeHeight / PIPE_INITIAL_HEIGHT;
 
             // limit the scaling to 0.18 on the lower side

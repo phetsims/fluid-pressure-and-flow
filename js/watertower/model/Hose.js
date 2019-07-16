@@ -64,7 +64,7 @@ define( function( require ) {
      */
     update: function() {
 
-      var angle = this.angleProperty.get();
+      const angle = this.angleProperty.get();
 
       this.angleWithVertical = Math.PI / 2 - angle;
       this.rotationPivotX = this.hoseLengthX;

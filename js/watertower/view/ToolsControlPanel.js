@@ -50,41 +50,41 @@ define( function( require ) {
       scale: 0.9
     }, options );
 
-    var textOptions = { font: new PhetFont( 14 ) };
+    const textOptions = { font: new PhetFont( 14 ) };
 
     // itemSpec describes the pieces that make up an item in the control panel, conforms to the contract: { label: {Node}, icon: {Node} }
-    var ruler = { label: new Text( rulerString, textOptions ), icon: createRulerIcon() };
-    var measuringTape = { label: new Text( measuringTapeString, textOptions ), icon: createMeasuringTapeIcon() };
-    var hose = { label: new Text( hoseString, textOptions ), icon: createHoseIcon() };
+    const ruler = { label: new Text( rulerString, textOptions ), icon: createRulerIcon() };
+    const measuringTape = { label: new Text( measuringTapeString, textOptions ), icon: createMeasuringTapeIcon() };
+    const hose = { label: new Text( hoseString, textOptions ), icon: createHoseIcon() };
 
     // compute the maximum item width
-    var widestItemSpec = _.maxBy( [ ruler, measuringTape, hose ], function( item ) { return item.label.width + item.icon.width; } );
-    var maxWidth = widestItemSpec.label.width + widestItemSpec.icon.width;
+    const widestItemSpec = _.maxBy( [ ruler, measuringTape, hose ], function( item ) { return item.label.width + item.icon.width; } );
+    const maxWidth = widestItemSpec.label.width + widestItemSpec.icon.width;
 
     // pad inserts a spacing node (HStrut) so that the text, space and image together occupy a certain fixed width.
-    var createItem = function( itemSpec ) {
-      var strutWidth = maxWidth - itemSpec.label.width - itemSpec.icon.width + 5;
+    const createItem = function( itemSpec ) {
+      const strutWidth = maxWidth - itemSpec.label.width - itemSpec.icon.width + 5;
       return new HBox( { children: [ itemSpec.label, new HStrut( strutWidth ), itemSpec.icon ] } );
     };
 
-    var checkboxOptions = {
+    const checkboxOptions = {
       boxWidth: 18,
       spacing: 5
     };
 
     // pad all the rows so the text nodes are left aligned and the icons is right aligned
-    var checkboxChildren = [
+    const checkboxChildren = [
       new Checkbox( createItem( ruler ), waterTowerModel.isRulerVisibleProperty, checkboxOptions ),
       new Checkbox( createItem( measuringTape ), waterTowerModel.isMeasuringTapeVisibleProperty, checkboxOptions ),
       new Checkbox( createItem( hose ), waterTowerModel.isHoseVisibleProperty, checkboxOptions )
     ];
-    var checkboxes = new VBox( { align: 'left', spacing: 10, children: checkboxChildren } );
+    const checkboxes = new VBox( { align: 'left', spacing: 10, children: checkboxChildren } );
 
     Panel.call( this, checkboxes, options );
   }
 
   //Create an icon for the ruler checkbox
-  var createRulerIcon = function() {
+  const createRulerIcon = function() {
     return new RulerNode( 30, 20, 15, [ '0', '1', '2' ], '', {
       insetsWidth: 7,
       minorTicksPerMajorTick: 4,
@@ -94,8 +94,8 @@ define( function( require ) {
   };
 
   //create an icon for the hose
-  var createHoseIcon = function() {
-    var icon = new Path( new Shape().moveTo( 0, 0 ).arc( -16, 8, 8, -Math.PI / 2, Math.PI / 2, true ).lineTo( 10, 16 ).lineTo( 10, 0 ).lineTo( 0, 0 ), {
+  const createHoseIcon = function() {
+    const icon = new Path( new Shape().moveTo( 0, 0 ).arc( -16, 8, 8, -Math.PI / 2, Math.PI / 2, true ).lineTo( 10, 16 ).lineTo( 10, 0 ).lineTo( 0, 0 ), {
       stroke: 'grey',
       lineWidth: 1,
       fill: '#00FF00'
@@ -111,9 +111,9 @@ define( function( require ) {
   };
 
   //create an icon for the measuring tape
-  var createMeasuringTapeIcon = function() {
-    var icon = new Image( measuringTapeImg, { cursor: 'pointer', scale: 0.6 } );
-    var size = 5;
+  const createMeasuringTapeIcon = function() {
+    const icon = new Image( measuringTapeImg, { cursor: 'pointer', scale: 0.6 } );
+    const size = 5;
     icon.addChild( new Path( new Shape().moveTo( -size, 0 ).lineTo( size, 0 ).moveTo( 0, -size ).lineTo( 0, size ), {
       stroke: '#E05F20',
       lineWidth: 2,

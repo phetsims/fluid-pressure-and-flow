@@ -46,10 +46,10 @@ define( function( require ) {
     this.layoutBounds = layoutBounds;
     this.gridInjectorNode = gridInjectorNode;
 
-    var pipe = flowModel.pipe;
+    const pipe = flowModel.pipe;
 
-    var topControlHandleNodes = [];
-    var bottomControlHandleNodes = [];
+    const topControlHandleNodes = [];
+    const bottomControlHandleNodes = [];
 
     // add handle to drag the left pipe
     this.leftPipeMainHandleNode = new Image( handleImage,
@@ -61,7 +61,7 @@ define( function( require ) {
       }
     );
 
-    var boundsToTouchAreaForLeftAndRightHandles = function( localBounds ) {
+    const boundsToTouchAreaForLeftAndRightHandles = function( localBounds ) {
       return new Bounds2( localBounds.minX - HANDLE_X_TOUCH_EXPAND, localBounds.minY + 25,
         localBounds.maxX + HANDLE_X_TOUCH_EXPAND, localBounds.maxY + 60 );
     };
@@ -91,16 +91,14 @@ define( function( require ) {
     this.addChild( new PipeMainDragHandle( self, 'left', modelViewTransform ) );
     this.addChild( new PipeMainDragHandle( self, 'right', modelViewTransform ) );
 
-    var i;
-    var pipeHandleNode;
-    for ( i = 1; i < pipe.top.length - 1; i++ ) {
-      pipeHandleNode = new PipeHandleNode( self, true, i, modelViewTransform );
+    for ( let i = 1; i < pipe.top.length - 1; i++ ) {
+      const pipeHandleNode = new PipeHandleNode( self, true, i, modelViewTransform );
       topControlHandleNodes.push( pipeHandleNode );
       this.addChild( pipeHandleNode );
     }
 
-    for ( i = 1; i < pipe.bottom.length - 1; i++ ) {
-      pipeHandleNode = new PipeHandleNode( self, false, i, modelViewTransform );
+    for ( let i = 1; i < pipe.bottom.length - 1; i++ ) {
+      const pipeHandleNode = new PipeHandleNode( self, false, i, modelViewTransform );
       bottomControlHandleNodes.push( pipeHandleNode );
       this.addChild( pipeHandleNode );
     }

@@ -27,10 +27,10 @@ define( function( require ) {
 
     // empirically determined to make sure input faucet is above ground , output faucet is below ground and output
     // faucet is attached to the pool
-    var inputFaucetX = 2.7;
-    var inputFaucetY = 0.44;
-    var outputFaucetX = 6.6;
-    var outputFaucetY = -3.45;
+    const inputFaucetX = 2.7;
+    const inputFaucetY = 0.44;
+    const outputFaucetX = 6.6;
+    const outputFaucetY = -3.45;
     this.inputFaucet = new FaucetModel( new Vector2( inputFaucetX, inputFaucetY ), 1, 0.42 ); // @public
     this.outputFaucet = new FaucetModel( new Vector2( outputFaucetX, outputFaucetY ), 1, 0.3 ); // @public
 
@@ -39,8 +39,8 @@ define( function( require ) {
     PoolWithFaucetsModel.call( this, this.underPressureModel, this.inputFaucet, this.outputFaucet, this.maxVolume );
 
     // empirically determined to match the visual appearance from design document
-    var poolLeftX = 2.3;
-    var poolRightX = 6;
+    const poolLeftX = 2.3;
+    const poolRightX = 6;
 
     // @public
     this.poolDimensions = {

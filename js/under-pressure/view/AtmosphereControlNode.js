@@ -44,13 +44,13 @@ define( function( require ) {
 
     Node.call( this );
 
-    var radioButtonTextOptions = { font: new PhetFont( 12 ), maxWidth: ( options.maxWidth * 0.4 || Number.POSITIVE_INFINITY ) };
+    const radioButtonTextOptions = { font: new PhetFont( 12 ), maxWidth: ( options.maxWidth * 0.4 || Number.POSITIVE_INFINITY ) };
 
-    var atmosphereTrue = new AquaRadioButton( isAtmosphereProperty, true, new Text( onString, radioButtonTextOptions ), {
+    const atmosphereTrue = new AquaRadioButton( isAtmosphereProperty, true, new Text( onString, radioButtonTextOptions ), {
       radius: 6
     } );
 
-    var atmosphereFalse = new AquaRadioButton( isAtmosphereProperty, false, new Text( offString, radioButtonTextOptions ), {
+    const atmosphereFalse = new AquaRadioButton( isAtmosphereProperty, false, new Text( offString, radioButtonTextOptions ), {
       radius: 6
     } );
 
@@ -63,7 +63,7 @@ define( function( require ) {
       spacing: 10
     } );
 
-    var titleNode = new Text( atmosphereString, {
+    const titleNode = new Text( atmosphereString, {
       font: new PhetFont( 14 ),
       fontWeight: 'bold',
       maxWidth: ( options.maxWidth * 0.9 || Number.POSITIVE_INFINITY )

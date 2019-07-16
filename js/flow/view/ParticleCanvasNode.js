@@ -38,12 +38,10 @@ define( function( require ) {
      * @param {CanvasRenderingContext2D} context
      */
     paintCanvas: function( context ) {
-      var particle;
-      var i;
 
       // paint the regular particles
-      for ( i = 0; i < this.particles.length; i++ ) {
-        particle = this.particles.get( i );
+      for ( let i = 0; i < this.particles.length; i++ ) {
+        const particle = this.particles.get( i );
         context.fillStyle = particle.color;
         context.beginPath();
         context.arc( this.modelViewTransform.modelToViewX( particle.xPosition ),
@@ -53,8 +51,8 @@ define( function( require ) {
       }
 
       // paint the grid particles
-      for ( i = 0; i < this.gridParticles.length; i++ ) {
-        particle = this.gridParticles.get( i );
+      for ( let i = 0; i < this.gridParticles.length; i++ ) {
+        const particle = this.gridParticles.get( i );
         context.fillStyle = particle.color;
         context.beginPath();
         context.arc( this.modelViewTransform.modelToViewX( particle.xPosition ),

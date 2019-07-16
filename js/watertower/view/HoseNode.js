@@ -69,20 +69,20 @@ define( function( require ) {
     this.addChild( this.handleNode );
       this.handleNode.touchArea = this.handleNode.localBounds.dilatedXY( 20, 20 );
 
-    var clickYOffset;
-    var initialHeight;
+    let clickYOffset;
+    let initialHeight;
     this.handleNode.addInputListener( new SimpleDragHandler( {
       start: function( e ) {
         initialHeight = self.hose.heightProperty.value;
         clickYOffset = self.globalToParentPoint( e.pointer.point ).y;
       },
       drag: function( e ) {
-        var deltaY = self.globalToParentPoint( e.pointer.point ).y - clickYOffset;
+        const deltaY = self.globalToParentPoint( e.pointer.point ).y - clickYOffset;
         self.updateHoseHeight( -modelViewTransform.viewToModelDeltaY( deltaY ) + initialHeight );
       }
     } ) );
 
-    var nozzle = new Image( nozzleImg, { scale: 0.75 } );
+    const nozzle = new Image( nozzleImg, { scale: 0.75 } );
 
     this.spoutHandle = new Node( {
       children: [ new Image( spoutHandleImg ) ],
@@ -102,10 +102,10 @@ define( function( require ) {
 
     this.addChild( this.spoutAndNozzle );
 
-    var startX;
-    var startY;
-    var startPointAngle;
-    var initialHoseAngle;
+    let startX;
+    let startY;
+    let startPointAngle;
+    let initialHoseAngle;
     this.spoutHandle.addInputListener( new SimpleDragHandler( {
       start: function( e ) {
 
@@ -114,28 +114,28 @@ define( function( require ) {
 
         initialHoseAngle = self.hose.angleProperty.value * 180 / Math.PI;
 
-        var deltaY = self.modelViewTransform.modelToViewY( self.hose.rotationPivotY + self.tankPositionProperty.value.y ) - startY;
-        var deltaX = self.modelViewTransform.modelToViewX( self.hose.rotationPivotX + self.tankPositionProperty.value.x + 10 ) - startX;
+        const deltaY = self.modelViewTransform.modelToViewY( self.hose.rotationPivotY + self.tankPositionProperty.value.y ) - startY;
+        const deltaX = self.modelViewTransform.modelToViewX( self.hose.rotationPivotX + self.tankPositionProperty.value.x + 10 ) - startX;
 
         startPointAngle = Math.atan2( deltaY, deltaX );
       },
 
       drag: function( e ) {
 
-        var endY = self.globalToParentPoint( e.pointer.point ).y;
-        var endX = self.globalToParentPoint( e.pointer.point ).x;
+        const endY = self.globalToParentPoint( e.pointer.point ).y;
+        const endX = self.globalToParentPoint( e.pointer.point ).x;
 
-        var deltaY = self.modelViewTransform.modelToViewY( self.hose.rotationPivotY + self.tankPositionProperty.value.y ) - endY;
-        var deltaX = self.modelViewTransform.modelToViewX( self.hose.rotationPivotX + self.tankPositionProperty.value.x + 10 ) - endX;
+        const deltaY = self.modelViewTransform.modelToViewY( self.hose.rotationPivotY + self.tankPositionProperty.value.y ) - endY;
+        const deltaX = self.modelViewTransform.modelToViewX( self.hose.rotationPivotX + self.tankPositionProperty.value.x + 10 ) - endX;
 
         if ( deltaY > 0 ) {
           return;
         }
 
-        var finalPointAngle = Math.atan2( deltaY, deltaX );
-        var angleMoved = (finalPointAngle - startPointAngle) * 180 / Math.PI;
+        const finalPointAngle = Math.atan2( deltaY, deltaX );
+        const angleMoved = (finalPointAngle - startPointAngle) * 180 / Math.PI;
 
-        var angleToUpdate = initialHoseAngle - angleMoved;
+        let angleToUpdate = initialHoseAngle - angleMoved;
         angleToUpdate = angleToUpdate > 90 ? 90 : angleToUpdate < 0 ? 0 : angleToUpdate;
         self.hose.angleProperty.value = Math.PI * (angleToUpdate) / 180;
       }
@@ -154,8 +154,8 @@ define( function( require ) {
   }
 
   // creates the shape of the hose when the y-drag handle is above the top of the hole
-  var createTopShape = function( hose, modelViewTransform ) {
-    var shape = new Shape();
+  const createTopShape = function( hose, modelViewTransform ) {
+    let shape = new Shape();
     shape = shape.moveTo( modelViewTransform.modelToViewX( hose.elbowOuterX ), modelViewTransform.modelToViewY( hose.elbowOuterY ) )
       .lineTo( modelViewTransform.modelToViewX( hose.nozzleAttachmentOuterX ), modelViewTransform.modelToViewY( hose.nozzleAttachmentOuterY ) )
       .lineTo( modelViewTransform.modelToViewX( hose.nozzleAttachmentInnerX ), modelViewTransform.modelToViewY( hose.nozzleAttachmentInnerY ) )
@@ -190,8 +190,8 @@ define( function( require ) {
   };
 
   // creates the shape of the hose when the y-drag handle is below (not above) the top of the hole
-  var createBottomShape = function( hose, modelViewTransform ) {
-    var shape = new Shape();
+  const createBottomShape = function( hose, modelViewTransform ) {
+    let shape = new Shape();
     shape = shape.moveTo( modelViewTransform.modelToViewX( hose.elbowOuterX ), modelViewTransform.modelToViewY( hose.elbowOuterY ) )
       .lineTo( modelViewTransform.modelToViewX( hose.nozzleAttachmentOuterX ), modelViewTransform.modelToViewY( hose.nozzleAttachmentOuterY ) )
       .lineTo( modelViewTransform.modelToViewX( hose.nozzleAttachmentInnerX ), modelViewTransform.modelToViewY( hose.nozzleAttachmentInnerY ) )

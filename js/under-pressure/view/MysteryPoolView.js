@@ -53,33 +53,33 @@ define( function( require ) {
     SquarePoolView.call( this, mysteryPoolModel, modelViewTransform );
 
     var self = this;
-    var radioButtonTextOptions = {
+    const radioButtonTextOptions = {
       font: new PhetFont( 12 ),
       maxWidth: width * 0.8
     };
 
-    var comboBoxTextOptions = {
+    const comboBoxTextOptions = {
       font: new PhetFont( 12 ),
       maxWidth: width * 0.5
     };
 
-    var mysteryFluidRadio = new AquaRadioButton( mysteryPoolModel.underPressureModel.mysteryChoiceProperty,
+    const mysteryFluidRadio = new AquaRadioButton( mysteryPoolModel.underPressureModel.mysteryChoiceProperty,
       'fluidDensity', new Text( mysteryFluidString, radioButtonTextOptions ), { radius: 6 } );
-    var mysteryPlanetRadio = new AquaRadioButton( mysteryPoolModel.underPressureModel.mysteryChoiceProperty, 'gravity',
+    const mysteryPlanetRadio = new AquaRadioButton( mysteryPoolModel.underPressureModel.mysteryChoiceProperty, 'gravity',
       new Text( mysteryPlanetString, radioButtonTextOptions ), { radius: 6 } );
 
     //touch areas
     mysteryFluidRadio.touchArea = mysteryFluidRadio.bounds.dilatedY( RADIO_BUTTON_TOUCH_DILATION_Y );
     mysteryPlanetRadio.touchArea = mysteryPlanetRadio.bounds.dilatedY( RADIO_BUTTON_TOUCH_DILATION_Y );
 
-    var content = new VBox( {
+    const content = new VBox( {
       children: [ mysteryFluidRadio, mysteryPlanetRadio ],
       spacing: 5,
       align: 'left',
       resize: false
     } );
 
-    var choicePanel = new Panel( content, {
+    const choicePanel = new Panel( content, {
       xMargin: 7,
       yMargin: 6,
       stroke: 'gray',

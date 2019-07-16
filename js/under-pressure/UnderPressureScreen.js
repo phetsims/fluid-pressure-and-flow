@@ -26,7 +26,7 @@ define( function( require ) {
 
   function UnderPressureScreen() {
 
-    var options = {
+    const options = {
       name: underPressureScreenTitleString,
       backgroundColorProperty: new Property( 'white' ),
       homeScreenIcon: new Image( underPressureScreenIcon )

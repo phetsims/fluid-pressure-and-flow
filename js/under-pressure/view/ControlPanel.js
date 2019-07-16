@@ -45,38 +45,38 @@ define( function( require ) {
       maxWidth: 150
     }, options );
 
-    var maxControlWidth = ( options.maxWidth * 0.9 ) || 200; // the fallback value is fairly arbitrary
-    var textOptions = { font: new PhetFont( 12 ), maxWidth: maxControlWidth };
-    var rulerSet = [ new Text( rulerString, textOptions ), this.createRulerIcon() ];
-    var gridArray = [ new Text( gridString, textOptions ) ];
-    var atmosphereControlNode = new AtmosphereControlNode( underPressureModel.isAtmosphereProperty, {
+    const maxControlWidth = ( options.maxWidth * 0.9 ) || 200; // the fallback value is fairly arbitrary
+    const textOptions = { font: new PhetFont( 12 ), maxWidth: maxControlWidth };
+    const rulerSet = [ new Text( rulerString, textOptions ), this.createRulerIcon() ];
+    const gridArray = [ new Text( gridString, textOptions ) ];
+    const atmosphereControlNode = new AtmosphereControlNode( underPressureModel.isAtmosphereProperty, {
       maxWidth: options.maxWidth
     } );
 
-    var alignOptions = {
+    const alignOptions = {
       boxWidth: 15,
       spacing: 5
     };
 
     // align ruler icon right
-    var padWidth = options.maxWidth - rulerSet[ 0 ].width - rulerSet[ 1 ].width - alignOptions.boxWidth -
+    const padWidth = options.maxWidth - rulerSet[ 0 ].width - rulerSet[ 1 ].width - alignOptions.boxWidth -
                    alignOptions.spacing * 2;
-    var rulerArray = [ rulerSet[ 0 ], new HStrut( padWidth ), rulerSet[ 1 ] ];
+    const rulerArray = [ rulerSet[ 0 ], new HStrut( padWidth ), rulerSet[ 1 ] ];
 
-    var rulerCheckbox = new Checkbox( new HBox( { children: rulerArray } ), underPressureModel.isRulerVisibleProperty,
+    const rulerCheckbox = new Checkbox( new HBox( { children: rulerArray } ), underPressureModel.isRulerVisibleProperty,
       alignOptions );
-    var gridCheckbox = new Checkbox( new HBox( { children: gridArray } ), underPressureModel.isGridVisibleProperty,
+    const gridCheckbox = new Checkbox( new HBox( { children: gridArray } ), underPressureModel.isGridVisibleProperty,
       alignOptions );
 
     // touch areas, empirically determined
     rulerCheckbox.touchArea = rulerCheckbox.bounds.dilatedY( 1 );
     gridCheckbox.touchArea = gridCheckbox.bounds.dilatedY( 3 );
 
-    var checkboxChildren = [ rulerCheckbox, gridCheckbox ];
+    const checkboxChildren = [ rulerCheckbox, gridCheckbox ];
 
-    var checkboxes = new VBox( { align: 'left', spacing: 5, children: checkboxChildren } );
+    const checkboxes = new VBox( { align: 'left', spacing: 5, children: checkboxChildren } );
 
-    var content = new VBox( {
+    const content = new VBox( {
       spacing: 5,
       children: [ checkboxes, new VStrut( 2 ), atmosphereControlNode ],
       align: 'left'
@@ -91,9 +91,9 @@ define( function( require ) {
 
     //Create an icon for the ruler checkbox
     createRulerIcon: function() {
-      var rulerWidth = 30;
-      var rulerHeight = 20;
-      var insetsWidth = 7;
+      const rulerWidth = 30;
+      const rulerHeight = 20;
+      const insetsWidth = 7;
 
       return new RulerNode( rulerWidth, rulerHeight, rulerWidth / 2, [ '0', '1', '2' ], '', {
         insetsWidth: insetsWidth,

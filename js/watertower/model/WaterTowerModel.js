@@ -74,12 +74,12 @@ define( function( require ) {
     this.fluidColorModel = new FluidColorModel( this.fluidDensityProperty, this.fluidDensityRange );
 
     this.barometers = [];
-    for ( var i = 0; i < 2; i++ ) {
+    for ( let i = 0; i < 2; i++ ) {
       this.barometers.push( new Sensor( new Vector2( 0, 0 ), 0 ) );
     }
 
     this.speedometers = [];
-    for ( var j = 0; j < 2; j++ ) {
+    for ( let j = 0; j < 2; j++ ) {
       this.speedometers.push( new VelocitySensor( new Vector2( 0, 0 ), new Vector2( 0, 0 ) ) );
     }
 
@@ -155,7 +155,7 @@ define( function( require ) {
         return 0;
       }
 
-      var pressure = getStandardAirPressure( y );
+      let pressure = getStandardAirPressure( y );
 
       //add the fluid pressure if the point is inside the fluid in the tank
       if ( this.isPointInWater( x, y ) ) {
@@ -196,11 +196,11 @@ define( function( require ) {
       this.accumulatedDt += dt;
       this.accumulatedDtForSensors += dt;
 
-      var newFaucetDrop;
-      var newWaterDrop;
-      var newHoseDrop;
-      var remainingVolume;
-      var waterVolumeExpelled;
+      let newFaucetDrop;
+      let newWaterDrop;
+      let newHoseDrop;
+      let remainingVolume;
+      let waterVolumeExpelled;
 
       this.newFaucetDrops = [];
       this.newWaterTowerDrops = [];
@@ -228,8 +228,8 @@ define( function( require ) {
 
           remainingVolume = this.waterTower.fluidVolumeProperty.value;
           this.leakageVolume = remainingVolume > waterVolumeExpelled ? waterVolumeExpelled : remainingVolume;
-          var dropVolume = this.leakageVolume;
-          var radius = Util.cubeRoot( (3 * this.leakageVolume) / (4 * Math.PI) );
+          let dropVolume = this.leakageVolume;
+          let radius = Util.cubeRoot( (3 * this.leakageVolume) / (4 * Math.PI) );
 
           // when the fluid level is less than the sluice hole, ensure that the water drops are not bigger than the fluid level
           if ( this.waterTower.fluidLevelProperty.value < this.waterTower.HOLE_SIZE && radius > this.waterTower.fluidLevelProperty.value / 2 ) {
@@ -255,7 +255,7 @@ define( function( require ) {
         // Note: If fluid volume is very low (the fluid level is less than 1px height) then sometimes it doesn't show on the tower, but is visible with a magnifier
         if ( this.isSluiceOpenProperty.value && this.waterTower.fluidVolumeProperty.value > 0 && this.isHoseVisibleProperty.value ) {
           this.leakageVolume = 0;
-          var y = this.hose.rotationPivotY + this.waterTower.tankPositionProperty.value.y + 0.1;
+          const y = this.hose.rotationPivotY + this.waterTower.tankPositionProperty.value.y + 0.1;
           if ( y < this.waterTower.fluidLevelProperty.value + this.waterTower.tankPositionProperty.value.y ) {
             this.velocityMagnitude = Math.sqrt( 2 * Constants.EARTH_GRAVITY *
                                                 (this.waterTower.tankPositionProperty.value.y + this.waterTower.fluidLevelProperty.value - y) );
@@ -279,7 +279,7 @@ define( function( require ) {
 
       }
 
-      for ( var i = 0, numberOfDrops = this.faucetDrops.length; i < numberOfDrops; i++ ) {
+      for ( let i = 0, numberOfDrops = this.faucetDrops.length; i < numberOfDrops; i++ ) {
         // step only the 'old' drops
         if ( this.newFaucetDrops.indexOf( this.faucetDrops.get( i ) ) === -1 ) {
           this.faucetDrops.get( i ).step( dt );
@@ -318,7 +318,7 @@ define( function( require ) {
       }
 
       this.dropsToRemove = [];
-      for ( i = 0, numberOfDrops = this.waterTowerDrops.length; i < numberOfDrops; i++ ) {
+      for ( let i = 0, numberOfDrops = this.waterTowerDrops.length; i < numberOfDrops; i++ ) {
         //step only the 'old' drops
         if ( this.newWaterTowerDrops.indexOf( this.waterTowerDrops.get( i ) ) === -1 ) {
           this.waterTowerDrops.get( i ).step( dt );
@@ -337,7 +337,7 @@ define( function( require ) {
       //hose
       this.dropsToRemove = [];
 
-      for ( i = 0, numberOfDrops = this.hoseDrops.length; i < numberOfDrops; i++ ) {
+      for ( let i = 0, numberOfDrops = this.hoseDrops.length; i < numberOfDrops; i++ ) {
         //step only the 'old' drops
         if ( this.newHoseDrops.indexOf( this.hoseDrops.get( i ) ) === -1 ) {
           this.hoseDrops.get( i ).step( dt );
@@ -357,7 +357,7 @@ define( function( require ) {
       if ( this.accumulatedDtForSensors > 0.1 &&
            (this.hoseDrops.length > 0 || this.waterTowerDrops.length > 0 || this.faucetDrops.length > 0) ) {
         this.accumulatedDtForSensors -= 0.1;
-        for ( var k = 0; k < this.speedometers.length; k++ ) {
+        for ( let k = 0; k < this.speedometers.length; k++ ) {
           this.speedometers[ k ].valueProperty.value = this.getWaterDropVelocityAt( this.modelViewTransform.viewToModelX( this.speedometers[ k ].positionProperty.value.x +
                                                                                                                           50 ),
             this.modelViewTransform.viewToModelY( this.speedometers[ k ].positionProperty.value.y + 72 ) );
@@ -376,7 +376,6 @@ define( function( require ) {
     },
 
     getWaterDropVelocityAt: function( x, y ) {
-      var waterDrops = this.waterTowerDrops;
 
       // There might be waterdrops under the ground that are not yet removed.
       // Report (0,0) velocity for all those drops.
@@ -384,14 +383,15 @@ define( function( require ) {
         return Vector2.ZERO;
       }
 
-      for ( var i = 0, j = waterDrops.length; i < j; i++ ) {
+      let waterDrops = this.waterTowerDrops;
+      for ( let i = 0, j = waterDrops.length; i < j; i++ ) {
         if ( waterDrops.get( i ).contains( new Vector2( x, y ) ) ) {
           return waterDrops.get( i ).velocityProperty.value;
         }
       }
 
       waterDrops = this.hoseDrops;
-      for ( i = 0, j = waterDrops.length; i < j; i++ ) {
+      for ( let i = 0, j = waterDrops.length; i < j; i++ ) {
         if ( waterDrops.get( i ).contains( new Vector2( x, y ) ) ) {
           return waterDrops.get( i ).velocityProperty.value;
         }

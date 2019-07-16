@@ -25,7 +25,7 @@ define( function( require ) {
 
   function WaterTowerScreen() {
 
-    var options = {
+    const options = {
       name: waterTowerScreenTitleString,
       backgroundColorProperty: new Property( 'white' ),
       homeScreenIcon: new Image( waterTowerScreenIcon )

@@ -34,10 +34,10 @@ define( function( require ) {
     var self = this;
     Node.call( this, { cursor: 'pointer' } );
 
-    var scaleFont = new PhetFont( 12 );
+    const scaleFont = new PhetFont( 12 );
 
     //close button
-    var closeButton = new CloseButton( {
+    const closeButton = new CloseButton( {
       iconLength: 6,
       listener: function() {
         underPressureModel.isRulerVisibleProperty.value = false;
@@ -45,13 +45,13 @@ define( function( require ) {
     } );
     this.addChild( closeButton );
 
-    var rulerWidth = 50;
+    const rulerWidth = 50;
 
     // meter ruler
     // Note: make sure that major stick width and minor stick width are integers
-    var meterRulerHeight = modelViewTransform.modelToViewX( 5 );
-    var meterRulerMajorStickWidth = Math.floor( modelViewTransform.modelToViewX( 1 ) );
-    var metersRuler = new RulerNode( meterRulerHeight, rulerWidth, meterRulerMajorStickWidth,
+    const meterRulerHeight = modelViewTransform.modelToViewX( 5 );
+    const meterRulerMajorStickWidth = Math.floor( modelViewTransform.modelToViewX( 1 ) );
+    const metersRuler = new RulerNode( meterRulerHeight, rulerWidth, meterRulerMajorStickWidth,
       [ '0', '1', '2', '3', '4', '5' ],
       mString, {
         minorTicksPerMajorTick: 4,
@@ -65,9 +65,9 @@ define( function( require ) {
 
     // feet ruler
     // Note: make sure that major stick width and minor stick width are integers
-    var feetRulerHeight = modelViewTransform.modelToViewX( Units.feetToMeters( 10 ) );
-    var feetRulerMajorStickWidth = modelViewTransform.modelToViewX( Units.feetToMeters( 1 ) );
-    var feetRuler = new RulerNode( feetRulerHeight, rulerWidth, feetRulerMajorStickWidth,
+    const feetRulerHeight = modelViewTransform.modelToViewX( Units.feetToMeters( 10 ) );
+    const feetRulerMajorStickWidth = modelViewTransform.modelToViewX( Units.feetToMeters( 1 ) );
+    const feetRuler = new RulerNode( feetRulerHeight, rulerWidth, feetRulerMajorStickWidth,
       [ '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10' ], ftString, {
         minorTicksPerMajorTick: 2,
         unitsSpacing: 4,

@@ -69,7 +69,7 @@ define( function( require ) {
     },
     step: function() {
       if ( this.densityChanged ) {
-        var density = this.fluidDensityProperty.get();
+        const density = this.fluidDensityProperty.get();
         if ( density < Constants.WATER_DENSITY ) {
           this.colorProperty.value = new Color( this.getRedLow( density ), this.getGreenLow( density ), this.getBlueLow( density ) );
         }

@@ -45,9 +45,8 @@ define( function( require ) {
       }
 
       context.fillStyle = this.fluidColorModel.colorProperty.value.toCSS();
-      var drop;
-      for ( var i = 0; i < this.waterDrops.length; i++ ) {
-        drop = this.waterDrops.get( i );
+      for ( let i = 0; i < this.waterDrops.length; i++ ) {
+        const drop = this.waterDrops.get( i );
         context.beginPath();
         context.arc( this.modelViewTransform.modelToViewX( drop.positionProperty.value.x ), this.modelViewTransform.modelToViewY( drop.positionProperty.value.y ), this.modelViewTransform.modelToViewDeltaX( drop.radiusProperty.value ), 0, 2 * Math.PI, true );
         context.fill();

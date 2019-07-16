@@ -65,16 +65,16 @@ define( function( require ) {
     ScreenView.call( this, Constants.SCREEN_VIEW_OPTIONS );
 
     // view co-ordinates (370,140) map to model origin (0,0) with inverted y-axis (y grows up in the model)
-    var modelViewTransform = ModelViewTransform2.createSinglePointScaleInvertedYMapping(
+    const modelViewTransform = ModelViewTransform2.createSinglePointScaleInvertedYMapping(
       Vector2.ZERO,
       new Vector2( 370, 140 ),
       50 ); //1m = 50Px
 
-    var groundY = modelViewTransform.modelToViewY( 0 );
-    var backgroundNodeStartX = -5000;
-    var backgroundNodeWidth = 10000;
-    var skyExtensionHeight = 10000;
-    var groundDepth = 10000;
+    const groundY = modelViewTransform.modelToViewY( 0 );
+    const backgroundNodeStartX = -5000;
+    const backgroundNodeWidth = 10000;
+    const skyExtensionHeight = 10000;
+    const groundDepth = 10000;
     this.flowModel = flowModel;
 
     // add rectangle on top of the sky node to extend sky upwards.
@@ -86,14 +86,14 @@ define( function( require ) {
     this.addChild( new SkyNode( backgroundNodeStartX, 0, backgroundNodeWidth, groundY, groundY ) );
 
     // add ground node with gradient
-    var groundNode = new GroundNode( backgroundNodeStartX, groundY, backgroundNodeWidth, groundDepth, 400,
+    const groundNode = new GroundNode( backgroundNodeStartX, groundY, backgroundNodeWidth, groundDepth, 400,
       { topColor: '#9D8B61', bottomColor: '#645A3C' } );
     this.addChild( groundNode );
 
     // add grass above the ground
-    var grassPattern = new Pattern( grassImg ).setTransformMatrix( Matrix3.scale( 0.25 ) );
-    var grassRectYOffset = 1;
-    var grassRectHeight = 10;
+    const grassPattern = new Pattern( grassImg ).setTransformMatrix( Matrix3.scale( 0.25 ) );
+    const grassRectYOffset = 1;
+    const grassRectHeight = 10;
 
     this.addChild( new Rectangle( backgroundNodeStartX, grassRectYOffset, backgroundNodeWidth, grassRectHeight, {
       fill: grassPattern,
@@ -101,23 +101,23 @@ define( function( require ) {
     } ) );
 
     // Control panel with checkboxes to toggle tools on the screen
-    var toolsControlPanel = new FlowToolsControlPanel( flowModel, { right: this.layoutBounds.right - 7, top: 7 } );
+    const toolsControlPanel = new FlowToolsControlPanel( flowModel, { right: this.layoutBounds.right - 7, top: 7 } );
     this.addChild( toolsControlPanel );
 
     // all the movable tools are added to this layer
-    var toolsLayer = new Node();
+    const toolsLayer = new Node();
     this.addChild( toolsLayer );
 
     // units control panel
-    var unitsControlPanel = new UnitsControlPanel( flowModel.measureUnitsProperty,
+    const unitsControlPanel = new UnitsControlPanel( flowModel.measureUnitsProperty,
       { right: toolsControlPanel.left - 7, top: toolsControlPanel.top } );
     this.addChild( unitsControlPanel );
 
-    var fluxMeterNode = new FluxMeterNode( flowModel, modelViewTransform, { stroke: 'blue' } );
+    const fluxMeterNode = new FluxMeterNode( flowModel, modelViewTransform, { stroke: 'blue' } );
     flowModel.isFluxMeterVisibleProperty.linkAttribute( fluxMeterNode.ellipse2, 'visible' );
 
     // Injector which generates grid particles
-    var gridInjectorNode = new GridInjectorNode( flowModel.isGridInjectorPressedProperty, modelViewTransform,
+    const gridInjectorNode = new GridInjectorNode( flowModel.isGridInjectorPressedProperty, modelViewTransform,
       flowModel.pipe );
     this.addChild( gridInjectorNode );
 
@@ -126,7 +126,7 @@ define( function( require ) {
     this.addChild( this.pipeNode );
 
     // add the handles
-    var pipeHandlesNode = new PipeHandlesNode( flowModel, this.pipeNode, gridInjectorNode, modelViewTransform,
+    const pipeHandlesNode = new PipeHandlesNode( flowModel, this.pipeNode, gridInjectorNode, modelViewTransform,
       this.layoutBounds );
     this.addChild( pipeHandlesNode );
 
@@ -137,7 +137,7 @@ define( function( require ) {
     toolsLayer.addChild( fluxMeterNode );
 
     // add the reset button
-    var resetAllButton = new ResetAllButton( {
+    const resetAllButton = new ResetAllButton( {
       listener: function() {
         flowModel.reset();
         self.pipeNode.reset();
@@ -151,7 +151,7 @@ define( function( require ) {
     this.addChild( resetAllButton );
 
     // add the fluid density control slider
-    var fluidDensityControlNode = new ControlSlider(
+    const fluidDensityControlNode = new ControlSlider(
       flowModel.measureUnitsProperty,
       flowModel.fluidDensityProperty,
       flowModel.getFluidDensityString.bind( flowModel ),
@@ -181,7 +181,7 @@ define( function( require ) {
     this.addChild( fluidDensityControlNode );
 
     // add the sensors panel
-    var sensorPanel = new SensorToolbox( flowModel, modelViewTransform, this, {
+    const sensorPanel = new SensorToolbox( flowModel, modelViewTransform, this, {
       stroke: 'gray', lineWidth: 1, fill: '#f2fa6a',
       right: unitsControlPanel.left - 4, top: toolsControlPanel.top
     } );
@@ -193,7 +193,7 @@ define( function( require ) {
       }
     } );
     // add play pause button and step button
-    var stepButton = new StepForwardButton( {
+    const stepButton = new StepForwardButton( {
       isPlayingProperty: flowModel.isPlayingProperty,
       listener: function() {
         flowModel.timer.step( 0.016 );
@@ -209,21 +209,21 @@ define( function( require ) {
 
     this.addChild( stepButton );
 
-    var playPauseButton = new PlayPauseButton( flowModel.isPlayingProperty,
+    const playPauseButton = new PlayPauseButton( flowModel.isPlayingProperty,
       { radius: 18, stroke: 'black', fill: '#005566', y: stepButton.centerY, right: stepButton.left - INSET } );
     this.addChild( playPauseButton );
 
     // add sim speed controls
-    var slowMotionRadioBox = new AquaRadioButton( flowModel.speedProperty, 'slow',
+    const slowMotionRadioBox = new AquaRadioButton( flowModel.speedProperty, 'slow',
       new Text( slowMotionString, { font: new PhetFont( 12 ) } ), { radius: 8 } );
-    var normalMotionRadioBox = new AquaRadioButton( flowModel.speedProperty, 'normal',
+    const normalMotionRadioBox = new AquaRadioButton( flowModel.speedProperty, 'normal',
       new Text( normalString, { font: new PhetFont( 12 ) } ), { radius: 8 } );
 
-    var speedControlMaxWidth = ( slowMotionRadioBox.width > normalMotionRadioBox.width ) ? slowMotionRadioBox.width :
+    const speedControlMaxWidth = ( slowMotionRadioBox.width > normalMotionRadioBox.width ) ? slowMotionRadioBox.width :
                                normalMotionRadioBox.width;
 
-    var radioButtonSpacing = 5;
-    var touchAreaYDilation = radioButtonSpacing / 2;
+    const radioButtonSpacing = 5;
+    const touchAreaYDilation = radioButtonSpacing / 2;
     slowMotionRadioBox.touchArea = new Bounds2(
       slowMotionRadioBox.localBounds.minX,
       slowMotionRadioBox.localBounds.minY - touchAreaYDilation,
@@ -238,7 +238,7 @@ define( function( require ) {
       normalMotionRadioBox.localBounds.maxY + touchAreaYDilation
     );
 
-    var speedControl = new VBox( {
+    const speedControl = new VBox( {
       align: 'left',
       spacing: radioButtonSpacing,
       children: [ slowMotionRadioBox, normalMotionRadioBox ]
@@ -246,7 +246,7 @@ define( function( require ) {
     this.addChild( speedControl.mutate( { right: playPauseButton.left - 8, bottom: playPauseButton.bottom } ) );
 
     // add flow rate panel
-    var flowRateControlNode = new ControlSlider(
+    const flowRateControlNode = new ControlSlider(
       flowModel.measureUnitsProperty,
       flowModel.pipe.flowRateProperty,
       flowModel.getFluidFlowRateString.bind( flowModel ),

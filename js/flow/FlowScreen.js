@@ -25,7 +25,7 @@ define( function( require ) {
 
   function FlowScreen() {
 
-    var options = {
+    const options = {
       name: flowScreenTitleString,
       backgroundColorProperty: new Property( 'white' ),
       homeScreenIcon: new Image( flowScreenIcon )

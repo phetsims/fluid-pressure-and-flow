@@ -34,14 +34,14 @@ define( function( require ) {
     Node.call( this );
 
     // grass
-    var grassPattern = new Pattern( grassImg ).setTransformMatrix( Matrix3.scale( 0.25 ) );
-    var grassRectYOffset = 1;
-    var grassRectHeight = 10;
-    var grassExtension = 2000;
-    var backgroundGrassWidth = 5000;
-    var poolDimensions = trapezoidPoolModel.poolDimensions;
+    const grassPattern = new Pattern( grassImg ).setTransformMatrix( Matrix3.scale( 0.25 ) );
+    const grassRectYOffset = 1;
+    const grassRectHeight = 10;
+    const grassExtension = 2000;
+    const backgroundGrassWidth = 5000;
+    const poolDimensions = trapezoidPoolModel.poolDimensions;
 
-    var grassRectangle = new Rectangle(
+    const grassRectangle = new Rectangle(
       -grassExtension,
       grassRectYOffset,
       backgroundGrassWidth,
@@ -72,8 +72,8 @@ define( function( require ) {
     this.addChild(grassRectangle);
 
     // cement border
-    var cementWidth = 2;
-    var cementBorder = new Shape()
+    const cementWidth = 2;
+    const cementBorder = new Shape()
       .moveTo( modelViewTransform.modelToViewX( trapezoidPoolModel.verticles.x1top ) - cementWidth,
       modelViewTransform.modelToViewY( poolDimensions.leftChamber.y ) )
       .lineTo( modelViewTransform.modelToViewX( trapezoidPoolModel.verticles.x1bottom ) - cementWidth,
@@ -115,7 +115,7 @@ define( function( require ) {
     ) );
 
     // left chamber
-    var leftChamber = new Shape()
+    const leftChamber = new Shape()
       .moveTo( modelViewTransform.modelToViewX( trapezoidPoolModel.verticles.x1top ),
       modelViewTransform.modelToViewY( poolDimensions.leftChamber.y ) - 1 )
       .lineTo( modelViewTransform.modelToViewX( trapezoidPoolModel.verticles.x1bottom ),
@@ -130,7 +130,7 @@ define( function( require ) {
     } ) );
 
     // right chamber
-    var rightChamber = new Shape()
+    const rightChamber = new Shape()
       .moveTo( modelViewTransform.modelToViewX( trapezoidPoolModel.verticles.x3top ),
       modelViewTransform.modelToViewY( poolDimensions.leftChamber.y ) - 1 )
       .lineTo( modelViewTransform.modelToViewX( trapezoidPoolModel.verticles.x3bottom ),

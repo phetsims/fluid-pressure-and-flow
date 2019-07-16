@@ -45,14 +45,14 @@ define( function( require ) {
     this.addChild( new MassStackNode( chamberPoolModel, modelViewTransform ) );
 
     // pool dimensions in view values
-    var poolDimensions = chamberPoolModel.poolDimensions;
+    const poolDimensions = chamberPoolModel.poolDimensions;
 
-    var poolLeftX = poolDimensions.leftChamber.x1;
-    var poolTopY = poolDimensions.leftOpening.y1;
-    var poolRightX = poolDimensions.rightOpening.x2;
-    var poolBottomY = poolDimensions.leftChamber.y2 - 0.3;
-    var poolHeight = -poolDimensions.leftChamber.y2;
-    var labelXPosition = modelViewTransform.modelToViewX( ( poolDimensions.leftChamber.x2 +
+    const poolLeftX = poolDimensions.leftChamber.x1;
+    const poolTopY = poolDimensions.leftOpening.y1;
+    const poolRightX = poolDimensions.rightOpening.x2;
+    const poolBottomY = poolDimensions.leftChamber.y2 - 0.3;
+    const poolHeight = -poolDimensions.leftChamber.y2;
+    const labelXPosition = modelViewTransform.modelToViewX( ( poolDimensions.leftChamber.x2 +
                                                             poolDimensions.rightOpening.x1 ) / 2 );
 
     // add grid

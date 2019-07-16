@@ -25,18 +25,18 @@ define( function( require ) {
   function TrapezoidPoolView( trapezoidPoolModel, modelViewTransform ) {
 
     Node.call( this );
-    var poolDimensions = trapezoidPoolModel.poolDimensions;
+    const poolDimensions = trapezoidPoolModel.poolDimensions;
 
     // add pool back
     this.addChild( new TrapezoidPoolBack( trapezoidPoolModel, modelViewTransform ) );
 
     // add fluids
-    var inputFaucetFluidMaxHeight = Math.abs( modelViewTransform.modelToViewDeltaY( trapezoidPoolModel.inputFaucet.location.y -
+    const inputFaucetFluidMaxHeight = Math.abs( modelViewTransform.modelToViewDeltaY( trapezoidPoolModel.inputFaucet.location.y -
                                                                                     poolDimensions.bottomChamber.y2 ) );
     this.addChild( new FaucetFluidNode(
       trapezoidPoolModel.inputFaucet, trapezoidPoolModel, modelViewTransform, inputFaucetFluidMaxHeight ) );
 
-    var outputFaucetFluidMaxHeight = 1000;
+    const outputFaucetFluidMaxHeight = 1000;
     this.addChild( new FaucetFluidNode( trapezoidPoolModel.outputFaucet, trapezoidPoolModel, modelViewTransform,
       outputFaucetFluidMaxHeight ) );
 
@@ -44,17 +44,17 @@ define( function( require ) {
     this.addChild( new TrapezoidPoolWaterNode( trapezoidPoolModel, modelViewTransform ) );
 
     // pool dimensions in view values
-    var poolLeftX = poolDimensions.leftChamber.centerTop - poolDimensions.leftChamber.widthBottom / 2;
-    var poolTopY = poolDimensions.leftChamber.y;
-    var poolRightX = poolDimensions.rightChamber.centerTop + poolDimensions.rightChamber.widthTop / 2;
-    var poolBottomY = poolDimensions.leftChamber.y - poolDimensions.leftChamber.height - 0.3;
-    var poolHeight = poolDimensions.leftChamber.height;
+    const poolLeftX = poolDimensions.leftChamber.centerTop - poolDimensions.leftChamber.widthBottom / 2;
+    const poolTopY = poolDimensions.leftChamber.y;
+    const poolRightX = poolDimensions.rightChamber.centerTop + poolDimensions.rightChamber.widthTop / 2;
+    const poolBottomY = poolDimensions.leftChamber.y - poolDimensions.leftChamber.height - 0.3;
+    const poolHeight = poolDimensions.leftChamber.height;
 
-    var labelXPosition = modelViewTransform.modelToViewX(
+    const labelXPosition = modelViewTransform.modelToViewX(
       ( poolDimensions.leftChamber.centerTop + poolDimensions.leftChamber.widthTop / 2 +
         poolDimensions.rightChamber.centerTop - poolDimensions.rightChamber.widthTop / 2 ) / 2 );
 
-    var slantMultiplier = 0.45; // Empirically determined to make labels line up in space between the pools
+    const slantMultiplier = 0.45; // Empirically determined to make labels line up in space between the pools
 
     // add grid
     this.addChild( new TrapezoidPoolGrid( trapezoidPoolModel.underPressureModel, modelViewTransform, poolLeftX,

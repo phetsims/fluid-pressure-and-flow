@@ -49,7 +49,7 @@ define( function( require ) {
     this.waterTower = waterTower;
     this.modelViewTransform = modelViewTransform;
     //add the frame
-    var modelTankShape = new Shape()
+    const modelTankShape = new Shape()
       .moveTo( modelViewTransform.modelToViewX( 0 ), modelViewTransform.modelToViewY( 0 ) )
       .lineTo( modelViewTransform.modelToViewX( 2 * waterTower.TANK_RADIUS ), modelViewTransform.modelToViewY( 0 ) )
       .moveTo( modelViewTransform.modelToViewX( 2 * waterTower.TANK_RADIUS ), modelViewTransform.modelToViewY( waterTower.HOLE_SIZE ) )
@@ -61,7 +61,7 @@ define( function( require ) {
     this.waterTankFrame = new Path( modelTankShape, { top: 20, stroke: options.towerFrameColor, lineWidth: 2 } );
 
     //added tank background shape
-    var tankBackgroundShape = new Shape()
+    const tankBackgroundShape = new Shape()
       .moveTo( modelViewTransform.modelToViewX( 0 ), modelViewTransform.modelToViewY( 0 ) - 1 )
       .lineTo( modelViewTransform.modelToViewX( 2 * waterTower.TANK_RADIUS ) - 1, modelViewTransform.modelToViewY( 0 ) - 1 )
       .lineTo( modelViewTransform.modelToViewX( 2 * waterTower.TANK_RADIUS ) - 1, modelViewTransform.modelToViewY( waterTower.TANK_HEIGHT ) )
@@ -69,7 +69,7 @@ define( function( require ) {
     this.addChild( new Path( tankBackgroundShape, { bottom: this.waterTankFrame.bottom - 1, fill: '#808080' } ) );
 
     //add water
-    var waterShape = new Shape()
+    const waterShape = new Shape()
       .moveTo( modelViewTransform.modelToViewX( 0 ), modelViewTransform.modelToViewY( 0 ) )
       .lineTo( modelViewTransform.modelToViewX( 2 * waterTower.TANK_RADIUS ), modelViewTransform.modelToViewY( 0 ) )
       .lineTo( modelViewTransform.modelToViewX( 2 * waterTower.TANK_RADIUS ), modelViewTransform.modelToViewY( waterTower.fluidLevelProperty.value ) )
@@ -86,7 +86,7 @@ define( function( require ) {
     this.addChild( this.waterTowerLegs );
 
     //add the handle
-    var handleNode = new Image( handleImage, {
+    const handleNode = new Image( handleImage, {
       cursor: 'pointer',
       scale: 0.3,
       top: this.waterTankFrame.bottom,
@@ -96,7 +96,7 @@ define( function( require ) {
     handleNode.touchArea = handleNode.localBounds.dilatedXY( 20, 20 );
 
     //add the wheel and rope
-    var wheelNode = new Image( wheelImage, {
+    const wheelNode = new Image( wheelImage, {
       cursor: 'pointer',
       scale: 0.4,
       bottom: this.waterTankFrame.top,
@@ -125,8 +125,8 @@ define( function( require ) {
     this.addChild( this.sluiceGate );
 
     // water tank fill button
-    var fillButtonFont = new PhetFont( 14 );
-    var xMargin = 7;
+    let fillButtonFont = new PhetFont( 14 );
+    let xMargin = 7;
     if ( fillString.length > 8 ) {
       fillButtonFont = new PhetFont( 10 );
       xMargin = 2;
@@ -143,9 +143,9 @@ define( function( require ) {
     } );
     this.addChild( this.fillButton );
 
-    var clickYOffset;
-    var initialY;
-    var initialHeight;
+    let clickYOffset;
+    let initialY;
+    let initialHeight;
     handleNode.addInputListener( new SimpleDragHandler( {
       start: function( e ) {
         clickYOffset = self.globalToParentPoint( e.pointer.point ).y;
@@ -153,9 +153,9 @@ define( function( require ) {
         initialHeight = hoseNode.hose.heightProperty.value;
       },
       drag: function( e ) {
-        var deltaY = self.globalToParentPoint( e.pointer.point ).y - clickYOffset;
+        let deltaY = self.globalToParentPoint( e.pointer.point ).y - clickYOffset;
         deltaY = modelViewTransform.viewToModelDeltaY( deltaY );
-        var newY = initialY + deltaY;
+        let newY = initialY + deltaY;
         newY = newY > 13 ? 13 : newY < 0 ? 0 : newY;
         deltaY = newY - initialY;
         self.waterTower.tankPositionProperty.value = new Vector2( self.waterTower.tankPositionProperty.value.x, newY );
@@ -170,7 +170,7 @@ define( function( require ) {
     } );
 
     waterTower.fluidVolumeProperty.link( function() {
-      var waterShape = new Shape()
+      const waterShape = new Shape()
         .moveTo( modelViewTransform.modelToViewX( 0 ), modelViewTransform.modelToViewY( 0 ) )
         .lineTo( modelViewTransform.modelToViewX( 2 * waterTower.TANK_RADIUS ), modelViewTransform.modelToViewY( 0 ) )
         .lineTo( modelViewTransform.modelToViewX( 2 * waterTower.TANK_RADIUS ), modelViewTransform.modelToViewY( waterTower.fluidLevelProperty.value ) )

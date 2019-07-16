@@ -31,9 +31,9 @@ define( function( require ) {
     Node.call( this );
 
     // adds a 1.5px thick line with a 1px bottom border
-    var addLine = function( parentNode, viewY ) {
-      var viewX1 = modelViewTransform.modelToViewX( x1 );
-      var viewX2 = modelViewTransform.modelToViewX( x2 );
+    const addLine = function( parentNode, viewY ) {
+      const viewX1 = modelViewTransform.modelToViewX( x1 );
+      const viewX2 = modelViewTransform.modelToViewX( x2 );
       parentNode.addChild( new Line( viewX1, viewY, viewX2, viewY, {
         stroke: 'rgb(192, 192, 192)',
         lineWidth: 1.5
@@ -45,22 +45,22 @@ define( function( require ) {
       } ) );
     };
 
-    var startY = modelViewTransform.modelToViewY( y1 );
-    var endY = modelViewTransform.modelToViewY( y2 );
+    const startY = modelViewTransform.modelToViewY( y1 );
+    const endY = modelViewTransform.modelToViewY( y2 );
 
-    var metersGrid = new Node();
-    var meterStep = Math.abs( modelViewTransform.modelToViewDeltaY( 1 ) );
+    const metersGrid = new Node();
+    const meterStep = Math.abs( modelViewTransform.modelToViewDeltaY( 1 ) );
 
     // add lines from startY to endY every meterStep pixels
-    for ( var i = startY; i <= endY; i += meterStep ) {
+    for ( let i = startY; i <= endY; i += meterStep ) {
       addLine( metersGrid, i );
     }
 
-    var feetGrid = new Node();
-    var feetStep = Math.abs( modelViewTransform.modelToViewDeltaY( Units.feetToMeters( 1 ) ) );
+    const feetGrid = new Node();
+    const feetStep = Math.abs( modelViewTransform.modelToViewDeltaY( Units.feetToMeters( 1 ) ) );
 
     // add lines from startY to endY every feetStep pixels
-    for ( i = startY; i <= endY; i += feetStep ) {
+    for ( let i = startY; i <= endY; i += feetStep ) {
       addLine( feetGrid, i );
     }
 

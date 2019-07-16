@@ -57,7 +57,7 @@ define( function( require ) {
     var self = this;
     ScreenView.call( this, Constants.SCREEN_VIEW_OPTIONS );
 
-    var modelViewTransform = ModelViewTransform2.createSinglePointScaleInvertedYMapping(
+    const modelViewTransform = ModelViewTransform2.createSinglePointScaleInvertedYMapping(
       Vector2.ZERO,
       new Vector2( 0, 245 ),
       70 );  //1m = 70px, (0,0) - top left corner
@@ -66,7 +66,7 @@ define( function( require ) {
     this.addChild( new BackgroundNode( underPressureModel, modelViewTransform ) );
 
     // add reset button
-    var resetAllButton = new ResetAllButton( {
+    const resetAllButton = new ResetAllButton( {
       listener: function() {
         underPressureModel.reset();
         self.reset();
@@ -78,7 +78,7 @@ define( function( require ) {
     this.addChild( resetAllButton );
 
     //control panel
-    var controlPanel = new ControlPanel( underPressureModel, {
+    const controlPanel = new ControlPanel( underPressureModel, {
       right: resetAllButton.right,
       top: 5,
       cornerRadius: CONTROL_PANEL_CORNER_RADIUS,
@@ -89,11 +89,11 @@ define( function( require ) {
     this.addChild( controlPanel );
 
     // all the movable tools are added to this layer
-    var toolsLayer = new Node();
+    const toolsLayer = new Node();
     this.addChild( toolsLayer );
 
     // units panel
-    var unitsControlPanel = new UnitsControlPanel( underPressureModel.measureUnitsProperty, {
+    const unitsControlPanel = new UnitsControlPanel( underPressureModel.measureUnitsProperty, {
       right: resetAllButton.right,
       top: controlPanel.bottom + 6,
       cornerRadius: CONTROL_PANEL_CORNER_RADIUS,
@@ -104,7 +104,7 @@ define( function( require ) {
     this.addChild( unitsControlPanel );
 
     // gravity slider
-    var gravitySlider = new ControlSlider(
+    const gravitySlider = new ControlSlider(
       underPressureModel.measureUnitsProperty,
       underPressureModel.gravityProperty,
       underPressureModel.getGravityString.bind( underPressureModel ),
@@ -134,7 +134,7 @@ define( function( require ) {
     this.addChild( gravitySlider );
 
     // fluid density slider
-    var fluidDensitySlider = new ControlSlider(
+    const fluidDensitySlider = new ControlSlider(
       underPressureModel.measureUnitsProperty,
       underPressureModel.fluidDensityProperty,
       underPressureModel.getFluidDensityString.bind( underPressureModel ),
@@ -162,7 +162,7 @@ define( function( require ) {
     this.addChild( fluidDensitySlider );
 
     // add the sensors panel
-    var sensorPanel = new Rectangle( 0, 0, 100, 130, 10, 10, {
+    const sensorPanel = new Rectangle( 0, 0, 100, 130, 10, 10, {
       stroke: 'gray',
       lineWidth: 1,
       fill: '#f2fa6a',
@@ -175,14 +175,14 @@ define( function( require ) {
     this.resetActions = [];
     // add barometers within the sensor panel bounds
     _.each( underPressureModel.barometers, function( barometer ) {
-      var barometerLinkedProperties = [
+      const barometerLinkedProperties = [
         underPressureModel.currentSceneProperty,
         underPressureModel.gravityProperty,
         underPressureModel.fluidDensityProperty,
         underPressureModel.isAtmosphereProperty,
         underPressureModel.currentVolumeProperty
       ];
-      var barometerNode = new BarometerNode(
+      const barometerNode = new BarometerNode(
         modelViewTransform,
         barometer,
         underPressureModel.measureUnitsProperty,
@@ -199,31 +199,31 @@ define( function( require ) {
       toolsLayer.addChild( barometerNode );
     }.bind( this ) );
 
-    var scenes = {};
+    const scenes = {};
 
     // adding square pool view
-    var squarePoolView = new SquarePoolView( underPressureModel.sceneModels.square, modelViewTransform,
+    const squarePoolView = new SquarePoolView( underPressureModel.sceneModels.square, modelViewTransform,
       this.layoutBounds );
     squarePoolView.visible = false;
     scenes.square = squarePoolView;
     this.addChild( squarePoolView );
 
     // adding trapezoid pool view
-    var trapezoidPoolView = new TrapezoidPoolView( underPressureModel.sceneModels.trapezoid, modelViewTransform,
+    const trapezoidPoolView = new TrapezoidPoolView( underPressureModel.sceneModels.trapezoid, modelViewTransform,
       this.layoutBounds );
     trapezoidPoolView.visible = false;
     scenes.trapezoid = trapezoidPoolView;
     this.addChild( trapezoidPoolView );
 
     // adding chamber pool view
-    var chamberPoolView = new ChamberPoolView( underPressureModel.sceneModels.chamber, modelViewTransform,
+    const chamberPoolView = new ChamberPoolView( underPressureModel.sceneModels.chamber, modelViewTransform,
       this.layoutBounds );
     chamberPoolView.visible = false;
     scenes.chamber = chamberPoolView;
     this.addChild( chamberPoolView );
 
     // adding mystery pool view
-    var mysteryPoolView = new MysteryPoolView( underPressureModel.sceneModels.mystery, modelViewTransform,
+    const mysteryPoolView = new MysteryPoolView( underPressureModel.sceneModels.mystery, modelViewTransform,
       this.layoutBounds, unitsControlPanel.bottom, unitsControlPanel.left, fluidDensitySlider.top,
       fluidDensitySlider.left, unitsControlPanel.width );
     mysteryPoolView.visible = false;
@@ -279,7 +279,7 @@ define( function( require ) {
 
   return inherit( ScreenView, UnderPressureView, {
     reset: function() {
-      for ( var i = 0; i < this.resetActions.length; i++ ) {
+      for ( let i = 0; i < this.resetActions.length; i++ ) {
         this.resetActions[ i ]();
       }
     }

@@ -36,10 +36,10 @@ define( function( require ) {
 
     // empirically determined to make sure input faucet is above ground , output faucet is below ground and output
     // faucet is attached to the pool
-    var inputFaucetX = 3.19;
-    var inputFaucetY = 0.44;
-    var outputFaucetX = 7.5;
-    var outputFaucetY = -3.45;
+    const inputFaucetX = 3.19;
+    const inputFaucetY = 0.44;
+    const outputFaucetX = 7.5;
+    const outputFaucetY = -3.45;
     this.inputFaucet = new FaucetModel( new Vector2( inputFaucetX, inputFaucetY ), 1, 0.42 ); // @public
     this.outputFaucet = new FaucetModel( new Vector2( outputFaucetX, outputFaucetY ), 1, 0.3 ); // @public
 
@@ -126,19 +126,19 @@ define( function( require ) {
      * @returns {boolean}
      */
     isPointInsidePool: function( x, y ) {
-      var isInside = false;
+      let isInside = false;
       if ( x > this.poolDimensions.bottomChamber.x1 && x < this.poolDimensions.bottomChamber.x2 &&
            y < this.poolDimensions.bottomChamber.y1 && y > this.poolDimensions.bottomChamber.y2 ) {
         //inside bottom chamber
         isInside = true;
       }
       else {
-        var yDiffWithPoolBottom = y - this.poolDimensions.bottomChamber.y2;
+        const yDiffWithPoolBottom = y - this.poolDimensions.bottomChamber.y2;
         if ( yDiffWithPoolBottom > 0 ) {
-          var x1 = this.poolDimensions.leftChamber.leftBorderFunction( yDiffWithPoolBottom );
-          var x2 = this.poolDimensions.leftChamber.rightBorderFunction( yDiffWithPoolBottom );
-          var x3 = this.poolDimensions.rightChamber.leftBorderFunction( yDiffWithPoolBottom );
-          var x4 = this.poolDimensions.rightChamber.rightBorderFunction( yDiffWithPoolBottom );
+          const x1 = this.poolDimensions.leftChamber.leftBorderFunction( yDiffWithPoolBottom );
+          const x2 = this.poolDimensions.leftChamber.rightBorderFunction( yDiffWithPoolBottom );
+          const x3 = this.poolDimensions.rightChamber.leftBorderFunction( yDiffWithPoolBottom );
+          const x4 = this.poolDimensions.rightChamber.rightBorderFunction( yDiffWithPoolBottom );
 
           //inside left or right chamber
           isInside = (x1 < x && x < x2) || (x3 < x && x < x4);

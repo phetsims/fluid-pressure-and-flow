@@ -64,15 +64,15 @@ define( function( require ) {
     var self = this;
     ScreenView.call( this, Constants.SCREEN_VIEW_OPTIONS );
 
-    var textOptions = { font: new PhetFont( 14 ) };
+    const textOptions = { font: new PhetFont( 14 ) };
 
     // Invert the y-axis, so that y grows up.
-    var modelViewTransform = ModelViewTransform2.createSinglePointScaleInvertedYMapping(
+    const modelViewTransform = ModelViewTransform2.createSinglePointScaleInvertedYMapping(
       Vector2.ZERO,
       new Vector2( 0, 350 ),
       10 ); //1m = 10px, (0,0) - top left corner
 
-    var groundY = modelViewTransform.modelToViewY( 0 );
+    const groundY = modelViewTransform.modelToViewY( 0 );
 
     // TODO: find a way to not do this
     waterTowerModel.modelViewTransform = modelViewTransform;
@@ -100,7 +100,7 @@ define( function( require ) {
     this.hoseNode = new HoseNode( waterTowerModel.hose, waterTowerModel.waterTower.tankPositionProperty, modelViewTransform, waterTowerModel.isHoseVisibleProperty );
     this.addChild( this.hoseNode );
 
-    var waterTowerNode = new WaterTowerNode( waterTowerModel.waterTower, waterTowerModel.fluidColorModel, modelViewTransform, this.hoseNode );
+    const waterTowerNode = new WaterTowerNode( waterTowerModel.waterTower, waterTowerModel.fluidColorModel, modelViewTransform, this.hoseNode );
     waterTowerNode.bottom = modelViewTransform.modelToViewY( 0 );
     this.addChild( waterTowerNode );
 
@@ -109,7 +109,7 @@ define( function( require ) {
     } );
     self.addChild( this.faucetDropsLayer );
 
-    var faucetNode = new FaucetNode( 30, waterTowerModel.faucetFlowRateProperty, waterTowerModel.isFaucetEnabledProperty, {
+    const faucetNode = new FaucetNode( 30, waterTowerModel.faucetFlowRateProperty, waterTowerModel.isFaucetEnabledProperty, {
       horizontalPipeLength: 1500,
       right: modelViewTransform.modelToViewX( waterTowerModel.faucetPosition.x ) + 20,
       top: this.layoutBounds.top + INSET,
@@ -140,12 +140,12 @@ define( function( require ) {
     } ) );
 
     // all the movable tools are added to this layer
-    var toolsLayer = new Node();
+    const toolsLayer = new Node();
     this.addChild( toolsLayer );
 
-    var unitsProperty = new DerivedProperty( [ waterTowerModel.measureUnitsProperty ],
+    const unitsProperty = new DerivedProperty( [ waterTowerModel.measureUnitsProperty ],
       function( measureUnits ) {
-        var units = {};
+        let units = {};
         if ( measureUnits === 'metric' ) {
           units = { name: metersString, multiplier: 1 };
         }
@@ -156,7 +156,7 @@ define( function( require ) {
         return units;
       } );
 
-    var measuringTapeNode = new MeasuringTapeNode( unitsProperty, waterTowerModel.isMeasuringTapeVisibleProperty, {
+    const measuringTapeNode = new MeasuringTapeNode( unitsProperty, waterTowerModel.isMeasuringTapeVisibleProperty, {
       basePositionProperty: waterTowerModel.measuringTapeBasePositionProperty,
       tipPositionProperty: waterTowerModel.measuringTapeTipPositionProperty,
       modelViewTransform: modelViewTransform,
@@ -169,7 +169,7 @@ define( function( require ) {
       dragBounds: modelViewTransform.viewToModelBounds( this.layoutBounds.eroded( 10 ) )
     } );
 
-    var resetAllButton = new ResetAllButton( {
+    const resetAllButton = new ResetAllButton( {
       listener: function() {
         waterTowerModel.reset();
         self.hoseNode.reset();
@@ -182,7 +182,7 @@ define( function( require ) {
     this.addChild( resetAllButton );
 
     // add the fluid density control slider
-    var fluidDensityControlSlider = new ControlSlider( waterTowerModel.measureUnitsProperty, waterTowerModel.fluidDensityProperty, waterTowerModel.getFluidDensityString.bind( waterTowerModel ), waterTowerModel.fluidDensityRange, waterTowerModel.fluidDensityControlExpandedProperty, {
+    const fluidDensityControlSlider = new ControlSlider( waterTowerModel.measureUnitsProperty, waterTowerModel.fluidDensityProperty, waterTowerModel.getFluidDensityString.bind( waterTowerModel ), waterTowerModel.fluidDensityRange, waterTowerModel.fluidDensityControlExpandedProperty, {
       right: resetAllButton.left - 4 * INSET,
       bottom: this.layoutBounds.bottom - INSET,
       title: fluidDensityString,
@@ -204,7 +204,7 @@ define( function( require ) {
     this.addChild( fluidDensityControlSlider );
 
     // add the sluice control near bottom left
-    var sluiceControlPanel = new SluiceControlPanel( waterTowerModel.isSluiceOpenProperty, {
+    const sluiceControlPanel = new SluiceControlPanel( waterTowerModel.isSluiceOpenProperty, {
       xMargin: 10,
       yMargin: 15,
       fill: '#1F5EFF',
@@ -214,7 +214,7 @@ define( function( require ) {
     this.addChild( sluiceControlPanel );
 
     // add play pause button and step button
-    var stepButton = new StepForwardButton( {
+    const stepButton = new StepForwardButton( {
       isPlayingProperty: waterTowerModel.isPlayingProperty,
       listener: function() { waterTowerModel.stepInternal( 0.016 ); },
       stroke: 'black',
@@ -225,11 +225,11 @@ define( function( require ) {
 
     this.addChild( stepButton );
 
-    var playPauseButton = new PlayPauseButton( waterTowerModel.isPlayingProperty,
+    const playPauseButton = new PlayPauseButton( waterTowerModel.isPlayingProperty,
       { stroke: 'black', fill: '#005566', y: stepButton.centerY, right: stepButton.left - INSET } );
     this.addChild( playPauseButton );
 
-    var speedControl = new VBox( {
+    const speedControl = new VBox( {
       align: 'left',
       spacing: 5,
       children: [
@@ -241,7 +241,7 @@ define( function( require ) {
     this.addChild( speedControl.mutate( { right: playPauseButton.left - INSET, bottom: playPauseButton.bottom } ) );
 
     // add the sensors panel
-    var sensorPanel = new Rectangle( 0, 0, 190, 105, 10, 10, {
+    const sensorPanel = new Rectangle( 0, 0, 190, 105, 10, 10, {
       stroke: 'gray',
       lineWidth: 1,
       fill: '#f2fa6a',

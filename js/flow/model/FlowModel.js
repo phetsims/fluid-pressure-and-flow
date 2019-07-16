@@ -86,12 +86,12 @@ define( function( require ) {
     this.speedProperty = new Property( 'normal' );
 
     this.barometers = [];
-    for ( var i = 0; i < NUMBER_BAROMETERS; i++ ) {
+    for ( let i = 0; i < NUMBER_BAROMETERS; i++ ) {
       this.barometers.push( new Sensor( new Vector2( 2.5, 1.8 ), 0 ) );
     }
 
     this.speedometers = [];
-    for ( var j = 0; j < NUMBER_VELOCITY_SENSORS; j++ ) {
+    for ( let j = 0; j < NUMBER_VELOCITY_SENSORS; j++ ) {
       this.speedometers.push( new VelocitySensor( new Vector2( 0, 0 ), new Vector2( 0, 0 ) ) );
     }
 
@@ -161,10 +161,10 @@ define( function( require ) {
           return 0;
         }
 
-        var crossSection = this.pipe.getCrossSection( x );
+        const crossSection = this.pipe.getCrossSection( x );
 
         if ( y > crossSection.yBottom + 0.05 && y < crossSection.yTop - 0.05 ) {
-          var vSquared = this.pipe.getVelocity( x, y ).magnitudeSquared;
+          const vSquared = this.pipe.getVelocity( x, y ).magnitudeSquared;
           return getStandardAirPressure( 0 ) - y * Constants.EARTH_GRAVITY * this.fluidDensityProperty.value -
                  0.5 * this.fluidDensityProperty.value * vSquared;
         }
@@ -195,11 +195,12 @@ define( function( require ) {
        * @param {number} dt -- time in seconds
        */
       step: function( dt ) {
+
         // prevent sudden dt bursts when the user comes back to the tab after a while
         dt = ( dt > 0.04 ) ? 0.04 : dt;
 
         if ( this.isPlayingProperty.value ) {
-          var adjustedDT = this.speedProperty.value === 'normal' ? dt : dt * 0.33; // if not 'normal' then it is 'slow'
+          const adjustedDT = this.speedProperty.value === 'normal' ? dt : dt * 0.33; // if not 'normal' then it is 'slow'
           this.timer.step( adjustedDT );
           this.propagateParticles( adjustedDT );
           if ( this.isGridInjectorPressedProperty.value ) {
@@ -213,7 +214,7 @@ define( function( require ) {
         if ( this.isDotsVisibleProperty.value ) {
 
           // create particles in the [0.15, 0.85) range so that they don't touch the pipe
-          var fraction = 0.15 + phet.joist.random.nextDouble() * 0.7;
+          const fraction = 0.15 + phet.joist.random.nextDouble() * 0.7;
           this.flowParticles.push( new Particle( this.pipe.getMinX(), fraction, this.pipe, 0.1, 'red' ) );
         }
       },
@@ -224,13 +225,13 @@ define( function( require ) {
        * @param {number} dt -- time in seconds
        */
       propagateParticles: function( dt ) {
-        var x2;
-        var particle;
+        let x2;
+        let particle;
 
-        var particlesToRemove = [];
-        var gridParticlesToRemove = [];
+        const particlesToRemove = [];
+        const gridParticlesToRemove = [];
 
-        for ( var i = 0, k = this.flowParticles.length; i < k; i++ ) {
+        for ( let i = 0, k = this.flowParticles.length; i < k; i++ ) {
 
           particle = this.flowParticles.get( i );
           x2 = particle.getX() + particle.container.getTweakedVx( particle.getX(), particle.getY() ) * dt;
@@ -244,7 +245,7 @@ define( function( require ) {
           }
         }
 
-        for ( var j = 0, numberOfParticles = this.gridParticles.length; j < numberOfParticles; j++ ) {
+        for ( let j = 0, numberOfParticles = this.gridParticles.length; j < numberOfParticles; j++ ) {
 
           particle = this.gridParticles.get( j );
           x2 = particle.getX() + particle.container.getTweakedVx( particle.getX(), particle.getY() ) * dt;
@@ -308,7 +309,7 @@ define( function( require ) {
           return Vector2.ZERO;
         }
 
-        var crossSection = this.pipe.getCrossSection( x );
+        const crossSection = this.pipe.getCrossSection( x );
 
         if ( y > crossSection.yBottom + 0.05 && y < crossSection.yTop - 0.05 ) {
           return this.pipe.getTweakedVelocity( x, y );
@@ -320,17 +321,17 @@ define( function( require ) {
        * Injects a grid of particles with 9 rows and 4 columns
        */
       injectGridParticles: function() {
-        var x0 = this.pipe.getMinX() + 1E-6;
-        var COLUMN_SPACING = 0.2; // initial distance (in meters) between two successive columns in the particle grid
-        var NUM_COLUMNS = 4;
-        var NUM_ROWS = 9;
+        const x0 = this.pipe.getMinX() + 1E-6;
+        const COLUMN_SPACING = 0.2; // initial distance (in meters) between two successive columns in the particle grid
+        const NUM_COLUMNS = 4;
+        const NUM_ROWS = 9;
 
-        for ( var i = 0; i < NUM_COLUMNS; i++ ) {
-          var x = x0 + i * COLUMN_SPACING;
-          for ( var j = 0; j < NUM_ROWS; j++ ) {
+        for ( let i = 0; i < NUM_COLUMNS; i++ ) {
+          const x = x0 + i * COLUMN_SPACING;
+          for ( let j = 0; j < NUM_ROWS; j++ ) {
 
             // ensure the particle's y fraction is between [0.1, 0.9], so they aren't too close to the edge of the pipe.
-            var fraction = 0.1 * ( j + 1 );
+            const fraction = 0.1 * ( j + 1 );
             this.gridParticles.push( new Particle( x, fraction, this.pipe, 0.06, 'black' ) );
           }
         }

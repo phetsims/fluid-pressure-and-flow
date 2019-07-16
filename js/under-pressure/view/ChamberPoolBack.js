@@ -32,15 +32,15 @@ define( function( require ) {
     Node.call( this );
 
     //grass
-    var grassPattern = new Pattern( grassImg ).setTransformMatrix( Matrix3.scale( 0.25 ) );
-    var grassRectYOffset = 1;
-    var grassRectHeight = 10;
-    var grassExtension = 2000;
-    var backgroundGrassWidth = 5000;
+    const grassPattern = new Pattern( grassImg ).setTransformMatrix( Matrix3.scale( 0.25 ) );
+    const grassRectYOffset = 1;
+    const grassRectHeight = 10;
+    const grassExtension = 2000;
+    const backgroundGrassWidth = 5000;
 
-    var poolDimensions = chamberPoolModel.poolDimensions;
+    const poolDimensions = chamberPoolModel.poolDimensions;
 
-    var grassRectangle = new Rectangle(
+    const grassRectangle = new Rectangle(
       -grassExtension,
       grassRectYOffset,
       backgroundGrassWidth,
@@ -73,23 +73,23 @@ define( function( require ) {
 
 
     //calculated view coordinates for water
-    var leftOpeningX1 = modelViewTransform.modelToViewX( poolDimensions.leftOpening.x1 );
-    var leftOpeningX2 = modelViewTransform.modelToViewX( poolDimensions.leftOpening.x2 );
-    var leftChamberX1 = modelViewTransform.modelToViewX( poolDimensions.leftChamber.x1 );
-    var leftChamberX2 = modelViewTransform.modelToViewX( poolDimensions.leftChamber.x2 );
-    var rightChamberX1 = modelViewTransform.modelToViewX( poolDimensions.rightChamber.x1 );
-    var rightChamberX2 = modelViewTransform.modelToViewX( poolDimensions.rightChamber.x2 );
-    var rightOpeningX1 = modelViewTransform.modelToViewX( poolDimensions.rightOpening.x1 );
-    var rightOpeningX2 = modelViewTransform.modelToViewX( poolDimensions.rightOpening.x2 );
-    var leftOpeningY1 = modelViewTransform.modelToViewY( poolDimensions.leftOpening.y1 );
-    var leftOpeningY2 = modelViewTransform.modelToViewY( poolDimensions.leftOpening.y2 );
-    var leftChamberY2 = modelViewTransform.modelToViewY( poolDimensions.leftChamber.y2 );
-    var passageY1 = modelViewTransform.modelToViewY( poolDimensions.horizontalPassage.y1 );
-    var passageY2 = modelViewTransform.modelToViewY( poolDimensions.horizontalPassage.y2 );
+    const leftOpeningX1 = modelViewTransform.modelToViewX( poolDimensions.leftOpening.x1 );
+    const leftOpeningX2 = modelViewTransform.modelToViewX( poolDimensions.leftOpening.x2 );
+    const leftChamberX1 = modelViewTransform.modelToViewX( poolDimensions.leftChamber.x1 );
+    const leftChamberX2 = modelViewTransform.modelToViewX( poolDimensions.leftChamber.x2 );
+    const rightChamberX1 = modelViewTransform.modelToViewX( poolDimensions.rightChamber.x1 );
+    const rightChamberX2 = modelViewTransform.modelToViewX( poolDimensions.rightChamber.x2 );
+    const rightOpeningX1 = modelViewTransform.modelToViewX( poolDimensions.rightOpening.x1 );
+    const rightOpeningX2 = modelViewTransform.modelToViewX( poolDimensions.rightOpening.x2 );
+    const leftOpeningY1 = modelViewTransform.modelToViewY( poolDimensions.leftOpening.y1 );
+    const leftOpeningY2 = modelViewTransform.modelToViewY( poolDimensions.leftOpening.y2 );
+    const leftChamberY2 = modelViewTransform.modelToViewY( poolDimensions.leftChamber.y2 );
+    const passageY1 = modelViewTransform.modelToViewY( poolDimensions.horizontalPassage.y1 );
+    const passageY2 = modelViewTransform.modelToViewY( poolDimensions.horizontalPassage.y2 );
 
     //cement border
-    var cementWidth = 2;
-    var shape = new Shape()
+    const cementWidth = 2;
+    const shape = new Shape()
       .moveTo( leftOpeningX1 - cementWidth, leftOpeningY1 ) //outer part
       .lineTo( leftOpeningX1 - cementWidth, leftOpeningY2 - cementWidth )
       .lineTo( leftChamberX1 - cementWidth, leftOpeningY2 - cementWidth )

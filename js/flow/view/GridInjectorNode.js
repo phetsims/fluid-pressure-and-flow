@@ -38,9 +38,9 @@ define( function( require ) {
     this.pipe = pipe;
     this.gridInjectorX = -6; // model value
 
-    var injector = new Image( injectorBulbImage, { scale: 0.35 } );
+    const injector = new Image( injectorBulbImage, { scale: 0.35 } );
 
-    var redButton = new RoundStickyToggleButton( false, true, isGridInjectorPressedProperty, {
+    const redButton = new RoundStickyToggleButton( false, true, isGridInjectorPressedProperty, {
       radius: 25,
       centerX: injector.centerX,
       top: injector.top + 31,
@@ -56,7 +56,7 @@ define( function( require ) {
 
     this.updateGridInjector();
 
-    var isGridInjectorNotPressedProperty = new Property( !isGridInjectorPressedProperty.value, { reentrant: true } );
+    const isGridInjectorNotPressedProperty = new Property( !isGridInjectorPressedProperty.value, { reentrant: true } );
     isGridInjectorPressedProperty.link( function( pressed ) {
       isGridInjectorNotPressedProperty.value = !pressed;
     } );

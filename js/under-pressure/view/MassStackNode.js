@@ -32,11 +32,11 @@ define( function( require ) {
 
     this.totalHeight = 0; //height of all masses
 
-    var placementRectWidth = modelViewTransform.modelToViewX( chamberPoolModel.poolDimensions.leftOpening.x2 -
+    const placementRectWidth = modelViewTransform.modelToViewX( chamberPoolModel.poolDimensions.leftOpening.x2 -
                                                               chamberPoolModel.poolDimensions.leftOpening.x1 );
 
-    var placementRect = new Rectangle( 0, 0, placementRectWidth, 0 );
-    var placementRectBorder = new Path( new Shape(),
+    const placementRect = new Rectangle( 0, 0, placementRectWidth, 0 );
+    const placementRectBorder = new Path( new Shape(),
       { stroke: '#000', lineWidth: 2, lineDash: [ 10, 5 ], fill: '#ffdcf0' } );
 
     this.addChild( placementRect );
@@ -51,8 +51,8 @@ define( function( require ) {
     chamberPoolModel.masses.forEach( function( massModel ) {
       massModel.isDraggingProperty.link( function( isDragging ) {
         if ( isDragging ) {
-          var placementRectHeight = Math.abs( modelViewTransform.modelToViewDeltaY( massModel.height ) );
-          var placementRectY1 = -placementRectHeight +
+          const placementRectHeight = Math.abs( modelViewTransform.modelToViewDeltaY( massModel.height ) );
+          const placementRectY1 = -placementRectHeight +
                                 modelViewTransform.modelToViewDeltaY( self.totalHeight );
 
           placementRectBorder.shape = new Shape().moveTo( 0, placementRectY1 )
@@ -82,8 +82,8 @@ define( function( require ) {
   return inherit( Node, MassStackNode, {
 
     updateMassPositions: function() {
-      var dy = 0;
-      var chamberPoolModel = this.chamberPoolModel;
+      let dy = 0;
+      const chamberPoolModel = this.chamberPoolModel;
       chamberPoolModel.stack.forEach( function( massModel ) {
         massModel.positionProperty.value = new Vector2( chamberPoolModel.poolDimensions.leftOpening.x1 + massModel.width / 2,
           chamberPoolModel.poolDimensions.leftOpening.y2 + chamberPoolModel.leftWaterHeight -
@@ -93,7 +93,7 @@ define( function( require ) {
     },
 
     updateMassStack: function() {
-      var totHeight = 0;
+      let totHeight = 0;
 
       this.chamberPoolModel.stack.forEach( function( massModel ) {
         if ( massModel ) {

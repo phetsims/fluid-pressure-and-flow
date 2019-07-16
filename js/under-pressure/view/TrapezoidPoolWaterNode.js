@@ -24,19 +24,19 @@ define( function( require ) {
   function TrapezoidPoolWaterNode( trapezoidPoolModel, modelViewTransform ) {
 
     Node.call( this );
-    var waterPath = new Path( null );
+    const waterPath = new Path( null );
 
-    var yMax = Math.abs( modelViewTransform.modelToViewY( trapezoidPoolModel.poolDimensions.leftChamber.y -
+    const yMax = Math.abs( modelViewTransform.modelToViewY( trapezoidPoolModel.poolDimensions.leftChamber.y -
                                                           trapezoidPoolModel.poolDimensions.leftChamber.height ) );//bottom y coord of pool, px
-    var x1 = modelViewTransform.modelToViewX( trapezoidPoolModel.verticles.x1bottom ); //bottom left corner of the pool
-    var x4 = modelViewTransform.modelToViewX( trapezoidPoolModel.verticles.x4bottom ); //bottom right corner of the pool
+    const x1 = modelViewTransform.modelToViewX( trapezoidPoolModel.verticles.x1bottom ); //bottom left corner of the pool
+    const x4 = modelViewTransform.modelToViewX( trapezoidPoolModel.verticles.x4bottom ); //bottom right corner of the pool
 
     trapezoidPoolModel.underPressureModel.fluidColorModel.colorProperty.linkAttribute( waterPath, 'fill' );
 
     trapezoidPoolModel.volumeProperty.link( function() {
-      var viewHeight = trapezoidPoolModel.maxHeight * trapezoidPoolModel.volumeProperty.value / trapezoidPoolModel.maxVolume; //height of water
-      var topY = yMax + modelViewTransform.modelToViewDeltaY( viewHeight ); //y coord for top of the water
-      var h = Math.min( viewHeight, trapezoidPoolModel.poolDimensions.bottomChamber.y1 -
+      const viewHeight = trapezoidPoolModel.maxHeight * trapezoidPoolModel.volumeProperty.value / trapezoidPoolModel.maxVolume; //height of water
+      const topY = yMax + modelViewTransform.modelToViewDeltaY( viewHeight ); //y coord for top of the water
+      const h = Math.min( viewHeight, trapezoidPoolModel.poolDimensions.bottomChamber.y1 -
                                     trapezoidPoolModel.poolDimensions.bottomChamber.y2 ); //height in bottom passage
 
       waterPath.shape = new Shape()

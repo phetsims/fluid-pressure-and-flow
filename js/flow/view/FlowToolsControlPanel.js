@@ -46,25 +46,25 @@ define( function( require ) {
       lineWidth: 1
     }, options );
 
-    var textOptions = { font: new PhetFont( 10 ) };
+    const textOptions = { font: new PhetFont( 10 ) };
 
     // itemSpec describes the pieces that make up an item in the control panel,
     // conforms to the contract: { label: {Node}, icon: {Node} (optional) }
-    var rulerSpec = { label: new Text( rulerString, textOptions ), icon: createRulerIcon() };
-    var frictionSpec = { label: new Text( frictionString, textOptions ) };
-    var fluxMeterSpec = { label: new Text( fluxMeterString, textOptions ) };
-    var dotsSpec = { label: new Text( dotsString, textOptions ), icon: createDotsIcon() };
+    const rulerSpec = { label: new Text( rulerString, textOptions ), icon: createRulerIcon() };
+    const frictionSpec = { label: new Text( frictionString, textOptions ) };
+    const fluxMeterSpec = { label: new Text( fluxMeterString, textOptions ) };
+    const dotsSpec = { label: new Text( dotsString, textOptions ), icon: createDotsIcon() };
 
     // compute the maximum item width
-    var widestItemSpec = _.maxBy( [ rulerSpec, frictionSpec, fluxMeterSpec, dotsSpec ], function( item ) {
+    const widestItemSpec = _.maxBy( [ rulerSpec, frictionSpec, fluxMeterSpec, dotsSpec ], function( item ) {
       return item.label.width + ((item.icon) ? item.icon.width : 0);
     } );
-    var maxWidth = widestItemSpec.label.width + ((widestItemSpec.icon) ? widestItemSpec.icon.width : 0);
+    const maxWidth = widestItemSpec.label.width + ((widestItemSpec.icon) ? widestItemSpec.icon.width : 0);
 
     // pad inserts a spacing node (HStrut) so that the text, space and image together occupy a certain fixed width.
-    var createItem = function( itemSpec ) {
+    const createItem = function( itemSpec ) {
       if ( itemSpec.icon ) {
-        var strutWidth = maxWidth - itemSpec.label.width - itemSpec.icon.width + 17;
+        const strutWidth = maxWidth - itemSpec.label.width - itemSpec.icon.width + 17;
         return new HBox( { children: [ itemSpec.label, new HStrut( strutWidth ), itemSpec.icon ] } );
       }
       else {
@@ -72,18 +72,18 @@ define( function( require ) {
       }
     };
 
-    var checkboxOptions = {
+    const checkboxOptions = {
       boxWidth: 15,
       spacing: 2
     };
 
-    var rulerCheckbox = new Checkbox( createItem( rulerSpec ), flowModel.isRulerVisibleProperty, checkboxOptions );
-    var frictionCheckbox = new Checkbox( createItem( frictionSpec ), flowModel.pipe.frictionProperty, checkboxOptions );
-    var fluxMeterCheckbox = new Checkbox( createItem( fluxMeterSpec ), flowModel.isFluxMeterVisibleProperty,
+    const rulerCheckbox = new Checkbox( createItem( rulerSpec ), flowModel.isRulerVisibleProperty, checkboxOptions );
+    const frictionCheckbox = new Checkbox( createItem( frictionSpec ), flowModel.pipe.frictionProperty, checkboxOptions );
+    const fluxMeterCheckbox = new Checkbox( createItem( fluxMeterSpec ), flowModel.isFluxMeterVisibleProperty,
       checkboxOptions );
-    var dotsCheckbox = new Checkbox( createItem( dotsSpec ), flowModel.isDotsVisibleProperty, checkboxOptions );
+    const dotsCheckbox = new Checkbox( createItem( dotsSpec ), flowModel.isDotsVisibleProperty, checkboxOptions );
 
-    var maxCheckboxWidth = _.maxBy( [ rulerCheckbox, frictionCheckbox, fluxMeterCheckbox, dotsCheckbox ],
+    const maxCheckboxWidth = _.maxBy( [ rulerCheckbox, frictionCheckbox, fluxMeterCheckbox, dotsCheckbox ],
         function( item ) {
           return item.width;
         } ).width + 5;
@@ -101,7 +101,7 @@ define( function( require ) {
 
     // pad all the rows so the text nodes are left aligned and the icons is right aligned
 
-    var checkboxes = new VBox( {
+    const checkboxes = new VBox( {
       align: 'left', spacing: 4,
       children: [ rulerCheckbox, frictionCheckbox, fluxMeterCheckbox, dotsCheckbox ]
     } );
@@ -110,7 +110,7 @@ define( function( require ) {
   }
 
   //Create an icon for the ruler checkbox
-  var createRulerIcon = function() {
+  const createRulerIcon = function() {
     return new RulerNode( 13, 10, 12, [ '0', '1' ], '', {
       insetsWidth: 5,
       minorTicksPerMajorTick: 4,
@@ -121,9 +121,9 @@ define( function( require ) {
   };
 
   //Create an icon for the dots checkbox
-  var createDotsIcon = function() {
-    var dot1 = new Circle( 3, { fill: 'red' } );
-    var dot2 = new Circle( 3, { fill: 'red', left: dot1.right + 4 } );
+  const createDotsIcon = function() {
+    const dot1 = new Circle( 3, { fill: 'red' } );
+    const dot2 = new Circle( 3, { fill: 'red', left: dot1.right + 4 } );
     return new Node( { children: [ dot1, dot2 ] } );
   };
 

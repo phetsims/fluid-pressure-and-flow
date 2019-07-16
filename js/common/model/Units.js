@@ -84,8 +84,8 @@ define( function( require ) {
      * @returns {string}
      */
     getFluidDensityString: function( fluidDensity, measureUnits ) {
-      var value;
-      var units;
+      let value;
+      let units;
       if ( measureUnits === 'english' ) {
         value = FLUID_DENSITY_ENGLISH_PER_METRIC * fluidDensity;
         units = densityUnitsEnglishString;

@@ -66,7 +66,7 @@ define( function( require ) {
 
     this.barometers = []; // @public
 
-    for ( var i = 0; i < NUM_BAROMETERS; i++ ) {
+    for ( let i = 0; i < NUM_BAROMETERS; i++ ) {
       // initial position of barometer on screen adjacent to control panel above ground
       this.barometers.push( new Sensor( new Vector2( 7.75, 2.5 ), 0 ) );
     }
@@ -152,15 +152,15 @@ define( function( require ) {
      * @returns {number}
      */
     getPressureAtCoords: function( x, y ) {
-      var pressure = null;
-      var currentModel = this.currentSceneModelProperty.value;
+      let pressure = null;
+      const currentModel = this.currentSceneModelProperty.value;
       if ( y > 0 ) {
         pressure = this.getAirPressure( y );
       }
       else if ( currentModel.isPointInsidePool( x, y ) ) {
 
         // get the water height over barometer
-        var waterHeight = currentModel.getWaterHeightAboveY( x, y );
+        const waterHeight = currentModel.getWaterHeightAboveY( x, y );
         if ( waterHeight <= 0 ) {
           pressure = this.getAirPressure( y );
         }

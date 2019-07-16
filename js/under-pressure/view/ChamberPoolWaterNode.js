@@ -22,29 +22,29 @@ define( function( require ) {
   function ChamberPoolWaterNode( chamberPoolModel, modelViewTransform ) {
     Node.call( this );
 
-    var waterPath = new Path( null );
-    var poolDimensions = chamberPoolModel.poolDimensions;
+    const waterPath = new Path( null );
+    const poolDimensions = chamberPoolModel.poolDimensions;
 
     //calculated view coordinates for water
-    var leftOpeningX1 = modelViewTransform.modelToViewX( poolDimensions.leftOpening.x1 );
-    var leftOpeningX2 = modelViewTransform.modelToViewX( poolDimensions.leftOpening.x2 );
-    var leftChamberX1 = modelViewTransform.modelToViewX( poolDimensions.leftChamber.x1 );
-    var leftChamberX2 = modelViewTransform.modelToViewX( poolDimensions.leftChamber.x2 );
-    var rightChamberX1 = modelViewTransform.modelToViewX( poolDimensions.rightChamber.x1 );
-    var rightChamberX2 = modelViewTransform.modelToViewX( poolDimensions.rightChamber.x2 );
-    var rightOpeningX1 = modelViewTransform.modelToViewX( poolDimensions.rightOpening.x1 );
-    var rightOpeningX2 = modelViewTransform.modelToViewX( poolDimensions.rightOpening.x2 );
-    var leftOpeningY2 = modelViewTransform.modelToViewY( poolDimensions.leftOpening.y2 );
-    var leftChamberY2 = modelViewTransform.modelToViewY( poolDimensions.leftChamber.y2 );
-    var passageY1 = modelViewTransform.modelToViewY( poolDimensions.horizontalPassage.y1 );
-    var passageY2 = modelViewTransform.modelToViewY( poolDimensions.horizontalPassage.y2 );
+    const leftOpeningX1 = modelViewTransform.modelToViewX( poolDimensions.leftOpening.x1 );
+    const leftOpeningX2 = modelViewTransform.modelToViewX( poolDimensions.leftOpening.x2 );
+    const leftChamberX1 = modelViewTransform.modelToViewX( poolDimensions.leftChamber.x1 );
+    const leftChamberX2 = modelViewTransform.modelToViewX( poolDimensions.leftChamber.x2 );
+    const rightChamberX1 = modelViewTransform.modelToViewX( poolDimensions.rightChamber.x1 );
+    const rightChamberX2 = modelViewTransform.modelToViewX( poolDimensions.rightChamber.x2 );
+    const rightOpeningX1 = modelViewTransform.modelToViewX( poolDimensions.rightOpening.x1 );
+    const rightOpeningX2 = modelViewTransform.modelToViewX( poolDimensions.rightOpening.x2 );
+    const leftOpeningY2 = modelViewTransform.modelToViewY( poolDimensions.leftOpening.y2 );
+    const leftChamberY2 = modelViewTransform.modelToViewY( poolDimensions.leftChamber.y2 );
+    const passageY1 = modelViewTransform.modelToViewY( poolDimensions.horizontalPassage.y1 );
+    const passageY2 = modelViewTransform.modelToViewY( poolDimensions.horizontalPassage.y2 );
 
     chamberPoolModel.leftDisplacementProperty.link( function( displacement ) {
 
       //new left and right levels of water
-      var leftY = modelViewTransform.modelToViewY( poolDimensions.leftOpening.y2 + chamberPoolModel.leftWaterHeight -
+      const leftY = modelViewTransform.modelToViewY( poolDimensions.leftOpening.y2 + chamberPoolModel.leftWaterHeight -
                                                    displacement );
-      var rightY = modelViewTransform.modelToViewY( poolDimensions.rightOpening.y2 + chamberPoolModel.leftWaterHeight +
+      const rightY = modelViewTransform.modelToViewY( poolDimensions.rightOpening.y2 + chamberPoolModel.leftWaterHeight +
                                                     displacement / chamberPoolModel.lengthRatio );
 
       waterPath.shape = new Shape()

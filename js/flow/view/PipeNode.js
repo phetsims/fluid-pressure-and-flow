@@ -51,12 +51,12 @@ define( function( require ) {
     this.leftPipeYOffset = 30; // left pipe top offset w.r.t the left top control point
     this.rightPipeYOffset = 30; // right pipe top offset w.r.t the right top control point
     this.rightPipeLeftOffset = 75;
-    var leftPipeX = -49;
+    const leftPipeX = -49;
 
     //left side pipe image.
-    var leftPipeHead = new Image( leftPipeImage );
+    const leftPipeHead = new Image( leftPipeImage );
 
-    var leftPipeSegment = new Image( pipeSegmentImage,
+    const leftPipeSegment = new Image( pipeSegmentImage,
       {
         right: leftPipeHead.left + 30,
         scale: new Vector2( PIPE_SEGMENT_X_SCALE, 1 )
@@ -89,14 +89,14 @@ define( function( require ) {
 
     // Skip bounds computation to improve performance, see energy-skate-park-basics#245
     // Qualitative tests did not show a significant improvement
-    var emptyBounds = new Bounds2( 0, 0, 0, 0 );
+    const emptyBounds = new Bounds2( 0, 0, 0, 0 );
     this.pipeFluidNode.computeShapeBounds = function() {
       return emptyBounds;
     };
 
     // right side pipe image.
-    var rightPipeHead = new Image( rightSidePipeImage );
-    var rightPipeMiddle = new Image( pipeSegmentImage,
+    const rightPipeHead = new Image( rightSidePipeImage );
+    const rightPipeMiddle = new Image( pipeSegmentImage,
       { left: rightPipeHead.right - 50, scale: new Vector2( PIPE_SEGMENT_X_SCALE, 1 ) } );
 
     this.rightPipeNode = new Node( {
@@ -153,22 +153,22 @@ define( function( require ) {
       // @private
       updatePipeFlowLineShape: function() {
 
-        var i; //for loop
-
         // getting cross sections
-        var splineCrossSections = this.flowModel.pipe.getSplineCrossSections();
+        const splineCrossSections = this.flowModel.pipe.getSplineCrossSections();
 
-        var xPointsBottom = new Array( splineCrossSections.length );
-        var yPointsBottom = new Array( splineCrossSections.length );
-        var xPointsTop = new Array( splineCrossSections.length );
-        var yPointsTop = new Array( splineCrossSections.length );
+        const xPointsBottom = new Array( splineCrossSections.length );
+        const yPointsBottom = new Array( splineCrossSections.length );
+        const xPointsTop = new Array( splineCrossSections.length );
+        const yPointsTop = new Array( splineCrossSections.length );
 
-        var minXOfPipeFlowLineShape = -6.7; // model value
-        var maxXOfPipeFlowLineShape = 6.7;
-        var startIndex = 0;
-        var endIndex = 0;
+        const minXOfPipeFlowLineShape = -6.7; // model value
+        const maxXOfPipeFlowLineShape = 6.7;
+
+        let startIndex = 0;
+        let endIndex = 0;
+
         //  points for lineTo
-        for ( i = 0; i < splineCrossSections.length; i++ ) {
+        for ( let i = 0; i < splineCrossSections.length; i++ ) {
           xPointsBottom[ i ] = splineCrossSections[ i ].x;
           yPointsBottom[ i ] = splineCrossSections[ i ].yBottom;
           xPointsTop[ i ] = splineCrossSections[ i ].x;
@@ -181,17 +181,17 @@ define( function( require ) {
           }
         }
 
-        var flowLineShape = new Shape().moveTo( this.modelViewTransform.modelToViewX( xPointsBottom[ startIndex + 1 ] ),
+        const flowLineShape = new Shape().moveTo( this.modelViewTransform.modelToViewX( xPointsBottom[ startIndex + 1 ] ),
           this.modelViewTransform.modelToViewY( yPointsBottom[ startIndex + 1 ] ) );
 
         // Spline points beyond the last pipe cross section are not needed.
-        for ( i = startIndex + 2; i <= endIndex; i++ ) {
+        for ( let i = startIndex + 2; i <= endIndex; i++ ) {
           flowLineShape.lineTo( this.modelViewTransform.modelToViewX( xPointsBottom[ i ] ),
             this.modelViewTransform.modelToViewY( yPointsBottom[ i ] ) );
         }
 
         // Spline points beyond the last pipe cross section are not needed.
-        for ( i = endIndex; i > startIndex; i-- ) {
+        for ( let i = endIndex; i > startIndex; i-- ) {
           flowLineShape.lineTo( this.modelViewTransform.modelToViewX( xPointsTop[ i ] ),
             this.modelViewTransform.modelToViewY( yPointsTop[ i ] ) );
         }

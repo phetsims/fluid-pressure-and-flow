@@ -32,14 +32,14 @@ define( function( require ) {
 
     Node.call( this );
     //grass
-    var grassPattern = new Pattern( grassImg ).setTransformMatrix( Matrix3.scale( 0.25 ) );
-    var grassRectYOffset = 1;
-    var grassRectHeight = 10;
-    var grassExtension = 2000;
-    var backgroundGrassWidth = 5000;
-    var poolDimensions = squarePoolModel.poolDimensions;
+    const grassPattern = new Pattern( grassImg ).setTransformMatrix( Matrix3.scale( 0.25 ) );
+    const grassRectYOffset = 1;
+    const grassRectHeight = 10;
+    const grassExtension = 2000;
+    const backgroundGrassWidth = 5000;
+    const poolDimensions = squarePoolModel.poolDimensions;
 
-    var grassRectangle = new Rectangle(
+    const grassRectangle = new Rectangle(
       -grassExtension,
       grassRectYOffset,
       backgroundGrassWidth,
@@ -65,8 +65,8 @@ define( function( require ) {
     this.addChild(grassRectangle);
 
     //cement border
-    var cementWidth = 2;
-    var cementBorder = new Shape()
+    const cementWidth = 2;
+    const cementBorder = new Shape()
       .moveTo( modelViewTransform.modelToViewX( poolDimensions.x1 ) - cementWidth,
       modelViewTransform.modelToViewY( poolDimensions.y1 ) )
       .lineTo( modelViewTransform.modelToViewX( poolDimensions.x1 ) - cementWidth,

@@ -39,7 +39,7 @@ define( function( require ) {
    * @constructor
    */
   function Pipe() {
-    var mainHandleInitialY = (TOP_HANDLE_INITIAL_Y + BOTTOM_HANDLE_INITIAL_Y) / 2;
+    const mainHandleInitialY = (TOP_HANDLE_INITIAL_Y + BOTTOM_HANDLE_INITIAL_Y) / 2;
 
     this.flowRateProperty = new Property( 5000 ); // rate of fluid flow in Liter per second (L/s)
     this.frictionProperty = new Property( false ); // flag indicating whether friction should slow particles near the edges
@@ -55,7 +55,7 @@ define( function( require ) {
     this.rightPipeBottomHandleYProperty = new Property( BOTTOM_HANDLE_INITIAL_Y );
 
     // cross-sections that the user can manipulate to deform the pipe.
-    var controlCrossSections = [
+    const controlCrossSections = [
       //dummy cross section, not part of the pipe flow line shape. This is where the particles originate.
       new PipeCrossSection( -( 3 * CONTROL_POINT_X_SPACING - DUMMY_CONTROL_POINT_OFFSET ), TOP_CONTROL_POINT_INITIAL_Y,
         BOTTOM_CONTROL_POINT_INITIAL_Y ),
@@ -77,7 +77,7 @@ define( function( require ) {
 
     this.top = []; // array to store top control points
     this.bottom = []; // array to store bottom control points
-    for ( var i = 0; i < controlCrossSections.length; i++ ) {
+    for ( let i = 0; i < controlCrossSections.length; i++ ) {
       this.top.push( new PipeControlPoint( controlCrossSections[ i ].x, controlCrossSections[ i ].yTop ) );
       this.bottom.push( new PipeControlPoint( controlCrossSections[ i ].x, controlCrossSections[ i ].yBottom ) );
     }
@@ -97,7 +97,7 @@ define( function( require ) {
     // reset the pipe
     reset: function() {
 
-      for ( var i = 0; i < this.top.length; i++ ) {
+      for ( let i = 0; i < this.top.length; i++ ) {
         this.top[ i ].reset();
         this.bottom[ i ].reset();
       }
@@ -123,61 +123,62 @@ define( function( require ) {
      * @private
      */
     spline: function() {
-      var spline = [];// array to hold the pipe cross sections
-
-      var i; // for-loop
+      const spline = [];// array to hold the pipe cross sections
 
       // allocate fixed size arrays for holding pipe control points' x,y values. These are used for computing the splines.
-      var numCrossSections = this.top.length;
+      const numCrossSections = this.top.length;
 
-      var u = new Array( numCrossSections );
-      var xBottom = new Array( numCrossSections );
-      var yBottom = new Array( numCrossSections );
-      var xTop = new Array( numCrossSections );
-      var yTop = new Array( numCrossSections );
+      const u = new Array( numCrossSections );
+      const xBottom = new Array( numCrossSections );
+      const yBottom = new Array( numCrossSections );
+      const xTop = new Array( numCrossSections );
+      const yTop = new Array( numCrossSections );
 
       // compute the spline for the pipe top line
-      for ( i = 0; i < this.top.length; i++ ) {
+      for ( let i = 0; i < this.top.length; i++ ) {
         u[ i ] = i / this.top.length;
         xTop[ i ] = this.top[ i ].positionProperty.value.x;
         yTop[ i ] = this.top[ i ].positionProperty.value.y;
       }
-      var xSplineTop = numeric.spline( u, xTop );
-      var ySplineTop = numeric.spline( u, yTop );
+      const xSplineTop = numeric.spline( u, xTop );
+      const ySplineTop = numeric.spline( u, yTop );
 
       // compute the spline for the pipe bottom line
-      for ( i = 0; i < this.bottom.length; i++ ) {
+      for ( let i = 0; i < this.bottom.length; i++ ) {
         u[ i ] = i / this.bottom.length;
         xBottom[ i ] = this.bottom[ i ].positionProperty.value.x;
         yBottom[ i ] = this.bottom[ i ].positionProperty.value.y;
       }
-      var xSplineBottom = numeric.spline( u, xBottom );
-      var ySplineBottom = numeric.spline( u, yBottom );
+      const xSplineBottom = numeric.spline( u, xBottom );
+      const ySplineBottom = numeric.spline( u, yBottom );
 
       // for line smoothness
-      var lastPt = ( this.top.length - 1) / this.top.length;
-      var linSpace = numeric.linspace( 0, lastPt, 20 * ( this.top.length - 1) );
+      const lastPt = ( this.top.length - 1) / this.top.length;
+      const linSpace = numeric.linspace( 0, lastPt, 20 * ( this.top.length - 1 ) );
+
       // compute points
-      var xPointsBottom = SplineEvaluation.atArray( xSplineBottom, linSpace );
-      var yPointsBottom = SplineEvaluation.atArray( ySplineBottom, linSpace );
-      var xPointsTop = SplineEvaluation.atArray( xSplineTop, linSpace );
-      var yPointsTop = SplineEvaluation.atArray( ySplineTop, linSpace );
+      const xPointsBottom = SplineEvaluation.atArray( xSplineBottom, linSpace );
+      const yPointsBottom = SplineEvaluation.atArray( ySplineBottom, linSpace );
+      const xPointsTop = SplineEvaluation.atArray( xSplineTop, linSpace );
+      const yPointsTop = SplineEvaluation.atArray( ySplineTop, linSpace );
 
       // Use spline points to build the intermediate pipe cross-sections.
       // Note: the number of cross-sections to use can be reduced (ex: alpha += 3) to get better performance
-      for ( var alpha = 0; alpha < xPointsTop.length; alpha += 3 ) {
-        var topPointX = xPointsTop[ alpha ];
-        var topPointY = yPointsTop[ alpha ];
-        var bottomPointX = xPointsBottom[ alpha ];
-        var bottomPointY = yPointsBottom[ alpha ];
+      for ( let alpha = 0; alpha < xPointsTop.length; alpha += 3 ) {
+
+        const topPointX = xPointsTop[ alpha ];
+        const bottomPointX = xPointsBottom[ alpha ];
+        let topPointY = yPointsTop[ alpha ];
+        let bottomPointY = yPointsBottom[ alpha ];
+
         //make sure pipe top doesn't go below pipe bottom
         //Note that when the velocity becomes too high, Bernoulli's equation gives a negative pressure.
         //The pressure doesn't really go negative then, it just means Bernoulli's equation is inapplicable in that situation
         //So we have to make sure the distance threshold is high enough that Bernoulli's equation never gives a negative pressure
 
-        var min = CROSS_SECTION_MIN_HEIGHT;// maintaining a minimum pipe cross section of dia 1;
+        const min = CROSS_SECTION_MIN_HEIGHT;// maintaining a minimum pipe cross section of dia 1;
         if ( topPointY - bottomPointY < min ) {
-          var center = ( topPointY + bottomPointY ) / 2;
+          const center = ( topPointY + bottomPointY ) / 2;
           topPointY = center + min / 2;
           bottomPointY = center - min / 2;
         }
@@ -214,7 +215,7 @@ define( function( require ) {
      * @returns {number} fraction
      */
     getFractionToTop: function( x, y ) {
-      var position = this.getCrossSection( x );
+      const position = this.getCrossSection( x );
       return Util.linear( position.yBottom, position.yTop, 0, 1, y );
     },
 
@@ -225,10 +226,10 @@ define( function( require ) {
      * @returns {PipeCrossSection} cross section of pipe
      */
     getCrossSection: function( x ) {
-      var previous = this.getPipePositionBefore( x );
-      var next = this.getPipePositionAfter( x );
-      var top = Util.linear( previous.x, next.x, previous.yTop, next.yTop, x );
-      var bottom = Util.linear( previous.x, next.x, previous.yBottom, next.yBottom, x );
+      const previous = this.getPipePositionBefore( x );
+      const next = this.getPipePositionAfter( x );
+      const top = Util.linear( previous.x, next.x, previous.yTop, next.yTop, x );
+      const bottom = Util.linear( previous.x, next.x, previous.yBottom, next.yBottom, x );
       return new PipeCrossSection( x, bottom, top ); //return pipe cross section
     },
 
@@ -239,11 +240,11 @@ define( function( require ) {
      * @returns {PipeCrossSection} if one exists
      */
     getPipePositionBefore: function( x ) {
-      var crossSections = this.getCrossSections();
-      var pipeCrossSection;
+      const crossSections = this.getCrossSections();
 
       // the crossSections are sorted in ascending x.
-      for ( var i = crossSections.length - 1; i >= 0; i-- ) {
+      let pipeCrossSection;
+      for ( let i = crossSections.length - 1; i >= 0; i-- ) {
         pipeCrossSection = crossSections[ i ];
         if ( pipeCrossSection.getX() < x ) {
           return pipeCrossSection;
@@ -262,11 +263,11 @@ define( function( require ) {
      * @returns {PipeCrossSection} if one exists
      */
     getPipePositionAfter: function( x ) {
-      var crossSections = this.getCrossSections();
-      var pipeCrossSection;
+      const crossSections = this.getCrossSections();
 
       // the crossSections are sorted in ascending x.
-      for ( var i = 0; i < crossSections.length; i++ ) {
+      let pipeCrossSection;
+      for ( let i = 0; i < crossSections.length; i++ ) {
         pipeCrossSection = crossSections[ i ];
         if ( pipeCrossSection.getX() > x ) {
           return pipeCrossSection;
@@ -280,11 +281,13 @@ define( function( require ) {
      * @returns {number} speed of fluid flow at given x position
      */
     getSpeed: function( x ) {
+
       //Continuity equation: a1*v1 = a2*v2
       //treat pipes as if they are cylindrical cross sections
-      var crossSectionDiameter = this.getCrossSection( x ).getHeight();
-      var crossSectionRadius = crossSectionDiameter / 2;
-      var crossSectionArea = Math.PI * crossSectionRadius * crossSectionRadius;
+      const crossSectionDiameter = this.getCrossSection( x ).getHeight();
+      const crossSectionRadius = crossSectionDiameter / 2;
+      const crossSectionArea = Math.PI * crossSectionRadius * crossSectionRadius;
+
       // use rate of fluid flow in volume (m^3) per second
       return ( this.flowRateProperty.value / 1000 ) / crossSectionArea;
     },
@@ -316,17 +319,17 @@ define( function( require ) {
      * @returns {Vector2} velocity at x,y in metric units.
      */
     getVelocity: function( x, y ) {
-      var fraction = this.getFractionToTop( x, y );
-      var speed = this.getSpeed( x );
+      const fraction = this.getFractionToTop( x, y );
+      const speed = this.getSpeed( x );
 
-      var pre = this.getCrossSection( x - 1E-7 );// pipe cross section
-      var post = this.getCrossSection( x + 1E-7 );// pipe cross section
+      const pre = this.getCrossSection( x - 1E-7 );// pipe cross section
+      const post = this.getCrossSection( x + 1E-7 );// pipe cross section
 
-      var x0 = pre.getX();
-      var y0 = Util.linear( 0, 1, pre.yBottom, pre.yTop, fraction );
-      var x1 = post.getX();
-      var y1 = Util.linear( 0, 1, post.yBottom, post.yTop, fraction );
-      var velocity = new Vector2( x1 - x0, y1 - y0 );
+      const x0 = pre.getX();
+      const y0 = Util.linear( 0, 1, pre.yBottom, pre.yTop, fraction );
+      const x1 = post.getX();
+      const y1 = Util.linear( 0, 1, post.yBottom, post.yTop, fraction );
+      const velocity = new Vector2( x1 - x0, y1 - y0 );
       return velocity.setMagnitude( speed );
     },
 
@@ -339,28 +342,28 @@ define( function( require ) {
      */
     getTweakedVx: function( x, y ) {
 
-      var fraction = this.getFractionToTop( x, y );
-      var speed = this.getSpeed( x );
+      const fraction = this.getFractionToTop( x, y );
+      const speed = this.getSpeed( x );
 
-      var pre = this.getCrossSection( x - 1E-7 );// pipe cross section
-      var post = this.getCrossSection( x + 1E-7 );// pipe cross section
+      const pre = this.getCrossSection( x - 1E-7 );// pipe cross section
+      const post = this.getCrossSection( x + 1E-7 );// pipe cross section
 
-      var x0 = pre.getX();
-      var y0 = Util.linear( 0, 1, pre.yBottom, pre.yTop, fraction );
-      var x1 = post.getX();
-      var y1 = Util.linear( 0, 1, post.yBottom, post.yTop, fraction );
+      const x0 = pre.getX();
+      const y0 = Util.linear( 0, 1, pre.yBottom, pre.yTop, fraction );
+      const x1 = post.getX();
+      const y1 = Util.linear( 0, 1, post.yBottom, post.yTop, fraction );
 
-      var deltaX = ( x1 - x0 );
-      var deltaY = ( y1 - y0 );
-      var vx = ( deltaX / Math.sqrt( deltaX * deltaX + deltaY * deltaY ) ) * speed;
+      const deltaX = ( x1 - x0 );
+      const deltaY = ( y1 - y0 );
+      const vx = ( deltaX / Math.sqrt( deltaX * deltaX + deltaY * deltaY ) ) * speed;
 
       // If friction is enabled, then scale down quadratically (like a parabola) as you get further from the center of the pipe.
       // But instead of reaching zero velocity at the edge of the pipe (which could cause particles to pile up indefinitely), extend the region
       // a small epsilon past the (0..1) pipe range
       if ( this.frictionProperty.value ) {
-        var epsilon = 0.2;
-        var fractionToTop = this.getFractionToTop( x, y );
-        var scaleFactor = this.lagrange( -epsilon, 0, 0.5, 1, 1 + epsilon, 0, fractionToTop );
+        const epsilon = 0.2;
+        const fractionToTop = this.getFractionToTop( x, y );
+        const scaleFactor = this.lagrange( -epsilon, 0, 0.5, 1, 1 + epsilon, 0, fractionToTop );
         return vx * scaleFactor;
       }
       else {
@@ -384,7 +387,7 @@ define( function( require ) {
      * @returns {number}
      */
     fractionToLocation: function( x, fraction ) {
-      var position = this.getCrossSection( x );
+      const position = this.getCrossSection( x );
       return Util.linear( 0, 1, position.yBottom, position.yTop, fraction );
     },
 
@@ -404,7 +407,7 @@ define( function( require ) {
      * @returns {number} area of cross section at x in square meters
      */
     getCrossSectionalArea: function( x ) {
-      var radius = Math.abs( this.getPoint( x, 0.5 ).y - this.getPoint( x, 1 ).y );
+      const radius = Math.abs( this.getPoint( x, 0.5 ).y - this.getPoint( x, 1 ).y );
       return Math.PI * radius * radius;
     }
 

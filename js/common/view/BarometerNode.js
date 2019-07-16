@@ -66,13 +66,13 @@ define( function( require ) {
     Node.call( this, { cursor: 'pointer' } );
 
     // Show the circular part of the gauge and the needle
-    var gaugeNode = new GaugeNode( barometer.valueProperty, pressureString,
+    const gaugeNode = new GaugeNode( barometer.valueProperty, pressureString,
       new Range( options.minPressure, options.maxPressure ), { radius: 67, scale: 0.4 } );
     this.addChild( gaugeNode );
 
-    var underGaugeRectangleWidth = 18;
-    var underGaugeRectangleHeight = 15;
-    var underGaugeRectangle = new Rectangle( gaugeNode.centerX - underGaugeRectangleWidth / 2, gaugeNode.bottom - 3,
+    const underGaugeRectangleWidth = 18;
+    const underGaugeRectangleHeight = 15;
+    const underGaugeRectangle = new Rectangle( gaugeNode.centerX - underGaugeRectangleWidth / 2, gaugeNode.bottom - 3,
       underGaugeRectangleWidth, underGaugeRectangleHeight, 1, 1, {
         fill: new LinearGradient( gaugeNode.centerX - underGaugeRectangleWidth / 2, 0,
           gaugeNode.centerX + underGaugeRectangleWidth / 2, 0 )
@@ -86,9 +86,9 @@ define( function( require ) {
     this.addChild( underGaugeRectangle );
 
     //pressure text, y position empirically determined
-    var READOUT_SIZE = new Dimension2( containerBounds.width * 0.8, 18 );
-    var text = new Text( '', { font: new PhetFont( 12 ), fontWeight: 'bold', maxWidth: READOUT_SIZE.width * 0.95 } );
-    var readoutPanel = new Panel( text, {
+    const READOUT_SIZE = new Dimension2( containerBounds.width * 0.8, 18 );
+    const text = new Text( '', { font: new PhetFont( 12 ), fontWeight: 'bold', maxWidth: READOUT_SIZE.width * 0.95 } );
+    const readoutPanel = new Panel( text, {
       minWidth: READOUT_SIZE.width,
       maxWidth: READOUT_SIZE.width,
       minHeight: READOUT_SIZE.height,
@@ -101,12 +101,12 @@ define( function( require ) {
       xMargin: 0
     } );
 
-    var bottomTriangleShapeWidth = 6;
-    var bottomTriangleShapeHeight = 12;
+    const bottomTriangleShapeWidth = 6;
+    const bottomTriangleShapeHeight = 12;
     readoutPanel.centerX = gaugeNode.centerX;
     readoutPanel.bottom = gaugeNode.bottom + 5;
 
-    var bottomTriangleShape = new Shape()
+    const bottomTriangleShape = new Shape()
       .moveTo( gaugeNode.centerX - bottomTriangleShapeWidth / 2, underGaugeRectangle.rectY + underGaugeRectangleHeight )
       .lineTo( gaugeNode.centerX, bottomTriangleShapeHeight + underGaugeRectangle.rectY + underGaugeRectangleHeight )
       .lineTo( gaugeNode.centerX + bottomTriangleShapeWidth / 2,
@@ -122,7 +122,7 @@ define( function( require ) {
     this.addChild( readoutPanel );
     this.mutate( options );
 
-    var barometerDragBounds = modelViewTransform.viewToModelBounds( new Bounds2(
+    const barometerDragBounds = modelViewTransform.viewToModelBounds( new Bounds2(
       this.width / 2,
       this.height / 2,
       dragBounds.width - this.width / 2,

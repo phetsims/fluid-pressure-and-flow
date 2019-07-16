@@ -81,24 +81,24 @@ define( function( require ) {
 
     // @public
     step: function( dt ) {
-      var acceleration;
+      let acceleration;
 
       // move the masses only when the velocity is greater than than this, see #60 for under-pressure repo
-      var epsilonVelocity = 0.05;
+      const epsilonVelocity = 0.05;
 
       if ( this.chamberPoolModel.stack.contains( this ) ) {
 
         //use newton’s laws to equalize pressure/force at interface
-        var m = this.chamberPoolModel.stackMassProperty.value;
-        var rho = this.chamberPoolModel.underPressureModel.fluidDensityProperty.value;
-        var g = this.chamberPoolModel.underPressureModel.gravityProperty.value;
+        const m = this.chamberPoolModel.stackMassProperty.value;
+        const rho = this.chamberPoolModel.underPressureModel.fluidDensityProperty.value;
+        const g = this.chamberPoolModel.underPressureModel.gravityProperty.value;
 
         //difference between water levels in left and right opening
-        var h = this.chamberPoolModel.leftDisplacementProperty.value +
+        const h = this.chamberPoolModel.leftDisplacementProperty.value +
                 this.chamberPoolModel.leftDisplacementProperty.value / this.chamberPoolModel.lengthRatio;
-        var gravityForce = -m * g;
-        var pressureForce = rho * h * g;
-        var force = gravityForce + pressureForce;
+        const gravityForce = -m * g;
+        const pressureForce = rho * h * g;
+        const force = gravityForce + pressureForce;
         acceleration = force / m;
         this.velocity = (this.velocity + acceleration * dt) * frictionCoefficient;
         if ( Math.abs( this.velocity ) > epsilonVelocity ) {
@@ -125,17 +125,17 @@ define( function( require ) {
 
     // @public -- checks if the mass intersects with the target drop area.
     isInTargetDroppedArea: function() {
-      var waterLine = this.chamberPoolModel.poolDimensions.leftOpening.y2 + this.chamberPoolModel.leftWaterHeight -
+      const waterLine = this.chamberPoolModel.poolDimensions.leftOpening.y2 + this.chamberPoolModel.leftWaterHeight -
                       this.chamberPoolModel.leftDisplacementProperty.value;
-      var bottomLine = waterLine + this.chamberPoolModel.stack.reduce( 0, function( a, b ) {return a + b.height;} );
-      var massBounds = new Bounds2(
+      const bottomLine = waterLine + this.chamberPoolModel.stack.reduce( 0, function( a, b ) {return a + b.height;} );
+      const massBounds = new Bounds2(
         this.positionProperty.value.x - this.width / 2,
         this.positionProperty.value.y - this.height / 2,
         this.positionProperty.value.x + this.width,
         this.positionProperty.value.y + this.height
       );
 
-      var dropAreaBounds = new Bounds2(
+      const dropAreaBounds = new Bounds2(
         this.chamberPoolModel.poolDimensions.leftOpening.x1,
         bottomLine,
         this.chamberPoolModel.poolDimensions.leftOpening.x2,
@@ -160,9 +160,9 @@ define( function( require ) {
 
     // @private - checks if the mass is over the left or the right opening
     isMassOverOpening: function() {
-      var left = this.positionProperty.value.x;
-      var right = this.positionProperty.value.x + this.width / 2;
-      var dimensions = this.chamberPoolModel.poolDimensions;
+      const left = this.positionProperty.value.x;
+      const right = this.positionProperty.value.x + this.width / 2;
+      const dimensions = this.chamberPoolModel.poolDimensions;
       return ( dimensions.leftOpening.x1 < left && left < dimensions.leftOpening.x2 ) ||
              ( dimensions.leftOpening.x1 < right && right < dimensions.leftOpening.x2 ) ||
              ( dimensions.rightOpening.x1 < left && left < dimensions.rightOpening.x2 ) ||

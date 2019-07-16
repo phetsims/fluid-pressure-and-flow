@@ -40,21 +40,21 @@ define( function( require ) {
       align: 'left'
     }, options );
 
-    var maxControlWidth = ( options.maxWidth * 0.9 ) || 200; // the fallback value is fairly arbitrary
+    const maxControlWidth = ( options.maxWidth * 0.9 ) || 200; // the fallback value is fairly arbitrary
 
-    var titleText = new Text( unitsString, { font: new PhetFont( 12 ), fontWeight: 'bold', maxWidth: maxControlWidth } );
+    const titleText = new Text( unitsString, { font: new PhetFont( 12 ), fontWeight: 'bold', maxWidth: maxControlWidth } );
 
-    var AQUA_RADIO_BUTTON_OPTIONS = { radius: 6, font: new PhetFont( 12 ) };
-    var createButtonTextNode = function( text ) {
+    const AQUA_RADIO_BUTTON_OPTIONS = { radius: 6, font: new PhetFont( 12 ) };
+    const createButtonTextNode = function( text ) {
       return new Text( text, { font: new PhetFont( 12 ), maxWidth: maxControlWidth * 0.8 } );
     };
 
     // Create the radio buttons
-    var metricRadio = new AquaRadioButton( measureUnitsProperty, 'metric', createButtonTextNode( metricString ),
+    const metricRadio = new AquaRadioButton( measureUnitsProperty, 'metric', createButtonTextNode( metricString ),
       AQUA_RADIO_BUTTON_OPTIONS );
-    var atmosphereRadio = new AquaRadioButton( measureUnitsProperty, 'atmosphere',
+    const atmosphereRadio = new AquaRadioButton( measureUnitsProperty, 'atmosphere',
       createButtonTextNode( atmospheresString ), AQUA_RADIO_BUTTON_OPTIONS );
-    var englishRadio = new AquaRadioButton( measureUnitsProperty, 'english', createButtonTextNode( englishString ),
+    const englishRadio = new AquaRadioButton( measureUnitsProperty, 'english', createButtonTextNode( englishString ),
       AQUA_RADIO_BUTTON_OPTIONS );
 
     //touch areas
@@ -62,7 +62,7 @@ define( function( require ) {
     atmosphereRadio.touchArea = atmosphereRadio.bounds.dilatedY( RADIO_BUTTON_TOUCH_DILATION_Y );
     englishRadio.touchArea = englishRadio.bounds.dilatedY( RADIO_BUTTON_TOUCH_DILATION_Y );
 
-    var content = new VBox( {
+    const content = new VBox( {
       spacing: 5,
       children: [ titleText, metricRadio, atmosphereRadio, englishRadio ],
       align: 'left'

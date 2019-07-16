@@ -50,13 +50,13 @@ define( function( require ) {
       insetsWidth: 0
     }, options );
 
-    var rulerWidth = options.rulerWidth;
-    var rulerHeight = Math.abs( modelViewTransform.modelToViewDeltaY( options.rulerHeight ) );
-    var meterMajorStickWidth = Math.abs( modelViewTransform.modelToViewDeltaY( options.meterMajorStickWidth ) );
-    var feetMajorStickWidth = Math.abs( modelViewTransform.modelToViewDeltaY( options.feetMajorStickWidth ) );
-    var scaleFont = new PhetFont( options.scaleFont );
+    const rulerWidth = options.rulerWidth;
+    const rulerHeight = Math.abs( modelViewTransform.modelToViewDeltaY( options.rulerHeight ) );
+    const meterMajorStickWidth = Math.abs( modelViewTransform.modelToViewDeltaY( options.meterMajorStickWidth ) );
+    const feetMajorStickWidth = Math.abs( modelViewTransform.modelToViewDeltaY( options.feetMajorStickWidth ) );
+    const scaleFont = new PhetFont( options.scaleFont );
 
-    var closeButton = new CloseButton( {
+    const closeButton = new CloseButton( {
       iconLength: 6,
       listener: function() {
         isRulerVisibleProperty.value = false;
@@ -65,7 +65,7 @@ define( function( require ) {
     this.addChild( closeButton );
 
     // ruler in meters
-    var metersRuler = new RulerNode( rulerHeight, rulerWidth, meterMajorStickWidth, options.meterTicks,
+    const metersRuler = new RulerNode( rulerHeight, rulerWidth, meterMajorStickWidth, options.meterTicks,
       mString, {
         minorTicksPerMajorTick: 4,
         unitsFont: scaleFont,
@@ -77,7 +77,7 @@ define( function( require ) {
     this.addChild( metersRuler );
 
     // ruler in feet
-    var feetRuler = new RulerNode( rulerHeight, rulerWidth, feetMajorStickWidth, options.feetTicks, ftString, {
+    const feetRuler = new RulerNode( rulerHeight, rulerWidth, feetMajorStickWidth, options.feetTicks, ftString, {
       minorTicksPerMajorTick: 4,
       unitsFont: scaleFont,
       majorTickFont: scaleFont,
@@ -100,7 +100,7 @@ define( function( require ) {
       self.moveToFront();
       closeButton.setTranslation( rulerPosition.x, rulerPosition.y - closeButton.height - rulerHeight );
     } );
-    var rulerDragBounds = dragBounds.withMaxX( dragBounds.maxX - options.rulerWidth );
+    const rulerDragBounds = dragBounds.withMaxX( dragBounds.maxX - options.rulerWidth );
 
     // ruler drag handlers
     metersRuler.addInputListener( new MovableDragHandler( rulerPositionProperty, { dragBounds: rulerDragBounds } ) );

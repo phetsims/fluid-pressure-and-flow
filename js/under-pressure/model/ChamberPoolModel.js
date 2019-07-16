@@ -126,7 +126,8 @@ define( function( require ) {
     this.stack.addItemAddedListener( function( massModel ) {
       self.stackMassProperty.value = self.stackMassProperty.value + massModel.mass;
 
-      var maxVelocity = 0;
+      let maxVelocity = 0;
+
       //must equalize velocity of each mass
       self.stack.forEach( function( mass ) {
         maxVelocity = Math.max( mass.velocity, maxVelocity );
@@ -170,15 +171,15 @@ define( function( require ) {
      */
     step: function( dt ) {
       var self = this;
-      var nominalDt = 1 / 60;
+      const nominalDt = 1 / 60;
 
       dt = Math.min( dt, nominalDt * 3 ); // Handling large dt so that masses doesn't float upward, empirically determined
 
       // Update each of the masses
-      var steps = 15; // these steps are oly used for masses inside the pool to make sure they reach equilibrium state on iPad
+      const steps = 15; // these steps are oly used for masses inside the pool to make sure they reach equilibrium state on iPad
       this.masses.forEach( function( mass ) {
         if ( self.stack.contains( mass ) ) {
-          for ( var i = 0; i < steps; i++ ) {
+          for ( let i = 0; i < steps; i++ ) {
             mass.step( dt / steps );
           }
         }
@@ -189,7 +190,7 @@ define( function( require ) {
 
       // If there are any masses stacked, update the water height
       if ( this.stackMassProperty.value ) {
-        var minY = 0; // some max value
+        let minY = 0; // some max value
         this.stack.forEach( function( massModel ) {
           minY = Math.min( massModel.positionProperty.value.y - massModel.height / 2, minY );
         } );
@@ -232,9 +233,9 @@ define( function( require ) {
      * @returns {boolean}
      */
     isPointInsidePool: function( x, y ) {
-      var keys = _.keys( this.poolDimensions );
-      for ( var i = 0; i < keys.length; i++ ) {
-        var dimension = this.poolDimensions[ keys[ i ] ];
+      const keys = _.keys( this.poolDimensions );
+      for ( let i = 0; i < keys.length; i++ ) {
+        const dimension = this.poolDimensions[ keys[ i ] ];
         if ( x > dimension.x1 && x < dimension.x2 && y < dimension.y1 && y > dimension.y2 ) {
           return true;
         }

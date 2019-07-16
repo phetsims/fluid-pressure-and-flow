@@ -36,8 +36,8 @@ define( function( require ) {
 
     this.fluidColor = [ new Color( 113, 35, 136 ), new Color( 179, 115, 176 ), new Color( 60, 29, 71 ) ]; // @public
 
-    var oldGravity;
-    var oldFluidDensity;
+    let oldGravity;
+    let oldFluidDensity;
     this.underPressureModel.currentSceneProperty.link( function( scene, oldScene ) {
       if ( scene === 'mystery' ) {
         oldGravity = self.underPressureModel.gravityProperty.value;

@@ -64,26 +64,26 @@ define( function( require ) {
 
     this.flowModel = flowModel;
     this.modelViewTransform = modelViewTransform;
-    var textOptions = { font: new PhetFont( 10 ) };
+    const textOptions = { font: new PhetFont( 10 ) };
 
     // flowRate row
-    var flowRateText = new Text( flowRateWithColonString, textOptions );
+    const flowRateText = new Text( flowRateWithColonString, textOptions );
     this.flowRateValue = new Text( '', textOptions );
     this.flowRateUnit = new RichText( rateUnitsMetricString, textOptions );
 
     // area row
-    var area = new Text( areaString, textOptions );
+    const area = new Text( areaString, textOptions );
     this.areaValue = new Text( '', textOptions );
     this.areaUnit = new RichText( areaUnitsMetricString, textOptions );
 
     // flux row
-    var flux = new Text( fluxString, textOptions );
+    const flux = new Text( fluxString, textOptions );
     this.fluxValue = new Text( '', textOptions );
     this.fluxUnit = new RichText( fluxUnitsMetricString, textOptions );
 
     // Split the content into 3 vboxes. First vbox holds the right aligned title,
     // second the right aligned value and the third vbox holds the left aligned units text
-    var content = new HBox( {
+    const content = new HBox( {
       spacing: 5,
       children: [
         new VBox( {
@@ -118,12 +118,12 @@ define( function( require ) {
       lineWidth: 2
     } );
 
-    var yTop = modelViewTransform.modelToViewY( flowModel.pipe.fractionToLocation( flowModel.fluxMeter.xPositionProperty.value, 1 ) );
-    var yBottom = modelViewTransform.modelToViewY( flowModel.pipe.fractionToLocation( flowModel.fluxMeter.xPositionProperty.value,
+    const yTop = modelViewTransform.modelToViewY( flowModel.pipe.fractionToLocation( flowModel.fluxMeter.xPositionProperty.value, 1 ) );
+    const yBottom = modelViewTransform.modelToViewY( flowModel.pipe.fractionToLocation( flowModel.fluxMeter.xPositionProperty.value,
       0 ) );
-    var centerY = ( yTop + yBottom ) / 2;
-    var radiusY = ( yBottom - yTop ) / 2;
-    var initialCenterX = 60; // initial center x of ellipse
+    const centerY = ( yTop + yBottom ) / 2;
+    const radiusY = ( yBottom - yTop ) / 2;
+    const initialCenterX = 60; // initial center x of ellipse
     this.radiusX = 6; // x radius for the ellipse is  always constant
 
     // split the ring into two ellipses
@@ -144,7 +144,7 @@ define( function( require ) {
     this.addChild( this.ellipse );
 
     // the line connecting the ring and the display panel
-    var upperLineShape = new Shape().moveTo( this.ellipse2.centerX - 3, this.ellipse2.centerY - 20 ).lineTo( this.ellipse2.right, this.ellipse2.top );
+    const upperLineShape = new Shape().moveTo( this.ellipse2.centerX - 3, this.ellipse2.centerY - 20 ).lineTo( this.ellipse2.right, this.ellipse2.top );
 
     this.upperLine = new Path( upperLineShape,
       {
@@ -159,7 +159,7 @@ define( function( require ) {
     this.displayPanel.left = self.upperLine.left - 50;
 
     // the line connecting the ring and the bottom handle
-    var lowerLineShape = new Shape().moveTo( this.ellipse2.centerX - 3, this.ellipse2.centerY + 20 ).lineTo( this.ellipse2.centerX - 3, this.ellipse2.centerY + 60 );
+    const lowerLineShape = new Shape().moveTo( this.ellipse2.centerX - 3, this.ellipse2.centerY + 20 ).lineTo( this.ellipse2.centerX - 3, this.ellipse2.centerY + 60 );
 
     this.lowerLine = new Path( lowerLineShape,
       {
@@ -192,7 +192,7 @@ define( function( require ) {
     this.handle.addInputListener( new SimpleDragHandler( {
       drag: function( e ) {
         self.moveToFront();
-        var x = self.globalToParentPoint( e.pointer.point ).x;
+        let x = self.globalToParentPoint( e.pointer.point ).x;
         x = x < 46 ? 46 : x > 698 ? 698 : x; // min, max view values (emperically determined)
         flowModel.fluxMeter.xPositionProperty.value = modelViewTransform.viewToModelX( x );
       }
@@ -215,17 +215,17 @@ define( function( require ) {
      */
     updateFluxMeter: function() {
 
-      var yTop = this.modelViewTransform.modelToViewY( this.flowModel.pipe.fractionToLocation(
+      const yTop = this.modelViewTransform.modelToViewY( this.flowModel.pipe.fractionToLocation(
         this.flowModel.fluxMeter.xPositionProperty.value, 1 ) );
-      var yBottom = this.modelViewTransform.modelToViewY( this.flowModel.pipe.fractionToLocation(
+      const yBottom = this.modelViewTransform.modelToViewY( this.flowModel.pipe.fractionToLocation(
         this.flowModel.fluxMeter.xPositionProperty.value, 0 ) );
-      var centerX = this.modelViewTransform.modelToViewX( this.flowModel.fluxMeter.xPositionProperty.value );
-      var centerY = ( yTop + yBottom ) / 2;
-      var radiusY = ( yBottom - yTop ) / 2;
+      const centerX = this.modelViewTransform.modelToViewX( this.flowModel.fluxMeter.xPositionProperty.value );
+      const centerY = ( yTop + yBottom ) / 2;
+      const radiusY = ( yBottom - yTop ) / 2;
 
-      var newEllipse1 = new Shape().ellipticalArc( centerX, centerY, radiusY, this.radiusX, Math.PI / 2, 0, Math.PI,
+      const newEllipse1 = new Shape().ellipticalArc( centerX, centerY, radiusY, this.radiusX, Math.PI / 2, 0, Math.PI,
         false );
-      var newEllipse2 = new Shape().ellipticalArc( centerX, centerY, radiusY, this.radiusX, Math.PI / 2, Math.PI, 0,
+      const newEllipse2 = new Shape().ellipticalArc( centerX, centerY, radiusY, this.radiusX, Math.PI / 2, Math.PI, 0,
         false );
 
       this.ellipse.setShape( newEllipse1 );
@@ -262,15 +262,15 @@ define( function( require ) {
         this.fluxUnit.text = fluxUnitsMetricString;
       }
       else { // use english for either english or atmospheres
-        var flowRate = this.flowModel.fluxMeter.getFlowRate() * Units.FEET_CUBE_PER_LITER;
+        const flowRate = this.flowModel.fluxMeter.getFlowRate() * Units.FEET_CUBE_PER_LITER;
         this.flowRateValue.text = flowRate.toFixed( 1 );
         this.flowRateUnit.text = rateUnitsEnglishString;
 
-        var area = this.flowModel.fluxMeter.getArea() * Units.SQUARE_FEET_PER_SQUARE_METER;
+        const area = this.flowModel.fluxMeter.getArea() * Units.SQUARE_FEET_PER_SQUARE_METER;
         this.areaValue.text = area.toFixed( 1 );
         this.areaUnit.text = areaUnitsEnglishString;
 
-        var flux = this.flowModel.fluxMeter.getFlux() * Units.FEET_PER_CENTIMETER;
+        const flux = this.flowModel.fluxMeter.getFlux() * Units.FEET_PER_CENTIMETER;
         this.fluxValue.text = flux.toFixed( 1 );
         this.fluxUnit.text = fluxUnitsEnglishString;
       }

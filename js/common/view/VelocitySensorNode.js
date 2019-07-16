@@ -58,11 +58,11 @@ define( function( require ) {
     this.options = options; // @private
     this.velocitySensor = velocitySensor; // @private
 
-    var rectangleWidth = 100;
-    var rectangleHeight = 56;
+    const rectangleWidth = 100;
+    const rectangleHeight = 56;
 
     // adding outer rectangle
-    var outerRectangle = new Rectangle( 0, 0, rectangleWidth, rectangleHeight, 10, 10, {
+    const outerRectangle = new Rectangle( 0, 0, rectangleWidth, rectangleHeight, 10, 10, {
       stroke: new LinearGradient( 0, 0, 0, rectangleHeight ).addColorStop( 0, '#FFAD73' ).addColorStop( 0.6,
         '#893D11' ),
       fill: new LinearGradient( 0, 0, 0, rectangleHeight ).addColorStop( 0, '#FFAD73' ).addColorStop( 0.6, '#893D11' )
@@ -70,11 +70,11 @@ define( function( require ) {
     this.addChild( outerRectangle );
 
     // second rectangle
-    var innerRectangle = new Rectangle( 2, 2, rectangleWidth - 4, rectangleHeight - 4, 10, 10, { fill: '#C5631E' } );
+    const innerRectangle = new Rectangle( 2, 2, rectangleWidth - 4, rectangleHeight - 4, 10, 10, { fill: '#C5631E' } );
     this.addChild( innerRectangle );
 
     // adding velocity meter title text
-    var titleText = new Text( speedString,
+    const titleText = new Text( speedString,
       {
         fill: 'black',
         font: new PhetFont( { size: 16, weight: 'normal' } ),
@@ -84,7 +84,7 @@ define( function( require ) {
     this.addChild( titleText );
 
     // adding inner rectangle
-    var innerMostRectangle = new Rectangle( 10, 0, rectangleWidth - 30, rectangleHeight - 38, 5, 5,
+    const innerMostRectangle = new Rectangle( 10, 0, rectangleWidth - 30, rectangleHeight - 38, 5, 5,
       {
         stroke: 'white',
         lineWidth: 1,
@@ -95,15 +95,15 @@ define( function( require ) {
     this.addChild( innerMostRectangle );
 
     // adding velocity measure label
-    var labelText = new Text( '',
+    const labelText = new Text( '',
       { fill: 'black', font: new PhetFont( { size: 12, weight: 'bold' } ), center: innerMostRectangle.center } );
     this.addChild( labelText );
 
-    var triangleWidth = 30;
-    var triangleHeight = 16;
+    const triangleWidth = 30;
+    const triangleHeight = 16;
 
     // adding bottom triangle shape
-    var outerTriangleShapeNode = new Path( new Shape()
+    const outerTriangleShapeNode = new Path( new Shape()
       .moveTo( innerRectangle.centerX - triangleWidth / 2, innerMostRectangle.rectY + 1 )
       .lineTo( innerRectangle.centerX, triangleHeight + innerMostRectangle.rectY + 1 )
       .lineTo( innerRectangle.centerX + triangleWidth / 2, innerMostRectangle.rectY + 1 ), {
@@ -113,7 +113,7 @@ define( function( require ) {
     } );
     this.addChild( outerTriangleShapeNode );
 
-    var innerTriangleShapeNode = new Path( new Shape()
+    const innerTriangleShapeNode = new Path( new Shape()
       .moveTo( innerRectangle.centerX + 8 - ( ( triangleWidth ) / 2 ), innerMostRectangle.rectY + 1 )
       .lineTo( innerRectangle.centerX + 5, ( triangleHeight ) + innerMostRectangle.rectY - 4 )
       .lineTo( innerRectangle.centerX + ( triangleWidth ) / 2, innerMostRectangle.rectY + 1 ), {
@@ -122,7 +122,7 @@ define( function( require ) {
     this.addChild( innerTriangleShapeNode );
 
     // arrow shape
-    var arrowWidth = 6;
+    const arrowWidth = 6;
     this.arrowShape = new Path( new ArrowShape( 0, 0, modelViewTransform.modelToViewDeltaX( velocitySensor.valueProperty.value.x ),
       modelViewTransform.modelToViewDeltaY( velocitySensor.valueProperty.value.y ) ), { fill: 'blue' } );
     this.addChild( this.arrowShape );
@@ -162,7 +162,7 @@ define( function( require ) {
     }.bind( self ) );
 
     velocitySensor.isArrowVisibleProperty.linkAttribute( this.arrowShape, 'visible' );
-    var speedMeterDragBounds = dragBounds.withMaxX( dragBounds.maxX - rectangleWidth * options.scale );
+    const speedMeterDragBounds = dragBounds.withMaxX( dragBounds.maxX - rectangleWidth * options.scale );
 
     // @public - drag handler
     this.dragListener = new MovableDragHandler( velocitySensor.positionProperty,

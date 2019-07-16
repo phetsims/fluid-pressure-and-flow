@@ -43,17 +43,17 @@ define( function( require ) {
 
       //Math is done component-wise to avoid too many allocations, see https://github.com/phetsims/fluid-pressure-and-flow/issues/46
       // v_f = v_i + a * dt
-      var accelerationY = -Constants.EARTH_GRAVITY;
+      const accelerationY = -Constants.EARTH_GRAVITY;
 
-      var initialVelocityX = this.velocityProperty.value.x;
-      var initialVelocityY = this.velocityProperty.value.y;
+      const initialVelocityX = this.velocityProperty.value.x;
+      const initialVelocityY = this.velocityProperty.value.y;
 
       this.velocityProperty.value.setY( this.velocityProperty.value.y + accelerationY * dt );
       this.velocityProperty._notifyListeners();
 
       // d = (v_f + v_i) * dt/2; assuming constant acceleration
-      var displacementX = (this.velocityProperty.value.x + initialVelocityX) * dt / 2;
-      var displacementY = (this.velocityProperty.value.y + initialVelocityY) * dt / 2;
+      const displacementX = (this.velocityProperty.value.x + initialVelocityX) * dt / 2;
+      const displacementY = (this.velocityProperty.value.y + initialVelocityY) * dt / 2;
 
       this.positionProperty.value.setXY( this.positionProperty.value.x + displacementX, this.positionProperty.value.y + displacementY );
       this.positionProperty._notifyListeners();

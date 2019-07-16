@@ -41,17 +41,17 @@ define( function( require ) {
                               poolHeight, labelXPosition, slantMultiplier ) {
 
     Node.call( this );
-    var fontOptions = { font: new PhetFont( 12 ), maxWidth: 20 };
+    const fontOptions = { font: new PhetFont( 12 ), maxWidth: 20 };
 
     // add grid line
     this.addChild( new GridLinesNode( underPressureModel.measureUnitsProperty, modelViewTransform, poolLeftX, poolTopY,
       poolRightX, poolBottomY ) );
 
     // Add the labels for meters
-    var depthLabelsMeters = new Node();
-    for ( var depthMeters = 0; depthMeters <= poolHeight; depthMeters++ ) {
-      var metersText = new Text( StringUtils.format( valueWithUnitsPatternString, depthMeters, mString ), fontOptions );
-      var metersLabelRect = new Rectangle( 0, 0, metersText.width + 5, metersText.height + 5, 10, 10,
+    const depthLabelsMeters = new Node();
+    for ( let depthMeters = 0; depthMeters <= poolHeight; depthMeters++ ) {
+      const metersText = new Text( StringUtils.format( valueWithUnitsPatternString, depthMeters, mString ), fontOptions );
+      const metersLabelRect = new Rectangle( 0, 0, metersText.width + 5, metersText.height + 5, 10, 10,
         { fill: '#67a257' } );
       metersText.center = metersLabelRect.center;
       metersLabelRect.addChild( metersText );
@@ -61,10 +61,10 @@ define( function( require ) {
     }
 
     // Add the labels for feet, adjust for loop to limit number of labels.
-    var depthLabelsFeet = new Node();
-    for ( var depthFeet = 0; depthFeet <= poolHeight * 3.3 + 1; depthFeet += 5 ) {
-      var feetText = new Text( StringUtils.format( valueWithUnitsPatternString, depthFeet, ftString ), fontOptions );
-      var feetLabelRect = new Rectangle( 0, 0, feetText.width + 5, feetText.height + 5, 10, 10, { fill: '#67a257' } );
+    const depthLabelsFeet = new Node();
+    for ( let depthFeet = 0; depthFeet <= poolHeight * 3.3 + 1; depthFeet += 5 ) {
+      const feetText = new Text( StringUtils.format( valueWithUnitsPatternString, depthFeet, ftString ), fontOptions );
+      const feetLabelRect = new Rectangle( 0, 0, feetText.width + 5, feetText.height + 5, 10, 10, { fill: '#67a257' } );
       feetText.center = feetLabelRect.center;
       feetLabelRect.addChild( feetText );
       feetLabelRect.centerX = labelXPosition +
