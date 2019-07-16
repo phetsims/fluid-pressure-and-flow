@@ -61,10 +61,11 @@ define( require => {
       }
     );
 
-    const boundsToTouchAreaForLeftAndRightHandles = function( localBounds ) {
+    //TODO this should be private, outside of constructor
+    function boundsToTouchAreaForLeftAndRightHandles( localBounds ) {
       return new Bounds2( localBounds.minX - HANDLE_X_TOUCH_EXPAND, localBounds.minY + 25,
         localBounds.maxX + HANDLE_X_TOUCH_EXPAND, localBounds.maxY + 60 );
-    };
+    }
 
     // touch area for the left pipe drag handle
     this.leftPipeMainHandleNode.touchArea = boundsToTouchAreaForLeftAndRightHandles( this.leftPipeMainHandleNode.localBounds );
@@ -106,13 +107,13 @@ define( require => {
     flowModel.pipe.leftPipeMainHandleYPositionProperty.linkAttribute( this.leftPipeMainHandleNode, 'y' );
     flowModel.pipe.rightPipeMainHandleYPositionProperty.linkAttribute( this.rightPipeMainHandleNode, 'y' );
     Property.multilink( [ pipe.leftPipeTopHandleYProperty, pipe.leftPipeBottomHandleYProperty ],
-      function( leftTop, leftBottom ) {
+      ( leftTop, leftBottom ) => {
         topControlHandleNodes[ 0 ].bottom = leftTop;
         bottomControlHandleNodes[ 0 ].top = leftBottom;
       } );
 
     Property.multilink( [ pipe.rightPipeTopHandleYProperty, pipe.rightPipeBottomHandleYProperty ],
-      function( rightTop, rightBottom ) {
+      ( rightTop, rightBottom ) => {
         topControlHandleNodes[ topControlHandleNodes.length - 1 ].bottom = rightTop;
         bottomControlHandleNodes[ bottomControlHandleNodes.length - 1 ].top = rightBottom;
       } );

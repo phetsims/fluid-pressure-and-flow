@@ -136,13 +136,14 @@ define( require => {
         this.rulerPositionProperty.reset();
         this.speedProperty.reset();
 
-        _.each( this.barometers, function( barometer ) {
+        _.each( this.barometers, barometer => {
           barometer.reset();
         } );
 
-        _.each( this.speedometers, function( speedometer ) {
+        _.each( this.speedometers, speedometer => {
           speedometer.reset();
         } );
+
         this.pipe.reset();
         this.flowParticles.clear();
         this.gridParticles.clear();

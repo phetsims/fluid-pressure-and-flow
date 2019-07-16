@@ -58,14 +58,15 @@ define( require => {
     const hose = { label: new Text( hoseString, textOptions ), icon: createHoseIcon() };
 
     // compute the maximum item width
-    const widestItemSpec = _.maxBy( [ ruler, measuringTape, hose ], function( item ) { return item.label.width + item.icon.width; } );
+    const widestItemSpec = _.maxBy( [ ruler, measuringTape, hose ],
+        item => { return item.label.width + item.icon.width; } );
     const maxWidth = widestItemSpec.label.width + widestItemSpec.icon.width;
 
     // pad inserts a spacing node (HStrut) so that the text, space and image together occupy a certain fixed width.
-    const createItem = function( itemSpec ) {
+    function createItem( itemSpec ) {
       const strutWidth = maxWidth - itemSpec.label.width - itemSpec.icon.width + 5;
       return new HBox( { children: [ itemSpec.label, new HStrut( strutWidth ), itemSpec.icon ] } );
-    };
+    }
 
     const checkboxOptions = {
       boxWidth: 18,
@@ -83,18 +84,18 @@ define( require => {
     Panel.call( this, checkboxes, options );
   }
 
-  //Create an icon for the ruler checkbox
-  const createRulerIcon = function() {
+  // Create an icon for the ruler checkbox
+  function createRulerIcon() {
     return new RulerNode( 30, 20, 15, [ '0', '1', '2' ], '', {
       insetsWidth: 7,
       minorTicksPerMajorTick: 4,
       majorTickFont: new PhetFont( 12 ),
       clipArea: Shape.rect( -1, -1, 44, 22 )
     } );
-  };
+  }
 
-  //create an icon for the hose
-  const createHoseIcon = function() {
+  // Create an icon for the hose
+  function createHoseIcon() {
     const icon = new Path( new Shape().moveTo( 0, 0 ).arc( -16, 8, 8, -Math.PI / 2, Math.PI / 2, true ).lineTo( 10, 16 ).lineTo( 10, 0 ).lineTo( 0, 0 ), {
       stroke: 'grey',
       lineWidth: 1,
@@ -108,10 +109,10 @@ define( require => {
       bottom: icon.bottom + 3
     } ) );
     return icon;
-  };
+  }
 
-  //create an icon for the measuring tape
-  const createMeasuringTapeIcon = function() {
+  // Create an icon for the measuring tape
+  function createMeasuringTapeIcon() {
     const icon = new Image( measuringTapeImg, { cursor: 'pointer', scale: 0.6 } );
     const size = 5;
     icon.addChild( new Path( new Shape().moveTo( -size, 0 ).lineTo( size, 0 ).moveTo( 0, -size ).lineTo( 0, size ), {
@@ -121,7 +122,7 @@ define( require => {
       top: icon.bottom + 12
     } ) );
     return icon;
-  };
+  }
 
   fluidPressureAndFlow.register( 'ToolsControlPanel', ToolsControlPanel );
 

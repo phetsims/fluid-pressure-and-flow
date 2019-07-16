@@ -134,7 +134,7 @@ define( require => {
     this.fillButton = new TextPushButton( fillString, {
       font: fillButtonFont,
       baseColor: 'yellow',
-      listener: function() {
+      listener: () => {
         waterTower.fill();
       },
       xMargin: xMargin,

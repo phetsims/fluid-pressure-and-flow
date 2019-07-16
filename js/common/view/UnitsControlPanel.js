@@ -45,7 +45,7 @@ define( require => {
     const titleText = new Text( unitsString, { font: new PhetFont( 12 ), fontWeight: 'bold', maxWidth: maxControlWidth } );
 
     const AQUA_RADIO_BUTTON_OPTIONS = { radius: 6, font: new PhetFont( 12 ) };
-    const createButtonTextNode = function( text ) {
+    const createButtonTextNode = text => {
       return new Text( text, { font: new PhetFont( 12 ), maxWidth: maxControlWidth * 0.8 } );
     };
 

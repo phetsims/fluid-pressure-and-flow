@@ -79,7 +79,7 @@ define( require => {
     const controlHandleNode = new Node( { children: [ handleNode ] } );
     this.addChild( controlHandleNode );
 
-    controlPoint.positionProperty.link( function( position ) {
+    controlPoint.positionProperty.link( position => {
       controlHandleNode.setTranslation( modelViewTransform.modelToViewX( position.x ),
         modelViewTransform.modelToViewY( position.y ) );
     } );
@@ -89,12 +89,12 @@ define( require => {
 
     controlHandleNode.addInputListener( new SimpleDragHandler(
       {
-        start: function( event ) {
+        start: event => {
           dragStartY = controlHandleNode.globalToParentPoint( event.pointer.point ).y;
           controlPointDragStartY = controlPoint.positionProperty.value.y;
         },
 
-        drag: function( event ) {
+        drag: event => {
           const offSetY = controlHandleNode.globalToParentPoint( event.pointer.point ).y - dragStartY;
 
           // x position is constant for a control point
@@ -180,12 +180,12 @@ define( require => {
             flowModel.fluxMeter.updateEmitter.emit();
           }
 
-          flowModel.speedometers.forEach( function( speedometer ) {
+          flowModel.speedometers.forEach( speedometer => {
             speedometer.updateEmitter.emit();
           } );
 
           // update the barometers
-          flowModel.barometers.forEach( function( barometer ) {
+          flowModel.barometers.forEach( barometer => {
             barometer.updateEmitter.emit();
           } );
         }

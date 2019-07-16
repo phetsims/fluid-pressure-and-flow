@@ -56,13 +56,13 @@ define( require => {
     const dotsSpec = { label: new Text( dotsString, textOptions ), icon: createDotsIcon() };
 
     // compute the maximum item width
-    const widestItemSpec = _.maxBy( [ rulerSpec, frictionSpec, fluxMeterSpec, dotsSpec ], function( item ) {
+    const widestItemSpec = _.maxBy( [ rulerSpec, frictionSpec, fluxMeterSpec, dotsSpec ], item => {
       return item.label.width + ((item.icon) ? item.icon.width : 0);
     } );
     const maxWidth = widestItemSpec.label.width + ((widestItemSpec.icon) ? widestItemSpec.icon.width : 0);
 
     // pad inserts a spacing node (HStrut) so that the text, space and image together occupy a certain fixed width.
-    const createItem = function( itemSpec ) {
+    function createItem( itemSpec ) {
       if ( itemSpec.icon ) {
         const strutWidth = maxWidth - itemSpec.label.width - itemSpec.icon.width + 17;
         return new HBox( { children: [ itemSpec.label, new HStrut( strutWidth ), itemSpec.icon ] } );
@@ -70,7 +70,7 @@ define( require => {
       else {
         return new HBox( { children: [ itemSpec.label ] } );
       }
-    };
+    }
 
     const checkboxOptions = {
       boxWidth: 15,
@@ -84,9 +84,8 @@ define( require => {
     const dotsCheckbox = new Checkbox( createItem( dotsSpec ), flowModel.isDotsVisibleProperty, checkboxOptions );
 
     const maxCheckboxWidth = _.maxBy( [ rulerCheckbox, frictionCheckbox, fluxMeterCheckbox, dotsCheckbox ],
-        function( item ) {
-          return item.width;
-        } ).width + 5;
+      item => { return item.width; }
+    ).width + 5;
 
     //touch Areas
     rulerCheckbox.touchArea = new Bounds2( rulerCheckbox.localBounds.minX - 5, rulerCheckbox.localBounds.minY,
@@ -109,8 +108,8 @@ define( require => {
     Panel.call( this, checkboxes, options );
   }
 
-  //Create an icon for the ruler checkbox
-  const createRulerIcon = function() {
+  // Create an icon for the ruler checkbox
+  function createRulerIcon() {
     return new RulerNode( 13, 10, 12, [ '0', '1' ], '', {
       insetsWidth: 5,
       minorTicksPerMajorTick: 4,
@@ -118,14 +117,14 @@ define( require => {
       clipArea: Shape.rect( -1, -1, 44, 22 ),
       backgroundLineWidth: 0.5
     } );
-  };
+  }
 
-  //Create an icon for the dots checkbox
-  const createDotsIcon = function() {
+  // Create an icon for the dots checkbox
+  function createDotsIcon() {
     const dot1 = new Circle( 3, { fill: 'red' } );
     const dot2 = new Circle( 3, { fill: 'red', left: dot1.right + 4 } );
     return new Node( { children: [ dot1, dot2 ] } );
-  };
+  }
 
   fluidPressureAndFlow.register( 'FlowToolsControlPanel', FlowToolsControlPanel );
 

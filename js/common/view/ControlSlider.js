@@ -66,7 +66,7 @@ define( require => {
       } );
       const labelFont = new PhetFont( 9.5 );
 
-      options.ticks.forEach( function( tick ) {
+      options.ticks.forEach( tick => {
         aSlider.addMajorTick( tick.value, new Text( tick.title, {
           font: labelFont,
           visible: options.ticksVisible,
@@ -80,7 +80,7 @@ define( require => {
     const hSlider = getSlider( trackSize );
     this.content = new Node();
 
-    const plusButton = new ArrowButton( 'right', function propertyPlus() {
+    const plusButton = new ArrowButton( 'right', () => {
       trackProperty.set( Util.toFixedNumber( Math.min( trackProperty.get() + 1 / Math.pow( 10, options.decimals ),
         trackRange.max ), options.decimals ) );
     }, {
@@ -90,7 +90,7 @@ define( require => {
     plusButton.touchArea = new Bounds2( plusButton.localBounds.minX - 20, plusButton.localBounds.minY - 5,
       plusButton.localBounds.maxX + 20, plusButton.localBounds.maxY + 20 );
 
-    const minusButton = new ArrowButton( 'left', function propertyMinus() {
+    const minusButton = new ArrowButton( 'left', () => {
       trackProperty.set( Util.toFixedNumber( Math.max( trackProperty.get() - 1 / Math.pow( 10, options.decimals ),
         trackRange.min ), options.decimals ) );
     }, {
@@ -158,14 +158,14 @@ define( require => {
     this.questionMark.top = this.content.top;
     this.accordionContent.addChild( this.questionMark );
 
-    trackProperty.link( function( value ) {
+    trackProperty.link( value => {
       valueLabel.text = getPropertyStringFunction();
       valueLabel.center = valueField.center; // keep the value centered in the field
       plusButton.enabled = ( value < trackRange.max );
       minusButton.enabled = ( value > trackRange.min );
     } );
 
-    measureUnitsProperty.link( function() {
+    measureUnitsProperty.link( () => {
       valueLabel.text = getPropertyStringFunction();
       valueLabel.center = valueField.center; // keep the value centered in the field
     } );

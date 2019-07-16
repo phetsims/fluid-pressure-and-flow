@@ -90,7 +90,7 @@ define( require => {
     // Skip bounds computation to improve performance, see energy-skate-park-basics#245
     // Qualitative tests did not show a significant improvement
     const emptyBounds = new Bounds2( 0, 0, 0, 0 );
-    this.pipeFluidNode.computeShapeBounds = function() {
+    this.pipeFluidNode.computeShapeBounds = () => {
       return emptyBounds;
     };
 

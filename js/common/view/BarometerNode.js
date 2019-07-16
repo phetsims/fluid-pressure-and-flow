@@ -187,8 +187,8 @@ define( require => {
     // If the barometer reading is 0 and it is touching the sensor panel, then only the position changes.
     // In order to trigger the text display change, need to listen to position property here as well.
     Property.multilink( [ barometer.valueProperty, measureUnitsProperty, barometer.positionProperty ],
-      function( barometerValue, units ) {
-        if ( barometer.positionProperty.value === barometer.positionProperty.initialValue || barometerValue === null ) {
+      ( barometerValue, units, position ) => {
+        if ( position === barometer.positionProperty.initialValue || barometerValue === null ) {
           text.text = MathSymbols.NO_VALUE; // showing no value when barometer is in the sensor panel
           text.centerX = READOUT_SIZE.width / 2;
         }

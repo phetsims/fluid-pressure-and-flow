@@ -38,7 +38,7 @@ define( require => {
     //close button
     const closeButton = new CloseButton( {
       iconLength: 6,
-      listener: function() {
+      listener: () => {
         underPressureModel.isRulerVisibleProperty.value = false;
       }
     } );
@@ -82,9 +82,9 @@ define( require => {
     underPressureModel.isRulerVisibleProperty.linkAttribute( this, 'visible' );
 
     // show feetRuler for 'english' and metersRuler for 'metric' and 'atmosphere'
-    underPressureModel.measureUnitsProperty.link( function( measureUnits ) {
-      feetRuler.visible = (measureUnits === 'english');
-      metersRuler.visible = (measureUnits !== 'english');
+    underPressureModel.measureUnitsProperty.link( measureUnits => {
+      feetRuler.visible = ( measureUnits === 'english' );
+      metersRuler.visible = ( measureUnits !== 'english' );
     } );
 
     underPressureModel.rulerPositionProperty.linkAttribute( metersRuler, 'translation' );

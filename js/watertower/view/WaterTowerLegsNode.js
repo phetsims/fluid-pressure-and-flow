@@ -48,11 +48,11 @@ define( require => {
     this.crossbeam4Path = new Line( 0, 0, 0, 0, crossbeamPaintOptions );
     this.children = [ this.leftLegPath, this.rightLegPath, this.crossbeam1Path, this.crossbeam2Path, this.crossbeam3Path, this.crossbeam4Path ];
 
-    tankPositionProperty.link( function( tankPosition ) {
+    tankPositionProperty.link( tankPosition => {
       // update the legs
       this.waterTowerHeight = -modelViewTransform.modelToViewDeltaY( tankPosition.y );
       this.updateShape();
-    }.bind( this ) );
+    } );
 
     this.mutate( this.options );
   }

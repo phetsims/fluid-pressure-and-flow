@@ -48,7 +48,7 @@ define( require => {
     this.addChild( skyNode );
     this.addChild( skyNodeWithNoAtmosphere );
 
-    underPressureModel.isAtmosphereProperty.link( function( isAtmosphere ) {
+    underPressureModel.isAtmosphereProperty.link( isAtmosphere => {
       skyNode.visible = isAtmosphere;
       skyNodeWithNoAtmosphere.visible = !isAtmosphere;
     } );

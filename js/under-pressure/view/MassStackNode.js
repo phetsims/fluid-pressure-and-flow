@@ -94,7 +94,7 @@ define( require => {
     updateMassStack: function() {
       let totHeight = 0;
 
-      this.chamberPoolModel.stack.forEach( function( massModel ) {
+      this.chamberPoolModel.stack.forEach( massModel => {
         if ( massModel ) {
           totHeight += massModel.height;
         }

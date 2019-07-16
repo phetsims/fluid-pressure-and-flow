@@ -126,7 +126,7 @@ define( require => {
       modelViewTransform.modelToViewDeltaY( velocitySensor.valueProperty.value.y ) ), { fill: 'blue' } );
     this.addChild( this.arrowShape );
 
-    velocitySensor.valueProperty.link( function( velocity ) {
+    velocitySensor.valueProperty.link( velocity => {
       this.arrowShape.setShape( new ArrowShape( 0, 0, modelViewTransform.modelToViewDeltaX( velocitySensor.valueProperty.value.x ),
         modelViewTransform.modelToViewDeltaY( velocitySensor.valueProperty.value.y ),
         { tailWidth: arrowWidth, headWidth: 2 * arrowWidth, headHeight: 2 * arrowWidth } ) );
@@ -158,7 +158,7 @@ define( require => {
           this.arrowShape.right = outerRectangle.centerX + arrowWidth / 2 * Math.sin( Math.abs( velocity.angle ) );
         }
       }
-    }.bind( this ) );
+    } );
 
     velocitySensor.isArrowVisibleProperty.linkAttribute( this.arrowShape, 'visible' );
     const speedMeterDragBounds = dragBounds.withMaxX( dragBounds.maxX - rectangleWidth * options.scale );
@@ -195,7 +195,8 @@ define( require => {
     velocitySensor.positionProperty.linkAttribute( this, 'translation' );
 
     // update the value of the
-    Property.multilink( [ velocitySensor.positionProperty ].concat( linkedProperties ), function( position ) {
+    //TODO this listener is a little dangerous, signature relies on order of concat
+    Property.multilink( [ velocitySensor.positionProperty ].concat( linkedProperties ), position => {
       velocitySensor.valueProperty.value = getVelocityAt(
         modelViewTransform.viewToModelX( position.x + rectangleWidth / 2 * options.scale ),
         modelViewTransform.viewToModelY( position.y + ( rectangleHeight + triangleHeight ) * options.scale ) );
@@ -204,8 +205,8 @@ define( require => {
     // Update the text when the value or units changes.
     // TODO is the positionProperty needed in this multilink?
     Property.multilink( [ velocitySensor.valueProperty, measureUnitsProperty, velocitySensor.positionProperty ],
-      function( velocity, units ) {
-        if ( velocitySensor.positionProperty.initialValue.equals( velocitySensor.positionProperty.value ) ) {
+      ( velocity, units, position ) => {
+        if ( velocitySensor.positionProperty.initialValue.equals( position ) ) {
           labelText.text = MathSymbols.NO_VALUE;
         }
         else {
@@ -216,7 +217,7 @@ define( require => {
         labelText.center = innerMostRectangle.center;
       } );
 
-    velocitySensor.updateEmitter.addListener( function() {
+    velocitySensor.updateEmitter.addListener( () => {
       velocitySensor.valueProperty.value = getVelocityAt(
         modelViewTransform.viewToModelX( velocitySensor.positionProperty.value.x + rectangleWidth / 2 * options.scale ),
         modelViewTransform.viewToModelY( velocitySensor.positionProperty.value.y +

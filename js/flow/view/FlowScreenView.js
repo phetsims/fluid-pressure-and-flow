@@ -186,7 +186,7 @@ define( require => {
     } );
     this.addChild( sensorPanel );
 
-    flowModel.isGridInjectorPressedProperty.link( function( isGridInjectorPressed ) {
+    flowModel.isGridInjectorPressedProperty.link( isGridInjectorPressed => {
       if ( isGridInjectorPressed ) {
         flowModel.injectGridParticles();
       }

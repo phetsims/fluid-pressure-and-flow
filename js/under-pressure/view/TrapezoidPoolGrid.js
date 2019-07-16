@@ -76,9 +76,9 @@ define( require => {
     this.addChild( depthLabelsMeters );
     this.addChild( depthLabelsFeet );
 
-    underPressureModel.measureUnitsProperty.link( function( measureUnits ) {
-      depthLabelsFeet.visible = (measureUnits === 'english');
-      depthLabelsMeters.visible = (measureUnits !== 'english');
+    underPressureModel.measureUnitsProperty.link( measureUnits => {
+      depthLabelsFeet.visible = ( measureUnits === 'english' );
+      depthLabelsMeters.visible = ( measureUnits !== 'english' );
     } );
 
     underPressureModel.isGridVisibleProperty.linkAttribute( this, 'visible' );

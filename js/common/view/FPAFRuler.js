@@ -56,7 +56,7 @@ define( require => {
 
     const closeButton = new CloseButton( {
       iconLength: 6,
-      listener: function() {
+      listener: () => {
         isRulerVisibleProperty.value = false;
       }
     } );
@@ -87,9 +87,10 @@ define( require => {
 
     isRulerVisibleProperty.linkAttribute( this, 'visible' );
 
-    new DerivedProperty( [ measureUnitsProperty ], function( measureUnits ) { return measureUnits === 'english'; } )
+    //TODO replace 2 DerivedProperties with 1 measureUnitsProperty listener
+    new DerivedProperty( [ measureUnitsProperty ], measureUnits => { return measureUnits === 'english'; } )
       .linkAttribute( feetRuler, 'visible' );
-    new DerivedProperty( [ measureUnitsProperty ], function( measureUnits ) { return measureUnits === 'metric'; } )
+    new DerivedProperty( [ measureUnitsProperty ], measureUnits => { return measureUnits === 'metric'; } )
       .linkAttribute( metersRuler, 'visible' );
 
     rulerPositionProperty.linkAttribute( metersRuler, 'translation' );

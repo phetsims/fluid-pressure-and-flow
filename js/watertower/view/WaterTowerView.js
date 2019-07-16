@@ -119,7 +119,7 @@ define( require => {
 
       // Faucet is interactive in manual mode, non-interactive in 'matchLeakage' mode, see #132
       interactiveProperty: new DerivedProperty( [ waterTowerModel.faucetModeProperty ],
-        function( faucetMode ) { return faucetMode === 'manual'; } )
+        faucetMode => { return faucetMode === 'manual'; } )
     } );
     this.addChild( faucetNode );
 
@@ -145,13 +145,13 @@ define( require => {
     this.addChild( toolsLayer );
 
     const unitsProperty = new DerivedProperty( [ waterTowerModel.measureUnitsProperty ],
-      function( measureUnits ) {
+      measureUnits => {
         let units = {};
         if ( measureUnits === 'metric' ) {
           units = { name: metersString, multiplier: 1 };
         }
-        else  /// then it must be english
-        {
+        else {
+          // then it must be english
           units = { name: feetString, multiplier: 3.28 };
         }
         return units;
@@ -183,25 +183,30 @@ define( require => {
     this.addChild( resetAllButton );
 
     // add the fluid density control slider
-    const fluidDensityControlSlider = new ControlSlider( waterTowerModel.measureUnitsProperty, waterTowerModel.fluidDensityProperty, waterTowerModel.getFluidDensityString.bind( waterTowerModel ), waterTowerModel.fluidDensityRange, waterTowerModel.fluidDensityControlExpandedProperty, {
-      right: resetAllButton.left - 4 * INSET,
-      bottom: this.layoutBounds.bottom - INSET,
-      title: fluidDensityString,
-      ticks: [
-        {
-          title: waterString,
-          value: waterTowerModel.fluidDensityProperty.value
-        },
-        {
-          title: gasolineString,
-          value: waterTowerModel.fluidDensityRange.min
-        },
-        {
-          title: honeyString,
-          value: waterTowerModel.fluidDensityRange.max
-        }
-      ]
-    } );
+    const fluidDensityControlSlider = new ControlSlider(
+      waterTowerModel.measureUnitsProperty,
+      waterTowerModel.fluidDensityProperty,
+      waterTowerModel.getFluidDensityString.bind( waterTowerModel ),
+      waterTowerModel.fluidDensityRange,
+      waterTowerModel.fluidDensityControlExpandedProperty, {
+        right: resetAllButton.left - 4 * INSET,
+        bottom: this.layoutBounds.bottom - INSET,
+        title: fluidDensityString,
+        ticks: [
+          {
+            title: waterString,
+            value: waterTowerModel.fluidDensityProperty.value
+          },
+          {
+            title: gasolineString,
+            value: waterTowerModel.fluidDensityRange.min
+          },
+          {
+            title: honeyString,
+            value: waterTowerModel.fluidDensityRange.max
+          }
+        ]
+      } );
     this.addChild( fluidDensityControlSlider );
 
     // add the sluice control near bottom left
@@ -217,7 +222,7 @@ define( require => {
     // add play pause button and step button
     const stepButton = new StepForwardButton( {
       isPlayingProperty: waterTowerModel.isPlayingProperty,
-      listener: function() { waterTowerModel.stepInternal( 0.016 ); },
+      listener: () => { waterTowerModel.stepInternal( 0.016 ); },
       stroke: 'black',
       fill: '#005566',
       right: fluidDensityControlSlider.left - INSET,
@@ -252,24 +257,29 @@ define( require => {
     this.addChild( sensorPanel );
 
     // add barometers within the sensor panel bounds
-    _.each( waterTowerModel.barometers, function( barometer ) {
+    _.each( waterTowerModel.barometers, barometer => {
       barometer.reset();
-      toolsLayer.addChild( new BarometerNode( modelViewTransform, barometer, waterTowerModel.measureUnitsProperty,
+      toolsLayer.addChild( new BarometerNode(
+        modelViewTransform,
+        barometer,
+        waterTowerModel.measureUnitsProperty,
         [ waterTowerModel.fluidDensityProperty, waterTowerModel.waterTower.tankPositionProperty, waterTowerModel.waterTower.fluidLevelProperty ],
-        waterTowerModel.getPressureAtCoords.bind( waterTowerModel ), waterTowerModel.getPressureString.bind( waterTowerModel ),
-        sensorPanel.visibleBounds, this.layoutBounds.withMaxY( this.layoutBounds.maxY - 62 ), {
+        waterTowerModel.getPressureAtCoords.bind( waterTowerModel ),
+        waterTowerModel.getPressureString.bind( waterTowerModel ),
+        sensorPanel.visibleBounds,
+        this.layoutBounds.withMaxY( this.layoutBounds.maxY - 62 ), {
           minPressure: Constants.MIN_PRESSURE,
           maxPressure: Constants.MAX_PRESSURE
         } ) );
-    }.bind( this ) );
+    } );
 
     // add speedometers within the sensor panel bounds
-    _.each( waterTowerModel.speedometers, function( velocitySensor ) {
+    _.each( waterTowerModel.speedometers, velocitySensor => {
       velocitySensor.positionProperty.reset();
       toolsLayer.addChild( new VelocitySensorNode( modelViewTransform, velocitySensor,
         waterTowerModel.measureUnitsProperty, [], waterTowerModel.getWaterDropVelocityAt.bind( waterTowerModel ),
         sensorPanel.visibleBounds, this.layoutBounds.withMaxY( this.layoutBounds.maxY - 72 ) ) );
-    }.bind( this ) );
+    } );
 
     toolsLayer.addChild( new FPAFRuler( waterTowerModel.isRulerVisibleProperty, waterTowerModel.rulerPositionProperty,
       waterTowerModel.measureUnitsProperty, modelViewTransform, this.layoutBounds, {
@@ -285,7 +295,7 @@ define( require => {
     toolsLayer.addChild( measuringTapeNode );
 
 
-    waterTowerModel.isSluiceOpenProperty.link( function( isSluiceOpen ) {
+    waterTowerModel.isSluiceOpenProperty.link( isSluiceOpen => {
       if ( isSluiceOpen ) {
         waterTowerNode.sluiceGate.bottom = waterTowerNode.waterTankFrame.bottom + modelViewTransform.modelToViewDeltaY( waterTowerNode.waterTower.HOLE_SIZE ) - 5;
       }
@@ -294,15 +304,16 @@ define( require => {
       }
     } );
 
-    waterTowerModel.tankFullLevelDurationProperty.link( function( tankFullLevelDuration ) {
+    waterTowerModel.tankFullLevelDurationProperty.link( tankFullLevelDuration => {
       waterTowerNode.fillButton.enabled = (tankFullLevelDuration < 0.2);
       waterTowerModel.isFaucetEnabledProperty.value = (tankFullLevelDuration < 0.2);
     } );
 
     // if the sim is paused, disable the fill button as soon as the tank is filled
-    new DerivedProperty( [ waterTowerModel.waterTower.fluidVolumeProperty ], function( fluidVolume ) {
+    //TODO this is so unnecessarily complicated
+    new DerivedProperty( [ waterTowerModel.waterTower.fluidVolumeProperty ], fluidVolume => {
       return fluidVolume === waterTowerModel.waterTower.TANK_VOLUME;
-    } ).link( function() {
+    } ).link( () => {
       if ( !waterTowerModel.isPlayingProperty.value ) {
         waterTowerNode.fillButton.enabled = false;
         waterTowerModel.tankFullLevelDurationProperty.value = 1;
@@ -310,7 +321,8 @@ define( require => {
     } );
 
     // Handles the case when switching from play to pause or viceversa
-    waterTowerModel.isPlayingProperty.link( function( isPlaying ) {
+    //TODO this is so unnecessarily complicated
+    waterTowerModel.isPlayingProperty.link( isPlaying => {
       if ( waterTowerModel.waterTower.fluidVolumeProperty.value >= waterTowerModel.waterTower.TANK_VOLUME ) {
         waterTowerModel.tankFullLevelDurationProperty.value = 1;
         if ( !isPlaying ) {

@@ -29,7 +29,7 @@ define( require => {
     }
   };
 
-  SimLauncher.launch( function() {
+  SimLauncher.launch( () => {
     const sim = new Sim( fluidPressureAndFlowTitleString, [
         new UnderPressureScreen(),
         new FlowScreen(),

@@ -31,7 +31,7 @@ define( require => {
     Node.call( this );
 
     // adds a 1.5px thick line with a 1px bottom border
-    const addLine = function( parentNode, viewY ) {
+    function addLine( parentNode, viewY ) {
       const viewX1 = modelViewTransform.modelToViewX( x1 );
       const viewX2 = modelViewTransform.modelToViewX( x2 );
       parentNode.addChild( new Line( viewX1, viewY, viewX2, viewY, {
@@ -43,7 +43,7 @@ define( require => {
         stroke: 'rgb(64, 64, 64)',
         lineWidth: 1
       } ) );
-    };
+    }
 
     const startY = modelViewTransform.modelToViewY( y1 );
     const endY = modelViewTransform.modelToViewY( y2 );
@@ -67,9 +67,9 @@ define( require => {
     this.addChild( feetGrid );
     this.addChild( metersGrid );
 
-    measureUnitsProperty.link( function( value ) {
-      metersGrid.visible = (value !== 'english');
-      feetGrid.visible = (value === 'english');
+    measureUnitsProperty.link( measureUnits => {
+      metersGrid.visible = ( measureUnits !== 'english' );
+      feetGrid.visible = ( measureUnits === 'english' );
     } );
 
     this.mutate( options );

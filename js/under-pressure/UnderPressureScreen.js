@@ -33,8 +33,8 @@ define( require => {
     };
 
     Screen.call( this,
-      function() { return new UnderPressureModel(); },
-      function( model ) { return new UnderPressureView( model ); },
+      () => { return new UnderPressureModel(); },
+      model => { return new UnderPressureView( model ); },
       options
     );
   }

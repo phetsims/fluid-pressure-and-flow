@@ -128,10 +128,10 @@ define( require => {
       let maxVelocity = 0;
 
       //must equalize velocity of each mass
-      this.stack.forEach( function( mass ) {
+      this.stack.forEach( mass => {
         maxVelocity = Math.max( mass.velocity, maxVelocity );
       } );
-      this.stack.forEach( function( mass ) {
+      this.stack.forEach( mass => {
         mass.velocity = maxVelocity;
       } );
     } );
@@ -141,9 +141,9 @@ define( require => {
       this.stackMassProperty.value = this.stackMassProperty.value - massModel.mass;
     } );
 
-    this.leftDisplacementProperty.link( function() {
+    this.leftDisplacementProperty.link( () => {
       // update all barometers
-      _.each( underPressureModel.barometers, function( barometer ) {
+      _.each( underPressureModel.barometers, barometer => {
         barometer.updateEmitter.emit();
       } );
     } );
@@ -158,7 +158,7 @@ define( require => {
       this.stack.clear();
       this.leftDisplacementProperty.reset();
       this.stackMassProperty.reset();
-      this.masses.forEach( function( mass ) {
+      this.masses.forEach( mass => {
         mass.reset();
       } );
     },
@@ -190,7 +190,7 @@ define( require => {
       // If there are any masses stacked, update the water height
       if ( this.stackMassProperty.value ) {
         let minY = 0; // some max value
-        this.stack.forEach( function( massModel ) {
+        this.stack.forEach( massModel => {
           minY = Math.min( massModel.positionProperty.value.y - massModel.height / 2, minY );
         } );
         this.leftDisplacementProperty.value = Math.max( this.poolDimensions.leftOpening.y2 + this.leftWaterHeight - minY, 0 );

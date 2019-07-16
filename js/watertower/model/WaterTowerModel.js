@@ -83,7 +83,7 @@ define( require => {
       this.speedometers.push( new VelocitySensor( new Vector2( 0, 0 ), new Vector2( 0, 0 ) ) );
     }
 
-    Property.multilink( [ this.waterTower.isFullProperty, this.faucetModeProperty ], function( isFull, faucetMode ) {
+    Property.multilink( [ this.waterTower.isFullProperty, this.faucetModeProperty ], ( isFull, faucetMode ) => {
       if ( faucetMode === 'manual' ) {
         this.isFaucetEnabledProperty.value = !isFull;
         if ( isFull ) {
@@ -93,7 +93,7 @@ define( require => {
       else {
         this.isFaucetEnabledProperty.value = false;
       }
-    }.bind( this ) );
+    } );
 
     // variables used in step function. Declaring here to avoid gc
     this.dropsToRemove = [];
@@ -132,13 +132,14 @@ define( require => {
       this.speedProperty.reset();
       this.tankFullLevelDurationProperty.reset();
 
-      _.each( this.barometers, function( barometer ) {
+      _.each( this.barometers, barometer => {
         barometer.reset();
       } );
 
-      _.each( this.speedometers, function( speedometer ) {
+      _.each( this.speedometers, speedometer => {
         speedometer.reset();
       } );
+
       this.waterTower.reset();
       this.faucetDrops.clear();
       this.waterTowerDrops.clear();

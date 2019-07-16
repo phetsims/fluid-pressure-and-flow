@@ -155,7 +155,7 @@ define( require => {
   }
 
   // creates the shape of the hose when the y-drag handle is above the top of the hole
-  const createTopShape = function( hose, modelViewTransform ) {
+  function createTopShape( hose, modelViewTransform ) {
     let shape = new Shape();
     shape = shape.moveTo( modelViewTransform.modelToViewX( hose.elbowOuterX ), modelViewTransform.modelToViewY( hose.elbowOuterY ) )
       .lineTo( modelViewTransform.modelToViewX( hose.nozzleAttachmentOuterX ), modelViewTransform.modelToViewY( hose.nozzleAttachmentOuterY ) )
@@ -188,10 +188,10 @@ define( require => {
         Math.PI / 2, hose.angleWithVertical, true );
 
     return shape;
-  };
+  }
 
   // creates the shape of the hose when the y-drag handle is below (not above) the top of the hole
-  const createBottomShape = function( hose, modelViewTransform ) {
+  function createBottomShape( hose, modelViewTransform ) {
     let shape = new Shape();
     shape = shape.moveTo( modelViewTransform.modelToViewX( hose.elbowOuterX ), modelViewTransform.modelToViewY( hose.elbowOuterY ) )
       .lineTo( modelViewTransform.modelToViewX( hose.nozzleAttachmentOuterX ), modelViewTransform.modelToViewY( hose.nozzleAttachmentOuterY ) )
@@ -223,7 +223,7 @@ define( require => {
         Math.PI / 2, hose.angleWithVertical, true );
 
     return shape;
-  };
+  }
 
   fluidPressureAndFlow.register( 'HoseNode', HoseNode );
 

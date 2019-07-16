@@ -57,10 +57,10 @@ define( require => {
     this.updateGridInjector();
 
     const isGridInjectorNotPressedProperty = new Property( !isGridInjectorPressedProperty.value, { reentrant: true } );
-    isGridInjectorPressedProperty.link( function( pressed ) {
+    isGridInjectorPressedProperty.link( pressed => {
       isGridInjectorNotPressedProperty.value = !pressed;
     } );
-    isGridInjectorNotPressedProperty.link( function( notPressed ) {
+    isGridInjectorNotPressedProperty.link( notPressed => {
       isGridInjectorPressedProperty.value = !notPressed;
     } );
     isGridInjectorNotPressedProperty.linkAttribute( redButton, 'enabled' );

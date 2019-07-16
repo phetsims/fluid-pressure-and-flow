@@ -14,7 +14,7 @@ define( require => {
 
   //The most important function for this sim in numeric.js is just too slow because it uses tensor versions of all functions.
   //This version inlines everything.
-  const _at = function( spline, x1, p ) {
+  function _at( spline, x1, p ) {
     const x = spline.x;
     const yl = spline.yl;
     const yr = spline.yr;
@@ -27,9 +27,9 @@ define( require => {
     return ((1 - t) * yl[ p ] + t * yr[ p + 1 ] +
            a * s * (1 - t) ) +
            b * s * t;
-  };
+  }
 
-  const atNumber = function( spline, x0 ) {
+  function atNumber( spline, x0 ) {
     const x = spline.x;
     const n = x.length;
     const floor = Math.floor; //TODO why?
@@ -46,16 +46,16 @@ define( require => {
       }
     }
     return _at( spline, x0, p );
-  };
+  }
 
-  const atArray = function( spline, x0 ) {
+  function atArray( spline, x0 ) {
     const n = x0.length;
     const ret = new Array( n );
     for ( let i = n - 1; i !== -1; --i ) {
       ret[ i ] = atNumber( spline, x0[ i ] );
     }
     return ret;
-  };
+  }
 
   const SplineEvaluation = { atNumber: atNumber, atArray: atArray };
 

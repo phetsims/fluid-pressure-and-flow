@@ -173,8 +173,9 @@ define( require => {
     this.addChild( sensorPanel );
 
     this.resetActions = [];
+
     // add barometers within the sensor panel bounds
-    _.each( underPressureModel.barometers, function( barometer ) {
+    _.each( underPressureModel.barometers, barometer => {
       const barometerLinkedProperties = [
         underPressureModel.currentSceneProperty,
         underPressureModel.gravityProperty,
@@ -197,7 +198,7 @@ define( require => {
           minPressure: Constants.MIN_PRESSURE
         } );
       toolsLayer.addChild( barometerNode );
-    }.bind( this ) );
+    } );
 
     const scenes = {};
 
@@ -230,7 +231,7 @@ define( require => {
     scenes.mystery = mysteryPoolView;
     this.addChild( mysteryPoolView );
 
-    underPressureModel.mysteryChoiceProperty.link( function( choice ) {
+    underPressureModel.mysteryChoiceProperty.link( choice => {
       if ( underPressureModel.currentSceneProperty.value === 'mystery' ) {
         if ( choice === 'gravity' ) {
           gravitySlider.disable();
@@ -243,7 +244,7 @@ define( require => {
       }
     } );
 
-    underPressureModel.currentSceneProperty.link( function( currentScene ) {
+    underPressureModel.currentSceneProperty.link( currentScene => {
       if ( currentScene === 'mystery' ) {
         if ( underPressureModel.mysteryChoiceProperty.value === 'gravity' ) {
           gravitySlider.disable();
@@ -264,7 +265,7 @@ define( require => {
     //mysteryPoolView.mysteryPoolControls.choicePanel.resizeWidth( controlPanel.width );
     //mysteryPoolView.mysteryPoolControls.choicePanel.right = gravitySlider.right;
 
-    underPressureModel.currentSceneProperty.link( function( currentScene, previousScene ) {
+    underPressureModel.currentSceneProperty.link( ( currentScene, previousScene ) => {
       scenes[ currentScene ].visible = true;
       if ( previousScene ) {
         scenes[ previousScene ].visible = false;

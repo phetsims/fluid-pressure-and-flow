@@ -32,8 +32,8 @@ define( require => {
     };
 
     Screen.call( this,
-      function() { return new FlowModel(); },
-      function( model ) { return new FlowScreenView( model ); },
+      () => { return new FlowModel(); },
+      model => { return new FlowScreenView( model ); },
       options
     );
   }

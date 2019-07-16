@@ -124,13 +124,13 @@ define( require => {
     this.gravityComboBox.top = this.fluidDensityComboBox.top;
     this.addChild( this.gravityComboBox );
 
+    //TODO replace 2 DerivedProperties with 1 mysteryChoiceProperty listener
     new DerivedProperty( [ mysteryPoolModel.underPressureModel.mysteryChoiceProperty ],
-      function( mysteryChoice ) {
+      mysteryChoice => {
         return mysteryChoice === 'fluidDensity';
       } ).linkAttribute( this.fluidDensityComboBox, 'visible' );
-
     new DerivedProperty( [ mysteryPoolModel.underPressureModel.mysteryChoiceProperty ],
-      function( mysteryChoice ) {
+      mysteryChoice => {
         return mysteryChoice === 'gravity';
       } ).linkAttribute( this.gravityComboBox, 'visible' );
   }

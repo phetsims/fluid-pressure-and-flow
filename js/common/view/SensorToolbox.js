@@ -154,7 +154,7 @@ define( require => {
   function handleSensorVisibilityAndDrag( sensors, icon, event ) {
 
     // Get the first sensor in the list that is invisible
-    const getFirstInvisible = function() {
+    const getFirstInvisible = () => {
       for ( let i = 0; i < sensors.length; i++ ) {
         const sensor = sensors[ i ];
         if ( !sensor.visible ) {
@@ -188,7 +188,8 @@ define( require => {
    * @returns {{up: function, cancel: function}} - the listener object
    */
   function getMakeIconVisibleListener( sensorNode, icon ) {
-    const makeSensorVisible = function() {
+
+    const makeSensorVisible = () => {
       if ( sensorNode.visible === false ) {
         icon.visible = true;
       }
@@ -206,10 +207,10 @@ define( require => {
   return inherit( Panel, SensorToolbox, {
 
     reset: function() {
-      this.velocitySensorNodes.forEach( function( sensor ) {
+      this.velocitySensorNodes.forEach( sensor => {
         sensor.visible = false;
       } );
-      this.barometerNodes.forEach( function( sensor ) {
+      this.barometerNodes.forEach( sensor => {
         sensor.visible = false;
       } );
     }

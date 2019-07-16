@@ -112,7 +112,7 @@ define( require => {
       this.sceneModels.chamber.reset();
       this.sceneModels.mystery.reset();
 
-      this.barometers.forEach( function( barometer ) {
+      this.barometers.forEach( barometer => {
         barometer.reset();
       } );
     },

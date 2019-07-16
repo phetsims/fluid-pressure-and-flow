@@ -30,7 +30,7 @@ define( require => {
     this.volumeProperty = new Property( 1.5 );
 
     // Enable faucets and dropper based on amount of solution in the beaker.
-    this.volumeProperty.link( function( volume ) {
+    this.volumeProperty.link( volume => {
       inputFaucet.enabledProperty.value = ( volume < maxVolume );
       outputFaucet.enabledProperty.value = ( volume > 0 );
       underPressureModel.currentVolumeProperty.value = volume;

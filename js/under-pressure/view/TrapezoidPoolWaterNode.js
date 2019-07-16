@@ -33,7 +33,7 @@ define( require => {
 
     trapezoidPoolModel.underPressureModel.fluidColorModel.colorProperty.linkAttribute( waterPath, 'fill' );
 
-    trapezoidPoolModel.volumeProperty.link( function() {
+    trapezoidPoolModel.volumeProperty.link( () => {
       const viewHeight = trapezoidPoolModel.maxHeight * trapezoidPoolModel.volumeProperty.value / trapezoidPoolModel.maxVolume; //height of water
       const topY = yMax + modelViewTransform.modelToViewDeltaY( viewHeight ); //y coord for top of the water
       const h = Math.min( viewHeight, trapezoidPoolModel.poolDimensions.bottomChamber.y1 -

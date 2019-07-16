@@ -48,10 +48,7 @@ define( require => {
 
     this.update();
 
-    Property.multilink( [ this.heightProperty, this.angleProperty ], function() {
-      this.update();
-    }.bind( this ) );
-
+    Property.multilink( [ this.heightProperty, this.angleProperty ], () => { this.update(); } );
   }
 
   fluidPressureAndFlow.register( 'Hose', Hose );

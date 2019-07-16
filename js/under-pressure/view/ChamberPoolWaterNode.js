@@ -39,7 +39,7 @@ define( require => {
     const passageY1 = modelViewTransform.modelToViewY( poolDimensions.horizontalPassage.y1 );
     const passageY2 = modelViewTransform.modelToViewY( poolDimensions.horizontalPassage.y2 );
 
-    chamberPoolModel.leftDisplacementProperty.link( function( displacement ) {
+    chamberPoolModel.leftDisplacementProperty.link( displacement => {
 
       //new left and right levels of water
       const leftY = modelViewTransform.modelToViewY( poolDimensions.leftOpening.y2 + chamberPoolModel.leftWaterHeight -

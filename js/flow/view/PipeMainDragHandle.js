@@ -47,13 +47,13 @@ define( require => {
     // left and right side of pipe main handles dragging
     pipeHandlesNode.pipeMainDragHandles[ dragHandlePosition ].addInputListener( new SimpleDragHandler( {
 
-      start: function( e ) {
-        dragStartY = pipeHandlesNode.pipeMainDragHandles[ dragHandlePosition ].globalToParentPoint( e.pointer.point ).y;
+      start: event => {
+        dragStartY = pipeHandlesNode.pipeMainDragHandles[ dragHandlePosition ].globalToParentPoint( event.pointer.point ).y;
         initialMainHandleY = dragHandlePosition === 'left' ? pipeNode.leftPipeNode.centerY :
                              pipeNode.rightPipeNode.centerY;
       },
-      drag: function( e ) {
-        const currentDragPoint = pipeHandlesNode.pipeMainDragHandles[ dragHandlePosition ].globalToParentPoint( e.pointer.point );
+      drag: event => {
+        const currentDragPoint = pipeHandlesNode.pipeMainDragHandles[ dragHandlePosition ].globalToParentPoint( event.pointer.point );
         const offSetY = currentDragPoint.y - dragStartY;
         const pt = modelViewTransform.viewToModelPosition( currentDragPoint );
         pt.y = modelViewTransform.viewToModelY( initialMainHandleY + offSetY );
@@ -114,12 +114,12 @@ define( require => {
         flowModel.fluxMeter.updateEmitter.emit();
 
         // update the velocity sensors
-        flowModel.speedometers.forEach( function( speedometer ) {
+        flowModel.speedometers.forEach( speedometer => {
           speedometer.updateEmitter.emit();
         } );
 
         // update the barometers
-        flowModel.barometers.forEach( function( barometer ) {
+        flowModel.barometers.forEach( barometer => {
           barometer.updateEmitter.emit();
         } );
 

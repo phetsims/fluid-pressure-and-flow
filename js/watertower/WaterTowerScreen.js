@@ -32,8 +32,8 @@ define( require => {
     };
 
     Screen.call( this,
-      function() { return new WaterTowerModel(); },
-      function( model ) { return new WaterTowerView( model ); },
+      () => { return new WaterTowerModel(); },
+      model => { return new WaterTowerView( model ); },
       options
     );
   }
