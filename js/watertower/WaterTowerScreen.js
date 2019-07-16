@@ -14,7 +14,7 @@ define( require => {
   const Property = require( 'AXON/Property' );
   const Screen = require( 'JOIST/Screen' );
   const WaterTowerModel = require( 'FLUID_PRESSURE_AND_FLOW/watertower/model/WaterTowerModel' );
-  const WaterTowerView = require( 'FLUID_PRESSURE_AND_FLOW/watertower/view/WaterTowerView' );
+  const WaterTowerScreenView = require( 'FLUID_PRESSURE_AND_FLOW/watertower/view/WaterTowerScreenView' );
 
   // strings
   const waterTowerScreenTitleString = require( 'string!FLUID_PRESSURE_AND_FLOW/waterTowerScreenTitle' );
@@ -34,7 +34,7 @@ define( require => {
 
       super(
         () => { return new WaterTowerModel(); },
-        model => { return new WaterTowerView( model ); },
+        model => { return new WaterTowerScreenView( model ); },
         options
       );
     }

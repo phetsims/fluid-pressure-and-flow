@@ -56,7 +56,7 @@ define( require => {
   // constants
   const INSET = 10;
 
-  class WaterTowerView extends ScreenView {
+  class WaterTowerScreenView extends ScreenView {
 
     /**
      * @param {WaterTowerModel} waterTowerModel
@@ -345,5 +345,5 @@ define( require => {
     }
   }
 
-  return fluidPressureAndFlow.register( 'WaterTowerView', WaterTowerView );
+  return fluidPressureAndFlow.register( 'WaterTowerScreenView', WaterTowerScreenView );
 } );
