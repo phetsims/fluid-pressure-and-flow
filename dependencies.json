@@ -1,5 +1,5 @@
 {
-  "comment": "# fluid-pressure-and-flow 1.0.0-dev.20 Mon Jul 15 2019 18:10:09 GMT-0600 (Mountain Daylight Time)",
+  "comment": "# fluid-pressure-and-flow 1.0.0-dev.21 Mon Jul 15 2019 22:30:25 GMT-0600 (Mountain Daylight Time)",
   "assert": {
     "sha": "d8a2e8992420327ff72a6fc4bb93ec76549ded0e",
     "branch": "master"
@@ -21,7 +21,7 @@
     "branch": "master"
   },
   "fluid-pressure-and-flow": {
-    "sha": "0295d218ecebf9530a9b0e4d8092b47476c67fa3",
+    "sha": "a110d2e2a9ddeabb24b8e7604767306c1a723e5c",
     "branch": "master"
   },
   "joist": {
