@@ -1,7 +1,7 @@
 // Copyright 2013-2017, University of Colorado Boulder
 
 /**
- * Utility class for units conversion.
+ * Utility methods for units conversion.
  *
  * @author Vasily Shakhov (Mlearner)
  * @author Siddhartha Chinthapally (Actual Concepts)
@@ -104,7 +104,5 @@ define( require => {
     }
   };
 
-  fluidPressureAndFlow.register( 'Units', Units );
-
-  return Units;
+  return fluidPressureAndFlow.register( 'Units', Units );
 } );

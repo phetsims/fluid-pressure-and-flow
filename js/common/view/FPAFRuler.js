@@ -12,7 +12,6 @@ define( require => {
   const CloseButton = require( 'SCENERY_PHET/buttons/CloseButton' );
   const DerivedProperty = require( 'AXON/DerivedProperty' );
   const fluidPressureAndFlow = require( 'FLUID_PRESSURE_AND_FLOW/fluidPressureAndFlow' );
-  const inherit = require( 'PHET_CORE/inherit' );
   const MovableDragHandler = require( 'SCENERY_PHET/input/MovableDragHandler' );
   const Node = require( 'SCENERY/nodes/Node' );
   const PhetFont = require( 'SCENERY_PHET/PhetFont' );
@@ -22,49 +21,60 @@ define( require => {
   const ftString = require( 'string!FLUID_PRESSURE_AND_FLOW/ft' );
   const mString = require( 'string!FLUID_PRESSURE_AND_FLOW/m' );
 
-  /**
-   * Main constructor
-   * @param {Property.<boolean>} isRulerVisibleProperty controls the ruler visibility
-   * @param {Property.<Vector2>} rulerPositionProperty controls the ruler position
-   * @param {Property.<string>} measureUnitsProperty controls the ruler view -- english/metric
-   * @param {ModelViewTransform2} modelViewTransform to convert model units to view units
-   * @param {Bounds2} dragBounds for the area where the ruler can be dragged
-   * @param {Object} [options] that can be passed on to the underlying node
-   * @constructor
-   */
-  function FPAFRuler( isRulerVisibleProperty, rulerPositionProperty, measureUnitsProperty, modelViewTransform,
-                      dragBounds, options ) {
+  class FPAFRuler extends Node {
 
-    Node.call( this, { cursor: 'pointer' } );
+    /**
+     * @param {Property.<boolean>} isRulerVisibleProperty controls the ruler visibility
+     * @param {Property.<Vector2>} rulerPositionProperty controls the ruler position
+     * @param {Property.<string>} measureUnitsProperty controls the ruler view -- english/metric
+     * @param {ModelViewTransform2} modelViewTransform to convert model units to view units
+     * @param {Bounds2} dragBounds for the area where the ruler can be dragged
+     * @param {Object} [options] that can be passed on to the underlying node
+     */
+    constructor( isRulerVisibleProperty, rulerPositionProperty, measureUnitsProperty, modelViewTransform,
+                 dragBounds, options ) {
 
-    options = _.extend( {
-      rulerWidth: 40,
-      rulerHeight: 5,
-      meterMajorStickWidth: 1,
-      feetMajorStickWidth: 0.3,
-      scaleFont: 10,
-      meterTicks: _.range( 0, 6, 1 ),
-      feetTicks: _.range( 0, 17, 1 ),
-      insetsWidth: 0
-    }, options );
+      super( { cursor: 'pointer' } );
 
-    const rulerWidth = options.rulerWidth;
-    const rulerHeight = Math.abs( modelViewTransform.modelToViewDeltaY( options.rulerHeight ) );
-    const meterMajorStickWidth = Math.abs( modelViewTransform.modelToViewDeltaY( options.meterMajorStickWidth ) );
-    const feetMajorStickWidth = Math.abs( modelViewTransform.modelToViewDeltaY( options.feetMajorStickWidth ) );
-    const scaleFont = new PhetFont( options.scaleFont );
+      options = _.extend( {
+        rulerWidth: 40,
+        rulerHeight: 5,
+        meterMajorStickWidth: 1,
+        feetMajorStickWidth: 0.3,
+        scaleFont: 10,
+        meterTicks: _.range( 0, 6, 1 ),
+        feetTicks: _.range( 0, 17, 1 ),
+        insetsWidth: 0
+      }, options );
 
-    const closeButton = new CloseButton( {
-      iconLength: 6,
-      listener: () => {
-        isRulerVisibleProperty.value = false;
-      }
-    } );
-    this.addChild( closeButton );
+      const rulerWidth = options.rulerWidth;
+      const rulerHeight = Math.abs( modelViewTransform.modelToViewDeltaY( options.rulerHeight ) );
+      const meterMajorStickWidth = Math.abs( modelViewTransform.modelToViewDeltaY( options.meterMajorStickWidth ) );
+      const feetMajorStickWidth = Math.abs( modelViewTransform.modelToViewDeltaY( options.feetMajorStickWidth ) );
+      const scaleFont = new PhetFont( options.scaleFont );
 
-    // ruler in meters
-    const metersRuler = new RulerNode( rulerHeight, rulerWidth, meterMajorStickWidth, options.meterTicks,
-      mString, {
+      const closeButton = new CloseButton( {
+        iconLength: 6,
+        listener: () => {
+          isRulerVisibleProperty.value = false;
+        }
+      } );
+      this.addChild( closeButton );
+
+      // ruler in meters
+      const metersRuler = new RulerNode( rulerHeight, rulerWidth, meterMajorStickWidth, options.meterTicks,
+        mString, {
+          minorTicksPerMajorTick: 4,
+          unitsFont: scaleFont,
+          majorTickFont: scaleFont,
+          unitsMajorTickIndex: 1,
+          insetsWidth: options.insetsWidth,
+          rotation: -Math.PI / 2
+        } );
+      this.addChild( metersRuler );
+
+      // ruler in feet
+      const feetRuler = new RulerNode( rulerHeight, rulerWidth, feetMajorStickWidth, options.feetTicks, ftString, {
         minorTicksPerMajorTick: 4,
         unitsFont: scaleFont,
         majorTickFont: scaleFont,
@@ -72,43 +82,31 @@ define( require => {
         insetsWidth: options.insetsWidth,
         rotation: -Math.PI / 2
       } );
-    this.addChild( metersRuler );
+      this.addChild( feetRuler );
 
-    // ruler in feet
-    const feetRuler = new RulerNode( rulerHeight, rulerWidth, feetMajorStickWidth, options.feetTicks, ftString, {
-      minorTicksPerMajorTick: 4,
-      unitsFont: scaleFont,
-      majorTickFont: scaleFont,
-      unitsMajorTickIndex: 1,
-      insetsWidth: options.insetsWidth,
-      rotation: -Math.PI / 2
-    } );
-    this.addChild( feetRuler );
+      isRulerVisibleProperty.linkAttribute( this, 'visible' );
 
-    isRulerVisibleProperty.linkAttribute( this, 'visible' );
+      //TODO replace 2 DerivedProperties with 1 measureUnitsProperty listener
+      new DerivedProperty( [ measureUnitsProperty ], measureUnits => { return measureUnits === 'english'; } )
+        .linkAttribute( feetRuler, 'visible' );
+      new DerivedProperty( [ measureUnitsProperty ], measureUnits => { return measureUnits === 'metric'; } )
+        .linkAttribute( metersRuler, 'visible' );
 
-    //TODO replace 2 DerivedProperties with 1 measureUnitsProperty listener
-    new DerivedProperty( [ measureUnitsProperty ], measureUnits => { return measureUnits === 'english'; } )
-      .linkAttribute( feetRuler, 'visible' );
-    new DerivedProperty( [ measureUnitsProperty ], measureUnits => { return measureUnits === 'metric'; } )
-      .linkAttribute( metersRuler, 'visible' );
+      rulerPositionProperty.linkAttribute( metersRuler, 'translation' );
+      rulerPositionProperty.linkAttribute( feetRuler, 'translation' );
+      rulerPositionProperty.link( rulerPosition => {
+        this.moveToFront();
+        closeButton.setTranslation( rulerPosition.x, rulerPosition.y - closeButton.height - rulerHeight );
+      } );
+      const rulerDragBounds = dragBounds.withMaxX( dragBounds.maxX - options.rulerWidth );
 
-    rulerPositionProperty.linkAttribute( metersRuler, 'translation' );
-    rulerPositionProperty.linkAttribute( feetRuler, 'translation' );
-    rulerPositionProperty.link( rulerPosition => {
-      this.moveToFront();
-      closeButton.setTranslation( rulerPosition.x, rulerPosition.y - closeButton.height - rulerHeight );
-    } );
-    const rulerDragBounds = dragBounds.withMaxX( dragBounds.maxX - options.rulerWidth );
+      // ruler drag handlers
+      metersRuler.addInputListener( new MovableDragHandler( rulerPositionProperty, { dragBounds: rulerDragBounds } ) );
+      feetRuler.addInputListener( new MovableDragHandler( rulerPositionProperty, { dragBounds: rulerDragBounds } ) );
 
-    // ruler drag handlers
-    metersRuler.addInputListener( new MovableDragHandler( rulerPositionProperty, { dragBounds: rulerDragBounds } ) );
-    feetRuler.addInputListener( new MovableDragHandler( rulerPositionProperty, { dragBounds: rulerDragBounds } ) );
-
-    this.mutate( options );
+      this.mutate( options );
+    }
   }
 
-  fluidPressureAndFlow.register( 'FPAFRuler', FPAFRuler );
-
-  return inherit( Node, FPAFRuler );
+  return fluidPressureAndFlow.register( 'FPAFRuler', FPAFRuler );
 } );

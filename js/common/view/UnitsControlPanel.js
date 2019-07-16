@@ -10,7 +10,6 @@ define( require => {
   // modules
   const AquaRadioButton = require( 'SUN/AquaRadioButton' );
   const fluidPressureAndFlow = require( 'FLUID_PRESSURE_AND_FLOW/fluidPressureAndFlow' );
-  const inherit = require( 'PHET_CORE/inherit' );
   const Panel = require( 'SUN/Panel' );
   const PhetFont = require( 'SCENERY_PHET/PhetFont' );
   const Text = require( 'SCENERY/nodes/Text' );
@@ -25,53 +24,57 @@ define( require => {
   // constants
   const RADIO_BUTTON_TOUCH_DILATION_Y = 2; // empirically determined
 
-  /**
-   * @param {Property<string>} measureUnitsProperty can take values 'english', 'metric' or 'atmospheres'
-   * @param {Object} [options]
-   * @constructor
-   */
-  function UnitsControlPanel( measureUnitsProperty, options ) {
+  class UnitsControlPanel extends Panel {
 
-    options = _.extend( {
-      fill: '#f2fa6a',
-      stroke: 'gray',
-      lineWidth: 1,
-      resize: false,
-      align: 'left'
-    }, options );
+    /**
+     * @param {Property<string>} measureUnitsProperty can take values 'english', 'metric' or 'atmospheres'
+     * @param {Object} [options]
+     */
+    constructor( measureUnitsProperty, options ) {
 
-    const maxControlWidth = ( options.maxWidth * 0.9 ) || 200; // the fallback value is fairly arbitrary
+      options = _.extend( {
+        fill: '#f2fa6a',
+        stroke: 'gray',
+        lineWidth: 1,
+        resize: false,
+        align: 'left'
+      }, options );
 
-    const titleText = new Text( unitsString, { font: new PhetFont( 12 ), fontWeight: 'bold', maxWidth: maxControlWidth } );
+      const maxControlWidth = ( options.maxWidth * 0.9 ) || 200; // the fallback value is fairly arbitrary
 
-    const AQUA_RADIO_BUTTON_OPTIONS = { radius: 6, font: new PhetFont( 12 ) };
-    const createButtonTextNode = text => {
-      return new Text( text, { font: new PhetFont( 12 ), maxWidth: maxControlWidth * 0.8 } );
-    };
+      const titleText = new Text( unitsString, {
+        font: new PhetFont( 12 ),
+        fontWeight: 'bold',
+        maxWidth: maxControlWidth
+      } );
 
-    // Create the radio buttons
-    const metricRadio = new AquaRadioButton( measureUnitsProperty, 'metric', createButtonTextNode( metricString ),
-      AQUA_RADIO_BUTTON_OPTIONS );
-    const atmosphereRadio = new AquaRadioButton( measureUnitsProperty, 'atmosphere',
-      createButtonTextNode( atmospheresString ), AQUA_RADIO_BUTTON_OPTIONS );
-    const englishRadio = new AquaRadioButton( measureUnitsProperty, 'english', createButtonTextNode( englishString ),
-      AQUA_RADIO_BUTTON_OPTIONS );
+      const AQUA_RADIO_BUTTON_OPTIONS = { radius: 6, font: new PhetFont( 12 ) };
+      const createButtonTextNode = text => {
+        return new Text( text, { font: new PhetFont( 12 ), maxWidth: maxControlWidth * 0.8 } );
+      };
 
-    //touch areas
-    metricRadio.touchArea = metricRadio.bounds.dilatedY( RADIO_BUTTON_TOUCH_DILATION_Y );
-    atmosphereRadio.touchArea = atmosphereRadio.bounds.dilatedY( RADIO_BUTTON_TOUCH_DILATION_Y );
-    englishRadio.touchArea = englishRadio.bounds.dilatedY( RADIO_BUTTON_TOUCH_DILATION_Y );
+      // Create the radio buttons
+      const metricRadio = new AquaRadioButton( measureUnitsProperty, 'metric', createButtonTextNode( metricString ),
+        AQUA_RADIO_BUTTON_OPTIONS );
+      const atmosphereRadio = new AquaRadioButton( measureUnitsProperty, 'atmosphere',
+        createButtonTextNode( atmospheresString ), AQUA_RADIO_BUTTON_OPTIONS );
+      const englishRadio = new AquaRadioButton( measureUnitsProperty, 'english', createButtonTextNode( englishString ),
+        AQUA_RADIO_BUTTON_OPTIONS );
 
-    const content = new VBox( {
-      spacing: 5,
-      children: [ titleText, metricRadio, atmosphereRadio, englishRadio ],
-      align: 'left'
-    } );
+      //touch areas
+      metricRadio.touchArea = metricRadio.bounds.dilatedY( RADIO_BUTTON_TOUCH_DILATION_Y );
+      atmosphereRadio.touchArea = atmosphereRadio.bounds.dilatedY( RADIO_BUTTON_TOUCH_DILATION_Y );
+      englishRadio.touchArea = englishRadio.bounds.dilatedY( RADIO_BUTTON_TOUCH_DILATION_Y );
 
-    Panel.call( this, content, options );
+      const content = new VBox( {
+        spacing: 5,
+        children: [ titleText, metricRadio, atmosphereRadio, englishRadio ],
+        align: 'left'
+      } );
+
+      super( content, options );
+    }
   }
 
-  fluidPressureAndFlow.register( 'UnitsControlPanel', UnitsControlPanel );
-
-  return inherit( Panel, UnitsControlPanel );
+  return fluidPressureAndFlow.register( 'UnitsControlPanel', UnitsControlPanel );
 } );

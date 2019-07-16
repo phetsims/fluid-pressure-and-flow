@@ -14,7 +14,6 @@ define( require => {
   const Color = require( 'SCENERY/util/Color' );
   const Constants = require( 'FLUID_PRESSURE_AND_FLOW/common/Constants' );
   const fluidPressureAndFlow = require( 'FLUID_PRESSURE_AND_FLOW/fluidPressureAndFlow' );
-  const inherit = require( 'PHET_CORE/inherit' );
   const LinearFunction = require( 'DOT/LinearFunction' );
   const Property = require( 'AXON/Property' );
 
@@ -23,51 +22,49 @@ define( require => {
   const WATER_COLOR = new Color( 20, 244, 255 );
   const HONEY_COLOR = new Color( 255, 191, 0 );
 
-  /**
-   * @param {Property.<number>} fluidDensityProperty
-   * @param {Range} fluidDensityRange
-   * @constructor
-   */
-  function FluidColorModel( fluidDensityProperty, fluidDensityRange ) {
+  class FluidColorModel {
 
-    this.fluidDensityProperty = fluidDensityProperty;
+    /**
+     * @param {Property.<number>} fluidDensityProperty
+     * @param {Range} fluidDensityRange
+     */
+    constructor( fluidDensityProperty, fluidDensityRange ) {
 
-    this.getRedLow = new LinearFunction( fluidDensityRange.min, Constants.WATER_DENSITY, GAS_COLOR.red,
-      WATER_COLOR.red ); // @private
-    this.getGreenLow = new LinearFunction( fluidDensityRange.min, Constants.WATER_DENSITY, GAS_COLOR.green,
-      WATER_COLOR.green ); // @private
-    this.getBlueLow = new LinearFunction( fluidDensityRange.min, Constants.WATER_DENSITY, GAS_COLOR.blue,
-      WATER_COLOR.blue ); // @private
+      this.fluidDensityProperty = fluidDensityProperty;
 
-    this.getRedHigh = new LinearFunction( Constants.WATER_DENSITY, fluidDensityRange.max, WATER_COLOR.red,
-      HONEY_COLOR.red ); // @private
-    this.getGreenHigh = new LinearFunction( Constants.WATER_DENSITY, fluidDensityRange.max,
-      WATER_COLOR.green, HONEY_COLOR.green ); // @private
-    this.getBlueHigh = new LinearFunction( Constants.WATER_DENSITY, fluidDensityRange.max, WATER_COLOR.blue,
-      HONEY_COLOR.blue ); // @private
+      this.getRedLow = new LinearFunction( fluidDensityRange.min, Constants.WATER_DENSITY, GAS_COLOR.red,
+        WATER_COLOR.red ); // @private
+      this.getGreenLow = new LinearFunction( fluidDensityRange.min, Constants.WATER_DENSITY, GAS_COLOR.green,
+        WATER_COLOR.green ); // @private
+      this.getBlueLow = new LinearFunction( fluidDensityRange.min, Constants.WATER_DENSITY, GAS_COLOR.blue,
+        WATER_COLOR.blue ); // @private
 
-    // @public (read-only)
-    this.colorProperty = new Property( WATER_COLOR );
+      this.getRedHigh = new LinearFunction( Constants.WATER_DENSITY, fluidDensityRange.max, WATER_COLOR.red,
+        HONEY_COLOR.red ); // @private
+      this.getGreenHigh = new LinearFunction( Constants.WATER_DENSITY, fluidDensityRange.max,
+        WATER_COLOR.green, HONEY_COLOR.green ); // @private
+      this.getBlueHigh = new LinearFunction( Constants.WATER_DENSITY, fluidDensityRange.max, WATER_COLOR.blue,
+        HONEY_COLOR.blue ); // @private
 
-    // @private indicates whether fluid density changed since the previous step
-    this.densityChanged = false; //TODO rename fluidDensityChanged
+      // @public (read-only)
+      this.colorProperty = new Property( WATER_COLOR );
 
-    fluidDensityProperty.link( () => {
-      this.densityChanged = true;
-    } );
-  }
+      // @private indicates whether fluid density changed since the previous step
+      this.densityChanged = false; //TODO rename fluidDensityChanged
 
-  fluidPressureAndFlow.register( 'FluidColorModel', FluidColorModel );
-
-  return inherit( Object, FluidColorModel, {
+      fluidDensityProperty.link( () => {
+        this.densityChanged = true;
+      } );
+    }
 
     /**
      * @public
      */
-    reset: function() {
+    reset() {
       this.colorProperty.reset();
-    },
-    step: function() {
+    }
+
+    step() {
       if ( this.densityChanged ) {
         const density = this.fluidDensityProperty.get();
         if ( density < Constants.WATER_DENSITY ) {
@@ -79,5 +76,7 @@ define( require => {
         this.densityChanged = false;
       }
     }
-  } );
+  }
+
+  return fluidPressureAndFlow.register( 'FluidColorModel', FluidColorModel );
 } );

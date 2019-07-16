@@ -11,33 +11,32 @@ define( require => {
   // modules
   const Emitter = require( 'AXON/Emitter' );
   const fluidPressureAndFlow = require( 'FLUID_PRESSURE_AND_FLOW/fluidPressureAndFlow' );
-  const inherit = require( 'PHET_CORE/inherit' );
   const Property = require( 'AXON/Property' );
   const Vector2Property = require( 'DOT/Vector2Property' );
 
-  /**
-   * @param {Vector2} position of the sensor
-   * @param {Object} value as measured by the sensor
-   * @constructor
-   */
-  function Sensor( position, value ) {
+  class Sensor {
 
-    // @public
-    this.positionProperty = new Vector2Property( position );
+    /**
+     * @param {Vector2} position of the sensor
+     * @param {Object} value as measured by the sensor
+     */
+    constructor( position, value ) {
 
-    // @public {Object}
-    this.valueProperty = new Property( value );
+      // @public
+      this.positionProperty = new Vector2Property( position );
 
-    // @public
-    this.updateEmitter = new Emitter();
-  }
+      // @public {Object}
+      this.valueProperty = new Property( value );
 
-  fluidPressureAndFlow.register( 'Sensor', Sensor );
+      // @public
+      this.updateEmitter = new Emitter();
+    }
 
-  return inherit( Object, Sensor, {
-    reset: function() {
+    reset() {
       this.positionProperty.reset();
       this.valueProperty.reset();
     }
-  } );
+  }
+
+  return fluidPressureAndFlow.register( 'Sensor', Sensor );
 } );

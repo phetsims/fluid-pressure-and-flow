@@ -19,7 +19,6 @@ define( require => {
   const Dimension2 = require( 'DOT/Dimension2' );
   const fluidPressureAndFlow = require( 'FLUID_PRESSURE_AND_FLOW/fluidPressureAndFlow' );
   const HSlider = require( 'SUN/HSlider' );
-  const inherit = require( 'PHET_CORE/inherit' );
   const Node = require( 'SCENERY/nodes/Node' );
   const PhetFont = require( 'SCENERY_PHET/PhetFont' );
   const Rectangle = require( 'SCENERY/nodes/Rectangle' );
@@ -30,162 +29,162 @@ define( require => {
   // constants
   const PLUS_MINUS_SPACING = 6;
 
-  /**
-   * Constructor for the slider control
-   * @param {Property<string>} measureUnitsProperty tracks the units to use (english/metric/atmosphere)
-   * @param {Property<Number>} trackProperty tracks the property used in the slider
-   * @param {function} getPropertyStringFunction returns a display value
-   * @param {Range} trackRange is the range of values that the trackProperty can take
-   * @param {Property<boolean>} expandedProperty tracks whether the control is expanded or collapsed
-   * @param {Object} [options]
-   * @constructor
-   */
-  function ControlSlider( measureUnitsProperty, trackProperty, getPropertyStringFunction, trackRange, expandedProperty,
-                          options ) {
+  class ControlSlider extends Node {
 
-    options = _.extend( {
-      fill: '#f2fa6a',
-      xMargin: 5,
-      decimals: 0,
-      thumbSize: new Dimension2( 12, 25 ),
-      ticks: [],
-      ticksVisible: true,
-      titleAlign: 'left',
-      labelMaxWidth: 35
-    }, options );
+    /**
+     * @param {Property<string>} measureUnitsProperty tracks the units to use (english/metric/atmosphere)
+     * @param {Property<Number>} trackProperty tracks the property used in the slider
+     * @param {function} getPropertyStringFunction returns a display value
+     * @param {Range} trackRange is the range of values that the trackProperty can take
+     * @param {Property<boolean>} expandedProperty tracks whether the control is expanded or collapsed
+     * @param {Object} [options]
+     */
+    constructor( measureUnitsProperty, trackProperty, getPropertyStringFunction, trackRange, expandedProperty,
+                 options ) {
 
-    Node.call( this );
-    const trackSize = new Dimension2( 115, 6 );
+      options = _.extend( {
+        fill: '#f2fa6a',
+        xMargin: 5,
+        decimals: 0,
+        thumbSize: new Dimension2( 12, 25 ),
+        ticks: [],
+        ticksVisible: true,
+        titleAlign: 'left',
+        labelMaxWidth: 35
+      }, options );
 
-    function getSlider( trackSize ) {
-      const aSlider = new HSlider( trackProperty, trackRange, {
-        trackSize: trackSize,
-        thumbSize: options.thumbSize,
-        majorTickLineWidth: (options.ticksVisible ? 1 : 0),
-        majorTickLength: 15
+      super();
+
+      const trackSize = new Dimension2( 115, 6 );
+
+      function getSlider( trackSize ) {
+        const aSlider = new HSlider( trackProperty, trackRange, {
+          trackSize: trackSize,
+          thumbSize: options.thumbSize,
+          majorTickLineWidth: ( options.ticksVisible ? 1 : 0 ),
+          majorTickLength: 15
+        } );
+        const labelFont = new PhetFont( 9.5 );
+
+        options.ticks.forEach( tick => {
+          aSlider.addMajorTick( tick.value, new Text( tick.title, {
+            font: labelFont,
+            visible: options.ticksVisible,
+            maxWidth: options.labelMaxWidth,
+            pickable: false
+          } ) );
+        } );
+        return aSlider;
+      }
+
+      const hSlider = getSlider( trackSize );
+      this.content = new Node();
+
+      const plusButton = new ArrowButton( 'right', () => {
+        trackProperty.set( Util.toFixedNumber( Math.min( trackProperty.get() + 1 / Math.pow( 10, options.decimals ),
+          trackRange.max ), options.decimals ) );
+      }, {
+        scale: 0.6
       } );
-      const labelFont = new PhetFont( 9.5 );
 
-      options.ticks.forEach( tick => {
-        aSlider.addMajorTick( tick.value, new Text( tick.title, {
-          font: labelFont,
-          visible: options.ticksVisible,
-          maxWidth: options.labelMaxWidth,
-          pickable: false
-        } ) );
+      plusButton.touchArea = new Bounds2( plusButton.localBounds.minX - 20, plusButton.localBounds.minY - 5,
+        plusButton.localBounds.maxX + 20, plusButton.localBounds.maxY + 20 );
+
+      const minusButton = new ArrowButton( 'left', () => {
+        trackProperty.set( Util.toFixedNumber( Math.max( trackProperty.get() - 1 / Math.pow( 10, options.decimals ),
+          trackRange.min ), options.decimals ) );
+      }, {
+        scale: 0.6
       } );
-      return aSlider;
+
+      minusButton.touchArea = new Bounds2( minusButton.localBounds.minX - 20, minusButton.localBounds.minY - 5,
+        minusButton.localBounds.maxX + 20, minusButton.localBounds.maxY + 20 );
+
+      const valueLabel = new RichText( '', { font: new PhetFont( 12 ), pickable: false, maxWidth: 60 } );
+      const valueField = new Rectangle( 0, 0, trackSize.width * 0.6, 18, 3, 3,
+        { fill: '#FFF', stroke: 'black', lineWidth: 1, pickable: false } );
+
+      // rendering order
+      this.content.addChild( valueField );
+      this.content.addChild( valueLabel );
+      this.content.addChild( hSlider );
+      this.content.addChild( plusButton );
+      this.content.addChild( minusButton );
+
+      // relative layout, everything relative to the track
+      valueField.centerX = this.content.centerX;
+      valueField.bottom = hSlider.top - 5;
+
+      // plus button to the right of the value
+      plusButton.left = valueField.right + PLUS_MINUS_SPACING;
+      plusButton.centerY = valueField.centerY;
+
+      // minus button to the left of the value
+      minusButton.right = valueField.left - PLUS_MINUS_SPACING;
+      minusButton.centerY = valueField.centerY;
+
+      this.accordionContent = new Node();
+      this.accordionContent.addChild( this.content );
+      this.accordionContent.left = 0;
+      const accordionBox = new AccordionBox( this.accordionContent, {
+        titleNode: new Text( options.title, {
+          font: new PhetFont( { size: 13 } ),
+          maxWidth: trackSize.width + 2 * options.xMargin
+        } ),
+        fill: options.fill,
+        stroke: 'gray',
+        expandedProperty: expandedProperty,
+        contentAlign: 'center',
+        titleAlign: options.titleAlign,
+        buttonAlign: 'left',
+        cornerRadius: 4,
+        contentYSpacing: 2,
+        contentYMargin: 5,
+        contentXMargin: 4,
+        buttonYMargin: 4,
+        buttonXMargin: 6,
+        minWidth: trackSize.width + 12 * options.xMargin,
+        expandCollapseButtonOptions: {
+          sideLength: 12,
+          touchAreaYDilation: 2 // empirically determined so that it does not overlap touch area of arrow button
+        }
+      } );
+      this.addChild( accordionBox );
+
+      // question mark, show if unknown property
+      this.questionMark = new Node( { visible: false } );
+      this.questionMark.addChild( new Text( '?', { font: new PhetFont( 60 ) } ) );
+      this.questionMark.centerX = this.content.centerX;
+      this.questionMark.top = this.content.top;
+      this.accordionContent.addChild( this.questionMark );
+
+      trackProperty.link( value => {
+        valueLabel.text = getPropertyStringFunction();
+        valueLabel.center = valueField.center; // keep the value centered in the field
+        plusButton.enabled = ( value < trackRange.max );
+        minusButton.enabled = ( value > trackRange.min );
+      } );
+
+      measureUnitsProperty.link( () => {
+        valueLabel.text = getPropertyStringFunction();
+        valueLabel.center = valueField.center; // keep the value centered in the field
+      } );
+
+      this.mutate( options );
     }
 
-    const hSlider = getSlider( trackSize );
-    this.content = new Node();
-
-    const plusButton = new ArrowButton( 'right', () => {
-      trackProperty.set( Util.toFixedNumber( Math.min( trackProperty.get() + 1 / Math.pow( 10, options.decimals ),
-        trackRange.max ), options.decimals ) );
-    }, {
-      scale: 0.6
-    } );
-
-    plusButton.touchArea = new Bounds2( plusButton.localBounds.minX - 20, plusButton.localBounds.minY - 5,
-      plusButton.localBounds.maxX + 20, plusButton.localBounds.maxY + 20 );
-
-    const minusButton = new ArrowButton( 'left', () => {
-      trackProperty.set( Util.toFixedNumber( Math.max( trackProperty.get() - 1 / Math.pow( 10, options.decimals ),
-        trackRange.min ), options.decimals ) );
-    }, {
-      scale: 0.6
-    } );
-
-    minusButton.touchArea = new Bounds2( minusButton.localBounds.minX - 20, minusButton.localBounds.minY - 5,
-      minusButton.localBounds.maxX + 20, minusButton.localBounds.maxY + 20 );
-
-    const valueLabel = new RichText( '', { font: new PhetFont( 12 ), pickable: false, maxWidth: 60 } );
-    const valueField = new Rectangle( 0, 0, trackSize.width * 0.6, 18, 3, 3,
-      { fill: '#FFF', stroke: 'black', lineWidth: 1, pickable: false } );
-
-    // rendering order
-    this.content.addChild( valueField );
-    this.content.addChild( valueLabel );
-    this.content.addChild( hSlider );
-    this.content.addChild( plusButton );
-    this.content.addChild( minusButton );
-
-    // relative layout, everything relative to the track
-    valueField.centerX = this.content.centerX;
-    valueField.bottom = hSlider.top - 5;
-
-    // plus button to the right of the value
-    plusButton.left = valueField.right + PLUS_MINUS_SPACING;
-    plusButton.centerY = valueField.centerY;
-
-    // minus button to the left of the value
-    minusButton.right = valueField.left - PLUS_MINUS_SPACING;
-    minusButton.centerY = valueField.centerY;
-
-    this.accordionContent = new Node();
-    this.accordionContent.addChild( this.content );
-    this.accordionContent.left = 0;
-    const accordionBox = new AccordionBox( this.accordionContent, {
-      titleNode: new Text( options.title, {
-        font: new PhetFont( { size: 13 } ),
-        maxWidth: trackSize.width + 2 * options.xMargin
-      } ),
-      fill: options.fill,
-      stroke: 'gray',
-      expandedProperty: expandedProperty,
-      contentAlign: 'center',
-      titleAlign: options.titleAlign,
-      buttonAlign: 'left',
-      cornerRadius: 4,
-      contentYSpacing: 2,
-      contentYMargin: 5,
-      contentXMargin: 4,
-      buttonYMargin: 4,
-      buttonXMargin: 6,
-      minWidth: trackSize.width + 12 * options.xMargin,
-      expandCollapseButtonOptions: {
-        sideLength: 12,
-        touchAreaYDilation: 2 // empirically determined so that it does not overlap touch area of arrow button
-      }
-    } );
-    this.addChild( accordionBox );
-
-    // question mark, show if unknown property
-    this.questionMark = new Node( { visible: false } );
-    this.questionMark.addChild( new Text( '?', { font: new PhetFont( 60 ) } ) );
-    this.questionMark.centerX = this.content.centerX;
-    this.questionMark.top = this.content.top;
-    this.accordionContent.addChild( this.questionMark );
-
-    trackProperty.link( value => {
-      valueLabel.text = getPropertyStringFunction();
-      valueLabel.center = valueField.center; // keep the value centered in the field
-      plusButton.enabled = ( value < trackRange.max );
-      minusButton.enabled = ( value > trackRange.min );
-    } );
-
-    measureUnitsProperty.link( () => {
-      valueLabel.text = getPropertyStringFunction();
-      valueLabel.center = valueField.center; // keep the value centered in the field
-    } );
-
-    this.mutate( options );
-  }
-
-  fluidPressureAndFlow.register( 'ControlSlider', ControlSlider );
-
-  return inherit( Node, ControlSlider, {
     // hide the slider and show the question mark
-    disable: function() {
+    disable() {
       this.content.visible = false;
       this.questionMark.visible = true;
-    },
+    }
 
     // show the slider and hide the question mark
-    enable: function() {
+    enable() {
       this.content.visible = true;
       this.questionMark.visible = false;
     }
-  } );
+  }
+
+  return fluidPressureAndFlow.register( 'ControlSlider', ControlSlider );
 } );

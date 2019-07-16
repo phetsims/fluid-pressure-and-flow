@@ -12,7 +12,6 @@ define( require => {
   const Constants = require( 'FLUID_PRESSURE_AND_FLOW/common/Constants' );
   const fluidPressureAndFlow = require( 'FLUID_PRESSURE_AND_FLOW/fluidPressureAndFlow' );
   const HBox = require( 'SCENERY/nodes/HBox' );
-  const inherit = require( 'PHET_CORE/inherit' );
   const ModelViewTransform2 = require( 'PHETCOMMON/view/ModelViewTransform2' );
   const Panel = require( 'SUN/Panel' );
   const Sensor = require( 'FLUID_PRESSURE_AND_FLOW/common/model/Sensor' );
@@ -21,126 +20,139 @@ define( require => {
   const VelocitySensor = require( 'FLUID_PRESSURE_AND_FLOW/common/model/VelocitySensor' );
   const VelocitySensorNode = require( 'FLUID_PRESSURE_AND_FLOW/common/view/VelocitySensorNode' );
 
-  /**
-   *
-   * @param {FlowModel} model
-   * @param {ModelViewTransform2} modelViewTransform
-   * @param {FlowScreenView} screenView
-   * @param {Object} [options]
-   * @constructor
-   */
-  function SensorToolbox( model, modelViewTransform, screenView, options ) {
+  class SensorToolbox extends Panel {
 
-    options = _.extend( {
-      // TODO padding/margin around panel edges
-    }, options );
+    /**
+     * @param {FlowModel} model
+     * @param {ModelViewTransform2} modelViewTransform
+     * @param {FlowScreenView} screenView
+     * @param {Object} [options]
+     */
+    constructor( model, modelViewTransform, screenView, options ) {
 
-    // create icons, not real sensors
-    const velocitySensorIcon = new VelocitySensorNode(
-      ModelViewTransform2.createIdentity(),
-      new VelocitySensor( new Vector2( 0, 0 ), new Vector2( 0, 0 ) ),
-      model.measureUnitsProperty,
-      [ model.pipe.flowRateProperty, model.pipe.frictionProperty ],
-      model.getVelocityAt.bind( model ),
-      Bounds2.EVERYTHING, // never used for the icon
-      Bounds2.EVERYTHING,// never used for the icon
-      { scale: 0.9, isIcon: true }
-    );
+      options = _.extend( {
+        // TODO padding/margin around panel edges
+      }, options );
 
-    const barometerIcon = new BarometerNode(
-      ModelViewTransform2.createIdentity(),
-      new Sensor( new Vector2( 0, 0 ), new Vector2( 0, 0 ) ),
-      model.measureUnitsProperty,
-      [ model.fluidDensityProperty, model.pipe.flowRateProperty, model.pipe.frictionProperty ],
-      model.getPressureAtCoords.bind( model ),
-      model.getPressureString.bind( model ),
-      velocitySensorIcon.localBounds, // never used for the icon
-      velocitySensorIcon.localBounds,// never used for the icon
-      {
-        minPressure: Constants.MIN_PRESSURE,
-        maxPressure: Constants.MAX_PRESSURE,
-        isIcon: true
-      }
-    );
-
-    // Create the panel from the icons
-    const container = new HBox( { children: [ velocitySensorIcon, barometerIcon ], spacing: 10 } );
-    Panel.call( this, container, options );
-
-    // TODO, make sure that this is the best way to get the location of the icon in units that the sensor's positionProperty can use
-    const velocitySensorInitialPosition = velocitySensorIcon.localToGlobalPoint( new Vector2( velocitySensorIcon.x, velocitySensorIcon.y ) );
-    this.velocitySensorNodes = []; // @private
-
-    // add velocitySensors within the sensor panel bounds
-    _.each( model.speedometers, velocitySensor => {
-
-      const velocitySensorNode = new VelocitySensorNode(
-        modelViewTransform,
-        velocitySensor,
+      // create icons, not real sensors
+      const velocitySensorIcon = new VelocitySensorNode(
+        ModelViewTransform2.createIdentity(),
+        new VelocitySensor( new Vector2( 0, 0 ), new Vector2( 0, 0 ) ),
         model.measureUnitsProperty,
         [ model.pipe.flowRateProperty, model.pipe.frictionProperty ],
         model.getVelocityAt.bind( model ),
-        this.visibleBounds,
-        screenView.layoutBounds,
-        {
-          initialPosition: velocitySensorInitialPosition.roundedSymmetric(),
-          scale: 0.9,
-          visible: false
-        }
+        Bounds2.EVERYTHING, // never used for the icon
+        Bounds2.EVERYTHING,// never used for the icon
+        { scale: 0.9, isIcon: true }
       );
 
-      // show the sensor icon whenever this velocity sensor is hidden back into the toolbox
-      velocitySensorNode.addInputListener( getMakeIconVisibleListener( velocitySensorNode, velocitySensorIcon ) );
-
-      // center the real velocity sensor on the icon.
-      // TODO, just a hack until I find something better. I'm not sure why this is different from barometers
-      velocitySensor.positionProperty._initialValue = velocitySensorInitialPosition;
-      velocitySensor.positionProperty.value = velocitySensorInitialPosition;
-
-      this.velocitySensorNodes.push( velocitySensorNode );
-      screenView.addChild( velocitySensorNode );
-    } );
-
-    velocitySensorIcon.addInputListener( SimpleDragHandler.createForwardingListener( event => {
-      handleSensorVisibilityAndDrag( this.velocitySensorNodes, velocitySensorIcon, event );
-    } ) );
-
-
-    // TODO, make sure that this is the best way to get the location of the icon in units that the sensor's positionProperty can use
-    this.barometerNodes = []; // @private
-
-    // add barometers within the sensor panel bounds
-    _.each( model.barometers, barometer => {
-
-      const barometerNode = new BarometerNode(
-        modelViewTransform,
-        barometer,
+      const barometerIcon = new BarometerNode(
+        ModelViewTransform2.createIdentity(),
+        new Sensor( new Vector2( 0, 0 ), new Vector2( 0, 0 ) ),
         model.measureUnitsProperty,
         [ model.fluidDensityProperty, model.pipe.flowRateProperty, model.pipe.frictionProperty ],
         model.getPressureAtCoords.bind( model ),
         model.getPressureString.bind( model ),
-        this.visibleBounds,
-        screenView.layoutBounds,
+        velocitySensorIcon.localBounds, // never used for the icon
+        velocitySensorIcon.localBounds,// never used for the icon
         {
           minPressure: Constants.MIN_PRESSURE,
           maxPressure: Constants.MAX_PRESSURE,
-          scale: 0.9,
-          visible: false,
-          initialPosition: barometer.positionProperty.get()
+          isIcon: true
         }
       );
 
-      // show the sensor icon whenever this barometer is hidden back into the toolbox
-      barometerNode.addInputListener( getMakeIconVisibleListener( barometerNode, barometerIcon ) );
+      // Create the panel from the icons
+      const container = new HBox( { children: [ velocitySensorIcon, barometerIcon ], spacing: 10 } );
 
-      this.barometerNodes.push( barometerNode );
-      screenView.addChild( barometerNode );
+      super( container, options );
 
-    } );
+      // TODO, make sure that this is the best way to get the location of the icon in units that the sensor's positionProperty can use
+      const velocitySensorInitialPosition = velocitySensorIcon.localToGlobalPoint( new Vector2( velocitySensorIcon.x, velocitySensorIcon.y ) );
+      this.velocitySensorNodes = []; // @private
 
-    barometerIcon.addInputListener( SimpleDragHandler.createForwardingListener( event => {
-      handleSensorVisibilityAndDrag( this.barometerNodes, barometerIcon, event );
-    } ) );
+      // add velocitySensors within the sensor panel bounds
+      _.each( model.speedometers, velocitySensor => {
+
+        const velocitySensorNode = new VelocitySensorNode(
+          modelViewTransform,
+          velocitySensor,
+          model.measureUnitsProperty,
+          [ model.pipe.flowRateProperty, model.pipe.frictionProperty ],
+          model.getVelocityAt.bind( model ),
+          this.visibleBounds,
+          screenView.layoutBounds,
+          {
+            initialPosition: velocitySensorInitialPosition.roundedSymmetric(),
+            scale: 0.9,
+            visible: false
+          }
+        );
+
+        // show the sensor icon whenever this velocity sensor is hidden back into the toolbox
+        velocitySensorNode.addInputListener( getMakeIconVisibleListener( velocitySensorNode, velocitySensorIcon ) );
+
+        // center the real velocity sensor on the icon.
+        // TODO, just a hack until I find something better. I'm not sure why this is different from barometers
+        velocitySensor.positionProperty._initialValue = velocitySensorInitialPosition;
+        velocitySensor.positionProperty.value = velocitySensorInitialPosition;
+
+        this.velocitySensorNodes.push( velocitySensorNode );
+        screenView.addChild( velocitySensorNode );
+      } );
+
+      velocitySensorIcon.addInputListener( SimpleDragHandler.createForwardingListener( event => {
+        handleSensorVisibilityAndDrag( this.velocitySensorNodes, velocitySensorIcon, event );
+      } ) );
+
+
+      // TODO, make sure that this is the best way to get the location of the icon in units that the sensor's positionProperty can use
+      this.barometerNodes = []; // @private
+
+      // add barometers within the sensor panel bounds
+      _.each( model.barometers, barometer => {
+
+        const barometerNode = new BarometerNode(
+          modelViewTransform,
+          barometer,
+          model.measureUnitsProperty,
+          [ model.fluidDensityProperty, model.pipe.flowRateProperty, model.pipe.frictionProperty ],
+          model.getPressureAtCoords.bind( model ),
+          model.getPressureString.bind( model ),
+          this.visibleBounds,
+          screenView.layoutBounds,
+          {
+            minPressure: Constants.MIN_PRESSURE,
+            maxPressure: Constants.MAX_PRESSURE,
+            scale: 0.9,
+            visible: false,
+            initialPosition: barometer.positionProperty.get()
+          }
+        );
+
+        // show the sensor icon whenever this barometer is hidden back into the toolbox
+        barometerNode.addInputListener( getMakeIconVisibleListener( barometerNode, barometerIcon ) );
+
+        this.barometerNodes.push( barometerNode );
+        screenView.addChild( barometerNode );
+
+      } );
+
+      barometerIcon.addInputListener( SimpleDragHandler.createForwardingListener( event => {
+        handleSensorVisibilityAndDrag( this.barometerNodes, barometerIcon, event );
+      } ) );
+    }
+
+    reset() {
+
+      this.velocitySensorNodes.forEach( sensor => {
+        sensor.visible = false;
+      } );
+
+      this.barometerNodes.forEach( sensor => {
+        sensor.visible = false;
+      } );
+    }
   }
 
   /**
@@ -202,17 +214,5 @@ define( require => {
     };
   }
 
-  fluidPressureAndFlow.register( 'SensorToolbox', SensorToolbox );
-
-  return inherit( Panel, SensorToolbox, {
-
-    reset: function() {
-      this.velocitySensorNodes.forEach( sensor => {
-        sensor.visible = false;
-      } );
-      this.barometerNodes.forEach( sensor => {
-        sensor.visible = false;
-      } );
-    }
-  } );
+  return fluidPressureAndFlow.register( 'SensorToolbox', SensorToolbox );
 } );
