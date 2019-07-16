@@ -18,7 +18,6 @@ define( require => {
     /**
      * @param {Vector2} position of the sensor
      * @param {Vector2} value Velocity as measured by the sensor
-     * @constructor
      */
     constructor( position, value ) {
 

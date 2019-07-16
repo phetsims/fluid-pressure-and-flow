@@ -58,7 +58,6 @@ define( require => {
 
     /**
      * @param {FlowModel} flowModel
-     * @constructor
      */
     constructor( flowModel ) {
 
