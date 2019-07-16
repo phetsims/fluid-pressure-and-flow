@@ -2,6 +2,7 @@
 
 /**
  * View for mass stack on top of water. Masses don't stack on ground.
+ *
  * @author Vasily Shakhov (Mlearner)
  */
 define( require => {
@@ -9,78 +10,74 @@ define( require => {
 
   // modules
   const fluidPressureAndFlow = require( 'FLUID_PRESSURE_AND_FLOW/fluidPressureAndFlow' );
-  const inherit = require( 'PHET_CORE/inherit' );
   const Node = require( 'SCENERY/nodes/Node' );
   const Path = require( 'SCENERY/nodes/Path' );
   const Rectangle = require( 'SCENERY/nodes/Rectangle' );
   const Shape = require( 'KITE/Shape' );
   const Vector2 = require( 'DOT/Vector2' );
 
-  /**
-   * @param {ChamberPoolModel} chamberPoolModel
-   * @param {ModelViewTransform2} modelViewTransform for transforming between model and view co-ordinates
-   * @constructor
-   */
+  class MassStackNode extends Node {
 
-  function MassStackNode( chamberPoolModel, modelViewTransform ) {
+    /**
+     * @param {ChamberPoolModel} chamberPoolModel
+     * @param {ModelViewTransform2} modelViewTransform for transforming between model and view co-ordinates
+     */
+    constructor( chamberPoolModel, modelViewTransform ) {
 
-    this.chamberPoolModel = chamberPoolModel;
-    Node.call( this, {
-      x: modelViewTransform.modelToViewX( chamberPoolModel.poolDimensions.leftOpening.x1 )
-    } );
-
-    this.totalHeight = 0; //height of all masses
-
-    const placementRectWidth = modelViewTransform.modelToViewX( chamberPoolModel.poolDimensions.leftOpening.x2 -
-                                                              chamberPoolModel.poolDimensions.leftOpening.x1 );
-
-    const placementRect = new Rectangle( 0, 0, placementRectWidth, 0 );
-    const placementRectBorder = new Path( new Shape(),
-      { stroke: '#000', lineWidth: 2, lineDash: [ 10, 5 ], fill: '#ffdcf0' } );
-
-    this.addChild( placementRect );
-    this.addChild( placementRectBorder );
-
-    chamberPoolModel.leftDisplacementProperty.link( displacement => {
-      this.bottom = modelViewTransform.modelToViewY( chamberPoolModel.poolDimensions.leftOpening.y2 +
-                                                     chamberPoolModel.leftWaterHeight - displacement );
-    } );
-
-    // If a mass is being dragged by the user, show the dotted line drop region where it can be placed in the chamber pool.
-    chamberPoolModel.masses.forEach( massModel => {
-      massModel.isDraggingProperty.link( isDragging => {
-        if ( isDragging ) {
-          const placementRectHeight = Math.abs( modelViewTransform.modelToViewDeltaY( massModel.height ) );
-          const placementRectY1 = -placementRectHeight +
-                                modelViewTransform.modelToViewDeltaY( this.totalHeight );
-
-          placementRectBorder.shape = new Shape().moveTo( 0, placementRectY1 )
-            .lineTo( 0, placementRectY1 + placementRectHeight )
-            .lineTo( placementRectWidth, placementRectY1 + placementRectHeight )
-            .lineTo( placementRectWidth, placementRectY1 )
-            .lineTo( 0, placementRectY1 );
-
-          placementRectBorder.visible = true;
-        }
-        else {
-          placementRectBorder.visible = false;
-        }
+      super( {
+        x: modelViewTransform.modelToViewX( chamberPoolModel.poolDimensions.leftOpening.x1 )
       } );
-    } );
 
-    chamberPoolModel.stack.addItemAddedListener( () => {
-      this.updateMassStack();
-    } );
-    chamberPoolModel.stack.addItemRemovedListener( () => {
-      this.updateMassStack();
-    } );
-  }
+      this.chamberPoolModel = chamberPoolModel;
 
-  fluidPressureAndFlow.register( 'MassStackNode', MassStackNode );
+      this.totalHeight = 0; //height of all masses
 
-  return inherit( Node, MassStackNode, {
+      const placementRectWidth = modelViewTransform.modelToViewX( chamberPoolModel.poolDimensions.leftOpening.x2 -
+                                                                  chamberPoolModel.poolDimensions.leftOpening.x1 );
 
-    updateMassPositions: function() {
+      const placementRect = new Rectangle( 0, 0, placementRectWidth, 0 );
+      const placementRectBorder = new Path( new Shape(),
+        { stroke: '#000', lineWidth: 2, lineDash: [ 10, 5 ], fill: '#ffdcf0' } );
+
+      this.addChild( placementRect );
+      this.addChild( placementRectBorder );
+
+      chamberPoolModel.leftDisplacementProperty.link( displacement => {
+        this.bottom = modelViewTransform.modelToViewY( chamberPoolModel.poolDimensions.leftOpening.y2 +
+                                                       chamberPoolModel.leftWaterHeight - displacement );
+      } );
+
+      // If a mass is being dragged by the user, show the dotted line drop region where it can be placed in the chamber pool.
+      chamberPoolModel.masses.forEach( massModel => {
+        massModel.isDraggingProperty.link( isDragging => {
+          if ( isDragging ) {
+            const placementRectHeight = Math.abs( modelViewTransform.modelToViewDeltaY( massModel.height ) );
+            const placementRectY1 = -placementRectHeight +
+                                    modelViewTransform.modelToViewDeltaY( this.totalHeight );
+
+            placementRectBorder.shape = new Shape().moveTo( 0, placementRectY1 )
+              .lineTo( 0, placementRectY1 + placementRectHeight )
+              .lineTo( placementRectWidth, placementRectY1 + placementRectHeight )
+              .lineTo( placementRectWidth, placementRectY1 )
+              .lineTo( 0, placementRectY1 );
+
+            placementRectBorder.visible = true;
+          }
+          else {
+            placementRectBorder.visible = false;
+          }
+        } );
+      } );
+
+      chamberPoolModel.stack.addItemAddedListener( () => {
+        this.updateMassStack();
+      } );
+      chamberPoolModel.stack.addItemRemovedListener( () => {
+        this.updateMassStack();
+      } );
+    }
+
+    updateMassPositions() {
       let dy = 0;
       const chamberPoolModel = this.chamberPoolModel;
       chamberPoolModel.stack.forEach( function( massModel ) {
@@ -89,9 +86,9 @@ define( require => {
           chamberPoolModel.leftDisplacementProperty.value + dy + massModel.height / 2 );
         dy += massModel.height;
       } );
-    },
+    }
 
-    updateMassStack: function() {
+    updateMassStack() {
       let totHeight = 0;
 
       this.chamberPoolModel.stack.forEach( massModel => {
@@ -102,7 +99,7 @@ define( require => {
       this.totalHeight = totHeight;
       this.updateMassPositions();
     }
+  }
 
-  } );
-} )
-;
+  return fluidPressureAndFlow.register( 'MassStackNode', MassStackNode );
+} );

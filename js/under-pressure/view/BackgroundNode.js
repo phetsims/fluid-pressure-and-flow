@@ -12,53 +12,52 @@ define( require => {
   // modules
   const fluidPressureAndFlow = require( 'FLUID_PRESSURE_AND_FLOW/fluidPressureAndFlow' );
   const GroundNode = require( 'SCENERY_PHET/GroundNode' );
-  const inherit = require( 'PHET_CORE/inherit' );
   const Node = require( 'SCENERY/nodes/Node' );
   const Rectangle = require( 'SCENERY/nodes/Rectangle' );
   const SkyNode = require( 'SCENERY_PHET/SkyNode' );
 
-  /**
-   * @param {UnderPressureModel} underPressureModel of the sim
-   * @param {ModelViewTransform2} modelViewTransform for transforming between model and view co-ordinates
-   * @constructor
-   */
-  function BackgroundNode( underPressureModel, modelViewTransform ) {
-    Node.call( this );
+  class BackgroundNode extends Node {
 
-    // empirically determined
-    const backgroundStartX = -2000;
-    const backgroundWidth = 5000;
-    const skyExtension = 5000;
-    const groundExtension = 5000;
-    const groundY = modelViewTransform.modelToViewY( 0 );
+    /**
+     * @param {UnderPressureModel} underPressureModel of the sim
+     * @param {ModelViewTransform2} modelViewTransform for transforming between model and view co-ordinates
+     */
+    constructor( underPressureModel, modelViewTransform ) {
+      super();
 
-    // add rectangle on top of the sky node to extend sky upwards.
-    this.addChild( new Rectangle( backgroundStartX, -skyExtension, backgroundWidth, skyExtension,
-      { stroke: '#01ACE4', fill: '#01ACE4' } ) );
+      // empirically determined
+      const backgroundStartX = -2000;
+      const backgroundWidth = 5000;
+      const skyExtension = 5000;
+      const groundExtension = 5000;
+      const groundY = modelViewTransform.modelToViewY( 0 );
 
-    const skyNode = new SkyNode( backgroundStartX, 0, backgroundWidth, groundY, groundY );
-    const skyNodeWithNoAtmosphere = new Rectangle(
-      backgroundStartX,
-      -skyExtension,
-      backgroundWidth,
-      ( skyExtension + groundY ),
-      { fill: 'black' }
-    );
+      // add rectangle on top of the sky node to extend sky upwards.
+      this.addChild( new Rectangle( backgroundStartX, -skyExtension, backgroundWidth, skyExtension,
+        { stroke: '#01ACE4', fill: '#01ACE4' } ) );
 
-    this.addChild( skyNode );
-    this.addChild( skyNodeWithNoAtmosphere );
+      const skyNode = new SkyNode( backgroundStartX, 0, backgroundWidth, groundY, groundY );
+      const skyNodeWithNoAtmosphere = new Rectangle(
+        backgroundStartX,
+        -skyExtension,
+        backgroundWidth,
+        ( skyExtension + groundY ),
+        { fill: 'black' }
+      );
 
-    underPressureModel.isAtmosphereProperty.link( isAtmosphere => {
-      skyNode.visible = isAtmosphere;
-      skyNodeWithNoAtmosphere.visible = !isAtmosphere;
-    } );
+      this.addChild( skyNode );
+      this.addChild( skyNodeWithNoAtmosphere );
 
-    //Ground node
-    this.addChild( new GroundNode( backgroundStartX, groundY, backgroundWidth, groundY + groundExtension, 295,
-      { topColor: '#93774C', bottomColor: '#93774C' } ) );
+      underPressureModel.isAtmosphereProperty.link( isAtmosphere => {
+        skyNode.visible = isAtmosphere;
+        skyNodeWithNoAtmosphere.visible = !isAtmosphere;
+      } );
+
+      //Ground node
+      this.addChild( new GroundNode( backgroundStartX, groundY, backgroundWidth, groundY + groundExtension, 295,
+        { topColor: '#93774C', bottomColor: '#93774C' } ) );
+    }
   }
 
-  fluidPressureAndFlow.register( 'BackgroundNode', BackgroundNode );
-
-  return inherit( Node, BackgroundNode, {} );
+  return fluidPressureAndFlow.register( 'BackgroundNode', BackgroundNode );
 } );

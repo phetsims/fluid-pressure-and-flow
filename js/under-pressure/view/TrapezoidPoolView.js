@@ -11,57 +11,57 @@ define( require => {
   // modules
   const FaucetFluidNode = require( 'FLUID_PRESSURE_AND_FLOW/under-pressure/view/FaucetFluidNode' );
   const fluidPressureAndFlow = require( 'FLUID_PRESSURE_AND_FLOW/fluidPressureAndFlow' );
-  const inherit = require( 'PHET_CORE/inherit' );
   const Node = require( 'SCENERY/nodes/Node' );
   const TrapezoidPoolBack = require( 'FLUID_PRESSURE_AND_FLOW/under-pressure/view/TrapezoidPoolBack' );
   const TrapezoidPoolGrid = require( 'FLUID_PRESSURE_AND_FLOW/under-pressure/view/TrapezoidPoolGrid' );
   const TrapezoidPoolWaterNode = require( 'FLUID_PRESSURE_AND_FLOW/under-pressure/view/TrapezoidPoolWaterNode' );
 
-  /**
-   * @param {TrapezoidPoolModel} trapezoidPoolModel
-   * @param {ModelViewTransform2 } modelViewTransform to convert between model and view co-ordinates
-   * @constructor
-   */
-  function TrapezoidPoolView( trapezoidPoolModel, modelViewTransform ) {
+  class TrapezoidPoolView extends Node {
 
-    Node.call( this );
-    const poolDimensions = trapezoidPoolModel.poolDimensions;
+    /**
+     * @param {TrapezoidPoolModel} trapezoidPoolModel
+     * @param {ModelViewTransform2 } modelViewTransform to convert between model and view co-ordinates
+     */
+    constructor( trapezoidPoolModel, modelViewTransform ) {
 
-    // add pool back
-    this.addChild( new TrapezoidPoolBack( trapezoidPoolModel, modelViewTransform ) );
+      super();
 
-    // add fluids
-    const inputFaucetFluidMaxHeight = Math.abs( modelViewTransform.modelToViewDeltaY( trapezoidPoolModel.inputFaucet.location.y -
-                                                                                    poolDimensions.bottomChamber.y2 ) );
-    this.addChild( new FaucetFluidNode(
-      trapezoidPoolModel.inputFaucet, trapezoidPoolModel, modelViewTransform, inputFaucetFluidMaxHeight ) );
+      const poolDimensions = trapezoidPoolModel.poolDimensions;
 
-    const outputFaucetFluidMaxHeight = 1000;
-    this.addChild( new FaucetFluidNode( trapezoidPoolModel.outputFaucet, trapezoidPoolModel, modelViewTransform,
-      outputFaucetFluidMaxHeight ) );
+      // add pool back
+      this.addChild( new TrapezoidPoolBack( trapezoidPoolModel, modelViewTransform ) );
 
-    // add water
-    this.addChild( new TrapezoidPoolWaterNode( trapezoidPoolModel, modelViewTransform ) );
+      // add fluids
+      const inputFaucetFluidMaxHeight = Math.abs( modelViewTransform.modelToViewDeltaY( trapezoidPoolModel.inputFaucet.location.y -
+                                                                                        poolDimensions.bottomChamber.y2 ) );
+      this.addChild( new FaucetFluidNode(
+        trapezoidPoolModel.inputFaucet, trapezoidPoolModel, modelViewTransform, inputFaucetFluidMaxHeight ) );
 
-    // pool dimensions in view values
-    const poolLeftX = poolDimensions.leftChamber.centerTop - poolDimensions.leftChamber.widthBottom / 2;
-    const poolTopY = poolDimensions.leftChamber.y;
-    const poolRightX = poolDimensions.rightChamber.centerTop + poolDimensions.rightChamber.widthTop / 2;
-    const poolBottomY = poolDimensions.leftChamber.y - poolDimensions.leftChamber.height - 0.3;
-    const poolHeight = poolDimensions.leftChamber.height;
+      const outputFaucetFluidMaxHeight = 1000;
+      this.addChild( new FaucetFluidNode( trapezoidPoolModel.outputFaucet, trapezoidPoolModel, modelViewTransform,
+        outputFaucetFluidMaxHeight ) );
 
-    const labelXPosition = modelViewTransform.modelToViewX(
-      ( poolDimensions.leftChamber.centerTop + poolDimensions.leftChamber.widthTop / 2 +
-        poolDimensions.rightChamber.centerTop - poolDimensions.rightChamber.widthTop / 2 ) / 2 );
+      // add water
+      this.addChild( new TrapezoidPoolWaterNode( trapezoidPoolModel, modelViewTransform ) );
 
-    const slantMultiplier = 0.45; // Empirically determined to make labels line up in space between the pools
+      // pool dimensions in view values
+      const poolLeftX = poolDimensions.leftChamber.centerTop - poolDimensions.leftChamber.widthBottom / 2;
+      const poolTopY = poolDimensions.leftChamber.y;
+      const poolRightX = poolDimensions.rightChamber.centerTop + poolDimensions.rightChamber.widthTop / 2;
+      const poolBottomY = poolDimensions.leftChamber.y - poolDimensions.leftChamber.height - 0.3;
+      const poolHeight = poolDimensions.leftChamber.height;
 
-    // add grid
-    this.addChild( new TrapezoidPoolGrid( trapezoidPoolModel.underPressureModel, modelViewTransform, poolLeftX,
-      poolTopY, poolRightX, poolBottomY, poolHeight, labelXPosition, slantMultiplier ) );
+      const labelXPosition = modelViewTransform.modelToViewX(
+        ( poolDimensions.leftChamber.centerTop + poolDimensions.leftChamber.widthTop / 2 +
+          poolDimensions.rightChamber.centerTop - poolDimensions.rightChamber.widthTop / 2 ) / 2 );
+
+      const slantMultiplier = 0.45; // Empirically determined to make labels line up in space between the pools
+
+      // add grid
+      this.addChild( new TrapezoidPoolGrid( trapezoidPoolModel.underPressureModel, modelViewTransform, poolLeftX,
+        poolTopY, poolRightX, poolBottomY, poolHeight, labelXPosition, slantMultiplier ) );
+    }
   }
 
-  fluidPressureAndFlow.register( 'TrapezoidPoolView', TrapezoidPoolView );
-
-  return inherit( Node, TrapezoidPoolView );
+  return fluidPressureAndFlow.register( 'TrapezoidPoolView', TrapezoidPoolView );
 } );

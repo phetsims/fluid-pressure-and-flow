@@ -11,36 +11,35 @@ define( require => {
 
   // modules
   const fluidPressureAndFlow = require( 'FLUID_PRESSURE_AND_FLOW/fluidPressureAndFlow' );
-  const inherit = require( 'PHET_CORE/inherit' );
   const Rectangle = require( 'SCENERY/nodes/Rectangle' );
 
-  /**
-   * @param {SquarePoolModel} squarePoolModel of the simulation
-   * @param {ModelViewTransform2} modelViewTransform to convert between model and view co-ordinates
-   * @constructor
-   */
-  function SquarePoolWaterNode( squarePoolModel, modelViewTransform ) {
+  class SquarePoolWaterNode extends Rectangle {
 
-    Rectangle.call( this, 0, 0, 1, 1, { lineWidth: 1 } );
+    /**
+     * @param {SquarePoolModel} squarePoolModel of the simulation
+     * @param {ModelViewTransform2} modelViewTransform to convert between model and view co-ordinates
+     */
+    constructor( squarePoolModel, modelViewTransform ) {
 
-    const poolDimensions = squarePoolModel.poolDimensions;
+      super( 0, 0, 1, 1, { lineWidth: 1 } );
 
-    const viewWidth = modelViewTransform.modelToViewDeltaX( poolDimensions.x2 - poolDimensions.x1 );//width of pool, px
-    const maxHeight = Math.abs( modelViewTransform.modelToViewDeltaY( squarePoolModel.maxHeight ) );//max height of water in pixels
-    const xMin = modelViewTransform.modelToViewX( poolDimensions.x1 );//left x point of pool in pixels
-    const yMax = modelViewTransform.modelToViewY( poolDimensions.y2 );//bottom y point of pool in pixels
+      const poolDimensions = squarePoolModel.poolDimensions;
 
-    squarePoolModel.underPressureModel.fluidColorModel.colorProperty.linkAttribute( this, 'fill' );
+      const viewWidth = modelViewTransform.modelToViewDeltaX( poolDimensions.x2 - poolDimensions.x1 );//width of pool, px
+      const maxHeight = Math.abs( modelViewTransform.modelToViewDeltaY( squarePoolModel.maxHeight ) );//max height of water in pixels
+      const xMin = modelViewTransform.modelToViewX( poolDimensions.x1 );//left x point of pool in pixels
+      const yMax = modelViewTransform.modelToViewY( poolDimensions.y2 );//bottom y point of pool in pixels
 
-    squarePoolModel.volumeProperty.link( () => {
+      squarePoolModel.underPressureModel.fluidColorModel.colorProperty.linkAttribute( this, 'fill' );
 
-      // height of water in pixels
-      const viewHeight = maxHeight * squarePoolModel.volumeProperty.value / squarePoolModel.maxVolume;
-      this.setRect( xMin, yMax - viewHeight, viewWidth, viewHeight );
-    } );
+      squarePoolModel.volumeProperty.link( () => {
+
+        // height of water in pixels
+        const viewHeight = maxHeight * squarePoolModel.volumeProperty.value / squarePoolModel.maxVolume;
+        this.setRect( xMin, yMax - viewHeight, viewWidth, viewHeight );
+      } );
+    }
   }
 
-  fluidPressureAndFlow.register( 'SquarePoolWaterNode', SquarePoolWaterNode );
-
-  return inherit( Rectangle, SquarePoolWaterNode );
+  return fluidPressureAndFlow.register( 'SquarePoolWaterNode', SquarePoolWaterNode );
 } );

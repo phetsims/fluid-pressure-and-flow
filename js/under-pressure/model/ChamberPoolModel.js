@@ -13,7 +13,6 @@ define( require => {
   // modules
   const Constants = require( 'FLUID_PRESSURE_AND_FLOW/common/Constants' );
   const fluidPressureAndFlow = require( 'FLUID_PRESSURE_AND_FLOW/fluidPressureAndFlow' );
-  const inherit = require( 'PHET_CORE/inherit' );
   const MassModel = require( 'FLUID_PRESSURE_AND_FLOW/under-pressure/model/MassModel' );
   const ObservableArray = require( 'AXON/ObservableArray' );
   const Property = require( 'AXON/Property' );
@@ -49,126 +48,123 @@ define( require => {
   //The entire apparatus is this tall
   const MAX_HEIGHT = Constants.MAX_POOL_HEIGHT; // meters
 
-  /**
-   * @param {UnderPressureModel} underPressureModel -- model for the sim.
-   * @constructor
-   */
-  function ChamberPoolModel( underPressureModel ) {
+  class ChamberPoolModel {
 
-    this.leftDisplacementProperty = new Property( 0 ); //displacement from default height
-    this.stackMassProperty = new Property( 0 );
+    /**
+     * @param {UnderPressureModel} underPressureModel
+     */
+    constructor( underPressureModel ) {
 
-    // @public (read-only)
-    this.volumeProperty = new Property( 1 );// TODO: what should this number be?  Does it even matter?  I don't think it has any bearing on the model.
+      this.leftDisplacementProperty = new Property( 0 ); //displacement from default height
+      this.stackMassProperty = new Property( 0 );
 
-    this.underPressureModel = underPressureModel;
+      // @public (read-only)
+      this.volumeProperty = new Property( 1 );// TODO: what should this number be?  Does it even matter?  I don't think it has any bearing on the model.
 
-    //Use the length ratio instead of area ratio because the quadratic factor makes it too hard to see the
-    // water move on the right, and decreases the pressure effect too much to see it
-    this.lengthRatio = RIGHT_OPENING_WIDTH / LEFT_OPENING_WIDTH; // @public
+      this.underPressureModel = underPressureModel;
 
-    //default left opening water height
-    this.leftWaterHeight = DEFAULT_HEIGHT - CHAMBER_HEIGHT; // @public
+      //Use the length ratio instead of area ratio because the quadratic factor makes it too hard to see the
+      // water move on the right, and decreases the pressure effect too much to see it
+      this.lengthRatio = RIGHT_OPENING_WIDTH / LEFT_OPENING_WIDTH; // @public
 
-    //masses can't have y-coord more that this, sky height - grass height
-    this.maxY = 0.05; // @public
+      //default left opening water height
+      this.leftWaterHeight = DEFAULT_HEIGHT - CHAMBER_HEIGHT; // @public
+
+      //masses can't have y-coord more that this, sky height - grass height
+      this.maxY = 0.05; // @public
+
+      // @public
+      this.poolDimensions = {
+        leftChamber: {
+          x1: LEFT_CHAMBER_X,
+          y1: -( MAX_HEIGHT - CHAMBER_HEIGHT ),
+          x2: LEFT_CHAMBER_X + LEFT_CHAMBER_WIDTH,
+          y2: -( MAX_HEIGHT )
+        },
+        rightChamber: {
+          x1: RIGHT_CHAMBER_X,
+          y1: -( MAX_HEIGHT - CHAMBER_HEIGHT ),
+          x2: RIGHT_CHAMBER_X + RIGHT_CHAMBER_WIDTH,
+          y2: -( MAX_HEIGHT )
+        },
+        horizontalPassage: {
+          x1: LEFT_CHAMBER_X + LEFT_CHAMBER_WIDTH,
+          y1: -( MAX_HEIGHT - PASSAGE_SIZE * 3 / 2 ),
+          x2: RIGHT_CHAMBER_X,
+          y2: -( MAX_HEIGHT - PASSAGE_SIZE / 2 )
+        },
+        leftOpening: {
+          x1: LEFT_CHAMBER_X + LEFT_CHAMBER_WIDTH / 2 - LEFT_OPENING_WIDTH / 2,
+          y1: 0,
+          x2: LEFT_CHAMBER_X + LEFT_CHAMBER_WIDTH / 2 + LEFT_OPENING_WIDTH / 2,
+          y2: -( MAX_HEIGHT - CHAMBER_HEIGHT )
+        },
+        rightOpening: {
+          x1: RIGHT_CHAMBER_X + RIGHT_CHAMBER_WIDTH / 2 - RIGHT_OPENING_WIDTH / 2,
+          y1: 0,
+          x2: RIGHT_CHAMBER_X + RIGHT_CHAMBER_WIDTH / 2 + RIGHT_OPENING_WIDTH / 2,
+          y2: -( MAX_HEIGHT - CHAMBER_HEIGHT )
+        }
+      };
+
+      //List of masses that are currently stacked
+      this.stack = new ObservableArray(); // @public
+
+      // @public
+      //List of all available masses
+      this.masses = [
+        new MassModel( this, 500, MASS_OFFSET, this.maxY + PASSAGE_SIZE / 2, PASSAGE_SIZE,
+          PASSAGE_SIZE ),
+        new MassModel( this, 250, MASS_OFFSET + PASSAGE_SIZE + SEPARATION,
+          this.maxY + PASSAGE_SIZE / 4, PASSAGE_SIZE, PASSAGE_SIZE / 2 ),
+        new MassModel( this, 250, MASS_OFFSET + 2 * PASSAGE_SIZE + 2 * SEPARATION,
+          this.maxY + PASSAGE_SIZE / 4, PASSAGE_SIZE, PASSAGE_SIZE / 2 )
+      ];
+
+      //When an item is added to the stack, update the total mass and equalize the mass velocities
+      this.stack.addItemAddedListener( massModel => {
+        this.stackMassProperty.value = this.stackMassProperty.value + massModel.mass;
+
+        let maxVelocity = 0;
+
+        //must equalize velocity of each mass
+        this.stack.forEach( mass => {
+          maxVelocity = Math.max( mass.velocity, maxVelocity );
+        } );
+        this.stack.forEach( mass => {
+          mass.velocity = maxVelocity;
+        } );
+      } );
+
+      //When an item is removed from the stack, update the total mass.
+      this.stack.addItemRemovedListener( massModel => {
+        this.stackMassProperty.value = this.stackMassProperty.value - massModel.mass;
+      } );
+
+      this.leftDisplacementProperty.link( () => {
+        // update all barometers
+        _.each( underPressureModel.barometers, barometer => {
+          barometer.updateEmitter.emit();
+        } );
+      } );
+    }
 
     // @public
-    this.poolDimensions = {
-      leftChamber: {
-        x1: LEFT_CHAMBER_X,
-        y1: -( MAX_HEIGHT - CHAMBER_HEIGHT ),
-        x2: LEFT_CHAMBER_X + LEFT_CHAMBER_WIDTH,
-        y2: -( MAX_HEIGHT )
-      },
-      rightChamber: {
-        x1: RIGHT_CHAMBER_X,
-        y1: -( MAX_HEIGHT - CHAMBER_HEIGHT ),
-        x2: RIGHT_CHAMBER_X + RIGHT_CHAMBER_WIDTH,
-        y2: -( MAX_HEIGHT )
-      },
-      horizontalPassage: {
-        x1: LEFT_CHAMBER_X + LEFT_CHAMBER_WIDTH,
-        y1: -( MAX_HEIGHT - PASSAGE_SIZE * 3 / 2),
-        x2: RIGHT_CHAMBER_X,
-        y2: -( MAX_HEIGHT - PASSAGE_SIZE / 2 )
-      },
-      leftOpening: {
-        x1: LEFT_CHAMBER_X + LEFT_CHAMBER_WIDTH / 2 - LEFT_OPENING_WIDTH / 2,
-        y1: 0,
-        x2: LEFT_CHAMBER_X + LEFT_CHAMBER_WIDTH / 2 + LEFT_OPENING_WIDTH / 2,
-        y2: -( MAX_HEIGHT - CHAMBER_HEIGHT )
-      },
-      rightOpening: {
-        x1: RIGHT_CHAMBER_X + RIGHT_CHAMBER_WIDTH / 2 - RIGHT_OPENING_WIDTH / 2,
-        y1: 0,
-        x2: RIGHT_CHAMBER_X + RIGHT_CHAMBER_WIDTH / 2 + RIGHT_OPENING_WIDTH / 2,
-        y2: -( MAX_HEIGHT - CHAMBER_HEIGHT )
-      }
-    };
-
-    //List of masses that are currently stacked
-    this.stack = new ObservableArray(); // @public
-
-    // @public
-    //List of all available masses
-    this.masses = [
-      new MassModel( this, 500, MASS_OFFSET, this.maxY + PASSAGE_SIZE / 2, PASSAGE_SIZE,
-        PASSAGE_SIZE ),
-      new MassModel( this, 250, MASS_OFFSET + PASSAGE_SIZE + SEPARATION,
-        this.maxY + PASSAGE_SIZE / 4, PASSAGE_SIZE, PASSAGE_SIZE / 2 ),
-      new MassModel( this, 250, MASS_OFFSET + 2 * PASSAGE_SIZE + 2 * SEPARATION,
-        this.maxY + PASSAGE_SIZE / 4, PASSAGE_SIZE, PASSAGE_SIZE / 2 )
-    ];
-
-    //When an item is added to the stack, update the total mass and equalize the mass velocities
-    this.stack.addItemAddedListener( massModel => {
-      this.stackMassProperty.value = this.stackMassProperty.value + massModel.mass;
-
-      let maxVelocity = 0;
-
-      //must equalize velocity of each mass
-      this.stack.forEach( mass => {
-        maxVelocity = Math.max( mass.velocity, maxVelocity );
-      } );
-      this.stack.forEach( mass => {
-        mass.velocity = maxVelocity;
-      } );
-    } );
-
-    //When an item is removed from the stack, update the total mass.
-    this.stack.addItemRemovedListener( massModel => {
-      this.stackMassProperty.value = this.stackMassProperty.value - massModel.mass;
-    } );
-
-    this.leftDisplacementProperty.link( () => {
-      // update all barometers
-      _.each( underPressureModel.barometers, barometer => {
-        barometer.updateEmitter.emit();
-      } );
-    } );
-  }
-
-  fluidPressureAndFlow.register( 'ChamberPoolModel', ChamberPoolModel );
-
-  return inherit( Object, ChamberPoolModel, {
-
-    // @public
-    reset: function() {
+    reset() {
       this.stack.clear();
       this.leftDisplacementProperty.reset();
       this.stackMassProperty.reset();
       this.masses.forEach( mass => {
         mass.reset();
       } );
-    },
+    }
 
     /**
      * @public
      * Steps the chamber pool dimensions forward in time by dt seconds
      * @param {number} dt -- time in seconds
      */
-    step: function( dt ) {
+    step( dt ) {
 
       const nominalDt = 1 / 60;
 
@@ -205,7 +201,7 @@ define( require => {
           this.leftDisplacementProperty.value = 0;
         }
       }
-    },
+    }
 
     /**
      * @public
@@ -214,7 +210,7 @@ define( require => {
      * @param {number} y - position in meters
      * @returns {number} height of the water above the y
      */
-    getWaterHeightAboveY: function( x, y ) {
+    getWaterHeightAboveY( x, y ) {
       if ( this.poolDimensions.leftOpening.x1 < x && x < this.poolDimensions.leftOpening.x2 &&
            y > this.poolDimensions.leftChamber.y2 + DEFAULT_HEIGHT - this.leftDisplacementProperty.value ) {
         return 0;
@@ -222,7 +218,7 @@ define( require => {
       else {
         return this.poolDimensions.leftChamber.y2 + DEFAULT_HEIGHT + this.leftDisplacementProperty.value / this.lengthRatio - y;
       }
-    },
+    }
 
     /**
      * @public
@@ -231,7 +227,7 @@ define( require => {
      * @param {number} y - position in meters
      * @returns {boolean}
      */
-    isPointInsidePool: function( x, y ) {
+    isPointInsidePool( x, y ) {
       const keys = _.keys( this.poolDimensions );
       for ( let i = 0; i < keys.length; i++ ) {
         const dimension = this.poolDimensions[ keys[ i ] ];
@@ -241,5 +237,7 @@ define( require => {
       }
       return false;
     }
-  } );
+  }
+
+  return fluidPressureAndFlow.register( 'ChamberPoolModel', ChamberPoolModel );
 } );

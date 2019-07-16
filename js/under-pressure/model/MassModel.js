@@ -13,7 +13,6 @@ define( require => {
   // modules
   const Bounds2 = require( 'DOT/Bounds2' );
   const fluidPressureAndFlow = require( 'FLUID_PRESSURE_AND_FLOW/fluidPressureAndFlow' );
-  const inherit = require( 'PHET_CORE/inherit' );
   const Property = require( 'AXON/Property' );
   const Vector2 = require( 'DOT/Vector2' );
   const Vector2Property = require( 'DOT/Vector2Property' );
@@ -21,64 +20,60 @@ define( require => {
   // constants
   const frictionCoefficient = 0.98;
 
-  /**
-   * @param {ChamberPoolModel} chamberPoolModel - of the simulation
-   * @param {number} mass - of object in grams
-   * @param {number} x - coordinate of the mass in meters
-   * @param {number} y - coordinate of the mass in meters
-   * @param {number} width - of the mass in meters
-   * @param {number} height - of the mass in meters
-   * @constructor
-   */
+  class MassModel {
 
-  function MassModel( chamberPoolModel, mass, x, y, width, height ) {
+    /**
+     * @param {ChamberPoolModel} chamberPoolModel - of the simulation
+     * @param {number} mass - of object in grams
+     * @param {number} x - coordinate of the mass in meters
+     * @param {number} y - coordinate of the mass in meters
+     * @param {number} width - of the mass in meters
+     * @param {number} height - of the mass in meters
+     */
+    constructor( chamberPoolModel, mass, x, y, width, height ) {
 
-    this.chamberPoolModel = chamberPoolModel;
-    this.mass = mass;
+      this.chamberPoolModel = chamberPoolModel;
+      this.mass = mass;
 
-    // all coordinates in meters
-    this.width = width; // @public
-    this.height = height; // @public
+      // all coordinates in meters
+      this.width = width; // @public
+      this.height = height; // @public
 
-    // @public
-    // The position is the center of the block.
-    this.positionProperty = new Vector2Property( new Vector2( x, y ) );
+      // @public
+      // The position is the center of the block.
+      this.positionProperty = new Vector2Property( new Vector2( x, y ) );
 
-    this.isDraggingProperty = new Property( false );
+      this.isDraggingProperty = new Property( false );
 
-    this.isFalling = false; // @private
-    this.velocity = 0; // @private
+      this.isFalling = false; // @private
+      this.velocity = 0; // @private
 
-    this.isDraggingProperty.link( isDragging => {
+      this.isDraggingProperty.link( isDragging => {
 
-        // If the user dropped the mass, then let it fall.
-        if ( !isDragging ) {
-          if ( this.isInTargetDroppedArea() ) {
-            chamberPoolModel.stack.push( this );
-          }
-          else if ( this.cannotFall() ) {
-            this.reset();
+          // If the user dropped the mass, then let it fall.
+          if ( !isDragging ) {
+            if ( this.isInTargetDroppedArea() ) {
+              chamberPoolModel.stack.push( this );
+            }
+            else if ( this.cannotFall() ) {
+              this.reset();
+            }
+            else {
+              this.isFalling = true;
+            }
           }
           else {
-            this.isFalling = true;
+            // The user grabbed the mass.  If it was in the stack, remove it.
+            if ( chamberPoolModel.stack.contains( this ) ) {
+              chamberPoolModel.stack.remove( this );
+            }
           }
         }
-        else {
-          // The user grabbed the mass.  If it was in the stack, remove it.
-          if ( chamberPoolModel.stack.contains( this ) ) {
-            chamberPoolModel.stack.remove( this );
-          }
-        }
-      }
-    );
-  }
-
-  fluidPressureAndFlow.register( 'MassModel', MassModel );
-
-  return inherit( Object, MassModel, {
+      );
+    }
 
     // @public
-    step: function( dt ) {
+    step( dt ) {
       let acceleration;
 
       // move the masses only when the velocity is greater than than this, see #60 for under-pressure repo
@@ -93,12 +88,12 @@ define( require => {
 
         //difference between water levels in left and right opening
         const h = this.chamberPoolModel.leftDisplacementProperty.value +
-                this.chamberPoolModel.leftDisplacementProperty.value / this.chamberPoolModel.lengthRatio;
+                  this.chamberPoolModel.leftDisplacementProperty.value / this.chamberPoolModel.lengthRatio;
         const gravityForce = -m * g;
         const pressureForce = rho * h * g;
         const force = gravityForce + pressureForce;
         acceleration = force / m;
-        this.velocity = (this.velocity + acceleration * dt) * frictionCoefficient;
+        this.velocity = ( this.velocity + acceleration * dt ) * frictionCoefficient;
         if ( Math.abs( this.velocity ) > epsilonVelocity ) {
           this.positionProperty.value.y += this.velocity * dt;
           this.positionProperty.notifyListenersStatic();
@@ -119,12 +114,12 @@ define( require => {
           this.positionProperty.notifyListenersStatic();
         }
       }
-    },
+    }
 
     // @public -- checks if the mass intersects with the target drop area.
-    isInTargetDroppedArea: function() {
+    isInTargetDroppedArea() {
       const waterLine = this.chamberPoolModel.poolDimensions.leftOpening.y2 + this.chamberPoolModel.leftWaterHeight -
-                      this.chamberPoolModel.leftDisplacementProperty.value;
+                        this.chamberPoolModel.leftDisplacementProperty.value;
       const bottomLine = waterLine + this.chamberPoolModel.stack.reduce( 0, ( a, b ) => { return a + b.height; } );
       const massBounds = new Bounds2(
         this.positionProperty.value.x - this.width / 2,
@@ -140,24 +135,24 @@ define( require => {
         ( bottomLine + this.height )
       );
       return massBounds.intersectsBounds( dropAreaBounds );
-    },
+    }
 
     // @private - If the user drops the mass underground or above a pool opening, it will teleport back to its initial location.
-    cannotFall: function() {
+    cannotFall() {
       return this.positionProperty.value.y < this.chamberPoolModel.maxY - this.height / 2 || this.isMassOverOpening();
-    },
+    }
 
     /**
      * Restore the initial conditions
      * @public
      */
-    reset: function() {
+    reset() {
       this.positionProperty.reset();
       this.isDraggingProperty.reset();
-    },
+    }
 
     // @private - checks if the mass is over the left or the right opening
-    isMassOverOpening: function() {
+    isMassOverOpening() {
       const left = this.positionProperty.value.x;
       const right = this.positionProperty.value.x + this.width / 2;
       const dimensions = this.chamberPoolModel.poolDimensions;
@@ -166,5 +161,7 @@ define( require => {
              ( dimensions.rightOpening.x1 < left && left < dimensions.rightOpening.x2 ) ||
              ( dimensions.rightOpening.x1 < right && right < dimensions.rightOpening.x2 );
     }
-  } );
+  }
+
+  return fluidPressureAndFlow.register( 'MassModel', MassModel );
 } );

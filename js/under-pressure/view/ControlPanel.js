@@ -2,6 +2,7 @@
 
 /**
  * Control panel that contains various tools like ruler, grid and atmosphere controls.
+ *
  * @author Vasily Shakhov (Mlearner)
  * @author Siddhartha Chinthapally (Actual Concepts)
  */
@@ -14,7 +15,6 @@ define( require => {
   const fluidPressureAndFlow = require( 'FLUID_PRESSURE_AND_FLOW/fluidPressureAndFlow' );
   const HBox = require( 'SCENERY/nodes/HBox' );
   const HStrut = require( 'SCENERY/nodes/HStrut' );
-  const inherit = require( 'PHET_CORE/inherit' );
   const Panel = require( 'SUN/Panel' );
   const PhetFont = require( 'SCENERY_PHET/PhetFont' );
   const RulerNode = require( 'SCENERY_PHET/RulerNode' );
@@ -27,82 +27,81 @@ define( require => {
   const gridString = require( 'string!FLUID_PRESSURE_AND_FLOW/grid' );
   const rulerString = require( 'string!FLUID_PRESSURE_AND_FLOW/ruler' );
 
-  /**
-   * @param {UnderPressureModel} underPressureModel of the sim.
-   * @param {Object} [options]
-   * @constructor
-   */
-  function ControlPanel( underPressureModel, options ) {
+  class ControlPanel extends Panel {
 
-    options = _.extend( {
-      yMargin: 7,
-      xMargin: 5,
-      fill: '#f2fa6a',
-      stroke: 'gray',
-      lineWidth: 1,
-      resize: false,
-      minWidth: 150,
-      maxWidth: 150
-    }, options );
+    /**
+     * @param {UnderPressureModel} underPressureModel of the sim.
+     * @param {Object} [options]
+     */
+    constructor( underPressureModel, options ) {
 
-    const maxControlWidth = ( options.maxWidth * 0.9 ) || 200; // the fallback value is fairly arbitrary
-    const textOptions = { font: new PhetFont( 12 ), maxWidth: maxControlWidth };
-    const rulerSet = [ new Text( rulerString, textOptions ), this.createRulerIcon() ];
-    const gridArray = [ new Text( gridString, textOptions ) ];
-    const atmosphereControlNode = new AtmosphereControlNode( underPressureModel.isAtmosphereProperty, {
-      maxWidth: options.maxWidth
-    } );
+      options = _.extend( {
+        yMargin: 7,
+        xMargin: 5,
+        fill: '#f2fa6a',
+        stroke: 'gray',
+        lineWidth: 1,
+        resize: false,
+        minWidth: 150,
+        maxWidth: 150
+      }, options );
 
-    const alignOptions = {
-      boxWidth: 15,
-      spacing: 5
-    };
+      const maxControlWidth = ( options.maxWidth * 0.9 ) || 200; // the fallback value is fairly arbitrary
+      const textOptions = { font: new PhetFont( 12 ), maxWidth: maxControlWidth };
+      const rulerSet = [ new Text( rulerString, textOptions ), createRulerIcon() ];
+      const gridArray = [ new Text( gridString, textOptions ) ];
+      const atmosphereControlNode = new AtmosphereControlNode( underPressureModel.isAtmosphereProperty, {
+        maxWidth: options.maxWidth
+      } );
 
-    // align ruler icon right
-    const padWidth = options.maxWidth - rulerSet[ 0 ].width - rulerSet[ 1 ].width - alignOptions.boxWidth -
-                   alignOptions.spacing * 2;
-    const rulerArray = [ rulerSet[ 0 ], new HStrut( padWidth ), rulerSet[ 1 ] ];
+      const alignOptions = {
+        boxWidth: 15,
+        spacing: 5
+      };
 
-    const rulerCheckbox = new Checkbox( new HBox( { children: rulerArray } ), underPressureModel.isRulerVisibleProperty,
-      alignOptions );
-    const gridCheckbox = new Checkbox( new HBox( { children: gridArray } ), underPressureModel.isGridVisibleProperty,
-      alignOptions );
+      // align ruler icon right
+      const padWidth = options.maxWidth - rulerSet[ 0 ].width - rulerSet[ 1 ].width - alignOptions.boxWidth -
+                       alignOptions.spacing * 2;
+      const rulerArray = [ rulerSet[ 0 ], new HStrut( padWidth ), rulerSet[ 1 ] ];
 
-    // touch areas, empirically determined
-    rulerCheckbox.touchArea = rulerCheckbox.bounds.dilatedY( 1 );
-    gridCheckbox.touchArea = gridCheckbox.bounds.dilatedY( 3 );
+      const rulerCheckbox = new Checkbox( new HBox( { children: rulerArray } ), underPressureModel.isRulerVisibleProperty,
+        alignOptions );
+      const gridCheckbox = new Checkbox( new HBox( { children: gridArray } ), underPressureModel.isGridVisibleProperty,
+        alignOptions );
 
-    const checkboxChildren = [ rulerCheckbox, gridCheckbox ];
+      // touch areas, empirically determined
+      rulerCheckbox.touchArea = rulerCheckbox.bounds.dilatedY( 1 );
+      gridCheckbox.touchArea = gridCheckbox.bounds.dilatedY( 3 );
 
-    const checkboxes = new VBox( { align: 'left', spacing: 5, children: checkboxChildren } );
+      const checkboxChildren = [ rulerCheckbox, gridCheckbox ];
 
-    const content = new VBox( {
-      spacing: 5,
-      children: [ checkboxes, new VStrut( 2 ), atmosphereControlNode ],
-      align: 'left'
-    } );
+      const checkboxes = new VBox( { align: 'left', spacing: 5, children: checkboxChildren } );
 
-    Panel.call( this, content, options );
+      const content = new VBox( {
+        spacing: 5,
+        children: [ checkboxes, new VStrut( 2 ), atmosphereControlNode ],
+        align: 'left'
+      } );
+
+      super( content, options );
+    }
   }
 
-  fluidPressureAndFlow.register( 'ControlPanel', ControlPanel );
+  // Create an icon for the ruler checkbox
+  function createRulerIcon() {
+    const rulerWidth = 30;
+    const rulerHeight = 20;
+    const insetsWidth = 7;
 
-  return inherit( Panel, ControlPanel, {
+    return new RulerNode( rulerWidth, rulerHeight, rulerWidth / 2, [ '0', '1', '2' ], '', {
+      insetsWidth: insetsWidth,
+      minorTicksPerMajorTick: 4,
+      majorTickFont: new PhetFont( 12 ),
+      // In the mock, the right border of the ruler icon is not visible.
+      // So, clipping it using a rectangle that is 1px lesser in width than the icon.
+      clipArea: Shape.rect( 0, 0, rulerWidth + 2 * insetsWidth - 1, rulerHeight )
+    } );
+  }
 
-    //Create an icon for the ruler checkbox
-    createRulerIcon: function() {
-      const rulerWidth = 30;
-      const rulerHeight = 20;
-      const insetsWidth = 7;
-
-      return new RulerNode( rulerWidth, rulerHeight, rulerWidth / 2, [ '0', '1', '2' ], '', {
-        insetsWidth: insetsWidth,
-        minorTicksPerMajorTick: 4,
-        majorTickFont: new PhetFont( 12 ),
-        // In the mock, the right border of the ruler icon is not visible.
-        // So, clipping it using a rectangle that is 1px lesser in width than the icon.
-        clipArea: Shape.rect( 0, 0, rulerWidth + 2 * insetsWidth - 1, rulerHeight )
-      } );
-    }
-  } );
+  return fluidPressureAndFlow.register( 'ControlPanel', ControlPanel );
 } );

@@ -12,75 +12,73 @@ define( require => {
 
   // modules
   const fluidPressureAndFlow = require( 'FLUID_PRESSURE_AND_FLOW/fluidPressureAndFlow' );
-  const inherit = require( 'PHET_CORE/inherit' );
   const Property = require( 'AXON/Property' );
 
-  /**
-   * @param {UnderPressureModel} underPressureModel of the sim.
-   * @param {FaucetModel} inputFaucet that fills the pool
-   * @param {FaucetModel} outputFaucet that drains the pool
-   * @param {number} maxVolume of the pool in liters
-   * @constructor
-   */
-  function PoolWithFaucetsModel( underPressureModel, inputFaucet, outputFaucet, maxVolume ) {
+  class PoolWithFaucetsModel {
 
-    // Note: Each scene could have a different volume. If we use currentVolumeProperty from the underPressureModel
-    // instead of this property then volume changes in one scene will reflect in the other.
-    //L @public
-    this.volumeProperty = new Property( 1.5 );
+    /**
+     * @param {UnderPressureModel} underPressureModel
+     * @param {FaucetModel} inputFaucet that fills the pool
+     * @param {FaucetModel} outputFaucet that drains the pool
+     * @param {number} maxVolume of the pool in liters
+     */
+    constructor( underPressureModel, inputFaucet, outputFaucet, maxVolume ) {
 
-    // Enable faucets and dropper based on amount of solution in the beaker.
-    this.volumeProperty.link( volume => {
-      inputFaucet.enabledProperty.value = ( volume < maxVolume );
-      outputFaucet.enabledProperty.value = ( volume > 0 );
-      underPressureModel.currentVolumeProperty.value = volume;
-    } );
-  }
+      // Note: Each scene could have a different volume. If we use currentVolumeProperty from the underPressureModel
+      // instead of this property then volume changes in one scene will reflect in the other.
+      //L @public
+      this.volumeProperty = new Property( 1.5 );
 
-  fluidPressureAndFlow.register( 'PoolWithFaucetsModel', PoolWithFaucetsModel );
-
-  return inherit( Object, PoolWithFaucetsModel, {
+      // Enable faucets and dropper based on amount of solution in the beaker.
+      this.volumeProperty.link( volume => {
+        inputFaucet.enabledProperty.value = ( volume < maxVolume );
+        outputFaucet.enabledProperty.value = ( volume > 0 );
+        underPressureModel.currentVolumeProperty.value = volume;
+      } );
+    }
 
     /**
      * Restores initial conditions.
      * @public
      */
-    reset: function() {
+    reset() {
       this.volumeProperty.reset();
-    },
+    }
 
     /**
      * @public
      * Step the pool model forward in time by dt seconds.
      * @param {number} dt -- time in seconds
      */
-    step: function( dt ) {
+    step( dt ) {
       this.addLiquid( dt );
       this.removeLiquid( dt );
-    },
+    }
 
     /**
      * @public
      * Add liquid to the pool based on the input faucet's flow rate and dt.
      * @param {number} dt -- time in seconds
      */
-    addLiquid: function( dt ) {
+    addLiquid( dt ) {
       const deltaVolume = this.inputFaucet.flowRateProperty.value * dt;
       if ( deltaVolume > 0 ) {
         this.volumeProperty.value = Math.min( this.maxVolume, this.volumeProperty.value + deltaVolume );
       }
-    },
+    }
 
     /**
      * @public
      * Remove liquid from the pool based on the output faucet's flow rate and dt.
      * @param {number} dt -- time in seconds
      */
-    removeLiquid: function( dt ) {
+    removeLiquid( dt ) {
       const deltaVolume = this.outputFaucet.flowRateProperty.value * dt;
       if ( deltaVolume > 0 ) {
         this.volumeProperty.value = Math.max( 0, this.volumeProperty.value - deltaVolume );
       }
     }
-  } );
+  }
+
+  return fluidPressureAndFlow.register( 'PoolWithFaucetsModel', PoolWithFaucetsModel );
 } );

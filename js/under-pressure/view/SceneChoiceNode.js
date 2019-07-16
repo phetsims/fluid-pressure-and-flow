@@ -2,6 +2,7 @@
 
 /**
  * View for the scene chooser containing 4 image radio buttons
+ *
  * @author Vasily Shakhov (Mlearner)
  * @author Siddhartha Chinthapally (Actual Concepts)
  */
@@ -11,7 +12,6 @@ define( require => {
   // modules
   const fluidPressureAndFlow = require( 'FLUID_PRESSURE_AND_FLOW/fluidPressureAndFlow' );
   const Image = require( 'SCENERY/nodes/Image' );
-  const inherit = require( 'PHET_CORE/inherit' );
   const RadioButtonGroup = require( 'SUN/buttons/RadioButtonGroup' );
 
   // images
@@ -23,28 +23,28 @@ define( require => {
   // constants
   const ICON_SCALE = 0.5;
 
-  /**
-   * @param {UnderPressureModel} underPressureModel of the simulation
-   * @param {Object} [options] that can be passed to the underlying node
-   * @constructor
-   */
-  function SceneChoiceNode( underPressureModel, options ) {
+  class SceneChoiceNode extends RadioButtonGroup {
 
-    options = _.extend( {
-      orientation: 'vertical',
-      baseColor: 'white',
-      cornerRadius: 10
-    }, options );
+    /**
+     * @param {UnderPressureModel} underPressureModel
+     * @param {Object} [options] that can be passed to the underlying node
+     */
+    constructor( underPressureModel, options ) {
 
-    RadioButtonGroup.call( this, underPressureModel.currentSceneProperty, [
-      { value: 'square', node: new Image( squarePoolImage, { scale: ICON_SCALE } ) },
-      { value: 'trapezoid', node: new Image( trapezoidPoolImage, { scale: ICON_SCALE } ) },
-      { value: 'chamber', node: new Image( chamberPoolImage, { scale: ICON_SCALE } ) },
-      { value: 'mystery', node: new Image( mysteryPoolImage, { scale: ICON_SCALE } ) }
-    ], options );
+      options = _.extend( {
+        orientation: 'vertical',
+        baseColor: 'white',
+        cornerRadius: 10
+      }, options );
+
+      super( underPressureModel.currentSceneProperty, [
+        { value: 'square', node: new Image( squarePoolImage, { scale: ICON_SCALE } ) },
+        { value: 'trapezoid', node: new Image( trapezoidPoolImage, { scale: ICON_SCALE } ) },
+        { value: 'chamber', node: new Image( chamberPoolImage, { scale: ICON_SCALE } ) },
+        { value: 'mystery', node: new Image( mysteryPoolImage, { scale: ICON_SCALE } ) }
+      ], options );
+    }
   }
 
-  fluidPressureAndFlow.register( 'SceneChoiceNode', SceneChoiceNode );
-
-  return inherit( RadioButtonGroup, SceneChoiceNode );
+  return fluidPressureAndFlow.register( 'SceneChoiceNode', SceneChoiceNode );
 } );

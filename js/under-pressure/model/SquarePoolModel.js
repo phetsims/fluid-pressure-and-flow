@@ -13,47 +13,50 @@ define( require => {
   const Constants = require( 'FLUID_PRESSURE_AND_FLOW/common/Constants' );
   const FaucetModel = require( 'FLUID_PRESSURE_AND_FLOW/under-pressure/model/FaucetModel' );
   const fluidPressureAndFlow = require( 'FLUID_PRESSURE_AND_FLOW/fluidPressureAndFlow' );
-  const inherit = require( 'PHET_CORE/inherit' );
   const PoolWithFaucetsModel = require( 'FLUID_PRESSURE_AND_FLOW/under-pressure/model/PoolWithFaucetsModel' );
   const Vector2 = require( 'DOT/Vector2' );
 
-  /**
-   * @param {UnderPressureModel} underPressureModel of the simulation
-   * @constructor
-   */
-  function SquarePoolModel( underPressureModel ) {
-    this.maxHeight = Constants.MAX_POOL_HEIGHT; // @public - Meters
-    this.maxVolume = this.maxHeight; // @public - Liters
+  class SquarePoolModel extends PoolWithFaucetsModel {
 
-    // empirically determined to make sure input faucet is above ground , output faucet is below ground and output
-    // faucet is attached to the pool
-    const inputFaucetX = 2.7;
-    const inputFaucetY = 0.44;
-    const outputFaucetX = 6.6;
-    const outputFaucetY = -3.45;
-    this.inputFaucet = new FaucetModel( new Vector2( inputFaucetX, inputFaucetY ), 1, 0.42 ); // @public
-    this.outputFaucet = new FaucetModel( new Vector2( outputFaucetX, outputFaucetY ), 1, 0.3 ); // @public
+    /**
+     * @param {UnderPressureModel} underPressureModel
+     */
+    constructor( underPressureModel ) {
 
-    this.underPressureModel = underPressureModel;
+      const maxHeight = Constants.MAX_POOL_HEIGHT; // @public - Meters
 
-    PoolWithFaucetsModel.call( this, this.underPressureModel, this.inputFaucet, this.outputFaucet, this.maxVolume );
+      //TODO this assignment makes no sense
+      const maxVolume = maxHeight; // @public - Liters
 
-    // empirically determined to match the visual appearance from design document
-    const poolLeftX = 2.3;
-    const poolRightX = 6;
+      // empirically determined to make sure input faucet is above ground , output faucet is below ground and output
+      // faucet is attached to the pool
+      const inputFaucetX = 2.7;
+      const inputFaucetY = 0.44;
+      const outputFaucetX = 6.6;
+      const outputFaucetY = -3.45;
+      const inputFaucet = new FaucetModel( new Vector2( inputFaucetX, inputFaucetY ), 1, 0.42 ); // @public
+      const outputFaucet = new FaucetModel( new Vector2( outputFaucetX, outputFaucetY ), 1, 0.3 ); // @public
 
-    // @public
-    this.poolDimensions = {
-      x1: poolLeftX,
-      y1: 0, // pool top y
-      x2: poolRightX,
-      y2: -this.maxHeight  // pool bottom y
-    };
-  }
+      super( underPressureModel, inputFaucet, outputFaucet, maxVolume );
 
-  fluidPressureAndFlow.register( 'SquarePoolModel', SquarePoolModel );
+      this.maxHeight = maxHeight;
+      this.maxVolume = maxVolume;
+      this.inputFaucet = inputFaucet;
+      this.outputFaucet = outputFaucet;
+      this.underPressureModel = underPressureModel;
 
-  return inherit( PoolWithFaucetsModel, SquarePoolModel, {
+      // empirically determined to match the visual appearance from design document
+      const poolLeftX = 2.3;
+      const poolRightX = 6;
+
+      // @public
+      this.poolDimensions = {
+        x1: poolLeftX,
+        y1: 0, // pool top y
+        x2: poolRightX,
+        y2: -this.maxHeight  // pool bottom y
+      };
+    }
 
     /**
      * @public
@@ -62,9 +65,9 @@ define( require => {
      * @param {number} y - position in meters
      * @returns {number} height of the water above the y
      */
-    getWaterHeightAboveY: function( x, y ) {
+    getWaterHeightAboveY( x, y ) {
       return this.poolDimensions.y2 + this.maxHeight * this.volumeProperty.value / this.maxVolume - y;
-    },
+    }
 
     /**
      * @public
@@ -73,9 +76,11 @@ define( require => {
      * @param {number} y - position in meters
      * @returns {boolean}
      */
-    isPointInsidePool: function( x, y ) {
+    isPointInsidePool( x, y ) {
       return x > this.poolDimensions.x1 && x < this.poolDimensions.x2 &&
              y > this.poolDimensions.y2 && y < this.poolDimensions.y1;
     }
-  } );
+  }
+
+  return fluidPressureAndFlow.register( 'SquarePoolModel', SquarePoolModel );
 } );

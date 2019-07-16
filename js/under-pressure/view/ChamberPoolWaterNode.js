@@ -9,73 +9,72 @@ define( require => {
 
   // modules
   const fluidPressureAndFlow = require( 'FLUID_PRESSURE_AND_FLOW/fluidPressureAndFlow' );
-  const inherit = require( 'PHET_CORE/inherit' );
   const Node = require( 'SCENERY/nodes/Node' );
   const Path = require( 'SCENERY/nodes/Path' );
   const Shape = require( 'KITE/Shape' );
 
-  /**
-   * @param {ChamberPoolModel} chamberPoolModel
-   * @param {ModelViewTransform2} modelViewTransform for transforming between model and view co-ordinates
-   * @constructor
-   */
-  function ChamberPoolWaterNode( chamberPoolModel, modelViewTransform ) {
-    Node.call( this );
+  class ChamberPoolWaterNode extends Node {
 
-    const waterPath = new Path( null );
-    const poolDimensions = chamberPoolModel.poolDimensions;
+    /**
+     * @param {ChamberPoolModel} chamberPoolModel
+     * @param {ModelViewTransform2} modelViewTransform for transforming between model and view co-ordinates
+     */
+    constructor( chamberPoolModel, modelViewTransform ) {
+      super();
 
-    //calculated view coordinates for water
-    const leftOpeningX1 = modelViewTransform.modelToViewX( poolDimensions.leftOpening.x1 );
-    const leftOpeningX2 = modelViewTransform.modelToViewX( poolDimensions.leftOpening.x2 );
-    const leftChamberX1 = modelViewTransform.modelToViewX( poolDimensions.leftChamber.x1 );
-    const leftChamberX2 = modelViewTransform.modelToViewX( poolDimensions.leftChamber.x2 );
-    const rightChamberX1 = modelViewTransform.modelToViewX( poolDimensions.rightChamber.x1 );
-    const rightChamberX2 = modelViewTransform.modelToViewX( poolDimensions.rightChamber.x2 );
-    const rightOpeningX1 = modelViewTransform.modelToViewX( poolDimensions.rightOpening.x1 );
-    const rightOpeningX2 = modelViewTransform.modelToViewX( poolDimensions.rightOpening.x2 );
-    const leftOpeningY2 = modelViewTransform.modelToViewY( poolDimensions.leftOpening.y2 );
-    const leftChamberY2 = modelViewTransform.modelToViewY( poolDimensions.leftChamber.y2 );
-    const passageY1 = modelViewTransform.modelToViewY( poolDimensions.horizontalPassage.y1 );
-    const passageY2 = modelViewTransform.modelToViewY( poolDimensions.horizontalPassage.y2 );
+      const waterPath = new Path( null );
+      const poolDimensions = chamberPoolModel.poolDimensions;
 
-    chamberPoolModel.leftDisplacementProperty.link( displacement => {
+      //calculated view coordinates for water
+      const leftOpeningX1 = modelViewTransform.modelToViewX( poolDimensions.leftOpening.x1 );
+      const leftOpeningX2 = modelViewTransform.modelToViewX( poolDimensions.leftOpening.x2 );
+      const leftChamberX1 = modelViewTransform.modelToViewX( poolDimensions.leftChamber.x1 );
+      const leftChamberX2 = modelViewTransform.modelToViewX( poolDimensions.leftChamber.x2 );
+      const rightChamberX1 = modelViewTransform.modelToViewX( poolDimensions.rightChamber.x1 );
+      const rightChamberX2 = modelViewTransform.modelToViewX( poolDimensions.rightChamber.x2 );
+      const rightOpeningX1 = modelViewTransform.modelToViewX( poolDimensions.rightOpening.x1 );
+      const rightOpeningX2 = modelViewTransform.modelToViewX( poolDimensions.rightOpening.x2 );
+      const leftOpeningY2 = modelViewTransform.modelToViewY( poolDimensions.leftOpening.y2 );
+      const leftChamberY2 = modelViewTransform.modelToViewY( poolDimensions.leftChamber.y2 );
+      const passageY1 = modelViewTransform.modelToViewY( poolDimensions.horizontalPassage.y1 );
+      const passageY2 = modelViewTransform.modelToViewY( poolDimensions.horizontalPassage.y2 );
 
-      //new left and right levels of water
-      const leftY = modelViewTransform.modelToViewY( poolDimensions.leftOpening.y2 + chamberPoolModel.leftWaterHeight -
-                                                   displacement );
-      const rightY = modelViewTransform.modelToViewY( poolDimensions.rightOpening.y2 + chamberPoolModel.leftWaterHeight +
-                                                    displacement / chamberPoolModel.lengthRatio );
+      chamberPoolModel.leftDisplacementProperty.link( displacement => {
 
-      waterPath.shape = new Shape()
-        .moveTo( leftOpeningX1, leftY )
-        .lineTo( leftOpeningX1, leftOpeningY2 )
-        .lineTo( leftChamberX1, leftOpeningY2 )
-        .lineTo( leftChamberX1, leftChamberY2 )
-        .lineTo( leftChamberX2, leftChamberY2 )
-        .lineTo( leftChamberX2, passageY2 )
-        .lineTo( rightChamberX1, passageY2 )
-        .lineTo( rightChamberX1, leftChamberY2 )
-        .lineTo( rightChamberX2, leftChamberY2 )
-        .lineTo( rightChamberX2, leftOpeningY2 )
-        .lineTo( rightOpeningX2, leftOpeningY2 )
-        .lineTo( rightOpeningX2, rightY )
-        .lineTo( rightOpeningX1, rightY )
-        .lineTo( rightOpeningX1, leftOpeningY2 )
-        .lineTo( rightChamberX1, leftOpeningY2 )
-        .lineTo( rightChamberX1, passageY1 )
-        .lineTo( leftChamberX2, passageY1 )
-        .lineTo( leftChamberX2, leftOpeningY2 )
-        .lineTo( leftOpeningX2, leftOpeningY2 )
-        .lineTo( leftOpeningX2, leftY );
-    } );
+        //new left and right levels of water
+        const leftY = modelViewTransform.modelToViewY( poolDimensions.leftOpening.y2 + chamberPoolModel.leftWaterHeight -
+                                                       displacement );
+        const rightY = modelViewTransform.modelToViewY( poolDimensions.rightOpening.y2 + chamberPoolModel.leftWaterHeight +
+                                                        displacement / chamberPoolModel.lengthRatio );
 
-    chamberPoolModel.underPressureModel.fluidColorModel.colorProperty.linkAttribute( waterPath, 'fill' );
+        waterPath.shape = new Shape()
+          .moveTo( leftOpeningX1, leftY )
+          .lineTo( leftOpeningX1, leftOpeningY2 )
+          .lineTo( leftChamberX1, leftOpeningY2 )
+          .lineTo( leftChamberX1, leftChamberY2 )
+          .lineTo( leftChamberX2, leftChamberY2 )
+          .lineTo( leftChamberX2, passageY2 )
+          .lineTo( rightChamberX1, passageY2 )
+          .lineTo( rightChamberX1, leftChamberY2 )
+          .lineTo( rightChamberX2, leftChamberY2 )
+          .lineTo( rightChamberX2, leftOpeningY2 )
+          .lineTo( rightOpeningX2, leftOpeningY2 )
+          .lineTo( rightOpeningX2, rightY )
+          .lineTo( rightOpeningX1, rightY )
+          .lineTo( rightOpeningX1, leftOpeningY2 )
+          .lineTo( rightChamberX1, leftOpeningY2 )
+          .lineTo( rightChamberX1, passageY1 )
+          .lineTo( leftChamberX2, passageY1 )
+          .lineTo( leftChamberX2, leftOpeningY2 )
+          .lineTo( leftOpeningX2, leftOpeningY2 )
+          .lineTo( leftOpeningX2, leftY );
+      } );
 
-    this.addChild( waterPath );
+      chamberPoolModel.underPressureModel.fluidColorModel.colorProperty.linkAttribute( waterPath, 'fill' );
+
+      this.addChild( waterPath );
+    }
   }
 
-  fluidPressureAndFlow.register( 'ChamberPoolWaterNode', ChamberPoolWaterNode );
-
-  return inherit( Node, ChamberPoolWaterNode );
+  return fluidPressureAndFlow.register( 'ChamberPoolWaterNode', ChamberPoolWaterNode );
 } );
