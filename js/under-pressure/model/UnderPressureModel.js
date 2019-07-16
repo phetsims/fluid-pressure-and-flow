@@ -32,8 +32,6 @@ define( function( require ) {
 
   function UnderPressureModel() {
 
-    var self = this;
-
     this.gravityRange = new Range( Constants.MARS_GRAVITY, Constants.JUPITER_GRAVITY ); // @public
     this.fluidDensityRange = new Range( Constants.GASOLINE_DENSITY, Constants.HONEY_DENSITY ); // @public
 
@@ -57,10 +55,10 @@ define( function( require ) {
     this.gravityControlExpandedProperty = new Property( true );//For the accordion box
 
     this.sceneModels = {}; // @public
-    this.sceneModels.square = new SquarePoolModel( self );
-    this.sceneModels.trapezoid = new TrapezoidPoolModel( self );
-    this.sceneModels.chamber = new ChamberPoolModel( self );
-    this.sceneModels.mystery = new MysteryPoolModel( self );
+    this.sceneModels.square = new SquarePoolModel( this );
+    this.sceneModels.trapezoid = new TrapezoidPoolModel( this );
+    this.sceneModels.chamber = new ChamberPoolModel( this );
+    this.sceneModels.mystery = new MysteryPoolModel( this );
 
     this.fluidColorModel = new FluidColorModel( this.fluidDensityProperty, this.fluidDensityRange ); // @public
 
@@ -72,12 +70,12 @@ define( function( require ) {
     }
 
     // current scene's model
-    this.currentSceneModelProperty = new DerivedProperty( [ this.currentSceneProperty ], function( currentScene ) {
-      return self.sceneModels[ currentScene ];
+    this.currentSceneModelProperty = new DerivedProperty( [ this.currentSceneProperty ], currentScene => {
+      return this.sceneModels[ currentScene ];
     } );
 
-    this.currentSceneModelProperty.link( function( currentSceneModel ) {
-      self.currentVolumeProperty.value = currentSceneModel.volumeProperty.value;
+    this.currentSceneModelProperty.link( currentSceneModel => {
+      this.currentVolumeProperty.value = currentSceneModel.volumeProperty.value;
     } );
   }
 

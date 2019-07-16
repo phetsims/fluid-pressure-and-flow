@@ -33,8 +33,6 @@ define( function( require ) {
 
   function MassModel( chamberPoolModel, mass, x, y, width, height ) {
 
-    var self = this;
-
     this.chamberPoolModel = chamberPoolModel;
     this.mass = mass;
 
@@ -51,24 +49,24 @@ define( function( require ) {
     this.isFalling = false; // @private
     this.velocity = 0; // @private
 
-    this.isDraggingProperty.link( function( isDragging ) {
+    this.isDraggingProperty.link( isDragging => {
 
         // If the user dropped the mass, then let it fall.
         if ( !isDragging ) {
-          if ( self.isInTargetDroppedArea() ) {
-            chamberPoolModel.stack.push( self );
+          if ( this.isInTargetDroppedArea() ) {
+            chamberPoolModel.stack.push( this );
           }
-          else if ( self.cannotFall() ) {
-            self.reset();
+          else if ( this.cannotFall() ) {
+            this.reset();
           }
           else {
-            self.isFalling = true;
+            this.isFalling = true;
           }
         }
         else {
           // The user grabbed the mass.  If it was in the stack, remove it.
-          if ( chamberPoolModel.stack.contains( self ) ) {
-            chamberPoolModel.stack.remove( self );
+          if ( chamberPoolModel.stack.contains( this ) ) {
+            chamberPoolModel.stack.remove( this );
           }
         }
       }

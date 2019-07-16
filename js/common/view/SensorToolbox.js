@@ -30,7 +30,6 @@ define( function( require ) {
    * @constructor
    */
   function SensorToolbox( model, modelViewTransform, screenView, options ) {
-    var self = this;
 
     options = _.extend( {
       // TODO padding/margin around panel edges
@@ -73,7 +72,7 @@ define( function( require ) {
     this.velocitySensorNodes = []; // @private
 
     // add velocitySensors within the sensor panel bounds
-    _.each( model.speedometers, function( velocitySensor ) {
+    _.each( model.speedometers, velocitySensor => {
 
       const velocitySensorNode = new VelocitySensorNode(
         modelViewTransform,
@@ -81,7 +80,7 @@ define( function( require ) {
         model.measureUnitsProperty,
         [ model.pipe.flowRateProperty, model.pipe.frictionProperty ],
         model.getVelocityAt.bind( model ),
-        self.visibleBounds,
+        this.visibleBounds,
         screenView.layoutBounds,
         {
           initialPosition: velocitySensorInitialPosition.roundedSymmetric(),
@@ -98,12 +97,12 @@ define( function( require ) {
       velocitySensor.positionProperty._initialValue = velocitySensorInitialPosition;
       velocitySensor.positionProperty.value = velocitySensorInitialPosition;
 
-      self.velocitySensorNodes.push( velocitySensorNode );
+      this.velocitySensorNodes.push( velocitySensorNode );
       screenView.addChild( velocitySensorNode );
     } );
 
-    velocitySensorIcon.addInputListener( SimpleDragHandler.createForwardingListener( function( event ) {
-      handleSensorVisibilityAndDrag( self.velocitySensorNodes, velocitySensorIcon, event );
+    velocitySensorIcon.addInputListener( SimpleDragHandler.createForwardingListener( event => {
+      handleSensorVisibilityAndDrag( this.velocitySensorNodes, velocitySensorIcon, event );
     } ) );
 
 
@@ -111,7 +110,7 @@ define( function( require ) {
     this.barometerNodes = []; // @private
 
     // add barometers within the sensor panel bounds
-    _.each( model.barometers, function( barometer ) {
+    _.each( model.barometers, barometer => {
 
       const barometerNode = new BarometerNode(
         modelViewTransform,
@@ -120,7 +119,7 @@ define( function( require ) {
         [ model.fluidDensityProperty, model.pipe.flowRateProperty, model.pipe.frictionProperty ],
         model.getPressureAtCoords.bind( model ),
         model.getPressureString.bind( model ),
-        self.visibleBounds,
+        this.visibleBounds,
         screenView.layoutBounds,
         {
           minPressure: Constants.MIN_PRESSURE,
@@ -134,14 +133,13 @@ define( function( require ) {
       // show the sensor icon whenever this barometer is hidden back into the toolbox
       barometerNode.addInputListener( getMakeIconVisibleListener( barometerNode, barometerIcon ) );
 
-      self.barometerNodes.push( barometerNode );
+      this.barometerNodes.push( barometerNode );
       screenView.addChild( barometerNode );
 
     } );
 
-    barometerIcon.addInputListener( SimpleDragHandler.createForwardingListener( function( event ) {
-      handleSensorVisibilityAndDrag( self.barometerNodes, barometerIcon, event );
-
+    barometerIcon.addInputListener( SimpleDragHandler.createForwardingListener( event => {
+      handleSensorVisibilityAndDrag( this.barometerNodes, barometerIcon, event );
     } ) );
   }
 

@@ -52,7 +52,6 @@ define( function( require ) {
 
     SquarePoolView.call( this, mysteryPoolModel, modelViewTransform );
 
-    var self = this;
     const radioButtonTextOptions = {
       font: new PhetFont( 12 ),
       maxWidth: width * 0.8
@@ -100,7 +99,7 @@ define( function( require ) {
       new ComboBoxItem( new Text( fluidAString, comboBoxTextOptions ), 0 ),
       new ComboBoxItem( new Text( fluidBString, comboBoxTextOptions ), 1 ),
       new ComboBoxItem( new Text( fluidCString, comboBoxTextOptions ), 2 )
-    ], mysteryPoolModel.customFluidDensityProperty, self, {
+    ], mysteryPoolModel.customFluidDensityProperty, this, {
       highlightFill: 'rgb(218,255,255)',
       visible: false
     } );
@@ -114,7 +113,7 @@ define( function( require ) {
       new ComboBoxItem( new Text( planetAString, comboBoxTextOptions ), 0 ),
       new ComboBoxItem( new Text( planetBString, comboBoxTextOptions ), 1 ),
       new ComboBoxItem( new Text( planetCString, comboBoxTextOptions ), 2 )
-    ], mysteryPoolModel.customGravityProperty, self, {
+    ], mysteryPoolModel.customGravityProperty, this, {
       cornerRadius: 8,
       highlightFill: 'rgb(218,255,255)',
       visible: false
@@ -128,12 +127,12 @@ define( function( require ) {
     new DerivedProperty( [ mysteryPoolModel.underPressureModel.mysteryChoiceProperty ],
       function( mysteryChoice ) {
         return mysteryChoice === 'fluidDensity';
-      } ).linkAttribute( self.fluidDensityComboBox, 'visible' );
+      } ).linkAttribute( this.fluidDensityComboBox, 'visible' );
 
     new DerivedProperty( [ mysteryPoolModel.underPressureModel.mysteryChoiceProperty ],
       function( mysteryChoice ) {
         return mysteryChoice === 'gravity';
-      } ).linkAttribute( self.gravityComboBox, 'visible' );
+      } ).linkAttribute( this.gravityComboBox, 'visible' );
   }
 
   fluidPressureAndFlow.register( 'MysteryPoolView', MysteryPoolView );

@@ -21,7 +21,6 @@ define( function( require ) {
    */
   function SquarePoolWaterNode( squarePoolModel, modelViewTransform ) {
 
-    var self = this;
     Rectangle.call( this, 0, 0, 1, 1, { lineWidth: 1 } );
 
     const poolDimensions = squarePoolModel.poolDimensions;
@@ -31,13 +30,13 @@ define( function( require ) {
     const xMin = modelViewTransform.modelToViewX( poolDimensions.x1 );//left x point of pool in pixels
     const yMax = modelViewTransform.modelToViewY( poolDimensions.y2 );//bottom y point of pool in pixels
 
-    squarePoolModel.underPressureModel.fluidColorModel.colorProperty.linkAttribute( self, 'fill' );
+    squarePoolModel.underPressureModel.fluidColorModel.colorProperty.linkAttribute( this, 'fill' );
 
-    squarePoolModel.volumeProperty.link( function() {
+    squarePoolModel.volumeProperty.link( () => {
 
-      //height of water in pixels
+      // height of water in pixels
       const viewHeight = maxHeight * squarePoolModel.volumeProperty.value / squarePoolModel.maxVolume;
-      self.setRect( xMin, yMax - viewHeight, viewWidth, viewHeight );
+      this.setRect( xMin, yMax - viewHeight, viewWidth, viewHeight );
     } );
   }
 

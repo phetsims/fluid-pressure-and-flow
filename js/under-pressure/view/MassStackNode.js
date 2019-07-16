@@ -23,7 +23,6 @@ define( function( require ) {
    */
 
   function MassStackNode( chamberPoolModel, modelViewTransform ) {
-    var self = this;
 
     this.chamberPoolModel = chamberPoolModel;
     Node.call( this, {
@@ -42,18 +41,18 @@ define( function( require ) {
     this.addChild( placementRect );
     this.addChild( placementRectBorder );
 
-    chamberPoolModel.leftDisplacementProperty.link( function( displacement ) {
-      self.bottom = modelViewTransform.modelToViewY( chamberPoolModel.poolDimensions.leftOpening.y2 +
+    chamberPoolModel.leftDisplacementProperty.link( displacement => {
+      this.bottom = modelViewTransform.modelToViewY( chamberPoolModel.poolDimensions.leftOpening.y2 +
                                                      chamberPoolModel.leftWaterHeight - displacement );
     } );
 
     // If a mass is being dragged by the user, show the dotted line drop region where it can be placed in the chamber pool.
-    chamberPoolModel.masses.forEach( function( massModel ) {
-      massModel.isDraggingProperty.link( function( isDragging ) {
+    chamberPoolModel.masses.forEach( massModel => {
+      massModel.isDraggingProperty.link( isDragging => {
         if ( isDragging ) {
           const placementRectHeight = Math.abs( modelViewTransform.modelToViewDeltaY( massModel.height ) );
           const placementRectY1 = -placementRectHeight +
-                                modelViewTransform.modelToViewDeltaY( self.totalHeight );
+                                modelViewTransform.modelToViewDeltaY( this.totalHeight );
 
           placementRectBorder.shape = new Shape().moveTo( 0, placementRectY1 )
             .lineTo( 0, placementRectY1 + placementRectHeight )
@@ -69,11 +68,11 @@ define( function( require ) {
       } );
     } );
 
-    chamberPoolModel.stack.addItemAddedListener( function() {
-      self.updateMassStack();
+    chamberPoolModel.stack.addItemAddedListener( () => {
+      this.updateMassStack();
     } );
-    chamberPoolModel.stack.addItemRemovedListener( function() {
-      self.updateMassStack();
+    chamberPoolModel.stack.addItemRemovedListener( () => {
+      this.updateMassStack();
     } );
   }
 

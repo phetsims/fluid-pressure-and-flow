@@ -15,7 +15,6 @@ define( function( require ) {
   const Vector2 = require( 'DOT/Vector2' );
 
   function WaterTower( options ) {
-    var self = this;
 
     options = _.extend( {
       initialFluidLevel: 0.8,
@@ -37,13 +36,13 @@ define( function( require ) {
 
     // Size of the hole in meters
     this.HOLE_SIZE = 1;
-    this.fluidLevelProperty = new DerivedProperty( [ this.fluidVolumeProperty ], function( fluidVolume ) {
-      return fluidVolume / (Math.PI * self.TANK_RADIUS * self.TANK_RADIUS);
+    this.fluidLevelProperty = new DerivedProperty( [ this.fluidVolumeProperty ], fluidVolume => {
+      return fluidVolume / (Math.PI * this.TANK_RADIUS * this.TANK_RADIUS);
     } );
 
     // TODO: Is this used?
-    this.isFullProperty = new DerivedProperty( [ this.fluidVolumeProperty ], function( fluidVolume ) {
-      return fluidVolume >= self.TANK_VOLUME;
+    this.isFullProperty = new DerivedProperty( [ this.fluidVolumeProperty ], fluidVolume => {
+      return fluidVolume >= this.TANK_VOLUME;
     } );
   }
 

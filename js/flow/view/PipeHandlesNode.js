@@ -40,7 +40,7 @@ define( function( require ) {
   function PipeHandlesNode( flowModel, pipeNode, gridInjectorNode, modelViewTransform, layoutBounds ) {
 
     Node.call( this );
-    var self = this;
+    
     this.flowModel = flowModel;
     this.pipeNode = pipeNode;
     this.layoutBounds = layoutBounds;
@@ -88,23 +88,23 @@ define( function( require ) {
       right: this.rightPipeMainHandleNode
     };
 
-    this.addChild( new PipeMainDragHandle( self, 'left', modelViewTransform ) );
-    this.addChild( new PipeMainDragHandle( self, 'right', modelViewTransform ) );
+    this.addChild( new PipeMainDragHandle( this, 'left', modelViewTransform ) );
+    this.addChild( new PipeMainDragHandle( this, 'right', modelViewTransform ) );
 
     for ( let i = 1; i < pipe.top.length - 1; i++ ) {
-      const pipeHandleNode = new PipeHandleNode( self, true, i, modelViewTransform );
+      const pipeHandleNode = new PipeHandleNode( this, true, i, modelViewTransform );
       topControlHandleNodes.push( pipeHandleNode );
       this.addChild( pipeHandleNode );
     }
 
     for ( let i = 1; i < pipe.bottom.length - 1; i++ ) {
-      const pipeHandleNode = new PipeHandleNode( self, false, i, modelViewTransform );
+      const pipeHandleNode = new PipeHandleNode( this, false, i, modelViewTransform );
       bottomControlHandleNodes.push( pipeHandleNode );
       this.addChild( pipeHandleNode );
     }
 
-    flowModel.pipe.leftPipeMainHandleYPositionProperty.linkAttribute( self.leftPipeMainHandleNode, 'y' );
-    flowModel.pipe.rightPipeMainHandleYPositionProperty.linkAttribute( self.rightPipeMainHandleNode, 'y' );
+    flowModel.pipe.leftPipeMainHandleYPositionProperty.linkAttribute( this.leftPipeMainHandleNode, 'y' );
+    flowModel.pipe.rightPipeMainHandleYPositionProperty.linkAttribute( this.rightPipeMainHandleNode, 'y' );
     Property.multilink( [ pipe.leftPipeTopHandleYProperty, pipe.leftPipeBottomHandleYProperty ],
       function( leftTop, leftBottom ) {
         topControlHandleNodes[ 0 ].bottom = leftTop;

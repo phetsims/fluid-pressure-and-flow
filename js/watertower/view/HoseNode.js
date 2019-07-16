@@ -39,14 +39,14 @@ define( function( require ) {
    * @constructor
    */
   function HoseNode( hose, tankPositionProperty, modelViewTransform, isHoseVisibleProperty, options ) {
-    var self = this;
+    
     Node.call( this );
 
     this.hose = hose;
     this.modelViewTransform = modelViewTransform;
     this.tankPositionProperty = tankPositionProperty;
 
-    //When the hose is above
+    // When the hose is above
     if ( this.hose.elbowOuterY >= 0.2 * Math.cos( this.hose.angleWithVertical ) ) {
       this.hoseShape = createTopShape( this.hose, this.modelViewTransform );
     }
@@ -72,13 +72,13 @@ define( function( require ) {
     let clickYOffset;
     let initialHeight;
     this.handleNode.addInputListener( new SimpleDragHandler( {
-      start: function( e ) {
-        initialHeight = self.hose.heightProperty.value;
-        clickYOffset = self.globalToParentPoint( e.pointer.point ).y;
+      start: event => {
+        initialHeight = this.hose.heightProperty.value;
+        clickYOffset = this.globalToParentPoint( event.pointer.point ).y;
       },
-      drag: function( e ) {
-        const deltaY = self.globalToParentPoint( e.pointer.point ).y - clickYOffset;
-        self.updateHoseHeight( -modelViewTransform.viewToModelDeltaY( deltaY ) + initialHeight );
+      drag: event => {
+        const deltaY = this.globalToParentPoint( event.pointer.point ).y - clickYOffset;
+        this.updateHoseHeight( -modelViewTransform.viewToModelDeltaY( deltaY ) + initialHeight );
       }
     } ) );
 
@@ -107,26 +107,26 @@ define( function( require ) {
     let startPointAngle;
     let initialHoseAngle;
     this.spoutHandle.addInputListener( new SimpleDragHandler( {
-      start: function( e ) {
+      start: event => {
 
-        startY = self.globalToParentPoint( e.pointer.point ).y;
-        startX = self.globalToParentPoint( e.pointer.point ).x;
+        startY = this.globalToParentPoint( event.pointer.point ).y;
+        startX = this.globalToParentPoint( event.pointer.point ).x;
 
-        initialHoseAngle = self.hose.angleProperty.value * 180 / Math.PI;
+        initialHoseAngle = this.hose.angleProperty.value * 180 / Math.PI;
 
-        const deltaY = self.modelViewTransform.modelToViewY( self.hose.rotationPivotY + self.tankPositionProperty.value.y ) - startY;
-        const deltaX = self.modelViewTransform.modelToViewX( self.hose.rotationPivotX + self.tankPositionProperty.value.x + 10 ) - startX;
+        const deltaY = this.modelViewTransform.modelToViewY( this.hose.rotationPivotY + this.tankPositionProperty.value.y ) - startY;
+        const deltaX = this.modelViewTransform.modelToViewX( this.hose.rotationPivotX + this.tankPositionProperty.value.x + 10 ) - startX;
 
         startPointAngle = Math.atan2( deltaY, deltaX );
       },
 
-      drag: function( e ) {
+      drag: event => {
 
-        const endY = self.globalToParentPoint( e.pointer.point ).y;
-        const endX = self.globalToParentPoint( e.pointer.point ).x;
+        const endY = this.globalToParentPoint( event.pointer.point ).y;
+        const endX = this.globalToParentPoint( event.pointer.point ).x;
 
-        const deltaY = self.modelViewTransform.modelToViewY( self.hose.rotationPivotY + self.tankPositionProperty.value.y ) - endY;
-        const deltaX = self.modelViewTransform.modelToViewX( self.hose.rotationPivotX + self.tankPositionProperty.value.x + 10 ) - endX;
+        const deltaY = this.modelViewTransform.modelToViewY( this.hose.rotationPivotY + this.tankPositionProperty.value.y ) - endY;
+        const deltaX = this.modelViewTransform.modelToViewX( this.hose.rotationPivotX + this.tankPositionProperty.value.x + 10 ) - endX;
 
         if ( deltaY > 0 ) {
           return;
@@ -137,17 +137,18 @@ define( function( require ) {
 
         let angleToUpdate = initialHoseAngle - angleMoved;
         angleToUpdate = angleToUpdate > 90 ? 90 : angleToUpdate < 0 ? 0 : angleToUpdate;
-        self.hose.angleProperty.value = Math.PI * (angleToUpdate) / 180;
+        this.hose.angleProperty.value = Math.PI * (angleToUpdate) / 180;
       }
     } ) );
 
     // add observers
     isHoseVisibleProperty.linkAttribute( this, 'visible' );
 
-    self.setTranslation( modelViewTransform.modelToViewX( this.hose.initialPosition.x ), modelViewTransform.modelToViewY( this.hose.initialPosition.y ) );
+    this.setTranslation( modelViewTransform.modelToViewX( this.hose.initialPosition.x ),
+      modelViewTransform.modelToViewY( this.hose.initialPosition.y ) );
 
-    this.hose.updatedEmitter.addListener( function() {
-      self.update();
+    this.hose.updatedEmitter.addListener( () => {
+      this.update();
     } );
 
     this.mutate( options );

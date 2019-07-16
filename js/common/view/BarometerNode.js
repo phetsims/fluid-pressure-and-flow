@@ -53,7 +53,6 @@ define( function( require ) {
    */
   function BarometerNode( modelViewTransform, barometer, measureUnitsProperty, linkedProperties, getPressureAt,
                           getPressureString, containerBounds, dragBounds, options ) {
-    var self = this;
 
     options = _.extend( {
       pressureReadOffset: 53, //distance between center and reading tip of the barometer in view co-ordinates
@@ -128,9 +127,9 @@ define( function( require ) {
       dragBounds.width - this.width / 2,
       dragBounds.height - this.height / 2 ) );
 
-    barometer.positionProperty.link( function( value ) {
-      self.centerX = modelViewTransform.modelToViewX( value.x );
-      self.centerY = modelViewTransform.modelToViewY( value.y );
+    barometer.positionProperty.link( position => {
+      this.centerX = modelViewTransform.modelToViewX( position.x );
+      this.centerY = modelViewTransform.modelToViewY( position.y );
     } );
 
     // @public
@@ -140,44 +139,47 @@ define( function( require ) {
       {
         dragBounds: barometerDragBounds,
         modelViewTransform: modelViewTransform,
-        startDrag: function() {
-          self.moveToFront();
+
+        startDrag: () => {
+          this.moveToFront();
         },
-        endDrag: function() {
-          if ( containerBounds.intersectsBounds( self.visibleBounds ) ) {
+
+        endDrag: () => {
+          if ( containerBounds.intersectsBounds( this.visibleBounds ) ) {
 
             if ( options.initialPosition ) {
               barometer.positionProperty.value = options.initialPosition;
-              self.visible = false; // TODO does this want to be in all cases, not just for toolbox?
+              this.visible = false; // TODO does this want to be in all cases, not just for toolbox?
             }
             else {
               barometer.positionProperty.reset();
             }
 
-            self.moveToBack();
+            this.moveToBack();
           }
         }
       } );
     !options.isIcon && this.addInputListener( this.dragListener );
 
     // Update the value in the barometer value model by reading from the model.
-    Property.multilink( [ barometer.positionProperty ].concat( linkedProperties ), function( position ) {
+    Property.multilink( [ barometer.positionProperty ].concat( linkedProperties ), position => {
       if ( barometer.positionProperty.value === barometer.positionProperty.initialValue ) {
         barometer.valueProperty.value = null; // when the barometer is in the sensor panel making sure it shows no value for accessibility
       }
       else {
         barometer.valueProperty.value = getPressureAt( position.x,
-          position.y + modelViewTransform.viewToModelDeltaY( self.bottom - self.centerY ) );
+          position.y + modelViewTransform.viewToModelDeltaY( this.bottom - this.centerY ) );
       }
     } );
 
     // update barometer value when weights are added to chamber pool
-    barometer.updateEmitter.addListener( function() {
+    barometer.updateEmitter.addListener( () => {
       if ( barometer.positionProperty.value === barometer.positionProperty.initialValue ) {
         barometer.valueProperty.value = null; // when the barometer is in the sensor panel making sure it shows no value for accessibility
       }
       else {
-        barometer.valueProperty.value = getPressureAt( barometer.positionProperty.value.x, barometer.positionProperty.value.y + modelViewTransform.viewToModelDeltaY( self.bottom - self.centerY ) );
+        barometer.valueProperty.value = getPressureAt( barometer.positionProperty.value.x,
+          barometer.positionProperty.value.y + modelViewTransform.viewToModelDeltaY( this.bottom - this.centerY ) );
       }
     } );
 
@@ -197,7 +199,7 @@ define( function( require ) {
         }
       } );
 
-    self.touchArea = self.localBounds.dilatedXY( 0, 0 );
+    this.touchArea = this.localBounds.dilatedXY( 0, 0 ); //TODO why?
   }
 
   fluidPressureAndFlow.register( 'BarometerNode', BarometerNode );

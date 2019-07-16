@@ -22,7 +22,6 @@ define( function( require ) {
    */
   function MysteryPoolModel( underPressureModel ) {
 
-    var self = this;
     SquarePoolModel.call( this, underPressureModel );
 
     this.customFluidDensityProperty = new Property( 0 ); // @public
@@ -38,36 +37,36 @@ define( function( require ) {
 
     let oldGravity;
     let oldFluidDensity;
-    this.underPressureModel.currentSceneProperty.link( function( scene, oldScene ) {
+    this.underPressureModel.currentSceneProperty.link( ( scene, oldScene ) => {
       if ( scene === 'mystery' ) {
-        oldGravity = self.underPressureModel.gravityProperty.value;
-        oldFluidDensity = self.underPressureModel.fluidDensityProperty.value;
-        self.updateChoiceValue();
+        oldGravity = this.underPressureModel.gravityProperty.value;
+        oldFluidDensity = this.underPressureModel.fluidDensityProperty.value;
+        this.updateChoiceValue();
       }
       else if ( oldScene === 'mystery' ) {
-        self.underPressureModel.gravityProperty.value = oldGravity;
-        self.underPressureModel.fluidDensityProperty.value = oldFluidDensity;
+        this.underPressureModel.gravityProperty.value = oldGravity;
+        this.underPressureModel.fluidDensityProperty.value = oldFluidDensity;
       }
     } );
 
-    this.underPressureModel.mysteryChoiceProperty.link( function( mysteryChoice ) {
+    this.underPressureModel.mysteryChoiceProperty.link( mysteryChoice => {
 
       // Reset the value of the non-mystery quantity when the other quantity is selected.
       if ( mysteryChoice === 'fluidDensity' ) {
-        self.underPressureModel.gravityProperty.reset();
+        this.underPressureModel.gravityProperty.reset();
       }
       else if ( mysteryChoice === 'gravity' ) {
-        self.underPressureModel.fluidDensityProperty.reset();
+        this.underPressureModel.fluidDensityProperty.reset();
       }
       // Update mystery quantity.
-      if ( self.underPressureModel.currentSceneProperty.value === 'mystery' ) {
-        self.updateChoiceValue();
+      if ( this.underPressureModel.currentSceneProperty.value === 'mystery' ) {
+        this.updateChoiceValue();
       }
     } );
 
-    Property.multilink( [ this.customGravityProperty, this.customFluidDensityProperty ], function() {
-      if ( self.underPressureModel.currentSceneProperty.value === 'mystery' ) {
-        self.updateChoiceValue();
+    Property.multilink( [ this.customGravityProperty, this.customFluidDensityProperty ], () => {
+      if ( this.underPressureModel.currentSceneProperty.value === 'mystery' ) {
+        this.updateChoiceValue();
       }
     } );
   }

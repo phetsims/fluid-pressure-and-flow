@@ -42,8 +42,8 @@ define( function( require ) {
    */
   function PipeNode( flowModel, modelViewTransform, layoutBounds ) {
 
-    var self = this;
     Node.call( this );
+
     this.flowModel = flowModel;
     this.modelViewTransform = modelViewTransform;
     this.layoutBounds = layoutBounds;
@@ -101,7 +101,7 @@ define( function( require ) {
 
     this.rightPipeNode = new Node( {
       children: [ rightPipeHead, rightPipeMiddle ],
-      x: layoutBounds.maxX - self.rightPipeLeftOffset,
+      x: layoutBounds.maxX - this.rightPipeLeftOffset,
       y: flowModel.pipe.rightPipeYPositionProperty.value,
       scale: flowModel.pipe.rightPipeScaleProperty.value
     } );
@@ -125,21 +125,21 @@ define( function( require ) {
     this.addChild( this.leftPipeNode );
 
     // link the left/right pipe scale properties to the left/right pipe nodes
-    flowModel.pipe.leftPipeScaleProperty.link( function( scale ) {
-      self.leftPipeNode.setScaleMagnitude( PIPE_INITIAL_SCALE, scale );
-      self.leftPipeBackNode.setScaleMagnitude( PIPE_INITIAL_SCALE, scale );
+    flowModel.pipe.leftPipeScaleProperty.link( scale => {
+      this.leftPipeNode.setScaleMagnitude( PIPE_INITIAL_SCALE, scale );
+      this.leftPipeBackNode.setScaleMagnitude( PIPE_INITIAL_SCALE, scale );
     } );
 
-    flowModel.pipe.rightPipeScaleProperty.link( function( scale ) {
-      self.rightPipeNode.setScaleMagnitude( PIPE_INITIAL_SCALE, scale );
+    flowModel.pipe.rightPipeScaleProperty.link( scale => {
+      this.rightPipeNode.setScaleMagnitude( PIPE_INITIAL_SCALE, scale );
     } );
 
     // link the left/right pipe position properties to the left/right pipe nodes
-    flowModel.pipe.leftPipeYPositionProperty.linkAttribute( self.leftPipeNode, 'y' );
-    flowModel.pipe.leftPipeYPositionProperty.linkAttribute( self.leftPipeBackNode, 'y' );
-    flowModel.pipe.rightPipeYPositionProperty.linkAttribute( self.rightPipeNode, 'y' );
+    flowModel.pipe.leftPipeYPositionProperty.linkAttribute( this.leftPipeNode, 'y' );
+    flowModel.pipe.leftPipeYPositionProperty.linkAttribute( this.leftPipeBackNode, 'y' );
+    flowModel.pipe.rightPipeYPositionProperty.linkAttribute( this.rightPipeNode, 'y' );
 
-    flowModel.fluidColorModel.colorProperty.linkAttribute( self.pipeFluidNode, 'fill' );
+    flowModel.fluidColorModel.colorProperty.linkAttribute( this.pipeFluidNode, 'fill' );
 
     // init the flexible middle pipe flow line shape
     this.updatePipeFlowLineShape();

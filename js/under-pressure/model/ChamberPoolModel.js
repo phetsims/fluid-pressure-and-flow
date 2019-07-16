@@ -55,7 +55,6 @@ define( function( require ) {
    */
   function ChamberPoolModel( underPressureModel ) {
 
-    var self = this;
     this.leftDisplacementProperty = new Property( 0 ); //displacement from default height
     this.stackMassProperty = new Property( 0 );
 
@@ -114,32 +113,32 @@ define( function( require ) {
     // @public
     //List of all available masses
     this.masses = [
-      new MassModel( self, 500, MASS_OFFSET, self.maxY + PASSAGE_SIZE / 2, PASSAGE_SIZE,
+      new MassModel( this, 500, MASS_OFFSET, this.maxY + PASSAGE_SIZE / 2, PASSAGE_SIZE,
         PASSAGE_SIZE ),
-      new MassModel( self, 250, MASS_OFFSET + PASSAGE_SIZE + SEPARATION,
-        self.maxY + PASSAGE_SIZE / 4, PASSAGE_SIZE, PASSAGE_SIZE / 2 ),
-      new MassModel( self, 250, MASS_OFFSET + 2 * PASSAGE_SIZE + 2 * SEPARATION,
-        self.maxY + PASSAGE_SIZE / 4, PASSAGE_SIZE, PASSAGE_SIZE / 2 )
+      new MassModel( this, 250, MASS_OFFSET + PASSAGE_SIZE + SEPARATION,
+        this.maxY + PASSAGE_SIZE / 4, PASSAGE_SIZE, PASSAGE_SIZE / 2 ),
+      new MassModel( this, 250, MASS_OFFSET + 2 * PASSAGE_SIZE + 2 * SEPARATION,
+        this.maxY + PASSAGE_SIZE / 4, PASSAGE_SIZE, PASSAGE_SIZE / 2 )
     ];
 
     //When an item is added to the stack, update the total mass and equalize the mass velocities
-    this.stack.addItemAddedListener( function( massModel ) {
-      self.stackMassProperty.value = self.stackMassProperty.value + massModel.mass;
+    this.stack.addItemAddedListener( massModel => {
+      this.stackMassProperty.value = this.stackMassProperty.value + massModel.mass;
 
       let maxVelocity = 0;
 
       //must equalize velocity of each mass
-      self.stack.forEach( function( mass ) {
+      this.stack.forEach( function( mass ) {
         maxVelocity = Math.max( mass.velocity, maxVelocity );
       } );
-      self.stack.forEach( function( mass ) {
+      this.stack.forEach( function( mass ) {
         mass.velocity = maxVelocity;
       } );
     } );
 
     //When an item is removed from the stack, update the total mass.
-    this.stack.addItemRemovedListener( function( massModel ) {
-      self.stackMassProperty.value = self.stackMassProperty.value - massModel.mass;
+    this.stack.addItemRemovedListener( massModel => {
+      this.stackMassProperty.value = this.stackMassProperty.value - massModel.mass;
     } );
 
     this.leftDisplacementProperty.link( function() {
@@ -170,15 +169,15 @@ define( function( require ) {
      * @param {number} dt -- time in seconds
      */
     step: function( dt ) {
-      var self = this;
+
       const nominalDt = 1 / 60;
 
       dt = Math.min( dt, nominalDt * 3 ); // Handling large dt so that masses doesn't float upward, empirically determined
 
       // Update each of the masses
       const steps = 15; // these steps are oly used for masses inside the pool to make sure they reach equilibrium state on iPad
-      this.masses.forEach( function( mass ) {
-        if ( self.stack.contains( mass ) ) {
+      this.masses.forEach( mass => {
+        if ( this.stack.contains( mass ) ) {
           for ( let i = 0; i < steps; i++ ) {
             mass.step( dt / steps );
           }

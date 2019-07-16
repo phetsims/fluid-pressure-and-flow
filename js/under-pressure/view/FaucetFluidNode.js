@@ -22,33 +22,33 @@ define( function( require ) {
    * @constructor
    */
   function FaucetFluidNode( faucet, model, modelViewTransform, maxHeight ) {
-    var self = this;
-    Rectangle.call( self, 0, 0, 0, 0, { lineWidth: 1 } );
+
+    Rectangle.call( this, 0, 0, 0, 0, { lineWidth: 1 } );
 
     this.currentHeight = 0;
     this.viewWidth = 0;
 
-    const redrawRect = function() {
+    const redrawRect = () => {
       if ( faucet.flowRateProperty.value === 0 ) {
-        self.setRect( 0, 0, 0, 0 );
+        this.setRect( 0, 0, 0, 0 );
       }
       else {
-        self.setRect( modelViewTransform.modelToViewX( faucet.location.x ) - (self.viewWidth / 2),
+        this.setRect( modelViewTransform.modelToViewX( faucet.location.x ) - (this.viewWidth / 2),
           modelViewTransform.modelToViewY( faucet.location.y ),
-          self.viewWidth,
-          self.currentHeight );
+          this.viewWidth,
+          this.currentHeight );
       }
     };
 
-    model.underPressureModel.fluidColorModel.colorProperty.linkAttribute( self, 'fill' );
+    model.underPressureModel.fluidColorModel.colorProperty.linkAttribute( this, 'fill' );
 
-    faucet.flowRateProperty.link( function( flowRate ) {
-      self.viewWidth = modelViewTransform.modelToViewX( faucet.spoutWidth ) * flowRate / faucet.maxFlowRate;
+    faucet.flowRateProperty.link( flowRate => {
+      this.viewWidth = modelViewTransform.modelToViewX( faucet.spoutWidth ) * flowRate / faucet.maxFlowRate;
       redrawRect();
     } );
 
-    model.volumeProperty.link( function( volume ) {
-      self.currentHeight = maxHeight - Math.abs( modelViewTransform.modelToViewDeltaY( volume * model.maxHeight /
+    model.volumeProperty.link( volume => {
+      this.currentHeight = maxHeight - Math.abs( modelViewTransform.modelToViewDeltaY( volume * model.maxHeight /
                                                                                        model.maxVolume ) );
       redrawRect();
     } );

@@ -52,7 +52,6 @@ define( function( require ) {
       initialPosition: null // TODO figure out a better way to reset the velocitySensor to have the position of the icon
     }, options );
 
-    var self = this;
     Node.call( this, { cursor: 'pointer', pickable: true } );
 
     this.options = options; // @private
@@ -159,7 +158,7 @@ define( function( require ) {
           this.arrowShape.right = outerRectangle.centerX + arrowWidth / 2 * Math.sin( Math.abs( velocity.angle ) );
         }
       }
-    }.bind( self ) );
+    }.bind( this ) );
 
     velocitySensor.isArrowVisibleProperty.linkAttribute( this.arrowShape, 'visible' );
     const speedMeterDragBounds = dragBounds.withMaxX( dragBounds.maxX - rectangleWidth * options.scale );
@@ -168,10 +167,12 @@ define( function( require ) {
     this.dragListener = new MovableDragHandler( velocitySensor.positionProperty,
       {
         dragBounds: speedMeterDragBounds,
-        startDrag: function() {
-          self.moveToFront();
+
+        startDrag: () => {
+          this.moveToFront();
         },
-        endDrag: function() {
+
+        endDrag: () => {
           // check intersection only with the outer rectangle.
           // Add a 5px tolerance. See https://github.com/phetsims/fluid-pressure-and-flow/issues/105
           if ( containerBounds.intersectsBounds( Bounds2.rect( velocitySensor.positionProperty.value.x, velocitySensor.positionProperty.value.y,
@@ -179,24 +180,24 @@ define( function( require ) {
 
             if ( options.initialPosition ) {
               velocitySensor.positionProperty.value = options.initialPosition;
-              self.visible = false; // TODO does this want to be in all cases, not just for toolbox?
+              this.visible = false; // TODO does this want to be in all cases, not just for toolbox?
             }
             else {
               velocitySensor.positionProperty.reset();
             }
 
-            self.moveToBack();
+            this.moveToBack();
           }
         }
       } );
     !options.isIcon && this.addInputListener( this.dragListener );
 
-    velocitySensor.positionProperty.linkAttribute( self, 'translation' );
+    velocitySensor.positionProperty.linkAttribute( this, 'translation' );
 
     // update the value of the
     Property.multilink( [ velocitySensor.positionProperty ].concat( linkedProperties ), function( position ) {
-      velocitySensor.valueProperty.value = getVelocityAt( modelViewTransform.viewToModelX( position.x +
-                                                                                           rectangleWidth / 2 * options.scale ),
+      velocitySensor.valueProperty.value = getVelocityAt(
+        modelViewTransform.viewToModelX( position.x + rectangleWidth / 2 * options.scale ),
         modelViewTransform.viewToModelY( position.y + ( rectangleHeight + triangleHeight ) * options.scale ) );
     } );
 

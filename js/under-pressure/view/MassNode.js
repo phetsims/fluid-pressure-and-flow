@@ -32,7 +32,6 @@ define( function( require ) {
    */
   function MassNode( massModel, chamberPoolModel, modelViewTransform, dragBounds ) {
 
-    var self = this;
     Node.call( this, { cursor: 'pointer' } );
 
     const width = modelViewTransform.modelToViewDeltaX( massModel.width );
@@ -68,26 +67,26 @@ define( function( require ) {
     this.addInputListener( new SimpleDragHandler( {
       //When dragging across it in a mobile device, pick it up
       allowTouchSnag: true,
-      start: function( event ) {
-        massClickOffset.x = self.globalToParentPoint( event.pointer.point ).x - event.currentTarget.x;
-        massClickOffset.y = self.globalToParentPoint( event.pointer.point ).y - event.currentTarget.y;
-        self.moveToFront();
+      start: event => {
+        massClickOffset.x = this.globalToParentPoint( event.pointer.point ).x - event.currentTarget.x;
+        massClickOffset.y = this.globalToParentPoint( event.pointer.point ).y - event.currentTarget.y;
+        this.moveToFront();
         massModel.isDraggingProperty.value = true;
       },
-      end: function() {
-        massModel.positionProperty.value = modelViewTransform.viewToModelPosition( self.translation );
+      end: () => {
+        massModel.positionProperty.value = modelViewTransform.viewToModelPosition( this.translation );
         massModel.isDraggingProperty.value = false;
       },
       //Translate on drag events
-      drag: function( event ) {
-        const point = self.globalToParentPoint( event.pointer.point ).subtract( massClickOffset );
-        self.translation = dragBounds.getClosestPoint( point.x, point.y );
+      drag: event => {
+        const point = this.globalToParentPoint( event.pointer.point ).subtract( massClickOffset );
+        this.translation = dragBounds.getClosestPoint( point.x, point.y );
       }
     } ) );
 
-    massModel.positionProperty.link( function( position ) {
+    massModel.positionProperty.link( position => {
       if ( !chamberPoolModel.isDragging ) {
-        self.translation = new Vector2( modelViewTransform.modelToViewX( position.x ),
+        this.translation = new Vector2( modelViewTransform.modelToViewX( position.x ),
           modelViewTransform.modelToViewY( position.y ) );
         massText.centerX = mass.centerX;
         massText.centerY = mass.centerY;

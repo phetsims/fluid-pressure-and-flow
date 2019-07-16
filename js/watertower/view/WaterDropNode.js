@@ -23,14 +23,13 @@ define( function( require ) {
    */
   function WaterDropNode( waterDrop, fluidColorModel, modelViewTransform, options ) {
 
-    var self = this;
     Circle.call( this, modelViewTransform.modelToViewDeltaX( waterDrop.radius ), { fill: fluidColorModel.colorProperty.value } );
 
-    waterDrop.positionProperty.link( function( position ) {
-      self.setTranslation( modelViewTransform.modelToViewX( position.x ), modelViewTransform.modelToViewY( position.y ) );
+    waterDrop.positionProperty.link( position => {
+      this.setTranslation( modelViewTransform.modelToViewX( position.x ), modelViewTransform.modelToViewY( position.y ) );
     } );
 
-    fluidColorModel.colorProperty.linkAttribute( self, 'fill' );
+    fluidColorModel.colorProperty.linkAttribute( this, 'fill' );
 
     this.mutate( options );
   }

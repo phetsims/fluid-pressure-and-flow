@@ -61,7 +61,6 @@ define( function( require ) {
    */
   function FlowScreenView( flowModel ) {
 
-    var self = this;
     ScreenView.call( this, Constants.SCREEN_VIEW_OPTIONS );
 
     // view co-ordinates (370,140) map to model origin (0,0) with inverted y-axis (y grows up in the model)
@@ -138,9 +137,9 @@ define( function( require ) {
 
     // add the reset button
     const resetAllButton = new ResetAllButton( {
-      listener: function() {
+      listener: () => {
         flowModel.reset();
-        self.pipeNode.reset();
+        this.pipeNode.reset();
         pipeHandlesNode.reset();
         sensorPanel.reset();
       },
@@ -195,10 +194,10 @@ define( function( require ) {
     // add play pause button and step button
     const stepButton = new StepForwardButton( {
       isPlayingProperty: flowModel.isPlayingProperty,
-      listener: function() {
+      listener: () => {
         flowModel.timer.step( 0.016 );
         flowModel.propagateParticles( 0.016 );
-        self.pipeNode.particlesLayer.step();
+        this.pipeNode.particlesLayer.step();
       },
       radius: 12,
       stroke: 'black',

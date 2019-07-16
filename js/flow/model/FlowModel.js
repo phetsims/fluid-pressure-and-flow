@@ -50,7 +50,6 @@ define( function( require ) {
    * @constructor
    */
   function FlowModel() {
-    var self = this;
 
     // @public (read-only)
     this.fluidDensityRange = new Range( Constants.GASOLINE_DENSITY, Constants.HONEY_DENSITY );
@@ -104,17 +103,16 @@ define( function( require ) {
     this.gridParticles = new ObservableArray();
 
     // call stepInternal at a rate of 10 times per second
-    this.timer = new EventTimer( new EventTimer.UniformEventModel( 10, phet.joist.random.nextDouble.bind( phet.joist.random ) ), function() {
-      self.createParticle();
-    } );
-    // end @public members
+    this.timer = new EventTimer( new EventTimer.UniformEventModel( 10, phet.joist.random.nextDouble.bind( phet.joist.random ) ),
+      () => { this.createParticle(); }
+    );
 
-    this.gridInjectorElapsedTimeInPressedModeProperty.link( function( elapsedTime ) {
+    this.gridInjectorElapsedTimeInPressedModeProperty.link( elapsedTime => {
 
       //  The grid injector can only be fired every so often, in order to prevent too many black particles in the pipe
       if ( elapsedTime > SECONDS_THAT_GRID_INJECTOR_IS_IN_PRESSED_MODE ) {
-        self.isGridInjectorPressedProperty.value = false;
-        self.gridInjectorElapsedTimeInPressedModeProperty.value = 0;
+        this.isGridInjectorPressedProperty.value = false;
+        this.gridInjectorElapsedTimeInPressedModeProperty.value = 0;
       }
     } );
   }

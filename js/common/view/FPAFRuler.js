@@ -35,8 +35,6 @@ define( function( require ) {
   function FPAFRuler( isRulerVisibleProperty, rulerPositionProperty, measureUnitsProperty, modelViewTransform,
                       dragBounds, options ) {
 
-    var self = this;
-
     Node.call( this, { cursor: 'pointer' } );
 
     options = _.extend( {
@@ -96,8 +94,8 @@ define( function( require ) {
 
     rulerPositionProperty.linkAttribute( metersRuler, 'translation' );
     rulerPositionProperty.linkAttribute( feetRuler, 'translation' );
-    rulerPositionProperty.link( function( rulerPosition ) {
-      self.moveToFront();
+    rulerPositionProperty.link( rulerPosition => {
+      this.moveToFront();
       closeButton.setTranslation( rulerPosition.x, rulerPosition.y - closeButton.height - rulerHeight );
     } );
     const rulerDragBounds = dragBounds.withMaxX( dragBounds.maxX - options.rulerWidth );

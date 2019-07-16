@@ -54,7 +54,7 @@ define( function( require ) {
    * @constructor
    */
   function UnderPressureView( underPressureModel ) {
-    var self = this;
+
     ScreenView.call( this, Constants.SCREEN_VIEW_OPTIONS );
 
     const modelViewTransform = ModelViewTransform2.createSinglePointScaleInvertedYMapping(
@@ -67,9 +67,9 @@ define( function( require ) {
 
     // add reset button
     const resetAllButton = new ResetAllButton( {
-      listener: function() {
+      listener: () => {
         underPressureModel.reset();
-        self.reset();
+        this.reset();
       },
       radius: 18,
       right: this.layoutBounds.right - INSET,
