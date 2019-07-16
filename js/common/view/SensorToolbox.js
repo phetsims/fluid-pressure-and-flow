@@ -7,19 +7,19 @@ define( function( require ) {
   'use strict';
 
   // modules
-  var BarometerNode = require( 'FLUID_PRESSURE_AND_FLOW/common/view/BarometerNode' );
-  var Bounds2 = require( 'DOT/Bounds2' );
-  var Constants = require( 'FLUID_PRESSURE_AND_FLOW/common/Constants' );
-  var fluidPressureAndFlow = require( 'FLUID_PRESSURE_AND_FLOW/fluidPressureAndFlow' );
-  var HBox = require( 'SCENERY/nodes/HBox' );
-  var inherit = require( 'PHET_CORE/inherit' );
-  var ModelViewTransform2 = require( 'PHETCOMMON/view/ModelViewTransform2' );
-  var Panel = require( 'SUN/Panel' );
-  var Sensor = require( 'FLUID_PRESSURE_AND_FLOW/common/model/Sensor' );
-  var SimpleDragHandler = require( 'SCENERY/input/SimpleDragHandler' );
-  var Vector2 = require( 'DOT/Vector2' );
-  var VelocitySensor = require( 'FLUID_PRESSURE_AND_FLOW/common/model/VelocitySensor' );
-  var VelocitySensorNode = require( 'FLUID_PRESSURE_AND_FLOW/common/view/VelocitySensorNode' );
+  const BarometerNode = require( 'FLUID_PRESSURE_AND_FLOW/common/view/BarometerNode' );
+  const Bounds2 = require( 'DOT/Bounds2' );
+  const Constants = require( 'FLUID_PRESSURE_AND_FLOW/common/Constants' );
+  const fluidPressureAndFlow = require( 'FLUID_PRESSURE_AND_FLOW/fluidPressureAndFlow' );
+  const HBox = require( 'SCENERY/nodes/HBox' );
+  const inherit = require( 'PHET_CORE/inherit' );
+  const ModelViewTransform2 = require( 'PHETCOMMON/view/ModelViewTransform2' );
+  const Panel = require( 'SUN/Panel' );
+  const Sensor = require( 'FLUID_PRESSURE_AND_FLOW/common/model/Sensor' );
+  const SimpleDragHandler = require( 'SCENERY/input/SimpleDragHandler' );
+  const Vector2 = require( 'DOT/Vector2' );
+  const VelocitySensor = require( 'FLUID_PRESSURE_AND_FLOW/common/model/VelocitySensor' );
+  const VelocitySensorNode = require( 'FLUID_PRESSURE_AND_FLOW/common/view/VelocitySensorNode' );
 
   /**
    *

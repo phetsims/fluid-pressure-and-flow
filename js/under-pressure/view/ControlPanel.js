@@ -9,23 +9,23 @@ define( function( require ) {
   'use strict';
 
   // modules
-  var AtmosphereControlNode = require( 'FLUID_PRESSURE_AND_FLOW/under-pressure/view/AtmosphereControlNode' );
-  var Checkbox = require( 'SUN/Checkbox' );
-  var fluidPressureAndFlow = require( 'FLUID_PRESSURE_AND_FLOW/fluidPressureAndFlow' );
-  var HBox = require( 'SCENERY/nodes/HBox' );
-  var HStrut = require( 'SCENERY/nodes/HStrut' );
-  var inherit = require( 'PHET_CORE/inherit' );
-  var Panel = require( 'SUN/Panel' );
-  var PhetFont = require( 'SCENERY_PHET/PhetFont' );
-  var RulerNode = require( 'SCENERY_PHET/RulerNode' );
-  var Shape = require( 'KITE/Shape' );
-  var Text = require( 'SCENERY/nodes/Text' );
-  var VBox = require( 'SCENERY/nodes/VBox' );
-  var VStrut = require( 'SCENERY/nodes/VStrut' );
+  const AtmosphereControlNode = require( 'FLUID_PRESSURE_AND_FLOW/under-pressure/view/AtmosphereControlNode' );
+  const Checkbox = require( 'SUN/Checkbox' );
+  const fluidPressureAndFlow = require( 'FLUID_PRESSURE_AND_FLOW/fluidPressureAndFlow' );
+  const HBox = require( 'SCENERY/nodes/HBox' );
+  const HStrut = require( 'SCENERY/nodes/HStrut' );
+  const inherit = require( 'PHET_CORE/inherit' );
+  const Panel = require( 'SUN/Panel' );
+  const PhetFont = require( 'SCENERY_PHET/PhetFont' );
+  const RulerNode = require( 'SCENERY_PHET/RulerNode' );
+  const Shape = require( 'KITE/Shape' );
+  const Text = require( 'SCENERY/nodes/Text' );
+  const VBox = require( 'SCENERY/nodes/VBox' );
+  const VStrut = require( 'SCENERY/nodes/VStrut' );
 
   // strings
-  var gridString = require( 'string!FLUID_PRESSURE_AND_FLOW/grid' );
-  var rulerString = require( 'string!FLUID_PRESSURE_AND_FLOW/ruler' );
+  const gridString = require( 'string!FLUID_PRESSURE_AND_FLOW/grid' );
+  const rulerString = require( 'string!FLUID_PRESSURE_AND_FLOW/ruler' );
 
   /**
    * @param {UnderPressureModel} underPressureModel of the sim.

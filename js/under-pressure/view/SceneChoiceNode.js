@@ -9,18 +9,19 @@ define( function( require ) {
   'use strict';
 
   // modules
-  var fluidPressureAndFlow = require( 'FLUID_PRESSURE_AND_FLOW/fluidPressureAndFlow' );
-  var Image = require( 'SCENERY/nodes/Image' );
-  var inherit = require( 'PHET_CORE/inherit' );
-  var RadioButtonGroup = require( 'SUN/buttons/RadioButtonGroup' );
+  const fluidPressureAndFlow = require( 'FLUID_PRESSURE_AND_FLOW/fluidPressureAndFlow' );
+  const Image = require( 'SCENERY/nodes/Image' );
+  const inherit = require( 'PHET_CORE/inherit' );
+  const RadioButtonGroup = require( 'SUN/buttons/RadioButtonGroup' );
 
   // images
-  var chamberPoolImage = require( 'image!FLUID_PRESSURE_AND_FLOW/chamber-pool-icon.png' );
-  var mysteryPoolImage = require( 'image!FLUID_PRESSURE_AND_FLOW/mystery-pool-icon.png' );
-  var squarePoolImage = require( 'image!FLUID_PRESSURE_AND_FLOW/square-pool-icon.png' );
-  var trapezoidPoolImage = require( 'image!FLUID_PRESSURE_AND_FLOW/trapezoid-pool-icon.png' );
+  const chamberPoolImage = require( 'image!FLUID_PRESSURE_AND_FLOW/chamber-pool-icon.png' );
+  const mysteryPoolImage = require( 'image!FLUID_PRESSURE_AND_FLOW/mystery-pool-icon.png' );
+  const squarePoolImage = require( 'image!FLUID_PRESSURE_AND_FLOW/square-pool-icon.png' );
+  const trapezoidPoolImage = require( 'image!FLUID_PRESSURE_AND_FLOW/trapezoid-pool-icon.png' );
 
-  var ICON_SCALE = 0.5;
+  // constants
+  const ICON_SCALE = 0.5;
 
   /**
    * @param {UnderPressureModel} underPressureModel of the simulation

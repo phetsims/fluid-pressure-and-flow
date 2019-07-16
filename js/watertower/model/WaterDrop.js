@@ -8,14 +8,12 @@ define( function( require ) {
   'use strict';
 
   // modules
-  var DerivedProperty = require( 'AXON/DerivedProperty' );
-  var fluidPressureAndFlow = require( 'FLUID_PRESSURE_AND_FLOW/fluidPressureAndFlow' );
-  var inherit = require( 'PHET_CORE/inherit' );
-  var Property = require( 'AXON/Property' );
-  var Util = require( 'DOT/Util' );
-
-  // constants
-  var Constants = require( 'FLUID_PRESSURE_AND_FLOW/common/Constants' );
+  const Constants = require( 'FLUID_PRESSURE_AND_FLOW/common/Constants' );
+  const DerivedProperty = require( 'AXON/DerivedProperty' );
+  const fluidPressureAndFlow = require( 'FLUID_PRESSURE_AND_FLOW/fluidPressureAndFlow' );
+  const inherit = require( 'PHET_CORE/inherit' );
+  const Property = require( 'AXON/Property' );
+  const Util = require( 'DOT/Util' );
 
   /**
    * @param {Vector2} position of the water drop

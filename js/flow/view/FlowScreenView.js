@@ -9,50 +9,50 @@ define( function( require ) {
   'use strict';
 
   // modules
-  var AquaRadioButton = require( 'SUN/AquaRadioButton' );
-  var Bounds2 = require( 'DOT/Bounds2' );
-  var Constants = require( 'FLUID_PRESSURE_AND_FLOW/common/Constants' );
-  var ControlSlider = require( 'FLUID_PRESSURE_AND_FLOW/common/view/ControlSlider' );
-  var FlowToolsControlPanel = require( 'FLUID_PRESSURE_AND_FLOW/flow/view/FlowToolsControlPanel' );
-  var fluidPressureAndFlow = require( 'FLUID_PRESSURE_AND_FLOW/fluidPressureAndFlow' );
-  var FluxMeterNode = require( 'FLUID_PRESSURE_AND_FLOW/flow/view/FluxMeterNode' );
-  var FPAFRuler = require( 'FLUID_PRESSURE_AND_FLOW/common/view/FPAFRuler' );
-  var GridInjectorNode = require( 'FLUID_PRESSURE_AND_FLOW/flow/view/GridInjectorNode' );
-  var GroundNode = require( 'SCENERY_PHET/GroundNode' );
-  var inherit = require( 'PHET_CORE/inherit' );
-  var Matrix3 = require( 'DOT/Matrix3' );
-  var ModelViewTransform2 = require( 'PHETCOMMON/view/ModelViewTransform2' );
-  var Node = require( 'SCENERY/nodes/Node' );
-  var Pattern = require( 'SCENERY/util/Pattern' );
-  var PhetFont = require( 'SCENERY_PHET/PhetFont' );
-  var PipeHandlesNode = require( 'FLUID_PRESSURE_AND_FLOW/flow/view/PipeHandlesNode' );
-  var PipeNode = require( 'FLUID_PRESSURE_AND_FLOW/flow/view/PipeNode' );
-  var PlayPauseButton = require( 'SCENERY_PHET/buttons/PlayPauseButton' );
-  var Rectangle = require( 'SCENERY/nodes/Rectangle' );
-  var ResetAllButton = require( 'SCENERY_PHET/buttons/ResetAllButton' );
-  var ScreenView = require( 'JOIST/ScreenView' );
-  var SensorToolbox = require( 'FLUID_PRESSURE_AND_FLOW/common/view/SensorToolbox' );
-  var SkyNode = require( 'SCENERY_PHET/SkyNode' );
-  var StepForwardButton = require( 'SCENERY_PHET/buttons/StepForwardButton' );
-  var Text = require( 'SCENERY/nodes/Text' );
-  var UnitsControlPanel = require( 'FLUID_PRESSURE_AND_FLOW/common/view/UnitsControlPanel' );
-  var VBox = require( 'SCENERY/nodes/VBox' );
-  var Vector2 = require( 'DOT/Vector2' );
+  const AquaRadioButton = require( 'SUN/AquaRadioButton' );
+  const Bounds2 = require( 'DOT/Bounds2' );
+  const Constants = require( 'FLUID_PRESSURE_AND_FLOW/common/Constants' );
+  const ControlSlider = require( 'FLUID_PRESSURE_AND_FLOW/common/view/ControlSlider' );
+  const FlowToolsControlPanel = require( 'FLUID_PRESSURE_AND_FLOW/flow/view/FlowToolsControlPanel' );
+  const fluidPressureAndFlow = require( 'FLUID_PRESSURE_AND_FLOW/fluidPressureAndFlow' );
+  const FluxMeterNode = require( 'FLUID_PRESSURE_AND_FLOW/flow/view/FluxMeterNode' );
+  const FPAFRuler = require( 'FLUID_PRESSURE_AND_FLOW/common/view/FPAFRuler' );
+  const GridInjectorNode = require( 'FLUID_PRESSURE_AND_FLOW/flow/view/GridInjectorNode' );
+  const GroundNode = require( 'SCENERY_PHET/GroundNode' );
+  const inherit = require( 'PHET_CORE/inherit' );
+  const Matrix3 = require( 'DOT/Matrix3' );
+  const ModelViewTransform2 = require( 'PHETCOMMON/view/ModelViewTransform2' );
+  const Node = require( 'SCENERY/nodes/Node' );
+  const Pattern = require( 'SCENERY/util/Pattern' );
+  const PhetFont = require( 'SCENERY_PHET/PhetFont' );
+  const PipeHandlesNode = require( 'FLUID_PRESSURE_AND_FLOW/flow/view/PipeHandlesNode' );
+  const PipeNode = require( 'FLUID_PRESSURE_AND_FLOW/flow/view/PipeNode' );
+  const PlayPauseButton = require( 'SCENERY_PHET/buttons/PlayPauseButton' );
+  const Rectangle = require( 'SCENERY/nodes/Rectangle' );
+  const ResetAllButton = require( 'SCENERY_PHET/buttons/ResetAllButton' );
+  const ScreenView = require( 'JOIST/ScreenView' );
+  const SensorToolbox = require( 'FLUID_PRESSURE_AND_FLOW/common/view/SensorToolbox' );
+  const SkyNode = require( 'SCENERY_PHET/SkyNode' );
+  const StepForwardButton = require( 'SCENERY_PHET/buttons/StepForwardButton' );
+  const Text = require( 'SCENERY/nodes/Text' );
+  const UnitsControlPanel = require( 'FLUID_PRESSURE_AND_FLOW/common/view/UnitsControlPanel' );
+  const VBox = require( 'SCENERY/nodes/VBox' );
+  const Vector2 = require( 'DOT/Vector2' );
 
   // strings
-  var flowRateString = require( 'string!FLUID_PRESSURE_AND_FLOW/flowRate' );
-  var fluidDensityString = require( 'string!FLUID_PRESSURE_AND_FLOW/fluidDensity' );
-  var gasolineString = require( 'string!FLUID_PRESSURE_AND_FLOW/gasoline' );
-  var honeyString = require( 'string!FLUID_PRESSURE_AND_FLOW/honey' );
-  var normalString = require( 'string!FLUID_PRESSURE_AND_FLOW/normal' );
-  var slowMotionString = require( 'string!FLUID_PRESSURE_AND_FLOW/slowMotion' );
-  var waterString = require( 'string!FLUID_PRESSURE_AND_FLOW/water' );
+  const flowRateString = require( 'string!FLUID_PRESSURE_AND_FLOW/flowRate' );
+  const fluidDensityString = require( 'string!FLUID_PRESSURE_AND_FLOW/fluidDensity' );
+  const gasolineString = require( 'string!FLUID_PRESSURE_AND_FLOW/gasoline' );
+  const honeyString = require( 'string!FLUID_PRESSURE_AND_FLOW/honey' );
+  const normalString = require( 'string!FLUID_PRESSURE_AND_FLOW/normal' );
+  const slowMotionString = require( 'string!FLUID_PRESSURE_AND_FLOW/slowMotion' );
+  const waterString = require( 'string!FLUID_PRESSURE_AND_FLOW/water' );
 
   //images
-  var grassImg = require( 'image!FLUID_PRESSURE_AND_FLOW/grass-texture.png' );
+  const grassImg = require( 'image!FLUID_PRESSURE_AND_FLOW/grass-texture.png' );
 
   //View layout related constants
-  var inset = 10;
+  const INSET = 10;
 
   /**
    * Main view of the flow sim.
@@ -210,7 +210,7 @@ define( function( require ) {
     this.addChild( stepButton );
 
     var playPauseButton = new PlayPauseButton( flowModel.isPlayingProperty,
-      { radius: 18, stroke: 'black', fill: '#005566', y: stepButton.centerY, right: stepButton.left - inset } );
+      { radius: 18, stroke: 'black', fill: '#005566', y: stepButton.centerY, right: stepButton.left - INSET } );
     this.addChild( playPauseButton );
 
     // add sim speed controls

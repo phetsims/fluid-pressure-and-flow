@@ -9,37 +9,37 @@ define( function( require ) {
   'use strict';
 
   // modules
-  var Color = require( 'SCENERY/util/Color' );
-  var fluidPressureAndFlow = require( 'FLUID_PRESSURE_AND_FLOW/fluidPressureAndFlow' );
-  var HBox = require( 'SCENERY/nodes/HBox' );
-  var HStrut = require( 'SCENERY/nodes/HStrut' );
-  var Image = require( 'SCENERY/nodes/Image' );
-  var inherit = require( 'PHET_CORE/inherit' );
-  var Node = require( 'SCENERY/nodes/Node' );
-  var Panel = require( 'SUN/Panel' );
-  var Path = require( 'SCENERY/nodes/Path' );
-  var PhetFont = require( 'SCENERY_PHET/PhetFont' );
-  var Property = require( 'AXON/Property' );
-  var RichText = require( 'SCENERY/nodes/RichText' );
-  var Shape = require( 'KITE/Shape' );
-  var SimpleDragHandler = require( 'SCENERY/input/SimpleDragHandler' );
-  var Text = require( 'SCENERY/nodes/Text' );
-  var Units = require( 'FLUID_PRESSURE_AND_FLOW/common/model/Units' );
-  var VBox = require( 'SCENERY/nodes/VBox' );
+  const Color = require( 'SCENERY/util/Color' );
+  const fluidPressureAndFlow = require( 'FLUID_PRESSURE_AND_FLOW/fluidPressureAndFlow' );
+  const HBox = require( 'SCENERY/nodes/HBox' );
+  const HStrut = require( 'SCENERY/nodes/HStrut' );
+  const Image = require( 'SCENERY/nodes/Image' );
+  const inherit = require( 'PHET_CORE/inherit' );
+  const Node = require( 'SCENERY/nodes/Node' );
+  const Panel = require( 'SUN/Panel' );
+  const Path = require( 'SCENERY/nodes/Path' );
+  const PhetFont = require( 'SCENERY_PHET/PhetFont' );
+  const Property = require( 'AXON/Property' );
+  const RichText = require( 'SCENERY/nodes/RichText' );
+  const Shape = require( 'KITE/Shape' );
+  const SimpleDragHandler = require( 'SCENERY/input/SimpleDragHandler' );
+  const Text = require( 'SCENERY/nodes/Text' );
+  const Units = require( 'FLUID_PRESSURE_AND_FLOW/common/model/Units' );
+  const VBox = require( 'SCENERY/nodes/VBox' );
 
   // strings
-  var areaString = require( 'string!FLUID_PRESSURE_AND_FLOW/area' );
-  var areaUnitsEnglishString = require( 'string!FLUID_PRESSURE_AND_FLOW/areaUnitsEnglish' );
-  var areaUnitsMetricString = require( 'string!FLUID_PRESSURE_AND_FLOW/areaUnitsMetric' );
-  var flowRateWithColonString = require( 'string!FLUID_PRESSURE_AND_FLOW/flowRateWithColon' );
-  var fluxString = require( 'string!FLUID_PRESSURE_AND_FLOW/flux' );
-  var fluxUnitsEnglishString = require( 'string!FLUID_PRESSURE_AND_FLOW/fluxUnitsEnglish' );
-  var fluxUnitsMetricString = require( 'string!FLUID_PRESSURE_AND_FLOW/fluxUnitsMetric' );
-  var rateUnitsEnglishString = require( 'string!FLUID_PRESSURE_AND_FLOW/rateUnitsEnglish' );
-  var rateUnitsMetricString = require( 'string!FLUID_PRESSURE_AND_FLOW/rateUnitsMetric' );
+  const areaString = require( 'string!FLUID_PRESSURE_AND_FLOW/area' );
+  const areaUnitsEnglishString = require( 'string!FLUID_PRESSURE_AND_FLOW/areaUnitsEnglish' );
+  const areaUnitsMetricString = require( 'string!FLUID_PRESSURE_AND_FLOW/areaUnitsMetric' );
+  const flowRateWithColonString = require( 'string!FLUID_PRESSURE_AND_FLOW/flowRateWithColon' );
+  const fluxString = require( 'string!FLUID_PRESSURE_AND_FLOW/flux' );
+  const fluxUnitsEnglishString = require( 'string!FLUID_PRESSURE_AND_FLOW/fluxUnitsEnglish' );
+  const fluxUnitsMetricString = require( 'string!FLUID_PRESSURE_AND_FLOW/fluxUnitsMetric' );
+  const rateUnitsEnglishString = require( 'string!FLUID_PRESSURE_AND_FLOW/rateUnitsEnglish' );
+  const rateUnitsMetricString = require( 'string!FLUID_PRESSURE_AND_FLOW/rateUnitsMetric' );
 
   // images
-  var twoSidedHandleImage = require( 'image!FLUID_PRESSURE_AND_FLOW/handle-two-sided.png' );
+  const twoSidedHandleImage = require( 'image!FLUID_PRESSURE_AND_FLOW/handle-two-sided.png' );
 
   /**
    * A flux meter that display flow rate, area and flux at a particular cross section

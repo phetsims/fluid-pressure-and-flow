@@ -9,20 +9,20 @@ define( function( require ) {
   'use strict';
 
   // modules
-  var Constants = require( 'FLUID_PRESSURE_AND_FLOW/common/Constants' );
-  var FaucetModel = require( 'FLUID_PRESSURE_AND_FLOW/under-pressure/model/FaucetModel' );
-  var fluidPressureAndFlow = require( 'FLUID_PRESSURE_AND_FLOW/fluidPressureAndFlow' );
-  var inherit = require( 'PHET_CORE/inherit' );
-  var LinearFunction = require( 'DOT/LinearFunction' );
-  var PoolWithFaucetsModel = require( 'FLUID_PRESSURE_AND_FLOW/under-pressure/model/PoolWithFaucetsModel' );
-  var Vector2 = require( 'DOT/Vector2' );
+  const Constants = require( 'FLUID_PRESSURE_AND_FLOW/common/Constants' );
+  const FaucetModel = require( 'FLUID_PRESSURE_AND_FLOW/under-pressure/model/FaucetModel' );
+  const fluidPressureAndFlow = require( 'FLUID_PRESSURE_AND_FLOW/fluidPressureAndFlow' );
+  const inherit = require( 'PHET_CORE/inherit' );
+  const LinearFunction = require( 'DOT/LinearFunction' );
+  const PoolWithFaucetsModel = require( 'FLUID_PRESSURE_AND_FLOW/under-pressure/model/PoolWithFaucetsModel' );
+  const Vector2 = require( 'DOT/Vector2' );
 
   // constants
   // empirically determined to match the visual appearance from design document
-  var WIDTH_AT_TOP = 0.7; //meters,
-  var WIDTH_AT_BOTTOM = 3.15; //meters,
-  var LEFT_CHAMBER_TOP_CENTER = 3.2; //meters,
-  var SEPARATION = 3.22;//Between centers
+  const WIDTH_AT_TOP = 0.7; //meters,
+  const WIDTH_AT_BOTTOM = 3.15; //meters,
+  const LEFT_CHAMBER_TOP_CENTER = 3.2; //meters,
+  const SEPARATION = 3.22;//Between centers
 
   /**
    * @param {UnderPressureModel} underPressureModel of the simulation

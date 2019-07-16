@@ -9,27 +9,26 @@ define( function( require ) {
   'use strict';
 
   // modules
-  var fluidPressureAndFlow = require( 'FLUID_PRESSURE_AND_FLOW/fluidPressureAndFlow' );
-  var inherit = require( 'PHET_CORE/inherit' );
-  var Node = require( 'SCENERY/nodes/Node' );
-  var Path = require( 'SCENERY/nodes/Path' );
-  var Vector2 = require( 'DOT/Vector2' );
+  const fluidPressureAndFlow = require( 'FLUID_PRESSURE_AND_FLOW/fluidPressureAndFlow' );
+  const inherit = require( 'PHET_CORE/inherit' );
+  const Image = require( 'SCENERY/nodes/Image' );
+  const LinearGradient = require( 'SCENERY/util/LinearGradient' );
+  const Node = require( 'SCENERY/nodes/Node' );
+  const Path = require( 'SCENERY/nodes/Path' );
+  const PhetFont = require( 'SCENERY_PHET/PhetFont' );
+  const Rectangle = require( 'SCENERY/nodes/Rectangle' );
+  const Shape = require( 'KITE/Shape' );
+  const SimpleDragHandler = require( 'SCENERY/input/SimpleDragHandler' );
+  const TextPushButton = require( 'SUN/buttons/TextPushButton' );
+  const Vector2 = require( 'DOT/Vector2' );
+  const WaterTowerLegsNode = require( 'FLUID_PRESSURE_AND_FLOW/watertower/view/WaterTowerLegsNode' );
 
-  var Image = require( 'SCENERY/nodes/Image' );
-  var LinearGradient = require( 'SCENERY/util/LinearGradient' );
-  var PhetFont = require( 'SCENERY_PHET/PhetFont' );
-  var Rectangle = require( 'SCENERY/nodes/Rectangle' );
-  var Shape = require( 'KITE/Shape' );
-  var SimpleDragHandler = require( 'SCENERY/input/SimpleDragHandler' );
-  var TextPushButton = require( 'SUN/buttons/TextPushButton' );
-  var WaterTowerLegsNode = require( 'FLUID_PRESSURE_AND_FLOW/watertower/view/WaterTowerLegsNode' );
-
-  //images
-  var handleImage = require( 'image!FLUID_PRESSURE_AND_FLOW/handle.png' );
-  var wheelImage = require( 'image!FLUID_PRESSURE_AND_FLOW/wheel.png' );
+  // images
+  const handleImage = require( 'image!FLUID_PRESSURE_AND_FLOW/handle.png' );
+  const wheelImage = require( 'image!FLUID_PRESSURE_AND_FLOW/wheel.png' );
 
   // strings
-  var fillString = require( 'string!FLUID_PRESSURE_AND_FLOW/fill' );
+  const fillString = require( 'string!FLUID_PRESSURE_AND_FLOW/fill' );
 
   /**
    * @param {WaterTower} waterTower model

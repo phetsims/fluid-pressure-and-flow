@@ -10,52 +10,51 @@ define( function( require ) {
   'use strict';
 
   // modules
-  var Bounds2 = require( 'DOT/Bounds2' );
-  var DerivedProperty = require( 'AXON/DerivedProperty' );
-  var fluidPressureAndFlow = require( 'FLUID_PRESSURE_AND_FLOW/fluidPressureAndFlow' );
-  var inherit = require( 'PHET_CORE/inherit' );
-  var ModelViewTransform2 = require( 'PHETCOMMON/view/ModelViewTransform2' );
-  var ScreenView = require( 'JOIST/ScreenView' );
-  var Vector2 = require( 'DOT/Vector2' );
-
-  var AquaRadioButton = require( 'SUN/AquaRadioButton' );
-  var BarometerNode = require( 'FLUID_PRESSURE_AND_FLOW/common/view/BarometerNode' );
-  var Constants = require( 'FLUID_PRESSURE_AND_FLOW/common/Constants' );
-  var ControlSlider = require( 'FLUID_PRESSURE_AND_FLOW/common/view/ControlSlider' );
-  var FaucetControlPanel = require( 'FLUID_PRESSURE_AND_FLOW/watertower/view/FaucetControlPanel' );
-  var FaucetNode = require( 'SCENERY_PHET/FaucetNode' );
-  var FPAFRuler = require( 'FLUID_PRESSURE_AND_FLOW/common/view/FPAFRuler' );
-  var GroundNode = require( 'SCENERY_PHET/GroundNode' );
-  var HoseNode = require( 'FLUID_PRESSURE_AND_FLOW/watertower/view/HoseNode' );
-  var MeasuringTapeNode = require( 'SCENERY_PHET/MeasuringTapeNode' );
-  var Node = require( 'SCENERY/nodes/Node' );
-  var PhetFont = require( 'SCENERY_PHET/PhetFont' );
-  var PlayPauseButton = require( 'SCENERY_PHET/buttons/PlayPauseButton' );
-  var Rectangle = require( 'SCENERY/nodes/Rectangle' );
-  var ResetAllButton = require( 'SCENERY_PHET/buttons/ResetAllButton' );
-  var SkyNode = require( 'SCENERY_PHET/SkyNode' );
-  var SluiceControlPanel = require( 'FLUID_PRESSURE_AND_FLOW/watertower/view/SluiceControlPanel' );
-  var StepForwardButton = require( 'SCENERY_PHET/buttons/StepForwardButton' );
-  var Text = require( 'SCENERY/nodes/Text' );
-  var ToolsControlPanel = require( 'FLUID_PRESSURE_AND_FLOW/watertower/view/ToolsControlPanel' );
-  var UnitsControlPanel = require( 'FLUID_PRESSURE_AND_FLOW/common/view/UnitsControlPanel' );
-  var VBox = require( 'SCENERY/nodes/VBox' );
-  var VelocitySensorNode = require( 'FLUID_PRESSURE_AND_FLOW/common/view/VelocitySensorNode' );
-  var WaterDropsCanvasNode = require( 'FLUID_PRESSURE_AND_FLOW/watertower/view/WaterDropsCanvasNode' );
-  var WaterTowerNode = require( 'FLUID_PRESSURE_AND_FLOW/watertower/view/WaterTowerNode' );
+  const AquaRadioButton = require( 'SUN/AquaRadioButton' );
+  const BarometerNode = require( 'FLUID_PRESSURE_AND_FLOW/common/view/BarometerNode' );
+  const Bounds2 = require( 'DOT/Bounds2' );
+  const Constants = require( 'FLUID_PRESSURE_AND_FLOW/common/Constants' );
+  const ControlSlider = require( 'FLUID_PRESSURE_AND_FLOW/common/view/ControlSlider' );
+  const DerivedProperty = require( 'AXON/DerivedProperty' );
+  const FaucetControlPanel = require( 'FLUID_PRESSURE_AND_FLOW/watertower/view/FaucetControlPanel' );
+  const FaucetNode = require( 'SCENERY_PHET/FaucetNode' );
+  const fluidPressureAndFlow = require( 'FLUID_PRESSURE_AND_FLOW/fluidPressureAndFlow' );
+  const FPAFRuler = require( 'FLUID_PRESSURE_AND_FLOW/common/view/FPAFRuler' );
+  const GroundNode = require( 'SCENERY_PHET/GroundNode' );
+  const HoseNode = require( 'FLUID_PRESSURE_AND_FLOW/watertower/view/HoseNode' );
+  const inherit = require( 'PHET_CORE/inherit' );
+  const MeasuringTapeNode = require( 'SCENERY_PHET/MeasuringTapeNode' );
+  const ModelViewTransform2 = require( 'PHETCOMMON/view/ModelViewTransform2' );
+  const Node = require( 'SCENERY/nodes/Node' );
+  const PhetFont = require( 'SCENERY_PHET/PhetFont' );
+  const PlayPauseButton = require( 'SCENERY_PHET/buttons/PlayPauseButton' );
+  const Rectangle = require( 'SCENERY/nodes/Rectangle' );
+  const ResetAllButton = require( 'SCENERY_PHET/buttons/ResetAllButton' );
+  const ScreenView = require( 'JOIST/ScreenView' );
+  const SkyNode = require( 'SCENERY_PHET/SkyNode' );
+  const SluiceControlPanel = require( 'FLUID_PRESSURE_AND_FLOW/watertower/view/SluiceControlPanel' );
+  const StepForwardButton = require( 'SCENERY_PHET/buttons/StepForwardButton' );
+  const Text = require( 'SCENERY/nodes/Text' );
+  const ToolsControlPanel = require( 'FLUID_PRESSURE_AND_FLOW/watertower/view/ToolsControlPanel' );
+  const UnitsControlPanel = require( 'FLUID_PRESSURE_AND_FLOW/common/view/UnitsControlPanel' );
+  const VBox = require( 'SCENERY/nodes/VBox' );
+  const Vector2 = require( 'DOT/Vector2' );
+  const VelocitySensorNode = require( 'FLUID_PRESSURE_AND_FLOW/common/view/VelocitySensorNode' );
+  const WaterDropsCanvasNode = require( 'FLUID_PRESSURE_AND_FLOW/watertower/view/WaterDropsCanvasNode' );
+  const WaterTowerNode = require( 'FLUID_PRESSURE_AND_FLOW/watertower/view/WaterTowerNode' );
 
   //  strings
-  var feetString = require( 'string!FLUID_PRESSURE_AND_FLOW/feet' );
-  var fluidDensityString = require( 'string!FLUID_PRESSURE_AND_FLOW/fluidDensity' );
-  var gasolineString = require( 'string!FLUID_PRESSURE_AND_FLOW/gasoline' );
-  var honeyString = require( 'string!FLUID_PRESSURE_AND_FLOW/honey' );
-  var metersString = require( 'string!FLUID_PRESSURE_AND_FLOW/meters' );
-  var normalString = require( 'string!FLUID_PRESSURE_AND_FLOW/normal' );
-  var slowMotionString = require( 'string!FLUID_PRESSURE_AND_FLOW/slowMotion' );
-  var waterString = require( 'string!FLUID_PRESSURE_AND_FLOW/water' );
+  const feetString = require( 'string!FLUID_PRESSURE_AND_FLOW/feet' );
+  const fluidDensityString = require( 'string!FLUID_PRESSURE_AND_FLOW/fluidDensity' );
+  const gasolineString = require( 'string!FLUID_PRESSURE_AND_FLOW/gasoline' );
+  const honeyString = require( 'string!FLUID_PRESSURE_AND_FLOW/honey' );
+  const metersString = require( 'string!FLUID_PRESSURE_AND_FLOW/meters' );
+  const normalString = require( 'string!FLUID_PRESSURE_AND_FLOW/normal' );
+  const slowMotionString = require( 'string!FLUID_PRESSURE_AND_FLOW/slowMotion' );
+  const waterString = require( 'string!FLUID_PRESSURE_AND_FLOW/water' );
 
-  // View layout related constants
-  var inset = 10;
+  // constants
+  const INSET = 10;
 
   /**
    * @param {WaterTowerModel} waterTowerModel
@@ -113,7 +112,7 @@ define( function( require ) {
     var faucetNode = new FaucetNode( 30, waterTowerModel.faucetFlowRateProperty, waterTowerModel.isFaucetEnabledProperty, {
       horizontalPipeLength: 1500,
       right: modelViewTransform.modelToViewX( waterTowerModel.faucetPosition.x ) + 20,
-      top: this.layoutBounds.top + inset,
+      top: this.layoutBounds.top + INSET,
       scale: 0.3, //size of the faucet,
       closeOnRelease: false,
 
@@ -124,20 +123,20 @@ define( function( require ) {
     this.addChild( faucetNode );
 
     this.addChild( new FaucetControlPanel( waterTowerModel.faucetModeProperty, {
-      left: faucetNode.right + inset,
+      left: faucetNode.right + INSET,
       bottom: faucetNode.bottom,
       fill: 'green'
     } ) );
 
     // tools control panel
     this.toolsControlPanel = new ToolsControlPanel( waterTowerModel, {
-      right: this.layoutBounds.right - inset,
-      top: inset
+      right: this.layoutBounds.right - INSET,
+      top: INSET
     } );
     this.addChild( this.toolsControlPanel );
     this.addChild( new UnitsControlPanel( waterTowerModel.measureUnitsProperty, this.toolsControlPanel.width, {
       left: this.toolsControlPanel.left, xMargin: 10, yMargin: 10, fontSize: 14,
-      top: this.toolsControlPanel.bottom + inset
+      top: this.toolsControlPanel.bottom + INSET
     } ) );
 
     // all the movable tools are added to this layer
@@ -177,15 +176,15 @@ define( function( require ) {
         measuringTapeNode.reset();
         waterTowerNode.fillButton.enabled = true;
       },
-      right: this.layoutBounds.right - inset,
-      bottom: this.layoutBounds.bottom - inset
+      right: this.layoutBounds.right - INSET,
+      bottom: this.layoutBounds.bottom - INSET
     } );
     this.addChild( resetAllButton );
 
     // add the fluid density control slider
     var fluidDensityControlSlider = new ControlSlider( waterTowerModel.measureUnitsProperty, waterTowerModel.fluidDensityProperty, waterTowerModel.getFluidDensityString.bind( waterTowerModel ), waterTowerModel.fluidDensityRange, waterTowerModel.fluidDensityControlExpandedProperty, {
-      right: resetAllButton.left - 4 * inset,
-      bottom: this.layoutBounds.bottom - inset,
+      right: resetAllButton.left - 4 * INSET,
+      bottom: this.layoutBounds.bottom - INSET,
       title: fluidDensityString,
       ticks: [
         {
@@ -220,14 +219,14 @@ define( function( require ) {
       listener: function() { waterTowerModel.stepInternal( 0.016 ); },
       stroke: 'black',
       fill: '#005566',
-      right: fluidDensityControlSlider.left - inset,
-      bottom: fluidDensityControlSlider.bottom - inset
+      right: fluidDensityControlSlider.left - INSET,
+      bottom: fluidDensityControlSlider.bottom - INSET
     } );
 
     this.addChild( stepButton );
 
     var playPauseButton = new PlayPauseButton( waterTowerModel.isPlayingProperty,
-      { stroke: 'black', fill: '#005566', y: stepButton.centerY, right: stepButton.left - inset } );
+      { stroke: 'black', fill: '#005566', y: stepButton.centerY, right: stepButton.left - INSET } );
     this.addChild( playPauseButton );
 
     var speedControl = new VBox( {
@@ -239,14 +238,14 @@ define( function( require ) {
       ]
     } );
 
-    this.addChild( speedControl.mutate( { right: playPauseButton.left - inset, bottom: playPauseButton.bottom } ) );
+    this.addChild( speedControl.mutate( { right: playPauseButton.left - INSET, bottom: playPauseButton.bottom } ) );
 
     // add the sensors panel
     var sensorPanel = new Rectangle( 0, 0, 190, 105, 10, 10, {
       stroke: 'gray',
       lineWidth: 1,
       fill: '#f2fa6a',
-      right: this.toolsControlPanel.left - inset,
+      right: this.toolsControlPanel.left - INSET,
       top: this.toolsControlPanel.top
     } );
     this.addChild( sensorPanel );

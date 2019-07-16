@@ -9,18 +9,18 @@ define( function( require ) {
   'use strict';
 
   // modules
-  var fluidPressureAndFlow = require( 'FLUID_PRESSURE_AND_FLOW/fluidPressureAndFlow' );
-  var Image = require( 'SCENERY/nodes/Image' );
-  var inherit = require( 'PHET_CORE/inherit' );
-  var Node = require( 'SCENERY/nodes/Node' );
-  var Property = require( 'AXON/Property' );
-  var RoundStickyToggleButton = require( 'SUN/buttons/RoundStickyToggleButton' );
+  const fluidPressureAndFlow = require( 'FLUID_PRESSURE_AND_FLOW/fluidPressureAndFlow' );
+  const Image = require( 'SCENERY/nodes/Image' );
+  const inherit = require( 'PHET_CORE/inherit' );
+  const Node = require( 'SCENERY/nodes/Node' );
+  const Property = require( 'AXON/Property' );
+  const RoundStickyToggleButton = require( 'SUN/buttons/RoundStickyToggleButton' );
 
   // images
-  var injectorBulbImage = require( 'image!FLUID_PRESSURE_AND_FLOW/injector-bulb-cropped.png' );
+  const injectorBulbImage = require( 'image!FLUID_PRESSURE_AND_FLOW/injector-bulb-cropped.png' );
 
-  var X_OFFSET = 50; //px
-  var Y_OFFSET = 150; //px
+  const X_OFFSET = 50; //px
+  const Y_OFFSET = 150; //px
 
   /**
    * Node that injects the grid dots

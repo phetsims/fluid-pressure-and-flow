@@ -9,11 +9,11 @@ define( function( require ) {
   'use strict';
 
   // modules
-  var Emitter = require( 'AXON/Emitter' );
-  var fluidPressureAndFlow = require( 'FLUID_PRESSURE_AND_FLOW/fluidPressureAndFlow' );
-  var inherit = require( 'PHET_CORE/inherit' );
-  var Property = require( 'AXON/Property' );
-  var Vector2Property = require( 'DOT/Vector2Property' );
+  const Emitter = require( 'AXON/Emitter' );
+  const fluidPressureAndFlow = require( 'FLUID_PRESSURE_AND_FLOW/fluidPressureAndFlow' );
+  const inherit = require( 'PHET_CORE/inherit' );
+  const Property = require( 'AXON/Property' );
+  const Vector2Property = require( 'DOT/Vector2Property' );
 
   /**
    * @param {Vector2} position of the sensor

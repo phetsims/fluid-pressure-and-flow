@@ -12,30 +12,30 @@ define( function( require ) {
   'use strict';
 
   // modules
-  var AquaRadioButton = require( 'SUN/AquaRadioButton' );
-  var ComboBox = require( 'SUN/ComboBox' );
-  var ComboBoxItem = require( 'SUN/ComboBoxItem' );
-  var DerivedProperty = require( 'AXON/DerivedProperty' );
-  var fluidPressureAndFlow = require( 'FLUID_PRESSURE_AND_FLOW/fluidPressureAndFlow' );
-  var inherit = require( 'PHET_CORE/inherit' );
-  var Panel = require( 'SUN/Panel' );
-  var PhetFont = require( 'SCENERY_PHET/PhetFont' );
-  var SquarePoolView = require( 'FLUID_PRESSURE_AND_FLOW/under-pressure/view/SquarePoolView' );
-  var Text = require( 'SCENERY/nodes/Text' );
-  var VBox = require( 'SCENERY/nodes/VBox' );
+  const AquaRadioButton = require( 'SUN/AquaRadioButton' );
+  const ComboBox = require( 'SUN/ComboBox' );
+  const ComboBoxItem = require( 'SUN/ComboBoxItem' );
+  const DerivedProperty = require( 'AXON/DerivedProperty' );
+  const fluidPressureAndFlow = require( 'FLUID_PRESSURE_AND_FLOW/fluidPressureAndFlow' );
+  const inherit = require( 'PHET_CORE/inherit' );
+  const Panel = require( 'SUN/Panel' );
+  const PhetFont = require( 'SCENERY_PHET/PhetFont' );
+  const SquarePoolView = require( 'FLUID_PRESSURE_AND_FLOW/under-pressure/view/SquarePoolView' );
+  const Text = require( 'SCENERY/nodes/Text' );
+  const VBox = require( 'SCENERY/nodes/VBox' );
 
   // strings
-  var fluidAString = require( 'string!FLUID_PRESSURE_AND_FLOW/fluidA' );
-  var fluidBString = require( 'string!FLUID_PRESSURE_AND_FLOW/fluidB' );
-  var fluidCString = require( 'string!FLUID_PRESSURE_AND_FLOW/fluidC' );
-  var mysteryFluidString = require( 'string!FLUID_PRESSURE_AND_FLOW/mysteryFluid' );
-  var mysteryPlanetString = require( 'string!FLUID_PRESSURE_AND_FLOW/mysteryPlanet' );
-  var planetAString = require( 'string!FLUID_PRESSURE_AND_FLOW/planetA' );
-  var planetBString = require( 'string!FLUID_PRESSURE_AND_FLOW/planetB' );
-  var planetCString = require( 'string!FLUID_PRESSURE_AND_FLOW/planetC' );
+  const fluidAString = require( 'string!FLUID_PRESSURE_AND_FLOW/fluidA' );
+  const fluidBString = require( 'string!FLUID_PRESSURE_AND_FLOW/fluidB' );
+  const fluidCString = require( 'string!FLUID_PRESSURE_AND_FLOW/fluidC' );
+  const mysteryFluidString = require( 'string!FLUID_PRESSURE_AND_FLOW/mysteryFluid' );
+  const mysteryPlanetString = require( 'string!FLUID_PRESSURE_AND_FLOW/mysteryPlanet' );
+  const planetAString = require( 'string!FLUID_PRESSURE_AND_FLOW/planetA' );
+  const planetBString = require( 'string!FLUID_PRESSURE_AND_FLOW/planetB' );
+  const planetCString = require( 'string!FLUID_PRESSURE_AND_FLOW/planetC' );
 
   // constants
-  var RADIO_BUTTON_TOUCH_DILATION_Y = 2; // empirically determined
+  const RADIO_BUTTON_TOUCH_DILATION_Y = 2; // empirically determined
 
   /**
    * @param mysteryPoolModel

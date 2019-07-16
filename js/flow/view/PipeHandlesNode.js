@@ -11,22 +11,22 @@ define( function( require ) {
   'use strict';
 
   // modules
-  var Bounds2 = require( 'DOT/Bounds2' );
-  var fluidPressureAndFlow = require( 'FLUID_PRESSURE_AND_FLOW/fluidPressureAndFlow' );
-  var Image = require( 'SCENERY/nodes/Image' );
-  var inherit = require( 'PHET_CORE/inherit' );
-  var Node = require( 'SCENERY/nodes/Node' );
-  var PipeHandleNode = require( 'FLUID_PRESSURE_AND_FLOW/flow/view/PipeHandleNode' );
-  var PipeMainDragHandle = require( 'FLUID_PRESSURE_AND_FLOW/flow/view/PipeMainDragHandle' );
-  var Property = require( 'AXON/Property' );
+  const Bounds2 = require( 'DOT/Bounds2' );
+  const fluidPressureAndFlow = require( 'FLUID_PRESSURE_AND_FLOW/fluidPressureAndFlow' );
+  const Image = require( 'SCENERY/nodes/Image' );
+  const inherit = require( 'PHET_CORE/inherit' );
+  const Node = require( 'SCENERY/nodes/Node' );
+  const PipeHandleNode = require( 'FLUID_PRESSURE_AND_FLOW/flow/view/PipeHandleNode' );
+  const PipeMainDragHandle = require( 'FLUID_PRESSURE_AND_FLOW/flow/view/PipeMainDragHandle' );
+  const Property = require( 'AXON/Property' );
 
   // images
-  var handleImage = require( 'image!FLUID_PRESSURE_AND_FLOW/handle-with-bar.png' );
+  const handleImage = require( 'image!FLUID_PRESSURE_AND_FLOW/handle-with-bar.png' );
 
   // constants
-  var LEFT_PIPE_DRAG_HANDLE_OFFSET = 10;
-  var RIGHT_PIPE_DRAG_HANDLE_OFFSET = 50;
-  var HANDLE_X_TOUCH_EXPAND = 30;
+  const LEFT_PIPE_DRAG_HANDLE_OFFSET = 10;
+  const RIGHT_PIPE_DRAG_HANDLE_OFFSET = 50;
+  const HANDLE_X_TOUCH_EXPAND = 30;
 
   /*
    * Constructor for PipeHandlesNode

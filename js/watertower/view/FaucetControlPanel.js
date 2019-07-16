@@ -8,16 +8,16 @@ define( function( require ) {
   'use strict';
 
   // modules
-  var AquaRadioButton = require( 'SUN/AquaRadioButton' );
-  var fluidPressureAndFlow = require( 'FLUID_PRESSURE_AND_FLOW/fluidPressureAndFlow' );
-  var inherit = require( 'PHET_CORE/inherit' );
-  var PhetFont = require( 'SCENERY_PHET/PhetFont' );
-  var Text = require( 'SCENERY/nodes/Text' );
-  var VBox = require( 'SCENERY/nodes/VBox' );
+  const AquaRadioButton = require( 'SUN/AquaRadioButton' );
+  const fluidPressureAndFlow = require( 'FLUID_PRESSURE_AND_FLOW/fluidPressureAndFlow' );
+  const inherit = require( 'PHET_CORE/inherit' );
+  const PhetFont = require( 'SCENERY_PHET/PhetFont' );
+  const Text = require( 'SCENERY/nodes/Text' );
+  const VBox = require( 'SCENERY/nodes/VBox' );
 
   // strings
-  var manualString = require( 'string!FLUID_PRESSURE_AND_FLOW/manual' );
-  var matchLeakageString = require( 'string!FLUID_PRESSURE_AND_FLOW/matchLeakage' );
+  const manualString = require( 'string!FLUID_PRESSURE_AND_FLOW/manual' );
+  const matchLeakageString = require( 'string!FLUID_PRESSURE_AND_FLOW/matchLeakage' );
 
   /**
    * Default constructor

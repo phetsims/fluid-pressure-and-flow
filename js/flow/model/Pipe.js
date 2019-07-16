@@ -11,28 +11,28 @@ define( function( require ) {
   'use strict';
 
   // modules
-  var fluidPressureAndFlow = require( 'FLUID_PRESSURE_AND_FLOW/fluidPressureAndFlow' );
-  var inherit = require( 'PHET_CORE/inherit' );
-  var PipeControlPoint = require( 'FLUID_PRESSURE_AND_FLOW/flow/model/PipeControlPoint' );
-  var PipeCrossSection = require( 'FLUID_PRESSURE_AND_FLOW/flow/model/PipeCrossSection' );
-  var Property = require( 'AXON/Property' );
-  var SplineEvaluation = require( 'FLUID_PRESSURE_AND_FLOW/flow/model/SplineEvaluation' );
-  var Util = require( 'DOT/Util' );
-  var Vector2 = require( 'DOT/Vector2' );
+  const fluidPressureAndFlow = require( 'FLUID_PRESSURE_AND_FLOW/fluidPressureAndFlow' );
+  const inherit = require( 'PHET_CORE/inherit' );
+  const PipeControlPoint = require( 'FLUID_PRESSURE_AND_FLOW/flow/model/PipeControlPoint' );
+  const PipeCrossSection = require( 'FLUID_PRESSURE_AND_FLOW/flow/model/PipeCrossSection' );
+  const Property = require( 'AXON/Property' );
+  const SplineEvaluation = require( 'FLUID_PRESSURE_AND_FLOW/flow/model/SplineEvaluation' );
+  const Util = require( 'DOT/Util' );
+  const Vector2 = require( 'DOT/Vector2' );
 
   // constants
-  var CROSS_SECTION_MIN_HEIGHT = 1; //m
-  var TOP_CONTROL_POINT_INITIAL_Y = -3.5; //m
-  var BOTTOM_CONTROL_POINT_INITIAL_Y = -1.4; //m
-  var PIPE_INITIAL_SCALE = 0.36;
+  const CROSS_SECTION_MIN_HEIGHT = 1; //m
+  const TOP_CONTROL_POINT_INITIAL_Y = -3.5; //m
+  const BOTTOM_CONTROL_POINT_INITIAL_Y = -1.4; //m
+  const PIPE_INITIAL_SCALE = 0.36;
 
-  var PIPE_INITIAL_Y = 197; //from screen top in view coordinates
-  var TOP_HANDLE_INITIAL_Y = PIPE_INITIAL_Y + 2; //from screen top in view coordinates
-  var BOTTOM_HANDLE_INITIAL_Y = 324; //from screen top in view coordinates
+  const PIPE_INITIAL_Y = 197; //from screen top in view coordinates
+  const TOP_HANDLE_INITIAL_Y = PIPE_INITIAL_Y + 2; //from screen top in view coordinates
+  const BOTTOM_HANDLE_INITIAL_Y = 324; //from screen top in view coordinates
 
-  var CONTROL_POINT_X_SPACING = 2.3; //m
-  var LAST_CONTROL_POINT_OFFSET = 0.2; //m
-  var DUMMY_CONTROL_POINT_OFFSET = 0.1; //m
+  const CONTROL_POINT_X_SPACING = 2.3; //m
+  const LAST_CONTROL_POINT_OFFSET = 0.2; //m
+  const DUMMY_CONTROL_POINT_OFFSET = 0.1; //m
 
   /**
    * Default constructor for the pipe.

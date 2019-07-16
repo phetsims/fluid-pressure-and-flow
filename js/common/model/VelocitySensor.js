@@ -8,10 +8,10 @@ define( function( require ) {
   'use strict';
 
   // modules
-  var DerivedProperty = require( 'AXON/DerivedProperty' );
-  var fluidPressureAndFlow = require( 'FLUID_PRESSURE_AND_FLOW/fluidPressureAndFlow' );
-  var inherit = require( 'PHET_CORE/inherit' );
-  var Sensor = require( 'FLUID_PRESSURE_AND_FLOW/common/model/Sensor' );
+  const DerivedProperty = require( 'AXON/DerivedProperty' );
+  const fluidPressureAndFlow = require( 'FLUID_PRESSURE_AND_FLOW/fluidPressureAndFlow' );
+  const inherit = require( 'PHET_CORE/inherit' );
+  const Sensor = require( 'FLUID_PRESSURE_AND_FLOW/common/model/Sensor' );
 
   /**
    * @param {Vector2} position of the sensor

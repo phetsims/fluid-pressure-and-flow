@@ -9,18 +9,18 @@ define( function( require ) {
   'use strict';
 
   // modules
-  var CloseButton = require( 'SCENERY_PHET/buttons/CloseButton' );
-  var fluidPressureAndFlow = require( 'FLUID_PRESSURE_AND_FLOW/fluidPressureAndFlow' );
-  var inherit = require( 'PHET_CORE/inherit' );
-  var MovableDragHandler = require( 'SCENERY_PHET/input/MovableDragHandler' );
-  var Node = require( 'SCENERY/nodes/Node' );
-  var PhetFont = require( 'SCENERY_PHET/PhetFont' );
-  var RulerNode = require( 'SCENERY_PHET/RulerNode' );
-  var Units = require( 'FLUID_PRESSURE_AND_FLOW/common/model/Units' );
+  const CloseButton = require( 'SCENERY_PHET/buttons/CloseButton' );
+  const fluidPressureAndFlow = require( 'FLUID_PRESSURE_AND_FLOW/fluidPressureAndFlow' );
+  const inherit = require( 'PHET_CORE/inherit' );
+  const MovableDragHandler = require( 'SCENERY_PHET/input/MovableDragHandler' );
+  const Node = require( 'SCENERY/nodes/Node' );
+  const PhetFont = require( 'SCENERY_PHET/PhetFont' );
+  const RulerNode = require( 'SCENERY_PHET/RulerNode' );
+  const Units = require( 'FLUID_PRESSURE_AND_FLOW/common/model/Units' );
 
   // strings
-  var ftString = require( 'string!FLUID_PRESSURE_AND_FLOW/ft' );
-  var mString = require( 'string!FLUID_PRESSURE_AND_FLOW/m' );
+  const ftString = require( 'string!FLUID_PRESSURE_AND_FLOW/ft' );
+  const mString = require( 'string!FLUID_PRESSURE_AND_FLOW/m' );
 
   /**
    * Constructor for the under pressure ruler.

@@ -10,10 +10,10 @@ define( function( require ) {
   'use strict';
 
   // modules
-  var Emitter = require( 'AXON/Emitter' );
-  var fluidPressureAndFlow = require( 'FLUID_PRESSURE_AND_FLOW/fluidPressureAndFlow' );
-  var inherit = require( 'PHET_CORE/inherit' );
-  var Property = require( 'AXON/Property' );
+  const Emitter = require( 'AXON/Emitter' );
+  const fluidPressureAndFlow = require( 'FLUID_PRESSURE_AND_FLOW/fluidPressureAndFlow' );
+  const inherit = require( 'PHET_CORE/inherit' );
+  const Property = require( 'AXON/Property' );
 
   /**
    * Constructor for the flux meter.

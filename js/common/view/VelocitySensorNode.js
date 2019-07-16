@@ -10,25 +10,25 @@ define( function( require ) {
   'use strict';
 
   // modules
-  var ArrowShape = require( 'SCENERY_PHET/ArrowShape' );
-  var Bounds2 = require( 'DOT/Bounds2' );
-  var fluidPressureAndFlow = require( 'FLUID_PRESSURE_AND_FLOW/fluidPressureAndFlow' );
-  var inherit = require( 'PHET_CORE/inherit' );
-  var LinearGradient = require( 'SCENERY/util/LinearGradient' );
-  var MathSymbols = require( 'SCENERY_PHET/MathSymbols' );
-  var MovableDragHandler = require( 'SCENERY_PHET/input/MovableDragHandler' );
-  var Node = require( 'SCENERY/nodes/Node' );
-  var Path = require( 'SCENERY/nodes/Path' );
-  var PhetFont = require( 'SCENERY_PHET/PhetFont' );
-  var Property = require( 'AXON/Property' );
-  var Rectangle = require( 'SCENERY/nodes/Rectangle' );
-  var Shape = require( 'KITE/Shape' );
-  var Text = require( 'SCENERY/nodes/Text' );
+  const ArrowShape = require( 'SCENERY_PHET/ArrowShape' );
+  const Bounds2 = require( 'DOT/Bounds2' );
+  const fluidPressureAndFlow = require( 'FLUID_PRESSURE_AND_FLOW/fluidPressureAndFlow' );
+  const inherit = require( 'PHET_CORE/inherit' );
+  const LinearGradient = require( 'SCENERY/util/LinearGradient' );
+  const MathSymbols = require( 'SCENERY_PHET/MathSymbols' );
+  const MovableDragHandler = require( 'SCENERY_PHET/input/MovableDragHandler' );
+  const Node = require( 'SCENERY/nodes/Node' );
+  const Path = require( 'SCENERY/nodes/Path' );
+  const PhetFont = require( 'SCENERY_PHET/PhetFont' );
+  const Property = require( 'AXON/Property' );
+  const Rectangle = require( 'SCENERY/nodes/Rectangle' );
+  const Shape = require( 'KITE/Shape' );
+  const Text = require( 'SCENERY/nodes/Text' );
 
   // strings
-  var ftPerSString = require( 'string!FLUID_PRESSURE_AND_FLOW/ftPerS' );
-  var mPerSString = require( 'string!FLUID_PRESSURE_AND_FLOW/mPerS' );
-  var speedString = require( 'string!FLUID_PRESSURE_AND_FLOW/speed' );
+  const ftPerSString = require( 'string!FLUID_PRESSURE_AND_FLOW/ftPerS' );
+  const mPerSString = require( 'string!FLUID_PRESSURE_AND_FLOW/mPerS' );
+  const speedString = require( 'string!FLUID_PRESSURE_AND_FLOW/speed' );
 
   /**
    * Main constructor for VelocitySensorNode.

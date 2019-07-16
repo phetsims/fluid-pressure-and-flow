@@ -8,22 +8,22 @@ define( function( require ) {
   'use strict';
 
   // modules
-  var AquaRadioButton = require( 'SUN/AquaRadioButton' );
-  var fluidPressureAndFlow = require( 'FLUID_PRESSURE_AND_FLOW/fluidPressureAndFlow' );
-  var inherit = require( 'PHET_CORE/inherit' );
-  var Panel = require( 'SUN/Panel' );
-  var PhetFont = require( 'SCENERY_PHET/PhetFont' );
-  var Text = require( 'SCENERY/nodes/Text' );
-  var VBox = require( 'SCENERY/nodes/VBox' );
+  const AquaRadioButton = require( 'SUN/AquaRadioButton' );
+  const fluidPressureAndFlow = require( 'FLUID_PRESSURE_AND_FLOW/fluidPressureAndFlow' );
+  const inherit = require( 'PHET_CORE/inherit' );
+  const Panel = require( 'SUN/Panel' );
+  const PhetFont = require( 'SCENERY_PHET/PhetFont' );
+  const Text = require( 'SCENERY/nodes/Text' );
+  const VBox = require( 'SCENERY/nodes/VBox' );
 
   // strings
-  var atmospheresString = require( 'string!FLUID_PRESSURE_AND_FLOW/atmospheres' );
-  var englishString = require( 'string!FLUID_PRESSURE_AND_FLOW/english' );
-  var metricString = require( 'string!FLUID_PRESSURE_AND_FLOW/metric' );
-  var unitsString = require( 'string!FLUID_PRESSURE_AND_FLOW/units' );
+  const atmospheresString = require( 'string!FLUID_PRESSURE_AND_FLOW/atmospheres' );
+  const englishString = require( 'string!FLUID_PRESSURE_AND_FLOW/english' );
+  const metricString = require( 'string!FLUID_PRESSURE_AND_FLOW/metric' );
+  const unitsString = require( 'string!FLUID_PRESSURE_AND_FLOW/units' );
 
   // constants
-  var RADIO_BUTTON_TOUCH_DILATION_Y = 2; // empirically determined
+  const RADIO_BUTTON_TOUCH_DILATION_Y = 2; // empirically determined
 
   /**
    * @param {Property<string>} measureUnitsProperty can take values 'english', 'metric' or 'atmospheres'

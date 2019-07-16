@@ -13,21 +13,21 @@ define( function( require ) {
   'use strict';
 
   // modules
-  var fluidPressureAndFlow = require( 'FLUID_PRESSURE_AND_FLOW/fluidPressureAndFlow' );
-  var Image = require( 'SCENERY/nodes/Image' );
-  var inherit = require( 'PHET_CORE/inherit' );
-  var Node = require( 'SCENERY/nodes/Node' );
-  var Path = require( 'SCENERY/nodes/Path' );
-  var Shape = require( 'KITE/Shape' );
-  var SimpleDragHandler = require( 'SCENERY/input/SimpleDragHandler' );
+  const fluidPressureAndFlow = require( 'FLUID_PRESSURE_AND_FLOW/fluidPressureAndFlow' );
+  const Image = require( 'SCENERY/nodes/Image' );
+  const inherit = require( 'PHET_CORE/inherit' );
+  const Node = require( 'SCENERY/nodes/Node' );
+  const Path = require( 'SCENERY/nodes/Path' );
+  const Shape = require( 'KITE/Shape' );
+  const SimpleDragHandler = require( 'SCENERY/input/SimpleDragHandler' );
 
   // images
-  var handle = require( 'image!FLUID_PRESSURE_AND_FLOW/handle.png' );
-  var nozzleImg = require( 'image!FLUID_PRESSURE_AND_FLOW/nozzle.png' );
-  var spoutHandleImg = require( 'image!FLUID_PRESSURE_AND_FLOW/spout-handle.png' );
+  const handle = require( 'image!FLUID_PRESSURE_AND_FLOW/handle.png' );
+  const nozzleImg = require( 'image!FLUID_PRESSURE_AND_FLOW/nozzle.png' );
+  const spoutHandleImg = require( 'image!FLUID_PRESSURE_AND_FLOW/spout-handle.png' );
 
-  // view constants
-  var CORNER_RADIUS = 3; //px
+  // constants
+  const CORNER_RADIUS = 3; // px
 
   /**
    * HoseNode constructor

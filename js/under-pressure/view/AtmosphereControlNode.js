@@ -11,18 +11,18 @@ define( function( require ) {
   'use strict';
 
   // modules
-  var AquaRadioButton = require( 'SUN/AquaRadioButton' );
-  var fluidPressureAndFlow = require( 'FLUID_PRESSURE_AND_FLOW/fluidPressureAndFlow' );
-  var HBox = require( 'SCENERY/nodes/HBox' );
-  var inherit = require( 'PHET_CORE/inherit' );
-  var Node = require( 'SCENERY/nodes/Node' );
-  var PhetFont = require( 'SCENERY_PHET/PhetFont' );
-  var Text = require( 'SCENERY/nodes/Text' );
+  const AquaRadioButton = require( 'SUN/AquaRadioButton' );
+  const fluidPressureAndFlow = require( 'FLUID_PRESSURE_AND_FLOW/fluidPressureAndFlow' );
+  const HBox = require( 'SCENERY/nodes/HBox' );
+  const inherit = require( 'PHET_CORE/inherit' );
+  const Node = require( 'SCENERY/nodes/Node' );
+  const PhetFont = require( 'SCENERY_PHET/PhetFont' );
+  const Text = require( 'SCENERY/nodes/Text' );
 
   // strings
-  var atmosphereString = require( 'string!FLUID_PRESSURE_AND_FLOW/atmosphere' );
-  var offString = require( 'string!FLUID_PRESSURE_AND_FLOW/off' );
-  var onString = require( 'string!FLUID_PRESSURE_AND_FLOW/on' );
+  const atmosphereString = require( 'string!FLUID_PRESSURE_AND_FLOW/atmosphere' );
+  const offString = require( 'string!FLUID_PRESSURE_AND_FLOW/off' );
+  const onString = require( 'string!FLUID_PRESSURE_AND_FLOW/on' );
 
   /**
    * @param {Property<Boolean>} isAtmosphereProperty - to select atmosphere on/off

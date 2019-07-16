@@ -10,11 +10,11 @@ define( function( require ) {
   'use strict';
 
   // modules
-  var fluidPressureAndFlow = require( 'FLUID_PRESSURE_AND_FLOW/fluidPressureAndFlow' );
+  const fluidPressureAndFlow = require( 'FLUID_PRESSURE_AND_FLOW/fluidPressureAndFlow' );
 
   //The most important function for this sim in numeric.js is just too slow because it uses tensor versions of all functions.
   //This version inlines everything.
-  var _at = function( spline, x1, p ) {
+  const _at = function( spline, x1, p ) {
     var x = spline.x;
     var yl = spline.yl;
     var yr = spline.yr;
@@ -32,7 +32,7 @@ define( function( require ) {
            b * s * t;
   };
 
-  var atNumber = function( spline, x0 ) {
+  const atNumber = function( spline, x0 ) {
     var x = spline.x;
     var n = x.length;
     var p;
@@ -53,7 +53,7 @@ define( function( require ) {
     return _at( spline, x0, p );
   };
 
-  var atArray = function( spline, x0 ) {
+  const atArray = function( spline, x0 ) {
     var n = x0.length;
     var i;
     var ret = new Array( n );
@@ -63,7 +63,7 @@ define( function( require ) {
     return ret;
   };
 
-  var SplineEvaluation = { atNumber: atNumber, atArray: atArray };
+  const SplineEvaluation = { atNumber: atNumber, atArray: atArray };
 
   fluidPressureAndFlow.register( 'SplineEvaluation', SplineEvaluation );
 

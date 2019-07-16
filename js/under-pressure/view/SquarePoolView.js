@@ -9,13 +9,13 @@ define( function( require ) {
   'use strict';
 
   // modules
-  var FaucetFluidNode = require( 'FLUID_PRESSURE_AND_FLOW/under-pressure/view/FaucetFluidNode' );
-  var fluidPressureAndFlow = require( 'FLUID_PRESSURE_AND_FLOW/fluidPressureAndFlow' );
-  var inherit = require( 'PHET_CORE/inherit' );
-  var Node = require( 'SCENERY/nodes/Node' );
-  var SquarePoolBack = require( 'FLUID_PRESSURE_AND_FLOW/under-pressure/view/SquarePoolBack' );
-  var SquarePoolGrid = require( 'FLUID_PRESSURE_AND_FLOW/under-pressure/view/SquarePoolGrid' );
-  var SquarePoolWaterNode = require( 'FLUID_PRESSURE_AND_FLOW/under-pressure/view/SquarePoolWaterNode' );
+  const FaucetFluidNode = require( 'FLUID_PRESSURE_AND_FLOW/under-pressure/view/FaucetFluidNode' );
+  const fluidPressureAndFlow = require( 'FLUID_PRESSURE_AND_FLOW/fluidPressureAndFlow' );
+  const inherit = require( 'PHET_CORE/inherit' );
+  const Node = require( 'SCENERY/nodes/Node' );
+  const SquarePoolBack = require( 'FLUID_PRESSURE_AND_FLOW/under-pressure/view/SquarePoolBack' );
+  const SquarePoolGrid = require( 'FLUID_PRESSURE_AND_FLOW/under-pressure/view/SquarePoolGrid' );
+  const SquarePoolWaterNode = require( 'FLUID_PRESSURE_AND_FLOW/under-pressure/view/SquarePoolWaterNode' );
 
   /**
    * @param {SquarePoolModel} squarePoolModel of the simulation

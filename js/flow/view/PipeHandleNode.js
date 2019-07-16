@@ -9,24 +9,24 @@ define( function( require ) {
   'use strict';
 
   // modules
-  var Bounds2 = require( 'DOT/Bounds2' );
-  var fluidPressureAndFlow = require( 'FLUID_PRESSURE_AND_FLOW/fluidPressureAndFlow' );
-  var Image = require( 'SCENERY/nodes/Image' );
-  var inherit = require( 'PHET_CORE/inherit' );
-  var Node = require( 'SCENERY/nodes/Node' );
-  var SimpleDragHandler = require( 'SCENERY/input/SimpleDragHandler' );
-  var Util = require( 'DOT/Util' );
-  var Vector2 = require( 'DOT/Vector2' );
+  const Bounds2 = require( 'DOT/Bounds2' );
+  const fluidPressureAndFlow = require( 'FLUID_PRESSURE_AND_FLOW/fluidPressureAndFlow' );
+  const Image = require( 'SCENERY/nodes/Image' );
+  const inherit = require( 'PHET_CORE/inherit' );
+  const Node = require( 'SCENERY/nodes/Node' );
+  const SimpleDragHandler = require( 'SCENERY/input/SimpleDragHandler' );
+  const Util = require( 'DOT/Util' );
+  const Vector2 = require( 'DOT/Vector2' );
 
   // images
-  var handleImage = require( 'image!FLUID_PRESSURE_AND_FLOW/handle-with-bar.png' );
+  const handleImage = require( 'image!FLUID_PRESSURE_AND_FLOW/handle-with-bar.png' );
 
   // constants
-  var CONTROL_HANDLE_OFFSET = 2;
-  var PIPE_INITIAL_HEIGHT = 2.1; //in meters
-  var PIPE_INITIAL_SCALE = 0.36;
-  var CROSS_SECTION_MIN_HEIGHT = 1; //meters
-  var HANDLE_TOUCH_AREA_X_DILATION = 30;
+  const CONTROL_HANDLE_OFFSET = 2;
+  const PIPE_INITIAL_HEIGHT = 2.1; //in meters
+  const PIPE_INITIAL_SCALE = 0.36;
+  const CROSS_SECTION_MIN_HEIGHT = 1; //meters
+  const HANDLE_TOUCH_AREA_X_DILATION = 30;
 
   /**
    * @param {PipeHandlesNode} pipeHandlesNode

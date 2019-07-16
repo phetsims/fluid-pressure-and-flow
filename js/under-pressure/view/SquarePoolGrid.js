@@ -10,18 +10,18 @@ define( function( require ) {
   'use strict';
 
   // modules
-  var fluidPressureAndFlow = require( 'FLUID_PRESSURE_AND_FLOW/fluidPressureAndFlow' );
-  var GridLinesNode = require( 'FLUID_PRESSURE_AND_FLOW/under-pressure/view/GridLinesNode' );
-  var inherit = require( 'PHET_CORE/inherit' );
-  var Node = require( 'SCENERY/nodes/Node' );
-  var PhetFont = require( 'SCENERY_PHET/PhetFont' );
-  var StringUtils = require( 'PHETCOMMON/util/StringUtils' );
-  var Text = require( 'SCENERY/nodes/Text' );
-  var Units = require( 'FLUID_PRESSURE_AND_FLOW/common/model/Units' );
+  const fluidPressureAndFlow = require( 'FLUID_PRESSURE_AND_FLOW/fluidPressureAndFlow' );
+  const GridLinesNode = require( 'FLUID_PRESSURE_AND_FLOW/under-pressure/view/GridLinesNode' );
+  const inherit = require( 'PHET_CORE/inherit' );
+  const Node = require( 'SCENERY/nodes/Node' );
+  const PhetFont = require( 'SCENERY_PHET/PhetFont' );
+  const StringUtils = require( 'PHETCOMMON/util/StringUtils' );
+  const Text = require( 'SCENERY/nodes/Text' );
+  const Units = require( 'FLUID_PRESSURE_AND_FLOW/common/model/Units' );
 
   // strings
-  var readoutFeetString = require( 'string!FLUID_PRESSURE_AND_FLOW/readoutFeet' );
-  var readoutMetersString = require( 'string!FLUID_PRESSURE_AND_FLOW/readoutMeters' );
+  const readoutFeetString = require( 'string!FLUID_PRESSURE_AND_FLOW/readoutFeet' );
+  const readoutMetersString = require( 'string!FLUID_PRESSURE_AND_FLOW/readoutMeters' );
 
   /**
    * @param {SquarePoolModel} squarePoolModel of the simulation

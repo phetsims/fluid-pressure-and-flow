@@ -10,12 +10,12 @@ define( function( require ) {
   'use strict';
 
   // modules
-  var fluidPressureAndFlow = require( 'FLUID_PRESSURE_AND_FLOW/fluidPressureAndFlow' );
-  var GroundNode = require( 'SCENERY_PHET/GroundNode' );
-  var inherit = require( 'PHET_CORE/inherit' );
-  var Node = require( 'SCENERY/nodes/Node' );
-  var Rectangle = require( 'SCENERY/nodes/Rectangle' );
-  var SkyNode = require( 'SCENERY_PHET/SkyNode' );
+  const fluidPressureAndFlow = require( 'FLUID_PRESSURE_AND_FLOW/fluidPressureAndFlow' );
+  const GroundNode = require( 'SCENERY_PHET/GroundNode' );
+  const inherit = require( 'PHET_CORE/inherit' );
+  const Node = require( 'SCENERY/nodes/Node' );
+  const Rectangle = require( 'SCENERY/nodes/Rectangle' );
+  const SkyNode = require( 'SCENERY_PHET/SkyNode' );
 
   /**
    * @param {UnderPressureModel} underPressureModel of the sim
@@ -26,7 +26,7 @@ define( function( require ) {
     Node.call( this );
 
     // empirically determined
-    var backgroundStartX = -2000;
+    const backgroundStartX = -2000;
     var backgroundWidth = 5000;
     var skyExtension = 5000;
     var groundExtension = 5000;

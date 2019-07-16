@@ -9,16 +9,16 @@ define( function( require ) {
   'use strict';
 
   // modules
-  var FlowScreen = require( 'FLUID_PRESSURE_AND_FLOW/flow/FlowScreen' );
-  var Sim = require( 'JOIST/Sim' );
-  var SimLauncher = require( 'JOIST/SimLauncher' );
-  var UnderPressureScreen = require( 'FLUID_PRESSURE_AND_FLOW/under-pressure/UnderPressureScreen' );
-  var WaterTowerScreen = require( 'FLUID_PRESSURE_AND_FLOW/watertower/WaterTowerScreen' );
+  const FlowScreen = require( 'FLUID_PRESSURE_AND_FLOW/flow/FlowScreen' );
+  const Sim = require( 'JOIST/Sim' );
+  const SimLauncher = require( 'JOIST/SimLauncher' );
+  const UnderPressureScreen = require( 'FLUID_PRESSURE_AND_FLOW/under-pressure/UnderPressureScreen' );
+  const WaterTowerScreen = require( 'FLUID_PRESSURE_AND_FLOW/watertower/WaterTowerScreen' );
 
   // strings
-  var fluidPressureAndFlowTitleString = require( 'string!FLUID_PRESSURE_AND_FLOW/fluid-pressure-and-flow.title' );
+  const fluidPressureAndFlowTitleString = require( 'string!FLUID_PRESSURE_AND_FLOW/fluid-pressure-and-flow.title' );
 
-  var simOptions = {
+  const simOptions = {
     credits: {
       leadDesign: 'Sam Reid',
       softwareDevelopment: 'Sam Reid, John Blanco',
@@ -30,7 +30,7 @@ define( function( require ) {
   };
 
   SimLauncher.launch( function() {
-    var sim = new Sim( fluidPressureAndFlowTitleString, [
+    const sim = new Sim( fluidPressureAndFlowTitleString, [
         new UnderPressureScreen(),
         new FlowScreen(),
         new WaterTowerScreen() ],

@@ -10,28 +10,28 @@ define( function( require ) {
   'use strict';
 
   // modules
-  var fluidPressureAndFlow = require( 'FLUID_PRESSURE_AND_FLOW/fluidPressureAndFlow' );
-  var StringUtils = require( 'PHETCOMMON/util/StringUtils' );
-  var Util = require( 'DOT/Util' );
+  const fluidPressureAndFlow = require( 'FLUID_PRESSURE_AND_FLOW/fluidPressureAndFlow' );
+  const StringUtils = require( 'PHETCOMMON/util/StringUtils' );
+  const Util = require( 'DOT/Util' );
 
   // strings
-  var atmString = require( 'string!FLUID_PRESSURE_AND_FLOW/atm' );
-  var densityUnitsEnglishString = require( 'string!FLUID_PRESSURE_AND_FLOW/densityUnitsEnglish' );
-  var densityUnitsMetricString = require( 'string!FLUID_PRESSURE_AND_FLOW/densityUnitsMetric' );
-  var ftPerSPerSString = require( 'string!FLUID_PRESSURE_AND_FLOW/ftPerSPerS' );
-  var kPaString = require( 'string!FLUID_PRESSURE_AND_FLOW/kPa' );
-  var mPerSPerSString = require( 'string!FLUID_PRESSURE_AND_FLOW/mPerSPerS' );
-  var psiString = require( 'string!FLUID_PRESSURE_AND_FLOW/psi' );
-  var valueWithUnitsPatternString = require( 'string!FLUID_PRESSURE_AND_FLOW/valueWithUnitsPattern' );
+  const atmString = require( 'string!FLUID_PRESSURE_AND_FLOW/atm' );
+  const densityUnitsEnglishString = require( 'string!FLUID_PRESSURE_AND_FLOW/densityUnitsEnglish' );
+  const densityUnitsMetricString = require( 'string!FLUID_PRESSURE_AND_FLOW/densityUnitsMetric' );
+  const ftPerSPerSString = require( 'string!FLUID_PRESSURE_AND_FLOW/ftPerSPerS' );
+  const kPaString = require( 'string!FLUID_PRESSURE_AND_FLOW/kPa' );
+  const mPerSPerSString = require( 'string!FLUID_PRESSURE_AND_FLOW/mPerSPerS' );
+  const psiString = require( 'string!FLUID_PRESSURE_AND_FLOW/psi' );
+  const valueWithUnitsPatternString = require( 'string!FLUID_PRESSURE_AND_FLOW/valueWithUnitsPattern' );
 
   // constants
-  var ATMOSPHERE_PER_PASCAL = 9.8692E-6;
-  var PSI_PER_PASCAL = 145.04E-6;
-  var FEET_PER_METER = 3.2808399;
-  var GRAVITY_ENGLISH_PER_METRIC = 32.16 / 9.80665; //http://evaosd.fartoomuch.info/library/units.htm
-  var FLUID_DENSITY_ENGLISH_PER_METRIC = 62.4 / 1000.0;
+  const ATMOSPHERE_PER_PASCAL = 9.8692E-6;
+  const PSI_PER_PASCAL = 145.04E-6;
+  const FEET_PER_METER = 3.2808399;
+  const GRAVITY_ENGLISH_PER_METRIC = 32.16 / 9.80665; //http://evaosd.fartoomuch.info/library/units.htm
+  const FLUID_DENSITY_ENGLISH_PER_METRIC = 62.4 / 1000.0;
 
-  var Units =  {
+  const Units =  {
 
     FLUID_DENSITY_ENGLISH_PER_METRIC: FLUID_DENSITY_ENGLISH_PER_METRIC,
     FLUID_FlOW_RATE_ENGLISH_PER_METRIC: 35.3 / 1000,

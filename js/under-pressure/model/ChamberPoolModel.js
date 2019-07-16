@@ -11,43 +11,43 @@ define( function( require ) {
   'use strict';
 
   // modules
-  var Constants = require( 'FLUID_PRESSURE_AND_FLOW/common/Constants' );
-  var fluidPressureAndFlow = require( 'FLUID_PRESSURE_AND_FLOW/fluidPressureAndFlow' );
-  var inherit = require( 'PHET_CORE/inherit' );
-  var MassModel = require( 'FLUID_PRESSURE_AND_FLOW/under-pressure/model/MassModel' );
-  var ObservableArray = require( 'AXON/ObservableArray' );
-  var Property = require( 'AXON/Property' );
+  const Constants = require( 'FLUID_PRESSURE_AND_FLOW/common/Constants' );
+  const fluidPressureAndFlow = require( 'FLUID_PRESSURE_AND_FLOW/fluidPressureAndFlow' );
+  const inherit = require( 'PHET_CORE/inherit' );
+  const MassModel = require( 'FLUID_PRESSURE_AND_FLOW/under-pressure/model/MassModel' );
+  const ObservableArray = require( 'AXON/ObservableArray' );
+  const Property = require( 'AXON/Property' );
 
   // constants
   // empirically determined to match the visual appearance from design document
 
   //The size of the passage between the chambers
-  var PASSAGE_SIZE = 0.5;
+  const PASSAGE_SIZE = 0.5;
 
   //Width of the right opening to the air
-  var RIGHT_OPENING_WIDTH = 2.3;
+  const RIGHT_OPENING_WIDTH = 2.3;
 
   //Width of the left opening to the air
-  var LEFT_OPENING_WIDTH = 0.5;
+  const LEFT_OPENING_WIDTH = 0.5;
 
   //Height of each chamber, physics not working properly to vary these independently
-  var CHAMBER_HEIGHT = 1.3;
+  const CHAMBER_HEIGHT = 1.3;
 
   //left chamber start x
-  var LEFT_CHAMBER_X = 1.55;
-  var LEFT_CHAMBER_WIDTH = 2.8;
+  const LEFT_CHAMBER_X = 1.55;
+  const LEFT_CHAMBER_WIDTH = 2.8;
 
   //right(bottom) chamber start x
-  var RIGHT_CHAMBER_X = 6.27;
-  var RIGHT_CHAMBER_WIDTH = 1.1;
+  const RIGHT_CHAMBER_X = 6.27;
+  const RIGHT_CHAMBER_WIDTH = 1.1;
 
-  var MASS_OFFSET = 1.35; // start x-coordinate of first mass
-  var SEPARATION = 0.03; //separation between masses
+  const MASS_OFFSET = 1.35; // start x-coordinate of first mass
+  const SEPARATION = 0.03; //separation between masses
 
-  var DEFAULT_HEIGHT = 2.3; //meters, without load
+  const DEFAULT_HEIGHT = 2.3; //meters, without load
 
   //The entire apparatus is this tall
-  var MAX_HEIGHT = Constants.MAX_POOL_HEIGHT; // meters
+  const MAX_HEIGHT = Constants.MAX_POOL_HEIGHT; // meters
 
   /**
    * @param {UnderPressureModel} underPressureModel -- model for the sim.

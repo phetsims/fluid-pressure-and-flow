@@ -9,29 +9,28 @@ define( function( require ) {
   'use strict';
 
   // modules
-  var Checkbox = require( 'SUN/Checkbox' );
-  var fluidPressureAndFlow = require( 'FLUID_PRESSURE_AND_FLOW/fluidPressureAndFlow' );
-  var HBox = require( 'SCENERY/nodes/HBox' );
-  var HStrut = require( 'SCENERY/nodes/HStrut' );
-  var Image = require( 'SCENERY/nodes/Image' );
-  var inherit = require( 'PHET_CORE/inherit' );
-  var Panel = require( 'SUN/Panel' );
-  var Path = require( 'SCENERY/nodes/Path' );
-  var PhetFont = require( 'SCENERY_PHET/PhetFont' );
-  var RulerNode = require( 'SCENERY_PHET/RulerNode' );
-  var Shape = require( 'KITE/Shape' );
-  var Text = require( 'SCENERY/nodes/Text' );
-  var VBox = require( 'SCENERY/nodes/VBox' );
+  const Checkbox = require( 'SUN/Checkbox' );
+  const fluidPressureAndFlow = require( 'FLUID_PRESSURE_AND_FLOW/fluidPressureAndFlow' );
+  const HBox = require( 'SCENERY/nodes/HBox' );
+  const HStrut = require( 'SCENERY/nodes/HStrut' );
+  const Image = require( 'SCENERY/nodes/Image' );
+  const inherit = require( 'PHET_CORE/inherit' );
+  const Panel = require( 'SUN/Panel' );
+  const Path = require( 'SCENERY/nodes/Path' );
+  const PhetFont = require( 'SCENERY_PHET/PhetFont' );
+  const RulerNode = require( 'SCENERY_PHET/RulerNode' );
+  const Shape = require( 'KITE/Shape' );
+  const Text = require( 'SCENERY/nodes/Text' );
+  const VBox = require( 'SCENERY/nodes/VBox' );
 
   // strings
-  var hoseString = require( 'string!FLUID_PRESSURE_AND_FLOW/hose' );
-  var measuringTapeString = require( 'string!FLUID_PRESSURE_AND_FLOW/measuringTape' );
-  var rulerString = require( 'string!FLUID_PRESSURE_AND_FLOW/ruler' );
+  const hoseString = require( 'string!FLUID_PRESSURE_AND_FLOW/hose' );
+  const measuringTapeString = require( 'string!FLUID_PRESSURE_AND_FLOW/measuringTape' );
+  const rulerString = require( 'string!FLUID_PRESSURE_AND_FLOW/ruler' );
 
   // images
-  var measuringTapeImg = require( 'image!SCENERY_PHET/measuringTape.png' );
-  var nozzleImg = require( 'image!FLUID_PRESSURE_AND_FLOW/nozzle.png' );
-
+  const measuringTapeImg = require( 'image!SCENERY_PHET/measuringTape.png' );
+  const nozzleImg = require( 'image!FLUID_PRESSURE_AND_FLOW/nozzle.png' );
 
   /**
    *

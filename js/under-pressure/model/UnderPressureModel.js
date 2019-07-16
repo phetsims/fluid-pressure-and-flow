@@ -10,25 +10,25 @@ define( function( require ) {
   'use strict';
 
   // modules
-  var ChamberPoolModel = require( 'FLUID_PRESSURE_AND_FLOW/under-pressure/model/ChamberPoolModel' );
-  var Constants = require( 'FLUID_PRESSURE_AND_FLOW/common/Constants' );
-  var DerivedProperty = require( 'AXON/DerivedProperty' );
-  var FluidColorModel = require( 'FLUID_PRESSURE_AND_FLOW/common/model/FluidColorModel' );
-  var fluidPressureAndFlow = require( 'FLUID_PRESSURE_AND_FLOW/fluidPressureAndFlow' );
-  var getStandardAirPressure = require( 'FLUID_PRESSURE_AND_FLOW/common/model/getStandardAirPressure' );
-  var inherit = require( 'PHET_CORE/inherit' );
-  var MysteryPoolModel = require( 'FLUID_PRESSURE_AND_FLOW/under-pressure/model/MysteryPoolModel' );
-  var Property = require( 'AXON/Property' );
-  var Range = require( 'DOT/Range' );
-  var Sensor = require( 'FLUID_PRESSURE_AND_FLOW/common/model/Sensor' );
-  var SquarePoolModel = require( 'FLUID_PRESSURE_AND_FLOW/under-pressure/model/SquarePoolModel' );
-  var TrapezoidPoolModel = require( 'FLUID_PRESSURE_AND_FLOW/under-pressure/model/TrapezoidPoolModel' );
-  var Units = require( 'FLUID_PRESSURE_AND_FLOW/common/model/Units' );
-  var Vector2 = require( 'DOT/Vector2' );
-  var Vector2Property = require( 'DOT/Vector2Property' );
+  const ChamberPoolModel = require( 'FLUID_PRESSURE_AND_FLOW/under-pressure/model/ChamberPoolModel' );
+  const Constants = require( 'FLUID_PRESSURE_AND_FLOW/common/Constants' );
+  const DerivedProperty = require( 'AXON/DerivedProperty' );
+  const FluidColorModel = require( 'FLUID_PRESSURE_AND_FLOW/common/model/FluidColorModel' );
+  const fluidPressureAndFlow = require( 'FLUID_PRESSURE_AND_FLOW/fluidPressureAndFlow' );
+  const getStandardAirPressure = require( 'FLUID_PRESSURE_AND_FLOW/common/model/getStandardAirPressure' );
+  const inherit = require( 'PHET_CORE/inherit' );
+  const MysteryPoolModel = require( 'FLUID_PRESSURE_AND_FLOW/under-pressure/model/MysteryPoolModel' );
+  const Property = require( 'AXON/Property' );
+  const Range = require( 'DOT/Range' );
+  const Sensor = require( 'FLUID_PRESSURE_AND_FLOW/common/model/Sensor' );
+  const SquarePoolModel = require( 'FLUID_PRESSURE_AND_FLOW/under-pressure/model/SquarePoolModel' );
+  const TrapezoidPoolModel = require( 'FLUID_PRESSURE_AND_FLOW/under-pressure/model/TrapezoidPoolModel' );
+  const Units = require( 'FLUID_PRESSURE_AND_FLOW/common/model/Units' );
+  const Vector2 = require( 'DOT/Vector2' );
+  const Vector2Property = require( 'DOT/Vector2Property' );
 
   // constants
-  var NUM_BAROMETERS = 4;
+  const NUM_BAROMETERS = 4;
 
   function UnderPressureModel() {
 

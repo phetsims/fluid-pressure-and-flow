@@ -10,17 +10,17 @@ define( function( require ) {
   'use strict';
 
   // modules
-  var fluidPressureAndFlow = require( 'FLUID_PRESSURE_AND_FLOW/fluidPressureAndFlow' );
-  var inherit = require( 'PHET_CORE/inherit' );
-  var Node = require( 'SCENERY/nodes/Node' );
-  var SimpleDragHandler = require( 'SCENERY/input/SimpleDragHandler' );
-  var Util = require( 'DOT/Util' );
-  var Vector2 = require( 'DOT/Vector2' );
+  const fluidPressureAndFlow = require( 'FLUID_PRESSURE_AND_FLOW/fluidPressureAndFlow' );
+  const inherit = require( 'PHET_CORE/inherit' );
+  const Node = require( 'SCENERY/nodes/Node' );
+  const SimpleDragHandler = require( 'SCENERY/input/SimpleDragHandler' );
+  const Util = require( 'DOT/Util' );
+  const Vector2 = require( 'DOT/Vector2' );
 
   // constants
-  var CONTROL_HANDLE_OFFSET = 2;
-  var PIPE_INITIAL_HEIGHT = 2.1; //in meters
-  var PIPE_INITIAL_SCALE = 0.36;
+  const CONTROL_HANDLE_OFFSET = 2;
+  const PIPE_INITIAL_HEIGHT = 2.1; //in meters
+  const PIPE_INITIAL_SCALE = 0.36;
 
   /**
    * @param {PipeHandlesNode} pipeHandlesNode

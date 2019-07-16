@@ -11,17 +11,17 @@ define( function( require ) {
   'use strict';
 
   // modules
-  var Color = require( 'SCENERY/util/Color' );
-  var Constants = require( 'FLUID_PRESSURE_AND_FLOW/common/Constants' );
-  var fluidPressureAndFlow = require( 'FLUID_PRESSURE_AND_FLOW/fluidPressureAndFlow' );
-  var inherit = require( 'PHET_CORE/inherit' );
-  var LinearFunction = require( 'DOT/LinearFunction' );
-  var Property = require( 'AXON/Property' );
+  const Color = require( 'SCENERY/util/Color' );
+  const Constants = require( 'FLUID_PRESSURE_AND_FLOW/common/Constants' );
+  const fluidPressureAndFlow = require( 'FLUID_PRESSURE_AND_FLOW/fluidPressureAndFlow' );
+  const inherit = require( 'PHET_CORE/inherit' );
+  const LinearFunction = require( 'DOT/LinearFunction' );
+  const Property = require( 'AXON/Property' );
 
   // Color constants, from the Java version
-  var GAS_COLOR = new Color( 149, 142, 139 );
-  var WATER_COLOR = new Color( 20, 244, 255 );
-  var HONEY_COLOR = new Color( 255, 191, 0 );
+  const GAS_COLOR = new Color( 149, 142, 139 );
+  const WATER_COLOR = new Color( 20, 244, 255 );
+  const HONEY_COLOR = new Color( 255, 191, 0 );
 
   /**
    * @param {Property.<number>} fluidDensityProperty

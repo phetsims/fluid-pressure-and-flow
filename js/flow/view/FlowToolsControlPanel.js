@@ -9,26 +9,26 @@ define( function( require ) {
   'use strict';
 
   // modules
-  var Bounds2 = require( 'DOT/Bounds2' );
-  var Checkbox = require( 'SUN/Checkbox' );
-  var Circle = require( 'SCENERY/nodes/Circle' );
-  var fluidPressureAndFlow = require( 'FLUID_PRESSURE_AND_FLOW/fluidPressureAndFlow' );
-  var HBox = require( 'SCENERY/nodes/HBox' );
-  var HStrut = require( 'SCENERY/nodes/HStrut' );
-  var inherit = require( 'PHET_CORE/inherit' );
-  var Node = require( 'SCENERY/nodes/Node' );
-  var Panel = require( 'SUN/Panel' );
-  var PhetFont = require( 'SCENERY_PHET/PhetFont' );
-  var RulerNode = require( 'SCENERY_PHET/RulerNode' );
-  var Shape = require( 'KITE/Shape' );
-  var Text = require( 'SCENERY/nodes/Text' );
-  var VBox = require( 'SCENERY/nodes/VBox' );
+  const Bounds2 = require( 'DOT/Bounds2' );
+  const Checkbox = require( 'SUN/Checkbox' );
+  const Circle = require( 'SCENERY/nodes/Circle' );
+  const fluidPressureAndFlow = require( 'FLUID_PRESSURE_AND_FLOW/fluidPressureAndFlow' );
+  const HBox = require( 'SCENERY/nodes/HBox' );
+  const HStrut = require( 'SCENERY/nodes/HStrut' );
+  const inherit = require( 'PHET_CORE/inherit' );
+  const Node = require( 'SCENERY/nodes/Node' );
+  const Panel = require( 'SUN/Panel' );
+  const PhetFont = require( 'SCENERY_PHET/PhetFont' );
+  const RulerNode = require( 'SCENERY_PHET/RulerNode' );
+  const Shape = require( 'KITE/Shape' );
+  const Text = require( 'SCENERY/nodes/Text' );
+  const VBox = require( 'SCENERY/nodes/VBox' );
 
   // strings
-  var dotsString = require( 'string!FLUID_PRESSURE_AND_FLOW/dots' );
-  var fluxMeterString = require( 'string!FLUID_PRESSURE_AND_FLOW/fluxMeter' );
-  var frictionString = require( 'string!FLUID_PRESSURE_AND_FLOW/friction' );
-  var rulerString = require( 'string!FLUID_PRESSURE_AND_FLOW/ruler' );
+  const dotsString = require( 'string!FLUID_PRESSURE_AND_FLOW/dots' );
+  const fluxMeterString = require( 'string!FLUID_PRESSURE_AND_FLOW/fluxMeter' );
+  const frictionString = require( 'string!FLUID_PRESSURE_AND_FLOW/friction' );
+  const rulerString = require( 'string!FLUID_PRESSURE_AND_FLOW/ruler' );
 
   /**
    *

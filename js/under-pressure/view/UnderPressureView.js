@@ -12,42 +12,42 @@ define( function( require ) {
   'use strict';
 
   // modules
-  var BackgroundNode = require( 'FLUID_PRESSURE_AND_FLOW/under-pressure/view/BackgroundNode' );
-  var BarometerNode = require( 'FLUID_PRESSURE_AND_FLOW/common/view/BarometerNode' );
-  var ChamberPoolView = require( 'FLUID_PRESSURE_AND_FLOW/under-pressure/view/ChamberPoolView' );
-  var Constants = require( 'FLUID_PRESSURE_AND_FLOW/common/Constants' );
-  var ControlPanel = require( 'FLUID_PRESSURE_AND_FLOW/under-pressure/view/ControlPanel' );
-  var ControlSlider = require( 'FLUID_PRESSURE_AND_FLOW/common/view/ControlSlider' );
-  var fluidPressureAndFlow = require( 'FLUID_PRESSURE_AND_FLOW/fluidPressureAndFlow' );
-  var inherit = require( 'PHET_CORE/inherit' );
-  var ModelViewTransform2 = require( 'PHETCOMMON/view/ModelViewTransform2' );
-  var MysteryPoolView = require( 'FLUID_PRESSURE_AND_FLOW/under-pressure/view/MysteryPoolView' );
-  var Node = require( 'SCENERY/nodes/Node' );
-  var Rectangle = require( 'SCENERY/nodes/Rectangle' );
-  var ResetAllButton = require( 'SCENERY_PHET/buttons/ResetAllButton' );
-  var SceneChoiceNode = require( 'FLUID_PRESSURE_AND_FLOW/under-pressure/view/SceneChoiceNode' );
-  var ScreenView = require( 'JOIST/ScreenView' );
-  var SquarePoolView = require( 'FLUID_PRESSURE_AND_FLOW/under-pressure/view/SquarePoolView' );
-  var TrapezoidPoolView = require( 'FLUID_PRESSURE_AND_FLOW/under-pressure/view/TrapezoidPoolView' );
-  var UnderPressureRuler = require( 'FLUID_PRESSURE_AND_FLOW/under-pressure/view/UnderPressureRuler' );
-  var UnitsControlPanel = require( 'FLUID_PRESSURE_AND_FLOW/common/view/UnitsControlPanel' );
-  var Vector2 = require( 'DOT/Vector2' );
+  const BackgroundNode = require( 'FLUID_PRESSURE_AND_FLOW/under-pressure/view/BackgroundNode' );
+  const BarometerNode = require( 'FLUID_PRESSURE_AND_FLOW/common/view/BarometerNode' );
+  const ChamberPoolView = require( 'FLUID_PRESSURE_AND_FLOW/under-pressure/view/ChamberPoolView' );
+  const Constants = require( 'FLUID_PRESSURE_AND_FLOW/common/Constants' );
+  const ControlPanel = require( 'FLUID_PRESSURE_AND_FLOW/under-pressure/view/ControlPanel' );
+  const ControlSlider = require( 'FLUID_PRESSURE_AND_FLOW/common/view/ControlSlider' );
+  const fluidPressureAndFlow = require( 'FLUID_PRESSURE_AND_FLOW/fluidPressureAndFlow' );
+  const inherit = require( 'PHET_CORE/inherit' );
+  const ModelViewTransform2 = require( 'PHETCOMMON/view/ModelViewTransform2' );
+  const MysteryPoolView = require( 'FLUID_PRESSURE_AND_FLOW/under-pressure/view/MysteryPoolView' );
+  const Node = require( 'SCENERY/nodes/Node' );
+  const Rectangle = require( 'SCENERY/nodes/Rectangle' );
+  const ResetAllButton = require( 'SCENERY_PHET/buttons/ResetAllButton' );
+  const SceneChoiceNode = require( 'FLUID_PRESSURE_AND_FLOW/under-pressure/view/SceneChoiceNode' );
+  const ScreenView = require( 'JOIST/ScreenView' );
+  const SquarePoolView = require( 'FLUID_PRESSURE_AND_FLOW/under-pressure/view/SquarePoolView' );
+  const TrapezoidPoolView = require( 'FLUID_PRESSURE_AND_FLOW/under-pressure/view/TrapezoidPoolView' );
+  const UnderPressureRuler = require( 'FLUID_PRESSURE_AND_FLOW/under-pressure/view/UnderPressureRuler' );
+  const UnitsControlPanel = require( 'FLUID_PRESSURE_AND_FLOW/common/view/UnitsControlPanel' );
+  const Vector2 = require( 'DOT/Vector2' );
 
   // strings
-  var earthString = require( 'string!FLUID_PRESSURE_AND_FLOW/earth' );
-  var fluidDensityString = require( 'string!FLUID_PRESSURE_AND_FLOW/fluidDensity' );
-  var gasolineString = require( 'string!FLUID_PRESSURE_AND_FLOW/gasoline' );
-  var gravityString = require( 'string!FLUID_PRESSURE_AND_FLOW/gravity' );
-  var honeyString = require( 'string!FLUID_PRESSURE_AND_FLOW/honey' );
-  var jupiterString = require( 'string!FLUID_PRESSURE_AND_FLOW/jupiter' );
-  var marsString = require( 'string!FLUID_PRESSURE_AND_FLOW/mars' );
-  var waterString = require( 'string!FLUID_PRESSURE_AND_FLOW/water' );
+  const earthString = require( 'string!FLUID_PRESSURE_AND_FLOW/earth' );
+  const fluidDensityString = require( 'string!FLUID_PRESSURE_AND_FLOW/fluidDensity' );
+  const gasolineString = require( 'string!FLUID_PRESSURE_AND_FLOW/gasoline' );
+  const gravityString = require( 'string!FLUID_PRESSURE_AND_FLOW/gravity' );
+  const honeyString = require( 'string!FLUID_PRESSURE_AND_FLOW/honey' );
+  const jupiterString = require( 'string!FLUID_PRESSURE_AND_FLOW/jupiter' );
+  const marsString = require( 'string!FLUID_PRESSURE_AND_FLOW/mars' );
+  const waterString = require( 'string!FLUID_PRESSURE_AND_FLOW/water' );
 
   // constants
-  var INSET = 15;
-  var CONTROL_PANEL_WIDTH = 140; // empirically determined to look good and leave some space for translation
-  var CONTROL_PANEL_CORNER_RADIUS = 7;
-  var CONTROL_PANEL_X_MARGIN = 7;
+  const INSET = 15;
+  const CONTROL_PANEL_WIDTH = 140; // empirically determined to look good and leave some space for translation
+  const CONTROL_PANEL_CORNER_RADIUS = 7;
+  const CONTROL_PANEL_X_MARGIN = 7;
 
   /**
    * @param {UnderPressureModel} underPressureModel of the sim
