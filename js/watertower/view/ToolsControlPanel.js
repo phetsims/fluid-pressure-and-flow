@@ -14,7 +14,6 @@ define( require => {
   const HBox = require( 'SCENERY/nodes/HBox' );
   const HStrut = require( 'SCENERY/nodes/HStrut' );
   const Image = require( 'SCENERY/nodes/Image' );
-  const inherit = require( 'PHET_CORE/inherit' );
   const Panel = require( 'SUN/Panel' );
   const Path = require( 'SCENERY/nodes/Path' );
   const PhetFont = require( 'SCENERY_PHET/PhetFont' );
@@ -32,56 +31,57 @@ define( require => {
   const measuringTapeImg = require( 'image!SCENERY_PHET/measuringTape.png' );
   const nozzleImg = require( 'image!FLUID_PRESSURE_AND_FLOW/nozzle.png' );
 
-  /**
-   *
-   * @param {WaterTowerModel} waterTowerModel of the simulation
-   * @param {Object} [options]
-   * @constructor
-   */
-  function ToolsControlPanel( waterTowerModel, options ) {
+  class ToolsControlPanel extends Panel {
 
-    options = _.extend( {
-      xMargin: 10,
-      yMargin: 10,
-      fill: '#f2fa6a ',
-      stroke: 'gray',
-      lineWidth: 1,
-      resize: false,
-      scale: 0.9
-    }, options );
+    /**
+     * @param {WaterTowerModel} waterTowerModel of the simulation
+     * @param {Object} [options]
+     */
+    constructor( waterTowerModel, options ) {
 
-    const textOptions = { font: new PhetFont( 14 ) };
+      options = _.extend( {
+        xMargin: 10,
+        yMargin: 10,
+        fill: '#f2fa6a ',
+        stroke: 'gray',
+        lineWidth: 1,
+        resize: false,
+        scale: 0.9
+      }, options );
 
-    // itemSpec describes the pieces that make up an item in the control panel, conforms to the contract: { label: {Node}, icon: {Node} }
-    const ruler = { label: new Text( rulerString, textOptions ), icon: createRulerIcon() };
-    const measuringTape = { label: new Text( measuringTapeString, textOptions ), icon: createMeasuringTapeIcon() };
-    const hose = { label: new Text( hoseString, textOptions ), icon: createHoseIcon() };
+      const textOptions = { font: new PhetFont( 14 ) };
 
-    // compute the maximum item width
-    const widestItemSpec = _.maxBy( [ ruler, measuringTape, hose ],
+      // itemSpec describes the pieces that make up an item in the control panel, conforms to the contract: { label: {Node}, icon: {Node} }
+      const ruler = { label: new Text( rulerString, textOptions ), icon: createRulerIcon() };
+      const measuringTape = { label: new Text( measuringTapeString, textOptions ), icon: createMeasuringTapeIcon() };
+      const hose = { label: new Text( hoseString, textOptions ), icon: createHoseIcon() };
+
+      // compute the maximum item width
+      const widestItemSpec = _.maxBy( [ ruler, measuringTape, hose ],
         item => { return item.label.width + item.icon.width; } );
-    const maxWidth = widestItemSpec.label.width + widestItemSpec.icon.width;
+      const maxWidth = widestItemSpec.label.width + widestItemSpec.icon.width;
 
-    // pad inserts a spacing node (HStrut) so that the text, space and image together occupy a certain fixed width.
-    function createItem( itemSpec ) {
-      const strutWidth = maxWidth - itemSpec.label.width - itemSpec.icon.width + 5;
-      return new HBox( { children: [ itemSpec.label, new HStrut( strutWidth ), itemSpec.icon ] } );
+      // pad inserts a spacing node (HStrut) so that the text, space and image together occupy a certain fixed width.
+      function createItem( itemSpec ) {
+        const strutWidth = maxWidth - itemSpec.label.width - itemSpec.icon.width + 5;
+        return new HBox( { children: [ itemSpec.label, new HStrut( strutWidth ), itemSpec.icon ] } );
+      }
+
+      const checkboxOptions = {
+        boxWidth: 18,
+        spacing: 5
+      };
+
+      // pad all the rows so the text nodes are left aligned and the icons is right aligned
+      const checkboxChildren = [
+        new Checkbox( createItem( ruler ), waterTowerModel.isRulerVisibleProperty, checkboxOptions ),
+        new Checkbox( createItem( measuringTape ), waterTowerModel.isMeasuringTapeVisibleProperty, checkboxOptions ),
+        new Checkbox( createItem( hose ), waterTowerModel.isHoseVisibleProperty, checkboxOptions )
+      ];
+      const checkboxes = new VBox( { align: 'left', spacing: 10, children: checkboxChildren } );
+
+      super( checkboxes, options );
     }
-
-    const checkboxOptions = {
-      boxWidth: 18,
-      spacing: 5
-    };
-
-    // pad all the rows so the text nodes are left aligned and the icons is right aligned
-    const checkboxChildren = [
-      new Checkbox( createItem( ruler ), waterTowerModel.isRulerVisibleProperty, checkboxOptions ),
-      new Checkbox( createItem( measuringTape ), waterTowerModel.isMeasuringTapeVisibleProperty, checkboxOptions ),
-      new Checkbox( createItem( hose ), waterTowerModel.isHoseVisibleProperty, checkboxOptions )
-    ];
-    const checkboxes = new VBox( { align: 'left', spacing: 10, children: checkboxChildren } );
-
-    Panel.call( this, checkboxes, options );
   }
 
   // Create an icon for the ruler checkbox
@@ -124,7 +124,5 @@ define( require => {
     return icon;
   }
 
-  fluidPressureAndFlow.register( 'ToolsControlPanel', ToolsControlPanel );
-
-  return inherit( Panel, ToolsControlPanel );
+  return fluidPressureAndFlow.register( 'ToolsControlPanel', ToolsControlPanel );
 } );

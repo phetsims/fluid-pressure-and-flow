@@ -9,63 +9,57 @@ define( require => {
 
   // modules
   const fluidPressureAndFlow = require( 'FLUID_PRESSURE_AND_FLOW/fluidPressureAndFlow' );
-  const inherit = require( 'PHET_CORE/inherit' );
   const Line = require( 'SCENERY/nodes/Line' );
   const Node = require( 'SCENERY/nodes/Node' );
   const Path = require( 'SCENERY/nodes/Path' );
   const Shape = require( 'KITE/Shape' );
   const Util = require( 'DOT/Util' );
 
-  /**
-   *
-   * @param {number} width between the right and left legs at the bottom
-   * @param {Property.<Vector2>} tankPositionProperty which can be observed to change the height of the legs. tankPosition.y forms the top bound of the waterTowerLegs w.r.t to the modelViewTransform used.
-   * @param {ModelViewTransform2} modelViewTransform to convert between view and model values
-   * @param {Object} [options]
-   * @constructor
-   */
-  function WaterTowerLegsNode( width, tankPositionProperty, modelViewTransform, options ) {
+  class WaterTowerLegsNode extends Node {
+    /**
+     * @param {number} width between the right and left legs at the bottom
+     * @param {Property.<Vector2>} tankPositionProperty which can be observed to change the height of the legs. tankPosition.y forms the top bound of the waterTowerLegs w.r.t to the modelViewTransform used.
+     * @param {ModelViewTransform2} modelViewTransform to convert between view and model values
+     * @param {Object} [options]
+     */
+    constructor( width, tankPositionProperty, modelViewTransform, options ) {
 
-    Node.call( this );
+      super();
 
-    options = _.extend( {
-      legWidth: 10,
-      crossbeamWidth: 4
-    }, options );
-    this.options = options; // @private
+      options = _.extend( {
+        legWidth: 10,
+        crossbeamWidth: 4
+      }, options );
+      this.options = options; // @private
 
-    const legPaintOptions = { stroke: 'black', lineWidth: 1, fill: 'black' };
-    const crossbeamPaintOptions = { stroke: 'black', lineWidth: this.options.crossbeamWidth };
+      const legPaintOptions = { stroke: 'black', lineWidth: 1, fill: 'black' };
+      const crossbeamPaintOptions = { stroke: 'black', lineWidth: this.options.crossbeamWidth };
 
-    this.waterTowerWidth = width;
-    this.waterTowerHeight = 0;  // will be set to correct value by tankPositionProperty observer below
+      this.waterTowerWidth = width;
+      this.waterTowerHeight = 0;  // will be set to correct value by tankPositionProperty observer below
 
-    this.leftLegPath = new Path( null, legPaintOptions );
-    this.rightLegPath = new Path( null, legPaintOptions );
-    this.crossbeam1Path = new Line( 0, 0, 0, 0, crossbeamPaintOptions );
-    this.crossbeam2Path = new Line( 0, 0, 0, 0, crossbeamPaintOptions );
-    this.crossbeam3Path = new Line( 0, 0, 0, 0, crossbeamPaintOptions );
-    this.crossbeam4Path = new Line( 0, 0, 0, 0, crossbeamPaintOptions );
-    this.children = [ this.leftLegPath, this.rightLegPath, this.crossbeam1Path, this.crossbeam2Path, this.crossbeam3Path, this.crossbeam4Path ];
+      this.leftLegPath = new Path( null, legPaintOptions );
+      this.rightLegPath = new Path( null, legPaintOptions );
+      this.crossbeam1Path = new Line( 0, 0, 0, 0, crossbeamPaintOptions );
+      this.crossbeam2Path = new Line( 0, 0, 0, 0, crossbeamPaintOptions );
+      this.crossbeam3Path = new Line( 0, 0, 0, 0, crossbeamPaintOptions );
+      this.crossbeam4Path = new Line( 0, 0, 0, 0, crossbeamPaintOptions );
+      this.children = [ this.leftLegPath, this.rightLegPath, this.crossbeam1Path, this.crossbeam2Path, this.crossbeam3Path, this.crossbeam4Path ];
 
-    tankPositionProperty.link( tankPosition => {
-      // update the legs
-      this.waterTowerHeight = -modelViewTransform.modelToViewDeltaY( tankPosition.y );
-      this.updateShape();
-    } );
+      tankPositionProperty.link( tankPosition => {
+        // update the legs
+        this.waterTowerHeight = -modelViewTransform.modelToViewDeltaY( tankPosition.y );
+        this.updateShape();
+      } );
 
-    this.mutate( this.options );
-  }
-
-  fluidPressureAndFlow.register( 'WaterTowerLegsNode', WaterTowerLegsNode );
-
-  return inherit( Node, WaterTowerLegsNode, {
+      this.mutate( this.options );
+    }
 
     /**
      * Update the shape of the water tower legs when the water tower has been raised or lowered.
      * @private
      */
-    updateShape: function() {
+    updateShape() {
 
       const width = this.waterTowerWidth;
       const height = this.waterTowerHeight;
@@ -100,5 +94,7 @@ define( require => {
       this.crossbeam3Path.setLine( fLeftLegX( height * 0.5 ), height * 0.5, fRightLegX( height * 0.3 ), height * 0.3 );
       this.crossbeam4Path.setLine( fLeftLegX( height * 0.3 ), height * 0.3, fRightLegX( height * 0.5 ), height * 0.5 );
     }
-  } );
+  }
+
+  return fluidPressureAndFlow.register( 'WaterTowerLegsNode', WaterTowerLegsNode );
 } );

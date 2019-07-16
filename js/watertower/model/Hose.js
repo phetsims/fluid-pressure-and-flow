@@ -2,64 +2,58 @@
 
 /**
  * Hose
- * @author Siddhartha Chinthapally (Actual Concepts) on 7/4/2014.
+ *
+ * @author Siddhartha Chinthapally (Actual Concepts)
  */
-
 define( require => {
   'use strict';
 
   // modules
   const Emitter = require( 'AXON/Emitter' );
   const fluidPressureAndFlow = require( 'FLUID_PRESSURE_AND_FLOW/fluidPressureAndFlow' );
-  const inherit = require( 'PHET_CORE/inherit' );
   const Property = require( 'AXON/Property' );
   const Vector2 = require( 'DOT/Vector2' );
 
-  /**
-   * Hose constructor
-   * @param {number} height -- total vertical length of the hose
-   * @param {number} angle rotated (in radians) by the spout, measured from a horizontal line. Initially this will be PI/2.
-   * @constructor
-   */
+  class Hose {
 
-  function Hose( height, angle ) {
+    /**
+     * @param {number} height -- total vertical length of the hose
+     * @param {number} angle rotated (in radians) by the spout, measured from a horizontal line. Initially this will be PI/2.
+     */
+    constructor( height, angle ) {
 
-    // Layout parameters for the Hose
-    this.L1 = 6.3; // length of the horizontal portion of the hose from the tank hole
-    this.H2 = 2.1; // length of the vertical/horizontal portion of the hose attached to the spout and nozzle (not including spout/nozzle)
-    this.width = 1.5; // diameter of the hose
-    this.hoseLengthX = 17.5; //the total width of the hose node
+      // Layout parameters for the Hose
+      this.L1 = 6.3; // length of the horizontal portion of the hose from the tank hole
+      this.H2 = 2.1; // length of the vertical/horizontal portion of the hose attached to the spout and nozzle (not including spout/nozzle)
+      this.width = 1.5; // diameter of the hose
+      this.hoseLengthX = 17.5; //the total width of the hose node
 
-    this.elbowOuterX = 0; //position of the elbow in model co-ordinates
-    this.elbowOuterY = 0;
-    this.initialPosition = new Vector2( 17, 22.8 );
-    this.angleWithVertical = Math.PI / 2 - angle;
+      this.elbowOuterX = 0; //position of the elbow in model co-ordinates
+      this.elbowOuterY = 0;
+      this.initialPosition = new Vector2( 17, 22.8 );
+      this.angleWithVertical = Math.PI / 2 - angle;
 
-    this.H3 = 3.5; // spout height
+      this.H3 = 3.5; // spout height
 
-    // @public
-    this.angleProperty = new Property( angle );
+      // @public
+      this.angleProperty = new Property( angle );
 
-    // @public height increases downwards, decreases when the hose goes up. It will be negative when the hose is above the hole
-    this.heightProperty = new Property( height );
+      // @public height increases downwards, decreases when the hose goes up. It will be negative when the hose is above the hole
+      this.heightProperty = new Property( height );
 
-    // @public emitted when the update function is called.
-    this.updatedEmitter = new Emitter();
+      // @public emitted when the update function is called.
+      this.updatedEmitter = new Emitter();
 
-    this.update();
+      this.update();
 
-    Property.multilink( [ this.heightProperty, this.angleProperty ], () => { this.update(); } );
-  }
-
-  fluidPressureAndFlow.register( 'Hose', Hose );
-
-  return inherit( Object, Hose, {
+      Property.multilink( [ this.heightProperty, this.angleProperty ], () => { this.update(); } );
+    }
 
     /**
      * @private
      * Updates hose dependant variables
      */
-    update: function() {
+    update() {
 
       const angle = this.angleProperty.get();
 
@@ -75,18 +69,20 @@ define( require => {
       this.elbowInnerX = this.nozzleAttachmentInnerX - this.H2 * Math.cos( angle );
       this.elbowInnerY = this.nozzleAttachmentInnerY - this.H2 * Math.sin( angle );
       this.elbowLowerX = this.elbowOuterX - this.width * Math.sin( angle );
-      this.elbowLowerY = this.elbowOuterY - (this.width - this.width * Math.cos( angle ));
+      this.elbowLowerY = this.elbowOuterY - ( this.width - this.width * Math.cos( angle ) );
       this.updatedEmitter.emit();
-    },
+    }
 
     /**
      * @public
      * reset the public model properties
      */
-    reset: function() {
+    reset() {
       this.angleProperty.reset();
       this.heightProperty.reset();
     }
-  } );
+  }
+
+  return fluidPressureAndFlow.register( 'Hose', Hose );
 } );
 

@@ -1,42 +1,39 @@
 // Copyright 2014-2017, University of Colorado Boulder
 
 /**
- * WaterDropsCanvasNode
+ * A canvas node to render a set of water drops.
+ *
  * @author Siddhartha Chinthapally (Actual Concepts)
  */
-
 define( require => {
   'use strict';
 
   // modules
   const CanvasNode = require( 'SCENERY/nodes/CanvasNode' );
   const fluidPressureAndFlow = require( 'FLUID_PRESSURE_AND_FLOW/fluidPressureAndFlow' );
-  const inherit = require( 'PHET_CORE/inherit' );
 
-  /**
-   * A canvas node to render a set of water drops.
-   * @param {ObservableArray<WaterDrop>} waterDrops that need to be rendered
-   * @param {FluidColorModel} fluidColorModel that defines the color of the drops
-   * @param {ModelViewTransform2} modelViewTransform to convert between view and model values
-   * @param {Object} [options]
-   * @constructor
-   */
-  function WaterDropsCanvasNode( waterDrops, fluidColorModel, modelViewTransform, options ) {
-    this.waterDrops = waterDrops;
-    this.fluidColorModel = fluidColorModel;
-    this.modelViewTransform = modelViewTransform;
-    this.options = options;
+  class WaterDropsCanvasNode extends CanvasNode {
 
-    CanvasNode.call( this, options );
-    this.invalidatePaint();
-  }
+    /**
+     * @param {ObservableArray<WaterDrop>} waterDrops that need to be rendered
+     * @param {FluidColorModel} fluidColorModel that defines the color of the drops
+     * @param {ModelViewTransform2} modelViewTransform to convert between view and model values
+     * @param {Object} [options]
+     */
+    constructor( waterDrops, fluidColorModel, modelViewTransform, options ) {
 
-  fluidPressureAndFlow.register( 'WaterDropsCanvasNode', WaterDropsCanvasNode );
+      super( options );
 
-  return inherit( CanvasNode, WaterDropsCanvasNode, {
+      this.waterDrops = waterDrops;
+      this.fluidColorModel = fluidColorModel;
+      this.modelViewTransform = modelViewTransform;
+      this.options = options;
+
+      this.invalidatePaint();
+    }
 
     // @param {CanvasRenderingContext2D} context
-    paintCanvas: function( context ) {
+    paintCanvas( context ) {
 
       //If the showBounds flag is enabled, it will show the bounds of the canvas
       if ( this.options.showBounds ) {
@@ -51,11 +48,12 @@ define( require => {
         context.arc( this.modelViewTransform.modelToViewX( drop.positionProperty.value.x ), this.modelViewTransform.modelToViewY( drop.positionProperty.value.y ), this.modelViewTransform.modelToViewDeltaX( drop.radiusProperty.value ), 0, 2 * Math.PI, true );
         context.fill();
       }
-    },
-
-    step: function( dt ) {
-      this.invalidatePaint();
     }
 
-  } );
+    step( dt ) {
+      this.invalidatePaint();
+    }
+  }
+
+  return fluidPressureAndFlow.register( 'WaterDropsCanvasNode', WaterDropsCanvasNode );
 } );

@@ -2,39 +2,39 @@
 
 /**
  * WaterDropNode
+ *
  * @author Siddhartha Chinthapally (Actual Concepts) on 6/26/2014.
  */
-
 define( require => {
   'use strict';
 
   // modules
   const Circle = require( 'SCENERY/nodes/Circle' );
   const fluidPressureAndFlow = require( 'FLUID_PRESSURE_AND_FLOW/fluidPressureAndFlow' );
-  const inherit = require( 'PHET_CORE/inherit' );
 
-  /**
-   *
-   * @param {WaterDrop} waterDrop for the water drop node
-   * @param {FluidColorModel} fluidColorModel for the "water" drop
-   * @param {ModelViewTransform2} modelViewTransform to transform between model and view values
-   * @param {Object} [options]
-   * @constructor
-   */
-  function WaterDropNode( waterDrop, fluidColorModel, modelViewTransform, options ) {
+  class WaterDropNode extends Circle {
 
-    Circle.call( this, modelViewTransform.modelToViewDeltaX( waterDrop.radius ), { fill: fluidColorModel.colorProperty.value } );
+    /**
+     * @param {WaterDrop} waterDrop for the water drop node
+     * @param {FluidColorModel} fluidColorModel for the "water" drop
+     * @param {ModelViewTransform2} modelViewTransform to transform between model and view values
+     * @param {Object} [options]
+     */
+    constructor( waterDrop, fluidColorModel, modelViewTransform, options ) {
 
-    waterDrop.positionProperty.link( position => {
-      this.setTranslation( modelViewTransform.modelToViewX( position.x ), modelViewTransform.modelToViewY( position.y ) );
-    } );
+      super( modelViewTransform.modelToViewDeltaX( waterDrop.radius ), {
+        fill: fluidColorModel.colorProperty.value
+      } );
 
-    fluidColorModel.colorProperty.linkAttribute( this, 'fill' );
+      waterDrop.positionProperty.link( position => {
+        this.setTranslation( modelViewTransform.modelToViewX( position.x ), modelViewTransform.modelToViewY( position.y ) );
+      } );
 
-    this.mutate( options );
+      fluidColorModel.colorProperty.linkAttribute( this, 'fill' );
+
+      this.mutate( options );
+    }
   }
 
-  fluidPressureAndFlow.register( 'WaterDropNode', WaterDropNode );
-
-  return inherit( Circle, WaterDropNode );
+  return fluidPressureAndFlow.register( 'WaterDropNode', WaterDropNode );
 } );

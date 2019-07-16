@@ -2,6 +2,7 @@
 
 /**
  * Model for the water tower frame and fluid volume
+ *
  * @author Siddhartha Chinthapally (Actual Concepts)
  */
 define( require => {
@@ -10,57 +11,60 @@ define( require => {
   // modules
   const DerivedProperty = require( 'AXON/DerivedProperty' );
   const fluidPressureAndFlow = require( 'FLUID_PRESSURE_AND_FLOW/fluidPressureAndFlow' );
-  const inherit = require( 'PHET_CORE/inherit' );
   const Property = require( 'AXON/Property' );
   const Vector2 = require( 'DOT/Vector2' );
 
-  function WaterTower( options ) {
+  class WaterTower {
 
-    options = _.extend( {
-      initialFluidLevel: 0.8,
-      tankPosition: new Vector2( 0, 0 ) // tank frame bottom left, position in meters
-    }, options );
+    /**
+     * @param {Object} [options]
+     */
+    constructor( options ) {
 
-    this.TANK_RADIUS = 5; // meters
-    this.TANK_HEIGHT = 10; // meters
+      options = _.extend( {
+        initialFluidLevel: 0.8,
+        tankPosition: new Vector2( 0, 0 ) // tank frame bottom left, position in meters
+      }, options );
 
-    // Offset of the inlet (hole which receives water from the faucet) as measured from tank left
-    this.INLET_X_OFFSET = 1.4;
+      this.TANK_RADIUS = 5; // meters
+      this.TANK_HEIGHT = 10; // meters
 
-    // Assume the tank is a cylinder and compute the max volume
-    this.TANK_VOLUME = Math.PI * this.TANK_RADIUS * this.TANK_RADIUS * this.TANK_HEIGHT;
+      // Offset of the inlet (hole which receives water from the faucet) as measured from tank left
+      this.INLET_X_OFFSET = 1.4;
 
-    this.isHoleOpenProperty = new Property( false ); // TODO: Is this unused?
-    this.fluidVolumeProperty = new Property( this.TANK_VOLUME * options.initialFluidLevel );
-    this.tankPositionProperty = new Property( options.tankPosition ); //water tank bottom left
+      // Assume the tank is a cylinder and compute the max volume
+      this.TANK_VOLUME = Math.PI * this.TANK_RADIUS * this.TANK_RADIUS * this.TANK_HEIGHT;
 
-    // Size of the hole in meters
-    this.HOLE_SIZE = 1;
-    this.fluidLevelProperty = new DerivedProperty( [ this.fluidVolumeProperty ], fluidVolume => {
-      return fluidVolume / (Math.PI * this.TANK_RADIUS * this.TANK_RADIUS);
-    } );
+      this.isHoleOpenProperty = new Property( false ); // TODO: Is this unused?
+      this.fluidVolumeProperty = new Property( this.TANK_VOLUME * options.initialFluidLevel );
+      this.tankPositionProperty = new Property( options.tankPosition ); //water tank bottom left
 
-    // TODO: Is this used?
-    this.isFullProperty = new DerivedProperty( [ this.fluidVolumeProperty ], fluidVolume => {
-      return fluidVolume >= this.TANK_VOLUME;
-    } );
-  }
+      // Size of the hole in meters
+      this.HOLE_SIZE = 1;
+      this.fluidLevelProperty = new DerivedProperty( [ this.fluidVolumeProperty ], fluidVolume => {
+        return fluidVolume / ( Math.PI * this.TANK_RADIUS * this.TANK_RADIUS );
+      } );
 
-  fluidPressureAndFlow.register( 'WaterTower', WaterTower );
-
-  return inherit( Object, WaterTower, {
+      // TODO: Is this used?
+      this.isFullProperty = new DerivedProperty( [ this.fluidVolumeProperty ], fluidVolume => {
+        return fluidVolume >= this.TANK_VOLUME;
+      } );
+    }
 
     /**
      * Restore to initial conditions.
      * @public
      */
-    reset: function() {
+    reset() {
       this.isHoleOpenProperty.reset();
       this.fluidVolumeProperty.reset();
       this.tankPositionProperty.reset();
-    },
-    fill: function() {
+    }
+
+    fill() {
       this.fluidVolumeProperty.value = this.TANK_VOLUME;
     }
-  } );
+  }
+
+  return fluidPressureAndFlow.register( 'WaterTower', WaterTower );
 } );
