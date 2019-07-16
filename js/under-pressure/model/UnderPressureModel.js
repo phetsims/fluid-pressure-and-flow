@@ -16,7 +16,6 @@ define( require => {
   const FluidColorModel = require( 'FLUID_PRESSURE_AND_FLOW/common/model/FluidColorModel' );
   const fluidPressureAndFlow = require( 'FLUID_PRESSURE_AND_FLOW/fluidPressureAndFlow' );
   const getStandardAirPressure = require( 'FLUID_PRESSURE_AND_FLOW/common/model/getStandardAirPressure' );
-  const inherit = require( 'PHET_CORE/inherit' );
   const MysteryPoolModel = require( 'FLUID_PRESSURE_AND_FLOW/under-pressure/model/MysteryPoolModel' );
   const Property = require( 'AXON/Property' );
   const Range = require( 'DOT/Range' );
@@ -30,70 +29,68 @@ define( require => {
   // constants
   const NUM_BAROMETERS = 4;
 
-  function UnderPressureModel() {
+  class UnderPressureModel {
 
-    this.gravityRange = new Range( Constants.MARS_GRAVITY, Constants.JUPITER_GRAVITY ); // @public
-    this.fluidDensityRange = new Range( Constants.GASOLINE_DENSITY, Constants.HONEY_DENSITY ); // @public
+    constructor() {
 
-    // @public
-    this.isAtmosphereProperty = new Property( true );
-    this.isRulerVisibleProperty = new Property( false );
-    this.isGridVisibleProperty = new Property( false ); // TODO: is this used?
-    this.measureUnitsProperty = new Property( 'metric' ); //metric, english or atmosphere
-    this.gravityProperty = new Property( Constants.EARTH_GRAVITY );
-    this.fluidDensityProperty = new Property( Constants.WATER_DENSITY );
-    this.currentSceneProperty = new Property( 'square' ); // name of the current screen. Can take values square/trapezoid/chamber/mystery.
+      this.gravityRange = new Range( Constants.MARS_GRAVITY, Constants.JUPITER_GRAVITY ); // @public
+      this.fluidDensityRange = new Range( Constants.GASOLINE_DENSITY, Constants.HONEY_DENSITY ); // @public
 
-    // currentVolume is just a "simulated" derived property that depends on currentScene and the volume in the current scene.
-    // This property is passed to barometer so that it can react to changes in the volume.
-    // This way Barometer doesn't need to know about the different scenes and can depend only on
-    // UnderPressureModel's properties.
-    this.currentVolumeProperty = new Property( 0 ); //L, volume of liquid in currentScene
-    this.rulerPositionProperty = new Vector2Property( new Vector2( 300, 100 ) ); // ruler initial position above the ground and center of square pool // TODO: is this used?
-    this.mysteryChoiceProperty = new Property( 'fluidDensity' ); //for mystery-pool, gravity of fluidDensity
-    this.fluidDensityControlExpandedProperty = new Property( true );//For the accordion box
-    this.gravityControlExpandedProperty = new Property( true );//For the accordion box
+      // @public
+      this.isAtmosphereProperty = new Property( true );
+      this.isRulerVisibleProperty = new Property( false );
+      this.isGridVisibleProperty = new Property( false ); // TODO: is this used?
+      this.measureUnitsProperty = new Property( 'metric' ); //metric, english or atmosphere
+      this.gravityProperty = new Property( Constants.EARTH_GRAVITY );
+      this.fluidDensityProperty = new Property( Constants.WATER_DENSITY );
+      this.currentSceneProperty = new Property( 'square' ); // name of the current screen. Can take values square/trapezoid/chamber/mystery.
 
-    this.sceneModels = {}; // @public
-    this.sceneModels.square = new SquarePoolModel( this );
-    this.sceneModels.trapezoid = new TrapezoidPoolModel( this );
-    this.sceneModels.chamber = new ChamberPoolModel( this );
-    this.sceneModels.mystery = new MysteryPoolModel( this );
+      // currentVolume is just a "simulated" derived property that depends on currentScene and the volume in the current scene.
+      // This property is passed to barometer so that it can react to changes in the volume.
+      // This way Barometer doesn't need to know about the different scenes and can depend only on
+      // UnderPressureModel's properties.
+      this.currentVolumeProperty = new Property( 0 ); //L, volume of liquid in currentScene
+      this.rulerPositionProperty = new Vector2Property( new Vector2( 300, 100 ) ); // ruler initial position above the ground and center of square pool // TODO: is this used?
+      this.mysteryChoiceProperty = new Property( 'fluidDensity' ); //for mystery-pool, gravity of fluidDensity
+      this.fluidDensityControlExpandedProperty = new Property( true );//For the accordion box
+      this.gravityControlExpandedProperty = new Property( true );//For the accordion box
 
-    this.fluidColorModel = new FluidColorModel( this.fluidDensityProperty, this.fluidDensityRange ); // @public
+      this.sceneModels = {}; // @public
+      this.sceneModels.square = new SquarePoolModel( this );
+      this.sceneModels.trapezoid = new TrapezoidPoolModel( this );
+      this.sceneModels.chamber = new ChamberPoolModel( this );
+      this.sceneModels.mystery = new MysteryPoolModel( this );
 
-    this.barometers = []; // @public
+      this.fluidColorModel = new FluidColorModel( this.fluidDensityProperty, this.fluidDensityRange ); // @public
 
-    for ( let i = 0; i < NUM_BAROMETERS; i++ ) {
-      // initial position of barometer on screen adjacent to control panel above ground
-      this.barometers.push( new Sensor( new Vector2( 7.75, 2.5 ), 0 ) );
+      this.barometers = []; // @public
+
+      for ( let i = 0; i < NUM_BAROMETERS; i++ ) {
+        // initial position of barometer on screen adjacent to control panel above ground
+        this.barometers.push( new Sensor( new Vector2( 7.75, 2.5 ), 0 ) );
+      }
+
+      // current scene's model
+      this.currentSceneModelProperty = new DerivedProperty( [ this.currentSceneProperty ], currentScene => {
+        return this.sceneModels[ currentScene ];
+      } );
+
+      this.currentSceneModelProperty.link( currentSceneModel => {
+        this.currentVolumeProperty.value = currentSceneModel.volumeProperty.value;
+      } );
     }
-
-    // current scene's model
-    this.currentSceneModelProperty = new DerivedProperty( [ this.currentSceneProperty ], currentScene => {
-      return this.sceneModels[ currentScene ];
-    } );
-
-    this.currentSceneModelProperty.link( currentSceneModel => {
-      this.currentVolumeProperty.value = currentSceneModel.volumeProperty.value;
-    } );
-  }
-
-  fluidPressureAndFlow.register( 'UnderPressureModel', UnderPressureModel );
-
-  return inherit( Object, UnderPressureModel, {
 
     /**
      * @public
      * @param {number} dt seconds
      */
-    step: function( dt ) {
+    step( dt ) {
       this.fluidColorModel.step();
       this.currentSceneModelProperty.value.step( dt );
-    },
+    }
 
     // @public
-    reset: function() {
+    reset() {
       this.isAtmosphereProperty.reset();
       this.isRulerVisibleProperty.reset();
       this.isGridVisibleProperty.reset();
@@ -115,7 +112,7 @@ define( require => {
       this.barometers.forEach( barometer => {
         barometer.reset();
       } );
-    },
+    }
 
     /**
      * @public
@@ -123,14 +120,14 @@ define( require => {
      * @param {number} height in meters
      * @returns {number}
      */
-    getAirPressure: function( height ) {
+    getAirPressure( height ) {
       if ( !this.isAtmosphereProperty.value ) {
         return 0;
       }
       else {
         return getStandardAirPressure( height ) * this.gravityProperty.value / Constants.EARTH_GRAVITY;
       }
-    },
+    }
 
     /**
      * @public
@@ -138,9 +135,9 @@ define( require => {
      * @param {number} height - of the fluid column
      * @returns {number}
      */
-    getWaterPressure: function( height ) {
+    getWaterPressure( height ) {
       return height * this.gravityProperty.value * this.fluidDensityProperty.value;
-    },
+    }
 
     /**
      * @public
@@ -149,7 +146,7 @@ define( require => {
      * @param {number} y - position in meters
      * @returns {number}
      */
-    getPressureAtCoords: function( x, y ) {
+    getPressureAtCoords( x, y ) {
       let pressure = null;
       const currentModel = this.currentSceneModelProperty.value;
       if ( y > 0 ) {
@@ -168,7 +165,7 @@ define( require => {
 
       }
       return pressure;
-    },
+    }
 
     /**
      * @public
@@ -176,18 +173,20 @@ define( require => {
      * @param {string} units -- can be english/metric/atmospheres
      * @returns {string}
      */
-    getPressureString: function( pressure, units ) {
+    getPressureString( pressure, units ) {
       return Units.getPressureString( pressure, units, false );
-    },
+    }
 
     // @public
-    getGravityString: function() {
+    getGravityString() {
       return Units.getGravityString( this.gravityProperty.value, this.measureUnitsProperty.value );
-    },
+    }
 
     // @public
-    getFluidDensityString: function() {
+    getFluidDensityString() {
       return Units.getFluidDensityString( this.fluidDensityProperty.value, this.measureUnitsProperty.value );
     }
-  } );
+  }
+
+  return fluidPressureAndFlow.register( 'UnderPressureModel', UnderPressureModel );
 } );

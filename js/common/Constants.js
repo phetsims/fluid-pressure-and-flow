@@ -1,5 +1,6 @@
 // Copyright 2014-2018, University of Colorado Boulder
 
+//TODO rename FPAFConstants
 /**
  * Constants used in this Sim. All units are SI (mks) unless otherwise specified.
  * @author Siddhartha Chinthapally (Actual Concepts)
