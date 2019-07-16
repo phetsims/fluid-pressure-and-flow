@@ -1,6 +1,5 @@
 // Copyright 2013-2019, University of Colorado Boulder
 
-//TODO rename UnderPressureScreenView
 /**
  *  Main view for the under-pressure screen. The view contains 4 scenes: square pool, chamber pool, trapezoid and a
  *  mystery pool. There is a scene selector to switch between the views. There are panels to control the fluid density
@@ -49,7 +48,7 @@ define( require => {
   const CONTROL_PANEL_CORNER_RADIUS = 7;
   const CONTROL_PANEL_X_MARGIN = 7;
 
-  class UnderPressureView extends ScreenView {
+  class UnderPressureScreenView extends ScreenView {
 
     /**
      * @param {UnderPressureModel} underPressureModel
@@ -284,5 +283,5 @@ define( require => {
     }
   }
 
-  return fluidPressureAndFlow.register( 'UnderPressureView', UnderPressureView );
+  return fluidPressureAndFlow.register( 'UnderPressureScreenView', UnderPressureScreenView );
 } );

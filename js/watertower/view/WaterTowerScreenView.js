@@ -1,6 +1,5 @@
 // Copyright 2014-2018, University of Colorado Boulder
 
-//TODO rename to WaterTowerScreenView
 /**
  * View for the 'Water Tower' screen.
  *

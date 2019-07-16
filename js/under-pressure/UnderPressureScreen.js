@@ -15,7 +15,7 @@ define( require => {
   const Property = require( 'AXON/Property' );
   const Screen = require( 'JOIST/Screen' );
   const UnderPressureModel = require( 'FLUID_PRESSURE_AND_FLOW/under-pressure/model/UnderPressureModel' );
-  const UnderPressureView = require( 'FLUID_PRESSURE_AND_FLOW/under-pressure/view/UnderPressureView' );
+  const UnderPressureScreenView = require( 'FLUID_PRESSURE_AND_FLOW/under-pressure/view/UnderPressureScreenView' );
 
   // images
   const underPressureScreenIcon = require( 'image!FLUID_PRESSURE_AND_FLOW/under-pressure.png' );
@@ -35,7 +35,7 @@ define( require => {
 
       super(
         () => { return new UnderPressureModel(); },
-        model => { return new UnderPressureView( model ); },
+        model => { return new UnderPressureScreenView( model ); },
         options
       );
     }
