@@ -11,9 +11,6 @@
   },
   "phet": {
     "requirejsNamespace": "FLUID_PRESSURE_AND_FLOW",
-    "phetLibs": [
-      "under-pressure"
-    ],
     "preload": [
       "../sherpa/lib/numeric-1.2.6.js"
     ],
