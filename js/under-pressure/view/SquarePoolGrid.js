@@ -32,7 +32,7 @@ define( require => {
     constructor( squarePoolModel, modelViewTransform ) {
 
       super();
-      
+
       const fontOptions = { font: new PhetFont( 12 ), fontWeight: 'bold', maxWidth: 60 };
       const poolDimensions = squarePoolModel.poolDimensions;
       // add grid lines

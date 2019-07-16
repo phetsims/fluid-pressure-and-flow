@@ -3,7 +3,7 @@
 /**
  * Model for a vertical cross section of pipe including the horizontal position, the bottom and top position.
  * All units are in meters.
- * 
+ *
  * @author Siddhartha Chinthapally (Actual Concepts)
  */
 define( require => {

@@ -31,7 +31,7 @@ define( require => {
   const GRAVITY_ENGLISH_PER_METRIC = 32.16 / 9.80665; //http://evaosd.fartoomuch.info/library/units.htm
   const FLUID_DENSITY_ENGLISH_PER_METRIC = 62.4 / 1000.0;
 
-  const Units =  {
+  const Units = {
 
     FLUID_DENSITY_ENGLISH_PER_METRIC: FLUID_DENSITY_ENGLISH_PER_METRIC,
     FLUID_FlOW_RATE_ENGLISH_PER_METRIC: 35.3 / 1000,
