@@ -5,7 +5,7 @@
  * and scaled using handles, particles to show the fluid flow and tools to measure flux, area, length, velocity etc.
  * @author Siddhartha Chinthapally (Actual Concepts).
  */
-define( function( require ) {
+define( require => {
   'use strict';
 
   // modules

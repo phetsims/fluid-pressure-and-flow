@@ -7,7 +7,7 @@
  * @author Chris Malley (PixelZoom, Inc.)
  * @author Vasily Shakhov (Mlearner)
  */
-define( function( require ) {
+define( require => {
   'use strict';
 
   // modules

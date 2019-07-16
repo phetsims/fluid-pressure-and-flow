@@ -5,7 +5,7 @@
  * @author Shakhov Vasily (Mlearner)
  * @author Siddhartha Chinthapally (Actual Concepts).
  */
-define( function( require ) {
+define( require => {
   'use strict';
 
   // modules

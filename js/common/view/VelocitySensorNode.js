@@ -6,7 +6,7 @@
  * Supports metric and english units.
  * @author Siddhartha Chinthapally (Actual Concepts)
  */
-define( function( require ) {
+define( require => {
   'use strict';
 
   // modules

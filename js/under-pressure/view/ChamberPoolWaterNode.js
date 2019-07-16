@@ -4,7 +4,7 @@
  * View for water in Chamber Pool
  * @author Vasily Shakhov (Mlearner)
  */
-define( function( require ) {
+define( require => {
   'use strict';
 
   // modules

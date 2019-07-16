@@ -4,7 +4,7 @@
  * FaucetControlPanel
  * @author Siddhartha Chinthapally (Actual Concepts) on 7/5/2014.
  */
-define( function( require ) {
+define( require => {
   'use strict';
 
   // modules

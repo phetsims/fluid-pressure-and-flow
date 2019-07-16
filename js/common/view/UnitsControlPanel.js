@@ -4,7 +4,7 @@
  * Control panel for selecting unit systems. The available options are english, metric and atmospheres.
  * @author Siddhartha Chinthapally (Actual Concepts)
  */
-define( function( require ) {
+define( require => {
   'use strict';
 
   // modules

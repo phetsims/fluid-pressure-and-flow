@@ -5,7 +5,7 @@
  *
  * @author Aadish Gupta
  */
-define( function( require ) {
+define( require => {
   'use strict';
 
   // modules

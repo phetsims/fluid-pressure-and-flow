@@ -5,7 +5,7 @@
  * @author Siddhartha Chinthapally (Actual Concepts) on 6/26/2014.
  */
 
-define( function( require ) {
+define( require => {
   'use strict';
 
   // modules

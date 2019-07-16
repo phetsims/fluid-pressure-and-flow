@@ -5,7 +5,7 @@
  * The injector looks like a red button with yellow extended background and a tapered funnel at the bottom.
  * @author Siddhartha Chinthapally (Actual Concepts)
  */
-define( function( require ) {
+define( require => {
   'use strict';
 
   // modules

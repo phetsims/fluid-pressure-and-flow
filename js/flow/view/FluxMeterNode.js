@@ -5,7 +5,7 @@
  * at the bottom. The ring is rendered in two layers so that particles can pass through the ring.
  * @author Siddhartha Chinthapally (Actual Concepts)
  */
-define( function( require ) {
+define( require => {
   'use strict';
 
   // modules

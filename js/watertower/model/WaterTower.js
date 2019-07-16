@@ -4,7 +4,7 @@
  * Model for the water tower frame and fluid volume
  * @author Siddhartha Chinthapally (Actual Concepts)
  */
-define( function( require ) {
+define( require => {
   'use strict';
 
   // modules

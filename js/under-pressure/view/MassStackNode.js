@@ -4,7 +4,7 @@
  * View for mass stack on top of water. Masses don't stack on ground.
  * @author Vasily Shakhov (Mlearner)
  */
-define( function( require ) {
+define( require => {
   'use strict';
 
   // modules

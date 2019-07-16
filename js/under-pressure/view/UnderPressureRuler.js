@@ -5,7 +5,7 @@
  * @author Shakhov Vasily (Mlearner)
  */
 
-define( function( require ) {
+define( require => {
   'use strict';
 
   // modules

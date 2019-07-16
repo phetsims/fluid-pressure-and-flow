@@ -4,7 +4,7 @@
  * View for the sluice state (open/close) switcher
  * @author Siddhartha Chinthapally (Actual Concepts) on 6/23/2014.
  */
-define( function( require ) {
+define( require => {
   'use strict';
 
   // modules
