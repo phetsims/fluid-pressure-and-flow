@@ -117,12 +117,16 @@ define( require => {
         horizontalPipeLength: 1500,
         right: modelViewTransform.modelToViewX( waterTowerModel.faucetPosition.x ) + 20,
         top: this.layoutBounds.top + INSET,
-        scale: 0.3, //size of the faucet,
+        scale: 0.3, // size of the faucet,
         closeOnRelease: false,
 
         // Faucet is interactive in manual mode, non-interactive in 'matchLeakage' mode, see #132
         interactiveProperty: new DerivedProperty( [ waterTowerModel.faucetModeProperty ],
-          faucetMode => { return faucetMode === 'manual'; } )
+          faucetMode => { return faucetMode === 'manual'; } ),
+        shooterOptions: {
+          touchAreaXDilation: 37,
+          touchAreaYDilation: 60
+        }
       } );
       this.addChild( faucetNode );
 

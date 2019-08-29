@@ -27,7 +27,11 @@ define( require => {
         scale: faucet.scale,
         x: modelViewTransform.modelToViewX( faucet.location.x ),
         y: modelViewTransform.modelToViewY( faucet.location.y ),
-        tapToDispenseInterval: 250
+        tapToDispenseInterval: 250,
+        shooterOptions: {
+          touchAreaXDilation: 37,
+          touchAreaYDilation: 60
+        }
       } );
     }
   }
