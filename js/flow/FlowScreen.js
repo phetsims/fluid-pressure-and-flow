@@ -33,8 +33,8 @@ define( require => {
       };
 
       super(
-        () => { return new FlowModel(); },
-        model => { return new FlowScreenView( model ); },
+        () => new FlowModel(),
+        model => new FlowScreenView( model ),
         options
       );
     }

@@ -122,7 +122,7 @@ define( require => {
 
         // Faucet is interactive in manual mode, non-interactive in 'matchLeakage' mode, see #132
         interactiveProperty: new DerivedProperty( [ waterTowerModel.faucetModeProperty ],
-          faucetMode => { return faucetMode === 'manual'; } ),
+          faucetMode => faucetMode === 'manual' ),
         shooterOptions: {
           touchAreaXDilation: 37,
           touchAreaYDilation: 60

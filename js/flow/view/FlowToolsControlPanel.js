@@ -83,7 +83,7 @@ define( require => {
       const dotsCheckbox = new Checkbox( createItem( dotsSpec ), flowModel.isDotsVisibleProperty, checkboxOptions );
 
       const maxCheckboxWidth = _.maxBy( [ rulerCheckbox, frictionCheckbox, fluxMeterCheckbox, dotsCheckbox ],
-        item => { return item.width; }
+        item => item.width
       ).width + 5;
 
       //touch Areas

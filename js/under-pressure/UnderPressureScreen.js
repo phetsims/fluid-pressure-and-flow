@@ -34,8 +34,8 @@ define( require => {
       };
 
       super(
-        () => { return new UnderPressureModel(); },
-        model => { return new UnderPressureScreenView( model ); },
+        () => new UnderPressureModel(),
+        model => new UnderPressureScreenView( model ),
         options
       );
     }

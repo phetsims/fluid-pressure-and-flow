@@ -88,9 +88,9 @@ define( require => {
       isRulerVisibleProperty.linkAttribute( this, 'visible' );
 
       //TODO replace 2 DerivedProperties with 1 measureUnitsProperty listener
-      new DerivedProperty( [ measureUnitsProperty ], measureUnits => { return measureUnits === 'english'; } )
+      new DerivedProperty( [ measureUnitsProperty ], measureUnits => measureUnits === 'english' )
         .linkAttribute( feetRuler, 'visible' );
-      new DerivedProperty( [ measureUnitsProperty ], measureUnits => { return measureUnits === 'metric'; } )
+      new DerivedProperty( [ measureUnitsProperty ], measureUnits => measureUnits === 'metric' )
         .linkAttribute( metersRuler, 'visible' );
 
       rulerPositionProperty.linkAttribute( metersRuler, 'translation' );

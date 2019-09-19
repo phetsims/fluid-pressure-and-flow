@@ -58,7 +58,7 @@ define( require => {
 
       // compute the maximum item width
       const widestItemSpec = _.maxBy( [ ruler, measuringTape, hose ],
-        item => { return item.label.width + item.icon.width; } );
+        item => item.label.width + item.icon.width );
       const maxWidth = widestItemSpec.label.width + widestItemSpec.icon.width;
 
       // pad inserts a spacing node (HStrut) so that the text, space and image together occupy a certain fixed width.

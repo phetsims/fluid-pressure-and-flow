@@ -119,7 +119,7 @@ define( require => {
     isInTargetDroppedArea() {
       const waterLine = this.chamberPoolModel.poolDimensions.leftOpening.y2 + this.chamberPoolModel.leftWaterHeight -
                         this.chamberPoolModel.leftDisplacementProperty.value;
-      const bottomLine = waterLine + this.chamberPoolModel.stack.reduce( 0, ( a, b ) => { return a + b.height; } );
+      const bottomLine = waterLine + this.chamberPoolModel.stack.reduce( 0, ( a, b ) => a + b.height );
       const massBounds = new Bounds2(
         this.positionProperty.value.x - this.width / 2,
         this.positionProperty.value.y - this.height / 2,

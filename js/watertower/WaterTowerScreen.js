@@ -33,8 +33,8 @@ define( require => {
       };
 
       super(
-        () => { return new WaterTowerModel(); },
-        model => { return new WaterTowerScreenView( model ); },
+        () => new WaterTowerModel(),
+        model => new WaterTowerScreenView( model ),
         options
       );
     }
