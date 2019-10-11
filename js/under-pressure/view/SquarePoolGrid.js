@@ -13,6 +13,7 @@ define( require => {
   // modules
   const fluidPressureAndFlow = require( 'FLUID_PRESSURE_AND_FLOW/fluidPressureAndFlow' );
   const GridLinesNode = require( 'FLUID_PRESSURE_AND_FLOW/under-pressure/view/GridLinesNode' );
+  const merge = require( 'PHET_CORE/merge' );
   const Node = require( 'SCENERY/nodes/Node' );
   const PhetFont = require( 'SCENERY_PHET/PhetFont' );
   const StringUtils = require( 'PHETCOMMON/util/StringUtils' );
@@ -42,7 +43,7 @@ define( require => {
       // meter labels
       const metersLabels = new Node();
       for ( let i = 0; i < 4; i++ ) {
-        metersLabels.addChild( new Text( StringUtils.format( readoutMetersString, i ), _.extend( {
+        metersLabels.addChild( new Text( StringUtils.format( readoutMetersString, i ), merge( {
           right: modelViewTransform.modelToViewX( poolDimensions.x1 ) - 8,
           centerY: modelViewTransform.modelToViewY( -i )
         }, fontOptions ) ) );
@@ -51,7 +52,7 @@ define( require => {
       // feet labels
       const feetLabels = new Node();
       for ( let i = 0; i < 11; i++ ) {
-        feetLabels.addChild( new Text( StringUtils.format( readoutFeetString, i ), _.extend( {
+        feetLabels.addChild( new Text( StringUtils.format( readoutFeetString, i ), merge( {
           right: modelViewTransform.modelToViewX( poolDimensions.x1 ) - 8,
           centerY: modelViewTransform.modelToViewY( -Units.feetToMeters( i ) )
         }, fontOptions ) ) );

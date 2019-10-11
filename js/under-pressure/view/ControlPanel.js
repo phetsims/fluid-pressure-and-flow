@@ -15,6 +15,7 @@ define( require => {
   const fluidPressureAndFlow = require( 'FLUID_PRESSURE_AND_FLOW/fluidPressureAndFlow' );
   const HBox = require( 'SCENERY/nodes/HBox' );
   const HStrut = require( 'SCENERY/nodes/HStrut' );
+  const merge = require( 'PHET_CORE/merge' );
   const Panel = require( 'SUN/Panel' );
   const PhetFont = require( 'SCENERY_PHET/PhetFont' );
   const RulerNode = require( 'SCENERY_PHET/RulerNode' );
@@ -35,7 +36,7 @@ define( require => {
      */
     constructor( underPressureModel, options ) {
 
-      options = _.extend( {
+      options = merge( {
         yMargin: 7,
         xMargin: 5,
         fill: '#f2fa6a',

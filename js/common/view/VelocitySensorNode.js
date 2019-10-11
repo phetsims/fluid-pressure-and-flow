@@ -16,6 +16,7 @@ define( require => {
   const fluidPressureAndFlow = require( 'FLUID_PRESSURE_AND_FLOW/fluidPressureAndFlow' );
   const LinearGradient = require( 'SCENERY/util/LinearGradient' );
   const MathSymbols = require( 'SCENERY_PHET/MathSymbols' );
+  const merge = require( 'PHET_CORE/merge' );
   const MovableDragHandler = require( 'SCENERY_PHET/input/MovableDragHandler' );
   const Node = require( 'SCENERY/nodes/Node' );
   const Path = require( 'SCENERY/nodes/Path' );
@@ -45,7 +46,7 @@ define( require => {
     constructor( modelViewTransform, velocitySensor, measureUnitsProperty, linkedProperties,
                  getVelocityAt, containerBounds, dragBounds, options ) {
 
-      options = _.extend( {
+      options = merge( {
         scale: 1,
         isIcon: false, // if just using as an icon, don't add listeners to it and whatnot
         initialPosition: null // TODO figure out a better way to reset the velocitySensor to have the position of the icon

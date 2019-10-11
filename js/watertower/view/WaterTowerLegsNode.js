@@ -10,6 +10,7 @@ define( require => {
   // modules
   const fluidPressureAndFlow = require( 'FLUID_PRESSURE_AND_FLOW/fluidPressureAndFlow' );
   const Line = require( 'SCENERY/nodes/Line' );
+  const merge = require( 'PHET_CORE/merge' );
   const Node = require( 'SCENERY/nodes/Node' );
   const Path = require( 'SCENERY/nodes/Path' );
   const Shape = require( 'KITE/Shape' );
@@ -26,7 +27,7 @@ define( require => {
 
       super();
 
-      options = _.extend( {
+      options = merge( {
         legWidth: 10,
         crossbeamWidth: 4
       }, options );

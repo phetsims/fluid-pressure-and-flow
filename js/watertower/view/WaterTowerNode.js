@@ -12,6 +12,7 @@ define( require => {
   const fluidPressureAndFlow = require( 'FLUID_PRESSURE_AND_FLOW/fluidPressureAndFlow' );
   const Image = require( 'SCENERY/nodes/Image' );
   const LinearGradient = require( 'SCENERY/util/LinearGradient' );
+  const merge = require( 'PHET_CORE/merge' );
   const Node = require( 'SCENERY/nodes/Node' );
   const Path = require( 'SCENERY/nodes/Path' );
   const PhetFont = require( 'SCENERY_PHET/PhetFont' );
@@ -40,7 +41,7 @@ define( require => {
      */
     constructor( waterTower, fluidColorModel, modelViewTransform, hoseNode, options ) {
 
-      options = _.extend( {
+      options = merge( {
         towerFrameColor: 'black'
       }, options );
 

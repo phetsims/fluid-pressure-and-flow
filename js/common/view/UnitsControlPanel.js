@@ -11,6 +11,7 @@ define( require => {
   // modules
   const AquaRadioButton = require( 'SUN/AquaRadioButton' );
   const fluidPressureAndFlow = require( 'FLUID_PRESSURE_AND_FLOW/fluidPressureAndFlow' );
+  const merge = require( 'PHET_CORE/merge' );
   const Panel = require( 'SUN/Panel' );
   const PhetFont = require( 'SCENERY_PHET/PhetFont' );
   const Text = require( 'SCENERY/nodes/Text' );
@@ -33,7 +34,7 @@ define( require => {
      */
     constructor( measureUnitsProperty, options ) {
 
-      options = _.extend( {
+      options = merge( {
         fill: '#f2fa6a',
         stroke: 'gray',
         lineWidth: 1,

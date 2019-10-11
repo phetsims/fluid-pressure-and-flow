@@ -12,6 +12,7 @@ define( require => {
   const Constants = require( 'FLUID_PRESSURE_AND_FLOW/common/Constants' );
   const fluidPressureAndFlow = require( 'FLUID_PRESSURE_AND_FLOW/fluidPressureAndFlow' );
   const HBox = require( 'SCENERY/nodes/HBox' );
+  const merge = require( 'PHET_CORE/merge' );
   const ModelViewTransform2 = require( 'PHETCOMMON/view/ModelViewTransform2' );
   const Panel = require( 'SUN/Panel' );
   const Sensor = require( 'FLUID_PRESSURE_AND_FLOW/common/model/Sensor' );
@@ -30,7 +31,7 @@ define( require => {
      */
     constructor( model, modelViewTransform, screenView, options ) {
 
-      options = _.extend( {
+      options = merge( {
         // TODO padding/margin around panel edges
       }, options );
 

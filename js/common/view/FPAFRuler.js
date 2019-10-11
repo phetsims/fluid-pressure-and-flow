@@ -13,6 +13,7 @@ define( require => {
   const CloseButton = require( 'SCENERY_PHET/buttons/CloseButton' );
   const DerivedProperty = require( 'AXON/DerivedProperty' );
   const fluidPressureAndFlow = require( 'FLUID_PRESSURE_AND_FLOW/fluidPressureAndFlow' );
+  const merge = require( 'PHET_CORE/merge' );
   const MovableDragHandler = require( 'SCENERY_PHET/input/MovableDragHandler' );
   const Node = require( 'SCENERY/nodes/Node' );
   const PhetFont = require( 'SCENERY_PHET/PhetFont' );
@@ -37,7 +38,7 @@ define( require => {
 
       super( { cursor: 'pointer' } );
 
-      options = _.extend( {
+      options = merge( {
         rulerWidth: 40,
         rulerHeight: 5,
         meterMajorStickWidth: 1,

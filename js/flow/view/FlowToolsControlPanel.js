@@ -15,6 +15,7 @@ define( require => {
   const fluidPressureAndFlow = require( 'FLUID_PRESSURE_AND_FLOW/fluidPressureAndFlow' );
   const HBox = require( 'SCENERY/nodes/HBox' );
   const HStrut = require( 'SCENERY/nodes/HStrut' );
+  const merge = require( 'PHET_CORE/merge' );
   const Node = require( 'SCENERY/nodes/Node' );
   const Panel = require( 'SUN/Panel' );
   const PhetFont = require( 'SCENERY_PHET/PhetFont' );
@@ -37,7 +38,7 @@ define( require => {
      */
     constructor( flowModel, options ) {
 
-      options = _.extend( {
+      options = merge( {
         xMargin: 10,
         yMargin: 7,
         fill: '#f2fa6a ',

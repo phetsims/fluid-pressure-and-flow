@@ -142,7 +142,7 @@ define( require => {
         top: INSET
       } );
       this.addChild( this.toolsControlPanel );
-      this.addChild( new UnitsControlPanel( waterTowerModel.measureUnitsProperty, this.toolsControlPanel.width, {
+      this.addChild( new UnitsControlPanel( waterTowerModel.measureUnitsProperty, {
         left: this.toolsControlPanel.left, xMargin: 10, yMargin: 10, fontSize: 14,
         top: this.toolsControlPanel.bottom + INSET
       } ) );

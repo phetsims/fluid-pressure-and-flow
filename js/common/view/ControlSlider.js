@@ -20,6 +20,7 @@ define( require => {
   const Dimension2 = require( 'DOT/Dimension2' );
   const fluidPressureAndFlow = require( 'FLUID_PRESSURE_AND_FLOW/fluidPressureAndFlow' );
   const HSlider = require( 'SUN/HSlider' );
+  const merge = require( 'PHET_CORE/merge' );
   const Node = require( 'SCENERY/nodes/Node' );
   const PhetFont = require( 'SCENERY_PHET/PhetFont' );
   const Rectangle = require( 'SCENERY/nodes/Rectangle' );
@@ -43,7 +44,7 @@ define( require => {
     constructor( measureUnitsProperty, trackProperty, getPropertyStringFunction, trackRange, expandedProperty,
                  options ) {
 
-      options = _.extend( {
+      options = merge( {
         fill: '#f2fa6a',
         xMargin: 5,
         decimals: 0,

@@ -16,6 +16,7 @@ define( require => {
   const HBox = require( 'SCENERY/nodes/HBox' );
   const HStrut = require( 'SCENERY/nodes/HStrut' );
   const Image = require( 'SCENERY/nodes/Image' );
+  const merge = require( 'PHET_CORE/merge' );
   const Node = require( 'SCENERY/nodes/Node' );
   const Panel = require( 'SUN/Panel' );
   const Path = require( 'SCENERY/nodes/Path' );
@@ -53,7 +54,7 @@ define( require => {
 
       super();
 
-      options = _.extend( {
+      options = merge( {
         xMargin: 10,
         yMargin: 10,
         fill: '#f2fa6a ',

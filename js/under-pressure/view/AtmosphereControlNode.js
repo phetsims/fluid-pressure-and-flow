@@ -14,6 +14,7 @@ define( require => {
   const AquaRadioButton = require( 'SUN/AquaRadioButton' );
   const fluidPressureAndFlow = require( 'FLUID_PRESSURE_AND_FLOW/fluidPressureAndFlow' );
   const HBox = require( 'SCENERY/nodes/HBox' );
+  const merge = require( 'PHET_CORE/merge' );
   const Node = require( 'SCENERY/nodes/Node' );
   const PhetFont = require( 'SCENERY_PHET/PhetFont' );
   const Text = require( 'SCENERY/nodes/Text' );
@@ -32,7 +33,7 @@ define( require => {
     constructor( isAtmosphereProperty, options ) {
 
       // default options
-      options = _.extend( {
+      options = merge( {
         fill: '#f2fa6a',
         stroke: 'black',
         lineWidth: 1, // width of the background border

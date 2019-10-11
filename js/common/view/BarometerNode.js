@@ -19,6 +19,7 @@ define( require => {
   const GaugeNode = require( 'SCENERY_PHET/GaugeNode' );
   const LinearGradient = require( 'SCENERY/util/LinearGradient' );
   const MathSymbols = require( 'SCENERY_PHET/MathSymbols' );
+  const merge = require( 'PHET_CORE/merge' );
   const MovableDragHandler = require( 'SCENERY_PHET/input/MovableDragHandler' );
   const Node = require( 'SCENERY/nodes/Node' );
   const Panel = require( 'SUN/Panel' );
@@ -53,7 +54,7 @@ define( require => {
     constructor( modelViewTransform, barometer, measureUnitsProperty, linkedProperties, getPressureAt,
                  getPressureString, containerBounds, dragBounds, options ) {
 
-      options = _.extend( {
+      options = merge( {
         pressureReadOffset: 53, //distance between center and reading tip of the barometer in view co-ordinates
         scale: 1,
         minPressure: Constants.MIN_PRESSURE,

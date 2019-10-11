@@ -12,6 +12,7 @@ define( require => {
   // modules
   const fluidPressureAndFlow = require( 'FLUID_PRESSURE_AND_FLOW/fluidPressureAndFlow' );
   const Image = require( 'SCENERY/nodes/Image' );
+  const merge = require( 'PHET_CORE/merge' );
   const RadioButtonGroup = require( 'SUN/buttons/RadioButtonGroup' );
 
   // images
@@ -31,7 +32,7 @@ define( require => {
      */
     constructor( underPressureModel, options ) {
 
-      options = _.extend( {
+      options = merge( {
         orientation: 'vertical',
         baseColor: 'white',
         cornerRadius: 10
