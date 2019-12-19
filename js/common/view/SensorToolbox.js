@@ -161,7 +161,7 @@ define( require => {
    * manage the drag accordingly for the sensor
    * @param {Array.<Node>} sensors
    * @param {Node} icon
-   * @param {Event} event
+   * @param {SceneryEvent} event
    * @returns {Node|null} sensor - the first invisible sensor
    */
   function handleSensorVisibilityAndDrag( sensors, icon, event ) {
