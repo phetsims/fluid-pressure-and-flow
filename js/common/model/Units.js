@@ -12,7 +12,7 @@ define( require => {
   // modules
   const fluidPressureAndFlow = require( 'FLUID_PRESSURE_AND_FLOW/fluidPressureAndFlow' );
   const StringUtils = require( 'PHETCOMMON/util/StringUtils' );
-  const Util = require( 'DOT/Util' );
+  const Utils = require( 'DOT/Utils' );
 
   // strings
   const atmString = require( 'string!FLUID_PRESSURE_AND_FLOW/atm' );
@@ -48,15 +48,15 @@ define( require => {
      */
     getPressureString: function( pressure, measureUnits, abbreviated ) {
       if ( measureUnits === 'metric' ) {
-        return StringUtils.format( valueWithUnitsPatternString, Util.toFixed( pressure / 1000, abbreviated ? 1 : 3 ), kPaString );
+        return StringUtils.format( valueWithUnitsPatternString, Utils.toFixed( pressure / 1000, abbreviated ? 1 : 3 ), kPaString );
       }
       else if ( measureUnits === 'atmosphere' ) {
         return StringUtils.format( valueWithUnitsPatternString,
-          Util.toFixed( pressure * ATMOSPHERE_PER_PASCAL, abbreviated ? 2 : 4 ), atmString );
+          Utils.toFixed( pressure * ATMOSPHERE_PER_PASCAL, abbreviated ? 2 : 4 ), atmString );
       }
       else if ( measureUnits === 'english' ) {
         return StringUtils.format( valueWithUnitsPatternString,
-          Util.toFixed( pressure * PSI_PER_PASCAL, abbreviated ? 2 : 4 ), psiString );
+          Utils.toFixed( pressure * PSI_PER_PASCAL, abbreviated ? 2 : 4 ), psiString );
       }
     },
 
@@ -69,11 +69,11 @@ define( require => {
     getGravityString: function( gravity, measureUnits ) {
 
       if ( measureUnits === 'english' ) {
-        return StringUtils.format( valueWithUnitsPatternString, Util.toFixed( GRAVITY_ENGLISH_PER_METRIC * gravity, 1 ),
+        return StringUtils.format( valueWithUnitsPatternString, Utils.toFixed( GRAVITY_ENGLISH_PER_METRIC * gravity, 1 ),
           ftPerSPerSString );
       }
       else {
-        return StringUtils.format( valueWithUnitsPatternString, Util.toFixed( gravity, 1 ), mPerSPerSString );
+        return StringUtils.format( valueWithUnitsPatternString, Utils.toFixed( gravity, 1 ), mPerSPerSString );
       }
     },
 
@@ -95,7 +95,7 @@ define( require => {
         units = densityUnitsMetricString;
       }
 
-      return StringUtils.format( valueWithUnitsPatternString, Util.toFixed( value, value >= 100 ? 0 : 1 ), units );
+      return StringUtils.format( valueWithUnitsPatternString, Utils.toFixed( value, value >= 100 ? 0 : 1 ), units );
     },
 
     // converts feet to meters

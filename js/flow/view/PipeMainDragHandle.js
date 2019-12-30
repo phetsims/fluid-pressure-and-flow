@@ -13,7 +13,7 @@ define( require => {
   const fluidPressureAndFlow = require( 'FLUID_PRESSURE_AND_FLOW/fluidPressureAndFlow' );
   const Node = require( 'SCENERY/nodes/Node' );
   const SimpleDragHandler = require( 'SCENERY/input/SimpleDragHandler' );
-  const Util = require( 'DOT/Util' );
+  const Utils = require( 'DOT/Utils' );
   const Vector2 = require( 'DOT/Vector2' );
 
   // constants
@@ -59,7 +59,7 @@ define( require => {
           pt.y = modelViewTransform.viewToModelY( initialMainHandleY + offSetY );
 
           // limit the pipe drag between [ -3, -1 ]
-          pt.y = Util.clamp( pt.y, -3, -1 );
+          pt.y = Utils.clamp( pt.y, -3, -1 );
 
           let yUp;
           let yLow;

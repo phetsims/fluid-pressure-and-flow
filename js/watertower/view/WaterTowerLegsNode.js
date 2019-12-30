@@ -14,7 +14,7 @@ define( require => {
   const Node = require( 'SCENERY/nodes/Node' );
   const Path = require( 'SCENERY/nodes/Path' );
   const Shape = require( 'KITE/Shape' );
-  const Util = require( 'DOT/Util' );
+  const Utils = require( 'DOT/Utils' );
 
   class WaterTowerLegsNode extends Node {
     /**
@@ -70,11 +70,11 @@ define( require => {
 
       // use 1 instead of 0 when the height is 0. This is to prevent divide by zero and other problems.
       const fLeftLegX = function( y ) {
-        return Util.linear( 0, height > 0 ? height : 1, leftLegTopX, 0, y ); //y1, y2, x1, x2
+        return Utils.linear( 0, height > 0 ? height : 1, leftLegTopX, 0, y ); //y1, y2, x1, x2
       };
 
       const fRightLegX = function( y ) {
-        return Util.linear( 0, height > 0 ? height : 1, rightLegTopX, width, y );
+        return Utils.linear( 0, height > 0 ? height : 1, rightLegTopX, width, y );
       };
 
       //Left leg

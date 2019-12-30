@@ -16,7 +16,7 @@ define( require => {
   const PipeCrossSection = require( 'FLUID_PRESSURE_AND_FLOW/flow/model/PipeCrossSection' );
   const Property = require( 'AXON/Property' );
   const SplineEvaluation = require( 'FLUID_PRESSURE_AND_FLOW/flow/model/SplineEvaluation' );
-  const Util = require( 'DOT/Util' );
+  const Utils = require( 'DOT/Utils' );
   const Vector2 = require( 'DOT/Vector2' );
 
   // constants
@@ -209,7 +209,7 @@ define( require => {
      */
     getFractionToTop( x, y ) {
       const position = this.getCrossSection( x );
-      return Util.linear( position.yBottom, position.yTop, 0, 1, y );
+      return Utils.linear( position.yBottom, position.yTop, 0, 1, y );
     }
 
     /**
@@ -220,8 +220,8 @@ define( require => {
     getCrossSection( x ) {
       const previous = this.getPipePositionBefore( x );
       const next = this.getPipePositionAfter( x );
-      const top = Util.linear( previous.x, next.x, previous.yTop, next.yTop, x );
-      const bottom = Util.linear( previous.x, next.x, previous.yBottom, next.yBottom, x );
+      const top = Utils.linear( previous.x, next.x, previous.yTop, next.yTop, x );
+      const bottom = Utils.linear( previous.x, next.x, previous.yBottom, next.yBottom, x );
       return new PipeCrossSection( x, bottom, top ); //return pipe cross section
     }
 
@@ -315,9 +315,9 @@ define( require => {
       const post = this.getCrossSection( x + 1E-7 );// pipe cross section
 
       const x0 = pre.getX();
-      const y0 = Util.linear( 0, 1, pre.yBottom, pre.yTop, fraction );
+      const y0 = Utils.linear( 0, 1, pre.yBottom, pre.yTop, fraction );
       const x1 = post.getX();
-      const y1 = Util.linear( 0, 1, post.yBottom, post.yTop, fraction );
+      const y1 = Utils.linear( 0, 1, post.yBottom, post.yTop, fraction );
       const velocity = new Vector2( x1 - x0, y1 - y0 );
       return velocity.setMagnitude( speed );
     }
@@ -338,9 +338,9 @@ define( require => {
       const post = this.getCrossSection( x + 1E-7 );// pipe cross section
 
       const x0 = pre.getX();
-      const y0 = Util.linear( 0, 1, pre.yBottom, pre.yTop, fraction );
+      const y0 = Utils.linear( 0, 1, pre.yBottom, pre.yTop, fraction );
       const x1 = post.getX();
-      const y1 = Util.linear( 0, 1, post.yBottom, post.yTop, fraction );
+      const y1 = Utils.linear( 0, 1, post.yBottom, post.yTop, fraction );
 
       const deltaX = ( x1 - x0 );
       const deltaY = ( y1 - y0 );
@@ -377,7 +377,7 @@ define( require => {
      */
     fractionToLocation( x, fraction ) {
       const position = this.getCrossSection( x );
-      return Util.linear( 0, 1, position.yBottom, position.yTop, fraction );
+      return Utils.linear( 0, 1, position.yBottom, position.yTop, fraction );
     }
 
     /**

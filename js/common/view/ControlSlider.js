@@ -26,7 +26,7 @@ define( require => {
   const Rectangle = require( 'SCENERY/nodes/Rectangle' );
   const RichText = require( 'SCENERY/nodes/RichText' );
   const Text = require( 'SCENERY/nodes/Text' );
-  const Util = require( 'DOT/Util' );
+  const Utils = require( 'DOT/Utils' );
 
   // constants
   const PLUS_MINUS_SPACING = 6;
@@ -83,7 +83,7 @@ define( require => {
       this.content = new Node();
 
       const plusButton = new ArrowButton( 'right', () => {
-        trackProperty.set( Util.toFixedNumber( Math.min( trackProperty.get() + 1 / Math.pow( 10, options.decimals ),
+        trackProperty.set( Utils.toFixedNumber( Math.min( trackProperty.get() + 1 / Math.pow( 10, options.decimals ),
           trackRange.max ), options.decimals ) );
       }, {
         scale: 0.6
@@ -93,7 +93,7 @@ define( require => {
         plusButton.localBounds.maxX + 20, plusButton.localBounds.maxY + 20 );
 
       const minusButton = new ArrowButton( 'left', () => {
-        trackProperty.set( Util.toFixedNumber( Math.max( trackProperty.get() - 1 / Math.pow( 10, options.decimals ),
+        trackProperty.set( Utils.toFixedNumber( Math.max( trackProperty.get() - 1 / Math.pow( 10, options.decimals ),
           trackRange.min ), options.decimals ) );
       }, {
         scale: 0.6

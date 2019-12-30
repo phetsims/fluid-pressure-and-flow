@@ -21,7 +21,7 @@ define( require => {
   const Sensor = require( 'FLUID_PRESSURE_AND_FLOW/common/model/Sensor' );
   const StringUtils = require( 'PHETCOMMON/util/StringUtils' );
   const Units = require( 'FLUID_PRESSURE_AND_FLOW/common/model/Units' );
-  const Util = require( 'DOT/Util' );
+  const Utils = require( 'DOT/Utils' );
   const Vector2 = require( 'DOT/Vector2' );
   const Vector2Property = require( 'DOT/Vector2Property' );
   const VelocitySensor = require( 'FLUID_PRESSURE_AND_FLOW/common/model/VelocitySensor' );
@@ -223,7 +223,7 @@ define( require => {
           remainingVolume = this.waterTower.fluidVolumeProperty.value;
           this.leakageVolume = remainingVolume > waterVolumeExpelled ? waterVolumeExpelled : remainingVolume;
           let dropVolume = this.leakageVolume;
-          let radius = Util.cubeRoot( ( 3 * this.leakageVolume ) / ( 4 * Math.PI ) );
+          let radius = Utils.cubeRoot( ( 3 * this.leakageVolume ) / ( 4 * Math.PI ) );
 
           // when the fluid level is less than the sluice hole, ensure that the water drops are not bigger than the fluid level
           if ( this.waterTower.fluidLevelProperty.value < this.waterTower.HOLE_SIZE && radius > this.waterTower.fluidLevelProperty.value / 2 ) {
@@ -365,7 +365,7 @@ define( require => {
           ( Units.FLUID_DENSITY_ENGLISH_PER_METRIC * this.fluidDensityProperty.value ).toFixed( 2 ), densityUnitsEnglishString );
       }
       else {
-        return StringUtils.format( valueWithUnitsPatternString, Util.roundSymmetric( this.fluidDensityProperty.value ), densityUnitsMetricString );
+        return StringUtils.format( valueWithUnitsPatternString, Utils.roundSymmetric( this.fluidDensityProperty.value ), densityUnitsMetricString );
       }
     }
 

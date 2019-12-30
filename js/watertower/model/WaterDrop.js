@@ -13,7 +13,7 @@ define( require => {
   const DerivedProperty = require( 'AXON/DerivedProperty' );
   const fluidPressureAndFlow = require( 'FLUID_PRESSURE_AND_FLOW/fluidPressureAndFlow' );
   const Property = require( 'AXON/Property' );
-  const Util = require( 'DOT/Util' );
+  const Utils = require( 'DOT/Utils' );
 
   class WaterDrop {
     /**
@@ -32,7 +32,7 @@ define( require => {
       this.node = null;
 
       this.radiusProperty = new DerivedProperty( [ this.volumeProperty ], volume => {
-        return Util.cubeRoot( ( 3 * volume ) / ( 4 * Math.PI ) );
+        return Utils.cubeRoot( ( 3 * volume ) / ( 4 * Math.PI ) );
       } );
     }
 

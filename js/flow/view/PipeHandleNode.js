@@ -14,7 +14,7 @@ define( require => {
   const Image = require( 'SCENERY/nodes/Image' );
   const Node = require( 'SCENERY/nodes/Node' );
   const SimpleDragHandler = require( 'SCENERY/input/SimpleDragHandler' );
-  const Util = require( 'DOT/Util' );
+  const Utils = require( 'DOT/Utils' );
   const Vector2 = require( 'DOT/Vector2' );
 
   // images
@@ -103,7 +103,7 @@ define( require => {
               controlPointDragStartY + modelViewTransform.viewToModelDeltaY( offSetY ) );
 
             // limit the y to (-4,0)
-            pt.y = Util.clamp( pt.y, -4, 0 );
+            pt.y = Utils.clamp( pt.y, -4, 0 );
 
             // Prevent the two ends of the cross sections from crossing each other. Set the cross section to
             // minimum when the user tries to move the handle beyond the opposite control point.

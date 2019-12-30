@@ -26,7 +26,7 @@ define( require => {
   const Sensor = require( 'FLUID_PRESSURE_AND_FLOW/common/model/Sensor' );
   const StringUtils = require( 'PHETCOMMON/util/StringUtils' );
   const Units = require( 'FLUID_PRESSURE_AND_FLOW/common/model/Units' );
-  const Util = require( 'DOT/Util' );
+  const Utils = require( 'DOT/Utils' );
   const Vector2 = require( 'DOT/Vector2' );
   const Vector2Property = require( 'DOT/Vector2Property' );
   const VelocitySensor = require( 'FLUID_PRESSURE_AND_FLOW/common/model/VelocitySensor' );
@@ -268,7 +268,7 @@ define( require => {
           ( Units.FLUID_DENSITY_ENGLISH_PER_METRIC * this.fluidDensityProperty.value ).toFixed( 2 ), densityUnitsEnglishString );
       }
       else {
-        return StringUtils.format( valueWithUnitsPatternString, Util.roundSymmetric( this.fluidDensityProperty.value ), densityUnitsMetricString );
+        return StringUtils.format( valueWithUnitsPatternString, Utils.roundSymmetric( this.fluidDensityProperty.value ), densityUnitsMetricString );
       }
     }
 
@@ -283,7 +283,7 @@ define( require => {
           ( Units.FLUID_FlOW_RATE_ENGLISH_PER_METRIC * this.pipe.flowRateProperty.value ).toFixed( 2 ), rateUnitsEnglishString );
       }
       else {
-        return StringUtils.format( valueWithUnitsPatternString, Util.roundSymmetric( this.pipe.flowRateProperty.value ), rateUnitsMetricString );
+        return StringUtils.format( valueWithUnitsPatternString, Utils.roundSymmetric( this.pipe.flowRateProperty.value ), rateUnitsMetricString );
       }
     }
 

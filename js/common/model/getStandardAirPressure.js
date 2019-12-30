@@ -12,7 +12,7 @@ define( require => {
   // modules
   const Constants = require( 'FLUID_PRESSURE_AND_FLOW/common/Constants' );
   const fluidPressureAndFlow = require( 'FLUID_PRESSURE_AND_FLOW/fluidPressureAndFlow' );
-  const Util = require( 'DOT/Util' );
+  const Utils = require( 'DOT/Utils' );
 
   /**
    * Calculates the standard air pressure by linearly extrapolating the known values for height = 0m & height = 150m
@@ -21,7 +21,7 @@ define( require => {
    */
   const getStandardAirPressure = function( height ) {
     //Note: 150 meters is 500 feet
-    return Util.linear( 0, 150, Constants.EARTH_AIR_PRESSURE,
+    return Utils.linear( 0, 150, Constants.EARTH_AIR_PRESSURE,
       Constants.EARTH_AIR_PRESSURE_AT_500_FT, height );
   };
 
