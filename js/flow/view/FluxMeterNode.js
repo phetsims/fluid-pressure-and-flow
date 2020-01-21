@@ -118,8 +118,8 @@ define( require => {
         lineWidth: 2
       } );
 
-      const yTop = modelViewTransform.modelToViewY( flowModel.pipe.fractionToLocation( flowModel.fluxMeter.xPositionProperty.value, 1 ) );
-      const yBottom = modelViewTransform.modelToViewY( flowModel.pipe.fractionToLocation( flowModel.fluxMeter.xPositionProperty.value,
+      const yTop = modelViewTransform.modelToViewY( flowModel.pipe.fractionToPosition( flowModel.fluxMeter.xPositionProperty.value, 1 ) );
+      const yBottom = modelViewTransform.modelToViewY( flowModel.pipe.fractionToPosition( flowModel.fluxMeter.xPositionProperty.value,
         0 ) );
       const centerY = ( yTop + yBottom ) / 2;
       const radiusY = ( yBottom - yTop ) / 2;
@@ -211,9 +211,9 @@ define( require => {
      */
     updateFluxMeter() {
 
-      const yTop = this.modelViewTransform.modelToViewY( this.flowModel.pipe.fractionToLocation(
+      const yTop = this.modelViewTransform.modelToViewY( this.flowModel.pipe.fractionToPosition(
         this.flowModel.fluxMeter.xPositionProperty.value, 1 ) );
-      const yBottom = this.modelViewTransform.modelToViewY( this.flowModel.pipe.fractionToLocation(
+      const yBottom = this.modelViewTransform.modelToViewY( this.flowModel.pipe.fractionToPosition(
         this.flowModel.fluxMeter.xPositionProperty.value, 0 ) );
       const centerX = this.modelViewTransform.modelToViewX( this.flowModel.fluxMeter.xPositionProperty.value );
       const centerY = ( yTop + yBottom ) / 2;

@@ -16,13 +16,13 @@ define( require => {
   class FaucetModel {
 
     /**
-     * @param {Vector2} location center of output pipe
+     * @param {Vector2} position center of output pipe
      * @param {number} maxFlowRate L/sec
      * @param {number} scale of Faucet (the top faucet is larger than the bottom faucet)
      */
-    constructor( location, maxFlowRate, scale ) {
+    constructor( position, maxFlowRate, scale ) {
 
-      this.location = location;
+      this.position = position;
       this.maxFlowRate = maxFlowRate;
       this.scale = scale;
       this.spoutWidth = 1.35 * scale; // empirically determined

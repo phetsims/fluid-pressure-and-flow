@@ -199,7 +199,7 @@ define( require => {
       }
     }
 
-    // creates a red particle at the left most pipe location and a random y fraction between [0.15, 0.85) within the pipe
+    // creates a red particle at the left most pipe position and a random y fraction between [0.15, 0.85) within the pipe
     createParticle() {
       if ( this.isDotsVisibleProperty.value ) {
 

@@ -33,7 +33,7 @@ define( require => {
       this.addChild( new TrapezoidPoolBack( trapezoidPoolModel, modelViewTransform ) );
 
       // add fluids
-      const inputFaucetFluidMaxHeight = Math.abs( modelViewTransform.modelToViewDeltaY( trapezoidPoolModel.inputFaucet.location.y -
+      const inputFaucetFluidMaxHeight = Math.abs( modelViewTransform.modelToViewDeltaY( trapezoidPoolModel.inputFaucet.position.y -
                                                                                         poolDimensions.bottomChamber.y2 ) );
       this.addChild( new FaucetFluidNode(
         trapezoidPoolModel.inputFaucet, trapezoidPoolModel, modelViewTransform, inputFaucetFluidMaxHeight ) );

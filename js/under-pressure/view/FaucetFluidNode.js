@@ -34,8 +34,8 @@ define( require => {
           this.setRect( 0, 0, 0, 0 );
         }
         else {
-          this.setRect( modelViewTransform.modelToViewX( faucet.location.x ) - ( this.viewWidth / 2 ),
-            modelViewTransform.modelToViewY( faucet.location.y ),
+          this.setRect( modelViewTransform.modelToViewX( faucet.position.x ) - ( this.viewWidth / 2 ),
+            modelViewTransform.modelToViewY( faucet.position.y ),
             this.viewWidth,
             this.currentHeight );
         }

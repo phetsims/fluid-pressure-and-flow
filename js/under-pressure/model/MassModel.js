@@ -136,7 +136,7 @@ define( require => {
       return massBounds.intersectsBounds( dropAreaBounds );
     }
 
-    // @private - If the user drops the mass underground or above a pool opening, it will teleport back to its initial location.
+    // @private - If the user drops the mass underground or above a pool opening, it will teleport back to its initial position.
     cannotFall() {
       return this.positionProperty.value.y < this.chamberPoolModel.maxY - this.height / 2 || this.isMassOverOpening();
     }

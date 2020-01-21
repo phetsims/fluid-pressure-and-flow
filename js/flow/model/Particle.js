@@ -46,7 +46,7 @@ define( require => {
 
     // get particle Y position
     getY() {
-      return this.container.fractionToLocation( this.xPosition, this.fractionUpPipe );
+      return this.container.fractionToPosition( this.xPosition, this.fractionUpPipe );
     }
 
     /**

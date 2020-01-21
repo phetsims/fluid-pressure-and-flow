@@ -68,7 +68,7 @@ define( require => {
 
       super( container, options );
 
-      // TODO, make sure that this is the best way to get the location of the icon in units that the sensor's positionProperty can use
+      // TODO, make sure that this is the best way to get the position of the icon in units that the sensor's positionProperty can use
       const velocitySensorInitialPosition = velocitySensorIcon.localToGlobalPoint( new Vector2( velocitySensorIcon.x, velocitySensorIcon.y ) );
       this.velocitySensorNodes = []; // @private
 
@@ -107,7 +107,7 @@ define( require => {
       } ) );
 
 
-      // TODO, make sure that this is the best way to get the location of the icon in units that the sensor's positionProperty can use
+      // TODO, make sure that this is the best way to get the position of the icon in units that the sensor's positionProperty can use
       this.barometerNodes = []; // @private
 
       // add barometers within the sensor panel bounds

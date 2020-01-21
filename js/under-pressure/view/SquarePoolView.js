@@ -33,7 +33,7 @@ define( require => {
       // fluids from faucets
       this.addChild( new FaucetFluidNode( squarePoolModel.inputFaucet, squarePoolModel, modelViewTransform,
         modelViewTransform.modelToViewDeltaY( squarePoolModel.poolDimensions.y2 -
-                                              squarePoolModel.inputFaucet.location.y ) ) );
+                                              squarePoolModel.inputFaucet.position.y ) ) );
       this.addChild( new FaucetFluidNode( squarePoolModel.outputFaucet, squarePoolModel, modelViewTransform, 1000 ) );
 
       // add water

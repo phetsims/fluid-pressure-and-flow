@@ -226,7 +226,7 @@ define( require => {
     }
 
     /**
-     * Lookup the cross section immediately before the specified x-location for interpolation
+     * Lookup the cross section immediately before the specified x-position for interpolation
      * @param {number} x - position in meters
      * @returns {PipeCrossSection} if one exists
      */
@@ -248,7 +248,7 @@ define( require => {
     }
 
     /**
-     * Lookup the cross section immediately after the specified x-location for interpolation
+     * Lookup the cross section immediately after the specified x-position for interpolation
      * @param {number} x - position in meters
      * @returns {PipeCrossSection} if one exists
      */
@@ -266,7 +266,7 @@ define( require => {
     }
 
     /**
-     * Get the speed at the specified x-location in m/s.  This is before friction and vertical effects are accounted for.
+     * Get the speed at the specified x-position in m/s.  This is before friction and vertical effects are accounted for.
      * @param { Number } x - position in meters
      * @returns {number} speed of fluid flow at given x position
      */
@@ -375,23 +375,23 @@ define( require => {
      * @param {number} fraction - is in (0,1) (0=bottom, 1=top)
      * @returns {number}
      */
-    fractionToLocation( x, fraction ) {
+    fractionToPosition( x, fraction ) {
       const position = this.getCrossSection( x );
       return Utils.linear( 0, 1, position.yBottom, position.yTop, fraction );
     }
 
     /**
-     * Get the point at the specified location
+     * Get the point at the specified position
      * @param {number} x position  is in meters
      * @param {number} fractionToTop is in (0,1)
      * @returns {Vector2} the position vector of the point
      */
     getPoint( x, fractionToTop ) {
-      return new Vector2( x, this.fractionToLocation( x, fractionToTop ) );
+      return new Vector2( x, this.fractionToPosition( x, fractionToTop ) );
     }
 
     /**
-     * Compute the circular cross sectional area (in meters squared) at the specified location
+     * Compute the circular cross sectional area (in meters squared) at the specified position
      * @param {number} x - position in meters
      * @returns {number} area of cross section at x in square meters
      */

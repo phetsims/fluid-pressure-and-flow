@@ -25,8 +25,8 @@ define( require => {
       super( faucet.maxFlowRate, faucet.flowRateProperty, faucet.enabledProperty, {
         horizontalPipeLength: width,
         scale: faucet.scale,
-        x: modelViewTransform.modelToViewX( faucet.location.x ),
-        y: modelViewTransform.modelToViewY( faucet.location.y ),
+        x: modelViewTransform.modelToViewX( faucet.position.x ),
+        y: modelViewTransform.modelToViewY( faucet.position.y ),
         tapToDispenseInterval: 250,
         shooterOptions: {
           touchAreaXDilation: 37,
