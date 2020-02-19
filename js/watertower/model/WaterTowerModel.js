@@ -10,6 +10,7 @@ define( require => {
   'use strict';
 
   // modules
+  const BooleanProperty = require( 'AXON/BooleanProperty' );
   const Constants = require( 'FLUID_PRESSURE_AND_FLOW/common/Constants' );
   const FluidColorModel = require( 'FLUID_PRESSURE_AND_FLOW/common/model/FluidColorModel' );
   const fluidPressureAndFlow = require( 'FLUID_PRESSURE_AND_FLOW/fluidPressureAndFlow' );
@@ -53,7 +54,7 @@ define( require => {
       this.measuringTapeBasePositionProperty = new Vector2Property( new Vector2( 10, 0 ) ); // initial position (of crosshair near the base) of tape in model coordinates
       this.measuringTapeTipPositionProperty = new Vector2Property( new Vector2( 17, 0 ) ); // initial position (of crosshair  at the tip) of tape in model coordinates
       this.waterFlowProperty = new Property( 'water' );
-      this.isSluiceOpenProperty = new Property( false );
+      this.isSluiceOpenProperty = new BooleanProperty( false );
       this.faucetModeProperty = new Property( 'manual' ); //manual or matchLeakage
       this.scaleProperty = new Property( 1 ); // scale coefficient
       this.speedProperty = new Property( 'normal' ); //speed of the model, either 'normal' or 'slow'
