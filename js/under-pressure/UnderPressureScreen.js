@@ -6,40 +6,35 @@
  *
  * @author Siddhartha Chinthapally (Actual Concepts)
  */
-define( require => {
-  'use strict';
 
-  // modules
-  const fluidPressureAndFlow = require( 'FLUID_PRESSURE_AND_FLOW/fluidPressureAndFlow' );
-  const Image = require( 'SCENERY/nodes/Image' );
-  const Property = require( 'AXON/Property' );
-  const Screen = require( 'JOIST/Screen' );
-  const UnderPressureModel = require( 'FLUID_PRESSURE_AND_FLOW/under-pressure/model/UnderPressureModel' );
-  const UnderPressureScreenView = require( 'FLUID_PRESSURE_AND_FLOW/under-pressure/view/UnderPressureScreenView' );
+import Property from '../../../axon/js/Property.js';
+import Screen from '../../../joist/js/Screen.js';
+import Image from '../../../scenery/js/nodes/Image.js';
+import underPressureScreenIcon from '../../images/under-pressure_png.js';
+import fluidPressureAndFlowStrings from '../fluid-pressure-and-flow-strings.js';
+import fluidPressureAndFlow from '../fluidPressureAndFlow.js';
+import UnderPressureModel from './model/UnderPressureModel.js';
+import UnderPressureScreenView from './view/UnderPressureScreenView.js';
 
-  // images
-  const underPressureScreenIcon = require( 'image!FLUID_PRESSURE_AND_FLOW/under-pressure.png' );
+const underPressureScreenTitleString = fluidPressureAndFlowStrings.underPressureScreenTitle;
 
-  // strings
-  const underPressureScreenTitleString = require( 'string!FLUID_PRESSURE_AND_FLOW/underPressureScreenTitle' );
+class UnderPressureScreen extends Screen {
 
-  class UnderPressureScreen extends Screen {
+  constructor() {
 
-    constructor() {
+    const options = {
+      name: underPressureScreenTitleString,
+      backgroundColorProperty: new Property( 'white' ),
+      homeScreenIcon: new Image( underPressureScreenIcon )
+    };
 
-      const options = {
-        name: underPressureScreenTitleString,
-        backgroundColorProperty: new Property( 'white' ),
-        homeScreenIcon: new Image( underPressureScreenIcon )
-      };
-
-      super(
-        () => new UnderPressureModel(),
-        model => new UnderPressureScreenView( model ),
-        options
-      );
-    }
+    super(
+      () => new UnderPressureModel(),
+      model => new UnderPressureScreenView( model ),
+      options
+    );
   }
+}
 
-  return fluidPressureAndFlow.register( 'UnderPressureScreen', UnderPressureScreen );
-} );
+fluidPressureAndFlow.register( 'UnderPressureScreen', UnderPressureScreen );
+export default UnderPressureScreen;

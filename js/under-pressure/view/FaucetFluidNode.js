@@ -7,54 +7,51 @@
  * @author Vasily Shakhov (MLearner)
  * @author Siddhartha Chinthapally (Actual Concepts)
  */
-define( require => {
-  'use strict';
 
-  // modules
-  const fluidPressureAndFlow = require( 'FLUID_PRESSURE_AND_FLOW/fluidPressureAndFlow' );
-  const Rectangle = require( 'SCENERY/nodes/Rectangle' );
+import Rectangle from '../../../../scenery/js/nodes/Rectangle.js';
+import fluidPressureAndFlow from '../../fluidPressureAndFlow.js';
 
-  class FaucetFluidNode extends Rectangle {
+class FaucetFluidNode extends Rectangle {
 
-    /**
-     * @param {FaucetModel} faucet model of the sim.
-     * @param {PoolWithFaucetsModel} model square-pool/mystery-pool/trapezoid model
-     * @param {ModelViewTransform2} modelViewTransform that is used to transform between model and view coordinate frames
-     * @param {number} maxHeight
-     */
-    constructor( faucet, model, modelViewTransform, maxHeight ) {
+  /**
+   * @param {FaucetModel} faucet model of the sim.
+   * @param {PoolWithFaucetsModel} model square-pool/mystery-pool/trapezoid model
+   * @param {ModelViewTransform2} modelViewTransform that is used to transform between model and view coordinate frames
+   * @param {number} maxHeight
+   */
+  constructor( faucet, model, modelViewTransform, maxHeight ) {
 
-      super( 0, 0, 0, 0, { lineWidth: 1 } );
+    super( 0, 0, 0, 0, { lineWidth: 1 } );
 
-      this.currentHeight = 0;
-      this.viewWidth = 0;
+    this.currentHeight = 0;
+    this.viewWidth = 0;
 
-      const redrawRect = () => {
-        if ( faucet.flowRateProperty.value === 0 ) {
-          this.setRect( 0, 0, 0, 0 );
-        }
-        else {
-          this.setRect( modelViewTransform.modelToViewX( faucet.position.x ) - ( this.viewWidth / 2 ),
-            modelViewTransform.modelToViewY( faucet.position.y ),
-            this.viewWidth,
-            this.currentHeight );
-        }
-      };
+    const redrawRect = () => {
+      if ( faucet.flowRateProperty.value === 0 ) {
+        this.setRect( 0, 0, 0, 0 );
+      }
+      else {
+        this.setRect( modelViewTransform.modelToViewX( faucet.position.x ) - ( this.viewWidth / 2 ),
+          modelViewTransform.modelToViewY( faucet.position.y ),
+          this.viewWidth,
+          this.currentHeight );
+      }
+    };
 
-      model.underPressureModel.fluidColorModel.colorProperty.linkAttribute( this, 'fill' );
+    model.underPressureModel.fluidColorModel.colorProperty.linkAttribute( this, 'fill' );
 
-      faucet.flowRateProperty.link( flowRate => {
-        this.viewWidth = modelViewTransform.modelToViewX( faucet.spoutWidth ) * flowRate / faucet.maxFlowRate;
-        redrawRect();
-      } );
+    faucet.flowRateProperty.link( flowRate => {
+      this.viewWidth = modelViewTransform.modelToViewX( faucet.spoutWidth ) * flowRate / faucet.maxFlowRate;
+      redrawRect();
+    } );
 
-      model.volumeProperty.link( volume => {
-        this.currentHeight = maxHeight - Math.abs( modelViewTransform.modelToViewDeltaY( volume * model.maxHeight /
-                                                                                         model.maxVolume ) );
-        redrawRect();
-      } );
-    }
+    model.volumeProperty.link( volume => {
+      this.currentHeight = maxHeight - Math.abs( modelViewTransform.modelToViewDeltaY( volume * model.maxHeight /
+                                                                                       model.maxVolume ) );
+      redrawRect();
+    } );
   }
+}
 
-  return fluidPressureAndFlow.register( 'FaucetFluidNode', FaucetFluidNode );
-} );
+fluidPressureAndFlow.register( 'FaucetFluidNode', FaucetFluidNode );
+export default FaucetFluidNode;

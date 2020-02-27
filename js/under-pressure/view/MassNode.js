@@ -6,95 +6,92 @@
  * @author Vasily Shakhov (Mlearner)
  * @author Siddhartha Chinthapally (Actual Concepts)
  */
-define( require => {
-  'use strict';
 
-  // modules
-  const fluidPressureAndFlow = require( 'FLUID_PRESSURE_AND_FLOW/fluidPressureAndFlow' );
-  const LinearGradient = require( 'SCENERY/util/LinearGradient' );
-  const Node = require( 'SCENERY/nodes/Node' );
-  const PhetFont = require( 'SCENERY_PHET/PhetFont' );
-  const Rectangle = require( 'SCENERY/nodes/Rectangle' );
-  const SimpleDragHandler = require( 'SCENERY/input/SimpleDragHandler' );
-  const StringUtils = require( 'PHETCOMMON/util/StringUtils' );
-  const Text = require( 'SCENERY/nodes/Text' );
-  const Vector2 = require( 'DOT/Vector2' );
+import Vector2 from '../../../../dot/js/Vector2.js';
+import StringUtils from '../../../../phetcommon/js/util/StringUtils.js';
+import PhetFont from '../../../../scenery-phet/js/PhetFont.js';
+import SimpleDragHandler from '../../../../scenery/js/input/SimpleDragHandler.js';
+import Node from '../../../../scenery/js/nodes/Node.js';
+import Rectangle from '../../../../scenery/js/nodes/Rectangle.js';
+import Text from '../../../../scenery/js/nodes/Text.js';
+import LinearGradient from '../../../../scenery/js/util/LinearGradient.js';
+import fluidPressureAndFlowStrings from '../../fluid-pressure-and-flow-strings.js';
+import fluidPressureAndFlow from '../../fluidPressureAndFlow.js';
 
-  // strings
-  const massLabelPatternString = require( 'string!FLUID_PRESSURE_AND_FLOW/massLabelPattern' );
+const massLabelPatternString = fluidPressureAndFlowStrings.massLabelPattern;
 
-  class MassNode extends Node {
+class MassNode extends Node {
 
-    /**
-     * @param {MassModel} massModel of simulation
-     * @param {ChamberPoolModel} chamberPoolModel
-     * @param {ModelViewTransform2} modelViewTransform , Transform between model and view coordinate frames
-     * @param {Bounds2} dragBounds - bounds that define where the node may be dragged
-     */
-    constructor( massModel, chamberPoolModel, modelViewTransform, dragBounds ) {
+  /**
+   * @param {MassModel} massModel of simulation
+   * @param {ChamberPoolModel} chamberPoolModel
+   * @param {ModelViewTransform2} modelViewTransform , Transform between model and view coordinate frames
+   * @param {Bounds2} dragBounds - bounds that define where the node may be dragged
+   */
+  constructor( massModel, chamberPoolModel, modelViewTransform, dragBounds ) {
 
-      super( { cursor: 'pointer' } );
+    super( { cursor: 'pointer' } );
 
-      const width = modelViewTransform.modelToViewDeltaX( massModel.width );
-      const height = Math.abs( modelViewTransform.modelToViewDeltaY( massModel.height ) );
+    const width = modelViewTransform.modelToViewDeltaX( massModel.width );
+    const height = Math.abs( modelViewTransform.modelToViewDeltaY( massModel.height ) );
 
-      // add mass rectangle
-      const mass = new Rectangle( -width / 2, -height / 2, width, height, {
-        fill: new LinearGradient( -width / 2, 0, width, 0 )
-          .addColorStop( 0, '#8C8D8D' )
-          .addColorStop( 0.3, '#C0C1C2' )
-          .addColorStop( 0.5, '#F0F1F1' )
-          .addColorStop( 0.6, '#F8F8F7' ),
-        stroke: '#918e8e',
-        lineWidth: 1
+    // add mass rectangle
+    const mass = new Rectangle( -width / 2, -height / 2, width, height, {
+      fill: new LinearGradient( -width / 2, 0, width, 0 )
+        .addColorStop( 0, '#8C8D8D' )
+        .addColorStop( 0.3, '#C0C1C2' )
+        .addColorStop( 0.5, '#F0F1F1' )
+        .addColorStop( 0.6, '#F8F8F7' ),
+      stroke: '#918e8e',
+      lineWidth: 1
+    } );
+    this.addChild( mass );
+
+    const massText = new Text( StringUtils.format( massLabelPatternString, massModel.mass ),
+      {
+        //x: mass.centerX - 15,
+        //y: mass.centerY + 3,
+        font: new PhetFont( 9 ),
+        fill: 'black',
+        pickable: false,
+        fontWeight: 'bold',
+        maxWidth: width - 5
       } );
-      this.addChild( mass );
+    this.addChild( massText );
 
-      const massText = new Text( StringUtils.format( massLabelPatternString, massModel.mass ),
-        {
-          //x: mass.centerX - 15,
-          //y: mass.centerY + 3,
-          font: new PhetFont( 9 ),
-          fill: 'black',
-          pickable: false,
-          fontWeight: 'bold',
-          maxWidth: width - 5
-        } );
-      this.addChild( massText );
+    const massClickOffset = { x: 0, y: 0 };
 
-      const massClickOffset = { x: 0, y: 0 };
+    // mass drag handler
+    this.addInputListener( new SimpleDragHandler( {
+      //When dragging across it in a mobile device, pick it up
+      allowTouchSnag: true,
+      start: event => {
+        massClickOffset.x = this.globalToParentPoint( event.pointer.point ).x - event.currentTarget.x;
+        massClickOffset.y = this.globalToParentPoint( event.pointer.point ).y - event.currentTarget.y;
+        this.moveToFront();
+        massModel.isDraggingProperty.value = true;
+      },
+      end: () => {
+        massModel.positionProperty.value = modelViewTransform.viewToModelPosition( this.translation );
+        massModel.isDraggingProperty.value = false;
+      },
+      //Translate on drag events
+      drag: event => {
+        const point = this.globalToParentPoint( event.pointer.point ).subtract( massClickOffset );
+        this.translation = dragBounds.getClosestPoint( point.x, point.y );
+      }
+    } ) );
 
-      // mass drag handler
-      this.addInputListener( new SimpleDragHandler( {
-        //When dragging across it in a mobile device, pick it up
-        allowTouchSnag: true,
-        start: event => {
-          massClickOffset.x = this.globalToParentPoint( event.pointer.point ).x - event.currentTarget.x;
-          massClickOffset.y = this.globalToParentPoint( event.pointer.point ).y - event.currentTarget.y;
-          this.moveToFront();
-          massModel.isDraggingProperty.value = true;
-        },
-        end: () => {
-          massModel.positionProperty.value = modelViewTransform.viewToModelPosition( this.translation );
-          massModel.isDraggingProperty.value = false;
-        },
-        //Translate on drag events
-        drag: event => {
-          const point = this.globalToParentPoint( event.pointer.point ).subtract( massClickOffset );
-          this.translation = dragBounds.getClosestPoint( point.x, point.y );
-        }
-      } ) );
-
-      massModel.positionProperty.link( position => {
-        if ( !chamberPoolModel.isDragging ) {
-          this.translation = new Vector2( modelViewTransform.modelToViewX( position.x ),
-            modelViewTransform.modelToViewY( position.y ) );
-          massText.centerX = mass.centerX;
-          massText.centerY = mass.centerY;
-        }
-      } );
-    }
+    massModel.positionProperty.link( position => {
+      if ( !chamberPoolModel.isDragging ) {
+        this.translation = new Vector2( modelViewTransform.modelToViewX( position.x ),
+          modelViewTransform.modelToViewY( position.y ) );
+        massText.centerX = mass.centerX;
+        massText.centerY = mass.centerY;
+      }
+    } );
   }
+}
 
-  return fluidPressureAndFlow.register( 'MassNode', MassNode );
-} );
+fluidPressureAndFlow.register( 'MassNode', MassNode );
+export default MassNode;

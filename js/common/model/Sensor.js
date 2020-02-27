@@ -5,38 +5,35 @@
  *
  * @author Siddhartha Chinthapally (Actual Concepts)
  */
-define( require => {
-  'use strict';
 
-  // modules
-  const Emitter = require( 'AXON/Emitter' );
-  const fluidPressureAndFlow = require( 'FLUID_PRESSURE_AND_FLOW/fluidPressureAndFlow' );
-  const Property = require( 'AXON/Property' );
-  const Vector2Property = require( 'DOT/Vector2Property' );
+import Emitter from '../../../../axon/js/Emitter.js';
+import Property from '../../../../axon/js/Property.js';
+import Vector2Property from '../../../../dot/js/Vector2Property.js';
+import fluidPressureAndFlow from '../../fluidPressureAndFlow.js';
 
-  class Sensor {
+class Sensor {
 
-    /**
-     * @param {Vector2} position of the sensor
-     * @param {Object} value as measured by the sensor
-     */
-    constructor( position, value ) {
+  /**
+   * @param {Vector2} position of the sensor
+   * @param {Object} value as measured by the sensor
+   */
+  constructor( position, value ) {
 
-      // @public
-      this.positionProperty = new Vector2Property( position );
+    // @public
+    this.positionProperty = new Vector2Property( position );
 
-      // @public {Object}
-      this.valueProperty = new Property( value );
+    // @public {Object}
+    this.valueProperty = new Property( value );
 
-      // @public
-      this.updateEmitter = new Emitter();
-    }
-
-    reset() {
-      this.positionProperty.reset();
-      this.valueProperty.reset();
-    }
+    // @public
+    this.updateEmitter = new Emitter();
   }
 
-  return fluidPressureAndFlow.register( 'Sensor', Sensor );
-} );
+  reset() {
+    this.positionProperty.reset();
+    this.valueProperty.reset();
+  }
+}
+
+fluidPressureAndFlow.register( 'Sensor', Sensor );
+export default Sensor;

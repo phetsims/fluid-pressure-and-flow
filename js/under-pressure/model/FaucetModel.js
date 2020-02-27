@@ -6,41 +6,38 @@
  *
  * @author Vasily Shakhov (Mlearner)
  */
-define( require => {
-  'use strict';
 
-  // modules
-  const fluidPressureAndFlow = require( 'FLUID_PRESSURE_AND_FLOW/fluidPressureAndFlow' );
-  const Property = require( 'AXON/Property' );
+import Property from '../../../../axon/js/Property.js';
+import fluidPressureAndFlow from '../../fluidPressureAndFlow.js';
 
-  class FaucetModel {
+class FaucetModel {
 
-    /**
-     * @param {Vector2} position center of output pipe
-     * @param {number} maxFlowRate L/sec
-     * @param {number} scale of Faucet (the top faucet is larger than the bottom faucet)
-     */
-    constructor( position, maxFlowRate, scale ) {
+  /**
+   * @param {Vector2} position center of output pipe
+   * @param {number} maxFlowRate L/sec
+   * @param {number} scale of Faucet (the top faucet is larger than the bottom faucet)
+   */
+  constructor( position, maxFlowRate, scale ) {
 
-      this.position = position;
-      this.maxFlowRate = maxFlowRate;
-      this.scale = scale;
-      this.spoutWidth = 1.35 * scale; // empirically determined
+    this.position = position;
+    this.maxFlowRate = maxFlowRate;
+    this.scale = scale;
+    this.spoutWidth = 1.35 * scale; // empirically determined
 
-      // @public
-      this.flowRateProperty = new Property( 0 );
+    // @public
+    this.flowRateProperty = new Property( 0 );
 
-      // @public
-      this.enabledProperty = new Property( true );
+    // @public
+    this.enabledProperty = new Property( true );
 
-      // when disabled, turn off the faucet.
-      this.enabledProperty.link( enabled => {
-        if ( !enabled ) {
-          this.flowRateProperty.value = 0;
-        }
-      } );
-    }
+    // when disabled, turn off the faucet.
+    this.enabledProperty.link( enabled => {
+      if ( !enabled ) {
+        this.flowRateProperty.value = 0;
+      }
+    } );
   }
+}
 
-  return fluidPressureAndFlow.register( 'FaucetModel', FaucetModel );
-} );
+fluidPressureAndFlow.register( 'FaucetModel', FaucetModel );
+export default FaucetModel;

@@ -6,28 +6,25 @@
  *
  * @author Sam Reid
  */
-define( require => {
-  'use strict';
 
-  // modules
-  const fluidPressureAndFlow = require( 'FLUID_PRESSURE_AND_FLOW/fluidPressureAndFlow' );
-  const Vector2 = require( 'DOT/Vector2' );
-  const Vector2Property = require( 'DOT/Vector2Property' );
+import Vector2 from '../../../../dot/js/Vector2.js';
+import Vector2Property from '../../../../dot/js/Vector2Property.js';
+import fluidPressureAndFlow from '../../fluidPressureAndFlow.js';
 
-  class PipeControlPoint {
+class PipeControlPoint {
 
-    /**
-     * @param {number} x - position of the control point
-     * @param {number} y - position of the control point
-     */
-    constructor( x, y ) {
-      this.positionProperty = new Vector2Property( new Vector2( x, y ) );
-    }
-
-    reset() {
-      this.positionProperty.reset();
-    }
+  /**
+   * @param {number} x - position of the control point
+   * @param {number} y - position of the control point
+   */
+  constructor( x, y ) {
+    this.positionProperty = new Vector2Property( new Vector2( x, y ) );
   }
 
-  return fluidPressureAndFlow.register( 'PipeControlPoint', PipeControlPoint );
-} );
+  reset() {
+    this.positionProperty.reset();
+  }
+}
+
+fluidPressureAndFlow.register( 'PipeControlPoint', PipeControlPoint );
+export default PipeControlPoint;

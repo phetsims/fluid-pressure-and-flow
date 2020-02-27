@@ -7,80 +7,77 @@
  * @author Vasily Shakhov (Mlearner)
  * @author Siddhartha Chinthapally (Actual Concepts)
  */
-define( require => {
-  'use strict';
 
-  // modules
-  const AquaRadioButton = require( 'SUN/AquaRadioButton' );
-  const fluidPressureAndFlow = require( 'FLUID_PRESSURE_AND_FLOW/fluidPressureAndFlow' );
-  const HBox = require( 'SCENERY/nodes/HBox' );
-  const merge = require( 'PHET_CORE/merge' );
-  const Node = require( 'SCENERY/nodes/Node' );
-  const PhetFont = require( 'SCENERY_PHET/PhetFont' );
-  const Text = require( 'SCENERY/nodes/Text' );
+import merge from '../../../../phet-core/js/merge.js';
+import PhetFont from '../../../../scenery-phet/js/PhetFont.js';
+import HBox from '../../../../scenery/js/nodes/HBox.js';
+import Node from '../../../../scenery/js/nodes/Node.js';
+import Text from '../../../../scenery/js/nodes/Text.js';
+import AquaRadioButton from '../../../../sun/js/AquaRadioButton.js';
+import fluidPressureAndFlowStrings from '../../fluid-pressure-and-flow-strings.js';
+import fluidPressureAndFlow from '../../fluidPressureAndFlow.js';
 
-  // strings
-  const atmosphereString = require( 'string!FLUID_PRESSURE_AND_FLOW/atmosphere' );
-  const offString = require( 'string!FLUID_PRESSURE_AND_FLOW/off' );
-  const onString = require( 'string!FLUID_PRESSURE_AND_FLOW/on' );
+const atmosphereString = fluidPressureAndFlowStrings.atmosphere;
+const offString = fluidPressureAndFlowStrings.off;
+const onString = fluidPressureAndFlowStrings.on;
 
-  class AtmosphereControlNode extends Node {
+class AtmosphereControlNode extends Node {
 
-    /**
-     * @param {Property<Boolean>} isAtmosphereProperty - to select atmosphere on/off
-     * @param {Object} [options]
-     */
-    constructor( isAtmosphereProperty, options ) {
+  /**
+   * @param {Property<Boolean>} isAtmosphereProperty - to select atmosphere on/off
+   * @param {Object} [options]
+   */
+  constructor( isAtmosphereProperty, options ) {
 
-      // default options
-      options = merge( {
-        fill: '#f2fa6a',
-        stroke: 'black',
-        lineWidth: 1, // width of the background border
-        xMargin: 5,
-        yMargin: 6,
-        cornerRadius: 5 // radius of the rounded corners on the background
-      }, options );
+    // default options
+    options = merge( {
+      fill: '#f2fa6a',
+      stroke: 'black',
+      lineWidth: 1, // width of the background border
+      xMargin: 5,
+      yMargin: 6,
+      cornerRadius: 5 // radius of the rounded corners on the background
+    }, options );
 
-      super();
+    super();
 
-      this.options = options;
+    this.options = options;
 
-      const radioButtonTextOptions = {
-        font: new PhetFont( 12 ),
-        maxWidth: ( options.maxWidth * 0.4 || Number.POSITIVE_INFINITY )
-      };
+    const radioButtonTextOptions = {
+      font: new PhetFont( 12 ),
+      maxWidth: ( options.maxWidth * 0.4 || Number.POSITIVE_INFINITY )
+    };
 
-      const atmosphereTrue = new AquaRadioButton( isAtmosphereProperty, true, new Text( onString, radioButtonTextOptions ), {
-        radius: 6
-      } );
+    const atmosphereTrue = new AquaRadioButton( isAtmosphereProperty, true, new Text( onString, radioButtonTextOptions ), {
+      radius: 6
+    } );
 
-      const atmosphereFalse = new AquaRadioButton( isAtmosphereProperty, false, new Text( offString, radioButtonTextOptions ), {
-        radius: 6
-      } );
+    const atmosphereFalse = new AquaRadioButton( isAtmosphereProperty, false, new Text( offString, radioButtonTextOptions ), {
+      radius: 6
+    } );
 
-      // touch areas, empirically determined
-      atmosphereTrue.touchArea = atmosphereTrue.localBounds.dilatedXY( 4, 4 );
-      atmosphereFalse.touchArea = atmosphereFalse.localBounds.dilatedXY( 4, 4 );
+    // touch areas, empirically determined
+    atmosphereTrue.touchArea = atmosphereTrue.localBounds.dilatedXY( 4, 4 );
+    atmosphereFalse.touchArea = atmosphereFalse.localBounds.dilatedXY( 4, 4 );
 
-      this.contentNode = new HBox( {
-        children: [ atmosphereTrue, atmosphereFalse ],
-        spacing: 10
-      } );
+    this.contentNode = new HBox( {
+      children: [ atmosphereTrue, atmosphereFalse ],
+      spacing: 10
+    } );
 
-      const titleNode = new Text( atmosphereString, {
-        font: new PhetFont( 14 ),
-        fontWeight: 'bold',
-        maxWidth: ( options.maxWidth * 0.9 || Number.POSITIVE_INFINITY )
-      } );
+    const titleNode = new Text( atmosphereString, {
+      font: new PhetFont( 14 ),
+      fontWeight: 'bold',
+      maxWidth: ( options.maxWidth * 0.9 || Number.POSITIVE_INFINITY )
+    } );
 
-      this.contentNode.top = titleNode.bottom + 5;
-      this.addChild( titleNode );
-      this.addChild( this.contentNode );
+    this.contentNode.top = titleNode.bottom + 5;
+    this.addChild( titleNode );
+    this.addChild( this.contentNode );
 
-      this.mutate( this.options );
-    }
+    this.mutate( this.options );
   }
+}
 
-  return fluidPressureAndFlow.register( 'AtmosphereControlNode', AtmosphereControlNode );
-} );
+fluidPressureAndFlow.register( 'AtmosphereControlNode', AtmosphereControlNode );
+export default AtmosphereControlNode;

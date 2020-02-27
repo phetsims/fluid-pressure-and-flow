@@ -6,35 +6,32 @@
  *
  * @author Vasily Shakhov (Mlearner)
  */
-define( require => {
-  'use strict';
 
-  // modules
-  const FaucetNode = require( 'SCENERY_PHET/FaucetNode' );
-  const fluidPressureAndFlow = require( 'FLUID_PRESSURE_AND_FLOW/fluidPressureAndFlow' );
+import FaucetNode from '../../../../scenery-phet/js/FaucetNode.js';
+import fluidPressureAndFlow from '../../fluidPressureAndFlow.js';
 
-  class UnderPressureFaucetNode extends FaucetNode {
+class UnderPressureFaucetNode extends FaucetNode {
 
-    /**
-     * @param {Faucet} faucet model
-     * @param {number} width of horizontal part of pipe
-     * @param {ModelViewTransform2} modelViewTransform , Transform between model and view coordinate frames
-     */
-    constructor( faucet, width, modelViewTransform ) {
+  /**
+   * @param {Faucet} faucet model
+   * @param {number} width of horizontal part of pipe
+   * @param {ModelViewTransform2} modelViewTransform , Transform between model and view coordinate frames
+   */
+  constructor( faucet, width, modelViewTransform ) {
 
-      super( faucet.maxFlowRate, faucet.flowRateProperty, faucet.enabledProperty, {
-        horizontalPipeLength: width,
-        scale: faucet.scale,
-        x: modelViewTransform.modelToViewX( faucet.position.x ),
-        y: modelViewTransform.modelToViewY( faucet.position.y ),
-        tapToDispenseInterval: 250,
-        shooterOptions: {
-          touchAreaXDilation: 37,
-          touchAreaYDilation: 60
-        }
-      } );
-    }
+    super( faucet.maxFlowRate, faucet.flowRateProperty, faucet.enabledProperty, {
+      horizontalPipeLength: width,
+      scale: faucet.scale,
+      x: modelViewTransform.modelToViewX( faucet.position.x ),
+      y: modelViewTransform.modelToViewY( faucet.position.y ),
+      tapToDispenseInterval: 250,
+      shooterOptions: {
+        touchAreaXDilation: 37,
+        touchAreaYDilation: 60
+      }
+    } );
   }
+}
 
-  return fluidPressureAndFlow.register( 'UnderPressureFaucetNode', UnderPressureFaucetNode );
-} );
+fluidPressureAndFlow.register( 'UnderPressureFaucetNode', UnderPressureFaucetNode );
+export default UnderPressureFaucetNode;

@@ -5,40 +5,36 @@
  *
  * @author Sam Reid (PhET Interactive Simulations)
  */
-define( require => {
-  'use strict';
 
-  // modules
-  const fluidPressureAndFlow = require( 'FLUID_PRESSURE_AND_FLOW/fluidPressureAndFlow' );
-  const Image = require( 'SCENERY/nodes/Image' );
-  const Property = require( 'AXON/Property' );
-  const Screen = require( 'JOIST/Screen' );
-  const WaterTowerModel = require( 'FLUID_PRESSURE_AND_FLOW/watertower/model/WaterTowerModel' );
-  const WaterTowerScreenView = require( 'FLUID_PRESSURE_AND_FLOW/watertower/view/WaterTowerScreenView' );
+import Property from '../../../axon/js/Property.js';
+import Screen from '../../../joist/js/Screen.js';
+import Image from '../../../scenery/js/nodes/Image.js';
+import waterTowerScreenIcon from '../../images/water-tower-mockup_png.js';
+import fluidPressureAndFlowStrings from '../fluid-pressure-and-flow-strings.js';
+import fluidPressureAndFlow from '../fluidPressureAndFlow.js';
+import WaterTowerModel from './model/WaterTowerModel.js';
+import WaterTowerScreenView from './view/WaterTowerScreenView.js';
 
-  // strings
-  const waterTowerScreenTitleString = require( 'string!FLUID_PRESSURE_AND_FLOW/waterTowerScreenTitle' );
+const waterTowerScreenTitleString = fluidPressureAndFlowStrings.waterTowerScreenTitle;
 
-  // images
-  const waterTowerScreenIcon = require( 'image!FLUID_PRESSURE_AND_FLOW/water-tower-mockup.png' );
 
-  class WaterTowerScreen extends Screen {
+class WaterTowerScreen extends Screen {
 
-    constructor() {
+  constructor() {
 
-      const options = {
-        name: waterTowerScreenTitleString,
-        backgroundColorProperty: new Property( 'white' ),
-        homeScreenIcon: new Image( waterTowerScreenIcon )
-      };
+    const options = {
+      name: waterTowerScreenTitleString,
+      backgroundColorProperty: new Property( 'white' ),
+      homeScreenIcon: new Image( waterTowerScreenIcon )
+    };
 
-      super(
-        () => new WaterTowerModel(),
-        model => new WaterTowerScreenView( model ),
-        options
-      );
-    }
+    super(
+      () => new WaterTowerModel(),
+      model => new WaterTowerScreenView( model ),
+      options
+    );
   }
+}
 
-  return fluidPressureAndFlow.register( 'WaterTowerScreen', WaterTowerScreen );
-} );
+fluidPressureAndFlow.register( 'WaterTowerScreen', WaterTowerScreen );
+export default WaterTowerScreen;

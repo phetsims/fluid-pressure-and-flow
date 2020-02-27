@@ -5,40 +5,35 @@
  *
  * @author Siddhartha Chinthapally (Actual Concepts)
  */
-define( require => {
-  'use strict';
 
-  // modules
-  const FlowModel = require( 'FLUID_PRESSURE_AND_FLOW/flow/model/FlowModel' );
-  const FlowScreenView = require( 'FLUID_PRESSURE_AND_FLOW/flow/view/FlowScreenView' );
-  const fluidPressureAndFlow = require( 'FLUID_PRESSURE_AND_FLOW/fluidPressureAndFlow' );
-  const Image = require( 'SCENERY/nodes/Image' );
-  const Property = require( 'AXON/Property' );
-  const Screen = require( 'JOIST/Screen' );
+import Property from '../../../axon/js/Property.js';
+import Screen from '../../../joist/js/Screen.js';
+import Image from '../../../scenery/js/nodes/Image.js';
+import flowScreenIcon from '../../images/flow-mockup_png.js';
+import fluidPressureAndFlowStrings from '../fluid-pressure-and-flow-strings.js';
+import fluidPressureAndFlow from '../fluidPressureAndFlow.js';
+import FlowModel from './model/FlowModel.js';
+import FlowScreenView from './view/FlowScreenView.js';
 
-  // images
-  const flowScreenIcon = require( 'image!FLUID_PRESSURE_AND_FLOW/flow-mockup.png' );
+const flowScreenTitleString = fluidPressureAndFlowStrings.flowScreenTitle;
 
-  // strings
-  const flowScreenTitleString = require( 'string!FLUID_PRESSURE_AND_FLOW/flowScreenTitle' );
+class FlowScreen extends Screen {
 
-  class FlowScreen extends Screen {
+  constructor() {
 
-    constructor() {
+    const options = {
+      name: flowScreenTitleString,
+      backgroundColorProperty: new Property( 'white' ),
+      homeScreenIcon: new Image( flowScreenIcon )
+    };
 
-      const options = {
-        name: flowScreenTitleString,
-        backgroundColorProperty: new Property( 'white' ),
-        homeScreenIcon: new Image( flowScreenIcon )
-      };
-
-      super(
-        () => new FlowModel(),
-        model => new FlowScreenView( model ),
-        options
-      );
-    }
+    super(
+      () => new FlowModel(),
+      model => new FlowScreenView( model ),
+      options
+    );
   }
+}
 
-  return fluidPressureAndFlow.register( 'FlowScreen', FlowScreen );
-} );
+fluidPressureAndFlow.register( 'FlowScreen', FlowScreen );
+export default FlowScreen;
