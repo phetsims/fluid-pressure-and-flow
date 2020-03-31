@@ -19,7 +19,7 @@ import Constants from '../../common/Constants.js';
 import BarometerNode from '../../common/view/BarometerNode.js';
 import ControlSlider from '../../common/view/ControlSlider.js';
 import UnitsControlPanel from '../../common/view/UnitsControlPanel.js';
-import fluidPressureAndFlowStrings from '../../fluid-pressure-and-flow-strings.js';
+import fluidPressureAndFlowStrings from '../../fluidPressureAndFlowStrings.js';
 import fluidPressureAndFlow from '../../fluidPressureAndFlow.js';
 import BackgroundNode from './BackgroundNode.js';
 import ChamberPoolView from './ChamberPoolView.js';

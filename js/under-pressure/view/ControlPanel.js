@@ -18,7 +18,7 @@ import VBox from '../../../../scenery/js/nodes/VBox.js';
 import VStrut from '../../../../scenery/js/nodes/VStrut.js';
 import Checkbox from '../../../../sun/js/Checkbox.js';
 import Panel from '../../../../sun/js/Panel.js';
-import fluidPressureAndFlowStrings from '../../fluid-pressure-and-flow-strings.js';
+import fluidPressureAndFlowStrings from '../../fluidPressureAndFlowStrings.js';
 import fluidPressureAndFlow from '../../fluidPressureAndFlow.js';
 import AtmosphereControlNode from './AtmosphereControlNode.js';
 

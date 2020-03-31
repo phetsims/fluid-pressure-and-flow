@@ -25,7 +25,7 @@ import Color from '../../../../scenery/js/util/Color.js';
 import Panel from '../../../../sun/js/Panel.js';
 import twoSidedHandleImage from '../../../images/handle-two-sided_png.js';
 import Units from '../../common/model/Units.js';
-import fluidPressureAndFlowStrings from '../../fluid-pressure-and-flow-strings.js';
+import fluidPressureAndFlowStrings from '../../fluidPressureAndFlowStrings.js';
 import fluidPressureAndFlow from '../../fluidPressureAndFlow.js';
 
 const areaString = fluidPressureAndFlowStrings.area;

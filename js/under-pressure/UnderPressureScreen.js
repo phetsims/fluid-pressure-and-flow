@@ -11,7 +11,7 @@ import Property from '../../../axon/js/Property.js';
 import Screen from '../../../joist/js/Screen.js';
 import Image from '../../../scenery/js/nodes/Image.js';
 import underPressureScreenIcon from '../../images/under-pressure_png.js';
-import fluidPressureAndFlowStrings from '../fluid-pressure-and-flow-strings.js';
+import fluidPressureAndFlowStrings from '../fluidPressureAndFlowStrings.js';
 import fluidPressureAndFlow from '../fluidPressureAndFlow.js';
 import UnderPressureModel from './model/UnderPressureModel.js';
 import UnderPressureScreenView from './view/UnderPressureScreenView.js';

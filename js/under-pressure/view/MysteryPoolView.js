@@ -17,7 +17,7 @@ import AquaRadioButton from '../../../../sun/js/AquaRadioButton.js';
 import ComboBox from '../../../../sun/js/ComboBox.js';
 import ComboBoxItem from '../../../../sun/js/ComboBoxItem.js';
 import Panel from '../../../../sun/js/Panel.js';
-import fluidPressureAndFlowStrings from '../../fluid-pressure-and-flow-strings.js';
+import fluidPressureAndFlowStrings from '../../fluidPressureAndFlowStrings.js';
 import fluidPressureAndFlow from '../../fluidPressureAndFlow.js';
 import SquarePoolView from './SquarePoolView.js';
 

@@ -30,7 +30,7 @@ import ControlSlider from '../../common/view/ControlSlider.js';
 import FPAFRuler from '../../common/view/FPAFRuler.js';
 import SensorToolbox from '../../common/view/SensorToolbox.js';
 import UnitsControlPanel from '../../common/view/UnitsControlPanel.js';
-import fluidPressureAndFlowStrings from '../../fluid-pressure-and-flow-strings.js';
+import fluidPressureAndFlowStrings from '../../fluidPressureAndFlowStrings.js';
 import fluidPressureAndFlow from '../../fluidPressureAndFlow.js';
 import FlowToolsControlPanel from './FlowToolsControlPanel.js';
 import FluxMeterNode from './FluxMeterNode.js';

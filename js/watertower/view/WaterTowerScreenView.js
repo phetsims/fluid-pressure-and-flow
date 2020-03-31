@@ -31,7 +31,7 @@ import ControlSlider from '../../common/view/ControlSlider.js';
 import FPAFRuler from '../../common/view/FPAFRuler.js';
 import UnitsControlPanel from '../../common/view/UnitsControlPanel.js';
 import VelocitySensorNode from '../../common/view/VelocitySensorNode.js';
-import fluidPressureAndFlowStrings from '../../fluid-pressure-and-flow-strings.js';
+import fluidPressureAndFlowStrings from '../../fluidPressureAndFlowStrings.js';
 import fluidPressureAndFlow from '../../fluidPressureAndFlow.js';
 import FaucetControlPanel from './FaucetControlPanel.js';
 import HoseNode from './HoseNode.js';

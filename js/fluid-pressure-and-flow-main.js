@@ -9,7 +9,7 @@
 import Sim from '../../joist/js/Sim.js';
 import SimLauncher from '../../joist/js/SimLauncher.js';
 import FlowScreen from './flow/FlowScreen.js';
-import fluidPressureAndFlowStrings from './fluid-pressure-and-flow-strings.js';
+import fluidPressureAndFlowStrings from './fluidPressureAndFlowStrings.js';
 import UnderPressureScreen from './under-pressure/UnderPressureScreen.js';
 import WaterTowerScreen from './watertower/WaterTowerScreen.js';
 

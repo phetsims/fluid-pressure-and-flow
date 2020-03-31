@@ -10,7 +10,7 @@ import Property from '../../../axon/js/Property.js';
 import Screen from '../../../joist/js/Screen.js';
 import Image from '../../../scenery/js/nodes/Image.js';
 import flowScreenIcon from '../../images/flow-mockup_png.js';
-import fluidPressureAndFlowStrings from '../fluid-pressure-and-flow-strings.js';
+import fluidPressureAndFlowStrings from '../fluidPressureAndFlowStrings.js';
 import fluidPressureAndFlow from '../fluidPressureAndFlow.js';
 import FlowModel from './model/FlowModel.js';
 import FlowScreenView from './view/FlowScreenView.js';

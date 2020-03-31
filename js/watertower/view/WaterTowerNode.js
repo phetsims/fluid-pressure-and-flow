@@ -19,7 +19,7 @@ import LinearGradient from '../../../../scenery/js/util/LinearGradient.js';
 import TextPushButton from '../../../../sun/js/buttons/TextPushButton.js';
 import handleImage from '../../../images/handle_png.js';
 import wheelImage from '../../../images/wheel_png.js';
-import fluidPressureAndFlowStrings from '../../fluid-pressure-and-flow-strings.js';
+import fluidPressureAndFlowStrings from '../../fluidPressureAndFlowStrings.js';
 import fluidPressureAndFlow from '../../fluidPressureAndFlow.js';
 import WaterTowerLegsNode from './WaterTowerLegsNode.js';
 
