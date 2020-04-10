@@ -61,7 +61,11 @@ class SensorToolbox extends Panel {
     );
 
     // Create the panel from the icons
-    const container = new HBox( { children: [ velocitySensorIcon, barometerIcon ], spacing: 10 } );
+    const container = new HBox( {
+      children: [ velocitySensorIcon, barometerIcon ],
+      spacing: 10,
+      excludeInvisibleChildrenFromBounds: false
+    } );
 
     super( container, options );
 
