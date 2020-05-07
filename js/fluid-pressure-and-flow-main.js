@@ -7,7 +7,7 @@
  */
 
 import Sim from '../../joist/js/Sim.js';
-import SimLauncher from '../../joist/js/SimLauncher.js';
+import simLauncher from '../../joist/js/simLauncher.js';
 import FlowScreen from './flow/FlowScreen.js';
 import fluidPressureAndFlowStrings from './fluidPressureAndFlowStrings.js';
 import UnderPressureScreen from './under-pressure/UnderPressureScreen.js';
@@ -26,7 +26,7 @@ const simOptions = {
   }
 };
 
-SimLauncher.launch( () => {
+simLauncher.launch( () => {
   const sim = new Sim( fluidPressureAndFlowTitleString, [
       new UnderPressureScreen(),
       new FlowScreen(),
