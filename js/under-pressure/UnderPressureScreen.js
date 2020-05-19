@@ -9,6 +9,7 @@
 
 import Property from '../../../axon/js/Property.js';
 import Screen from '../../../joist/js/Screen.js';
+import ScreenIcon from '../../../joist/js/ScreenIcon.js';
 import Image from '../../../scenery/js/nodes/Image.js';
 import underPressureScreenIcon from '../../images/under-pressure_png.js';
 import fluidPressureAndFlowStrings from '../fluidPressureAndFlowStrings.js';
@@ -25,7 +26,10 @@ class UnderPressureScreen extends Screen {
     const options = {
       name: underPressureScreenTitleString,
       backgroundColorProperty: new Property( 'white' ),
-      homeScreenIcon: new Image( underPressureScreenIcon )
+      homeScreenIcon: new ScreenIcon( new Image( underPressureScreenIcon ), {
+        maxIconWidthProportion: 1,
+        maxIconHeightProportion: 1
+      } )
     };
 
     super(
