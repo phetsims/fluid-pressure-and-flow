@@ -61,6 +61,9 @@ class FluidColorModel {
     this.colorProperty.reset();
   }
 
+  /**
+   * @public
+   */
   step() {
     if ( this.densityChanged ) {
       const density = this.fluidDensityProperty.get();

@@ -84,7 +84,11 @@ class Pipe {
 
   }
 
-  // reset the pipe
+
+  /**
+   * reset the pipe
+   * @public
+   */
   reset() {
 
     for ( let i = 0; i < this.top.length; i++ ) {
@@ -178,7 +182,10 @@ class Pipe {
     return spline;
   }
 
-  // Gets all the pipe cross-sections, rebuilding the intermediate interpolated ones if necessary
+  /**
+   * Gets all the pipe cross-sections, rebuilding the intermediate interpolated ones if necessary
+   * @public
+   */
   getSplineCrossSections() {
     // if pipe shape changes create the new cross sections else return old cross sections
     if ( this.dirty ) {
@@ -188,12 +195,19 @@ class Pipe {
     return this.splineCrossSections;
   }
 
-  // return the xPosition of the right most control point
+
+  /**
+   * return the xPosition of the right most control point
+   * @public
+   */
   getMaxX() {
     return this.top[ this.top.length - 1 ].positionProperty.value.x;
   }
 
-  // return the xPosition of the left most control point
+  /**
+   * return the xPosition of the left most control point
+   * @public
+   */
   getMinX() {
     return this.top[ 0 ].positionProperty.value.x;
   }
@@ -203,6 +217,7 @@ class Pipe {
    * @param {number} x - position in meters
    * @param {number} y - position in meters
    * @returns {number} fraction
+   * @private
    */
   getFractionToTop( x, y ) {
     const position = this.getCrossSection( x );
@@ -213,6 +228,7 @@ class Pipe {
    * Determines the cross section for a given x-coordinate by linear interpolation between the nearest nonlinear samples.
    * @param {number} x - position in meters
    * @returns {PipeCrossSection} cross section of pipe
+   * @private
    */
   getCrossSection( x ) {
     const previous = this.getPipePositionBefore( x );
@@ -226,6 +242,7 @@ class Pipe {
    * Lookup the cross section immediately before the specified x-position for interpolation
    * @param {number} x - position in meters
    * @returns {PipeCrossSection} if one exists
+   * @private
    */
   getPipePositionBefore( x ) {
     const crossSections = this.getCrossSections();
@@ -240,6 +257,9 @@ class Pipe {
     }
   }
 
+  /**
+   * @private
+   */
   getCrossSections() {
     return this.getSplineCrossSections();
   }
@@ -248,6 +268,7 @@ class Pipe {
    * Lookup the cross section immediately after the specified x-position for interpolation
    * @param {number} x - position in meters
    * @returns {PipeCrossSection} if one exists
+   * @private
    */
   getPipePositionAfter( x ) {
     const crossSections = this.getCrossSections();
@@ -266,6 +287,7 @@ class Pipe {
    * Get the speed at the specified x-position in m/s.  This is before friction and vertical effects are accounted for.
    * @param { Number } x - position in meters
    * @returns {number} speed of fluid flow at given x position
+   * @private
    */
   getSpeed( x ) {
 
@@ -291,6 +313,7 @@ class Pipe {
    * @param {number} y3
    * @param {number} x
    * @returns {number}
+   * @private
    */
   lagrange( x1, y1, x2, y2, x3, y3, x ) {
     return ( x - x2 ) * ( x - x3 ) / ( x1 - x2 ) / ( x1 - x3 ) * y1 +
@@ -303,6 +326,7 @@ class Pipe {
    * @param {number} x - position in meters
    * @param {number} y - position in meters
    * @returns {Vector2} velocity at x,y in metric units.
+   * @public
    */
   getVelocity( x, y ) {
     const fraction = this.getFractionToTop( x, y );
@@ -325,6 +349,7 @@ class Pipe {
    * @param {number} x - position in meters
    * @param {number} y - position in meters
    * @returns {number} the tweaked x-velocity
+   * @public
    */
   getTweakedVx( x, y ) {
 
@@ -361,6 +386,7 @@ class Pipe {
    * @param {number} x - position in meters
    * @param {number} y - position in meters
    * @returns {Vector2} the velocity vector at the given point
+   * @public
    */
   getTweakedVelocity( x, y ) {
     return new Vector2( this.getTweakedVx( x, y ), this.getVelocity( x, y ).y );
@@ -371,6 +397,7 @@ class Pipe {
    * @param {number} x - position in meters
    * @param {number} fraction - is in (0,1) (0=bottom, 1=top)
    * @returns {number}
+   * @public
    */
   fractionToPosition( x, fraction ) {
     const position = this.getCrossSection( x );
@@ -382,6 +409,7 @@ class Pipe {
    * @param {number} x position  is in meters
    * @param {number} fractionToTop is in (0,1)
    * @returns {Vector2} the position vector of the point
+   * @public
    */
   getPoint( x, fractionToTop ) {
     return new Vector2( x, this.fractionToPosition( x, fractionToTop ) );
@@ -391,6 +419,7 @@ class Pipe {
    * Compute the circular cross sectional area (in meters squared) at the specified position
    * @param {number} x - position in meters
    * @returns {number} area of cross section at x in square meters
+   * @public
    */
   getCrossSectionalArea( x ) {
     const radius = Math.abs( this.getPoint( x, 0.5 ).y - this.getPoint( x, 1 ).y );

@@ -74,6 +74,9 @@ class MassStackNode extends Node {
     } );
   }
 
+  /**
+   * @public
+   */
   updateMassPositions() {
     let dy = 0;
     const chamberPoolModel = this.chamberPoolModel;
@@ -85,6 +88,9 @@ class MassStackNode extends Node {
     } );
   }
 
+  /**
+   * @public
+   */
   updateMassStack() {
     let totHeight = 0;
 

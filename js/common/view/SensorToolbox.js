@@ -145,6 +145,9 @@ class SensorToolbox extends Panel {
     } ) );
   }
 
+  /**
+   * @public
+   */
   reset() {
 
     this.velocitySensorNodes.forEach( sensor => {

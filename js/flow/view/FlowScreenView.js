@@ -282,6 +282,7 @@ class FlowScreenView extends ScreenView {
 
   /**
    * Called by the animation loop.
+   * @public
    */
   step() {
     if ( this.flowModel.isPlayingProperty.value ) {

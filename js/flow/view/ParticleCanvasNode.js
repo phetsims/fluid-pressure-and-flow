@@ -31,6 +31,7 @@ class ParticleCanvasNode extends CanvasNode {
   /**
    * Paints the particles on the canvas node.
    * @param {CanvasRenderingContext2D} context
+   * @public
    */
   paintCanvas( context ) {
 
@@ -58,6 +59,9 @@ class ParticleCanvasNode extends CanvasNode {
 
   }
 
+  /**
+   * @public
+   */
   step() {
     this.invalidatePaint();
   }

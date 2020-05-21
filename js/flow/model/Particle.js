@@ -36,12 +36,18 @@ class Particle {
     this.color = color;
   }
 
-  // get particle x position
+  /**
+   * get particle x position
+   * @public
+   */
   getX() {
     return this.xPosition;
   }
 
-  // get particle Y position
+  /**
+   * get particle Y position
+   * @public
+   */
   getY() {
     return this.container.fractionToPosition( this.xPosition, this.fractionUpPipe );
   }
@@ -49,6 +55,7 @@ class Particle {
   /**
    * Set the particle x position
    * @param {number} x position in meters
+   * @public
    */
   setX( x ) {
     this.xPosition = x;

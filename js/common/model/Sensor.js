@@ -29,6 +29,9 @@ class Sensor {
     this.updateEmitter = new Emitter();
   }
 
+  /**
+   * @public
+   */
   reset() {
     this.positionProperty.reset();
     this.valueProperty.reset();

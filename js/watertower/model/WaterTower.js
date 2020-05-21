@@ -59,6 +59,9 @@ class WaterTower {
     this.tankPositionProperty.reset();
   }
 
+  /**
+   * @public
+   */
   fill() {
     this.fluidVolumeProperty.value = this.TANK_VOLUME;
   }

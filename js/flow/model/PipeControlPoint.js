@@ -21,6 +21,9 @@ class PipeControlPoint {
     this.positionProperty = new Vector2Property( new Vector2( x, y ) );
   }
 
+  /**
+   * @public
+   */
   reset() {
     this.positionProperty.reset();
   }

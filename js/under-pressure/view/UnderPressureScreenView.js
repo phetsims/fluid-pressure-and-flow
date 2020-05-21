@@ -273,6 +273,9 @@ class UnderPressureScreenView extends ScreenView {
     toolsLayer.moveToFront();
   }
 
+  /**
+   * @public
+   */
   reset() {
     for ( let i = 0; i < this.resetActions.length; i++ ) {
       this.resetActions[ i ]();

@@ -191,6 +191,9 @@ class PipeNode extends Node {
     this.pipeFluidNode.shape = flowLineShape;
   }
 
+  /**
+   * @public
+   */
   reset() {
     // mark pipe as dirty for getting new spline cross sections
     this.flowModel.pipe.dirty = true;
