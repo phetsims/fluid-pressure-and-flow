@@ -29,7 +29,10 @@ class WaterDropsCanvasNode extends CanvasNode {
     this.invalidatePaint();
   }
 
-  // @param {CanvasRenderingContext2D} context
+  /**
+   * @param {CanvasRenderingContext2D} context
+   * @public
+   */
   paintCanvas( context ) {
 
     //If the showBounds flag is enabled, it will show the bounds of the canvas
@@ -47,6 +50,9 @@ class WaterDropsCanvasNode extends CanvasNode {
     }
   }
 
+  /**
+   * @public
+   */
   step( dt ) {
     this.invalidatePaint();
   }

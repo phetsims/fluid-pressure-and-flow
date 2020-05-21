@@ -33,6 +33,9 @@ class WaterDrop {
     } );
   }
 
+  /**
+   * @public
+   */
   step( dt ) {
 
     //Math is done component-wise to avoid too many allocations, see https://github.com/phetsims/fluid-pressure-and-flow/issues/46
@@ -56,6 +59,7 @@ class WaterDrop {
   /**
    * Checks if the given point is within this water point.
    * @param {Vector2} point
+   * @public
    */
   contains( point ) {
     return point.distanceXY( this.positionProperty.value.x, this.positionProperty.value.y ) < this.radius;

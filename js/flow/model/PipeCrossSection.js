@@ -22,14 +22,23 @@ class PipeCrossSection {
     this.yTop = yTop;
   }
 
+  /**
+   * @public
+   */
   getX() {
     return this.x;
   }
 
+  /**
+   * @public
+   */
   getHeight() {
     return this.yTop - this.yBottom;
   }
 
+  /**
+   * @public
+   */
   getCenterY() {
     return ( this.yTop + this.yBottom ) / 2;
   }

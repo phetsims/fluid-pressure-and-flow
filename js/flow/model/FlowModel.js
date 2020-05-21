@@ -109,7 +109,10 @@ class FlowModel {
     } );
   }
 
-  // Resets all model elements
+  /**
+   * Resets all model elements
+   * @public
+   */
   reset() {
     this.isRulerVisibleProperty.reset();
     this.isFluxMeterVisibleProperty.reset();
@@ -142,6 +145,7 @@ class FlowModel {
    * @param {number} x - position in meters
    * @param {number} y - position in meters
    * @returns {number} fluid pressure (in Pa) at the specified position
+   * @protected
    */
   getFluidPressure( x, y ) {
     if ( x <= this.pipe.getMinX() || x >= this.pipe.getMaxX() ) {
@@ -162,6 +166,7 @@ class FlowModel {
    * @param {number} x - position in meters
    * @param {number} y - position in meters
    * @returns {number} pressure (in Pa) at specified position
+   * @public
    */
   getPressureAtCoords( x, y ) {
     return ( y > 0 ) ? getStandardAirPressure( y ) : this.getFluidPressure( x, y );
@@ -171,6 +176,7 @@ class FlowModel {
    * @param {number} pressure in Pa
    * @param {string} units -- can be english/metric/atmospheres
    * @returns {string} with value and units
+   * @public
    */
   getPressureString( pressure, units ) {
     return Units.getPressureString( pressure, units );
@@ -179,6 +185,7 @@ class FlowModel {
   /**
    * Called by the animation loop.
    * @param {number} dt -- time in seconds
+   * @public
    */
   step( dt ) {
 
@@ -195,7 +202,10 @@ class FlowModel {
     }
   }
 
-  // creates a red particle at the left most pipe position and a random y fraction between [0.15, 0.85) within the pipe
+  /**
+   * creates a red particle at the left most pipe position and a random y fraction between [0.15, 0.85) within the pipe
+   * @private
+   */
   createParticle() {
     if ( this.isDotsVisibleProperty.value ) {
 
@@ -208,6 +218,7 @@ class FlowModel {
   /**
    * propagates the particles in the pipe as per their velocity. Removes any particles that cross the pipe right end.
    * @param {number} dt -- time in seconds
+   * @public
    */
   propagateParticles( dt ) {
     let x2;
@@ -257,6 +268,7 @@ class FlowModel {
    * Returns the formatted density string. For measurement in 'english' units the precision is 2 decimals.
    * For measurement in other units ('metric') the value is rounded off to the nearest integer.
    * @returns {string} with value and units
+   * @public
    */
   getFluidDensityString() {
     if ( this.measureUnitsProperty.value === 'english' ) {
@@ -272,6 +284,7 @@ class FlowModel {
    * Returns the formatted flow rate string. For measurement in 'english' units the precision is 2 decimals.
    * For measurement in other units ('metric') the value is rounded off to the nearest integer.
    * @returns {string} with value and units
+   * @public
    */
   getFluidFlowRateString() {
     if ( this.measureUnitsProperty.value === 'english' ) {
@@ -288,6 +301,7 @@ class FlowModel {
    * @param {number} x - position in meters
    * @param {number} y - position in meters
    * @returns {number} velocity at the position x, y
+   * @public
    */
   getVelocityAt( x, y ) {
     if ( x <= this.pipe.getMinX() || x >= this.pipe.getMaxX() ) {
@@ -304,6 +318,7 @@ class FlowModel {
 
   /**
    * Injects a grid of particles with 9 rows and 4 columns
+   * @public
    */
   injectGridParticles() {
     const x0 = this.pipe.getMinX() + 1E-6;

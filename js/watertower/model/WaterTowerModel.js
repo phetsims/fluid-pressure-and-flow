@@ -101,7 +101,10 @@ class WaterTowerModel {
     this.newHoseDrops = [];
   }
 
-  // Resets all model elements
+  /**
+   * Resets all model elements
+   * @public
+   */
   reset() {
     this.isRulerVisibleProperty.reset();
     this.isMeasuringTapeVisibleProperty.reset();
@@ -137,10 +140,16 @@ class WaterTowerModel {
     this.hoseDrops.clear();
   }
 
+  /**
+   * @private
+   */
   getFluidPressure( height ) {
     return height * 9.8 * this.fluidDensityProperty.value;
   }
 
+  /**
+   * @public
+   */
   getPressureAtCoords( x, y ) {
     //
     if ( y < 0 ) {
@@ -158,17 +167,26 @@ class WaterTowerModel {
     return pressure;
   }
 
+  /**
+   * @public
+   */
   getPressureString( pressure, units, x, y ) {
     return Units.getPressureString( pressure, units, this.isPointInWater( x, y ) );
   }
 
+  /**
+   * @private
+   */
   isPointInWater( x, y ) {
     return ( x > this.waterTower.tankPositionProperty.value.x &&
              x < this.waterTower.tankPositionProperty.value.x + 2 * this.waterTower.TANK_RADIUS &&
              y > this.waterTower.tankPositionProperty.value.y && y < this.waterTower.tankPositionProperty.value.y + this.waterTower.fluidLevelProperty.value );
   }
 
-  // Called by the animation loop.
+  /**
+   * Called by the animation loop.
+   * @public
+   */
   step( dt ) {
     // prevent sudden dt bursts on slow devices or when the user comes back to the tab after a while
     dt = ( dt > 0.04 ) ? 0.04 : dt;
@@ -182,6 +200,9 @@ class WaterTowerModel {
     }
   }
 
+  /**
+   * @private
+   */
   stepInternal( dt ) {
 
     // Ensure that water flow looks ok even on very low frame rates
@@ -357,6 +378,9 @@ class WaterTowerModel {
     }
   }
 
+  /**
+   * @public
+   */
   getFluidDensityString() {
     if ( this.measureUnitsProperty.value === 'english' ) {
       return StringUtils.format( valueWithUnitsPatternString,
@@ -367,6 +391,9 @@ class WaterTowerModel {
     }
   }
 
+  /**
+   * @public
+   */
   getWaterDropVelocityAt( x, y ) {
 
     // There might be waterdrops under the ground that are not yet removed.

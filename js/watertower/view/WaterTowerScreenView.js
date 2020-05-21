@@ -339,6 +339,9 @@ class WaterTowerScreenView extends ScreenView {
     toolsLayer.moveToFront();
   }
 
+  /**
+   * @public
+   */
   step( dt ) {
     this.waterTowerDropsLayer.step( dt );
     this.hoseDropsLayer.step( dt );

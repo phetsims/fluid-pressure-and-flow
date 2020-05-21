@@ -114,6 +114,9 @@ class PipeHandlesNode extends Node {
 
   }
 
+  /**
+   * @public
+   */
   reset() {
 
     // reset the grid injector position

@@ -28,23 +28,36 @@ class FluxMeter {
     this.updateEmitter = new Emitter();
   }
 
+  /**
+   * @public
+   */
   reset() {
     this.xPositionProperty.reset();
   }
 
-  // Compute the area as the pi * r * r of the pipe at the cross section where the flux meter is currently positioned
-  // Returns the area in meters squared
+  /**
+   * Compute the area as the pi * r * r of the pipe at the cross section where the flux meter is currently positioned
+   * Returns the area in meters squared
+   * @public
+   */
   getArea() {
     return this.pipe.getCrossSectionalArea( this.xPositionProperty.value );
   }
 
-  // Returns the flow rate in liters per sec (L/s)
+  /**
+   * Returns the flow rate in liters per sec (L/s)
+   * @public
+   */
   getFlowRate() {
     return this.pipe.flowRateProperty.value;
   }
 
-  //Assume incompressible fluid (like water), so the flow rate must remain constant throughout the pipe
-  //flux = rate / area
+  /**
+   * Assume incompressible fluid (like water), so the flow rate must remain constant throughout the pipe
+   * flux = rate / area
+   * @returns {number}
+   * @public
+   */
   getFlux() {
     return this.getFlowRate() / this.getArea();
   }

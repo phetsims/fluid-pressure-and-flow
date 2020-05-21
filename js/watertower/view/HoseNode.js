@@ -183,6 +183,9 @@ class HoseNode extends Node {
     this.spoutAndNozzle.left = this.modelViewTransform.modelToViewX( this.hose.nozzleAttachmentOuterX ) - 19 * Math.sin( this.hose.angleProperty.value );
   }
 
+  /**
+   * @public
+   */
   reset() {
     this.setTranslation( this.modelViewTransform.modelToViewX( this.hose.initialPosition.x ),
       this.modelViewTransform.modelToViewY( this.hose.initialPosition.y ) );

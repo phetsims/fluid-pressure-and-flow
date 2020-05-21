@@ -64,7 +64,10 @@ class GridInjectorNode extends Node {
 
   }
 
-  // reposition the grid injector
+  /**
+   * reposition the grid injector
+   * @public
+   */
   updateGridInjector() {
     this.setTranslation( this.modelViewTransform.modelToViewX( this.gridInjectorX ) - X_OFFSET,
       this.modelViewTransform.modelToViewY( this.pipe.getCrossSection( this.gridInjectorX ).yTop ) - Y_OFFSET );

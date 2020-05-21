@@ -173,12 +173,14 @@ class ControlSlider extends Node {
   }
 
   // hide the slider and show the question mark
+  // @public
   disable() {
     this.content.visible = false;
     this.questionMark.visible = true;
   }
 
   // show the slider and hide the question mark
+  // @public
   enable() {
     this.content.visible = true;
     this.questionMark.visible = false;
