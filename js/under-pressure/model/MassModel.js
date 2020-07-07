@@ -60,7 +60,7 @@ class MassModel {
         }
         else {
           // The user grabbed the mass.  If it was in the stack, remove it.
-          if ( chamberPoolModel.stack.contains( this ) ) {
+          if ( chamberPoolModel.stack.includes( this ) ) {
             chamberPoolModel.stack.remove( this );
           }
         }
@@ -75,7 +75,7 @@ class MassModel {
     // move the masses only when the velocity is greater than than this, see #60 for under-pressure repo
     const epsilonVelocity = 0.05;
 
-    if ( this.chamberPoolModel.stack.contains( this ) ) {
+    if ( this.chamberPoolModel.stack.includes( this ) ) {
 
       //use newton’s laws to equalize pressure/force at interface
       const m = this.chamberPoolModel.stackMassProperty.value;

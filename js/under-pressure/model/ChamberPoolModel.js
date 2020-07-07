@@ -170,7 +170,7 @@ class ChamberPoolModel {
     // Update each of the masses
     const steps = 15; // these steps are oly used for masses inside the pool to make sure they reach equilibrium state on iPad
     this.masses.forEach( mass => {
-      if ( this.stack.contains( mass ) ) {
+      if ( this.stack.includes( mass ) ) {
         for ( let i = 0; i < steps; i++ ) {
           mass.step( dt / steps );
         }
