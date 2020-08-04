@@ -32,7 +32,7 @@ class UnderPressureRuler extends Node {
 
     //close button
     const closeButton = new CloseButton( {
-      iconLength: 6,
+      iconLength: 12,
       listener: () => {
         underPressureModel.isRulerVisibleProperty.value = false;
       }

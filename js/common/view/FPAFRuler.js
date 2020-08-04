@@ -53,7 +53,7 @@ class FPAFRuler extends Node {
     const scaleFont = new PhetFont( options.scaleFont );
 
     const closeButton = new CloseButton( {
-      iconLength: 6,
+      iconLength: 12,
       listener: () => {
         isRulerVisibleProperty.value = false;
       }
