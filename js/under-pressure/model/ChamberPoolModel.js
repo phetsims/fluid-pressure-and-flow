@@ -8,7 +8,7 @@
  * @author Siddhartha Chinthapally (Actual Concepts)
  */
 
-import ObservableArray from '../../../../axon/js/ObservableArray.js';
+import createObservableArray from '../../../../axon/js/createObservableArray.js';
 import Property from '../../../../axon/js/Property.js';
 import Constants from '../../common/Constants.js';
 import fluidPressureAndFlow from '../../fluidPressureAndFlow.js';
@@ -105,7 +105,7 @@ class ChamberPoolModel {
     };
 
     //List of masses that are currently stacked
-    this.stack = new ObservableArray(); // @public
+    this.stack = createObservableArray(); // @public
 
     // @public
     //List of all available masses

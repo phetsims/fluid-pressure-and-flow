@@ -8,7 +8,7 @@
  * @author Siddhartha Chinthapally (Actual Concepts)
  */
 
-import ObservableArray from '../../../../axon/js/ObservableArray.js';
+import createObservableArray from '../../../../axon/js/createObservableArray.js';
 import Property from '../../../../axon/js/Property.js';
 import Range from '../../../../dot/js/Range.js';
 import Utils from '../../../../dot/js/Utils.js';
@@ -91,8 +91,8 @@ class FlowModel {
     this.pipe = new Pipe();
     this.fluxMeter = new FluxMeter( this.pipe );
 
-    this.flowParticles = new ObservableArray();
-    this.gridParticles = new ObservableArray();
+    this.flowParticles = createObservableArray();
+    this.gridParticles = createObservableArray();
 
     // call stepInternal at a rate of 10 times per second
     this.timer = new EventTimer( new EventTimer.UniformEventModel( 10, phet.joist.random.nextDouble.bind( phet.joist.random ) ),

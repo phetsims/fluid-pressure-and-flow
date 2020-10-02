@@ -8,7 +8,7 @@
  */
 
 import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
-import ObservableArray from '../../../../axon/js/ObservableArray.js';
+import createObservableArray from '../../../../axon/js/createObservableArray.js';
 import Property from '../../../../axon/js/Property.js';
 import Range from '../../../../dot/js/Range.js';
 import Utils from '../../../../dot/js/Utils.js';
@@ -63,9 +63,9 @@ class WaterTowerModel {
     this.hose = new Hose( 4, Math.PI / 2 );
 
     this.faucetPosition = new Vector2( 9.1, 26.6 ); //faucet right co-ordinates
-    this.faucetDrops = new ObservableArray();
-    this.waterTowerDrops = new ObservableArray();
-    this.hoseDrops = new ObservableArray();
+    this.faucetDrops = createObservableArray();
+    this.waterTowerDrops = createObservableArray();
+    this.hoseDrops = createObservableArray();
     this.fluidColorModel = new FluidColorModel( this.fluidDensityProperty, this.fluidDensityRange );
 
     this.barometers = [];
