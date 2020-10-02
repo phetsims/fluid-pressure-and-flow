@@ -12,7 +12,7 @@ import fluidPressureAndFlow from '../../fluidPressureAndFlow.js';
 class WaterDropsCanvasNode extends CanvasNode {
 
   /**
-   * @param {ObservableArray<WaterDrop>} waterDrops that need to be rendered
+   * @param {ObservableArrayDef<WaterDrop>} waterDrops that need to be rendered
    * @param {FluidColorModel} fluidColorModel that defines the color of the drops
    * @param {ModelViewTransform2} modelViewTransform to convert between view and model values
    * @param {Object} [options]
