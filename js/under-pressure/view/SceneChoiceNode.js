@@ -9,7 +9,7 @@
 
 import merge from '../../../../phet-core/js/merge.js';
 import Image from '../../../../scenery/js/nodes/Image.js';
-import RadioButtonGroup from '../../../../sun/js/buttons/RadioButtonGroup.js';
+import RectangularRadioButtonGroup from '../../../../sun/js/buttons/RectangularRadioButtonGroup.js';
 import chamberPoolImage from '../../../images/chamber-pool-icon_png.js';
 import mysteryPoolImage from '../../../images/mystery-pool-icon_png.js';
 import squarePoolImage from '../../../images/square-pool-icon_png.js';
@@ -19,7 +19,7 @@ import fluidPressureAndFlow from '../../fluidPressureAndFlow.js';
 // constants
 const ICON_SCALE = 0.5;
 
-class SceneChoiceNode extends RadioButtonGroup {
+class SceneChoiceNode extends RectangularRadioButtonGroup {
 
   /**
    * @param {UnderPressureModel} underPressureModel
