@@ -30,8 +30,8 @@ import ControlSlider from '../../common/view/ControlSlider.js';
 import FPAFRuler from '../../common/view/FPAFRuler.js';
 import SensorToolbox from '../../common/view/SensorToolbox.js';
 import UnitsControlPanel from '../../common/view/UnitsControlPanel.js';
-import fluidPressureAndFlowStrings from '../../fluidPressureAndFlowStrings.js';
 import fluidPressureAndFlow from '../../fluidPressureAndFlow.js';
+import fluidPressureAndFlowStrings from '../../fluidPressureAndFlowStrings.js';
 import FlowToolsControlPanel from './FlowToolsControlPanel.js';
 import FluxMeterNode from './FluxMeterNode.js';
 import GridInjectorNode from './GridInjectorNode.js';
@@ -205,8 +205,13 @@ class FlowScreenView extends ScreenView {
 
     this.addChild( stepButton );
 
-    const playPauseButton = new PlayPauseButton( flowModel.isPlayingProperty,
-      { radius: 18, stroke: 'black', fill: '#005566', y: stepButton.centerY, right: stepButton.left - INSET } );
+    const playPauseButton = new PlayPauseButton( flowModel.isPlayingProperty, {
+      radius: 18,
+      stroke: 'black',
+      fill: '#005566',
+      y: stepButton.centerY,
+      right: stepButton.left - INSET
+    } );
     this.addChild( playPauseButton );
 
     // add sim speed controls
