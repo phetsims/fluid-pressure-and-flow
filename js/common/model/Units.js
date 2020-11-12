@@ -43,7 +43,7 @@ const Units = {
    * @param {boolean} abbreviated value. Abbreviate to 1 decimal place for metric and 2 decimal places for others.
    * @returns {string}
    */
-  getPressureString: function( pressure, measureUnits, abbreviated ) {
+  getPressureString( pressure, measureUnits, abbreviated ) {
     if ( measureUnits === 'metric' ) {
       return StringUtils.format( valueWithUnitsPatternString, Utils.toFixed( pressure / 1000, abbreviated ? 1 : 3 ), kPaString );
     }
@@ -63,7 +63,7 @@ const Units = {
    * @param {string} measureUnits (english/metric/atmosphere)
    * @returns {string}
    */
-  getGravityString: function( gravity, measureUnits ) {
+  getGravityString( gravity, measureUnits ) {
 
     if ( measureUnits === 'english' ) {
       return StringUtils.format( valueWithUnitsPatternString, Utils.toFixed( GRAVITY_ENGLISH_PER_METRIC * gravity, 1 ),
@@ -80,7 +80,7 @@ const Units = {
    * @param {string} measureUnits (english/metric/atmosphere)
    * @returns {string}
    */
-  getFluidDensityString: function( fluidDensity, measureUnits ) {
+  getFluidDensityString( fluidDensity, measureUnits ) {
     let value;
     let units;
     if ( measureUnits === 'english' ) {
@@ -96,7 +96,7 @@ const Units = {
   },
 
   // converts feet to meters
-  feetToMeters: function( feet ) {
+  feetToMeters( feet ) {
     return feet / FEET_PER_METER;
   }
 };

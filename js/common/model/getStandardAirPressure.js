@@ -16,11 +16,8 @@ import Constants from '../Constants.js';
  * @param {number} height (in meters) at which the air pressure needs to be calculated
  * @returns {number} standard air pressure at the specified height from ground
  */
-const getStandardAirPressure = function( height ) {
-  //Note: 150 meters is 500 feet
-  return Utils.linear( 0, 150, Constants.EARTH_AIR_PRESSURE,
+const getStandardAirPressure = height => Utils.linear( 0, 150, Constants.EARTH_AIR_PRESSURE,
     Constants.EARTH_AIR_PRESSURE_AT_500_FT, height );
-};
 
 fluidPressureAndFlow.register( 'getStandardAirPressure', getStandardAirPressure );
 

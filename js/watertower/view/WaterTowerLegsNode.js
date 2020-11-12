@@ -66,13 +66,9 @@ class WaterTowerLegsNode extends Node {
     const options = this.options;
 
     // use 1 instead of 0 when the height is 0. This is to prevent divide by zero and other problems.
-    const fLeftLegX = function( y ) {
-      return Utils.linear( 0, height > 0 ? height : 1, leftLegTopX, 0, y ); //y1, y2, x1, x2
-    };
+    const fLeftLegX = y => Utils.linear( 0, height > 0 ? height : 1, leftLegTopX, 0, y );
 
-    const fRightLegX = function( y ) {
-      return Utils.linear( 0, height > 0 ? height : 1, rightLegTopX, width, y );
-    };
+    const fRightLegX = y => Utils.linear( 0, height > 0 ? height : 1, rightLegTopX, width, y );
 
     //Left leg
     this.leftLegPath.setShape( new Shape().moveTo( fLeftLegX( 0 ), 0 )

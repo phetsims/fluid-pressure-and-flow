@@ -80,7 +80,7 @@ class MassStackNode extends Node {
   updateMassPositions() {
     let dy = 0;
     const chamberPoolModel = this.chamberPoolModel;
-    chamberPoolModel.stack.forEach( function( massModel ) {
+    chamberPoolModel.stack.forEach( massModel => {
       massModel.positionProperty.value = new Vector2( chamberPoolModel.poolDimensions.leftOpening.x1 + massModel.width / 2,
         chamberPoolModel.poolDimensions.leftOpening.y2 + chamberPoolModel.leftWaterHeight -
         chamberPoolModel.leftDisplacementProperty.value + dy + massModel.height / 2 );

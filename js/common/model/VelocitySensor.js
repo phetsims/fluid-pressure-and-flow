@@ -21,9 +21,7 @@ class VelocitySensor extends Sensor {
     super( position, value );
 
     // @public
-    this.isArrowVisibleProperty = new DerivedProperty( [ this.valueProperty ], function( value ) {
-      return value.magnitude > 0;
-    } );
+    this.isArrowVisibleProperty = new DerivedProperty( [ this.valueProperty ], value => value.magnitude > 0 );
   }
 }
 
