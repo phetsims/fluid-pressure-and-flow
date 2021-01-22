@@ -10,6 +10,7 @@
 import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
 import createObservableArray from '../../../../axon/js/createObservableArray.js';
 import Property from '../../../../axon/js/Property.js';
+import dotRandom from '../../../../dot/js/dotRandom.js';
 import Range from '../../../../dot/js/Range.js';
 import Utils from '../../../../dot/js/Utils.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
@@ -223,7 +224,7 @@ class WaterTowerModel {
       this.accumulatedDt -= 0.016;
       if ( ( this.faucetModeProperty.value === 'manual' && this.isFaucetEnabledProperty.value && this.faucetFlowRateProperty.value > 0 ) ||
            ( this.faucetModeProperty.value === 'matchLeakage' && this.isSluiceOpenProperty.value && this.waterTower.fluidVolumeProperty.value > 0 ) ) {
-        newFaucetDrop = new WaterDrop( this.faucetPosition.copy().plus( new Vector2( phet.joist.random.nextDouble() * 0.2 - 0.1,
+        newFaucetDrop = new WaterDrop( this.faucetPosition.copy().plus( new Vector2( dotRandom.nextDouble() * 0.2 - 0.1,
           1.5 ) ), new Vector2( 0, 0 ),
           this.faucetModeProperty.value === 'manual' ? this.faucetFlowRateProperty.value * 0.016 : this.leakageVolume );
         this.faucetDrops.push( newFaucetDrop );
@@ -277,8 +278,8 @@ class WaterTowerModel {
           this.leakageVolume = remainingVolume > waterVolumeExpelled ? waterVolumeExpelled : remainingVolume;
 
           newHoseDrop = new WaterDrop( new Vector2( this.hose.rotationPivotX + this.waterTower.tankPositionProperty.value.x +
-                                                    2 * this.waterTower.TANK_RADIUS - 0.1 + phet.joist.random.nextDouble() * 0.2 - 0.1,
-            y + phet.joist.random.nextDouble() * 0.2 - 0.1 ),
+                                                    2 * this.waterTower.TANK_RADIUS - 0.1 + dotRandom.nextDouble() * 0.2 - 0.1,
+            y + dotRandom.nextDouble() * 0.2 - 0.1 ),
             new Vector2( this.velocityMagnitude * Math.cos( this.hose.angleProperty.value ),
               this.velocityMagnitude * Math.sin( this.hose.angleProperty.value ) ), this.leakageVolume );
 

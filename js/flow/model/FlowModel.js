@@ -10,6 +10,7 @@
 
 import createObservableArray from '../../../../axon/js/createObservableArray.js';
 import Property from '../../../../axon/js/Property.js';
+import dotRandom from '../../../../dot/js/dotRandom.js';
 import Range from '../../../../dot/js/Range.js';
 import Utils from '../../../../dot/js/Utils.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
@@ -22,8 +23,8 @@ import getStandardAirPressure from '../../common/model/getStandardAirPressure.js
 import Sensor from '../../common/model/Sensor.js';
 import Units from '../../common/model/Units.js';
 import VelocitySensor from '../../common/model/VelocitySensor.js';
-import fluidPressureAndFlowStrings from '../../fluidPressureAndFlowStrings.js';
 import fluidPressureAndFlow from '../../fluidPressureAndFlow.js';
+import fluidPressureAndFlowStrings from '../../fluidPressureAndFlowStrings.js';
 import FluxMeter from './FluxMeter.js';
 import Particle from './Particle.js';
 import Pipe from './Pipe.js';
@@ -95,7 +96,7 @@ class FlowModel {
     this.gridParticles = createObservableArray();
 
     // call stepInternal at a rate of 10 times per second
-    this.timer = new EventTimer( new EventTimer.UniformEventModel( 10, phet.joist.random.nextDouble.bind( phet.joist.random ) ),
+    this.timer = new EventTimer( new EventTimer.UniformEventModel( 10, dotRandom.nextDouble.bind( dotRandom ) ),
       () => { this.createParticle(); }
     );
 
@@ -210,7 +211,7 @@ class FlowModel {
     if ( this.isDotsVisibleProperty.value ) {
 
       // create particles in the [0.15, 0.85) range so that they don't touch the pipe
-      const fraction = 0.15 + phet.joist.random.nextDouble() * 0.7;
+      const fraction = 0.15 + dotRandom.nextDouble() * 0.7;
       this.flowParticles.push( new Particle( this.pipe.getMinX(), fraction, this.pipe, 0.1, 'red' ) );
     }
   }
