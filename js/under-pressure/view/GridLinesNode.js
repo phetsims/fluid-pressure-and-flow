@@ -15,7 +15,7 @@ import fluidPressureAndFlow from '../../fluidPressureAndFlow.js';
 class GridLinesNode extends Node {
   /**
    * Draw grid lines in rect (x1, y1, x2 , y2)
-   * @param { Property<string> }  measureUnitsProperty takes one of 'english'/'metric'/'atmospheres'
+   * @param { Property.<string> }  measureUnitsProperty takes one of 'english'/'metric'/'atmospheres'
    * @param {ModelViewTransform2} modelViewTransform to transform between model and view coordinate frames
    * @param {number} x1
    * @param {number} y1

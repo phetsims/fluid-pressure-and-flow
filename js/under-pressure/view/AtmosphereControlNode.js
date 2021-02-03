@@ -24,7 +24,7 @@ const onString = fluidPressureAndFlowStrings.on;
 class AtmosphereControlNode extends Node {
 
   /**
-   * @param {Property<Boolean>} isAtmosphereProperty - to select atmosphere on/off
+   * @param {Property.<Boolean>} isAtmosphereProperty - to select atmosphere on/off
    * @param {Object} [options]
    */
   constructor( isAtmosphereProperty, options ) {

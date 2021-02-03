@@ -26,7 +26,7 @@ const RADIO_BUTTON_TOUCH_DILATION_Y = 2; // empirically determined
 class UnitsControlPanel extends Panel {
 
   /**
-   * @param {Property<string>} measureUnitsProperty can take values 'english', 'metric' or 'atmospheres'
+   * @param {Property.<string>} measureUnitsProperty can take values 'english', 'metric' or 'atmospheres'
    * @param {Object} [options]
    */
   constructor( measureUnitsProperty, options ) {

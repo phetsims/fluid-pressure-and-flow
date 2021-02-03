@@ -31,11 +31,11 @@ const PLUS_MINUS_SPACING = 6;
 class ControlSlider extends Node {
 
   /**
-   * @param {Property<string>} measureUnitsProperty tracks the units to use (english/metric/atmosphere)
-   * @param {Property<Number>} trackProperty tracks the property used in the slider
+   * @param {Property.<string>} measureUnitsProperty tracks the units to use (english/metric/atmosphere)
+   * @param {Property.<Number>} trackProperty tracks the property used in the slider
    * @param {function} getPropertyStringFunction returns a display value
    * @param {Range} trackRange is the range of values that the trackProperty can take
-   * @param {Property<boolean>} expandedProperty tracks whether the control is expanded or collapsed
+   * @param {Property.<boolean>} expandedProperty tracks whether the control is expanded or collapsed
    * @param {Object} [options]
    */
   constructor( measureUnitsProperty, trackProperty, getPropertyStringFunction, trackRange, expandedProperty,
