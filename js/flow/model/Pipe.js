@@ -113,7 +113,7 @@ class Pipe {
 
   /**
    * Interpolates the pipe control points to obtain a smooth set of cross sections
-   * @returns {Array<PipeCrossSection>} array of interpolated cross-sections
+   * @returns {Array.<PipeCrossSection>} array of interpolated cross-sections
    * @private
    */
   spline() {
