@@ -12,8 +12,8 @@ import fluidPressureAndFlow from '../../fluidPressureAndFlow.js';
 class ParticleCanvasNode extends CanvasNode {
 
   /**
-   * @param {ObservableArrayDef<Particle>} particles that need to be rendered on the canvas
-   * @param {ObservableArrayDef<Particle>} gridParticles that need to be rendered on the canvas
+   * @param {ObservableArrayDef.<Particle>} particles that need to be rendered on the canvas
+   * @param {ObservableArrayDef.<Particle>} gridParticles that need to be rendered on the canvas
    * @param {ModelViewTransform2} modelViewTransform to convert between model and view co-ordinate frames
    * @param {Object} [options]
    */
