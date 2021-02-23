@@ -75,6 +75,7 @@ class WaterTowerScreenView extends ScreenView {
     // TODO: find a way to not do this
     waterTowerModel.modelViewTransform = modelViewTransform;
 
+    //TODO this is a workaround, see See https://github.com/phetsims/fluid-pressure-and-flow/issues/87
     // add background -- sky
     // rectangle with uniform sky color for y < groundY - 200
     this.addChild( new Rectangle( -5000, -1000, 10000, 1000 + groundY - 198, {
