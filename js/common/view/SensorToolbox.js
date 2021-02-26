@@ -40,7 +40,7 @@ class SensorToolbox extends Panel {
       [ model.pipe.flowRateProperty, model.pipe.frictionProperty ],
       model.getVelocityAt.bind( model ),
       Bounds2.EVERYTHING, // never used for the icon
-      Bounds2.EVERYTHING,// never used for the icon
+      Bounds2.EVERYTHING, // never used for the icon
       { scale: 0.9, isIcon: true }
     );
 
@@ -52,7 +52,7 @@ class SensorToolbox extends Panel {
       model.getPressureAtCoords.bind( model ),
       model.getPressureString.bind( model ),
       velocitySensorIcon.localBounds, // never used for the icon
-      velocitySensorIcon.localBounds,// never used for the icon
+      velocitySensorIcon.localBounds, // never used for the icon
       {
         minPressure: Constants.MIN_PRESSURE,
         maxPressure: Constants.MAX_PRESSURE,
