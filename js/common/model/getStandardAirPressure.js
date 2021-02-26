@@ -17,7 +17,7 @@ import Constants from '../Constants.js';
  * @returns {number} standard air pressure at the specified height from ground
  */
 const getStandardAirPressure = height => Utils.linear( 0, 150, Constants.EARTH_AIR_PRESSURE,
-    Constants.EARTH_AIR_PRESSURE_AT_500_FT, height );
+  Constants.EARTH_AIR_PRESSURE_AT_500_FT, height );
 
 fluidPressureAndFlow.register( 'getStandardAirPressure', getStandardAirPressure );
 
