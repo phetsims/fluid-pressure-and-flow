@@ -22,8 +22,8 @@ import getStandardAirPressure from '../../common/model/getStandardAirPressure.js
 import Sensor from '../../common/model/Sensor.js';
 import Units from '../../common/model/Units.js';
 import VelocitySensor from '../../common/model/VelocitySensor.js';
-import fluidPressureAndFlowStrings from '../../fluidPressureAndFlowStrings.js';
 import fluidPressureAndFlow from '../../fluidPressureAndFlow.js';
+import fluidPressureAndFlowStrings from '../../fluidPressureAndFlowStrings.js';
 import Hose from './Hose.js';
 import WaterDrop from './WaterDrop.js';
 import WaterTower from './WaterTower.js';
@@ -328,7 +328,7 @@ class WaterTowerModel {
     }
 
     if ( this.dropsToRemove.length > 0 ) {
-      this.faucetDrops.removeAll( this.dropsToRemove );
+      this.faucetDrops.removeAll( this.dropsToRemove.filter( drop => this.faucetDrops.includes( drop ) ) );
     }
 
     this.dropsToRemove = [];
@@ -345,7 +345,7 @@ class WaterTowerModel {
     }
 
     if ( this.dropsToRemove.length > 0 ) {
-      this.waterTowerDrops.removeAll( this.dropsToRemove );
+      this.waterTowerDrops.removeAll( this.dropsToRemove.filter( drop => this.waterTowerDrops.includes( drop ) ) );
     }
 
     //hose
@@ -363,7 +363,7 @@ class WaterTowerModel {
     }
 
     if ( this.dropsToRemove.length > 0 ) {
-      this.hoseDrops.removeAll( this.dropsToRemove );
+      this.hoseDrops.removeAll( this.dropsToRemove.filter( drop => this.hoseDrops.includes( drop ) ) );
     }
 
     // update sensor values only about 10 times per sec
