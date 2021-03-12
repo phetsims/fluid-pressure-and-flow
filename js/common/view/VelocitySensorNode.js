@@ -208,8 +208,8 @@ class VelocitySensorNode extends Node {
         }
         else {
           labelText.text = units === 'metric' ?
-                           velocity.magnitude.toFixed( 1 ) + ' ' + mPerSString :
-                           ( velocity.magnitude * 3.28 ).toFixed( 1 ) + ' ' + ftPerSString;
+                           `${velocity.magnitude.toFixed( 1 )} ${mPerSString}` :
+                           `${( velocity.magnitude * 3.28 ).toFixed( 1 )} ${ftPerSString}`;
         }
         labelText.center = innerMostRectangle.center;
       } );
