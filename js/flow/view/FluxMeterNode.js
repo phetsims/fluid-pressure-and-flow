@@ -9,6 +9,7 @@
  */
 
 import Property from '../../../../axon/js/Property.js';
+import Utils from '../../../../dot/js/Utils.js';
 import Shape from '../../../../kite/js/Shape.js';
 import merge from '../../../../phet-core/js/merge.js';
 import PhetFont from '../../../../scenery-phet/js/PhetFont.js';
@@ -25,8 +26,8 @@ import Color from '../../../../scenery/js/util/Color.js';
 import Panel from '../../../../sun/js/Panel.js';
 import twoSidedHandleImage from '../../../images/handle-two-sided_png.js';
 import Units from '../../common/model/Units.js';
-import fluidPressureAndFlowStrings from '../../fluidPressureAndFlowStrings.js';
 import fluidPressureAndFlow from '../../fluidPressureAndFlow.js';
+import fluidPressureAndFlowStrings from '../../fluidPressureAndFlowStrings.js';
 
 const areaString = fluidPressureAndFlowStrings.area;
 const areaUnitsEnglishString = fluidPressureAndFlowStrings.areaUnitsEnglish;
@@ -243,26 +244,26 @@ class FluxMeterNode extends Node {
   updateDisplayPanel( units ) {
 
     if ( units === 'metric' ) {
-      this.flowRateValue.text = this.flowModel.fluxMeter.getFlowRate().toFixed( 1 );
+      this.flowRateValue.text = Utils.toFixed( this.flowModel.fluxMeter.getFlowRate(), 1 );
       this.flowRateUnit.text = rateUnitsMetricString;
 
-      this.areaValue.text = this.flowModel.fluxMeter.getArea().toFixed( 1 );
+      this.areaValue.text = Utils.toFixed( this.flowModel.fluxMeter.getArea(), 1 );
       this.areaUnit.text = areaUnitsMetricString;
 
-      this.fluxValue.text = this.flowModel.fluxMeter.getFlux().toFixed( 1 );
+      this.fluxValue.text = Utils.toFixed( this.flowModel.fluxMeter.getFlux(), 1 );
       this.fluxUnit.text = fluxUnitsMetricString;
     }
     else { // use english for either english or atmospheres
       const flowRate = this.flowModel.fluxMeter.getFlowRate() * Units.FEET_CUBE_PER_LITER;
-      this.flowRateValue.text = flowRate.toFixed( 1 );
+      this.flowRateValue.text = Utils.toFixed( flowRate, 1 );
       this.flowRateUnit.text = rateUnitsEnglishString;
 
       const area = this.flowModel.fluxMeter.getArea() * Units.SQUARE_FEET_PER_SQUARE_METER;
-      this.areaValue.text = area.toFixed( 1 );
+      this.areaValue.text = Utils.toFixed( area, 1 );
       this.areaUnit.text = areaUnitsEnglishString;
 
       const flux = this.flowModel.fluxMeter.getFlux() * Units.FEET_PER_CENTIMETER;
-      this.fluxValue.text = flux.toFixed( 1 );
+      this.fluxValue.text = Utils.toFixed( flux, 1 );
       this.fluxUnit.text = fluxUnitsEnglishString;
     }
   }

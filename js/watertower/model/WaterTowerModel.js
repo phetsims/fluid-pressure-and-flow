@@ -385,7 +385,7 @@ class WaterTowerModel {
   getFluidDensityString() {
     if ( this.measureUnitsProperty.value === 'english' ) {
       return StringUtils.format( valueWithUnitsPatternString,
-        ( Units.FLUID_DENSITY_ENGLISH_PER_METRIC * this.fluidDensityProperty.value ).toFixed( 2 ), densityUnitsEnglishString );
+        Utils.toFixed( Units.FLUID_DENSITY_ENGLISH_PER_METRIC * this.fluidDensityProperty.value, 2 ), densityUnitsEnglishString );
     }
     else {
       return StringUtils.format( valueWithUnitsPatternString, Utils.roundSymmetric( this.fluidDensityProperty.value ), densityUnitsMetricString );

@@ -10,6 +10,7 @@
 
 import Property from '../../../../axon/js/Property.js';
 import Bounds2 from '../../../../dot/js/Bounds2.js';
+import Utils from '../../../../dot/js/Utils.js';
 import Shape from '../../../../kite/js/Shape.js';
 import merge from '../../../../phet-core/js/merge.js';
 import ArrowShape from '../../../../scenery-phet/js/ArrowShape.js';
@@ -21,8 +22,8 @@ import Path from '../../../../scenery/js/nodes/Path.js';
 import Rectangle from '../../../../scenery/js/nodes/Rectangle.js';
 import Text from '../../../../scenery/js/nodes/Text.js';
 import LinearGradient from '../../../../scenery/js/util/LinearGradient.js';
-import fluidPressureAndFlowStrings from '../../fluidPressureAndFlowStrings.js';
 import fluidPressureAndFlow from '../../fluidPressureAndFlow.js';
+import fluidPressureAndFlowStrings from '../../fluidPressureAndFlowStrings.js';
 
 const ftPerSString = fluidPressureAndFlowStrings.ftPerS;
 const mPerSString = fluidPressureAndFlowStrings.mPerS;
@@ -208,8 +209,8 @@ class VelocitySensorNode extends Node {
         }
         else {
           labelText.text = units === 'metric' ?
-                           `${velocity.magnitude.toFixed( 1 )} ${mPerSString}` :
-                           `${( velocity.magnitude * 3.28 ).toFixed( 1 )} ${ftPerSString}`;
+                           `${Utils.toFixed( velocity.magnitude, 1 )} ${mPerSString}` :
+                           `${Utils.toFixed( velocity.magnitude * 3.28, 1 )} ${ftPerSString}`;
         }
         labelText.center = innerMostRectangle.center;
       } );
