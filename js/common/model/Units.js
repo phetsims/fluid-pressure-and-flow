@@ -55,6 +55,9 @@ const Units = {
       return StringUtils.format( valueWithUnitsPatternString,
         Utils.toFixed( pressure * PSI_PER_PASCAL, abbreviated ? 2 : 4 ), psiString );
     }
+    else {
+      throw new Error( `illegal measurement units: ${measureUnits}` );
+    }
   },
 
   /**
