@@ -178,7 +178,7 @@ function handleSensorVisibilityAndDrag( sensors, icon, event ) {
         return sensor;
       }
     }
-    assert && assert( false, 'There should always be an invisible sensor if forwarding an event.' );
+    throw new Error( 'There should always be an invisible sensor if forwarding an event.' );
   };
 
   const nextInvisibleSensor = getFirstInvisible();
