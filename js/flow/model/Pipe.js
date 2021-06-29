@@ -241,7 +241,7 @@ class Pipe {
   /**
    * Lookup the cross section immediately before the specified x-position for interpolation
    * @param {number} x - position in meters
-   * @returns {PipeCrossSection} if one exists
+   * @returns {PipeCrossSection|null} if one exists
    * @private
    */
   getPipePositionBefore( x ) {
@@ -255,6 +255,7 @@ class Pipe {
         return pipeCrossSection;
       }
     }
+    return null;
   }
 
   /**
@@ -267,7 +268,7 @@ class Pipe {
   /**
    * Lookup the cross section immediately after the specified x-position for interpolation
    * @param {number} x - position in meters
-   * @returns {PipeCrossSection} if one exists
+   * @returns {PipeCrossSection|null} if one exists
    * @private
    */
   getPipePositionAfter( x ) {
@@ -281,6 +282,7 @@ class Pipe {
         return pipeCrossSection;
       }
     }
+    return null;
   }
 
   /**
