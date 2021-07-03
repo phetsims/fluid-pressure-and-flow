@@ -73,7 +73,7 @@ class FlowScreenView extends ScreenView {
     const groundDepth = 10000;
     this.flowModel = flowModel;
 
-    //TODO this is a workaround, see https://github.com/phetsims/fluid-pressure-and-flow/issues/87
+    // This is a workaround, see https://github.com/phetsims/fluid-pressure-and-flow/issues/87
     // add rectangle on top of the sky node to extend sky upwards.
     this.addChild( new Rectangle( backgroundNodeStartX, -skyExtensionHeight, backgroundNodeWidth, skyExtensionHeight,
       { stroke: '#01ACE4', fill: '#01ACE4' } ) );

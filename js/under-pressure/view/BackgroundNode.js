@@ -29,7 +29,7 @@ class BackgroundNode extends Node {
     const groundExtension = 5000;
     const groundY = modelViewTransform.modelToViewY( 0 );
 
-    //TODO this is a workaround, see https://github.com/phetsims/fluid-pressure-and-flow/issues/87
+    // This is a workaround, see https://github.com/phetsims/fluid-pressure-and-flow/issues/87
     // add rectangle on top of the sky node to extend sky upwards.
     this.addChild( new Rectangle( backgroundStartX, -skyExtension, backgroundWidth, skyExtension,
       { stroke: '#01ACE4', fill: '#01ACE4' } ) );
