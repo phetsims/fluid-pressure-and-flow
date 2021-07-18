@@ -6,7 +6,7 @@
  *
  * @author Vasily Shakhov (Mlearner)
  * @author Siddhartha Chinthapally (ActualConcepts)
- * @author Sam Reid
+ * @author Sam Reid (PhET Interactive Simulations)
  */
 
 import Property from '../../../../axon/js/Property.js';

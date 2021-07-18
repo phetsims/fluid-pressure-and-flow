@@ -4,7 +4,7 @@
  * Use these modified variants of numeric.js spline code because they are much faster!
  * Code copied from numeric.js and hence licensed under MIT
  *
- * @author Sam Reid
+ * @author Sam Reid (PhET Interactive Simulations)
  */
 
 import fluidPressureAndFlow from '../../fluidPressureAndFlow.js';
