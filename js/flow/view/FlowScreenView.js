@@ -7,6 +7,7 @@
  * @author Siddhartha Chinthapally (Actual Concepts).
  */
 
+import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import Bounds2 from '../../../../dot/js/Bounds2.js';
 import Matrix3 from '../../../../dot/js/Matrix3.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
@@ -190,7 +191,7 @@ class FlowScreenView extends ScreenView {
     } );
     // add play pause button and step button
     const stepButton = new StepForwardButton( {
-      isPlayingProperty: flowModel.isPlayingProperty,
+      enabledProperty: DerivedProperty.not( flowModel.isPlayingProperty ),
       listener: () => {
         flowModel.timer.step( 0.016 );
         flowModel.propagateParticles( 0.016 );

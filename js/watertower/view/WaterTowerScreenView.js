@@ -227,7 +227,7 @@ class WaterTowerScreenView extends ScreenView {
 
     // add play pause button and step button
     const stepButton = new StepForwardButton( {
-      isPlayingProperty: waterTowerModel.isPlayingProperty,
+      enabledProperty: DerivedProperty.not( waterTowerModel.isPlayingProperty ),
       listener: () => { waterTowerModel.stepInternal( 0.016 ); },
       stroke: 'black',
       fill: '#005566',
