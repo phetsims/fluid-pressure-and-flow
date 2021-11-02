@@ -37,19 +37,19 @@ class TrapezoidPoolWaterNode extends Node {
                                       trapezoidPoolModel.poolDimensions.bottomChamber.y2 ); //height in bottom passage
 
       waterPath.shape = new Shape()
-        .moveTo( modelViewTransform.modelToViewX( trapezoidPoolModel.poolDimensions.leftChamber.leftBorderFunction( viewHeight ) ),
+        .moveTo( modelViewTransform.modelToViewX( trapezoidPoolModel.poolDimensions.leftChamber.leftBorderFunction.evaluate( viewHeight ) ),
           topY )
         .lineTo( x1, yMax )
         .lineTo( x4, yMax )
-        .lineTo( modelViewTransform.modelToViewX( trapezoidPoolModel.poolDimensions.rightChamber.rightBorderFunction( viewHeight ) ),
+        .lineTo( modelViewTransform.modelToViewX( trapezoidPoolModel.poolDimensions.rightChamber.rightBorderFunction.evaluate( viewHeight ) ),
           topY )
-        .lineTo( modelViewTransform.modelToViewX( trapezoidPoolModel.poolDimensions.rightChamber.leftBorderFunction( viewHeight ) ),
+        .lineTo( modelViewTransform.modelToViewX( trapezoidPoolModel.poolDimensions.rightChamber.leftBorderFunction.evaluate( viewHeight ) ),
           topY )
-        .lineTo( modelViewTransform.modelToViewX( trapezoidPoolModel.poolDimensions.rightChamber.leftBorderFunction( h ) ),
+        .lineTo( modelViewTransform.modelToViewX( trapezoidPoolModel.poolDimensions.rightChamber.leftBorderFunction.evaluate( h ) ),
           yMax + modelViewTransform.modelToViewDeltaY( h ) )
-        .lineTo( modelViewTransform.modelToViewX( trapezoidPoolModel.poolDimensions.leftChamber.rightBorderFunction( h ) ),
+        .lineTo( modelViewTransform.modelToViewX( trapezoidPoolModel.poolDimensions.leftChamber.rightBorderFunction.evaluate( h ) ),
           yMax + modelViewTransform.modelToViewDeltaY( h ) )
-        .lineTo( modelViewTransform.modelToViewX( trapezoidPoolModel.poolDimensions.leftChamber.rightBorderFunction( viewHeight ) ),
+        .lineTo( modelViewTransform.modelToViewX( trapezoidPoolModel.poolDimensions.leftChamber.rightBorderFunction.evaluate( viewHeight ) ),
           topY );
 
     } );

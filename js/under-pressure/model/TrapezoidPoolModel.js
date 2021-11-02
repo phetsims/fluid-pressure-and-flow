@@ -93,9 +93,9 @@ class TrapezoidPoolModel extends PoolWithFaucetsModel {
       x3top: this.poolDimensions.rightChamber.centerTop - this.poolDimensions.rightChamber.widthTop / 2,
       x4top: this.poolDimensions.rightChamber.centerTop + this.poolDimensions.rightChamber.widthTop / 2,
 
-      x1middle: this.poolDimensions.leftChamber.rightBorderFunction( Math.abs( this.poolDimensions.bottomChamber.y2 -
+      x1middle: this.poolDimensions.leftChamber.rightBorderFunction.evaluate( Math.abs( this.poolDimensions.bottomChamber.y2 -
                                                                                this.poolDimensions.bottomChamber.y1 ) ),
-      x2middle: this.poolDimensions.rightChamber.leftBorderFunction( Math.abs( this.poolDimensions.bottomChamber.y2 -
+      x2middle: this.poolDimensions.rightChamber.leftBorderFunction.evaluate( Math.abs( this.poolDimensions.bottomChamber.y2 -
                                                                                this.poolDimensions.bottomChamber.y1 ) ),
 
       x1bottom: this.poolDimensions.leftChamber.centerTop - this.poolDimensions.leftChamber.widthBottom / 2,
@@ -135,10 +135,10 @@ class TrapezoidPoolModel extends PoolWithFaucetsModel {
     else {
       const yDiffWithPoolBottom = y - this.poolDimensions.bottomChamber.y2;
       if ( yDiffWithPoolBottom > 0 ) {
-        const x1 = this.poolDimensions.leftChamber.leftBorderFunction( yDiffWithPoolBottom );
-        const x2 = this.poolDimensions.leftChamber.rightBorderFunction( yDiffWithPoolBottom );
-        const x3 = this.poolDimensions.rightChamber.leftBorderFunction( yDiffWithPoolBottom );
-        const x4 = this.poolDimensions.rightChamber.rightBorderFunction( yDiffWithPoolBottom );
+        const x1 = this.poolDimensions.leftChamber.leftBorderFunction.evaluate( yDiffWithPoolBottom );
+        const x2 = this.poolDimensions.leftChamber.rightBorderFunction.evaluate( yDiffWithPoolBottom );
+        const x3 = this.poolDimensions.rightChamber.leftBorderFunction.evaluate( yDiffWithPoolBottom );
+        const x4 = this.poolDimensions.rightChamber.rightBorderFunction.evaluate( yDiffWithPoolBottom );
 
         //inside left or right chamber
         isInside = ( x1 < x && x < x2 ) || ( x3 < x && x < x4 );

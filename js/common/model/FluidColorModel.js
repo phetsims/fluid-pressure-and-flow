@@ -68,10 +68,10 @@ class FluidColorModel {
     if ( this.densityChanged ) {
       const density = this.fluidDensityProperty.get();
       if ( density < Constants.WATER_DENSITY ) {
-        this.colorProperty.value = new Color( this.getRedLow( density ), this.getGreenLow( density ), this.getBlueLow( density ) );
+        this.colorProperty.value = new Color( this.getRedLow.evaluate( density ), this.getGreenLow.evaluate( density ), this.getBlueLow.evaluate( density ) );
       }
       else {
-        this.colorProperty.value = new Color( this.getRedHigh( density ), this.getGreenHigh( density ), this.getBlueHigh( density ) );
+        this.colorProperty.value = new Color( this.getRedHigh.evaluate( density ), this.getGreenHigh.evaluate( density ), this.getBlueHigh.evaluate( density ) );
       }
       this.densityChanged = false;
     }
