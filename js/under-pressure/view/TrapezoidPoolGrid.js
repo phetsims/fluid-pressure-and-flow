@@ -1,4 +1,4 @@
-// Copyright 2013-2020, University of Colorado Boulder
+// Copyright 2013-2021, University of Colorado Boulder
 
 /**
  * View for the grid in trapezoid and chamber pools which shows horizontal lines along the pool indicating the depth.
