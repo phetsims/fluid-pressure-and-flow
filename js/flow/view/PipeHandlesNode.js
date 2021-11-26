@@ -10,8 +10,8 @@
 
 import Property from '../../../../axon/js/Property.js';
 import Bounds2 from '../../../../dot/js/Bounds2.js';
-import Image from '../../../../scenery/js/nodes/Image.js';
-import Node from '../../../../scenery/js/nodes/Node.js';
+import { Image } from '../../../../scenery/js/imports.js';
+import { Node } from '../../../../scenery/js/imports.js';
 import handleImage from '../../../images/handle-with-bar_png.js';
 import fluidPressureAndFlow from '../../fluidPressureAndFlow.js';
 import PipeHandleNode from './PipeHandleNode.js';

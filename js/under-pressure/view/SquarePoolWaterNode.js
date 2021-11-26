@@ -7,7 +7,7 @@
  * @author Siddhartha Chinthapally (Actual Concepts)
  */
 
-import Rectangle from '../../../../scenery/js/nodes/Rectangle.js';
+import { Rectangle } from '../../../../scenery/js/imports.js';
 import fluidPressureAndFlow from '../../fluidPressureAndFlow.js';
 
 class SquarePoolWaterNode extends Rectangle {

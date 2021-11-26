@@ -10,10 +10,10 @@
  */
 
 import Shape from '../../../../kite/js/Shape.js';
-import SimpleDragHandler from '../../../../scenery/js/input/SimpleDragHandler.js';
-import Image from '../../../../scenery/js/nodes/Image.js';
-import Node from '../../../../scenery/js/nodes/Node.js';
-import Path from '../../../../scenery/js/nodes/Path.js';
+import { SimpleDragHandler } from '../../../../scenery/js/imports.js';
+import { Image } from '../../../../scenery/js/imports.js';
+import { Node } from '../../../../scenery/js/imports.js';
+import { Path } from '../../../../scenery/js/imports.js';
 import handle from '../../../images/handle_png.js';
 import nozzleImg from '../../../images/nozzle_png.js';
 import spoutHandleImg from '../../../images/spout-handle_png.js';

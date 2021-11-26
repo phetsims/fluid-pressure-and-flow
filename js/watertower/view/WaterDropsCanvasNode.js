@@ -6,7 +6,7 @@
  * @author Siddhartha Chinthapally (Actual Concepts)
  */
 
-import CanvasNode from '../../../../scenery/js/nodes/CanvasNode.js';
+import { CanvasNode } from '../../../../scenery/js/imports.js';
 import fluidPressureAndFlow from '../../fluidPressureAndFlow.js';
 
 class WaterDropsCanvasNode extends CanvasNode {

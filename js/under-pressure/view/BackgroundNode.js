@@ -9,8 +9,8 @@
 
 import GroundNode from '../../../../scenery-phet/js/GroundNode.js';
 import SkyNode from '../../../../scenery-phet/js/SkyNode.js';
-import Node from '../../../../scenery/js/nodes/Node.js';
-import Rectangle from '../../../../scenery/js/nodes/Rectangle.js';
+import { Node } from '../../../../scenery/js/imports.js';
+import { Rectangle } from '../../../../scenery/js/imports.js';
 import fluidPressureAndFlow from '../../fluidPressureAndFlow.js';
 
 class BackgroundNode extends Node {

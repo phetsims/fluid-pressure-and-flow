@@ -19,11 +19,11 @@ import StepForwardButton from '../../../../scenery-phet/js/buttons/StepForwardBu
 import GroundNode from '../../../../scenery-phet/js/GroundNode.js';
 import PhetFont from '../../../../scenery-phet/js/PhetFont.js';
 import SkyNode from '../../../../scenery-phet/js/SkyNode.js';
-import Node from '../../../../scenery/js/nodes/Node.js';
-import Rectangle from '../../../../scenery/js/nodes/Rectangle.js';
-import Text from '../../../../scenery/js/nodes/Text.js';
-import VBox from '../../../../scenery/js/nodes/VBox.js';
-import Pattern from '../../../../scenery/js/util/Pattern.js';
+import { Node } from '../../../../scenery/js/imports.js';
+import { Rectangle } from '../../../../scenery/js/imports.js';
+import { Text } from '../../../../scenery/js/imports.js';
+import { VBox } from '../../../../scenery/js/imports.js';
+import { Pattern } from '../../../../scenery/js/imports.js';
 import AquaRadioButton from '../../../../sun/js/AquaRadioButton.js';
 import grassImg from '../../../images/grass-texture_png.js';
 import Constants from '../../common/Constants.js';

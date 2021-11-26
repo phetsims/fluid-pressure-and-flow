@@ -9,9 +9,9 @@
 import Bounds2 from '../../../../dot/js/Bounds2.js';
 import Utils from '../../../../dot/js/Utils.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
-import SimpleDragHandler from '../../../../scenery/js/input/SimpleDragHandler.js';
-import Image from '../../../../scenery/js/nodes/Image.js';
-import Node from '../../../../scenery/js/nodes/Node.js';
+import { SimpleDragHandler } from '../../../../scenery/js/imports.js';
+import { Image } from '../../../../scenery/js/imports.js';
+import { Node } from '../../../../scenery/js/imports.js';
 import handleImage from '../../../images/handle-with-bar_png.js';
 import fluidPressureAndFlow from '../../fluidPressureAndFlow.js';
 

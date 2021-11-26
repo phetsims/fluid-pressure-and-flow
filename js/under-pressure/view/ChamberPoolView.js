@@ -8,7 +8,7 @@
  * @author Siddhartha Chinthapally (Actual Concepts)
  */
 
-import Node from '../../../../scenery/js/nodes/Node.js';
+import { Node } from '../../../../scenery/js/imports.js';
 import fluidPressureAndFlow from '../../fluidPressureAndFlow.js';
 import ChamberPoolBack from './ChamberPoolBack.js';
 import ChamberPoolWaterNode from './ChamberPoolWaterNode.js';

@@ -9,9 +9,9 @@
 import Bounds2 from '../../../../dot/js/Bounds2.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import Shape from '../../../../kite/js/Shape.js';
-import Image from '../../../../scenery/js/nodes/Image.js';
-import Node from '../../../../scenery/js/nodes/Node.js';
-import Path from '../../../../scenery/js/nodes/Path.js';
+import { Image } from '../../../../scenery/js/imports.js';
+import { Node } from '../../../../scenery/js/imports.js';
+import { Path } from '../../../../scenery/js/imports.js';
 import leftPipeBackImage from '../../../images/pipe-left-back_png.js';
 import leftPipeImage from '../../../images/pipe-left-front_png.js';
 import rightSidePipeImage from '../../../images/pipe-right_png.js';
