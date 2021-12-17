@@ -11,7 +11,7 @@ import Property from '../../../../axon/js/Property.js';
 import { Image } from '../../../../scenery/js/imports.js';
 import { Node } from '../../../../scenery/js/imports.js';
 import RoundStickyToggleButton from '../../../../sun/js/buttons/RoundStickyToggleButton.js';
-import injectorBulbImage from '../../../images/injector-bulb-cropped_png.js';
+import injectorBulbCropped_png from '../../../images/injectorBulbCropped_png.js';
 import fluidPressureAndFlow from '../../fluidPressureAndFlow.js';
 
 const X_OFFSET = 50; //px
@@ -33,7 +33,7 @@ class GridInjectorNode extends Node {
     this.pipe = pipe;
     this.gridInjectorX = -6; // model value
 
-    const injector = new Image( injectorBulbImage, { scale: 0.35 } );
+    const injector = new Image( injectorBulbCropped_png, { scale: 0.35 } );
 
     const redButton = new RoundStickyToggleButton( false, true, isGridInjectorPressedProperty, {
       radius: 25,

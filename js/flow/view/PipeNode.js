@@ -12,10 +12,10 @@ import Shape from '../../../../kite/js/Shape.js';
 import { Image } from '../../../../scenery/js/imports.js';
 import { Node } from '../../../../scenery/js/imports.js';
 import { Path } from '../../../../scenery/js/imports.js';
-import leftPipeBackImage from '../../../images/pipe-left-back_png.js';
-import leftPipeImage from '../../../images/pipe-left-front_png.js';
-import rightSidePipeImage from '../../../images/pipe-right_png.js';
-import pipeSegmentImage from '../../../images/pipe-segment_png.js';
+import pipeLeftBack_png from '../../../images/pipeLeftBack_png.js';
+import pipeLeftFront_png from '../../../images/pipeLeftFront_png.js';
+import pipeRight_png from '../../../images/pipeRight_png.js';
+import pipeSegment_png from '../../../images/pipeSegment_png.js';
 import fluidPressureAndFlow from '../../fluidPressureAndFlow.js';
 import ParticleCanvasNode from './ParticleCanvasNode.js';
 
@@ -48,9 +48,9 @@ class PipeNode extends Node {
     const leftPipeX = -49;
 
     //left side pipe image.
-    const leftPipeHead = new Image( leftPipeImage );
+    const leftPipeHead = new Image( pipeLeftFront_png );
 
-    const leftPipeSegment = new Image( pipeSegmentImage,
+    const leftPipeSegment = new Image( pipeSegment_png,
       {
         right: leftPipeHead.left + 30,
         scale: new Vector2( PIPE_SEGMENT_X_SCALE, 1 )
@@ -63,7 +63,7 @@ class PipeNode extends Node {
       scale: flowModel.pipe.leftPipeScaleProperty.value
     } );
 
-    this.leftPipeBackNode = new Image( leftPipeBackImage, {
+    this.leftPipeBackNode = new Image( pipeLeftBack_png, {
       x: leftPipeX,
       y: flowModel.pipe.leftPipeYPositionProperty.value,
       scale: flowModel.pipe.leftPipeScaleProperty.value
@@ -89,8 +89,8 @@ class PipeNode extends Node {
     };
 
     // right side pipe image.
-    const rightPipeHead = new Image( rightSidePipeImage );
-    const rightPipeMiddle = new Image( pipeSegmentImage,
+    const rightPipeHead = new Image( pipeRight_png );
+    const rightPipeMiddle = new Image( pipeSegment_png,
       { left: rightPipeHead.right - 50, scale: new Vector2( PIPE_SEGMENT_X_SCALE, 1 ) } );
 
     this.rightPipeNode = new Node( {

@@ -25,7 +25,7 @@ import { Text } from '../../../../scenery/js/imports.js';
 import { VBox } from '../../../../scenery/js/imports.js';
 import { Pattern } from '../../../../scenery/js/imports.js';
 import AquaRadioButton from '../../../../sun/js/AquaRadioButton.js';
-import grassImg from '../../../images/grass-texture_png.js';
+import grassTexture_png from '../../../images/grassTexture_png.js';
 import Constants from '../../common/Constants.js';
 import ControlSlider from '../../common/view/ControlSlider.js';
 import FPAFRuler from '../../common/view/FPAFRuler.js';
@@ -88,7 +88,7 @@ class FlowScreenView extends ScreenView {
     this.addChild( groundNode );
 
     // add grass above the ground
-    const grassPattern = new Pattern( grassImg ).setTransformMatrix( Matrix3.scale( 0.25 ) );
+    const grassPattern = new Pattern( grassTexture_png ).setTransformMatrix( Matrix3.scale( 0.25 ) );
     const grassRectYOffset = 1;
     const grassRectHeight = 10;
 

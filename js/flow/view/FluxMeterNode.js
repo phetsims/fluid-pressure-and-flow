@@ -24,7 +24,7 @@ import { Text } from '../../../../scenery/js/imports.js';
 import { VBox } from '../../../../scenery/js/imports.js';
 import { Color } from '../../../../scenery/js/imports.js';
 import Panel from '../../../../sun/js/Panel.js';
-import twoSidedHandleImage from '../../../images/handle-two-sided_png.js';
+import handleTwoSided_png from '../../../images/handleTwoSided_png.js';
 import Units from '../../common/model/Units.js';
 import fluidPressureAndFlow from '../../fluidPressureAndFlow.js';
 import fluidPressureAndFlowStrings from '../../fluidPressureAndFlowStrings.js';
@@ -166,7 +166,7 @@ class FluxMeterNode extends Node {
       } );
     this.addChild( this.lowerLine );
 
-    this.handle = new Image( twoSidedHandleImage,
+    this.handle = new Image( handleTwoSided_png,
       { cursor: 'pointer', top: this.lowerLine.bottom, left: this.lowerLine.right - 16, scale: 0.35 } );
     this.handle.touchArea = this.handle.localBounds.dilatedXY( 20, 20 );
 

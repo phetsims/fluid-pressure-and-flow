@@ -10,7 +10,7 @@ import Property from '../../../axon/js/Property.js';
 import Screen from '../../../joist/js/Screen.js';
 import ScreenIcon from '../../../joist/js/ScreenIcon.js';
 import { Image } from '../../../scenery/js/imports.js';
-import waterTowerScreenIcon from '../../images/water-tower-mockup_png.js';
+import waterTowerMockup_png from '../../images/waterTowerMockup_png.js';
 import fluidPressureAndFlowStrings from '../fluidPressureAndFlowStrings.js';
 import fluidPressureAndFlow from '../fluidPressureAndFlow.js';
 import WaterTowerModel from './model/WaterTowerModel.js';
@@ -26,7 +26,7 @@ class WaterTowerScreen extends Screen {
     const options = {
       name: waterTowerScreenTitleString,
       backgroundColorProperty: new Property( 'white' ),
-      homeScreenIcon: new ScreenIcon( new Image( waterTowerScreenIcon ), {
+      homeScreenIcon: new ScreenIcon( new Image( waterTowerMockup_png ), {
         maxIconWidthProportion: 1,
         maxIconHeightProportion: 1
       } )

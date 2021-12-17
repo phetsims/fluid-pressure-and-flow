@@ -1,5 +1,5 @@
 {
-  "cement-texture-dark.jpg": {
+  "cementTextureDark.jpg": {
     "license": "Public Domain",
     "notes": "",
     "projectURL": "https://www.public-domain-image.com/full-image/textures-and-patterns-public-domain-images-pictures/concrete-texture-public-domain-images-pictures/cement-texture.jpg-royalty-free-stock-image.html",
@@ -7,7 +7,7 @@
       "Public Domain"
     ]
   },
-  "chamber-pool-icon.png": {
+  "chamberPoolIcon.png": {
     "license": "contact phethelp@colorado.edu",
     "notes": "created by Bryce Gruneich",
     "projectURL": "https://phet.colorado.edu",
@@ -15,7 +15,7 @@
       "Copyright 2002-2015 University of Colorado Boulder"
     ]
   },
-  "flow-mockup.png": {
+  "flowMockup.png": {
     "license": "contact phethelp@colorado.edu",
     "notes": "",
     "projectURL": "https://phet.colorado.edu",
@@ -23,7 +23,7 @@
       "Copyright 2002-2015 University of Colorado Boulder"
     ]
   },
-  "grass-texture.png": {
+  "grassTexture.png": {
     "license": "Public Domain",
     "notes": "also used in Under Pressure",
     "projectURL": "https://openclipart.org/detail/21212/grass-texture-by-rg1024-21212",
@@ -31,7 +31,7 @@
       "Public Domain"
     ]
   },
-  "handle-two-sided.png": {
+  "handleTwoSided.png": {
     "license": "contact phethelp@colorado.edu",
     "notes": "created by Bryce Gruneich",
     "projectURL": "https://phet.colorado.edu",
@@ -39,7 +39,7 @@
       "Copyright 2002-2015 University of Colorado Boulder"
     ]
   },
-  "handle-with-bar.png": {
+  "handleWithBar.png": {
     "license": "contact phethelp@colorado.edu",
     "notes": "created by Bryce Gruneich",
     "projectURL": "https://phet.colorado.edu",
@@ -55,7 +55,7 @@
       "Copyright 2002-2015 University of Colorado Boulder"
     ]
   },
-  "injector-bulb-cropped.png": {
+  "injectorBulbCropped.png": {
     "license": "contact phethelp@colorado.edu",
     "notes": "created by Bryce Gruneich",
     "projectURL": "https://phet.colorado.edu",
@@ -63,7 +63,7 @@
       "Copyright 2002-2015 University of Colorado Boulder"
     ]
   },
-  "mystery-pool-icon.png": {
+  "mysteryPoolIcon.png": {
     "license": "contact phethelp@colorado.edu",
     "notes": "created by Bryce Gruneich",
     "projectURL": "https://phet.colorado.edu",
@@ -79,7 +79,7 @@
       "Copyright 2002-2015 University of Colorado Boulder"
     ]
   },
-  "pipe-left-back.png": {
+  "pipeLeftBack.png": {
     "license": "contact phethelp@colorado.edu",
     "notes": "created by Bryce Gruneich",
     "projectURL": "https://phet.colorado.edu",
@@ -87,7 +87,7 @@
       "Copyright 2002-2015 University of Colorado Boulder"
     ]
   },
-  "pipe-left-front.png": {
+  "pipeLeftFront.png": {
     "license": "contact phethelp@colorado.edu",
     "notes": "created by Bryce Gruneich",
     "projectURL": "https://phet.colorado.edu",
@@ -95,7 +95,7 @@
       "Copyright 2002-2015 University of Colorado Boulder"
     ]
   },
-  "pipe-right.png": {
+  "pipeRight.png": {
     "license": "contact phethelp@colorado.edu",
     "notes": "created by Bryce Gruneich",
     "projectURL": "https://phet.colorado.edu",
@@ -103,7 +103,7 @@
       "Copyright 2002-2015 University of Colorado Boulder"
     ]
   },
-  "pipe-segment.png": {
+  "pipeSegment.png": {
     "license": "contact phethelp@colorado.edu",
     "notes": "created by Bryce Gruneich",
     "projectURL": "https://phet.colorado.edu",
@@ -111,7 +111,7 @@
       "Copyright 2002-2015 University of Colorado Boulder"
     ]
   },
-  "spout-handle.png": {
+  "spoutHandle.png": {
     "license": "contact phethelp@colorado.edu",
     "notes": "created by Bryce Gruneich",
     "projectURL": "https://phet.colorado.edu",
@@ -119,7 +119,7 @@
       "Copyright 2002-2015 University of Colorado Boulder"
     ]
   },
-  "square-pool-icon.png": {
+  "squarePoolIcon.png": {
     "license": "contact phethelp@colorado.edu",
     "notes": "created by Bryce Gruneich",
     "projectURL": "https://phet.colorado.edu",
@@ -127,7 +127,7 @@
       "Copyright 2002-2015 University of Colorado Boulder"
     ]
   },
-  "trapezoid-pool-icon.png": {
+  "trapezoidPoolIcon.png": {
     "license": "contact phethelp@colorado.edu",
     "notes": "created by Bryce Gruneich",
     "projectURL": "https://phet.colorado.edu",
@@ -135,7 +135,7 @@
       "Copyright 2002-2015 University of Colorado Boulder"
     ]
   },
-  "under-pressure.png": {
+  "underPressure.png": {
     "license": "contact phethelp@colorado.edu",
     "notes": "",
     "projectURL": "https://phet.colorado.edu",
@@ -143,7 +143,7 @@
       "Copyright 2002-2015 University of Colorado Boulder"
     ]
   },
-  "water-tower-mockup.png": {
+  "waterTowerMockup.png": {
     "license": "contact phethelp@colorado.edu",
     "notes": "created by Bryce Gruneich",
     "projectURL": "https://phet.colorado.edu",

@@ -14,9 +14,9 @@ import { SimpleDragHandler } from '../../../../scenery/js/imports.js';
 import { Image } from '../../../../scenery/js/imports.js';
 import { Node } from '../../../../scenery/js/imports.js';
 import { Path } from '../../../../scenery/js/imports.js';
-import handle from '../../../images/handle_png.js';
-import nozzleImg from '../../../images/nozzle_png.js';
-import spoutHandleImg from '../../../images/spout-handle_png.js';
+import handle_png from '../../../images/handle_png.js';
+import nozzle_png from '../../../images/nozzle_png.js';
+import spoutHandle_png from '../../../images/spoutHandle_png.js';
 import fluidPressureAndFlow from '../../fluidPressureAndFlow.js';
 
 // constants
@@ -52,7 +52,7 @@ class HoseNode extends Node {
 
     this.handleNodeCenterX = ( this.hose.elbowInnerX - ( this.hose.L1 ) ) / 2 + this.hose.L1;
 
-    this.handleNode = new Image( handle, {
+    this.handleNode = new Image( handle_png, {
       rotation: Math.PI,
       cursor: 'pointer',
       scale: 0.3,
@@ -75,10 +75,10 @@ class HoseNode extends Node {
       }
     } ) );
 
-    const nozzle = new Image( nozzleImg, { scale: 0.75 } );
+    const nozzle = new Image( nozzle_png, { scale: 0.75 } );
 
     this.spoutHandle = new Node( {
-      children: [ new Image( spoutHandleImg ) ],
+      children: [ new Image( spoutHandle_png ) ],
       scale: 0.75,
       cursor: 'pointer',
       bottom: nozzle.bottom,

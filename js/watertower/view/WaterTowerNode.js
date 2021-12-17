@@ -17,8 +17,8 @@ import { Path } from '../../../../scenery/js/imports.js';
 import { Rectangle } from '../../../../scenery/js/imports.js';
 import { LinearGradient } from '../../../../scenery/js/imports.js';
 import TextPushButton from '../../../../sun/js/buttons/TextPushButton.js';
-import handleImage from '../../../images/handle_png.js';
-import wheelImage from '../../../images/wheel_png.js';
+import handle_png from '../../../images/handle_png.js';
+import wheel_png from '../../../images/wheel_png.js';
 import fluidPressureAndFlowStrings from '../../fluidPressureAndFlowStrings.js';
 import fluidPressureAndFlow from '../../fluidPressureAndFlow.js';
 import WaterTowerLegsNode from './WaterTowerLegsNode.js';
@@ -82,7 +82,7 @@ class WaterTowerNode extends Node {
     this.addChild( this.waterTowerLegs );
 
     //add the handle
-    const handleNode = new Image( handleImage, {
+    const handleNode = new Image( handle_png, {
       cursor: 'pointer',
       scale: 0.3,
       top: this.waterTankFrame.bottom,
@@ -92,7 +92,7 @@ class WaterTowerNode extends Node {
     handleNode.touchArea = handleNode.localBounds.dilatedXY( 20, 20 );
 
     //add the wheel and rope
-    const wheelNode = new Image( wheelImage, {
+    const wheelNode = new Image( wheel_png, {
       cursor: 'pointer',
       scale: 0.4,
       bottom: this.waterTankFrame.top,

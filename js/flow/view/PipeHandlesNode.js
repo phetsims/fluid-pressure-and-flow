@@ -12,7 +12,7 @@ import Property from '../../../../axon/js/Property.js';
 import Bounds2 from '../../../../dot/js/Bounds2.js';
 import { Image } from '../../../../scenery/js/imports.js';
 import { Node } from '../../../../scenery/js/imports.js';
-import handleImage from '../../../images/handle-with-bar_png.js';
+import handleWithBar_png from '../../../images/handleWithBar_png.js';
 import fluidPressureAndFlow from '../../fluidPressureAndFlow.js';
 import PipeHandleNode from './PipeHandleNode.js';
 import PipeMainDragHandle from './PipeMainDragHandle.js';
@@ -46,7 +46,7 @@ class PipeHandlesNode extends Node {
     const bottomControlHandleNodes = [];
 
     // add handle to drag the left pipe
-    this.leftPipeMainHandleNode = new Image( handleImage,
+    this.leftPipeMainHandleNode = new Image( handleWithBar_png,
       {
         y: flowModel.pipe.leftPipeMainHandleYPositionProperty.value,
         x: layoutBounds.minX - LEFT_PIPE_DRAG_HANDLE_OFFSET,
@@ -66,7 +66,7 @@ class PipeHandlesNode extends Node {
     this.addChild( this.leftPipeMainHandleNode );
 
     // add handle to drag the right pipe
-    this.rightPipeMainHandleNode = new Image( handleImage,
+    this.rightPipeMainHandleNode = new Image( handleWithBar_png,
       {
         y: flowModel.pipe.rightPipeMainHandleYPositionProperty.value,
         x: layoutBounds.maxX - RIGHT_PIPE_DRAG_HANDLE_OFFSET,

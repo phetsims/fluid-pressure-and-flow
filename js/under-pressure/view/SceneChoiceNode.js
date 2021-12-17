@@ -10,10 +10,10 @@
 import merge from '../../../../phet-core/js/merge.js';
 import { Image } from '../../../../scenery/js/imports.js';
 import RectangularRadioButtonGroup from '../../../../sun/js/buttons/RectangularRadioButtonGroup.js';
-import chamberPoolImage from '../../../images/chamber-pool-icon_png.js';
-import mysteryPoolImage from '../../../images/mystery-pool-icon_png.js';
-import squarePoolImage from '../../../images/square-pool-icon_png.js';
-import trapezoidPoolImage from '../../../images/trapezoid-pool-icon_png.js';
+import chamberPoolIcon_png from '../../../images/chamberPoolIcon_png.js';
+import mysteryPoolIcon_png from '../../../images/mysteryPoolIcon_png.js';
+import squarePoolIcon_png from '../../../images/squarePoolIcon_png.js';
+import trapezoidPoolIcon_png from '../../../images/trapezoidPoolIcon_png.js';
 import fluidPressureAndFlow from '../../fluidPressureAndFlow.js';
 
 // constants
@@ -34,10 +34,10 @@ class SceneChoiceNode extends RectangularRadioButtonGroup {
     }, options );
 
     super( underPressureModel.currentSceneProperty, [
-      { value: 'square', node: new Image( squarePoolImage, { scale: ICON_SCALE } ) },
-      { value: 'trapezoid', node: new Image( trapezoidPoolImage, { scale: ICON_SCALE } ) },
-      { value: 'chamber', node: new Image( chamberPoolImage, { scale: ICON_SCALE } ) },
-      { value: 'mystery', node: new Image( mysteryPoolImage, { scale: ICON_SCALE } ) }
+      { value: 'square', node: new Image( squarePoolIcon_png, { scale: ICON_SCALE } ) },
+      { value: 'trapezoid', node: new Image( trapezoidPoolIcon_png, { scale: ICON_SCALE } ) },
+      { value: 'chamber', node: new Image( chamberPoolIcon_png, { scale: ICON_SCALE } ) },
+      { value: 'mystery', node: new Image( mysteryPoolIcon_png, { scale: ICON_SCALE } ) }
     ], options );
   }
 }

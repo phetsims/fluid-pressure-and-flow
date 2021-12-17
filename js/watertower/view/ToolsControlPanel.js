@@ -8,7 +8,7 @@
 
 import Shape from '../../../../kite/js/Shape.js';
 import merge from '../../../../phet-core/js/merge.js';
-import measuringTapeImg from '../../../../scenery-phet/images/measuringTape_png.js';
+import measuringTape_png from '../../../../scenery-phet/images/measuringTape_png.js';
 import PhetFont from '../../../../scenery-phet/js/PhetFont.js';
 import RulerNode from '../../../../scenery-phet/js/RulerNode.js';
 import { HBox } from '../../../../scenery/js/imports.js';
@@ -19,7 +19,7 @@ import { Text } from '../../../../scenery/js/imports.js';
 import { VBox } from '../../../../scenery/js/imports.js';
 import Checkbox from '../../../../sun/js/Checkbox.js';
 import Panel from '../../../../sun/js/Panel.js';
-import nozzleImg from '../../../images/nozzle_png.js';
+import nozzle_png from '../../../images/nozzle_png.js';
 import fluidPressureAndFlowStrings from '../../fluidPressureAndFlowStrings.js';
 import fluidPressureAndFlow from '../../fluidPressureAndFlow.js';
 
@@ -98,7 +98,7 @@ function createHoseIcon() {
     lineWidth: 1,
     fill: '#00FF00'
   } );
-  icon.addChild( new Image( nozzleImg, {
+  icon.addChild( new Image( nozzle_png, {
     cursor: 'pointer',
     rotation: Math.PI / 2,
     scale: 0.8,
@@ -110,7 +110,7 @@ function createHoseIcon() {
 
 // Create an icon for the measuring tape
 function createMeasuringTapeIcon() {
-  const icon = new Image( measuringTapeImg, { cursor: 'pointer', scale: 0.6 } );
+  const icon = new Image( measuringTape_png, { cursor: 'pointer', scale: 0.6 } );
   const size = 5;
   icon.addChild( new Path( new Shape().moveTo( -size, 0 ).lineTo( size, 0 ).moveTo( 0, -size ).lineTo( 0, size ), {
     stroke: '#E05F20',

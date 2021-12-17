@@ -10,7 +10,7 @@ import Property from '../../../axon/js/Property.js';
 import Screen from '../../../joist/js/Screen.js';
 import ScreenIcon from '../../../joist/js/ScreenIcon.js';
 import { Image } from '../../../scenery/js/imports.js';
-import flowScreenIcon from '../../images/flow-mockup_png.js';
+import flowMockup_png from '../../images/flowMockup_png.js';
 import fluidPressureAndFlowStrings from '../fluidPressureAndFlowStrings.js';
 import fluidPressureAndFlow from '../fluidPressureAndFlow.js';
 import FlowModel from './model/FlowModel.js';
@@ -25,7 +25,7 @@ class FlowScreen extends Screen {
     const options = {
       name: flowScreenTitleString,
       backgroundColorProperty: new Property( 'white' ),
-      homeScreenIcon: new ScreenIcon( new Image( flowScreenIcon ), {
+      homeScreenIcon: new ScreenIcon( new Image( flowMockup_png ), {
         maxIconWidthProportion: 1,
         maxIconHeightProportion: 1
       } )

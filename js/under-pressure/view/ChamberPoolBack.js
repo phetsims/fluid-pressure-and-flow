@@ -12,8 +12,8 @@ import { Node } from '../../../../scenery/js/imports.js';
 import { Path } from '../../../../scenery/js/imports.js';
 import { Rectangle } from '../../../../scenery/js/imports.js';
 import { Pattern } from '../../../../scenery/js/imports.js';
-import cementImg from '../../../images/cement-texture-dark_jpg.js';
-import grassImg from '../../../images/grass-texture_png.js';
+import cementTextureDark_jpg from '../../../images/cementTextureDark_jpg.js';
+import grassTexture_png from '../../../images/grassTexture_png.js';
 import fluidPressureAndFlow from '../../fluidPressureAndFlow.js';
 
 class ChamberPoolBack extends Node {
@@ -27,7 +27,7 @@ class ChamberPoolBack extends Node {
     super();
 
     //grass
-    const grassPattern = new Pattern( grassImg ).setTransformMatrix( Matrix3.scale( 0.25 ) );
+    const grassPattern = new Pattern( grassTexture_png ).setTransformMatrix( Matrix3.scale( 0.25 ) );
     const grassRectYOffset = 1;
     const grassRectHeight = 10;
     const grassExtension = 2000;
@@ -105,7 +105,7 @@ class ChamberPoolBack extends Node {
       .lineTo( rightOpeningX1 - cementWidth, leftOpeningY2 + cementWidth )
       .lineTo( rightOpeningX1 - cementWidth, leftOpeningY1 );
 
-    this.addChild( new Path( shape, { stroke: new Pattern( cementImg ), lineWidth: 4, lineJoin: 'round' } ) );
+    this.addChild( new Path( shape, { stroke: new Pattern( cementTextureDark_jpg ), lineWidth: 4, lineJoin: 'round' } ) );
 
     //white background for pool
     this.addChild( new Path( new Shape()

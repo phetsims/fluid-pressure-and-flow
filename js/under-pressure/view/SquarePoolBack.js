@@ -13,8 +13,8 @@ import { Node } from '../../../../scenery/js/imports.js';
 import { Path } from '../../../../scenery/js/imports.js';
 import { Rectangle } from '../../../../scenery/js/imports.js';
 import { Pattern } from '../../../../scenery/js/imports.js';
-import cementImg from '../../../images/cement-texture-dark_jpg.js';
-import grassImg from '../../../images/grass-texture_png.js';
+import cementTextureDark_jpg from '../../../images/cementTextureDark_jpg.js';
+import grassTexture_png from '../../../images/grassTexture_png.js';
 import fluidPressureAndFlow from '../../fluidPressureAndFlow.js';
 import UnderPressureFaucetNode from './UnderPressureFaucetNode.js';
 
@@ -29,7 +29,7 @@ class SquarePoolBack extends Node {
     super();
 
     //grass
-    const grassPattern = new Pattern( grassImg ).setTransformMatrix( Matrix3.scale( 0.25 ) );
+    const grassPattern = new Pattern( grassTexture_png ).setTransformMatrix( Matrix3.scale( 0.25 ) );
     const grassRectYOffset = 1;
     const grassRectHeight = 10;
     const grassExtension = 2000;
@@ -73,7 +73,7 @@ class SquarePoolBack extends Node {
       .lineTo( modelViewTransform.modelToViewX( poolDimensions.x2 ) + cementWidth,
         modelViewTransform.modelToViewY( poolDimensions.y1 ) );
 
-    this.addChild( new Path( cementBorder, { stroke: new Pattern( cementImg ), lineWidth: 4, lineJoin: 'round' } ) );
+    this.addChild( new Path( cementBorder, { stroke: new Pattern( cementTextureDark_jpg ), lineWidth: 4, lineJoin: 'round' } ) );
 
     // add output faucet
     this.addChild( new UnderPressureFaucetNode( squarePoolModel.outputFaucet, 150, modelViewTransform ) );

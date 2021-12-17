@@ -12,7 +12,7 @@ import Vector2 from '../../../../dot/js/Vector2.js';
 import { SimpleDragHandler } from '../../../../scenery/js/imports.js';
 import { Image } from '../../../../scenery/js/imports.js';
 import { Node } from '../../../../scenery/js/imports.js';
-import handleImage from '../../../images/handle-with-bar_png.js';
+import handleWithBar_png from '../../../images/handleWithBar_png.js';
 import fluidPressureAndFlow from '../../fluidPressureAndFlow.js';
 
 // constants
@@ -55,7 +55,7 @@ class PipeHandleNode extends Node {
       imageRotation = Math.PI;
       leftSpace = 19;
     }
-    const handleNode = new Image( handleImage, { left: leftSpace, cursor: 'pointer', scale: 0.32 } );
+    const handleNode = new Image( handleWithBar_png, { left: leftSpace, cursor: 'pointer', scale: 0.32 } );
 
     // expand the touch area upwards for the top handles and downwards for bottom handles
     if ( isTop ) {
