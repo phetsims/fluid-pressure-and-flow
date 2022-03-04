@@ -6,7 +6,7 @@
  * @author Siddhartha Chinthapally (ActualConcepts)
  */
 
-import Shape from '../../../../kite/js/Shape.js';
+import { Shape } from '../../../../kite/js/imports.js';
 import merge from '../../../../phet-core/js/merge.js';
 import measuringTape_png from '../../../../scenery-phet/images/measuringTape_png.js';
 import PhetFont from '../../../../scenery-phet/js/PhetFont.js';

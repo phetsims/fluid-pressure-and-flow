@@ -7,7 +7,7 @@
  * @author Siddhartha Chinthapally (Actual Concepts)
  */
 
-import Shape from '../../../../kite/js/Shape.js';
+import { Shape } from '../../../../kite/js/imports.js';
 import { Node } from '../../../../scenery/js/imports.js';
 import { Path } from '../../../../scenery/js/imports.js';
 import fluidPressureAndFlow from '../../fluidPressureAndFlow.js';
