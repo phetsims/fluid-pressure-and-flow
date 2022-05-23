@@ -8,6 +8,7 @@
 
 import Emitter from '../../../../axon/js/Emitter.js';
 import Property from '../../../../axon/js/Property.js';
+import Multilink from '../../../../axon/js/Multilink.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import fluidPressureAndFlow from '../../fluidPressureAndFlow.js';
 
@@ -43,7 +44,7 @@ class Hose {
 
     this.update();
 
-    Property.multilink( [ this.heightProperty, this.angleProperty ], () => { this.update(); } );
+    Multilink.multilink( [ this.heightProperty, this.angleProperty ], () => { this.update(); } );
   }
 
   /**

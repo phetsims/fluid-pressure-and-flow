@@ -8,6 +8,7 @@
  */
 
 import Property from '../../../../axon/js/Property.js';
+import Multilink from '../../../../axon/js/Multilink.js';
 import { Color } from '../../../../scenery/js/imports.js';
 import fluidPressureAndFlow from '../../fluidPressureAndFlow.js';
 import SquarePoolModel from './SquarePoolModel.js';
@@ -61,7 +62,7 @@ class MysteryPoolModel extends SquarePoolModel {
       }
     } );
 
-    Property.multilink( [ this.customGravityProperty, this.customFluidDensityProperty ], () => {
+    Multilink.multilink( [ this.customGravityProperty, this.customFluidDensityProperty ], () => {
       if ( this.underPressureModel.currentSceneProperty.value === 'mystery' ) {
         this.updateChoiceValue();
       }

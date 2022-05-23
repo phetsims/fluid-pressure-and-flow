@@ -8,7 +8,7 @@
  * @author Siddhartha Chinthapally (Actual Concepts)
  */
 
-import Property from '../../../../axon/js/Property.js';
+import Multilink from '../../../../axon/js/Multilink.js';
 import Bounds2 from '../../../../dot/js/Bounds2.js';
 import Utils from '../../../../dot/js/Utils.js';
 import { Shape } from '../../../../kite/js/imports.js';
@@ -194,7 +194,7 @@ class VelocitySensorNode extends Node {
 
     // update the value of the
     //TODO this listener is a little dangerous, signature relies on order of concat
-    Property.multilink( [ velocitySensor.positionProperty ].concat( linkedProperties ), position => {
+    Multilink.multilink( [ velocitySensor.positionProperty ].concat( linkedProperties ), position => {
       velocitySensor.valueProperty.value = getVelocityAt(
         modelViewTransform.viewToModelX( position.x + rectangleWidth / 2 * options.scale ),
         modelViewTransform.viewToModelY( position.y + ( rectangleHeight + triangleHeight ) * options.scale ) );
@@ -202,7 +202,7 @@ class VelocitySensorNode extends Node {
 
     // Update the text when the value or units changes.
     // TODO is the positionProperty needed in this multilink?
-    Property.multilink( [ velocitySensor.valueProperty, measureUnitsProperty, velocitySensor.positionProperty ],
+    Multilink.multilink( [ velocitySensor.valueProperty, measureUnitsProperty, velocitySensor.positionProperty ],
       ( velocity, units, position ) => {
         if ( velocitySensor.positionProperty.initialValue.equals( position ) ) {
           labelText.text = MathSymbols.NO_VALUE;

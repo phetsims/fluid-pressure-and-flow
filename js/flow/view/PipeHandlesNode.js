@@ -8,7 +8,7 @@
  * @author Siddhartha Chinthapally (Actual Concepts).
  */
 
-import Property from '../../../../axon/js/Property.js';
+import Multilink from '../../../../axon/js/Multilink.js';
 import Bounds2 from '../../../../dot/js/Bounds2.js';
 import { Image } from '../../../../scenery/js/imports.js';
 import { Node } from '../../../../scenery/js/imports.js';
@@ -100,13 +100,13 @@ class PipeHandlesNode extends Node {
 
     flowModel.pipe.leftPipeMainHandleYPositionProperty.linkAttribute( this.leftPipeMainHandleNode, 'y' );
     flowModel.pipe.rightPipeMainHandleYPositionProperty.linkAttribute( this.rightPipeMainHandleNode, 'y' );
-    Property.multilink( [ pipe.leftPipeTopHandleYProperty, pipe.leftPipeBottomHandleYProperty ],
+    Multilink.multilink( [ pipe.leftPipeTopHandleYProperty, pipe.leftPipeBottomHandleYProperty ],
       ( leftTop, leftBottom ) => {
         topControlHandleNodes[ 0 ].bottom = leftTop;
         bottomControlHandleNodes[ 0 ].top = leftBottom;
       } );
 
-    Property.multilink( [ pipe.rightPipeTopHandleYProperty, pipe.rightPipeBottomHandleYProperty ],
+    Multilink.multilink( [ pipe.rightPipeTopHandleYProperty, pipe.rightPipeBottomHandleYProperty ],
       ( rightTop, rightBottom ) => {
         topControlHandleNodes[ topControlHandleNodes.length - 1 ].bottom = rightTop;
         bottomControlHandleNodes[ bottomControlHandleNodes.length - 1 ].top = rightBottom;

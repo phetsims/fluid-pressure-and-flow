@@ -8,6 +8,7 @@
  */
 
 import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
+import Multilink from '../../../../axon/js/Multilink.js';
 import createObservableArray from '../../../../axon/js/createObservableArray.js';
 import Property from '../../../../axon/js/Property.js';
 import dotRandom from '../../../../dot/js/dotRandom.js';
@@ -79,7 +80,7 @@ class WaterTowerModel {
       this.speedometers.push( new VelocitySensor( new Vector2( 0, 0 ), new Vector2( 0, 0 ) ) );
     }
 
-    Property.multilink( [ this.waterTower.isFullProperty, this.faucetModeProperty ], ( isFull, faucetMode ) => {
+    Multilink.multilink( [ this.waterTower.isFullProperty, this.faucetModeProperty ], ( isFull, faucetMode ) => {
       if ( faucetMode === 'manual' ) {
         this.isFaucetEnabledProperty.value = !isFull;
         if ( isFull ) {

@@ -9,7 +9,7 @@
  * @author Sam Reid (PhET Interactive Simulations)
  */
 
-import Property from '../../../../axon/js/Property.js';
+import Multilink from '../../../../axon/js/Multilink.js';
 import Bounds2 from '../../../../dot/js/Bounds2.js';
 import Dimension2 from '../../../../dot/js/Dimension2.js';
 import Range from '../../../../dot/js/Range.js';
@@ -163,7 +163,7 @@ class BarometerNode extends Node {
     !options.isIcon && this.addInputListener( this.dragListener );
 
     // Update the value in the barometer value model by reading from the model.
-    Property.multilink( [ barometer.positionProperty ].concat( linkedProperties ), position => {
+    Multilink.multilink( [ barometer.positionProperty ].concat( linkedProperties ), position => {
       if ( barometer.positionProperty.value === barometer.positionProperty.initialValue ) {
         barometer.valueProperty.value = null; // when the barometer is in the sensor panel making sure it shows no value for accessibility
       }
@@ -187,7 +187,7 @@ class BarometerNode extends Node {
     // Update the text when the value, units or position changes.
     // If the barometer reading is 0 and it is touching the sensor panel, then only the position changes.
     // In order to trigger the text display change, need to listen to position property here as well.
-    Property.multilink( [ barometer.valueProperty, measureUnitsProperty, barometer.positionProperty ],
+    Multilink.multilink( [ barometer.valueProperty, measureUnitsProperty, barometer.positionProperty ],
       ( barometerValue, units, position ) => {
         if ( position === barometer.positionProperty.initialValue || barometerValue === null ) {
           text.text = MathSymbols.NO_VALUE; // showing no value when barometer is in the sensor panel

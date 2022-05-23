@@ -8,7 +8,7 @@
  * @author Siddhartha Chinthapally (Actual Concepts)
  */
 
-import Property from '../../../../axon/js/Property.js';
+import Multilink from '../../../../axon/js/Multilink.js';
 import Utils from '../../../../dot/js/Utils.js';
 import { Shape } from '../../../../kite/js/imports.js';
 import merge from '../../../../phet-core/js/merge.js';
@@ -176,7 +176,7 @@ class FluxMeterNode extends Node {
 
     flowModel.isFluxMeterVisibleProperty.linkAttribute( this, 'visible' );
 
-    Property.multilink( [ flowModel.pipe.flowRateProperty, flowModel.measureUnitsProperty ],
+    Multilink.multilink( [ flowModel.pipe.flowRateProperty, flowModel.measureUnitsProperty ],
       ( flowRate, units ) => {
         this.updateDisplayPanel( units );
       } );
