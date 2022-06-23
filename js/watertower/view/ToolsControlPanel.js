@@ -71,9 +71,9 @@ class ToolsControlPanel extends Panel {
 
     // pad all the rows so the text nodes are left aligned and the icons is right aligned
     const checkboxChildren = [
-      new Checkbox( createItem( ruler ), waterTowerModel.isRulerVisibleProperty, checkboxOptions ),
-      new Checkbox( createItem( measuringTape ), waterTowerModel.isMeasuringTapeVisibleProperty, checkboxOptions ),
-      new Checkbox( createItem( hose ), waterTowerModel.isHoseVisibleProperty, checkboxOptions )
+      new Checkbox( waterTowerModel.isRulerVisibleProperty, createItem( ruler ), checkboxOptions ),
+      new Checkbox( waterTowerModel.isMeasuringTapeVisibleProperty, createItem( measuringTape ), checkboxOptions ),
+      new Checkbox( waterTowerModel.isHoseVisibleProperty, createItem( hose ), checkboxOptions )
     ];
     const checkboxes = new VBox( { align: 'left', spacing: 10, children: checkboxChildren } );
 

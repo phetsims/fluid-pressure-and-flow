@@ -62,10 +62,8 @@ class ControlPanel extends Panel {
                      alignOptions.spacing * 2;
     const rulerArray = [ rulerSet[ 0 ], new HStrut( padWidth ), rulerSet[ 1 ] ];
 
-    const rulerCheckbox = new Checkbox( new HBox( { children: rulerArray } ), underPressureModel.isRulerVisibleProperty,
-      alignOptions );
-    const gridCheckbox = new Checkbox( new HBox( { children: gridArray } ), underPressureModel.isGridVisibleProperty,
-      alignOptions );
+    const rulerCheckbox = new Checkbox( underPressureModel.isRulerVisibleProperty, new HBox( { children: rulerArray } ), alignOptions );
+    const gridCheckbox = new Checkbox( underPressureModel.isGridVisibleProperty, new HBox( { children: gridArray } ), alignOptions );
 
     // touch areas, empirically determined
     rulerCheckbox.touchArea = rulerCheckbox.bounds.dilatedY( 1 );

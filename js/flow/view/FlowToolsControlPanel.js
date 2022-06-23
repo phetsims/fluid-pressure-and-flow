@@ -74,11 +74,10 @@ class FlowToolsControlPanel extends Panel {
       spacing: 2
     };
 
-    const rulerCheckbox = new Checkbox( createItem( rulerSpec ), flowModel.isRulerVisibleProperty, checkboxOptions );
-    const frictionCheckbox = new Checkbox( createItem( frictionSpec ), flowModel.pipe.frictionProperty, checkboxOptions );
-    const fluxMeterCheckbox = new Checkbox( createItem( fluxMeterSpec ), flowModel.isFluxMeterVisibleProperty,
-      checkboxOptions );
-    const dotsCheckbox = new Checkbox( createItem( dotsSpec ), flowModel.isDotsVisibleProperty, checkboxOptions );
+    const rulerCheckbox = new Checkbox( flowModel.isRulerVisibleProperty, createItem( rulerSpec ), checkboxOptions );
+    const frictionCheckbox = new Checkbox( flowModel.pipe.frictionProperty, createItem( frictionSpec ), checkboxOptions );
+    const fluxMeterCheckbox = new Checkbox( flowModel.isFluxMeterVisibleProperty, createItem( fluxMeterSpec ), checkboxOptions );
+    const dotsCheckbox = new Checkbox( flowModel.isDotsVisibleProperty, createItem( dotsSpec ), checkboxOptions );
 
     const maxCheckboxWidth = _.maxBy( [ rulerCheckbox, frictionCheckbox, fluxMeterCheckbox, dotsCheckbox ],
       item => item.width
