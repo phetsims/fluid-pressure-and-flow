@@ -35,7 +35,7 @@ class GridInjectorNode extends Node {
 
     const injector = new Image( injectorBulbCropped_png, { scale: 0.35 } );
 
-    const redButton = new RoundStickyToggleButton( false, true, isGridInjectorPressedProperty, {
+    const redButton = new RoundStickyToggleButton( isGridInjectorPressedProperty, false, true, {
       radius: 25,
       centerX: injector.centerX,
       top: injector.top + 31,
