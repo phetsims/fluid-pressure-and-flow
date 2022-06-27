@@ -11,14 +11,12 @@
 
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import PhetFont from '../../../../scenery-phet/js/PhetFont.js';
-import { Text } from '../../../../scenery/js/imports.js';
-import { VBox } from '../../../../scenery/js/imports.js';
+import { Text, VBox } from '../../../../scenery/js/imports.js';
 import AquaRadioButton from '../../../../sun/js/AquaRadioButton.js';
 import ComboBox from '../../../../sun/js/ComboBox.js';
-import ComboBoxItem from '../../../../sun/js/ComboBoxItem.js';
 import Panel from '../../../../sun/js/Panel.js';
-import fluidPressureAndFlowStrings from '../../fluidPressureAndFlowStrings.js';
 import fluidPressureAndFlow from '../../fluidPressureAndFlow.js';
+import fluidPressureAndFlowStrings from '../../fluidPressureAndFlowStrings.js';
 import SquarePoolView from './SquarePoolView.js';
 
 const fluidAString = fluidPressureAndFlowStrings.fluidA;
@@ -93,9 +91,9 @@ class MysteryPoolView extends SquarePoolView {
 
     // items
     this.fluidDensityComboBox = new ComboBox( mysteryPoolModel.customFluidDensityProperty, [
-      new ComboBoxItem( new Text( fluidAString, comboBoxTextOptions ), 0 ),
-      new ComboBoxItem( new Text( fluidBString, comboBoxTextOptions ), 1 ),
-      new ComboBoxItem( new Text( fluidCString, comboBoxTextOptions ), 2 )
+      { value: 0, node: new Text( fluidAString, comboBoxTextOptions ) },
+      { value: 1, node: new Text( fluidBString, comboBoxTextOptions ) },
+      { value: 2, node: new Text( fluidCString, comboBoxTextOptions ) }
     ], this, {
       highlightFill: 'rgb(218,255,255)',
       visible: false
@@ -107,9 +105,9 @@ class MysteryPoolView extends SquarePoolView {
     this.addChild( this.fluidDensityComboBox );
 
     this.gravityComboBox = new ComboBox( mysteryPoolModel.customGravityProperty, [
-      new ComboBoxItem( new Text( planetAString, comboBoxTextOptions ), 0 ),
-      new ComboBoxItem( new Text( planetBString, comboBoxTextOptions ), 1 ),
-      new ComboBoxItem( new Text( planetCString, comboBoxTextOptions ), 2 )
+      { value: 0, node: new Text( planetAString, comboBoxTextOptions ) },
+      { value: 1, node: new Text( planetBString, comboBoxTextOptions ) },
+      { value: 2, node: new Text( planetCString, comboBoxTextOptions ) }
     ], this, {
       cornerRadius: 8,
       highlightFill: 'rgb(218,255,255)',
