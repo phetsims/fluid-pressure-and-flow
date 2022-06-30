@@ -163,7 +163,8 @@ class WaterTowerScreenView extends ScreenView {
         return units;
       } );
 
-    const measuringTapeNode = new MeasuringTapeNode( unitsProperty, waterTowerModel.isMeasuringTapeVisibleProperty, {
+    const measuringTapeNode = new MeasuringTapeNode( unitsProperty, {
+      visibleProperty: waterTowerModel.isMeasuringTapeVisibleProperty,
       basePositionProperty: waterTowerModel.measuringTapeBasePositionProperty,
       tipPositionProperty: waterTowerModel.measuringTapeTipPositionProperty,
       modelViewTransform: modelViewTransform,
