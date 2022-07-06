@@ -29,8 +29,10 @@ class SceneChoiceNode extends RectangularRadioButtonGroup {
 
     options = merge( {
       orientation: 'vertical',
-      baseColor: 'white',
-      cornerRadius: 10
+      radioButtonOptions: {
+        baseColor: 'white',
+        cornerRadius: 10
+      }
     }, options );
 
     super( underPressureModel.currentSceneProperty, [
