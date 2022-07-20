@@ -8,10 +8,7 @@
 
 import Matrix3 from '../../../../dot/js/Matrix3.js';
 import { Shape } from '../../../../kite/js/imports.js';
-import { Node } from '../../../../scenery/js/imports.js';
-import { Path } from '../../../../scenery/js/imports.js';
-import { Rectangle } from '../../../../scenery/js/imports.js';
-import { Pattern } from '../../../../scenery/js/imports.js';
+import { Node, Path, Pattern, Rectangle } from '../../../../scenery/js/imports.js';
 import cementTextureDark_jpg from '../../../images/cementTextureDark_jpg.js';
 import grassTexture_png from '../../../images/grassTexture_png.js';
 import fluidPressureAndFlow from '../../fluidPressureAndFlow.js';

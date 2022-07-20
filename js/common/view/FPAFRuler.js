@@ -14,8 +14,8 @@ import MovableDragHandler from '../../../../scenery-phet/js/input/MovableDragHan
 import PhetFont from '../../../../scenery-phet/js/PhetFont.js';
 import RulerNode from '../../../../scenery-phet/js/RulerNode.js';
 import { Node } from '../../../../scenery/js/imports.js';
-import fluidPressureAndFlowStrings from '../../fluidPressureAndFlowStrings.js';
 import fluidPressureAndFlow from '../../fluidPressureAndFlow.js';
+import fluidPressureAndFlowStrings from '../../fluidPressureAndFlowStrings.js';
 
 const ftString = fluidPressureAndFlowStrings.ft;
 const mString = fluidPressureAndFlowStrings.m;

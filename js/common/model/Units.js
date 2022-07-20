@@ -9,8 +9,8 @@
 
 import Utils from '../../../../dot/js/Utils.js';
 import StringUtils from '../../../../phetcommon/js/util/StringUtils.js';
-import fluidPressureAndFlowStrings from '../../fluidPressureAndFlowStrings.js';
 import fluidPressureAndFlow from '../../fluidPressureAndFlow.js';
+import fluidPressureAndFlowStrings from '../../fluidPressureAndFlowStrings.js';
 
 const atmString = fluidPressureAndFlowStrings.atm;
 const densityUnitsEnglishString = fluidPressureAndFlowStrings.densityUnitsEnglish;

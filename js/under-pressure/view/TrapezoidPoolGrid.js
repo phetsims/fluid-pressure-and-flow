@@ -11,11 +11,9 @@
 
 import StringUtils from '../../../../phetcommon/js/util/StringUtils.js';
 import PhetFont from '../../../../scenery-phet/js/PhetFont.js';
-import { Node } from '../../../../scenery/js/imports.js';
-import { Rectangle } from '../../../../scenery/js/imports.js';
-import { Text } from '../../../../scenery/js/imports.js';
-import fluidPressureAndFlowStrings from '../../fluidPressureAndFlowStrings.js';
+import { Node, Rectangle, Text } from '../../../../scenery/js/imports.js';
 import fluidPressureAndFlow from '../../fluidPressureAndFlow.js';
+import fluidPressureAndFlowStrings from '../../fluidPressureAndFlowStrings.js';
 import GridLinesNode from './GridLinesNode.js';
 
 const ftString = fluidPressureAndFlowStrings.ft;

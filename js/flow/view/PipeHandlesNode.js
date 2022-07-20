@@ -10,8 +10,7 @@
 
 import Multilink from '../../../../axon/js/Multilink.js';
 import Bounds2 from '../../../../dot/js/Bounds2.js';
-import { Image } from '../../../../scenery/js/imports.js';
-import { Node } from '../../../../scenery/js/imports.js';
+import { Image, Node } from '../../../../scenery/js/imports.js';
 import handleWithBar_png from '../../../images/handleWithBar_png.js';
 import fluidPressureAndFlow from '../../fluidPressureAndFlow.js';
 import PipeHandleNode from './PipeHandleNode.js';

@@ -7,8 +7,8 @@
  */
 
 import Emitter from '../../../../axon/js/Emitter.js';
-import Property from '../../../../axon/js/Property.js';
 import Multilink from '../../../../axon/js/Multilink.js';
+import Property from '../../../../axon/js/Property.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import fluidPressureAndFlow from '../../fluidPressureAndFlow.js';
 

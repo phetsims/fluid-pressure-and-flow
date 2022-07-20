@@ -12,8 +12,8 @@ import PhetFont from '../../../../scenery-phet/js/PhetFont.js';
 import RulerNode from '../../../../scenery-phet/js/RulerNode.js';
 import { Node } from '../../../../scenery/js/imports.js';
 import Units from '../../common/model/Units.js';
-import fluidPressureAndFlowStrings from '../../fluidPressureAndFlowStrings.js';
 import fluidPressureAndFlow from '../../fluidPressureAndFlow.js';
+import fluidPressureAndFlowStrings from '../../fluidPressureAndFlowStrings.js';
 
 const ftString = fluidPressureAndFlowStrings.ft;
 const mString = fluidPressureAndFlowStrings.m;

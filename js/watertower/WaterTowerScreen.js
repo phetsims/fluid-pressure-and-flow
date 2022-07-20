@@ -11,8 +11,8 @@ import Screen from '../../../joist/js/Screen.js';
 import ScreenIcon from '../../../joist/js/ScreenIcon.js';
 import { Image } from '../../../scenery/js/imports.js';
 import waterTowerMockup_png from '../../images/waterTowerMockup_png.js';
-import fluidPressureAndFlowStrings from '../fluidPressureAndFlowStrings.js';
 import fluidPressureAndFlow from '../fluidPressureAndFlow.js';
+import fluidPressureAndFlowStrings from '../fluidPressureAndFlowStrings.js';
 import WaterTowerModel from './model/WaterTowerModel.js';
 import WaterTowerScreenView from './view/WaterTowerScreenView.js';
 
