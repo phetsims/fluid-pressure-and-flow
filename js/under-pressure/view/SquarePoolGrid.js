@@ -1,4 +1,4 @@
-// Copyright 2013-2021, University of Colorado Boulder
+// Copyright 2013-2022, University of Colorado Boulder
 
 /**
  * View for the grid in Square Pool which shows horizontal lines along the pool indicating the depth.
