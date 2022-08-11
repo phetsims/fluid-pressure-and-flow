@@ -10,10 +10,10 @@
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import merge from '../../../../phet-core/js/merge.js';
 import CloseButton from '../../../../scenery-phet/js/buttons/CloseButton.js';
-import MovableDragHandler from '../../../../scenery-phet/js/input/MovableDragHandler.js';
 import PhetFont from '../../../../scenery-phet/js/PhetFont.js';
 import RulerNode from '../../../../scenery-phet/js/RulerNode.js';
-import { Node } from '../../../../scenery/js/imports.js';
+import { DragListener, Node } from '../../../../scenery/js/imports.js';
+import Property from '../../../../axon/js/Property.js';
 import fluidPressureAndFlow from '../../fluidPressureAndFlow.js';
 import fluidPressureAndFlowStrings from '../../fluidPressureAndFlowStrings.js';
 
@@ -100,8 +100,8 @@ class FPAFRuler extends Node {
     const rulerDragBounds = dragBounds.withMaxX( dragBounds.maxX - options.rulerWidth );
 
     // ruler drag handlers
-    metersRuler.addInputListener( new MovableDragHandler( rulerPositionProperty, { dragBounds: rulerDragBounds } ) );
-    feetRuler.addInputListener( new MovableDragHandler( rulerPositionProperty, { dragBounds: rulerDragBounds } ) );
+    metersRuler.addInputListener( new DragListener( { positionProperty: rulerPositionProperty, dragBoundsProperty: new Property( rulerDragBounds ) } ) );
+    feetRuler.addInputListener( new DragListener( { positionProperty: rulerPositionProperty, dragBoundsProperty: new Property( rulerDragBounds ) } ) );
 
     this.mutate( options );
   }

@@ -8,7 +8,7 @@ import Bounds2 from '../../../../dot/js/Bounds2.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import merge from '../../../../phet-core/js/merge.js';
 import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransform2.js';
-import { HBox, SimpleDragHandler } from '../../../../scenery/js/imports.js';
+import { DragListener, HBox, SimpleDragHandler } from '../../../../scenery/js/imports.js';
 import Panel from '../../../../sun/js/Panel.js';
 import fluidPressureAndFlow from '../../fluidPressureAndFlow.js';
 import Constants from '../Constants.js';
@@ -139,7 +139,7 @@ class SensorToolbox extends Panel {
 
     } );
 
-    barometerIcon.addInputListener( SimpleDragHandler.createForwardingListener( event => {
+    barometerIcon.addInputListener( DragListener.createForwardingListener( event => {
       handleSensorVisibilityAndDrag( this.barometerNodes, barometerIcon, event );
     } ) );
   }
@@ -182,8 +182,7 @@ function handleSensorVisibilityAndDrag( sensors, icon, event ) {
 
   const nextInvisibleSensor = getFirstInvisible();
   nextInvisibleSensor.visible = true;
-  nextInvisibleSensor.moveToFront();
-  nextInvisibleSensor.dragListener.startDrag( event );
+  nextInvisibleSensor.dragListener.press( event );
 
   let visibleSensors = 0;
   for ( let i = 0; i < sensors.length; i++ ) {
