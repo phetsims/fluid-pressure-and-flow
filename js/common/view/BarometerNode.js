@@ -16,10 +16,10 @@ import Range from '../../../../dot/js/Range.js';
 import { Shape } from '../../../../kite/js/imports.js';
 import merge from '../../../../phet-core/js/merge.js';
 import GaugeNode from '../../../../scenery-phet/js/GaugeNode.js';
-import MovableDragHandler from '../../../../scenery-phet/js/input/MovableDragHandler.js';
 import MathSymbols from '../../../../scenery-phet/js/MathSymbols.js';
 import PhetFont from '../../../../scenery-phet/js/PhetFont.js';
-import { LinearGradient, Node, Path, Rectangle, Text } from '../../../../scenery/js/imports.js';
+import Property from '../../../../axon/js/Property.js';
+import { DragListener, LinearGradient, Node, Path, Rectangle, Text } from '../../../../scenery/js/imports.js';
 import Panel from '../../../../sun/js/Panel.js';
 import fluidPressureAndFlow from '../../fluidPressureAndFlow.js';
 import fluidPressureAndFlowStrings from '../../fluidPressureAndFlowStrings.js';
@@ -132,16 +132,17 @@ class BarometerNode extends Node {
     // @public
     // Add an input listener so the BarometerNode can be dragged
     // Constrain the position so it cannot be dragged offscreen
-    this.dragListener = new MovableDragHandler( barometer.positionProperty,
-      {
-        dragBounds: barometerDragBounds,
-        modelViewTransform: modelViewTransform,
+    // TODO: moving up y, by 1.2
+    this.dragListener = new DragListener( {
+        dragBoundsProperty: new Property( barometerDragBounds ),
+        positionProperty: barometer.positionProperty,
+        transform: modelViewTransform,
 
-        startDrag: () => {
+        start: () => {
           this.moveToFront();
         },
 
-        endDrag: () => {
+        end: () => {
           if ( containerBounds.intersectsBounds( this.visibleBounds ) ) {
 
             if ( options.initialPosition ) {
