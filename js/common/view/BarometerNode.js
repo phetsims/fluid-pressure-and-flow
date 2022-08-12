@@ -10,6 +10,7 @@
  */
 
 import Multilink from '../../../../axon/js/Multilink.js';
+import Property from '../../../../axon/js/Property.js';
 import Bounds2 from '../../../../dot/js/Bounds2.js';
 import Dimension2 from '../../../../dot/js/Dimension2.js';
 import Range from '../../../../dot/js/Range.js';
@@ -18,7 +19,6 @@ import merge from '../../../../phet-core/js/merge.js';
 import GaugeNode from '../../../../scenery-phet/js/GaugeNode.js';
 import MathSymbols from '../../../../scenery-phet/js/MathSymbols.js';
 import PhetFont from '../../../../scenery-phet/js/PhetFont.js';
-import Property from '../../../../axon/js/Property.js';
 import { DragListener, LinearGradient, Node, Path, Rectangle, Text } from '../../../../scenery/js/imports.js';
 import Panel from '../../../../sun/js/Panel.js';
 import fluidPressureAndFlow from '../../fluidPressureAndFlow.js';
@@ -134,29 +134,30 @@ class BarometerNode extends Node {
     // Constrain the position so it cannot be dragged offscreen
     // TODO: moving up y, by 1.2
     this.dragListener = new DragListener( {
-        dragBoundsProperty: new Property( barometerDragBounds ),
-        positionProperty: barometer.positionProperty,
-        transform: modelViewTransform,
+      dragBoundsProperty: new Property( barometerDragBounds ),
+      positionProperty: barometer.positionProperty,
+      transform: modelViewTransform,
+      useParentOffset: true,
 
-        start: () => {
-          this.moveToFront();
-        },
+      start: () => {
+        this.moveToFront();
+      },
 
-        end: () => {
-          if ( containerBounds.intersectsBounds( this.visibleBounds ) ) {
+      end: () => {
+        if ( containerBounds.intersectsBounds( this.visibleBounds ) ) {
 
-            if ( options.initialPosition ) {
-              barometer.positionProperty.value = options.initialPosition;
-              this.visible = false; // TODO does this want to be in all cases, not just for toolbox?
-            }
-            else {
-              barometer.positionProperty.reset();
-            }
-
-            this.moveToBack();
+          if ( options.initialPosition ) {
+            barometer.positionProperty.value = options.initialPosition;
+            this.visible = false; // TODO does this want to be in all cases, not just for toolbox?
           }
+          else {
+            barometer.positionProperty.reset();
+          }
+
+          this.moveToBack();
         }
-      } );
+      }
+    } );
     !options.isIcon && this.addInputListener( this.dragListener );
 
     // Update the value in the barometer value model by reading from the model.
