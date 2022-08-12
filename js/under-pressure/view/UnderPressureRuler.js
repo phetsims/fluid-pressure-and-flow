@@ -7,10 +7,10 @@
  */
 
 import CloseButton from '../../../../scenery-phet/js/buttons/CloseButton.js';
-import MovableDragHandler from '../../../../scenery-phet/js/input/MovableDragHandler.js';
 import PhetFont from '../../../../scenery-phet/js/PhetFont.js';
 import RulerNode from '../../../../scenery-phet/js/RulerNode.js';
-import { Node } from '../../../../scenery/js/imports.js';
+import { DragListener, Node } from '../../../../scenery/js/imports.js';
+import Property from '../../../../axon/js/Property.js';
 import Units from '../../common/model/Units.js';
 import fluidPressureAndFlow from '../../fluidPressureAndFlow.js';
 import fluidPressureAndFlowStrings from '../../fluidPressureAndFlowStrings.js';
@@ -91,8 +91,8 @@ class UnderPressureRuler extends Node {
     } );
 
     // drag handlers
-    metersRuler.addInputListener( new MovableDragHandler( underPressureModel.rulerPositionProperty, { dragBounds: dragBounds } ) );
-    feetRuler.addInputListener( new MovableDragHandler( underPressureModel.rulerPositionProperty, { dragBounds: dragBounds } ) );
+    metersRuler.addInputListener( new DragListener( { positionProperty: underPressureModel.rulerPositionProperty, dragBoundsProperty: new Property( dragBounds ) } ) );
+    feetRuler.addInputListener( new DragListener( { positionProperty: underPressureModel.rulerPositionProperty, dragBoundsProperty: new Property( dragBounds ) } ) );
   }
 }
 

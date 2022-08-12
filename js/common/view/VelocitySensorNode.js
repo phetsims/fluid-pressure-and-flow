@@ -14,10 +14,10 @@ import Utils from '../../../../dot/js/Utils.js';
 import { Shape } from '../../../../kite/js/imports.js';
 import merge from '../../../../phet-core/js/merge.js';
 import ArrowShape from '../../../../scenery-phet/js/ArrowShape.js';
-import MovableDragHandler from '../../../../scenery-phet/js/input/MovableDragHandler.js';
 import MathSymbols from '../../../../scenery-phet/js/MathSymbols.js';
 import PhetFont from '../../../../scenery-phet/js/PhetFont.js';
-import { LinearGradient, Node, Path, Rectangle, Text } from '../../../../scenery/js/imports.js';
+import { DragListener, LinearGradient, Node, Path, Rectangle, Text } from '../../../../scenery/js/imports.js';
+import Property from '../../../../axon/js/Property.js';
 import fluidPressureAndFlow from '../../fluidPressureAndFlow.js';
 import fluidPressureAndFlowStrings from '../../fluidPressureAndFlowStrings.js';
 
@@ -158,15 +158,15 @@ class VelocitySensorNode extends Node {
     const speedMeterDragBounds = dragBounds.withMaxX( dragBounds.maxX - rectangleWidth * options.scale );
 
     // @public - drag handler
-    this.dragListener = new MovableDragHandler( velocitySensor.positionProperty,
-      {
-        dragBounds: speedMeterDragBounds,
-
-        startDrag: () => {
+    this.dragListener = new DragListener( {
+        positionProperty: velocitySensor.positionProperty,
+        dragBoundsProperty: new Property( speedMeterDragBounds ),
+        useParentOffset: true,
+        start: () => {
           this.moveToFront();
         },
 
-        endDrag: () => {
+        end: () => {
           // check intersection only with the outer rectangle.
           // Add a 5px tolerance. See https://github.com/phetsims/fluid-pressure-and-flow/issues/105
           if ( containerBounds.intersectsBounds( Bounds2.rect( velocitySensor.positionProperty.value.x, velocitySensor.positionProperty.value.y,
