@@ -50,7 +50,7 @@ type StringsType = {
   'fill': string;
   'fillProperty': TReadOnlyProperty<string>;
   'psi': string;
-  'psTProperty': TReadOnlyProperty<string>;
+  'psiProperty': TReadOnlyProperty<string>;
   'english': string;
   'englishProperty': TReadOnlyProperty<string>;
   'friction': string;
