@@ -13,7 +13,7 @@ import fluidPressureAndFlowStrings from './fluidPressureAndFlowStrings.js';
 import UnderPressureScreen from './under-pressure/UnderPressureScreen.js';
 import WaterTowerScreen from './watertower/WaterTowerScreen.js';
 
-const fluidPressureAndFlowTitleString = fluidPressureAndFlowStrings[ 'fluid-pressure-and-flow' ].title;
+const fluidPressureAndFlowTitleStringProperty = fluidPressureAndFlowStrings[ 'fluid-pressure-and-flow' ].titleStringProperty;
 
 const simOptions = {
   credits: {
@@ -27,7 +27,7 @@ const simOptions = {
 };
 
 simLauncher.launch( () => {
-  const sim = new Sim( fluidPressureAndFlowTitleString, [
+  const sim = new Sim( fluidPressureAndFlowTitleStringProperty, [
       new UnderPressureScreen(),
       new FlowScreen(),
       new WaterTowerScreen() ],
