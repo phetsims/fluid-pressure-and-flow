@@ -24,14 +24,14 @@ import Sensor from '../../common/model/Sensor.js';
 import Units from '../../common/model/Units.js';
 import VelocitySensor from '../../common/model/VelocitySensor.js';
 import fluidPressureAndFlow from '../../fluidPressureAndFlow.js';
-import fluidPressureAndFlowStrings from '../../fluidPressureAndFlowStrings.js';
+import FluidPressureAndFlowStrings from '../../FluidPressureAndFlowStrings.js';
 import Hose from './Hose.js';
 import WaterDrop from './WaterDrop.js';
 import WaterTower from './WaterTower.js';
 
-const densityUnitsEnglishString = fluidPressureAndFlowStrings.densityUnitsEnglish;
-const densityUnitsMetricString = fluidPressureAndFlowStrings.densityUnitsMetric;
-const valueWithUnitsPatternString = fluidPressureAndFlowStrings.valueWithUnitsPattern;
+const densityUnitsEnglishString = FluidPressureAndFlowStrings.densityUnitsEnglish;
+const densityUnitsMetricString = FluidPressureAndFlowStrings.densityUnitsMetric;
+const valueWithUnitsPatternString = FluidPressureAndFlowStrings.valueWithUnitsPattern;
 
 class WaterTowerModel {
 

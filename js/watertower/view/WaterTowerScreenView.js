@@ -29,7 +29,7 @@ import FPAFRuler from '../../common/view/FPAFRuler.js';
 import UnitsControlPanel from '../../common/view/UnitsControlPanel.js';
 import VelocitySensorNode from '../../common/view/VelocitySensorNode.js';
 import fluidPressureAndFlow from '../../fluidPressureAndFlow.js';
-import fluidPressureAndFlowStrings from '../../fluidPressureAndFlowStrings.js';
+import FluidPressureAndFlowStrings from '../../FluidPressureAndFlowStrings.js';
 import FaucetControlPanel from './FaucetControlPanel.js';
 import HoseNode from './HoseNode.js';
 import SluiceControlPanel from './SluiceControlPanel.js';
@@ -38,14 +38,14 @@ import WaterDropsCanvasNode from './WaterDropsCanvasNode.js';
 import WaterTowerNode from './WaterTowerNode.js';
 
 //  strings
-const feetString = fluidPressureAndFlowStrings.feet;
-const fluidDensityString = fluidPressureAndFlowStrings.fluidDensity;
-const gasolineString = fluidPressureAndFlowStrings.gasoline;
-const honeyString = fluidPressureAndFlowStrings.honey;
-const metersString = fluidPressureAndFlowStrings.meters;
-const normalString = fluidPressureAndFlowStrings.normal;
-const slowMotionString = fluidPressureAndFlowStrings.slowMotion;
-const waterString = fluidPressureAndFlowStrings.water;
+const feetString = FluidPressureAndFlowStrings.feet;
+const fluidDensityString = FluidPressureAndFlowStrings.fluidDensity;
+const gasolineString = FluidPressureAndFlowStrings.gasoline;
+const honeyString = FluidPressureAndFlowStrings.honey;
+const metersString = FluidPressureAndFlowStrings.meters;
+const normalString = FluidPressureAndFlowStrings.normal;
+const slowMotionString = FluidPressureAndFlowStrings.slowMotion;
+const waterString = FluidPressureAndFlowStrings.water;
 
 // constants
 const INSET = 10;

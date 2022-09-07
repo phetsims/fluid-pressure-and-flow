@@ -149,8 +149,8 @@ type StringsType = {
   'underPressureScreenTitleStringProperty': TReadOnlyProperty<string>;
 };
 
-const fluidPressureAndFlowStrings = getStringModule( 'FLUID_PRESSURE_AND_FLOW' ) as StringsType;
+const FluidPressureAndFlowStrings = getStringModule( 'FLUID_PRESSURE_AND_FLOW' ) as StringsType;
 
-fluidPressureAndFlow.register( 'fluidPressureAndFlowStrings', fluidPressureAndFlowStrings );
+fluidPressureAndFlow.register( 'FluidPressureAndFlowStrings', FluidPressureAndFlowStrings );
 
-export default fluidPressureAndFlowStrings;
+export default FluidPressureAndFlowStrings;

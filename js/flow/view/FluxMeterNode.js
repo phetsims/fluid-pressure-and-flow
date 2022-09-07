@@ -18,17 +18,17 @@ import Panel from '../../../../sun/js/Panel.js';
 import handleTwoSided_png from '../../../images/handleTwoSided_png.js';
 import Units from '../../common/model/Units.js';
 import fluidPressureAndFlow from '../../fluidPressureAndFlow.js';
-import fluidPressureAndFlowStrings from '../../fluidPressureAndFlowStrings.js';
+import FluidPressureAndFlowStrings from '../../FluidPressureAndFlowStrings.js';
 
-const areaString = fluidPressureAndFlowStrings.area;
-const areaUnitsEnglishString = fluidPressureAndFlowStrings.areaUnitsEnglish;
-const areaUnitsMetricString = fluidPressureAndFlowStrings.areaUnitsMetric;
-const flowRateWithColonString = fluidPressureAndFlowStrings.flowRateWithColon;
-const fluxString = fluidPressureAndFlowStrings.flux;
-const fluxUnitsEnglishString = fluidPressureAndFlowStrings.fluxUnitsEnglish;
-const fluxUnitsMetricString = fluidPressureAndFlowStrings.fluxUnitsMetric;
-const rateUnitsEnglishString = fluidPressureAndFlowStrings.rateUnitsEnglish;
-const rateUnitsMetricString = fluidPressureAndFlowStrings.rateUnitsMetric;
+const areaString = FluidPressureAndFlowStrings.area;
+const areaUnitsEnglishString = FluidPressureAndFlowStrings.areaUnitsEnglish;
+const areaUnitsMetricString = FluidPressureAndFlowStrings.areaUnitsMetric;
+const flowRateWithColonString = FluidPressureAndFlowStrings.flowRateWithColon;
+const fluxString = FluidPressureAndFlowStrings.flux;
+const fluxUnitsEnglishString = FluidPressureAndFlowStrings.fluxUnitsEnglish;
+const fluxUnitsMetricString = FluidPressureAndFlowStrings.fluxUnitsMetric;
+const rateUnitsEnglishString = FluidPressureAndFlowStrings.rateUnitsEnglish;
+const rateUnitsMetricString = FluidPressureAndFlowStrings.rateUnitsMetric;
 
 
 class FluxMeterNode extends Node {

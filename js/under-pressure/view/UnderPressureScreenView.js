@@ -19,7 +19,7 @@ import BarometerNode from '../../common/view/BarometerNode.js';
 import ControlSlider from '../../common/view/ControlSlider.js';
 import UnitsControlPanel from '../../common/view/UnitsControlPanel.js';
 import fluidPressureAndFlow from '../../fluidPressureAndFlow.js';
-import fluidPressureAndFlowStrings from '../../fluidPressureAndFlowStrings.js';
+import FluidPressureAndFlowStrings from '../../FluidPressureAndFlowStrings.js';
 import BackgroundNode from './BackgroundNode.js';
 import ChamberPoolView from './ChamberPoolView.js';
 import ControlPanel from './ControlPanel.js';
@@ -29,14 +29,14 @@ import SquarePoolView from './SquarePoolView.js';
 import TrapezoidPoolView from './TrapezoidPoolView.js';
 import UnderPressureRuler from './UnderPressureRuler.js';
 
-const earthString = fluidPressureAndFlowStrings.earth;
-const fluidDensityString = fluidPressureAndFlowStrings.fluidDensity;
-const gasolineString = fluidPressureAndFlowStrings.gasoline;
-const gravityString = fluidPressureAndFlowStrings.gravity;
-const honeyString = fluidPressureAndFlowStrings.honey;
-const jupiterString = fluidPressureAndFlowStrings.jupiter;
-const marsString = fluidPressureAndFlowStrings.mars;
-const waterString = fluidPressureAndFlowStrings.water;
+const earthString = FluidPressureAndFlowStrings.earth;
+const fluidDensityString = FluidPressureAndFlowStrings.fluidDensity;
+const gasolineString = FluidPressureAndFlowStrings.gasoline;
+const gravityString = FluidPressureAndFlowStrings.gravity;
+const honeyString = FluidPressureAndFlowStrings.honey;
+const jupiterString = FluidPressureAndFlowStrings.jupiter;
+const marsString = FluidPressureAndFlowStrings.mars;
+const waterString = FluidPressureAndFlowStrings.water;
 
 // constants
 const INSET = 15;

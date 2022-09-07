@@ -16,17 +16,17 @@ import AquaRadioButton from '../../../../sun/js/AquaRadioButton.js';
 import ComboBox from '../../../../sun/js/ComboBox.js';
 import Panel from '../../../../sun/js/Panel.js';
 import fluidPressureAndFlow from '../../fluidPressureAndFlow.js';
-import fluidPressureAndFlowStrings from '../../fluidPressureAndFlowStrings.js';
+import FluidPressureAndFlowStrings from '../../FluidPressureAndFlowStrings.js';
 import SquarePoolView from './SquarePoolView.js';
 
-const fluidAString = fluidPressureAndFlowStrings.fluidA;
-const fluidBString = fluidPressureAndFlowStrings.fluidB;
-const fluidCString = fluidPressureAndFlowStrings.fluidC;
-const mysteryFluidString = fluidPressureAndFlowStrings.mysteryFluid;
-const mysteryPlanetString = fluidPressureAndFlowStrings.mysteryPlanet;
-const planetAString = fluidPressureAndFlowStrings.planetA;
-const planetBString = fluidPressureAndFlowStrings.planetB;
-const planetCString = fluidPressureAndFlowStrings.planetC;
+const fluidAString = FluidPressureAndFlowStrings.fluidA;
+const fluidBString = FluidPressureAndFlowStrings.fluidB;
+const fluidCString = FluidPressureAndFlowStrings.fluidC;
+const mysteryFluidString = FluidPressureAndFlowStrings.mysteryFluid;
+const mysteryPlanetString = FluidPressureAndFlowStrings.mysteryPlanet;
+const planetAString = FluidPressureAndFlowStrings.planetA;
+const planetBString = FluidPressureAndFlowStrings.planetB;
+const planetCString = FluidPressureAndFlowStrings.planetC;
 
 // constants
 const RADIO_BUTTON_TOUCH_DILATION_Y = 2; // empirically determined

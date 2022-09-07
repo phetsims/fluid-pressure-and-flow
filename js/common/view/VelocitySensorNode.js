@@ -19,11 +19,11 @@ import PhetFont from '../../../../scenery-phet/js/PhetFont.js';
 import { DragListener, LinearGradient, Node, Path, Rectangle, Text } from '../../../../scenery/js/imports.js';
 import Property from '../../../../axon/js/Property.js';
 import fluidPressureAndFlow from '../../fluidPressureAndFlow.js';
-import fluidPressureAndFlowStrings from '../../fluidPressureAndFlowStrings.js';
+import FluidPressureAndFlowStrings from '../../FluidPressureAndFlowStrings.js';
 
-const ftPerSString = fluidPressureAndFlowStrings.ftPerS;
-const mPerSString = fluidPressureAndFlowStrings.mPerS;
-const speedString = fluidPressureAndFlowStrings.speed;
+const ftPerSString = FluidPressureAndFlowStrings.ftPerS;
+const mPerSString = FluidPressureAndFlowStrings.mPerS;
+const speedString = FluidPressureAndFlowStrings.speed;
 
 class VelocitySensorNode extends Node {
 

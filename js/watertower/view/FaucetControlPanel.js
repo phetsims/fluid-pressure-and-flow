@@ -10,10 +10,10 @@ import PhetFont from '../../../../scenery-phet/js/PhetFont.js';
 import { Text, VBox } from '../../../../scenery/js/imports.js';
 import AquaRadioButton from '../../../../sun/js/AquaRadioButton.js';
 import fluidPressureAndFlow from '../../fluidPressureAndFlow.js';
-import fluidPressureAndFlowStrings from '../../fluidPressureAndFlowStrings.js';
+import FluidPressureAndFlowStrings from '../../FluidPressureAndFlowStrings.js';
 
-const manualString = fluidPressureAndFlowStrings.manual;
-const matchLeakageString = fluidPressureAndFlowStrings.matchLeakage;
+const manualString = FluidPressureAndFlowStrings.manual;
+const matchLeakageString = FluidPressureAndFlowStrings.matchLeakage;
 
 class FaucetControlPanel extends VBox {
 

@@ -16,11 +16,11 @@ import Checkbox from '../../../../sun/js/Checkbox.js';
 import Panel from '../../../../sun/js/Panel.js';
 import nozzle_png from '../../../images/nozzle_png.js';
 import fluidPressureAndFlow from '../../fluidPressureAndFlow.js';
-import fluidPressureAndFlowStrings from '../../fluidPressureAndFlowStrings.js';
+import FluidPressureAndFlowStrings from '../../FluidPressureAndFlowStrings.js';
 
-const hoseString = fluidPressureAndFlowStrings.hose;
-const measuringTapeString = fluidPressureAndFlowStrings.measuringTape;
-const rulerString = fluidPressureAndFlowStrings.ruler;
+const hoseString = FluidPressureAndFlowStrings.hose;
+const measuringTapeString = FluidPressureAndFlowStrings.measuringTape;
+const rulerString = FluidPressureAndFlowStrings.ruler;
 
 
 class ToolsControlPanel extends Panel {

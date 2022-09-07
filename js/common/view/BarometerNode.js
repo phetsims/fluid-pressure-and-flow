@@ -22,10 +22,10 @@ import PhetFont from '../../../../scenery-phet/js/PhetFont.js';
 import { DragListener, LinearGradient, Node, Path, Rectangle, Text } from '../../../../scenery/js/imports.js';
 import Panel from '../../../../sun/js/Panel.js';
 import fluidPressureAndFlow from '../../fluidPressureAndFlow.js';
-import fluidPressureAndFlowStrings from '../../fluidPressureAndFlowStrings.js';
+import FluidPressureAndFlowStrings from '../../FluidPressureAndFlowStrings.js';
 import Constants from '../Constants.js';
 
-const pressureString = fluidPressureAndFlowStrings.pressure;
+const pressureString = FluidPressureAndFlowStrings.pressure;
 
 class BarometerNode extends Node {
 

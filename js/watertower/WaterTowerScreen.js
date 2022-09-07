@@ -12,11 +12,11 @@ import ScreenIcon from '../../../joist/js/ScreenIcon.js';
 import { Image } from '../../../scenery/js/imports.js';
 import waterTowerMockup_png from '../../images/waterTowerMockup_png.js';
 import fluidPressureAndFlow from '../fluidPressureAndFlow.js';
-import fluidPressureAndFlowStrings from '../fluidPressureAndFlowStrings.js';
+import FluidPressureAndFlowStrings from '../FluidPressureAndFlowStrings.js';
 import WaterTowerModel from './model/WaterTowerModel.js';
 import WaterTowerScreenView from './view/WaterTowerScreenView.js';
 
-const waterTowerScreenTitleString = fluidPressureAndFlowStrings.waterTowerScreenTitle;
+const waterTowerScreenTitleString = FluidPressureAndFlowStrings.waterTowerScreenTitle;
 
 
 class WaterTowerScreen extends Screen {

@@ -10,16 +10,16 @@
 import Utils from '../../../../dot/js/Utils.js';
 import StringUtils from '../../../../phetcommon/js/util/StringUtils.js';
 import fluidPressureAndFlow from '../../fluidPressureAndFlow.js';
-import fluidPressureAndFlowStrings from '../../fluidPressureAndFlowStrings.js';
+import FluidPressureAndFlowStrings from '../../FluidPressureAndFlowStrings.js';
 
-const atmString = fluidPressureAndFlowStrings.atm;
-const densityUnitsEnglishString = fluidPressureAndFlowStrings.densityUnitsEnglish;
-const densityUnitsMetricString = fluidPressureAndFlowStrings.densityUnitsMetric;
-const ftPerSPerSString = fluidPressureAndFlowStrings.ftPerSPerS;
-const kPaString = fluidPressureAndFlowStrings.kPa;
-const mPerSPerSString = fluidPressureAndFlowStrings.mPerSPerS;
-const psiString = fluidPressureAndFlowStrings.psi;
-const valueWithUnitsPatternString = fluidPressureAndFlowStrings.valueWithUnitsPattern;
+const atmString = FluidPressureAndFlowStrings.atm;
+const densityUnitsEnglishString = FluidPressureAndFlowStrings.densityUnitsEnglish;
+const densityUnitsMetricString = FluidPressureAndFlowStrings.densityUnitsMetric;
+const ftPerSPerSString = FluidPressureAndFlowStrings.ftPerSPerS;
+const kPaString = FluidPressureAndFlowStrings.kPa;
+const mPerSPerSString = FluidPressureAndFlowStrings.mPerSPerS;
+const psiString = FluidPressureAndFlowStrings.psi;
+const valueWithUnitsPatternString = FluidPressureAndFlowStrings.valueWithUnitsPattern;
 
 // constants
 const ATMOSPHERE_PER_PASCAL = 9.8692E-6;

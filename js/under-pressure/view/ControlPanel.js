@@ -15,11 +15,11 @@ import { HBox, HStrut, Text, VBox, VStrut } from '../../../../scenery/js/imports
 import Checkbox from '../../../../sun/js/Checkbox.js';
 import Panel from '../../../../sun/js/Panel.js';
 import fluidPressureAndFlow from '../../fluidPressureAndFlow.js';
-import fluidPressureAndFlowStrings from '../../fluidPressureAndFlowStrings.js';
+import FluidPressureAndFlowStrings from '../../FluidPressureAndFlowStrings.js';
 import AtmosphereControlNode from './AtmosphereControlNode.js';
 
-const gridString = fluidPressureAndFlowStrings.grid;
-const rulerString = fluidPressureAndFlowStrings.ruler;
+const gridString = FluidPressureAndFlowStrings.grid;
+const rulerString = FluidPressureAndFlowStrings.ruler;
 
 class ControlPanel extends Panel {
 

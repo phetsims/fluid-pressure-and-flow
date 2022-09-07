@@ -28,20 +28,20 @@ import FPAFRuler from '../../common/view/FPAFRuler.js';
 import SensorToolbox from '../../common/view/SensorToolbox.js';
 import UnitsControlPanel from '../../common/view/UnitsControlPanel.js';
 import fluidPressureAndFlow from '../../fluidPressureAndFlow.js';
-import fluidPressureAndFlowStrings from '../../fluidPressureAndFlowStrings.js';
+import FluidPressureAndFlowStrings from '../../FluidPressureAndFlowStrings.js';
 import FlowToolsControlPanel from './FlowToolsControlPanel.js';
 import FluxMeterNode from './FluxMeterNode.js';
 import GridInjectorNode from './GridInjectorNode.js';
 import PipeHandlesNode from './PipeHandlesNode.js';
 import PipeNode from './PipeNode.js';
 
-const flowRateString = fluidPressureAndFlowStrings.flowRate;
-const fluidDensityString = fluidPressureAndFlowStrings.fluidDensity;
-const gasolineString = fluidPressureAndFlowStrings.gasoline;
-const honeyString = fluidPressureAndFlowStrings.honey;
-const normalString = fluidPressureAndFlowStrings.normal;
-const slowMotionString = fluidPressureAndFlowStrings.slowMotion;
-const waterString = fluidPressureAndFlowStrings.water;
+const flowRateString = FluidPressureAndFlowStrings.flowRate;
+const fluidDensityString = FluidPressureAndFlowStrings.fluidDensity;
+const gasolineString = FluidPressureAndFlowStrings.gasoline;
+const honeyString = FluidPressureAndFlowStrings.honey;
+const normalString = FluidPressureAndFlowStrings.normal;
+const slowMotionString = FluidPressureAndFlowStrings.slowMotion;
+const waterString = FluidPressureAndFlowStrings.water;
 
 //images
 

@@ -15,12 +15,12 @@ import { Circle, HBox, HStrut, Node, Text, VBox } from '../../../../scenery/js/i
 import Checkbox from '../../../../sun/js/Checkbox.js';
 import Panel from '../../../../sun/js/Panel.js';
 import fluidPressureAndFlow from '../../fluidPressureAndFlow.js';
-import fluidPressureAndFlowStrings from '../../fluidPressureAndFlowStrings.js';
+import FluidPressureAndFlowStrings from '../../FluidPressureAndFlowStrings.js';
 
-const dotsString = fluidPressureAndFlowStrings.dots;
-const fluxMeterString = fluidPressureAndFlowStrings.fluxMeter;
-const frictionString = fluidPressureAndFlowStrings.friction;
-const rulerString = fluidPressureAndFlowStrings.ruler;
+const dotsString = FluidPressureAndFlowStrings.dots;
+const fluxMeterString = FluidPressureAndFlowStrings.fluxMeter;
+const frictionString = FluidPressureAndFlowStrings.friction;
+const rulerString = FluidPressureAndFlowStrings.ruler;
 
 class FlowToolsControlPanel extends Panel {
 

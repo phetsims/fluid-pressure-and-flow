@@ -15,10 +15,10 @@ import RulerNode from '../../../../scenery-phet/js/RulerNode.js';
 import { DragListener, Node } from '../../../../scenery/js/imports.js';
 import Property from '../../../../axon/js/Property.js';
 import fluidPressureAndFlow from '../../fluidPressureAndFlow.js';
-import fluidPressureAndFlowStrings from '../../fluidPressureAndFlowStrings.js';
+import FluidPressureAndFlowStrings from '../../FluidPressureAndFlowStrings.js';
 
-const ftString = fluidPressureAndFlowStrings.ft;
-const mString = fluidPressureAndFlowStrings.m;
+const ftString = FluidPressureAndFlowStrings.ft;
+const mString = FluidPressureAndFlowStrings.m;
 
 class FPAFRuler extends Node {
 

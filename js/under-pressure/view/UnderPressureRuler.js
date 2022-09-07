@@ -13,10 +13,10 @@ import { DragListener, Node } from '../../../../scenery/js/imports.js';
 import Property from '../../../../axon/js/Property.js';
 import Units from '../../common/model/Units.js';
 import fluidPressureAndFlow from '../../fluidPressureAndFlow.js';
-import fluidPressureAndFlowStrings from '../../fluidPressureAndFlowStrings.js';
+import FluidPressureAndFlowStrings from '../../FluidPressureAndFlowStrings.js';
 
-const ftString = fluidPressureAndFlowStrings.ft;
-const mString = fluidPressureAndFlowStrings.m;
+const ftString = FluidPressureAndFlowStrings.ft;
+const mString = FluidPressureAndFlowStrings.m;
 
 class UnderPressureRuler extends Node {
   /**

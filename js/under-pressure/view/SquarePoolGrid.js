@@ -14,11 +14,11 @@ import PhetFont from '../../../../scenery-phet/js/PhetFont.js';
 import { Node, Text } from '../../../../scenery/js/imports.js';
 import Units from '../../common/model/Units.js';
 import fluidPressureAndFlow from '../../fluidPressureAndFlow.js';
-import fluidPressureAndFlowStrings from '../../fluidPressureAndFlowStrings.js';
+import FluidPressureAndFlowStrings from '../../FluidPressureAndFlowStrings.js';
 import GridLinesNode from './GridLinesNode.js';
 
-const readoutFeetString = fluidPressureAndFlowStrings.readoutFeet;
-const readoutMetersString = fluidPressureAndFlowStrings.readoutMeters;
+const readoutFeetString = FluidPressureAndFlowStrings.readoutFeet;
+const readoutMetersString = FluidPressureAndFlowStrings.readoutMeters;
 
 class SquarePoolGrid extends Node {
 

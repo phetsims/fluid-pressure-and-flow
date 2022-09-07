@@ -13,11 +13,11 @@ import PhetFont from '../../../../scenery-phet/js/PhetFont.js';
 import { HBox, Node, Text } from '../../../../scenery/js/imports.js';
 import AquaRadioButton from '../../../../sun/js/AquaRadioButton.js';
 import fluidPressureAndFlow from '../../fluidPressureAndFlow.js';
-import fluidPressureAndFlowStrings from '../../fluidPressureAndFlowStrings.js';
+import FluidPressureAndFlowStrings from '../../FluidPressureAndFlowStrings.js';
 
-const atmosphereString = fluidPressureAndFlowStrings.atmosphere;
-const offString = fluidPressureAndFlowStrings.off;
-const onString = fluidPressureAndFlowStrings.on;
+const atmosphereString = FluidPressureAndFlowStrings.atmosphere;
+const offString = FluidPressureAndFlowStrings.off;
+const onString = FluidPressureAndFlowStrings.on;
 
 class AtmosphereControlNode extends Node {
 

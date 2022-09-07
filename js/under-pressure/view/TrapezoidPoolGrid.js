@@ -13,12 +13,12 @@ import StringUtils from '../../../../phetcommon/js/util/StringUtils.js';
 import PhetFont from '../../../../scenery-phet/js/PhetFont.js';
 import { Node, Rectangle, Text } from '../../../../scenery/js/imports.js';
 import fluidPressureAndFlow from '../../fluidPressureAndFlow.js';
-import fluidPressureAndFlowStrings from '../../fluidPressureAndFlowStrings.js';
+import FluidPressureAndFlowStrings from '../../FluidPressureAndFlowStrings.js';
 import GridLinesNode from './GridLinesNode.js';
 
-const ftString = fluidPressureAndFlowStrings.ft;
-const mString = fluidPressureAndFlowStrings.m;
-const valueWithUnitsPatternString = fluidPressureAndFlowStrings.valueWithUnitsPattern;
+const ftString = FluidPressureAndFlowStrings.ft;
+const mString = FluidPressureAndFlowStrings.m;
+const valueWithUnitsPatternString = FluidPressureAndFlowStrings.valueWithUnitsPattern;
 
 class TrapezoidPoolGrid extends Node {
   /**

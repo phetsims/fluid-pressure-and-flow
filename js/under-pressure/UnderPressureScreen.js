@@ -13,11 +13,11 @@ import ScreenIcon from '../../../joist/js/ScreenIcon.js';
 import { Image } from '../../../scenery/js/imports.js';
 import underPressure_png from '../../images/underPressure_png.js';
 import fluidPressureAndFlow from '../fluidPressureAndFlow.js';
-import fluidPressureAndFlowStrings from '../fluidPressureAndFlowStrings.js';
+import FluidPressureAndFlowStrings from '../FluidPressureAndFlowStrings.js';
 import UnderPressureModel from './model/UnderPressureModel.js';
 import UnderPressureScreenView from './view/UnderPressureScreenView.js';
 
-const underPressureScreenTitleString = fluidPressureAndFlowStrings.underPressureScreenTitle;
+const underPressureScreenTitleString = FluidPressureAndFlowStrings.underPressureScreenTitle;
 
 class UnderPressureScreen extends Screen {
 

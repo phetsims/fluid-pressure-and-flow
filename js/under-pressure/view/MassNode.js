@@ -12,9 +12,9 @@ import StringUtils from '../../../../phetcommon/js/util/StringUtils.js';
 import PhetFont from '../../../../scenery-phet/js/PhetFont.js';
 import { LinearGradient, Node, Rectangle, SimpleDragHandler, Text } from '../../../../scenery/js/imports.js';
 import fluidPressureAndFlow from '../../fluidPressureAndFlow.js';
-import fluidPressureAndFlowStrings from '../../fluidPressureAndFlowStrings.js';
+import FluidPressureAndFlowStrings from '../../FluidPressureAndFlowStrings.js';
 
-const massLabelPatternString = fluidPressureAndFlowStrings.massLabelPattern;
+const massLabelPatternString = FluidPressureAndFlowStrings.massLabelPattern;
 
 class MassNode extends Node {
 

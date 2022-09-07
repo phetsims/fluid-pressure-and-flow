@@ -9,11 +9,11 @@
 import Sim from '../../joist/js/Sim.js';
 import simLauncher from '../../joist/js/simLauncher.js';
 import FlowScreen from './flow/FlowScreen.js';
-import fluidPressureAndFlowStrings from './fluidPressureAndFlowStrings.js';
+import FluidPressureAndFlowStrings from './FluidPressureAndFlowStrings.js';
 import UnderPressureScreen from './under-pressure/UnderPressureScreen.js';
 import WaterTowerScreen from './watertower/WaterTowerScreen.js';
 
-const fluidPressureAndFlowTitleStringProperty = fluidPressureAndFlowStrings[ 'fluid-pressure-and-flow' ].titleStringProperty;
+const fluidPressureAndFlowTitleStringProperty = FluidPressureAndFlowStrings[ 'fluid-pressure-and-flow' ].titleStringProperty;
 
 const simOptions = {
   credits: {

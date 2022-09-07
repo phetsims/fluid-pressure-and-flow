@@ -24,16 +24,16 @@ import Sensor from '../../common/model/Sensor.js';
 import Units from '../../common/model/Units.js';
 import VelocitySensor from '../../common/model/VelocitySensor.js';
 import fluidPressureAndFlow from '../../fluidPressureAndFlow.js';
-import fluidPressureAndFlowStrings from '../../fluidPressureAndFlowStrings.js';
+import FluidPressureAndFlowStrings from '../../FluidPressureAndFlowStrings.js';
 import FluxMeter from './FluxMeter.js';
 import Particle from './Particle.js';
 import Pipe from './Pipe.js';
 
-const densityUnitsEnglishString = fluidPressureAndFlowStrings.densityUnitsEnglish;
-const densityUnitsMetricString = fluidPressureAndFlowStrings.densityUnitsMetric;
-const rateUnitsEnglishString = fluidPressureAndFlowStrings.rateUnitsEnglish;
-const rateUnitsMetricString = fluidPressureAndFlowStrings.rateUnitsMetric;
-const valueWithUnitsPatternString = fluidPressureAndFlowStrings.valueWithUnitsPattern;
+const densityUnitsEnglishString = FluidPressureAndFlowStrings.densityUnitsEnglish;
+const densityUnitsMetricString = FluidPressureAndFlowStrings.densityUnitsMetric;
+const rateUnitsEnglishString = FluidPressureAndFlowStrings.rateUnitsEnglish;
+const rateUnitsMetricString = FluidPressureAndFlowStrings.rateUnitsMetric;
+const valueWithUnitsPatternString = FluidPressureAndFlowStrings.valueWithUnitsPattern;
 
 // constants
 const NUMBER_BAROMETERS = 2;

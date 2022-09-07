@@ -12,11 +12,11 @@ import ScreenIcon from '../../../joist/js/ScreenIcon.js';
 import { Image } from '../../../scenery/js/imports.js';
 import flowMockup_png from '../../images/flowMockup_png.js';
 import fluidPressureAndFlow from '../fluidPressureAndFlow.js';
-import fluidPressureAndFlowStrings from '../fluidPressureAndFlowStrings.js';
+import FluidPressureAndFlowStrings from '../FluidPressureAndFlowStrings.js';
 import FlowModel from './model/FlowModel.js';
 import FlowScreenView from './view/FlowScreenView.js';
 
-const flowScreenTitleString = fluidPressureAndFlowStrings.flowScreenTitle;
+const flowScreenTitleString = FluidPressureAndFlowStrings.flowScreenTitle;
 
 class FlowScreen extends Screen {
 

@@ -12,12 +12,12 @@ import { Text, VBox } from '../../../../scenery/js/imports.js';
 import AquaRadioButton from '../../../../sun/js/AquaRadioButton.js';
 import Panel from '../../../../sun/js/Panel.js';
 import fluidPressureAndFlow from '../../fluidPressureAndFlow.js';
-import fluidPressureAndFlowStrings from '../../fluidPressureAndFlowStrings.js';
+import FluidPressureAndFlowStrings from '../../FluidPressureAndFlowStrings.js';
 
-const atmospheresString = fluidPressureAndFlowStrings.atmospheres;
-const englishString = fluidPressureAndFlowStrings.english;
-const metricString = fluidPressureAndFlowStrings.metric;
-const unitsString = fluidPressureAndFlowStrings.units;
+const atmospheresString = FluidPressureAndFlowStrings.atmospheres;
+const englishString = FluidPressureAndFlowStrings.english;
+const metricString = FluidPressureAndFlowStrings.metric;
+const unitsString = FluidPressureAndFlowStrings.units;
 
 // constants
 const RADIO_BUTTON_TOUCH_DILATION_Y = 2; // empirically determined
