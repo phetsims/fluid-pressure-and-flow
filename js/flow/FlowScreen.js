@@ -16,14 +16,12 @@ import FluidPressureAndFlowStrings from '../FluidPressureAndFlowStrings.js';
 import FlowModel from './model/FlowModel.js';
 import FlowScreenView from './view/FlowScreenView.js';
 
-const flowScreenTitleString = FluidPressureAndFlowStrings.flowScreenTitle;
-
 class FlowScreen extends Screen {
 
   constructor() {
 
     const options = {
-      name: flowScreenTitleString,
+      name: FluidPressureAndFlowStrings.flowScreenTitleStringProperty,
       backgroundColorProperty: new Property( 'white' ),
       homeScreenIcon: new ScreenIcon( new Image( flowMockup_png ), {
         maxIconWidthProportion: 1,

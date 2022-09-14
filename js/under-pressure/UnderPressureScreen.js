@@ -17,14 +17,12 @@ import FluidPressureAndFlowStrings from '../FluidPressureAndFlowStrings.js';
 import UnderPressureModel from './model/UnderPressureModel.js';
 import UnderPressureScreenView from './view/UnderPressureScreenView.js';
 
-const underPressureScreenTitleString = FluidPressureAndFlowStrings.underPressureScreenTitle;
-
 class UnderPressureScreen extends Screen {
 
   constructor() {
 
     const options = {
-      name: underPressureScreenTitleString,
+      name: FluidPressureAndFlowStrings.underPressureScreenTitleStringProperty,
       backgroundColorProperty: new Property( 'white' ),
       homeScreenIcon: new ScreenIcon( new Image( underPressure_png ), {
         maxIconWidthProportion: 1,

@@ -16,15 +16,13 @@ import FluidPressureAndFlowStrings from '../FluidPressureAndFlowStrings.js';
 import WaterTowerModel from './model/WaterTowerModel.js';
 import WaterTowerScreenView from './view/WaterTowerScreenView.js';
 
-const waterTowerScreenTitleString = FluidPressureAndFlowStrings.waterTowerScreenTitle;
-
 
 class WaterTowerScreen extends Screen {
 
   constructor() {
 
     const options = {
-      name: waterTowerScreenTitleString,
+      name: FluidPressureAndFlowStrings.waterTowerScreenTitleStringProperty,
       backgroundColorProperty: new Property( 'white' ),
       homeScreenIcon: new ScreenIcon( new Image( waterTowerMockup_png ), {
         maxIconWidthProportion: 1,
