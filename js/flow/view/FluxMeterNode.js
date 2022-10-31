@@ -236,26 +236,26 @@ class FluxMeterNode extends Node {
 
     if ( units === 'metric' ) {
       this.flowRateValue.text = Utils.toFixed( this.flowModel.fluxMeter.getFlowRate(), 1 );
-      this.flowRateUnit.text = rateUnitsMetricString;
+      this.flowRateUnit.string = rateUnitsMetricString;
 
       this.areaValue.text = Utils.toFixed( this.flowModel.fluxMeter.getArea(), 1 );
-      this.areaUnit.text = areaUnitsMetricString;
+      this.areaUnit.string = areaUnitsMetricString;
 
       this.fluxValue.text = Utils.toFixed( this.flowModel.fluxMeter.getFlux(), 1 );
-      this.fluxUnit.text = fluxUnitsMetricString;
+      this.fluxUnit.string = fluxUnitsMetricString;
     }
     else { // use english for either english or atmospheres
       const flowRate = this.flowModel.fluxMeter.getFlowRate() * Units.FEET_CUBE_PER_LITER;
       this.flowRateValue.text = Utils.toFixed( flowRate, 1 );
-      this.flowRateUnit.text = rateUnitsEnglishString;
+      this.flowRateUnit.string = rateUnitsEnglishString;
 
       const area = this.flowModel.fluxMeter.getArea() * Units.SQUARE_FEET_PER_SQUARE_METER;
       this.areaValue.text = Utils.toFixed( area, 1 );
-      this.areaUnit.text = areaUnitsEnglishString;
+      this.areaUnit.string = areaUnitsEnglishString;
 
       const flux = this.flowModel.fluxMeter.getFlux() * Units.FEET_PER_CENTIMETER;
       this.fluxValue.text = Utils.toFixed( flux, 1 );
-      this.fluxUnit.text = fluxUnitsEnglishString;
+      this.fluxUnit.string = fluxUnitsEnglishString;
     }
   }
 }

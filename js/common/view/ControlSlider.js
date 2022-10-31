@@ -155,14 +155,14 @@ class ControlSlider extends Node {
     this.accordionContent.addChild( this.questionMark );
 
     trackProperty.link( value => {
-      valueLabel.text = getPropertyStringFunction();
+      valueLabel.string = getPropertyStringFunction();
       valueLabel.center = valueField.center; // keep the value centered in the field
       plusButton.enabled = ( value < trackRange.max );
       minusButton.enabled = ( value > trackRange.min );
     } );
 
     measureUnitsProperty.link( () => {
-      valueLabel.text = getPropertyStringFunction();
+      valueLabel.string = getPropertyStringFunction();
       valueLabel.center = valueField.center; // keep the value centered in the field
     } );
 
