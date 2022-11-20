@@ -25,7 +25,7 @@ import fluidPressureAndFlow from '../../fluidPressureAndFlow.js';
 import FluidPressureAndFlowStrings from '../../FluidPressureAndFlowStrings.js';
 import Constants from '../Constants.js';
 
-const pressureString = FluidPressureAndFlowStrings.pressure;
+const pressureStringProperty = FluidPressureAndFlowStrings.pressureStringProperty;
 
 class BarometerNode extends Node {
 
@@ -58,7 +58,7 @@ class BarometerNode extends Node {
     super( { cursor: 'pointer' } );
 
     // Show the circular part of the gauge and the needle
-    const gaugeNode = new GaugeNode( barometer.valueProperty, pressureString,
+    const gaugeNode = new GaugeNode( barometer.valueProperty, pressureStringProperty,
       new Range( options.minPressure, options.maxPressure ), { radius: 67, scale: 0.4 } );
     this.addChild( gaugeNode );
 
