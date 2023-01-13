@@ -36,10 +36,10 @@ class SceneChoiceNode extends RectangularRadioButtonGroup {
     }, options );
 
     super( underPressureModel.currentSceneProperty, [
-      { value: 'square', createNode: tandem => new Image( squarePoolIcon_png, { scale: ICON_SCALE } ) },
-      { value: 'trapezoid', createNode: tandem => new Image( trapezoidPoolIcon_png, { scale: ICON_SCALE } ) },
-      { value: 'chamber', createNode: tandem => new Image( chamberPoolIcon_png, { scale: ICON_SCALE } ) },
-      { value: 'mystery', createNode: tandem => new Image( mysteryPoolIcon_png, { scale: ICON_SCALE } ) }
+      { value: 'square', createNode: () => new Image( squarePoolIcon_png, { scale: ICON_SCALE } ) },
+      { value: 'trapezoid', createNode: () => new Image( trapezoidPoolIcon_png, { scale: ICON_SCALE } ) },
+      { value: 'chamber', createNode: () => new Image( chamberPoolIcon_png, { scale: ICON_SCALE } ) },
+      { value: 'mystery', createNode: () => new Image( mysteryPoolIcon_png, { scale: ICON_SCALE } ) }
     ], options );
   }
 }
