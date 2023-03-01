@@ -188,11 +188,11 @@ class BarometerNode extends Node {
     Multilink.multilink( [ barometer.valueProperty, measureUnitsProperty, barometer.positionProperty ],
       ( barometerValue, units, position ) => {
         if ( position === barometer.positionProperty.initialValue || barometerValue === null ) {
-          text.text = MathSymbols.NO_VALUE; // showing no value when barometer is in the sensor panel
+          text.string = MathSymbols.NO_VALUE; // showing no value when barometer is in the sensor panel
           text.centerX = READOUT_SIZE.width / 2;
         }
         else {
-          text.text = getPressureString( barometerValue, units );
+          text.string = getPressureString( barometerValue, units );
           text.centerX = READOUT_SIZE.width / 2;
           text.centerY = READOUT_SIZE.height * 0.7;
         }

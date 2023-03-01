@@ -201,10 +201,10 @@ class VelocitySensorNode extends Node {
     Multilink.multilink( [ velocitySensor.valueProperty, measureUnitsProperty, velocitySensor.positionProperty ],
       ( velocity, units, position ) => {
         if ( velocitySensor.positionProperty.initialValue.equals( position ) ) {
-          labelText.text = MathSymbols.NO_VALUE;
+          labelText.string = MathSymbols.NO_VALUE;
         }
         else {
-          labelText.text = units === 'metric' ?
+          labelText.string = units === 'metric' ?
                            `${Utils.toFixed( velocity.magnitude, 1 )} ${mPerSString}` :
                            `${Utils.toFixed( velocity.magnitude * 3.28, 1 )} ${ftPerSString}`;
         }
