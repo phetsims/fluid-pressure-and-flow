@@ -301,7 +301,7 @@ class FlowModel {
    * Returns the velocity at the specified point in the pipe. Returns a zero vector if the point is outside the pipe.
    * @param {number} x - position in meters
    * @param {number} y - position in meters
-   * @returns {number} velocity at the position x, y
+   * @returns {Vector2} velocity at the position x, y
    * @public
    */
   getVelocityAt( x, y ) {
