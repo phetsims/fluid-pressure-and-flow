@@ -91,9 +91,9 @@ class MysteryPoolView extends SquarePoolView {
 
     // items
     this.fluidDensityComboBox = new ComboBox( mysteryPoolModel.customFluidDensityProperty, [
-      { value: 0, node: new Text( fluidAString, comboBoxTextOptions ) },
-      { value: 1, node: new Text( fluidBString, comboBoxTextOptions ) },
-      { value: 2, node: new Text( fluidCString, comboBoxTextOptions ) }
+      { value: 0, createNode: () => new Text( fluidAString, comboBoxTextOptions ) },
+      { value: 1, createNode: () => new Text( fluidBString, comboBoxTextOptions ) },
+      { value: 2, createNode: () => new Text( fluidCString, comboBoxTextOptions ) }
     ], this, {
       highlightFill: 'rgb(218,255,255)',
       visible: false
@@ -105,9 +105,9 @@ class MysteryPoolView extends SquarePoolView {
     this.addChild( this.fluidDensityComboBox );
 
     this.gravityComboBox = new ComboBox( mysteryPoolModel.customGravityProperty, [
-      { value: 0, node: new Text( planetAString, comboBoxTextOptions ) },
-      { value: 1, node: new Text( planetBString, comboBoxTextOptions ) },
-      { value: 2, node: new Text( planetCString, comboBoxTextOptions ) }
+      { value: 0, createNode: () => new Text( planetAString, comboBoxTextOptions ) },
+      { value: 1, createNode: () => new Text( planetBString, comboBoxTextOptions ) },
+      { value: 2, createNode: () => new Text( planetCString, comboBoxTextOptions ) }
     ], this, {
       cornerRadius: 8,
       highlightFill: 'rgb(218,255,255)',
