@@ -20,7 +20,12 @@
       "adapted-from-phet"
     ],
     "simulation": true,
-    "supportsOutputJS": true
+    "supportsOutputJS": true,
+    "screenNameKeys": [
+      "FLUID_PRESSURE_AND_FLOW/underPressureScreenTitle",
+      "FLUID_PRESSURE_AND_FLOW/flowScreenTitle",
+      "FLUID_PRESSURE_AND_FLOW/waterTowerScreenTitle"
+    ]
   },
   "eslintConfig": {
     "extends": "../chipper/eslint/sim_eslintrc.js",
