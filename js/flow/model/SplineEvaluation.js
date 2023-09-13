@@ -29,7 +29,7 @@ function _at( spline, x1, p ) {
 function atNumber( spline, x0 ) {
   const x = spline.x;
   const n = x.length;
-  const floor = Math.floor; //TODO why?
+  const floor = Math.floor; //TODO why? https://github.com/phetsims/tasks/issues/1129
   let p = 0;
   let q = n - 1;
   let mid;

@@ -43,7 +43,7 @@ class VelocitySensorNode extends Node {
     options = merge( {
       scale: 1,
       isIcon: false, // if just using as an icon, don't add listeners to it and whatnot
-      initialPosition: null // TODO figure out a better way to reset the velocitySensor to have the position of the icon
+      initialPosition: null // TODO figure out a better way to reset the velocitySensor to have the position of the icon https://github.com/phetsims/tasks/issues/1129
     }, options );
 
     super( { cursor: 'pointer', pickable: true } );
@@ -174,7 +174,7 @@ class VelocitySensorNode extends Node {
 
             if ( options.initialPosition ) {
               velocitySensor.positionProperty.value = options.initialPosition;
-              this.visible = false; // TODO does this want to be in all cases, not just for toolbox?
+              this.visible = false; // TODO does this want to be in all cases, not just for toolbox? https://github.com/phetsims/tasks/issues/1129
             }
             else {
               velocitySensor.positionProperty.reset();
@@ -189,7 +189,7 @@ class VelocitySensorNode extends Node {
     velocitySensor.positionProperty.linkAttribute( this, 'translation' );
 
     // update the value of the
-    //TODO this listener is a little dangerous, signature relies on order of concat
+    //TODO this listener is a little dangerous, signature relies on order of concat https://github.com/phetsims/tasks/issues/1129
     Multilink.multilink( [ velocitySensor.positionProperty ].concat( linkedProperties ), position => {
       velocitySensor.valueProperty.value = getVelocityAt(
         modelViewTransform.viewToModelX( position.x + rectangleWidth / 2 * options.scale ),
@@ -197,7 +197,7 @@ class VelocitySensorNode extends Node {
     } );
 
     // Update the text when the value or units changes.
-    // TODO is the positionProperty needed in this multilink?
+    // TODO is the positionProperty needed in this multilink? https://github.com/phetsims/tasks/issues/1129
     Multilink.multilink( [ velocitySensor.valueProperty, measureUnitsProperty, velocitySensor.positionProperty ],
       ( velocity, units, position ) => {
         if ( velocitySensor.positionProperty.initialValue.equals( position ) ) {

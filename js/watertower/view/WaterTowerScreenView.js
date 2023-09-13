@@ -69,7 +69,7 @@ class WaterTowerScreenView extends ScreenView {
 
     const groundY = modelViewTransform.modelToViewY( 0 );
 
-    // TODO: find a way to not do this
+    // TODO: find a way to not do this https://github.com/phetsims/tasks/issues/1129
     waterTowerModel.modelViewTransform = modelViewTransform;
 
     // This is a workaround, see See https://github.com/phetsims/fluid-pressure-and-flow/issues/87
@@ -314,7 +314,7 @@ class WaterTowerScreenView extends ScreenView {
     } );
 
     // if the sim is paused, disable the fill button as soon as the tank is filled
-    //TODO this is unnecessarily complicated
+    //TODO this is unnecessarily complicated https://github.com/phetsims/tasks/issues/1129
     new DerivedProperty( [ waterTowerModel.waterTower.fluidVolumeProperty ], fluidVolume => {
       return fluidVolume === waterTowerModel.waterTower.TANK_VOLUME;
     } ).link( () => {
@@ -325,7 +325,7 @@ class WaterTowerScreenView extends ScreenView {
     } );
 
     // Handles the case when switching from play to pause or viceversa
-    //TODO this is unnecessarily complicated
+    //TODO this is unnecessarily complicated https://github.com/phetsims/tasks/issues/1129
     waterTowerModel.isPlayingProperty.link( isPlaying => {
       if ( waterTowerModel.waterTower.fluidVolumeProperty.value >= waterTowerModel.waterTower.TANK_VOLUME ) {
         waterTowerModel.tankFullLevelDurationProperty.value = 1;

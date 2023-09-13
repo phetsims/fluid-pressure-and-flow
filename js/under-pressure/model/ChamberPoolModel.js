@@ -56,7 +56,7 @@ class ChamberPoolModel {
     this.stackMassProperty = new Property( 0 );
 
     // @public (read-only)
-    this.volumeProperty = new Property( 1 );// TODO: what should this number be?  Does it even matter?  I don't think it has any bearing on the model.
+    this.volumeProperty = new Property( 1 );// TODO: what should this number be?  Does it even matter?  I don't think it has any bearing on the model. https://github.com/phetsims/tasks/issues/1129
 
     this.underPressureModel = underPressureModel;
 

@@ -119,7 +119,7 @@ class MysteryPoolView extends SquarePoolView {
     this.gravityComboBox.top = this.fluidDensityComboBox.top;
     this.addChild( this.gravityComboBox );
 
-    //TODO replace 2 DerivedProperties with 1 mysteryChoiceProperty listener
+    //TODO replace 2 DerivedProperties with 1 mysteryChoiceProperty listener https://github.com/phetsims/tasks/issues/1129
     new DerivedProperty( [ mysteryPoolModel.underPressureModel.mysteryChoiceProperty ],
       mysteryChoice => {
         return mysteryChoice === 'fluidDensity';

@@ -52,7 +52,7 @@ class BarometerNode extends Node {
       scale: 1,
       minPressure: Constants.MIN_PRESSURE,
       maxPressure: Constants.MAX_PRESSURE,
-      initialPosition: null // TODO figure out a better way to reset the barometer to have the position of the icon
+      initialPosition: null // TODO figure out a better way to reset the barometer to have the position of the icon https://github.com/phetsims/tasks/issues/1129
     }, options );
 
     super( { cursor: 'pointer' } );
@@ -132,7 +132,7 @@ class BarometerNode extends Node {
     // @public
     // Add an input listener so the BarometerNode can be dragged
     // Constrain the position so it cannot be dragged offscreen
-    // TODO: moving up y, by 1.2
+    // TODO: moving up y, by 1.2 https://github.com/phetsims/tasks/issues/1129
     this.dragListener = new DragListener( {
       dragBoundsProperty: new Property( barometerDragBounds ),
       positionProperty: barometer.positionProperty,
@@ -148,7 +148,7 @@ class BarometerNode extends Node {
 
           if ( options.initialPosition ) {
             barometer.positionProperty.value = options.initialPosition;
-            this.visible = false; // TODO does this want to be in all cases, not just for toolbox?
+            this.visible = false; // TODO does this want to be in all cases, not just for toolbox? https://github.com/phetsims/tasks/issues/1129
           }
           else {
             barometer.positionProperty.reset();
@@ -198,7 +198,7 @@ class BarometerNode extends Node {
         }
       } );
 
-    this.touchArea = this.localBounds.dilatedXY( 0, 0 ); //TODO why?
+    this.touchArea = this.localBounds.dilatedXY( 0, 0 ); //TODO why? https://github.com/phetsims/tasks/issues/1129
   }
 }
 

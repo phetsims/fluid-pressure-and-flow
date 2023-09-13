@@ -47,7 +47,7 @@ class FluidColorModel {
     this.colorProperty = new Property( WATER_COLOR );
 
     // @private indicates whether fluid density changed since the previous step
-    this.densityChanged = false; //TODO rename fluidDensityChanged
+    this.densityChanged = false; //TODO rename fluidDensityChanged https://github.com/phetsims/tasks/issues/1129
 
     fluidDensityProperty.link( () => {
       this.densityChanged = true;

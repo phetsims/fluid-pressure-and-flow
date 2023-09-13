@@ -22,7 +22,7 @@ class SquarePoolModel extends PoolWithFaucetsModel {
 
     const maxHeight = Constants.MAX_POOL_HEIGHT; // @public - Meters
 
-    //TODO this assignment makes no sense
+    //TODO this assignment makes no sense https://github.com/phetsims/tasks/issues/1129
     const maxVolume = maxHeight; // @public - Liters
 
     // empirically determined to make sure input faucet is above ground , output faucet is below ground and output

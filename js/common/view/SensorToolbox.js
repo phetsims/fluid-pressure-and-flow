@@ -28,7 +28,7 @@ class SensorToolbox extends Panel {
   constructor( model, modelViewTransform, screenView, options ) {
 
     options = merge( {
-      // TODO padding/margin around panel edges
+      // TODO padding/margin around panel edges https://github.com/phetsims/tasks/issues/1129
     }, options );
 
     // create icons, not real sensors
@@ -68,7 +68,7 @@ class SensorToolbox extends Panel {
 
     super( container, options );
 
-    // TODO, make sure that this is the best way to get the position of the icon in units that the sensor's positionProperty can use
+    // TODO, make sure that this is the best way to get the position of the icon in units that the sensor's positionProperty can use https://github.com/phetsims/tasks/issues/1129
     const velocitySensorInitialPosition = velocitySensorIcon.localToGlobalPoint( new Vector2( velocitySensorIcon.x, velocitySensorIcon.y ) );
     this.velocitySensorNodes = []; // @private
 
@@ -94,7 +94,7 @@ class SensorToolbox extends Panel {
       velocitySensorNode.addInputListener( getMakeIconVisibleListener( velocitySensorNode, velocitySensorIcon ) );
 
       // center the real velocity sensor on the icon.
-      // TODO, just a hack until I find something better. I'm not sure why this is different from barometers
+      // TODO, just a hack until I find something better. I'm not sure why this is different from barometers https://github.com/phetsims/tasks/issues/1129
       velocitySensor.positionProperty._initialValue = velocitySensorInitialPosition;
       velocitySensor.positionProperty.value = velocitySensorInitialPosition;
 
@@ -107,7 +107,7 @@ class SensorToolbox extends Panel {
     } ) );
 
 
-    // TODO, make sure that this is the best way to get the position of the icon in units that the sensor's positionProperty can use
+    // TODO, make sure that this is the best way to get the position of the icon in units that the sensor's positionProperty can use https://github.com/phetsims/tasks/issues/1129
     this.barometerNodes = []; // @private
 
     // add barometers within the sensor panel bounds
@@ -210,7 +210,7 @@ function getMakeIconVisibleListener( sensorNode, icon ) {
     }
   };
 
-  // TODO: SR is the 'up' event robust enough here? I'm trying to add on to the enddrag of the sensorNode
+  // TODO: SR is the 'up' event robust enough here? I'm trying to add on to the enddrag of the sensorNode https://github.com/phetsims/tasks/issues/1129
   return {
     up: makeSensorVisible,
     cancel: makeSensorVisible

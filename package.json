@@ -31,9 +31,6 @@
     "extends": "../chipper/eslint/sim_eslintrc.js",
     "globals": {
       "numeric": "readonly"
-    },
-    "rules": {
-      "todo-should-have-issue": "off"
     }
   }
 }

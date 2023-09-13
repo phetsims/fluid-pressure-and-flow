@@ -46,14 +46,14 @@ class WaterDrop {
     const initialVelocityY = this.velocityProperty.value.y;
 
     this.velocityProperty.value.setY( this.velocityProperty.value.y + accelerationY * dt );
-    this.velocityProperty._notifyListeners(); // TODO: don't call this private method
+    this.velocityProperty._notifyListeners(); // TODO: don't call this private method https://github.com/phetsims/tasks/issues/1129
 
     // d = (v_f + v_i) * dt/2; assuming constant acceleration
     const displacementX = ( this.velocityProperty.value.x + initialVelocityX ) * dt / 2;
     const displacementY = ( this.velocityProperty.value.y + initialVelocityY ) * dt / 2;
 
     this.positionProperty.value.setXY( this.positionProperty.value.x + displacementX, this.positionProperty.value.y + displacementY );
-    this.positionProperty._notifyListeners(); // TODO: don't call this private method
+    this.positionProperty._notifyListeners(); // TODO: don't call this private method https://github.com/phetsims/tasks/issues/1129
   }
 
   /**

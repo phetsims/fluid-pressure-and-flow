@@ -36,7 +36,7 @@ class UnderPressureModel {
     // @public
     this.isAtmosphereProperty = new Property( true );
     this.isRulerVisibleProperty = new Property( false );
-    this.isGridVisibleProperty = new Property( false ); // TODO: is this used?
+    this.isGridVisibleProperty = new Property( false ); // TODO: is this used? https://github.com/phetsims/tasks/issues/1129
     this.measureUnitsProperty = new Property( 'metric' ); //metric, english or atmosphere
     this.gravityProperty = new Property( Constants.EARTH_GRAVITY );
     this.fluidDensityProperty = new Property( Constants.WATER_DENSITY );
@@ -47,7 +47,7 @@ class UnderPressureModel {
     // This way Barometer doesn't need to know about the different scenes and can depend only on
     // UnderPressureModel's properties.
     this.currentVolumeProperty = new Property( 0 ); //L, volume of liquid in currentScene
-    this.rulerPositionProperty = new Vector2Property( new Vector2( 300, 100 ) ); // ruler initial position above the ground and center of square pool // TODO: is this used?
+    this.rulerPositionProperty = new Vector2Property( new Vector2( 300, 100 ) ); // ruler initial position above the ground and center of square pool // TODO: is this used? https://github.com/phetsims/tasks/issues/1129
     this.mysteryChoiceProperty = new Property( 'fluidDensity' ); //for mystery-pool, gravity of fluidDensity
     this.fluidDensityControlExpandedProperty = new Property( true );//For the accordion box
     this.gravityControlExpandedProperty = new Property( true );//For the accordion box

@@ -85,7 +85,7 @@ class FPAFRuler extends Node {
 
     isRulerVisibleProperty.linkAttribute( this, 'visible' );
 
-    //TODO replace 2 DerivedProperties with 1 measureUnitsProperty listener
+    //TODO replace 2 DerivedProperties with 1 measureUnitsProperty listener https://github.com/phetsims/tasks/issues/1129
     new DerivedProperty( [ measureUnitsProperty ], measureUnits => measureUnits === 'english' )
       .linkAttribute( feetRuler, 'visible' );
     new DerivedProperty( [ measureUnitsProperty ], measureUnits => measureUnits === 'metric' )

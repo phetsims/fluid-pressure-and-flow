@@ -31,7 +31,7 @@ class TrapezoidPoolModel extends PoolWithFaucetsModel {
     //constants
     const maxHeight = Constants.MAX_POOL_HEIGHT; // @public - meters
 
-    //TODO this assignment makes no sense
+    //TODO this assignment makes no sense https://github.com/phetsims/tasks/issues/1129
     const maxVolume = maxHeight; // @public - Liters
 
     // empirically determined to make sure input faucet is above ground , output faucet is below ground and output

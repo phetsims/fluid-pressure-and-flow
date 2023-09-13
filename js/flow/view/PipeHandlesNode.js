@@ -54,7 +54,7 @@ class PipeHandlesNode extends Node {
       }
     );
 
-    //TODO this should be private, outside of constructor
+    //TODO this should be private, outside of constructor https://github.com/phetsims/tasks/issues/1129
     function boundsToTouchAreaForLeftAndRightHandles( localBounds ) {
       return new Bounds2( localBounds.minX - HANDLE_X_TOUCH_EXPAND, localBounds.minY + 25,
         localBounds.maxX + HANDLE_X_TOUCH_EXPAND, localBounds.maxY + 60 );

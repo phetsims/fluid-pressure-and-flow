@@ -33,7 +33,7 @@ class WaterTower {
     // Assume the tank is a cylinder and compute the max volume
     this.TANK_VOLUME = Math.PI * this.TANK_RADIUS * this.TANK_RADIUS * this.TANK_HEIGHT;
 
-    this.isHoleOpenProperty = new Property( false ); // TODO: Is this unused?
+    this.isHoleOpenProperty = new Property( false ); // TODO: Is this unused? https://github.com/phetsims/tasks/issues/1129
     this.fluidVolumeProperty = new Property( this.TANK_VOLUME * options.initialFluidLevel );
     this.tankPositionProperty = new Property( options.tankPosition ); //water tank bottom left
 
@@ -43,7 +43,7 @@ class WaterTower {
       return fluidVolume / ( Math.PI * this.TANK_RADIUS * this.TANK_RADIUS );
     } );
 
-    // TODO: Is this used?
+    // TODO: Is this used? https://github.com/phetsims/tasks/issues/1129
     this.isFullProperty = new DerivedProperty( [ this.fluidVolumeProperty ], fluidVolume => {
       return fluidVolume >= this.TANK_VOLUME;
     } );
