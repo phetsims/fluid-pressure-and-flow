@@ -178,7 +178,6 @@ class WaterTowerScreenView extends ScreenView {
       listener: () => {
         waterTowerModel.reset();
         this.hoseNode.reset();
-        measuringTapeNode.reset();
         waterTowerNode.fillButton.enabled = true;
       },
       right: this.layoutBounds.right - INSET,
