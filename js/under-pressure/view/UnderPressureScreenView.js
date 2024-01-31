@@ -158,7 +158,7 @@ class UnderPressureScreenView extends ScreenView {
     this.addChild( fluidDensitySlider );
 
     // add the sensors panel
-    const sensorPanel = new Rectangle( 0, 0, 100, 130, 10, 10, {
+    const sensorPanel = new Rectangle( 0, 0, 100, 130, {
       stroke: 'gray',
       lineWidth: 1,
       fill: '#f2fa6a',
