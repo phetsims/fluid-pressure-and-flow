@@ -28,6 +28,7 @@ import FluidPressureAndFlowStrings from '../../FluidPressureAndFlowStrings.js';
 import FluxMeter from './FluxMeter.js';
 import Particle from './Particle.js';
 import Pipe from './Pipe.js';
+import { UniformEventModel } from '../../../../phet-core/js/EventTimer.js';
 
 const densityUnitsEnglishString = FluidPressureAndFlowStrings.densityUnitsEnglish;
 const densityUnitsMetricString = FluidPressureAndFlowStrings.densityUnitsMetric;
@@ -96,7 +97,7 @@ class FlowModel {
     this.gridParticles = createObservableArray();
 
     // call stepInternal at a rate of 10 times per second
-    this.timer = new EventTimer( new EventTimer.UniformEventModel( 10, dotRandom.nextDouble.bind( dotRandom ) ),
+    this.timer = new EventTimer( new UniformEventModel( 10, dotRandom.nextDouble.bind( dotRandom ) ),
       () => { this.createParticle(); }
     );
 
