@@ -31,6 +31,18 @@
     "extends": "../chipper/eslint/sim_eslintrc.js",
     "globals": {
       "numeric": "readonly"
-    }
+    },
+    "overrides": [
+      {
+        "files": [
+          "**/*.ts"
+        ],
+        "parserOptions": {
+          "project": [
+            "../fluid-pressure-and-flow/tsconfig.json"
+          ]
+        }
+      }
+    ]
   }
 }
