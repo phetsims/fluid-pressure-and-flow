@@ -39,7 +39,7 @@
         ],
         "parserOptions": {
           "project": [
-            "../fluid-pressure-and-flow/tsconfig.json"
+            "../chipper/tsconfig/eslint-all/tsconfig.json"
           ]
         }
       }
