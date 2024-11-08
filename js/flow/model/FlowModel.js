@@ -15,7 +15,7 @@ import Range from '../../../../dot/js/Range.js';
 import Utils from '../../../../dot/js/Utils.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import Vector2Property from '../../../../dot/js/Vector2Property.js';
-import EventTimer from '../../../../phet-core/js/EventTimer.js';
+import EventTimer, { UniformEventModel } from '../../../../phet-core/js/EventTimer.js';
 import StringUtils from '../../../../phetcommon/js/util/StringUtils.js';
 import Constants from '../../common/Constants.js';
 import FluidColorModel from '../../common/model/FluidColorModel.js';
@@ -28,7 +28,6 @@ import FluidPressureAndFlowStrings from '../../FluidPressureAndFlowStrings.js';
 import FluxMeter from './FluxMeter.js';
 import Particle from './Particle.js';
 import Pipe from './Pipe.js';
-import { UniformEventModel } from '../../../../phet-core/js/EventTimer.js';
 
 const densityUnitsEnglishString = FluidPressureAndFlowStrings.densityUnitsEnglish;
 const densityUnitsMetricString = FluidPressureAndFlowStrings.densityUnitsMetric;
