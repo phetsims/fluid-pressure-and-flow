@@ -8,8 +8,10 @@
 
 import Bounds2 from '../../../../dot/js/Bounds2.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
-import { Shape } from '../../../../kite/js/imports.js';
-import { Image, Node, Path } from '../../../../scenery/js/imports.js';
+import Shape from '../../../../kite/js/Shape.js';
+import Image from '../../../../scenery/js/nodes/Image.js';
+import Node from '../../../../scenery/js/nodes/Node.js';
+import Path from '../../../../scenery/js/nodes/Path.js';
 import pipeLeftBack_png from '../../../images/pipeLeftBack_png.js';
 import pipeLeftFront_png from '../../../images/pipeLeftFront_png.js';
 import pipeRight_png from '../../../images/pipeRight_png.js';

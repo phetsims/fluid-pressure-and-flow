@@ -8,9 +8,10 @@
 
 import Vector2 from '../../../../dot/js/Vector2.js';
 import Vector2Property from '../../../../dot/js/Vector2Property.js';
-import { Shape } from '../../../../kite/js/imports.js';
+import Shape from '../../../../kite/js/Shape.js';
 import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransform2.js';
-import { Path, Rectangle } from '../../../../scenery/js/imports.js';
+import Path from '../../../../scenery/js/nodes/Path.js';
+import Rectangle from '../../../../scenery/js/nodes/Rectangle.js';
 import ABSwitch from '../../../../sun/js/ABSwitch.js';
 import fluidPressureAndFlow from '../../fluidPressureAndFlow.js';
 import WaterTowerLegsNode from './WaterTowerLegsNode.js';

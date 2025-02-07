@@ -8,7 +8,7 @@
  */
 
 import merge from '../../../../phet-core/js/merge.js';
-import { Image } from '../../../../scenery/js/imports.js';
+import Image from '../../../../scenery/js/nodes/Image.js';
 import RectangularRadioButtonGroup from '../../../../sun/js/buttons/RectangularRadioButtonGroup.js';
 import chamberPoolIcon_png from '../../../images/chamberPoolIcon_png.js';
 import mysteryPoolIcon_png from '../../../images/mysteryPoolIcon_png.js';

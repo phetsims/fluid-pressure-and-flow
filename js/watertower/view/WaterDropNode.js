@@ -6,7 +6,7 @@
  * @author Siddhartha Chinthapally (Actual Concepts) on 6/26/2014.
  */
 
-import { Circle } from '../../../../scenery/js/imports.js';
+import Circle from '../../../../scenery/js/nodes/Circle.js';
 import fluidPressureAndFlow from '../../fluidPressureAndFlow.js';
 
 class WaterDropNode extends Circle {

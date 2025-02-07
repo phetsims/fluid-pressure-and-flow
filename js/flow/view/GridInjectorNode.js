@@ -8,7 +8,8 @@
  */
 
 import Property from '../../../../axon/js/Property.js';
-import { Image, Node } from '../../../../scenery/js/imports.js';
+import Image from '../../../../scenery/js/nodes/Image.js';
+import Node from '../../../../scenery/js/nodes/Node.js';
 import RoundStickyToggleButton from '../../../../sun/js/buttons/RoundStickyToggleButton.js';
 import injectorBulbCropped_png from '../../../images/injectorBulbCropped_png.js';
 import fluidPressureAndFlow from '../../fluidPressureAndFlow.js';

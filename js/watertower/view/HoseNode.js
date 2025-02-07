@@ -9,8 +9,11 @@
  * @author Siddhartha Chinthapally (Actual Concepts)
  */
 
-import { Shape } from '../../../../kite/js/imports.js';
-import { Image, Node, Path, SimpleDragHandler } from '../../../../scenery/js/imports.js';
+import Shape from '../../../../kite/js/Shape.js';
+import SimpleDragHandler from '../../../../scenery/js/input/SimpleDragHandler.js';
+import Image from '../../../../scenery/js/nodes/Image.js';
+import Node from '../../../../scenery/js/nodes/Node.js';
+import Path from '../../../../scenery/js/nodes/Path.js';
 import handle_png from '../../../images/handle_png.js';
 import nozzle_png from '../../../images/nozzle_png.js';
 import spoutHandle_png from '../../../images/spoutHandle_png.js';

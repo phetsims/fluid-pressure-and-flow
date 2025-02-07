@@ -7,7 +7,8 @@
  * @author Siddhartha Chinthapally (Actual Concepts)
  */
 
-import { Line, Node } from '../../../../scenery/js/imports.js';
+import Line from '../../../../scenery/js/nodes/Line.js';
+import Node from '../../../../scenery/js/nodes/Node.js';
 import Units from '../../common/model/Units.js';
 import fluidPressureAndFlow from '../../fluidPressureAndFlow.js';
 
