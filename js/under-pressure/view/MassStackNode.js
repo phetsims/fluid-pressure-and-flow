@@ -1,4 +1,4 @@
-// Copyright 2013-2022, University of Colorado Boulder
+// Copyright 2013-2025, University of Colorado Boulder
 
 /**
  * View for mass stack on top of water. Masses don't stack on ground.

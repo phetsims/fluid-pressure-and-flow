@@ -1,4 +1,4 @@
-// Copyright 2013-2023, University of Colorado Boulder
+// Copyright 2013-2025, University of Colorado Boulder
 
 /**
  * View for the scene chooser containing 4 image radio buttons

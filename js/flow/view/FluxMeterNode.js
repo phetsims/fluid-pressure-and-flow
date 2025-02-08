@@ -1,4 +1,4 @@
-// Copyright 2014-2023, University of Colorado Boulder
+// Copyright 2014-2025, University of Colorado Boulder
 
 /**
  * View for the flux meter tool. Looks like a ring around the pipe with a display panel at the top and a drag handle

@@ -1,4 +1,4 @@
-// Copyright 2014-2024, University of Colorado Boulder
+// Copyright 2014-2025, University of Colorado Boulder
 
 /**
  * View for the Velocity Sensor tool. Measures the velocity at the sensor's tip and shows it in the display box.

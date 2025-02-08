@@ -1,4 +1,4 @@
-// Copyright 2014-2023, University of Colorado Boulder
+// Copyright 2014-2025, University of Colorado Boulder
 
 /**
  * View for handles on the pipe node. The pipe can be dragged and scaled using these handles.

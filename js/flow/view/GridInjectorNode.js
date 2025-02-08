@@ -1,4 +1,4 @@
-// Copyright 2014-2022, University of Colorado Boulder
+// Copyright 2014-2025, University of Colorado Boulder
 
 /**
  * View for the GridInjectorNode that injects a particle grid into the pipe.

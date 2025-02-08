@@ -1,4 +1,4 @@
-// Copyright 2013-2022, University of Colorado Boulder
+// Copyright 2013-2025, University of Colorado Boulder
 
 /**
  * A generic slider control that can be used to control a numeric property within a given range.
