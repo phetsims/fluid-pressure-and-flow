@@ -8,7 +8,6 @@
  */
 
 import Node from '../../../../scenery/js/nodes/Node.js';
-import fluidPressureAndFlow from '../../fluidPressureAndFlow.js';
 import FaucetFluidNode from './FaucetFluidNode.js';
 import SquarePoolBack from './SquarePoolBack.js';
 import SquarePoolGrid from './SquarePoolGrid.js';
@@ -41,5 +40,4 @@ class SquarePoolView extends Node {
   }
 }
 
-fluidPressureAndFlow.register( 'SquarePoolView', SquarePoolView );
 export default SquarePoolView;

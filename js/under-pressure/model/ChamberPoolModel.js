@@ -11,7 +11,6 @@
 import createObservableArray from '../../../../axon/js/createObservableArray.js';
 import Property from '../../../../axon/js/Property.js';
 import Constants from '../../common/Constants.js';
-import fluidPressureAndFlow from '../../fluidPressureAndFlow.js';
 import MassModel from './MassModel.js';
 
 // constants
@@ -236,5 +235,4 @@ class ChamberPoolModel {
   }
 }
 
-fluidPressureAndFlow.register( 'ChamberPoolModel', ChamberPoolModel );
 export default ChamberPoolModel;

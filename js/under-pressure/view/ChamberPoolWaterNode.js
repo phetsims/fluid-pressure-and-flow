@@ -9,7 +9,6 @@
 import Shape from '../../../../kite/js/Shape.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
 import Path from '../../../../scenery/js/nodes/Path.js';
-import fluidPressureAndFlow from '../../fluidPressureAndFlow.js';
 
 class ChamberPoolWaterNode extends Node {
 
@@ -74,5 +73,4 @@ class ChamberPoolWaterNode extends Node {
   }
 }
 
-fluidPressureAndFlow.register( 'ChamberPoolWaterNode', ChamberPoolWaterNode );
 export default ChamberPoolWaterNode;

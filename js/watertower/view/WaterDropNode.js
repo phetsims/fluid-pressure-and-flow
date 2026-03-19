@@ -7,7 +7,6 @@
  */
 
 import Circle from '../../../../scenery/js/nodes/Circle.js';
-import fluidPressureAndFlow from '../../fluidPressureAndFlow.js';
 
 class WaterDropNode extends Circle {
 
@@ -33,5 +32,4 @@ class WaterDropNode extends Circle {
   }
 }
 
-fluidPressureAndFlow.register( 'WaterDropNode', WaterDropNode );
 export default WaterDropNode;

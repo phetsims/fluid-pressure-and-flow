@@ -13,7 +13,6 @@ import SimpleDragHandler from '../../../../scenery/js/input/SimpleDragHandler.js
 import Image from '../../../../scenery/js/nodes/Image.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
 import handleWithBar_png from '../../../images/handleWithBar_png.js';
-import fluidPressureAndFlow from '../../fluidPressureAndFlow.js';
 
 // constants
 const CONTROL_HANDLE_OFFSET = 2;
@@ -189,5 +188,4 @@ class PipeHandleNode extends Node {
   }
 }
 
-fluidPressureAndFlow.register( 'PipeHandleNode', PipeHandleNode );
 export default PipeHandleNode;

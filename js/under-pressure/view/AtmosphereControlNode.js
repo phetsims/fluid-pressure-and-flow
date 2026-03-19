@@ -14,7 +14,6 @@ import HBox from '../../../../scenery/js/layout/nodes/HBox.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
 import Text from '../../../../scenery/js/nodes/Text.js';
 import AquaRadioButton from '../../../../sun/js/AquaRadioButton.js';
-import fluidPressureAndFlow from '../../fluidPressureAndFlow.js';
 import FluidPressureAndFlowStrings from '../../FluidPressureAndFlowStrings.js';
 
 const atmosphereString = FluidPressureAndFlowStrings.atmosphere;
@@ -79,5 +78,4 @@ class AtmosphereControlNode extends Node {
   }
 }
 
-fluidPressureAndFlow.register( 'AtmosphereControlNode', AtmosphereControlNode );
 export default AtmosphereControlNode;

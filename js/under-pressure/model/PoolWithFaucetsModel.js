@@ -9,7 +9,6 @@
  */
 
 import Property from '../../../../axon/js/Property.js';
-import fluidPressureAndFlow from '../../fluidPressureAndFlow.js';
 
 class PoolWithFaucetsModel {
 
@@ -77,5 +76,4 @@ class PoolWithFaucetsModel {
   }
 }
 
-fluidPressureAndFlow.register( 'PoolWithFaucetsModel', PoolWithFaucetsModel );
 export default PoolWithFaucetsModel;

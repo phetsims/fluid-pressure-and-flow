@@ -12,7 +12,6 @@ import SimpleDragHandler from '../../../../scenery/js/input/SimpleDragHandler.js
 import HBox from '../../../../scenery/js/layout/nodes/HBox.js';
 import DragListener from '../../../../scenery/js/listeners/DragListener.js';
 import Panel from '../../../../sun/js/Panel.js';
-import fluidPressureAndFlow from '../../fluidPressureAndFlow.js';
 import Constants from '../Constants.js';
 import Sensor from '../model/Sensor.js';
 import VelocitySensor from '../model/VelocitySensor.js';
@@ -219,5 +218,4 @@ function getMakeIconVisibleListener( sensorNode, icon ) {
   };
 }
 
-fluidPressureAndFlow.register( 'SensorToolbox', SensorToolbox );
 export default SensorToolbox;

@@ -9,7 +9,6 @@
 
 import Vector2 from '../../../../dot/js/Vector2.js';
 import Vector2Property from '../../../../dot/js/Vector2Property.js';
-import fluidPressureAndFlow from '../../fluidPressureAndFlow.js';
 
 class PipeControlPoint {
 
@@ -29,5 +28,4 @@ class PipeControlPoint {
   }
 }
 
-fluidPressureAndFlow.register( 'PipeControlPoint', PipeControlPoint );
 export default PipeControlPoint;

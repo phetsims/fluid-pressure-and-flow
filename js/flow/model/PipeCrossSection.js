@@ -7,8 +7,6 @@
  * @author Siddhartha Chinthapally (Actual Concepts)
  */
 
-import fluidPressureAndFlow from '../../fluidPressureAndFlow.js';
-
 class PipeCrossSection {
 
   /**
@@ -44,5 +42,4 @@ class PipeCrossSection {
   }
 }
 
-fluidPressureAndFlow.register( 'PipeCrossSection', PipeCrossSection );
 export default PipeCrossSection;

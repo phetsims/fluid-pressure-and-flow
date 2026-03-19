@@ -19,7 +19,6 @@ import Node from '../../../../scenery/js/nodes/Node.js';
 import Text from '../../../../scenery/js/nodes/Text.js';
 import Checkbox from '../../../../sun/js/Checkbox.js';
 import Panel from '../../../../sun/js/Panel.js';
-import fluidPressureAndFlow from '../../fluidPressureAndFlow.js';
 import FluidPressureAndFlowStrings from '../../FluidPressureAndFlowStrings.js';
 
 const dotsString = FluidPressureAndFlowStrings.dots;
@@ -123,5 +122,4 @@ function createDotsIcon() {
   return new Node( { children: [ dot1, dot2 ] } );
 }
 
-fluidPressureAndFlow.register( 'FlowToolsControlPanel', FlowToolsControlPanel );
 export default FlowToolsControlPanel;

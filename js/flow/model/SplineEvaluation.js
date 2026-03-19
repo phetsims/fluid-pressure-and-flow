@@ -7,8 +7,6 @@
  * @author Sam Reid (PhET Interactive Simulations)
  */
 
-import fluidPressureAndFlow from '../../fluidPressureAndFlow.js';
-
 //The most important function for this sim in numeric.js is just too slow because it uses tensor versions of all functions.
 //This version inlines everything.
 function _at( spline, x1, p ) {
@@ -56,5 +54,4 @@ function atArray( spline, x0 ) {
 
 const SplineEvaluation = { atNumber: atNumber, atArray: atArray };
 
-fluidPressureAndFlow.register( 'SplineEvaluation', SplineEvaluation );
 export default SplineEvaluation;

@@ -10,7 +10,6 @@
 import LinearFunction from '../../../../dot/js/LinearFunction.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import Constants from '../../common/Constants.js';
-import fluidPressureAndFlow from '../../fluidPressureAndFlow.js';
 import FaucetModel from './FaucetModel.js';
 import PoolWithFaucetsModel from './PoolWithFaucetsModel.js';
 
@@ -148,5 +147,4 @@ class TrapezoidPoolModel extends PoolWithFaucetsModel {
   }
 }
 
-fluidPressureAndFlow.register( 'TrapezoidPoolModel', TrapezoidPoolModel );
 export default TrapezoidPoolModel;

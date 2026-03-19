@@ -11,7 +11,6 @@
 import Property from '../../../../axon/js/Property.js';
 import LinearFunction from '../../../../dot/js/LinearFunction.js';
 import Color from '../../../../scenery/js/util/Color.js';
-import fluidPressureAndFlow from '../../fluidPressureAndFlow.js';
 import Constants from '../Constants.js';
 
 // Color constants, from the Java version
@@ -78,5 +77,4 @@ class FluidColorModel {
   }
 }
 
-fluidPressureAndFlow.register( 'FluidColorModel', FluidColorModel );
 export default FluidColorModel;

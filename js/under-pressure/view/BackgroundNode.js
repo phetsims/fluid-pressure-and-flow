@@ -11,7 +11,6 @@ import GroundNode from '../../../../scenery-phet/js/GroundNode.js';
 import SkyNode from '../../../../scenery-phet/js/SkyNode.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
 import Rectangle from '../../../../scenery/js/nodes/Rectangle.js';
-import fluidPressureAndFlow from '../../fluidPressureAndFlow.js';
 
 class BackgroundNode extends Node {
 
@@ -57,5 +56,4 @@ class BackgroundNode extends Node {
   }
 }
 
-fluidPressureAndFlow.register( 'BackgroundNode', BackgroundNode );
 export default BackgroundNode;

@@ -19,7 +19,6 @@ import LinearGradient from '../../../../scenery/js/util/LinearGradient.js';
 import TextPushButton from '../../../../sun/js/buttons/TextPushButton.js';
 import handle_png from '../../../images/handle_png.js';
 import wheel_png from '../../../images/wheel_png.js';
-import fluidPressureAndFlow from '../../fluidPressureAndFlow.js';
 import FluidPressureAndFlowStrings from '../../FluidPressureAndFlowStrings.js';
 import WaterTowerLegsNode from './WaterTowerLegsNode.js';
 
@@ -184,5 +183,4 @@ class WaterTowerNode extends Node {
   }
 }
 
-fluidPressureAndFlow.register( 'WaterTowerNode', WaterTowerNode );
 export default WaterTowerNode;

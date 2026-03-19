@@ -10,8 +10,6 @@
  * @author Siddhartha Chinthapally (Actual Concepts)
  */
 
-import fluidPressureAndFlow from '../../fluidPressureAndFlow.js';
-
 class Particle {
 
   /**
@@ -62,5 +60,4 @@ class Particle {
   }
 }
 
-fluidPressureAndFlow.register( 'Particle', Particle );
 export default Particle;

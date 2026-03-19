@@ -11,7 +11,6 @@
 import Property from '../../../../axon/js/Property.js';
 import Utils from '../../../../dot/js/Utils.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
-import fluidPressureAndFlow from '../../fluidPressureAndFlow.js';
 import PipeControlPoint from './PipeControlPoint.js';
 import PipeCrossSection from './PipeCrossSection.js';
 import SplineEvaluation from './SplineEvaluation.js';
@@ -429,5 +428,4 @@ class Pipe {
   }
 }
 
-fluidPressureAndFlow.register( 'Pipe', Pipe );
 export default Pipe;

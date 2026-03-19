@@ -10,7 +10,6 @@
 import Line from '../../../../scenery/js/nodes/Line.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
 import Units from '../../common/model/Units.js';
-import fluidPressureAndFlow from '../../fluidPressureAndFlow.js';
 
 class GridLinesNode extends Node {
   /**
@@ -73,5 +72,4 @@ class GridLinesNode extends Node {
   }
 }
 
-fluidPressureAndFlow.register( 'GridLinesNode', GridLinesNode );
 export default GridLinesNode;

@@ -10,7 +10,6 @@ import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import Property from '../../../../axon/js/Property.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import merge from '../../../../phet-core/js/merge.js';
-import fluidPressureAndFlow from '../../fluidPressureAndFlow.js';
 
 class WaterTower {
 
@@ -67,5 +66,4 @@ class WaterTower {
   }
 }
 
-fluidPressureAndFlow.register( 'WaterTower', WaterTower );
 export default WaterTower;

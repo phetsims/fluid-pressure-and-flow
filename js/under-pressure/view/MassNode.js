@@ -15,7 +15,6 @@ import Node from '../../../../scenery/js/nodes/Node.js';
 import Rectangle from '../../../../scenery/js/nodes/Rectangle.js';
 import Text from '../../../../scenery/js/nodes/Text.js';
 import LinearGradient from '../../../../scenery/js/util/LinearGradient.js';
-import fluidPressureAndFlow from '../../fluidPressureAndFlow.js';
 import FluidPressureAndFlowStrings from '../../FluidPressureAndFlowStrings.js';
 
 const massLabelPatternString = FluidPressureAndFlowStrings.massLabelPattern;
@@ -93,5 +92,4 @@ class MassNode extends Node {
   }
 }
 
-fluidPressureAndFlow.register( 'MassNode', MassNode );
 export default MassNode;

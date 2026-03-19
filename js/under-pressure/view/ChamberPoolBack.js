@@ -14,7 +14,6 @@ import Rectangle from '../../../../scenery/js/nodes/Rectangle.js';
 import Pattern from '../../../../scenery/js/util/Pattern.js';
 import cementTextureDark_jpg from '../../../images/cementTextureDark_jpg.js';
 import grassTexture_png from '../../../images/grassTexture_png.js';
-import fluidPressureAndFlow from '../../fluidPressureAndFlow.js';
 
 class ChamberPoolBack extends Node {
 
@@ -134,5 +133,4 @@ class ChamberPoolBack extends Node {
   }
 }
 
-fluidPressureAndFlow.register( 'ChamberPoolBack', ChamberPoolBack );
 export default ChamberPoolBack;

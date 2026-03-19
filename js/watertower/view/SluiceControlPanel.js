@@ -13,7 +13,6 @@ import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransfo
 import Path from '../../../../scenery/js/nodes/Path.js';
 import Rectangle from '../../../../scenery/js/nodes/Rectangle.js';
 import ABSwitch from '../../../../sun/js/ABSwitch.js';
-import fluidPressureAndFlow from '../../fluidPressureAndFlow.js';
 import WaterTowerLegsNode from './WaterTowerLegsNode.js';
 
 // constants
@@ -94,5 +93,4 @@ class SluiceControlPanel extends ABSwitch {
   }
 }
 
-fluidPressureAndFlow.register( 'SluiceControlPanel', SluiceControlPanel );
 export default SluiceControlPanel;

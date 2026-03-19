@@ -23,7 +23,6 @@ import getStandardAirPressure from '../../common/model/getStandardAirPressure.js
 import Sensor from '../../common/model/Sensor.js';
 import Units from '../../common/model/Units.js';
 import VelocitySensor from '../../common/model/VelocitySensor.js';
-import fluidPressureAndFlow from '../../fluidPressureAndFlow.js';
 import FluidPressureAndFlowStrings from '../../FluidPressureAndFlowStrings.js';
 import FluxMeter from './FluxMeter.js';
 import Particle from './Particle.js';
@@ -339,5 +338,4 @@ class FlowModel {
   }
 }
 
-fluidPressureAndFlow.register( 'FlowModel', FlowModel );
 export default FlowModel;

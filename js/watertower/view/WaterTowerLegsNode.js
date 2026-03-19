@@ -11,7 +11,6 @@ import merge from '../../../../phet-core/js/merge.js';
 import Line from '../../../../scenery/js/nodes/Line.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
 import Path from '../../../../scenery/js/nodes/Path.js';
-import fluidPressureAndFlow from '../../fluidPressureAndFlow.js';
 
 class WaterTowerLegsNode extends Node {
   /**
@@ -90,5 +89,4 @@ class WaterTowerLegsNode extends Node {
   }
 }
 
-fluidPressureAndFlow.register( 'WaterTowerLegsNode', WaterTowerLegsNode );
 export default WaterTowerLegsNode;

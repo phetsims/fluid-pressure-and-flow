@@ -9,7 +9,6 @@
  */
 
 import Node from '../../../../scenery/js/nodes/Node.js';
-import fluidPressureAndFlow from '../../fluidPressureAndFlow.js';
 import ChamberPoolBack from './ChamberPoolBack.js';
 import ChamberPoolWaterNode from './ChamberPoolWaterNode.js';
 import MassNode from './MassNode.js';
@@ -57,5 +56,4 @@ class ChamberPoolView extends Node {
   }
 }
 
-fluidPressureAndFlow.register( 'ChamberPoolView', ChamberPoolView );
 export default ChamberPoolView;

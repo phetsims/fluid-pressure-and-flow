@@ -8,7 +8,6 @@
  */
 
 import Node from '../../../../scenery/js/nodes/Node.js';
-import fluidPressureAndFlow from '../../fluidPressureAndFlow.js';
 import FaucetFluidNode from './FaucetFluidNode.js';
 import TrapezoidPoolBack from './TrapezoidPoolBack.js';
 import TrapezoidPoolGrid from './TrapezoidPoolGrid.js';
@@ -61,5 +60,4 @@ class TrapezoidPoolView extends Node {
   }
 }
 
-fluidPressureAndFlow.register( 'TrapezoidPoolView', TrapezoidPoolView );
 export default TrapezoidPoolView;

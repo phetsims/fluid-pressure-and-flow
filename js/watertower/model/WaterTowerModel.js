@@ -23,7 +23,6 @@ import getStandardAirPressure from '../../common/model/getStandardAirPressure.js
 import Sensor from '../../common/model/Sensor.js';
 import Units from '../../common/model/Units.js';
 import VelocitySensor from '../../common/model/VelocitySensor.js';
-import fluidPressureAndFlow from '../../fluidPressureAndFlow.js';
 import FluidPressureAndFlowStrings from '../../FluidPressureAndFlowStrings.js';
 import Hose from './Hose.js';
 import WaterDrop from './WaterDrop.js';
@@ -422,5 +421,4 @@ class WaterTowerModel {
   }
 }
 
-fluidPressureAndFlow.register( 'WaterTowerModel', WaterTowerModel );
 export default WaterTowerModel;

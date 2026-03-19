@@ -14,7 +14,6 @@ import chamberPoolIcon_png from '../../../images/chamberPoolIcon_png.js';
 import mysteryPoolIcon_png from '../../../images/mysteryPoolIcon_png.js';
 import squarePoolIcon_png from '../../../images/squarePoolIcon_png.js';
 import trapezoidPoolIcon_png from '../../../images/trapezoidPoolIcon_png.js';
-import fluidPressureAndFlow from '../../fluidPressureAndFlow.js';
 
 // constants
 const ICON_SCALE = 0.5;
@@ -44,5 +43,4 @@ class SceneChoiceNode extends RectangularRadioButtonGroup {
   }
 }
 
-fluidPressureAndFlow.register( 'SceneChoiceNode', SceneChoiceNode );
 export default SceneChoiceNode;

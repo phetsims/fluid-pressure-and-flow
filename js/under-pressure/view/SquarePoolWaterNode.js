@@ -8,7 +8,6 @@
  */
 
 import Rectangle from '../../../../scenery/js/nodes/Rectangle.js';
-import fluidPressureAndFlow from '../../fluidPressureAndFlow.js';
 
 class SquarePoolWaterNode extends Rectangle {
 
@@ -38,5 +37,4 @@ class SquarePoolWaterNode extends Rectangle {
   }
 }
 
-fluidPressureAndFlow.register( 'SquarePoolWaterNode', SquarePoolWaterNode );
 export default SquarePoolWaterNode;

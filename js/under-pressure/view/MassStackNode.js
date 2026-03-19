@@ -11,7 +11,6 @@ import Shape from '../../../../kite/js/Shape.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
 import Path from '../../../../scenery/js/nodes/Path.js';
 import Rectangle from '../../../../scenery/js/nodes/Rectangle.js';
-import fluidPressureAndFlow from '../../fluidPressureAndFlow.js';
 
 class MassStackNode extends Node {
 
@@ -104,5 +103,4 @@ class MassStackNode extends Node {
   }
 }
 
-fluidPressureAndFlow.register( 'MassStackNode', MassStackNode );
 export default MassStackNode;

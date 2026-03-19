@@ -23,7 +23,6 @@ import Text from '../../../../scenery/js/nodes/Text.js';
 import AccordionBox from '../../../../sun/js/AccordionBox.js';
 import ArrowButton from '../../../../sun/js/buttons/ArrowButton.js';
 import HSlider from '../../../../sun/js/HSlider.js';
-import fluidPressureAndFlow from '../../fluidPressureAndFlow.js';
 
 // constants
 const PLUS_MINUS_SPACING = 6;
@@ -187,5 +186,4 @@ class ControlSlider extends Node {
   }
 }
 
-fluidPressureAndFlow.register( 'ControlSlider', ControlSlider );
 export default ControlSlider;

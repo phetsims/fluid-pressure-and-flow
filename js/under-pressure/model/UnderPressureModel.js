@@ -17,7 +17,6 @@ import FluidColorModel from '../../common/model/FluidColorModel.js';
 import getStandardAirPressure from '../../common/model/getStandardAirPressure.js';
 import Sensor from '../../common/model/Sensor.js';
 import Units from '../../common/model/Units.js';
-import fluidPressureAndFlow from '../../fluidPressureAndFlow.js';
 import ChamberPoolModel from './ChamberPoolModel.js';
 import MysteryPoolModel from './MysteryPoolModel.js';
 import SquarePoolModel from './SquarePoolModel.js';
@@ -185,5 +184,4 @@ class UnderPressureModel {
   }
 }
 
-fluidPressureAndFlow.register( 'UnderPressureModel', UnderPressureModel );
 export default UnderPressureModel;

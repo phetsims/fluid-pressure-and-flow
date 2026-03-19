@@ -23,7 +23,6 @@ import Path from '../../../../scenery/js/nodes/Path.js';
 import Rectangle from '../../../../scenery/js/nodes/Rectangle.js';
 import Text from '../../../../scenery/js/nodes/Text.js';
 import LinearGradient from '../../../../scenery/js/util/LinearGradient.js';
-import fluidPressureAndFlow from '../../fluidPressureAndFlow.js';
 import FluidPressureAndFlowStrings from '../../FluidPressureAndFlowStrings.js';
 
 const ftPerSString = FluidPressureAndFlowStrings.ftPerS;
@@ -231,5 +230,4 @@ class VelocitySensorNode extends Node {
   }
 }
 
-fluidPressureAndFlow.register( 'VelocitySensorNode', VelocitySensorNode );
 export default VelocitySensorNode;

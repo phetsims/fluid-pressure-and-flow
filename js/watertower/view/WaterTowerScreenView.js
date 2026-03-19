@@ -31,7 +31,6 @@ import ControlSlider from '../../common/view/ControlSlider.js';
 import FPAFRuler from '../../common/view/FPAFRuler.js';
 import UnitsControlPanel from '../../common/view/UnitsControlPanel.js';
 import VelocitySensorNode from '../../common/view/VelocitySensorNode.js';
-import fluidPressureAndFlow from '../../fluidPressureAndFlow.js';
 import FluidPressureAndFlowStrings from '../../FluidPressureAndFlowStrings.js';
 import FaucetControlPanel from './FaucetControlPanel.js';
 import HoseNode from './HoseNode.js';
@@ -350,5 +349,4 @@ class WaterTowerScreenView extends ScreenView {
   }
 }
 
-fluidPressureAndFlow.register( 'WaterTowerScreenView', WaterTowerScreenView );
 export default WaterTowerScreenView;

@@ -18,7 +18,6 @@ import Text from '../../../../scenery/js/nodes/Text.js';
 import VStrut from '../../../../scenery/js/nodes/VStrut.js';
 import Checkbox from '../../../../sun/js/Checkbox.js';
 import Panel from '../../../../sun/js/Panel.js';
-import fluidPressureAndFlow from '../../fluidPressureAndFlow.js';
 import FluidPressureAndFlowStrings from '../../FluidPressureAndFlowStrings.js';
 import AtmosphereControlNode from './AtmosphereControlNode.js';
 
@@ -99,5 +98,4 @@ function createRulerIcon() {
   } );
 }
 
-fluidPressureAndFlow.register( 'ControlPanel', ControlPanel );
 export default ControlPanel;

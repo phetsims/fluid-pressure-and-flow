@@ -13,7 +13,6 @@ import ScreenIcon from '../../../joist/js/ScreenIcon.js';
 import Image from '../../../scenery/js/nodes/Image.js';
 import Tandem from '../../../tandem/js/Tandem.js';
 import underPressure_png from '../../images/underPressure_png.js';
-import fluidPressureAndFlow from '../fluidPressureAndFlow.js';
 import FluidPressureAndFlowStrings from '../FluidPressureAndFlowStrings.js';
 import UnderPressureModel from './model/UnderPressureModel.js';
 import UnderPressureScreenView from './view/UnderPressureScreenView.js';
@@ -37,5 +36,4 @@ class UnderPressureScreen extends Screen<UnderPressureModel, UnderPressureScreen
   }
 }
 
-fluidPressureAndFlow.register( 'UnderPressureScreen', UnderPressureScreen );
 export default UnderPressureScreen;

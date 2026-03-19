@@ -17,7 +17,6 @@ import Path from '../../../../scenery/js/nodes/Path.js';
 import handle_png from '../../../images/handle_png.js';
 import nozzle_png from '../../../images/nozzle_png.js';
 import spoutHandle_png from '../../../images/spoutHandle_png.js';
-import fluidPressureAndFlow from '../../fluidPressureAndFlow.js';
 
 // constants
 const CORNER_RADIUS = 3; // px
@@ -264,5 +263,4 @@ function createBottomShape( hose, modelViewTransform ) {
   return shape;
 }
 
-fluidPressureAndFlow.register( 'HoseNode', HoseNode );
 export default HoseNode;

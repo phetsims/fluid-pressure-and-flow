@@ -26,7 +26,6 @@ import Color from '../../../../scenery/js/util/Color.js';
 import Panel from '../../../../sun/js/Panel.js';
 import handleTwoSided_png from '../../../images/handleTwoSided_png.js';
 import Units from '../../common/model/Units.js';
-import fluidPressureAndFlow from '../../fluidPressureAndFlow.js';
 import FluidPressureAndFlowStrings from '../../FluidPressureAndFlowStrings.js';
 
 const areaString = FluidPressureAndFlowStrings.area;
@@ -269,5 +268,4 @@ class FluxMeterNode extends Node {
   }
 }
 
-fluidPressureAndFlow.register( 'FluxMeterNode', FluxMeterNode );
 export default FluxMeterNode;

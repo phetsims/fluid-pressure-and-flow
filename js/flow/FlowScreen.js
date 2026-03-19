@@ -11,7 +11,6 @@ import Screen from '../../../joist/js/Screen.js';
 import ScreenIcon from '../../../joist/js/ScreenIcon.js';
 import Image from '../../../scenery/js/nodes/Image.js';
 import flowMockup_png from '../../images/flowMockup_png.js';
-import fluidPressureAndFlow from '../fluidPressureAndFlow.js';
 import FluidPressureAndFlowStrings from '../FluidPressureAndFlowStrings.js';
 import FlowModel from './model/FlowModel.js';
 import FlowScreenView from './view/FlowScreenView.js';
@@ -37,5 +36,4 @@ class FlowScreen extends Screen {
   }
 }
 
-fluidPressureAndFlow.register( 'FlowScreen', FlowScreen );
 export default FlowScreen;

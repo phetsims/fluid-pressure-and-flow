@@ -11,7 +11,6 @@ import Property from '../../../../axon/js/Property.js';
 import Bounds2 from '../../../../dot/js/Bounds2.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import Vector2Property from '../../../../dot/js/Vector2Property.js';
-import fluidPressureAndFlow from '../../fluidPressureAndFlow.js';
 
 // constants
 const frictionCoefficient = 0.98;
@@ -159,5 +158,4 @@ class MassModel {
   }
 }
 
-fluidPressureAndFlow.register( 'MassModel', MassModel );
 export default MassModel;

@@ -10,7 +10,6 @@ import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import Property from '../../../../axon/js/Property.js';
 import Utils from '../../../../dot/js/Utils.js';
 import Constants from '../../common/Constants.js';
-import fluidPressureAndFlow from '../../fluidPressureAndFlow.js';
 
 class WaterDrop {
   /**
@@ -66,5 +65,4 @@ class WaterDrop {
   }
 }
 
-fluidPressureAndFlow.register( 'WaterDrop', WaterDrop );
 export default WaterDrop;

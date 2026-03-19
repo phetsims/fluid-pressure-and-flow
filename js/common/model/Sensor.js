@@ -9,7 +9,6 @@
 import Emitter from '../../../../axon/js/Emitter.js';
 import Property from '../../../../axon/js/Property.js';
 import Vector2Property from '../../../../dot/js/Vector2Property.js';
-import fluidPressureAndFlow from '../../fluidPressureAndFlow.js';
 
 class Sensor {
 
@@ -38,5 +37,4 @@ class Sensor {
   }
 }
 
-fluidPressureAndFlow.register( 'Sensor', Sensor );
 export default Sensor;

@@ -19,7 +19,6 @@ import Constants from '../../common/Constants.js';
 import BarometerNode from '../../common/view/BarometerNode.js';
 import ControlSlider from '../../common/view/ControlSlider.js';
 import UnitsControlPanel from '../../common/view/UnitsControlPanel.js';
-import fluidPressureAndFlow from '../../fluidPressureAndFlow.js';
 import FluidPressureAndFlowStrings from '../../FluidPressureAndFlowStrings.js';
 import BackgroundNode from './BackgroundNode.js';
 import ChamberPoolView from './ChamberPoolView.js';
@@ -283,5 +282,4 @@ class UnderPressureScreenView extends ScreenView {
   }
 }
 
-fluidPressureAndFlow.register( 'UnderPressureScreenView', UnderPressureScreenView );
 export default UnderPressureScreenView;

@@ -9,7 +9,6 @@
 
 import Vector2 from '../../../../dot/js/Vector2.js';
 import Constants from '../../common/Constants.js';
-import fluidPressureAndFlow from '../../fluidPressureAndFlow.js';
 import FaucetModel from './FaucetModel.js';
 import PoolWithFaucetsModel from './PoolWithFaucetsModel.js';
 
@@ -79,5 +78,4 @@ class SquarePoolModel extends PoolWithFaucetsModel {
   }
 }
 
-fluidPressureAndFlow.register( 'SquarePoolModel', SquarePoolModel );
 export default SquarePoolModel;

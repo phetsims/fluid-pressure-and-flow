@@ -12,7 +12,6 @@ import Image from '../../../../scenery/js/nodes/Image.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
 import RoundStickyToggleButton from '../../../../sun/js/buttons/RoundStickyToggleButton.js';
 import injectorBulbCropped_png from '../../../images/injectorBulbCropped_png.js';
-import fluidPressureAndFlow from '../../fluidPressureAndFlow.js';
 
 const X_OFFSET = 50; //px
 const Y_OFFSET = 150; //px
@@ -74,5 +73,4 @@ class GridInjectorNode extends Node {
   }
 }
 
-fluidPressureAndFlow.register( 'GridInjectorNode', GridInjectorNode );
 export default GridInjectorNode;

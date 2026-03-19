@@ -7,7 +7,6 @@
  */
 
 import Bounds2 from '../../../dot/js/Bounds2.js';
-import fluidPressureAndFlow from '../fluidPressureAndFlow.js';
 
 const Constants = {
 
@@ -36,7 +35,5 @@ const Constants = {
   EARTH_AIR_PRESSURE: 101325,
   EARTH_AIR_PRESSURE_AT_500_FT: 99490
 };
-
-fluidPressureAndFlow.register( 'Constants', Constants );
 
 export default Constants;

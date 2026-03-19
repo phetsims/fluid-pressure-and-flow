@@ -31,7 +31,6 @@ import ControlSlider from '../../common/view/ControlSlider.js';
 import FPAFRuler from '../../common/view/FPAFRuler.js';
 import SensorToolbox from '../../common/view/SensorToolbox.js';
 import UnitsControlPanel from '../../common/view/UnitsControlPanel.js';
-import fluidPressureAndFlow from '../../fluidPressureAndFlow.js';
 import FluidPressureAndFlowStrings from '../../FluidPressureAndFlowStrings.js';
 import FlowToolsControlPanel from './FlowToolsControlPanel.js';
 import FluxMeterNode from './FluxMeterNode.js';
@@ -297,5 +296,4 @@ class FlowScreenView extends ScreenView {
   }
 }
 
-fluidPressureAndFlow.register( 'FlowScreenView', FlowScreenView );
 export default FlowScreenView;

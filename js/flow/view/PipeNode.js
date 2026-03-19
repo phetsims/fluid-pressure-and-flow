@@ -16,7 +16,6 @@ import pipeLeftBack_png from '../../../images/pipeLeftBack_png.js';
 import pipeLeftFront_png from '../../../images/pipeLeftFront_png.js';
 import pipeRight_png from '../../../images/pipeRight_png.js';
 import pipeSegment_png from '../../../images/pipeSegment_png.js';
-import fluidPressureAndFlow from '../../fluidPressureAndFlow.js';
 import ParticleCanvasNode from './ParticleCanvasNode.js';
 
 // constants
@@ -202,5 +201,4 @@ class PipeNode extends Node {
   }
 }
 
-fluidPressureAndFlow.register( 'PipeNode', PipeNode );
 export default PipeNode;

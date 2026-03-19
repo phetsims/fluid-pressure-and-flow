@@ -15,7 +15,6 @@ import Rectangle from '../../../../scenery/js/nodes/Rectangle.js';
 import Pattern from '../../../../scenery/js/util/Pattern.js';
 import cementTextureDark_jpg from '../../../images/cementTextureDark_jpg.js';
 import grassTexture_png from '../../../images/grassTexture_png.js';
-import fluidPressureAndFlow from '../../fluidPressureAndFlow.js';
 import UnderPressureFaucetNode from './UnderPressureFaucetNode.js';
 
 class SquarePoolBack extends Node {
@@ -94,5 +93,4 @@ class SquarePoolBack extends Node {
   }
 }
 
-fluidPressureAndFlow.register( 'SquarePoolBack', SquarePoolBack );
 export default SquarePoolBack;

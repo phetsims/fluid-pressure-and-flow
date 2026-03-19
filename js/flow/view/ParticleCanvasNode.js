@@ -7,7 +7,6 @@
  */
 
 import CanvasNode from '../../../../scenery/js/nodes/CanvasNode.js';
-import fluidPressureAndFlow from '../../fluidPressureAndFlow.js';
 
 class ParticleCanvasNode extends CanvasNode {
 
@@ -67,5 +66,4 @@ class ParticleCanvasNode extends CanvasNode {
   }
 }
 
-fluidPressureAndFlow.register( 'ParticleCanvasNode', ParticleCanvasNode );
 export default ParticleCanvasNode;

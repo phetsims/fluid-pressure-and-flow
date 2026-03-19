@@ -7,7 +7,6 @@
  */
 
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
-import fluidPressureAndFlow from '../../fluidPressureAndFlow.js';
 import Sensor from './Sensor.js';
 
 class VelocitySensor extends Sensor {
@@ -25,5 +24,4 @@ class VelocitySensor extends Sensor {
   }
 }
 
-fluidPressureAndFlow.register( 'VelocitySensor', VelocitySensor );
 export default VelocitySensor;

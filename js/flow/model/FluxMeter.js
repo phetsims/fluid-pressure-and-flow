@@ -9,7 +9,6 @@
 
 import Emitter from '../../../../axon/js/Emitter.js';
 import Property from '../../../../axon/js/Property.js';
-import fluidPressureAndFlow from '../../fluidPressureAndFlow.js';
 
 class FluxMeter {
 
@@ -63,5 +62,4 @@ class FluxMeter {
   }
 }
 
-fluidPressureAndFlow.register( 'FluxMeter', FluxMeter );
 export default FluxMeter;

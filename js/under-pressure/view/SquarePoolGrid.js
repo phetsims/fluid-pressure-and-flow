@@ -14,7 +14,6 @@ import PhetFont from '../../../../scenery-phet/js/PhetFont.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
 import Text from '../../../../scenery/js/nodes/Text.js';
 import Units from '../../common/model/Units.js';
-import fluidPressureAndFlow from '../../fluidPressureAndFlow.js';
 import FluidPressureAndFlowStrings from '../../FluidPressureAndFlowStrings.js';
 import GridLinesNode from './GridLinesNode.js';
 
@@ -67,5 +66,4 @@ class SquarePoolGrid extends Node {
   }
 }
 
-fluidPressureAndFlow.register( 'SquarePoolGrid', SquarePoolGrid );
 export default SquarePoolGrid;

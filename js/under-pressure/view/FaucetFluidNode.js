@@ -9,7 +9,6 @@
  */
 
 import Rectangle from '../../../../scenery/js/nodes/Rectangle.js';
-import fluidPressureAndFlow from '../../fluidPressureAndFlow.js';
 
 class FaucetFluidNode extends Rectangle {
 
@@ -53,5 +52,4 @@ class FaucetFluidNode extends Rectangle {
   }
 }
 
-fluidPressureAndFlow.register( 'FaucetFluidNode', FaucetFluidNode );
 export default FaucetFluidNode;

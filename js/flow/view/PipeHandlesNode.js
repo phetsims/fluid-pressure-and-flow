@@ -13,7 +13,6 @@ import Bounds2 from '../../../../dot/js/Bounds2.js';
 import Image from '../../../../scenery/js/nodes/Image.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
 import handleWithBar_png from '../../../images/handleWithBar_png.js';
-import fluidPressureAndFlow from '../../fluidPressureAndFlow.js';
 import PipeHandleNode from './PipeHandleNode.js';
 import PipeMainDragHandle from './PipeMainDragHandle.js';
 
@@ -124,5 +123,4 @@ class PipeHandlesNode extends Node {
   }
 }
 
-fluidPressureAndFlow.register( 'PipeHandlesNode', PipeHandlesNode );
 export default PipeHandlesNode;

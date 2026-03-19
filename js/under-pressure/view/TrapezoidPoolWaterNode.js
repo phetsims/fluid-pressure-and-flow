@@ -10,7 +10,6 @@
 import Shape from '../../../../kite/js/Shape.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
 import Path from '../../../../scenery/js/nodes/Path.js';
-import fluidPressureAndFlow from '../../fluidPressureAndFlow.js';
 
 class TrapezoidPoolWaterNode extends Node {
   /**
@@ -58,5 +57,4 @@ class TrapezoidPoolWaterNode extends Node {
   }
 }
 
-fluidPressureAndFlow.register( 'TrapezoidPoolWaterNode', TrapezoidPoolWaterNode );
 export default TrapezoidPoolWaterNode;

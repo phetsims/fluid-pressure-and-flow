@@ -9,7 +9,6 @@
 
 import Utils from '../../../../dot/js/Utils.js';
 import StringUtils from '../../../../phetcommon/js/util/StringUtils.js';
-import fluidPressureAndFlow from '../../fluidPressureAndFlow.js';
 import FluidPressureAndFlowStrings from '../../FluidPressureAndFlowStrings.js';
 
 const atmString = FluidPressureAndFlowStrings.atm;
@@ -104,5 +103,4 @@ const Units = {
   }
 };
 
-fluidPressureAndFlow.register( 'Units', Units );
 export default Units;

@@ -20,7 +20,6 @@ import Text from '../../../../scenery/js/nodes/Text.js';
 import Checkbox from '../../../../sun/js/Checkbox.js';
 import Panel from '../../../../sun/js/Panel.js';
 import nozzle_png from '../../../images/nozzle_png.js';
-import fluidPressureAndFlow from '../../fluidPressureAndFlow.js';
 import FluidPressureAndFlowStrings from '../../FluidPressureAndFlowStrings.js';
 
 const hoseString = FluidPressureAndFlowStrings.hose;
@@ -121,5 +120,4 @@ function createMeasuringTapeIcon() {
   return icon;
 }
 
-fluidPressureAndFlow.register( 'ToolsControlPanel', ToolsControlPanel );
 export default ToolsControlPanel;

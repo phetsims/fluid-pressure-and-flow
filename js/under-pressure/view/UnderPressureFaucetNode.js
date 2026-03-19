@@ -8,7 +8,6 @@
  */
 
 import FaucetNode from '../../../../scenery-phet/js/FaucetNode.js';
-import fluidPressureAndFlow from '../../fluidPressureAndFlow.js';
 
 class UnderPressureFaucetNode extends FaucetNode {
 
@@ -33,5 +32,4 @@ class UnderPressureFaucetNode extends FaucetNode {
   }
 }
 
-fluidPressureAndFlow.register( 'UnderPressureFaucetNode', UnderPressureFaucetNode );
 export default UnderPressureFaucetNode;

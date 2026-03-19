@@ -8,7 +8,6 @@
  */
 
 import Property from '../../../../axon/js/Property.js';
-import fluidPressureAndFlow from '../../fluidPressureAndFlow.js';
 
 class FaucetModel {
 
@@ -39,5 +38,4 @@ class FaucetModel {
   }
 }
 
-fluidPressureAndFlow.register( 'FaucetModel', FaucetModel );
 export default FaucetModel;

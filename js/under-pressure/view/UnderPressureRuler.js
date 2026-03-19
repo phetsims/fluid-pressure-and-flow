@@ -13,7 +13,6 @@ import RulerNode from '../../../../scenery-phet/js/RulerNode.js';
 import DragListener from '../../../../scenery/js/listeners/DragListener.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
 import Units from '../../common/model/Units.js';
-import fluidPressureAndFlow from '../../fluidPressureAndFlow.js';
 import FluidPressureAndFlowStrings from '../../FluidPressureAndFlowStrings.js';
 
 const ftString = FluidPressureAndFlowStrings.ft;
@@ -97,5 +96,4 @@ class UnderPressureRuler extends Node {
   }
 }
 
-fluidPressureAndFlow.register( 'UnderPressureRuler', UnderPressureRuler );
 export default UnderPressureRuler;

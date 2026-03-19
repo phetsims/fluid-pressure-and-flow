@@ -16,7 +16,6 @@ import Text from '../../../../scenery/js/nodes/Text.js';
 import AquaRadioButton from '../../../../sun/js/AquaRadioButton.js';
 import ComboBox from '../../../../sun/js/ComboBox.js';
 import Panel from '../../../../sun/js/Panel.js';
-import fluidPressureAndFlow from '../../fluidPressureAndFlow.js';
 import FluidPressureAndFlowStrings from '../../FluidPressureAndFlowStrings.js';
 import SquarePoolView from './SquarePoolView.js';
 
@@ -132,5 +131,4 @@ class MysteryPoolView extends SquarePoolView {
   }
 }
 
-fluidPressureAndFlow.register( 'MysteryPoolView', MysteryPoolView );
 export default MysteryPoolView;

@@ -11,7 +11,6 @@ import Screen from '../../../joist/js/Screen.js';
 import ScreenIcon from '../../../joist/js/ScreenIcon.js';
 import Image from '../../../scenery/js/nodes/Image.js';
 import waterTowerMockup_png from '../../images/waterTowerMockup_png.js';
-import fluidPressureAndFlow from '../fluidPressureAndFlow.js';
 import FluidPressureAndFlowStrings from '../FluidPressureAndFlowStrings.js';
 import WaterTowerModel from './model/WaterTowerModel.js';
 import WaterTowerScreenView from './view/WaterTowerScreenView.js';
@@ -38,5 +37,4 @@ class WaterTowerScreen extends Screen {
   }
 }
 
-fluidPressureAndFlow.register( 'WaterTowerScreen', WaterTowerScreen );
 export default WaterTowerScreen;
