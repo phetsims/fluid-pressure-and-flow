@@ -154,4 +154,6 @@ type StringsType = {
 
 const FluidPressureAndFlowStrings = getStringModule( 'FLUID_PRESSURE_AND_FLOW' ) as StringsType;
 
+fluidPressureAndFlow.register( 'FluidPressureAndFlowStrings', FluidPressureAndFlowStrings );
+
 export default FluidPressureAndFlowStrings;
