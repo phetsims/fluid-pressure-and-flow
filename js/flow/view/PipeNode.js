@@ -1,4 +1,4 @@
-// Copyright 2014-2025, University of Colorado Boulder
+// Copyright 2014-2026, University of Colorado Boulder
 
 /**
  * View for the pipe consisting of the right and left pipe heads and a flexible middle pipe created using splines.
