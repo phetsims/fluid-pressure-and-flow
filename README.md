@@ -1,23 +1,24 @@
-Fluid Pressure and Flow
-================
+# ⚠️ This Repository Is No Longer Maintained
 
-"Fluid Pressure and Flow" is an educational simulation in HTML5, by <a href="https://phet.colorado.edu/" target="_blank">PhET
-Interactive Simulations</a>
-at the University of Colorado Boulder.
+This repository is **out of date and no longer actively maintained.**
 
-*This simulation is under development and has not been published.*
+As part of our ongoing effort to better sustain the PhET project, we have restructured our library and consolidated our individual repositories into a single **monorepo**.
 
-### Documentation
+## Current status
 
-The <a href="https://github.com/phetsims/phet-info/blob/main/doc/phet-development-overview.md" target="_blank">PhET
-Development Overview</a> is the most complete guide to PhET Simulation Development. This guide includes how to obtain
-simulation code and its dependencies, notes about architecture & design, how to test and build the sims, as well as
-other important information.
+As part of this restructuring, we are currently reviewing what to make publicly available. The monorepo is **not publicly available at this time**, and we appreciate your patience while we work through this to keep the PhET project sustainable.
 
-### Get Involved
+In the meantime, please note that the code here is outdated. Issues and pull requests opened against this repository may not receive a response.
 
-Join us at the <a href="https://scenerystack.org/community/join/" target="_blank">SceneryStack Community</a>
+## Why the change?
 
-### License
+Moving to a monorepo allows us to:
 
-See the <a href="https://github.com/phetsims/fluid-pressure-and-flow/blob/main/LICENSE" target="_blank">LICENSE</a>
+- Coordinate changes across the library more easily
+- Simplify dependency management and versioning
+- Reduce maintenance overhead so we can focus on the project itself
+- Provide a more consistent experience for contributors and users
+
+## Thank you
+
+Thank you for your patience while we restructure our library to better sustain the PhET project. We appreciate your continued interest and support. You can access all of our free sims on our website: https://phet.colorado.edu/
